@@ -1,0 +1,76 @@
+<load target="js/script.js" />
+<load target="filter/inipaymobile_submit_payment.xml" />
+<load target="filter/inipaymobile_submit_review.xml" />
+<load target="lang" />
+
+<form id="fo_inipaymobile" name="fo_inipaymobile" class="fo_payment" method="post" action="./" onsubmit="inipaymobile_submit('{$join_form}'); return false;" accept-charset="EUC-KR">
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+	<input type="hidden" name="order_title" value="{$item_name}" />
+
+	<!-- settings by user -->
+	<input type="hidden" name="paymethod" value="wcard" />
+	<input type="hidden" name="P_GOODS" value="{$item_name}" />
+	<input type="hidden" name="P_UNAME" value="{$purchaser_name}" />
+	<input type="hidden" name="P_MNAME" value="상점명" />
+	<input type="hidden" name="P_EMAIL" value="{$purchaser_email}" />
+	<input type="hidden" name="P_MOBILE" value="{$purchaser_telnum}" />
+
+	<block cond="0" cond="$plugin_info->paymethod_phone=='Y'">{@$HPP='1'}</block>
+	<block cond="0" cond="$plugin_info->paymethod_phone=='M'">{@$HPP='2'}</block>
+	<input cond="$plugin_info->logo_image" type="hidden" name="ini_logoimage_url" value="{getFullUrl('')}{$plugin_info->logo_image}" />
+
+	<!-- settings by plugin -->
+	<input type="hidden" name="P_MID" value="{$plugin_info->inicis_id}" />
+	<input cond="0" type="hidden" name="P_HPP_METHOD" value="{$HPP}" />
+	<input type="hidden" name="P_NOTI" value="epay_module_srl={$epay_module_srl}&module_srl={$module_srl}&plugin_srl={$plugin_srl}&order_srl={$order_srl}&epay_target_module={$epay_target_module}&epay_order_title={$order_title}&purchaser_name={$purchaser_name}" />
+
+	<div id="inipaymobileForm"></div>
+
+	<div class="choice_box">
+		{@$checked=FALSE}
+		{@$first=FALSE}
+		<span cond="$plugin_info->paymethod_card=='Y'">
+			<input name="payment_method" id="ini_1" type="radio" value="CC" checked="checked"|cond="!$checked" /><label for="ini_1">{$lang->ini_card}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_1"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_directbank=='Y'">
+			<input name="payment_method" id="ini_2" type="radio" value="IB" checked="checked"|cond="!$checked" /><label for="ini_2">{$lang->ini_bank_transfer}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_2"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_virtualbank=='Y'">
+			<input name="payment_method" id="ini_3" type="radio" value="VA" checked="checked"|cond="!$checked" /><label for="ini_3">{$lang->ini_virtual_account}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_3"}</block>
+		</span>
+		<span cond="0" cond="$plugin_info->paymethod_phone!='N'">
+			<input name="payment_method" id="ini_4" type="radio" value="MP" checked="checked"|cond="!$checked" /><label for="ini_4">{$lang->ini_cellphone}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_4"}</block>
+		</span>
+	</div>
+
+	<div class="btn_payment">
+		<span>
+			<input type="submit" value="{$lang->do_payment}" class="nuribtn orange super" />
+		</span>
+	</div>
+	
+	<div id="pm_CC" class="payment_info" style="display:none"|cond="$first!='ini_1'">
+		<p class="font_size11">{$lang->about_ini_card}</p>
+	</div>
+	<div id="pm_IB" class="payment_info" style="display:none"|cond="$first!='ini_2'">
+		<p class="font_size11">{$lang->about_ini_bank_transfer}</p>
+	</div>
+	<div id="pm_VA" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">{$lang->about_ini_virtual_account}</p>
+	</div>
+	<div cond="0" id="pm_MP" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">{$lang->about_ini_cellphone}</p>
+	</div>
+</form>

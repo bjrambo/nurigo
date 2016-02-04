@@ -1,0 +1,5 @@
+<table name="nproduct_extra_vars">
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="name" type="varchar" size="40" notnull="notnull" index="idx_name" />
+	<column name="value" type="varchar" size="250" notnull="notnull" index="idx_value" />
+</table>

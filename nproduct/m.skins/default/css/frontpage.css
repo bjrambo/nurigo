@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+/* frontpage css */
+
+#frontpage { clear:both; }
+
+#frontpage .category { clear:both; margin-bottom:20px; }
+#frontpage .category .title_recommend { position:relative; _float:left; background:none; border-bottom:1px solid #ddd; overflow:hidden; }
+
+#frontpage .category .title_recommend .title { float:left; padding:8px 20px; font:12px Tahoma, Dotum; color:#333; }
+#frontpage .category .title_recommend ul { float:right; }
+#frontpage .category .title_recommend li { float:left; }
+#frontpage .category .title_recommend li a { display:block; padding:0; margin:0; }
+#frontpage .category .title_recommend li a:hover {}
+#frontpage .category .title_recommend li a.btn_putCart { width:98px; height:27px; background:url(../img/btn_putCart.gif) no-repeat;}
+#frontpage .category .title_recommend li a.btn_putLike { width:98px; height:27px; background:url(../img/btn_putLike.gif) no-repeat;}
+
+#frontpage .category .item-list { padding:10px 0; overflow:hidden; } 
+#frontpage .category .item-list ul { padding:10px 0; overflow:hidden; }
+#frontpage .category .item-list li { position:relative; float:left; margin:20px 0 0; text-align:center; border-bottom:1px solid #ddd; width:190px; }
+#frontpage .category .item-list li .check { position:absolute; left:0; top:0; }
+
+#frontpage .category .item-list li a.thumbnail { display:block; margin-bottom:10px;}
+#frontpage .category .item-list li .item_name { height:30px; font:11px Dotum; color:#666;}
+#frontpage .category .item-list li .item_icon { height:20px;}
+#frontpage .category .item-list li .item_num { padding:5px; height:24px;}
+#frontpage .category .item-list li .item_price { padding:5px; height:20px; font:20px Arial,Sans-Serif; color:#333;}
+#frontpage .category .item-list li .item_choice { padding:5px; margin-top:10px; height:30px;}
+
+#frontpage .category .item-list li .item_choice .btn_interest { width:49px; height:19px; background: url(../img/btn_interest.gif) no-repeat;}
+#frontpage .category .item-list li .item_choice .btn_basket { width:49px; height:19px; background: url(../img/btn_basket.gif) no-repeat;}
+#frontpage .category .item-list li .item_num .won { padding:0 5px; font:12px Gulim,Dotum; color:#666;}
+#frontpage .category .item-list li .item_price .won { padding:0 5px; font:12px Gulim,Dotum; color:#666;}
+
+
+#frontpage .category .item-list .quantity { width:50px; }
+
+
+
+
+

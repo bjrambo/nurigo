@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="ko">상품평</title>
+	<title xml:lang="zh-TW">評論</title>
+    <description xml:lang="ko">상품평을 관리하는 모듈입니다.</description>
+	<description xml:lang="zh-TW">管理評論模組</description>
+    <version>0.2</version>
+    <date>2014-02-07</date>
+    <category>content</category>
+
+    <author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
+        <name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+    </author>
+</module>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="ko">장바구니</title>
+	<title xml:lang="en">Cart</title>
+	<title xml:lang="jp">カート</title>
+	<title xml:lang="zh-TW">購物車</title>
+    <description xml:lang="ko">쇼핑몰, 컨텐츠몰의 상품을 하나의 장바구니에 담을 수 있으며 결제페이지폼의 자유로운 구성이 가능합니다.</description>
+    <description xml:lang="en">You can use this cart module for Shopping mall and Contents mall.</description>	
+    <description xml:lang="jp">ショッピングモールとコンテンツモールの商品を一つのカートに入れることができます。</description>	
+    <description xml:lang="zh-TW">購物車, 線上課程內容、內容課程管理、電子商務管理.</description>
+    <version>1.7</version>
+    <date>2015-04-18</date>
+    <category>service</category>
+    <author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
+        <name xml:lang="ko">NURIGO</name>
+    </author>
+</module>

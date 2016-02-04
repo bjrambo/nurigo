@@ -1,0 +1,49 @@
+<!--#include("header.html")-->
+<load target="css/style.grid.css" />
+
+<h3 class="subTitle">{$lang->product} <span>({number_format($output->total_count)})</span></h3>
+<ul class="subNavigation">
+	<li loop="$lang->is_search_option['document']=>$key,$val" value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','product','search_target',$key,'page',1,'division','')}">{$val}</a></li>
+</ul>
+
+
+<span cond="!count($output->data)" class="noResult">
+	{$lang->msg_no_result}
+	<block cond="$last_division">
+		<br />{$lang->msg_document_more_search}
+		<br /><span class="btn"><a href="{getUrl('where','document','page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a></span>
+	</block>
+</span>
+
+<block cond="count($output->data)">
+	<include target="style.grid.html" />
+
+	<div cond="$where == 'document' && $output->page_navigation" class="pagination a1">
+		<a href="{getUrl('page','')}" class="prevEnd">{$lang->first_page}</a> 
+		<!--@while($page_no = $output->page_navigation->getNextPage())-->
+			<strong cond="$page==$page_no">{$page_no}</strong> 
+			<a cond="$page!=$page_no" href="{getUrl('page',$page_no)}">{$page_no}</a>
+		<!--@end-->
+		<a href="{getUrl('page',$output->page_navigation->last_page)}" class="nextEnd"|cond="!$last_division">{$lang->last_page}</a>
+		<a cond="$last_division" href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+	</div>
+</block>
+
+
+    <!--@if($where == 'product' && $output->page_navigation)-->
+        <div class="pagination a1">
+            <a href="{getUrl('page','')}" class="prevEnd">{$lang->first_page}</a>
+            <!--@while($page_no = $output->page_navigation->getNextPage())-->
+                <!--@if($page == $page_no)-->
+                    <strong>{$page_no}</strong>
+                <!--@else-->
+                    <a href="{getUrl('page',$page_no)}">{$page_no}</a>
+                <!--@end-->
+            <!--@end-->
+            <a href="{getUrl('page',$output->page_navigation->last_page)}" <!--@if(!$last_division)-->class="nextEnd"<!--@end-->>{$lang->last_page}</a>
+            <!--@if($last_division)-->
+            <a href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+            <!--@end-->
+        </div>
+    <!--@end-->
+

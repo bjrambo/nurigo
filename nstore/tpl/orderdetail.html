@@ -1,0 +1,151 @@
+
+{@$extra_vars = unserialize($order_info->extra_vars)}
+{@$address = unserialize($order_info->recipient_address)}
+{@$address1 = $address[0]}
+{@$address2 = $address[1]}
+
+<include target="_header.html" />
+
+<div id="orderlist">
+	<form action="./" method="post">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="procNstoreAdminUpdateOrderDetail" />
+		<input type="hidden" name="status" value="{$status}" />
+		<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+		<section class="section">
+			<h1>{$lang->title_order_info}</h1>
+			<table class="x_table">
+				<tbody>
+					<tr>
+						<th>{$lang->order_number}</th>
+						<td>{$order_info->order_srl}</td>
+						<th>{$lang->order_date}</th>
+						<td>{zdate($order_info->regdate)}</td>
+					</tr>
+					<tr>
+						<th>{$lang->items}</th>
+						<td>{$order_info->item_count}</td>
+						<th>{$lang->mileage}</th>
+						<td>{$order_info->mileage}<div cond="$order_info->mileage_save=='Y'">({$lang->mileage_saved})</div></td>
+					</tr>
+
+					<tr cond="$order_info->recipient_name">
+						<th>{$lang->recipient}</th>
+						<td colspan="3">{$order_info->recipient_name}</td>
+					</tr>
+					<tr cond="$order_info->recipient_cellphone">
+						<th>{$lang->cellphone}</th>
+						<td colspan="3">{$order_info->recipient_cellphone}</td>
+					</tr>
+					<tr cond="$order_info->recipient_telnum">
+						<th>{$lang->telnum}</th>
+						<td colspan="3">{$order_info->recipient_telnum}</td>
+					</tr>
+					<tr cond="$address1">
+						<th>{$lang->address}</th>
+						<td colspan="3"><span cond="$order_info->recipient_postcode">({$order_info->recipient_postcode})</span>{$address1} {$address2}</td>
+					</tr>
+					<tr loop="$extra_vars=>$key,$val">
+						<th>{$key}</th>
+						<td colspan="3"><span cond="is_array($val)">{implode(' ', $val)}</span><span cond="!is_array($val)">{$val}</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h1>{$lang->title_payment_details}</h1>
+			<table class="x_table">
+				<thead>
+					<tr>
+						<th>{$lang->paymethod}</th>
+						<th>{$lang->use_mileage}</th>
+						<block cond="$payment_info->payment_method=='VA' || $payment_info->payment_method=='BT'">
+						<th>{$lang->account_number}</th>
+						<th>{$lang->bank_code}</th>
+						<th>{$lang->account_holder}</th>
+						<th>{$lang->sender_name}</th>
+						<th cond="$payment_info->vact_date">{$lang->send_date}</th>
+						</block>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{$payment_method[$order_info->payment_method]}</td>
+						<td>{$order_info->use_mileage}</td>
+						<block cond="$payment_info->payment_method=='VA' || $payment_info->payment_method=='BT'">
+						<td>{$payment_info->vact_num}</td>
+						<td>{$payment_info->vact_bankname}({$payment_info->vact_bankcode})</td>
+						<td>{$payment_info->vact_name}</td>
+						<td>{$payment_info->vact_inputname}</td>
+						<td cond="$payment_info->vact_date">{zdate($payment_info->vact_date,'Y-m-d')}</td>
+						</block>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h1>{$lang->title_delivery_info}</h1>
+			<table class="x_table">
+				<tr>
+					<th>{$lang->delivery_company}</th>
+					<th>{$lang->invoice_no}</th>
+				</tr>
+				<tr>
+					<td><select name="primary_express_id"><option loop="$delivery_companies=>$key,$val" value="{$key}" selected="selected"|cond="$order_info->express_id==$key">{$val}</option></select></td>					
+					<td><input type="text" name="primary_invoice_no" value="{$order_info->invoice_no}" /></td>
+				</tr>
+			</table>
+		</section>
+
+		<section class="section">
+			<h1>{$lang->title_ordered_items}</h1>
+			<table class="x_table">
+				<thead>
+					<tr>
+						<th>{$lang->contract_number}</th>
+						<th>{$lang->product}</th>
+						<th>{$lang->product_name}</th>
+						<th>{$lang->quantity}</th>
+						<th>{$lang->price}</th>
+						<th>{$lang->discount}</th>
+						<th>{$lang->order_amount}</th>
+						<th>{$lang->order_status}</th>
+						<th>{$lang->individual_delivery_company}</th>
+						<th>{$lang->individual_invoice_no}</th>
+					</tr>
+				</thead>
+				{@$total_price=0}
+				<tbody>
+					<tr loop="$order_info->item_list=>$no,$item">
+						<td><input type="hidden" name="cart_srls[]" value="{$item->cart_srl}" />{$item->cart_srl}</td>
+						<td><a href="{getUrl('','module',$module,'act','dispNproductAdminUpdateItem','module_srl',$item->module_srl,'item_srl',$item->item_srl)}"><img src="{$item->getThumbnail(40)}" /></a></td>
+						<td>
+							<div>{$item->item_name}</div>
+							<div cond="$item->option_srl">{$item->option_title} ({$item->printPrice($item->option_price)})</div>
+						</td>
+						<td>{$item->quantity}</td>
+						<td>{nproductItem::formatMoney($item->price)}</td>
+						<td>{nproductItem::formatMoney($item->discount_amount)}<br />{$item->discount_info}</td>
+						<td>{nproductItem::formatMoney($item->discounted_price)}</td>
+						<td>
+							<span class="ko_text red">{$order_status[$item->order_status]}</span><br />
+							<a cond="in_array($item->order_status,array('3','4'))" href="{$delivery_inquiry_urls[$item->express_id]}{$item->invoice_no}" class="kso_btn" target="_blank"><span>배송추적</span></a>
+						</td>
+						<td><select name="express_id[]"><option loop="$delivery_companies=>$key,$val" value="{$key}" selected="selected"|cond="$item->express_id==$key">{$val}</option></select></td>
+						<td><input type="text" name="invoice_no[]" value="{$item->invoice_no}" /></td>
+
+						{@$total_price+=$item->price}
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<div class="btnArea">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+		</div>
+	</form>
+</div>
+

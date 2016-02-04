@@ -1,0 +1,49 @@
+<query id="getSalesData" action="select">
+	<tables>
+		<table name="epay_transactions" alias="tran" />
+		<table name="modules" alias="module" type="left join">
+			<conditions>
+				<condition operation="equal" column="module.module_srl" default="tran.module_srl" />
+			</conditions>
+		</table>
+		<table name="epay_plugins" alias="plugin" type="left join">
+			<conditions>
+				<condition operation="equal" column="plugin.plugin_srl" default="tran.plugin_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="tran.transaction_srl" alias="transaction_srl" />
+		<column name="tran.epay_module_srl" alias="epay_module_srl" />
+		<column name="tran.module_srl" alias="module_srl" />
+		<column name="tran.order_srl" alias="order_srl" />
+		<column name="tran.order_title" alias="order_title" />
+		<column name="tran.payment_method" alias="payment_method" />
+		<column name="tran.payment_amount" alias="payment_amount" />
+		<column name="tran.p_member_srl" alias="p_member_srl" />
+		<column name="tran.p_user_id" alias="p_user_id" />
+		<column name="tran.p_name" alias="p_name" />
+		<column name="tran.p_email_address" alias="p_email_address" />
+		<column name="tran.result_code" alias="result_code" />
+		<column name="tran.result_message" alias="result_message" />
+		<column name="tran.state" alias="state" />
+		<column name="tran.extra_vars" alias="extra_vars" />
+		<column name="tran.regdate" alias="regdate" />
+		<column name="module.mid" alias="mid" />
+		<column name="module.browser_title" alias="browser_title" />
+		<column name="plugin.plugin_srl" alias="plugin_srl" />
+		<column name="plugin.plugin" alias="plugin_name" />
+		<column name="plugin.title" alias="plugin_title" />
+	</columns>
+	<conditions>
+		<condition operation="more" column="tran.regdate" var="start_date" notnull="notnull" pipe="and" />
+		<condition operation="less" column="tran.regdate" var="end_date" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="tran.state" var="state" default="2" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="tran.transaction_srl" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

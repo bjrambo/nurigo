@@ -1,0 +1,121 @@
+<div class="x">
+	<h1>주문확인서</h1>
+
+	<div class="table">
+		<table>
+			<tr>
+				<th rowspan="3">주문자 정보</th>
+				<th>주문번호</th>
+				<td>{$order_info->order_srl}</td>
+				<th>주문일시</th>
+				<td>{zdate($order_info->regdate)}</td>
+			</tr>
+			<tr>
+				<th>주문자명</th>
+				<td>{$order_info->nick_name}</td>
+				<th>E-mail</th>
+				<td>{$order_info->email_address}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="table" cond="0">
+		<table>
+			<tr>
+				<th rowspan="2">요청사항</th>
+				<th>상품관련</th>
+				<td>...</td>
+			</tr>
+			<tr>
+				<th>배송관련</th>
+				<td>...</td>
+			</tr>
+		</table>
+	</div>
+
+	<h3>[주문상품 정보]</h3>
+	<div class="table">
+		<table>
+			<caption>* 표시 상품은 부가세 면세품목입니다.</caption>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th>주문내역</th>
+					<th>수량</th>
+					<th>상품가격</th>
+					<th>할인</th>
+					<th>금액</th>
+				</tr>
+			</thead>
+			<tbody>
+				{@$total_quantity=0}
+				<tr loop="$order_info->item_list=>$key,$val">
+					{@$total_quantity+=$val->quantity}
+					<td>{$key+1}</td>
+					<td><span cond="$val->taxfree=='Y'"> * </span>{$val->item_name}</td>
+					<td>{$val->quantity}</td>
+					<td>{number_format($val->price * $val->quantity)}</td>
+					<td>{number_format($val->discount_amount)}<br />{$val->discount_info}</td>
+					<td>{number_format($val->discounted_price)}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>합계</td>
+					<td>{number_format($total_quantity)}</td>
+					<td>{number_format($order_info->sum_price)}</td>
+					<td>{number_format($order_info->total_discount_amount)}</td>
+					<td>{number_format($order_info->total_discounted_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>과세물품</th>
+					<th>부가세</th>
+					<th>면세물품</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{number_format($order_info->supply_amount)}</td>
+					<td>{number_format($order_info->vat)}</td>
+					<td>{number_format($order_info->taxfree_amount)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>총주문금액</th>
+					<th></th>
+					<th>할인액</th>
+					<th></th>
+					<th>결제금액</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{number_format($order_info->sum_price)}</td>
+					<td>-</td>
+					<td>{number_format($order_info->total_discount_amount)}</td>
+					<td>=</td>
+					<td>{number_format($order_info->total_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<script>
+	jQuery(function($) {
+		window.print();
+	});
+</script>

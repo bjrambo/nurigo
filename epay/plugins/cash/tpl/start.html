@@ -1,0 +1,61 @@
+<load target="js/script.js" />
+<load target="css/popup.css" />
+<load target="css/btn.css" />
+<load target="lang" />
+
+{@$button_title=$lang->finish_order}
+<block cond="$plugin_info->button_title">{@$button_title=$plugin_info->button_title}</block>
+
+<div id="container">
+	<div id="header">
+		<h1><img src="img/h1_bank_pay.gif" alt="법인계좌 입금" /></h1>
+	</div> <!-- #header// -->
+
+	<form>
+		<input type="hidden" name="select_account" value="{$select_account}" />
+		<table class="popTable">
+			<caption>{$lang->product_info}</caption>
+			<tr>
+				<th class="orangeTop">{$lang->product_title}</th>
+				<td class="orangeTop">{$order_title}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">{$lang->amount_to_pay}</th>
+				<td class="orangeBottom">{number_format($price, $plugin_info->decimals)}</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>{$lang->account_info}</caption>
+			<tr>
+				<th class="orangeTop">{$lang->bank_name}</th>
+				<td class="orangeTop">{$account_info->bank_name}</td>
+			</tr>
+			<tr>
+				<th>{$lang->account_number}</th>
+				<td>{$account_info->account_number}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">{$lang->holder_name}</th>
+				<td class="orangeBottom">{$account_info->account_holder}</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>{$lang->payer_name}</caption>
+			<tr>
+				<th class="orangeBottom">{$lang->payer_name}</th>
+				<td class="orangeBottom">
+					<input type="text" id="depositor_name" name="depositor_name" class="input01 size03" />
+					<p class="exTxt">{$plugin_info->guide_text}</p>
+				</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<div id="btnSec">
+			<div>
+				<button class="nuribtn super" onclick="doCashPayment(); return false;">{$button_title}</button>
+			</div>
+		</div><!-- #btnSec// -->
+	</form>
+</div>

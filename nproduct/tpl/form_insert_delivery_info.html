@@ -1,0 +1,17 @@
+<input type="hidden" name="item_srl" value="{$formInfo->item_srl}" />
+<input type="hidden" name="delivery_info" value="{$formInfo->delivery_info}" />
+<input type="hidden" name="mode" value="update"|cond="$formInfo" value="insert"|cond="!$formInfo" />
+<div class="x_modal-header">
+	<h1>{$lang->title_input_address}</h1>
+</div>
+<div class="x_modal-content">
+	<ul>
+		<li>
+			<p class="q"><label for="delivery_info">{$lang->contents}</label></p>
+			<p class="a"><textarea rows="5" cols="42" id="delivery_info" name="delivery_info">{$formInfo->delivery_info}</textarea></p>
+		</li>
+	</ul>
+</div>
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_save}</button>
+</div>

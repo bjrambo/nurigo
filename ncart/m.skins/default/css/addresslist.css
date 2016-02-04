@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+/* addresslist ::: 
+----------------------------------------------------*/
+.Add_tit { margin:10px 0; color:#333; font-size:14px; letter-spacing:-1px;}
+.btnArea { margin:10px 0; padding:10px 0;}
+
+.item-table { clear:both; margin-bottom:10px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+.item-table tr th { padding:8px 10px; background:#F8F8F8;}
+.item-table tr th, 
+.item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+.item-table tr td { padding:20px 0 15px;}
+
+.item-table tr th.product_num { width:100px;}
+.item-table tr td input.quantity { margin:0 5px; width:40px; }
+.item-table tr th.item_check { width:20px;}
+.item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+.item-table .item_price { font:bold 18px Arial; }
+.item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+.item-table a.product_img { display:block; margin-bottom:10px; }
+
+
+/* fieldset */
+#newAddress { overflow:hidden; }
+#newAddress #default {width:15px; border:0; float:left;}
+#newAddress .add_default {color:#666; font-size:12px; float:left; margin-left:6px; line-height:1.6;}
+#newAddress .fieldset h3 { font-size:15px; padding:15px 0 5px 0; letter-spacing:-1px; color:#666; clear:both; margin-top:15px; border-top:1px dashed #ddd; border-bottom:2px solid #ddd; }
+#newAddress .fieldset table {border-top:1px solid #c4c4c4; width:100%;}
+#newAddress .fieldset tr th {background:#f8f8f8; text-align:left; border-bottom:1px solid #ededed; color:#666; padding:8px 20px; width:17.6%; }
+#newAddress .fieldset tr td {border-bottom:1px solid #ededed; color:#666; padding:5px 5px 5px 10px;}
+#newAddress .fieldset input {border:1px solid #ddd; width:100%; padding:5px 0; }
+#newAddress .fieldset textarea {border:1px solid #ddd; width:100%; padding:5px 0; }
+#newAddress .fieldset select { width:100%; padding:5px 0; }
+#newAddress .fieldset button { padding:3px 7px; }
+
+
+#newAddress .fieldset ul {padding:0; margin:0;}
+#newAddress .fieldset li {list-style:none; float:left;}
+
+#newAddress .fieldset .radio ul {padding:0; margin:0; float:left;} 
+#newAddress .fieldset .radio li {float:left;}
+#newAddress .fieldset .radio input {width:13px; float:left; border:0;}
+#newAddress .fieldset .radio label {float:left; line-height:1.5; *line-height:2; padding:0 10px 0 5px;}
+#newAddress .fieldset .radio p {clear:both; float:left; }
+
+#newAddress .fieldset .tel { } 
+#newAddress .fieldset .tel input {width:70px; margin:3px 5px;}
+#newAddress .fieldset .tel p {padding-left:4px;}
+
+#newAddress .fieldset .checkbox input {width:15px; float:left; border:0; }
+#newAddress .fieldset .checkbox label {float:left; line-height:1.5; *line-height:2; padding:0 15px 0 5px;}
+#newAddress .fieldset .checkbox ul {padding:0; margin:0;}
+#newAddress .fieldset .checkbox p {clear:both; padding-top:10px; float:left;}
+
+#newAddress .fieldset .date input {width:100px; padding:3px;}
+#newAddress .fieldset .date input.dateRemover {width:50px; padding:2px;}
+#newAddress .fieldset { margin-top:10px; clear:both; }
+.m_btnset { border-top:1px solid #ddd; background:#fff; text-align:right; padding:10px }
+
+.add_list li { border-bottom:1px solid #ddd; padding:10px 0; }
+.add_list .cho_btn { float:left; margin-right:10px; }
+.add_list .add_box { overflow:hidden; font-size:.8em; line-height:1.5em; }
+
+.m_addlist .m_add_group { border-top:1px solid #ddd; }
+.m_addlist { overflow:hidden; font-size:.8em; }
+.m_addlist dl {background:#f9f9f9; overflow:hidden; line-height:1.3em; }
+.m_addlist dt {  float:left; font-weight:bold; letter-spacing:-1px; overflow:hidden; padding:10px; width:25%; display:inline-block; min-width:95px; }
+.m_addlist dd { overflow:hidden; padding:10px; background:#fff; }
+.m_new { padding:10px; border-top:#ddd 1px solid ; }
+
+#wrapper {
+	height:210px;		/* Of course you need to specify the object height */
+
+	position:relative;	/* On older OS versions "position" and "z-index" must be defined (absolute | relative), */
+	z-index:1;			/* it seems that recent webkit is less picky and works anyway. */
+
+	width:100%;
+	overflow:auto;
+}
+
+

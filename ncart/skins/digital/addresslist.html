@@ -1,0 +1,38 @@
+<load target="css/style.css" />
+<load target="css/addresslist.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div class="btnArea">
+	<a href="#" class="button" onclick="window.open('{getUrl('act','dispNcartAddressManagement')}', 'addressbook_popup', 'left=50, top=20, width=700, scrollbars=yes, height=600, toolbars=no');parent.close_modal();"><span>{$lang->cmd_addr_manage}</span></a>
+</div>
+<table class="item-table">
+	<thead>
+		<tr>
+			<th style="width:40px;">{$lang->cmd_select}</th>
+			<block loop="$fieldset_list=>$key,$val">
+			<th loop="$val->fields=>$key2,$field">{$field->column_title}</th>
+			</block>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr loop="$list=>$key,$val">
+			{@$vars=get_object_vars(unserialize($val->address))}
+			<td><a href="#" onclick="apply_address({$val->address_srl});"><span>선택</span></a></td>
+			<block loop="$fieldset_list=>$key2,$val2">
+			<td loop="$val2->fields=>$key3,$field"><span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span><span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}</span></td>
+			</block>
+		</tr>
+	</tbody>
+</table>
+<div class="pageNavigation">
+</div>
+<script>
+	function apply_address(address_srl) {
+		parent.apply_address_info(address_srl);
+		parent.close_modal();
+	}
+</script>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">카테고리별 탭 목록 출력</title>
+	<description xml:lang="ko">
+        상품목록을 카테고리별로 탭으로 구분하여 출력합니다.
+	</description>
+	<version>0.1</version>
+	<date>2013-10-01</date>
+	<link>http://www.nurigo.net</link>
+	<author email_address="sunny@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">sunny</name>
+	</author>
+
+	<colorset>
+		<color name="default">
+			<title xml:lang="ko">default</title>
+		</color>
+	</colorset>
+</skin>

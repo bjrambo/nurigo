@@ -1,0 +1,54 @@
+{$module_info->guide_content}
+<load target="css/period_payment.css" />
+<load target="../../tpl/skin.js/payment_list.js" />
+
+<div id="-_-paymentinfo_wrap">
+	<div class="-_-payment_title">
+		<span class="-_-text_point">◆</span> 결제정보  
+
+		<div id="item_info">
+			<div class="item-thumbnail" style="float:left;">
+				<img cond="$item_info->thumbnailExists($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)" src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" />
+				<img cond="!$item_info->thumbnailExists($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)" src="img/no_img.gif" alt="no image" width="{$module_info->thumbnail_width}" height="{$module_info->thumbnail_height}" />
+			</div>
+			<div class="info-tab">
+				<table cellspacing="0" cellpadding="2" border="0" style="text-align:center;" summary="만기일 연장 결제페이지">
+					<caption>만기일 연장 결제페이지</caption>
+					<tr>
+						<th>{$lang->product_name}</th>
+						<th>{$lang->item_code}</th>
+						<th>{$lang->sales_price}</th>
+						<th>현재 만기일</th>
+						<th>결제후 만기일</th>
+					</tr>
+					<tr>
+						<td><h2 class="product_name">{$item_info->item_name}</h2></td>
+						<td>{$item_info->item_code}</td>
+						<td class="font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{$price}</td>
+						<td>
+							<span cond="$before_period"> {zdate($before_period,'Y-m-d')}  </span>
+							<span cond="!$before_period" style="color:red;"> 만료됨  </span>
+						</td>
+						<td><span> {zdate($period,'Y-m-d')}  </span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div><!--end of payment_title-->
+
+	<div class="-_-settlement" style="clear:both;">
+		<span class="-_-text_point">◆</span> 결제하기
+		<form id="fo_period">
+			<input type="hidden" name="target_module" value="nstore_digital" />
+			<input type="hidden" name="item_srl" value="{$item_info->item_srl}" />
+			<input type="hidden" name="cart_srl" value="{$cart_srl}" />
+			<input type="hidden" name="item_name" value="{$item_info->item_name}" />
+			<input type="hidden" name="period" value="{$period}" />
+			<input type="hidden" name="xe_mid" value="{$mid}" />
+			<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+		</form>
+		<div>
+			{$epay_form}
+		</div>
+	</div>
+</div><!--end of paymentinfo_wrap-->

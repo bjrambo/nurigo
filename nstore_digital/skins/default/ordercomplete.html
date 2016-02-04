@@ -1,0 +1,62 @@
+<load target="css/style.css" />
+<load target="css/button.css" />
+<load target="css/btn.css" />
+<load target="css/ordercomplete.css" />
+
+
+<div class="ordercomplete">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->sales_price}</th>
+				<th>{$lang->period}</th>
+			</tr>
+		</thead> 
+		<tbody>
+			<tr cond="$period_info">
+				<td>
+					<a href="{getUrl('','document_srl',$period_info->item_info->document_srl)}"><img src="{$period_info->item_info->getThumbnail(80,80)}" /></a>
+				</td>
+				<td>
+					<div>{$period_info->item_info->item_name}</div>
+				</td>
+				<td>{$period_info->price}</td>
+				<td>{zdate($period_info->end_date,'Y-m-d')}</td>
+			</tr>
+			<tr cond="!$period_info">
+				<td colspan="8">{$lang->msg_no_items}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div cond="$payment_info->payment_method=='VA' || $payment_info->payment_method=='BT'">
+		<h3 class="title_benefits"><span>{$lang->bankaccount_info}</span></h3>
+		<table class="order-table">
+			<caption>아래 계좌로 입금해 주셔야 주문이 완료됩니다.</caption>
+			<tr>
+				<th>{$lang->account_number}</th><td>{$payment_info->vact_num}</td>
+			</tr>
+			<tr>
+				<th>{$lang->bank_name}</th><td>{$payment_info->vact_bankname}</td>
+			</tr>
+			<tr>
+				<th>{$lang->account_holder}</th><td>{$payment_info->vact_name}</td>
+			</tr>
+			<tr>
+				<th>{$lang->deposit_amount}</th><td>{$payment_info->payment_amount}</td>
+			</tr>
+			<tr cond="$payment_info->vact_inputname">
+				<th>{$lang->sender_name}</th><td>{$payment_info->vact_inputname}</td>
+			</tr>
+			<tr cond="$payment_info->vact_date">
+				<th>{$lang->send_date}</th><td>{zdate($payment_info->vact_date,'Y-m-d')} 까지</td>
+			</tr>
+		</table>
+	</div>
+	<br /><br />
+	<div class="btn_continue">
+		<a href="{getUrl('', 'mid', $mid)}" class="nuribtn navy large">다운로드 페이지</a>
+	</div>
+</div>

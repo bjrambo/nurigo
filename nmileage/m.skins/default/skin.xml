@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">기본스킨</title>
+	<title xml:lang="en">Default skin</title>
+	<title xml:lang="jp">基本スキン</title>
+	<title xml:lang="zh-TW">預設版面</title>
+	<description xml:lang="ko">기본스킨입니다</description>
+	<description xml:lang="zh-TW">預設版面</description>
+	<version>1.0</version>
+	<date>2012-01-30</date>
+	<link>http://www.xeshoppingmall.com</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="white">
+			<title xml:lang="ko">하얀색(기본)</title>
+			<title xml:lang="en">WHITE(Default)</title>
+			<title xml:lang="jp">白色(基本)</title>
+			<title xml:lang="zh-TW">白色（預設）</title>
+		</color>
+		<color name="black">
+			<title xml:lang="ko">검정색</title>
+			<title xml:lang="en">BLACK</title>
+			<title xml:lang="jp">黒色</title>
+			<title xml:lang="zh-TW">黒色</title>
+		</color>
+		<color name="transparent">
+			<title xml:lang="ko">투명색</title>
+			<title xml:lang="en">CLEAR</title>
+			<title xml:lang="jp">透明色</title>
+			<title xml:lang="zh-TW">透明色</title>	
+		</color>
+	</colorset>
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="en">etc.</title>
+			<title xml:lang="jp">その他</title>
+			<title xml:lang="zh-TW">其他</title>
+			<var name="dummy" type="text">
+				<title xml:lang="ko">Dummy</title>
+				<description xml:lang="ko">
+					Dummy 필드 입니다. 입력하지 마세요.
+				</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

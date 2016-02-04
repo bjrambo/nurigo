@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+/*  orderlist css */
+
+/*#orderlist ul { margin:0; padding:0; }*/
+#orderlist ul li { list-style:none; }
+
+
+#orderlist .period { margin-bottom:30px; width:100%; border-top:1px solid #c4c4c4;}
+#orderlist .period td.title { padding-left:20px; background:#f8f8f8; }
+#orderlist .period td { border-bottom:1px solid #eaeaea; padding:5px 0 5px 10px;}
+#orderlist .period li { float:left; margin-right:3px; }
+
+#orderlist .feedback { margin:30px 0; padding:20px 0; border:1px solid #ddd; border-left:none; border-right:none; overflow:hidden;}
+#orderlist .feedback ul.left { float:left;}
+#orderlist .feedback ul.right { float:right;}
+#orderlist .feedback li { float:left; margin-left:10px;}
+
+#orderlist .item-table tr.gt2 { background:#fafafa;}
+#orderlist .item-table tr th.product_num { width:100px;}
+#orderlist .item-table tr td input.quantity { margin:0 5px; width:40px; }
+
+#orderlist .item-table tr th.item_check { width:20px;}
+#orderlist .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderlist .item-table .item_price { font:bold 18px Arial; }
+#orderlist .item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+
+#orderlist .item-table a.product_img { display:block; margin-bottom:10px; }
+
+/* black */
+
+
+#orderlist.black .period { border-top:1px solid #1b1b1b;}
+#orderlist.black .period td.title { background:#343434;}
+#orderlist.black .period td { border-bottom:1px solid #1b1b1b;}
+#orderlist.black .item-table tr.gt2 { background:#262626;}
+

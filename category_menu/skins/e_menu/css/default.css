@@ -1,0 +1,10 @@
+#nurigo {}
+#nurigo .gnb {display:inline; height:35px;}
+#nurigo .gnb ul {display:block; margin:0 0 0 20px; padding:0;}
+#nurigo .gnb li {float:left; list-style:none; vertical-align:top;}
+#nurigo .gnb li a span{padding:0 17px;}
+#nurigo .gnb li a {display:block; font-size:12px; color:#fff; text-decoration:none; text-shadow:0 1px 1px #000; font-weight:600; padding:10px 0;}
+#nurigo .gnb .nav .focus_on {color:#fac222; background:#222; box-shadow:inset 1px 1px 0 #000;}
+#nurigo .gnb li a:hover,
+#nurigo .gnb li a:active,
+#nurigo .gnb li a:focus {background:#222;}

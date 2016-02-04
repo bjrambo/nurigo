@@ -1,0 +1,27 @@
+<table name="nstore_digital_cart">
+	<column name="cart_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="order_srl" type="number" size="11" default="0" index="idx_order_srl" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="quantity" type="number" size="11" default="0" notnull="notnull" />
+	<column name="price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxfree" type="char" size="1" default="N" notnull="notnull" />
+	<!-- 0: 카트보관, 1: 입금대기, 2:입금완료, 3: 구매완료, A: 최소, B: 반품,교환, C: 환불 -->
+	<column name="order_status" type="char" size="1" default="0" notnull="notnull" index="idx_order_status" />
+	<column name="invoice_no" type="varchar" size="64" />
+	<!-- 00: 직배송, 10:대한통운특배, 11:CJ GLS, 12:로젠택배, 13:한진택배, 14:현대택배 -->
+	<column name="express_id" type="char" size="2" />
+	<column name="discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="discount_info" type="varchar" size="250" />
+	<column name="discounted_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="site_url" type="text" />
+	<column name="purdate" type="date" notnull="notnull" index="idx_purdate" />
+	<column name="review_srl" type="number" size="11" default="0" notnull="notnull" index="idx_review_srl" />
+	<column name="option_srl" type="number" size="11" default="0" notnull="notnull" />
+	<column name="option_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="option_title" type="varchar" size="250" />
+	<column name="period" type="number" size="11" index="idx_period" />
+	<column name="memo" type="text" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

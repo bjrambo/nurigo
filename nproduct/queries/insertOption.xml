@@ -1,0 +1,13 @@
+<query id="insertOption" action="insert">
+	<tables>
+		<table name="nproduct_options" />
+	</tables>
+	<columns>
+		<column name="option_srl" var="option_srl" filter="number" notnull="notnull" />
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="title" var="title" notnull="notnull" />
+		<column name="price" var="price" notnull="notnull" />
+		<column name="list_order" var="list_order" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

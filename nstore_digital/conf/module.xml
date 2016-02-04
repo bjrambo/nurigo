@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispNstore_digitalAdminConfig" type="view" />
+		<action name="dispNstore_digitalAdminModInstList" type="view" menu_name="storeModInstList" menu_index="true" />
+		<action name="dispNstore_digitalAdminInsertModInst" type="view" />
+		<action name="dispNstore_digitalAdminOrderManagement" type="view" admin_index="true" />
+		<action name="dispNstore_digitalAdminOrderExcelDownload" type="view" />
+		<action name="dispNstore_digitalAdminAdditionSetup" type="view" />
+		<action name="dispNstore_digitalAdminMailSetup" type="view" />
+		<action name="dispNstore_digitalAdminReceipt" type="view" />
+		<action name="dispNstore_digitalAdminOrderSheet" type="view" />
+		<action name="dispNstore_digitalAdminSkinInfo" type="view" />
+		<action name="dispNstore_digitalAdminMobileSkinInfo" type="view" />
+		<action name="dispNstore_digitalAdminOrderDetail" type="view" />
+		<action name="dispNstore_digitalAdminPeriodManagement" type="view" />
+		<action name="dispNstore_digitalAdminIndividualOrderManagement" type="view" />
+
+		<action name="procNstore_digitalAdminConfig" type="controller" />
+		<action name="procNstore_digitalAdminInsertModInst" type="controller" />
+		<action name="procNstore_digitalAdminDeleteModInst" type="controller" />
+		<action name="procNstore_digitalAdminUpdateStatus" type="controller" />
+		<action name="procNstore_digitalAdminUpdatePeriodStatus" type="controller" />
+		<action name="procNstore_digitalAdminUpdateOrderDetail" type="controller" />
+		<action name="procNstore_digitalAdminDeleteOrders" type="controller" />
+		<action name="procNstore_digitalAdminDeletePeriod" type="controller" />
+		<action name="procNstore_digitalAdminUpdatePeriod" type="controller" />
+
+		<action name="getNstore_digitalAdminDeleteModInst" type="model" />
+		<action name="getNstore_digitalAdminDeleteOrders" type="model" />
+		<action name="getNstore_digitalAdminDeletePeriods" type="model" />
+
+		<action name="dispNstore_digitalIndex" type="view" index="true" />
+		<action name="dispNstore_digitalDetail" type="view" />
+		<action name="dispNstore_digitalCertificate" type="view" />
+		<action name="dispNstore_digitalPeriodPayment" type="view" />
+		<action name="dispNstore_digitalOrderComplete" type="view" />
+
+		<action name="procNstore_digitalUpdateOrderDetail" type="controller" />
+		<action name="procNstore_digitalFileDownload" type="controller" method="GET|POST" />
+		<action name="procNstore_digitalFreebieDownload" type="controller" />
+	</actions>
+</module>

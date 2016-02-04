@@ -1,0 +1,18 @@
+.n_table { width:100%; margin-bottom:20px; max-width:100%; border-collapse:collapse; border-spacing:0; border-top:2px solid #ddd; border-bottom:1px solid #ddd;  background-color: transparent; }
+.n_table-striped tbody > tr:nth-child(odd) > td,
+.n_table-striped tbody > tr:nth-child(odd) > th { background-color: #f9f9f9; }
+.n_table th,
+.n_table td { padding: 8px; line-height: 20px; text-align: left; vertical-align: top; border-top: 1px solid #dddddd; }
+.n_table th { font-weight: bold; }
+.n_table thead th { vertical-align: bottom; }
+.n_table-hover tbody tr:hover > td,
+.n_table-hover tbody tr:hover > th { background-color: #f5f5f5; }
+.n_table th:nth-child(2) { width:35px; }
+
+.nmileage_wrap { padding:10px 20px; background:#fff; }
+.nmileage_tit { background:#ddd; }
+.nmileage_wrap .m_title{ text-align:left; margin-bottom:10px; }
+.nm_tit { margin-bottom:20px; }
+.nmileage_wrap h2 { font-weight:600; border-bottom:1px solid #ddd; line-height:1.7em; color:#555; }
+.mileage_total { font-size:15px; font-family:Gulim Arial; font-weight:600; padding:13px; background:#e9e9e9; border:1px solid #999; border-radius:5px; margin-bottom:20px; }
+.m_point { color:#ff0000; }

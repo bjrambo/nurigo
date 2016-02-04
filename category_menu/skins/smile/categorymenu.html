@@ -1,0 +1,28 @@
+<load target="css/categorymenu.css" />
+
+<div id="smile_container">
+	<!-- depth 1 -->
+    <ul class="nav">
+        <li loop="$category_tree['f']=>$no,$val">
+            <a href="{getUrl('category',$category_index[$no]->node_id)}"><span class="depth1">{$category_index[$no]->category_name}</span></a>
+			<!-- depth 2 -->
+			<ul>
+				<li cond="count($val)" loop="$val=>$no2,$val2">
+						<a href="{getUrl('category',$category_index[$no2]->node_id)}"><span class="depth2">{$category_index[$no2]->category_name}</h5></a>
+						<!-- depth 3 -->
+						<ul cond="count($val2)">
+							<li loop="$val2=>$no3,$val3">
+								<a href="{getUrl('category',$category_index[$no3]->node_id)}"><span class="depth3">{$category_index[$no3]->category_name}</span></a>
+								<!-- depth 4 -->
+								<ul cond="count($val3)">
+									<li loop="$val3=>$no4,$val4">
+										<a href="{getUrl('category',$category_index[$no4]->node_id)}">{$category_index[$no4]->category_name}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+				</li>
+			</ul>
+        </li>
+    </ul>
+</div>

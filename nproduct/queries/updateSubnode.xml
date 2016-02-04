@@ -1,0 +1,11 @@
+<query id="updateSubnode" action="update">
+	<tables>
+		<table name="nproduct_categories" />
+	</tables>
+	<columns>
+		<column name="subnode" var="subnode" default="0" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="node_id" var="node_id" notnull="notnull" />
+	</conditions>
+</query>

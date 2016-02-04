@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">Default</title>
+    <description xml:lang="ko">
+        Default Skin
+    </description>
+    <version>1.0</version>
+    <date>2011-06-09</date>
+    <link>http://www.ksodesign.com/</link>
+
+    <author email_address="ksjade@nurigo.net" link="http://www.nurigo.net/">
+        <name xml:lang="ko">KS제이드</name>
+        <name xml:lang="en">KSJade</name>
+    </author>
+
+    <colorset>
+        <color name="light">
+            <title xml:lang="ko">Default</title>
+            <title xml:lang="en">default</title>
+        </color>
+    </colorset>
+</skin>

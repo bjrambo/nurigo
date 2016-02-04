@@ -1,0 +1,19 @@
+<query id="insertPeriod" action="insert">
+	<tables>
+		<table name="nstore_digital_period" />
+	</tables>
+	<columns>
+		<column name="period_srl" var="period_srl" filter="number" notnull="notnull" />
+		<column name="cart_srl" var="cart_srl" filter="number" notnull="notnull" />
+		<column name="order_srl" var="order_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="member_srl" var="member_srl" notnull="notnull" />
+		<column name="item_srl" var="item_srl" notnull="notnull" />
+		<column name="price" var="price" />
+		<column name="order_status" var="order_status" notnull="notnull" />
+		<column name="payment_method" var="payment_method" notnull="notnull" />
+		<column name="start_date" var="start_date" />
+		<column name="end_date" var="end_date" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

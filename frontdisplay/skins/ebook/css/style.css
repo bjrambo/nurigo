@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/* frontpage css */
+#frontpage_widget ul, #frontpage_widget li { margin:0; padding:0; list-style:none;}
+
+#frontpage_widget { clear:both; margin:0; overflow:hidden; width:100%;}
+
+#frontpage_widget .category .title_recommend { position:relative; background:none; border-bottom:1px solid #ddd; overflow:hidden; }
+
+#frontpage_widget .category .title_recommend .title { padding:8px 20px 8px 10px; font:12px Tahoma, Dotum; color:#333; }
+#frontpage_widget .category .title_recommend ul { float:right; }
+#frontpage_widget .category .title_recommend li { float:left; }
+#frontpage_widget .category .title_recommend li a { display:block; padding:5px 10px; margin:5px; font:11px dotum; color:#eee; background:#000; }
+#frontpage_widget .category .title_recommend li a:hover { background:#ff6600; }
+
+#frontpage_widget .category .item-list { overflow:hidden; position:relative; margin:0; padding:0; } 
+#frontpage_widget .category .item-list li { background:#fff; text-align:center; float:left;  } 
+#frontpage_widget .category .item-list li:last-child { margin-right:0; }
+#frontpage_widget .category .item-list li .check { position:absolute; left:0; top:0; }
+
+#frontpage_widget .category .item-list li a.thumbnail { display:block; margin:0 0 10px 0;  }
+#frontpage_widget .category .item-list li a.thumbnail img{padding-bottom:10px;}
+#frontpage_widget .category .item-list li .item_name { height:30px; font-size:16px; font-weight:600; font-family:NanumGothic; color:#6d6d6d; overflow:hidden; text-decoration:none; clear:both; }
+#frontpage_widget .category .item-list li .item_num { padding:5px; height:24px;}
+#frontpage_widget .category .item-list li .item_price { padding-top:5px; height:20px; font:12px Tahoma,Sans-Serif; color:#d07226; }
+#frontpage_widget .category .item-list li .item_num .won { padding:0; font:12px Gulim,Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_price .won { padding:0; font:12px Gulim,Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_content{ color:#999; margin:10px auto 0; display:block; overflow:hidden;padding-left:5px; width:100px; text-overflow:ellipsis; white-space:nowrap; }
+
+#frontpage_widget .category .item-list .quantity { width:50px; }
+

@@ -1,0 +1,21 @@
+<include target="_header.html" />
+<form id="fo_search" action="./" class="x_form-horizontal" method="get">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<section>
+		<select id="select_status" name="status">
+			<option loop="$order_status=>$key,$val" value="{$key}" selected="selected"|cond="$status==$key">{$val}</option>
+		</select>
+	</section>
+</form>
+
+<div cond="!$setup_content">Automail 모듈이 설치되지 않았습니다.</div>
+{$setup_content}
+
+<script type="text/javascript">
+	jQuery('#select_status').change(function() {
+			console.log(jQuery(this).parent('form'));
+			jQuery('#fo_search').submit();
+	});
+</script>

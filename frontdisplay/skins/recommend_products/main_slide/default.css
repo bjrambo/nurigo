@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* Promotion */
+#main_slide { position:relative; padding:0;}
+.main_view { position: relative; margin:0 auto; background:#121212;}
+.window { overflow: hidden; position: relative; }
+.image_reel { position: absolute; top: 0; left: 0; }
+.image_reel img {float: left;}
+
+.slider_nav { position: absolute; bottom:0; left:10px; _left:0px; padding:10px 0; overflow:hidden; }
+.page_nav .paging a { float:left; margin-left:7px; width:30px; height:5px; text-decoration: none; font:0px Arial, Geneva, sans-serif; color:#aaa; background:#a8a8a8; display:block; text-align:center; line-height:14px; }
+.page_nav .paging a.active { color:#fff; font-weight: bold; background:#93cf35;  }
+
+.values { display:none; float:left; width:60%; height:30px; font:8pt Dotum; letter-spacing:-1px; text-align:left; line-height:140%; *zoom:1; overflow:hidden; }
+.values a { color:#999 !important; text-decoration: none; display:none; *zoom:1; }
+.values a:first-child { display:inline; }

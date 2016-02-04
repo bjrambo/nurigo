@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">이러닝</title>
+	<title xml:lang="en">e-learning</title>
+	<title xml:lang="jp">eラーニング</title>
+	<title xml:lang="zh-TW">e-learning </title>		
+	<description xml:lang="ko">이러닝 스킨입니다</description>
+	<description xml:lang="en">e-learning skin</description>
+	<description xml:lang="jp">eラーニングスキン</description>
+	<description xml:lang="zh-TW">e-learning 頁面版面</description>
+	<version>0.1</version>
+	<date>2011-10-13</date>
+	<link>http://www.nurigo.net</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="white">
+			<title xml:lang="ko">하얀색(기본)</title>
+			<title xml:lang="en">WHITE(Default)</title>
+			<title xml:lang="jp">白色(基本)</title>
+			<title xml:lang="zh-TW">白色(預設)</title>		
+		</color>
+	</colorset>
+
+	<extra_vars>
+		<var name="thumbnail_width" type="text">
+			<title xml:lang="ko">[상세페이지]썸네일 가로크기</title>
+			<title xml:lang="en">[More details]Horizontal thumbnail size</title>
+			<title xml:lang="jp">[詳細ページ]サムネイル横方向のサイズ</title>
+			<title xml:lang="zh-TW">[詳細]縮圖橫向尺寸</title>				
+			<description xml:lang="ko">
+				썸네일 가로크기 설정 (px 제외 입력)
+			</description>
+			<description xml:lang="en">
+				Set the horizontal thumbnail size (Input number only,unit:pixel)
+			</description>
+			<description xml:lang="jp">
+				サムネイル横方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+			</description>
+			<description xml:lang="zh-TW">
+				設定縮圖橫向尺寸 （只能輸入數字，單位：pixel 像素）
+			</description>	
+		</var>
+		<var name="thumbnail_height" type="text">
+			<title xml:lang="ko">[상세페이지]썸네일 세로크기</title>
+			<title xml:lang="en">[More details]Vertical thumbnail size</title>		
+			<title xml:lang="jp">[詳細ページ]サムネイル縦方向のサイズ</title>
+			<title xml:lang="zh-TW">[詳細]縮圖垂直尺寸</title>				
+			<description xml:lang="ko">
+				썸네일 세로크기 설정 (px 제외 입력)				</description>
+			<description xml:lang="en">
+				Set the vertical thumbnail size (Input number only,unit:pixel)
+			</description>
+			<description xml:lang="jp">
+				サムネイル縦方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+			</description>
+			<description xml:lang="zh-TW">
+				設定縮圖垂直尺寸 （只能輸入數字，單位：pixel 像素）
+			</description>	
+		</var>
+		<var name="list_thumbnail_width" type="text">
+			<title xml:lang="ko">[목록] 썸네일 가로크기</title>
+			<title xml:lang="en">[List]Horizontal thumbnail size</title>
+			<title xml:lang="jp">[リスト]サムネイル横方向のサイズ</title>
+			<title xml:lang="zh-TW">[列表]縮略圖橫向尺寸</title>
+			<description xml:lang="ko">
+				썸네일 가로크기 설정
+			</description>
+		</var>
+		<var name="list_thumbnail_height" type="text">
+			<title xml:lang="ko">[목록] 썸네일 세로크기</title>
+			<title xml:lang="en">[List]Vertical thumbnail size</title>
+			<title xml:lang="jp">[リスト]サムネイル縦方向のサイズ</title>
+			<title xml:lang="zh-TW">[列表]縮圖垂直尺寸</title>
+			<description xml:lang="ko">
+				썸네일 세로크기 설정
+			</description>
+		</var>
+                <var name="list_style" type="select">
+                        <title xml:lang="ko">상품목록 출력형식</title>
+                        <title xml:lang="en">Display type of product list</title>
+                        <title xml:lang="jp">商品リストの出力形式</title>
+                        <title xml:lang="zh-TW">商品列表輸出格式</title>							
+                        <description />
+                        <options value="list">
+                                <title xml:lang="ko">리스트</title>
+                                <title xml:lang="en">List</title>
+                                <title xml:lang="jp">リスト</title>
+                                <title xml:lang="zh-TW">列表</title>									
+                        </options>
+                        <options value="grid">
+                                <title xml:lang="ko">그리드</title>
+                                <title xml:lang="en">Grid</title>
+                                <title xml:lang="jp">グリッド </title>
+                                <title xml:lang="zh-TW">線格</title>									
+                        </options>
+                </var>
+	</extra_vars>
+</skin>

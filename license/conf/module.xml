@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispLicenseAdminConfig" type="view" admin_index="true" />
+		<action name="procLicenseAdminConfig" type="controller" />
+		<action name="getLicenseConfirm" type="model" />
+	</actions>
+</module>

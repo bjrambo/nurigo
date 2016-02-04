@@ -1,0 +1,127 @@
+<load target="css/style.css" />
+<!--// css -->
+<load target="../../tpl/js/script.js" />
+<!--// normal -->
+<load cond="0" target="http://plugin.inicis.com/pay40_sec_uni.js" />
+<!--// open web -->
+<load target="http://plugin.inicis.com/pay61_secuni_cross.js" />
+<load target="../../tpl/filter/submit_payment.xml" />
+<load target="../../tpl/filter/submit_review.xml" />
+
+{$review_form}
+
+<form id="fo_inipay" name="fo_payment" class="fo_payment" method="post" action="./">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="xe_mid" value="{$mid}" />
+	<input type="hidden" name="act" value="procInipayDoIt" />
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+
+	<!-- settings by user -->
+	<!-- Card, DirectBank, VBank, HPP -->
+	<input type="hidden" name="gopaymethod" value="{$payment_method}" />
+	<input type="hidden" name="goodname" value="{$item_name}" />
+	<input type="hidden" name="buyername" value="{$purchaser_name}" />
+	<input type="hidden" name="buyeremail" value="{$purchaser_email}" />
+	<input type="hidden" name="buyertel" value="{$purchaser_telnum}" />
+	<input type="hidden" name="currency" value="WON" />
+	<input type="hidden" name="price" value="{$price}" />
+	<input type="hidden" name="oid" value="{$order_srl}" />
+
+	<input type="hidden" name="acceptmethod" value="{$acceptmethod}" />
+	<input cond="$module_info->logo_image" type="hidden" name="ini_logoimage_url" value="{getFullUrl('')}{$module_info->logo_image}" />
+
+	<!-- settings by plugin -->
+	<input type="hidden" name="mid" value="{$module_info->inicis_id}" />
+	<input type="hidden" name="quotainterest" value="" />
+	<input type="hidden" name="paymethod" value="" />
+	<input type="hidden" name="cardcode" value="" />
+	<input type="hidden" name="cardquota" value="" />
+	<input type="hidden" name="rbankcode" value="" />
+	<input type="hidden" name="reqsign" value="DONE" />
+	<input type="hidden" name="encrypted" value="" />
+	<input type="hidden" name="sessionkey" value="" />
+	<input type="hidden" name="uid" value="" />
+	<input type="hidden" name="sid" value="" />
+	<input type="hidden" name="version" value="4000" />
+	<input type="hidden" name="clickcontrol" value="" />
+	<input type="hidden" name="ini_encfield" value="{$encfield}" />
+	<input type="hidden" name="ini_certid" value="{$certid}" />
+
+	<div class="btn_payment">
+		<button type="submit" class="btn">결제하기</button>
+	</div>
+</form>
+
+<script language=javascript>
+	StartSmartUpdate();
+
+	(function($) {
+		jQuery(function($) {
+			jQuery('#fo_inipay').submit(function() {
+				// MakePayMessage()를 호출함으로써 플러그인이 화면에 나타나며, Hidden Field
+				// 에 값들이 채워지게 됩니다. 일반적인 경우, 플러그인은 결제처리를 직접하는 것이
+				// 아니라, 중요한 정보를 암호화 하여 Hidden Field의 값들을 채우고 종료하며,
+				// 다음 페이지인 INIsecureresult.php로 데이터가 포스트 되어 결제 처리됨을 유의하시기 바랍니다.
+				frm = document.getElementById('fo_inipay');
+
+				if(frm.clickcontrol.value == "enable") {
+					
+					if(frm.goodname.value == "")  // 필수항목 체크 (상품명, 상품가격, 구매자명, 구매자 이메일주소, 구매자 전화번호)
+					{
+						alert("상품명이 빠졌습니다. 필수항목입니다.");
+						return false;
+					}
+					else if(frm.buyername.value == "")
+					{
+						alert("구매자명이 빠졌습니다. 필수항목입니다.");
+						return false;
+					} 
+					else if(frm.buyeremail.value == "")
+					{
+						alert("구매자 이메일주소가 빠졌습니다. 필수항목입니다.");
+						return false;
+					}
+					else if(frm.buyertel.value == "")
+					{
+						alert("구매자 전화번호가 빠졌습니다. 필수항목입니다.");
+						return false;
+					}
+					else if( (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.appName == 'Microsoft Internet Explorer') && (document.fo_payment == null) )  // 플러그인 설치유무 체크
+					{
+						alert("\n이니페이 플러그인 128이 설치되지 않았습니다. \n\n안전한 결제를 위하여 이니페이 플러그인 128의 설치가 필요합니다. \n\n다시 설치하시려면 Ctrl + F5키를 누르시거나 메뉴의 [보기/새로고침]을 선택하여 주십시오.");
+						return false;
+					}
+					else
+					{
+						/******
+						 * 플러그인이 참조하는 각종 결제옵션을 이곳에서 수행할 수 있습니다.
+						 * (자바스크립트를 이용한 동적 옵션처리)
+						 */
+						if (MakePayMessage(frm))
+						{
+							disable_click();
+							//openwin = window.open("childwin.html","childwin","width=299,height=149");		
+							//return procFilter(frm, submit_payment);
+						}
+						else
+						{
+							if (IsPluginModule()) // plugin 타입 체크
+							{
+								alert("결제를 취소하셨습니다.");
+							}
+							return false;
+						}
+					}
+				}
+				else
+				{
+					alert('결제진행 상태입니다.');
+					return false;
+				}
+			});
+		});
+	}) (jQuery);
+</script>

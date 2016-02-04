@@ -1,0 +1,15 @@
+<query id="updateTransaction" action="update">
+    <tables>
+        <table name="epay_transactions" />
+    </tables>
+    <columns>
+        <column name="state" var="state" />
+        <column name="result_code" var="result_code" />
+        <column name="result_message" var="result_message" />
+        <column name="pg_tid" var="pg_tid" />
+        <column name="extra_vars" var="extra_vars" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="transaction_srl" var="transaction_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

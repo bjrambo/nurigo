@@ -1,0 +1,14 @@
+<query id="getReviewListItem" action="select">
+    <tables>
+        <table name="store_review" />
+        <table name="store_review_list" />
+    </tables>
+    <columns>
+        <column name="store_review.parent_srl" />
+        <column name="store_review_list.*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="store_review.review_srl" var="revierw_srl" notnull="notnull" />
+        <condition operation="equal" column="store_review.review_srl" default="store_review_list.review_srl" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

@@ -1,0 +1,136 @@
+<load target="css/style.css" />
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<h2 class="page-title">{$lang->purchase_details}</h2>
+
+<div id="orderlist">
+	<form action="./" class="form" method="post">
+		<input type="hidden" name="module" value="nstore_digital" />
+		<input type="hidden" name="act" value="procNstore_digitalUpdateOrderDetail" />
+		<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th>{$lang->order_number}</th>
+					<th>{$lang->order_date}</th>
+					<th>{$lang->items}</th>
+					<th>{$lang->mileage}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$order_info->order_srl}</td>
+					<td>{zdate($order_info->regdate)}</td>
+					<td>{$order_info->item_count}</td>
+					<td>{number_format($order_info->mileage)}<div cond="$order_info->mileage_save=='Y'">(적립완료)</div></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>{$lang->title_payment_details}</h4>
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th>{$lang->paymethod}</th>
+					<th>{$lang->use_mileage}</th>
+					<block cond="$payment_info->payment_method=='VA'">
+					<th>{$lang->account_number}</th>
+					<th>{$lang->bank_name}</th>
+					<th>{$lang->account_holder}</th>
+					<th>{$lang->sender_name}</th>
+					<th>{$lang->send_date}</th>
+					</block>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$payment_method[$order_info->payment_method]}</td>
+					<td>{$order_info->use_mileage}</td>
+					<block cond="$payment_info->payment_method=='VA'">
+					<td>{$payment_info->vact_num}</td>
+					<td>{$payment_info->vact_bankname}</td>
+					<td>{$payment_info->vact_name}</td>
+					<td>{$payment_info->vact_inputname}</td>
+					<td cond="0">{$payment_info->vact_regnum}</td>
+					<td>{zdate($payment_info->vact_date,'Y-m-d')} 까지</td>
+					<td cond="0">{$payment_info->vact_time}</td>
+					</block>
+				</tr>
+			</tbody>
+		</table>
+		<h4>{$lang->title_ordered_items}</h4>
+		<table class="item-table">
+			<caption style="text-align:left;">{$lang->about_site_url}</caption>
+			<thead>
+				<tr>
+					<th>{$lang->contract_number}</th>
+					<th>{$lang->item}</th>
+					<th>{$lang->product_name}</th>
+					<th>{$lang->quantity}</th>
+					<th>{$lang->item_price}</th>
+					<th>{$lang->discount}</th>
+					<th>{$lang->amount}</th>
+					<th>{$lang->order_status}</th>
+					<th>{$lang->site_url}</th>
+				</tr>
+			</thead>
+			{@$total_price=0}
+			<tbody>
+				<tr loop="$order_info->item_list=>$no,$val">
+					<td><input type="hidden" name="cart_srls[]" value="{$val->cart_srl}" />{$val->cart_srl}</td>
+					<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail(40)}" /></a></td>
+					<td><span>{$val->item_name}</span></td>
+					<td>{$val->quantity}</td>
+					<td>{number_format($val->price * $val->quantity)}</td>
+					<td>{number_format($val->discount_amount)}<br />{$val->discount_info}</td>
+					<td>{number_format($val->discounted_price)}</td>
+
+					<td>
+						<span class="ko_text red">{$order_status[$val->order_status]}</span><br />
+					</td>
+					<td><textarea name="site_url[]" style="width:210px;height:40px;">{$val->site_url}</textarea></td>
+					{@$total_price+=$val->price}
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th>{$lang->total_order_amount}</th>
+					<th></th>
+					<th>{$lang->total_discount}</th>
+					<th></th>
+					<th>{$lang->use_mileage}</th>
+					<th></th>
+					<th>{$lang->payment_amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{number_format($order_info->sum_price)}</td>
+					<td>-</td>
+					<td>{number_format($order_info->total_discount_amount)}</td>
+					<td>-</td>
+					<td>{$order_info->use_mileage}</td>
+					<td>=</td>
+					<td><span class="font_size14">{number_format($order_info->total_price)}</span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="btnArea">
+			<ul class="left">
+				<li><a href="{getUrl('act','dispNstore_digitalIndex')}" class="btn"><span>이전페이지</span></a></li>
+			</ul>
+
+			<ul class="right">
+				<li><button type="submit" class="btn">{$lang->cmd_save}</button></li>
+				<li cond="0"><a href="#" class="kso_btn"><span>주문취소</span></a></li>
+			</ul>
+		</div>
+	</form>
+</div>

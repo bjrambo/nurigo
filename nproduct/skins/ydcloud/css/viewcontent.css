@@ -1,0 +1,29 @@
+body {background:#212121;}
+#viewcontent #player-container { float:left;}
+#viewcontent .content_list { width:90px; float:left; overflow:auto; padding:5px; border:1px solid #979595; height:473px; margin-left:10px;}
+#viewcontent .content_list ul { list-style:none; margin:0; padding:0; float:left; clear:both;}
+
+/* menuTab */
+#viewcontent .view_menuTab li {float:left; padding:5px 20px; width:83px; background:#5d5d5d; margin-left:1px; text-align:center; cursor:pointer; border-top-left-radius:5px; border-top-right-radius:5px;}
+#viewcontent .view_menuTab li a {text-decoration:none; color:#fff; display:block; font-size:12px;} 
+#viewcontent .view_menuTab li.view_tab  {background:#2d879e;}
+
+/* view_tab */
+#viewcontent .content_list {width:250px; overflow:hidden;}
+#viewcontent .content_list .view_tab th {background:#0c0c0c; border-right:1px solid #2b2b2b; color:#797979;  text-align:center;}
+
+/* scroll_box */
+#viewcontent .content_list td {background:#1b1b1b; border-bottom:1px solid #2b2b2b; border-right:1px solid #2b2b2b; color:#797979; font-size:11px; text-align:center; letter-spacing:-1px;}
+#viewcontent .content_list a {text-decoration:none; color:#797979;}
+
+/* box_size */
+#viewcontent .content_list .list_01 {width:33px; border-left:0;}
+#viewcontent .content_list .list_02 {text-align:left; width:100px;}
+#viewcontent .content_list .list_03 {width:52px;}
+#viewcontent .content_list .list_04 {border-right:0; width:35px;}
+#viewcontent .content_list .t_body .tabletwo {table-layout:fixed;}
+
+/* scroll_bar */
+#viewcontent .t_body{overflow-y:scroll; height:429px; margin:0; padding:0;}
+#viewcontent .content_list .td_size {padding:0;}
+#viewcontent #bookmark input { width:50px; }

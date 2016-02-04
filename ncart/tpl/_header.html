@@ -1,0 +1,24 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->ncart}
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a>
+		</span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_ncart}</p>
+<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<li class="x_active"|cond="$act=='dispNcartAdminOrderManagement'"><a href="{getUrl('','module',$module,'act','dispNcartAdminOrderManagement','module_srl','')}">{$lang->cart_list}</a></li>
+	<li class="x_active"|cond="$act=='dispNcartAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispNcartAdminModInstList','module_srl','')}">{$lang->page_list}</a></li>
+	<li cond="$module_srl" class="x_active"><a href="{getUrl('act','dispNcartAdminInsertModInst')}">{$module_info->mid} {$lang->page_management}</a></li>
+	<li class="x_active"|cond="!$module_srl && $act=='dispNcartAdminInsertModInst'"><a href="{getUrl('','module',$module,'act','dispNcartAdminInsertModInst')}">{$lang->page_creation}</a></li>
+	<li class="x_active"|cond="$act=='dispNcartAdminConfig'"><a href="{getUrl('','module',$module,'act','dispNcartAdminConfig','module_srl','')}">{$lang->basic_setting}</a></li>
+
+</ul>
+<ul cond="$module_srl" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispNcartAdminInsertModInst'"><a href="{getUrl('act','dispNcartAdminInsertModInst')}">{$lang->page_setup}</a></li>
+	<li class="x_active"|cond="$act=='dispNcartAdminOrderForm'"><a href="{getUrl('act','dispNcartAdminOrderForm')}">{$lang->payment_form}</a></li>
+	<li class="x_active"|cond="$act=='dispNcartAdminSkinInfo' && $module_info->skin"><a href="{getUrl('act','dispNcartAdminSkinInfo')}">{$lang->skin_setting}</a></li>
+	<li cond="$module_info->use_mobile=='Y' && $module_info->mskin" class="x_active"|cond="$act=='dispNcartAdminMobileSkinInfo'"><a href="{getUrl('act','dispNcartAdminMobileSkinInfo')}">{$lang->mobile_skin}</a></li>
+</ul>

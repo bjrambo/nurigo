@@ -1,0 +1,4 @@
+#nustyle_slider { background:#fff; padding:10px; border:1px solid #c7c7c7; box-shadow:2px 3px 3px #ccc; }
+#nustyle_slider ul { margin:0; padding:0; overflow:hidden; }
+#nustyle_slider .bx-wrapper { margin:0; }
+#nustyle_slider .bx-wrapper .bx-viewport { border:0; left:0; box-shadow:none; }

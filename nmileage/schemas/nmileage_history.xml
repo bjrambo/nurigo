@@ -1,0 +1,11 @@
+<table name="nmileage_history">
+	<column name="history_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" />
+	<column name="order_srl" type="number" size="11" default="0" />
+	<!-- 1: 입금 , 2: 출금 -->
+	<column name="action" type="char" size="1" notnull="notnull" default="1" />
+	<column name="title" type="varchar" size="250" notnull="notnull" />
+	<column name="amount" type="number" size="11" notnull="notnull" default="0" />
+	<column name="balance" type="number" size="11" notnull="notnull" default="0" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+</table>

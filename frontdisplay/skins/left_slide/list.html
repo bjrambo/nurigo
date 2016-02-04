@@ -1,0 +1,38 @@
+<load target="css/default.css" />
+<load target="css/jquery.ennui.contentslider.css" />
+<load target="js/jquery.easing.1.3.js" />
+<load target="js/jquery.ennui.contentslider.js" />
+
+<div id="left_slide_widget" class="contentslider">
+	<div class="cs_wrapper">
+		<div loop="$display_categories=>$cate_key,$cate_val" class="cs_slider">
+			<div loop="$cate_val->items=>$no,$val" class="cs_article">
+				<div class="thumbnail">
+					<a class="thumbnail" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">
+						<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+					</a><!-- //thumbnail -->
+				</div>
+				<div class="summary">
+					<block loop="$widget_info->option_view_arr=>$k,$v">
+					<a cond="$v=='title'" class="item_name" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">{cut_str($val->item_name, $widget_info->title_length)}</a>
+					<div cond="$v=='price'" class="item_price"><strong>{$val->printDiscountedPrice()}</strong></div>
+					<div cond="$v=='content'">{$val->getDocument()->getSummary()}</div>
+					</block>
+				</div>
+			</div><!--// cs_article -->
+		</div><!--// cs_slider -->
+	</div><!--// cs_wrapper -->
+</div><!--// left_slide_widget-->
+<script type="text/javascript">
+(function($) {
+	$('#left_slide_widget').ContentSlider({
+		width : '{$widget_info->thumbnail_width+60}px',
+		height : '{$widget_info->thumbnail_height+120}px',
+		speed : 400,
+		easing : 'easeOutQuad',
+		textResize : true,	   
+		leftBtn : '{getUrl('')}widgets/frontdisplay/skins/left_slide/img/cs_leftImg.png',
+		rightBtn : '{getUrl('')}widgets/frontdisplay/skins/left_slide/img/cs_rightImg.png'
+	});
+}) (jQuery);
+</script>

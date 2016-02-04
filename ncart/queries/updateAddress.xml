@@ -1,0 +1,15 @@
+<query id="updateAddress" action="update">
+	<tables>
+		<table name="ncart_address" />
+	</tables>
+	<columns>
+		<column name="title" var="title" />
+		<column name="address" var="serialized_address" />
+		<column name="default" var="default" default="N"/>
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="address_srl" var="address_srl" notnull="notnull" />
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" pipe="and" />
+	</conditions>
+</query>

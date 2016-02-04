@@ -1,0 +1,14 @@
+<table name="ncart_favorites">
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="item_name" type="varchar" size="250" notnull="notnull" />
+	<column name="module" type="varchar" size="250" index="idx_module" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="document_srl" type="number" size="11" notnull="notnull" />
+	<column name="thumb_file_srl" type="number" size="11" />
+	<column name="price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="discount_info" type="varchar" size="250" />
+	<column name="discounted_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

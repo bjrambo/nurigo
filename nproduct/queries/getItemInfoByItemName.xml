@@ -1,0 +1,12 @@
+<query id="getItemInfoByItemName" action="select">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="item_name" var="item_name" />
+		<condition operation="equal" column="module_srl" var="module_srl" pipe="and" />
+	</conditions>
+</query>

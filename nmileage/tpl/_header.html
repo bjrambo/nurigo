@@ -1,0 +1,30 @@
+
+<div class="x_page-header">
+	<h1>
+		{$lang->mileage}
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a>
+		</span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_nmileage}</p>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<li class="x_active"|cond="$act=='dispNmileageAdminAllMileageHistory'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminAllMileageHistory')}">{$lang->cmd_mileage_history}</a></li>
+	<li class="x_active"|cond="$act=='dispNmileageAdminMileageList'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminMileageList')}">{$lang->mileage}</a></li>
+	<li cond="$act=='dispNmileageAdminMileageHistory'" class="x_active"><a href="{getUrl('','module',$module,'act','dispNmileageAdminMileageHistory')}">{$lang->mileage_detail}</a></li>
+	<li class="x_active"|cond="$act=='dispNmileageAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminModInstList','module_srl','')}">{$lang->page_list}</a></li>
+	<li cond="$module_srl" class="x_active"><a href="{getUrl('act','dispNmileageAdminInsertModInst')}">{$module_info->mid} {$lang->page_management}</a></li>
+	<li class="x_active"|cond="!$module_srl && $act=='dispNmileageAdminInsertModInst'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminInsertModInst','module_srl','')}">{$lang->page_creation}</a></li>
+	<li class="x_active"|cond="$act=='dispNmileageAdminConfig'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminConfig','module_srl','')}">{$lang->setup}</a></li>
+</ul>
+<ul class="x_nav x_nav-tabs" cond="$module_srl">
+	<li class="x_active"|cond="$act=='dispNmileageAdminInsertModInst'"><a href="{getUrl('act','dispNmileageAdminInsertModInst')}">{$lang->page_setup}</a></li>
+	<li class="x_active"|cond="$act=='dispNmileageAdminSkinInfo'"><a href="{getUrl('act','dispNmileageAdminSkinInfo')}">{$lang->cmd_skin_setup}</a></li>
+	<li cond="$module_info->mskin && $module_info->use_mobile=='Y'" class="x_active"|cond="$act=='dispNmileageAdminMobileSkinInfo'"><a href="{getUrl('act','dispNmileageAdminMobileSkinInfo')}">{$lang->cmd_mobile_skin_setup}</a></li>
+</ul>

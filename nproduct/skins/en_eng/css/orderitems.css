@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+/*  css */
+
+#orderitems {}
+
+#orderitems .item-table { clear:both; margin-bottom:10px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+#orderitems .item-table tr th { padding:8px 10px; background:#F8F8F8;}
+#orderitems .item-table tr th, 
+#orderitems .item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+#orderitems .item-table tr td { padding:20px 0 15px;}
+
+#orderitems .item-table tr th.product_num { width:100px;}
+#orderitems .item-table tr td input.quantity { margin:0 5px; width:40px; }
+#orderitems .item-table tr th.item_check { width:20px;}
+#orderitems .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderitems .item-table .item_price { font:bold 18px Arial; }
+#orderitems .item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+#orderitems .item-table a.product_img { display:block; margin-bottom:10px; }
+
+
+#orderitems h3.title_ordererInfo { margin-top:30px; height:28px; background:url(../img/title_ordererInfo.gif) no-repeat;}
+#orderitems h3.title_ordererInfo span { display:none;}
+#orderitems h3.title_deliveryInfo { margin-top:30px; height:28px; background:url(../img/title_deliveryInfo.gif) no-repeat;}
+#orderitems h3.title_deliveryInfo span { display:none;}
+#orderitems h3.title_paymentInfo { margin-top:30px; height:28px; background:url(../img/title_paymentInfo.gif) no-repeat;}
+#orderitems h3.title_paymentInfo span { display:none;}
+
+#orderitems .order-table { margin-bottom:30px; width:100%; border:1px solid #c4c4c4; border-left:none; border-right:none;}
+#orderitems .order-table tr th { padding:8px 20px; width:150px; text-align:left; color:#666; background:#F8F8F8; border-bottom:1px solid #ededed; }
+#orderitems .order-table tr td { color:#666; border-bottom:1px solid #ededed; }
+
+#orderitems .payment-table { padding:20px; border-top:1px solid #ddd; border-bottom:1px solid #eee;}

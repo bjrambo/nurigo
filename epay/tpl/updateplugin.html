@@ -1,0 +1,117 @@
+<!--%import("filter/update_plugin.xml")-->
+
+<!--#include("header.html")-->
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div>
+	<h2>{$plugin_info->title}</h2>
+</div>
+<form id="fo_plugin" action="./" class="x_form-horizontal" method="post" enctype="multipart/form-data" target="hidden_iframe">
+	<input type="hidden" name="module" value="epay" />
+	<input type="hidden" name="act" value="procEpayAdminUpdatePlugin" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+	<input type="hidden" name="plugin" value="{$plugin_info->plugin}" />
+
+	<section class="section">
+	<div class="x_control-group">
+		<label class="x_control-label">Plugin</label>
+		<div class="x_controls">
+			<span class="x_input-xlarge x_uneditable-input">{$plugin_info->title} ver {$plugin_info->version} ({$plugin_info->plugin})</span>
+		</div>
+	</div>
+	
+<!--@if($plugin_info->description)-->
+	<div class="x_control-group">
+		<label class="x_control-label">{$lang->description}</label>
+		<div class="x_controls">
+			<span class="x_input-xlarge x_uneditable-input">{nl2br(trim($plugin_info->description))}<span/>
+		</div>
+	</div>
+<!--@end-->
+
+<!--@if($plugin_info->author->homepage)-->
+	<div class="x_control-group">
+		<label class="x_control-label">{$lang->author}</label>
+		<div class="x_controls">
+			<input type="text" name="author" value="{$module_info->author}" class="inputTypeText w200" />
+			<a href="{$plugin_info->author->homepage}" onclick="window.open(this.href);return false;" class="blue">{$plugin_info->author->name}</a>	
+		</div>
+	</div>
+<!--@end-->
+	<div class="x_control-group">
+		<label class="x_control-label">{$lang->title}</label>
+		<div class="x_controls">
+			<input type="text" name="title" value="{$plugin_info->title}" class="inputTypeText w200" />
+		</div>
+	</div>
+	</section>
+
+<block loop="$plugin_info->extra_var=>$name,$var">
+	<block cond="$var->group && ((!$group) || $group != $var->group)">
+		<block cond="$group">
+			</section>
+		</block>
+		{@$group = $var->group}
+		<section class="section">
+		<h2>{$group}</h2>
+	</block>
+	<div class="x_control-group">
+    	<label class="x_control-label">{$var->title}</label>
+		<div class="x_controls">
+		<!--@if($var->type == "text")-->
+			<input type="text" name="{$name}" value="{htmlspecialchars($var->value)}"|cond="$var->value" value="{htmlspecialchars($var->default)}"|cond="!$var->value" class="inputTypeText w400"/>
+    	<!--@elseif($var->type == "textarea")-->
+			<textarea name="{$name}" class="inputTypeTextArea w400">{htmlspecialchars($var->value)}</textarea>
+    	<!--@elseif($var->type=="image")-->
+			<!--@if($var->value)-->
+			  <img cond="preg_match('/\.(jpg|jpeg|gif|png|swf)$/i', $var->value)" src="../../../{$var->value}" alt="image" /><br />
+			  <div cond="!preg_match('/\.(jpg|jpeg|gif|png|swf)$/i', $var->value)">{$var->value}</div>
+			  <input type="checkbox" name="del_{$name}" value="Y" id="del_{$name}" class="checkbox" />
+			  <label for="del_{$name}">{$lang->cmd_delete}</label>
+			<!--@end-->
+			<input type="file" name="{$name}" value="" />
+		<!--@elseif($var->type == "select")-->
+			<select name="{$name}">
+				<!--@foreach($var->options as $key => $val)-->
+				<option value="{$key}" <!--@if($key==$var->value)-->selected="selected"<!--@end-->>{$val->val}</option>
+				<!--@end-->
+			</select>
+		<!--@elseif($var->type == "radio")-->
+			<!--@foreach($var->options as $key => $val)-->
+				<!--@if($val->thumbnail)-->
+				{@ $_img_info = getImageSize($val->thumbnail); $_height = $_img_info[1]+40; $_width = $_img_info[0]+20; $_talign = "center"; }
+				<!--@else-->
+				{@ $_width = 200; $_height = 20; $_talign = "left"; }
+				<!--@end-->
+
+				<!--@if($var->thumbnail_exist)-->
+				<div style="float:left;text-align:{$_talign};margin-bottom:1em;width:{$_width}px;height:{$_height}px;margin-right:10px;">
+				<!--@endif-->
+
+				<label>
+				<input type="radio" name="colorset" value="{$key}" /> {$val->val}
+				<!--@if($val->thumbnail)-->
+					<br />
+					<img src="../../../{$val->thumbnail}" alt="{$val->val}" style="border:1px solid #888888;padding:2px;margin:2px;"/>
+				<!--@endif-->
+				</label>
+
+				<!--@if($var->thumbnail_exist)-->
+				</div>
+				<!--@endif-->
+			<!--@endforeach-->
+		<!--@endif-->
+        <p class="x_help-block">{$var->description}</p>
+		</div><!-- x_controls -->
+	</div><!-- x_control-group -->
+</block>
+
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary" accesskey="s">{$lang->cmd_save}</button>
+		<a href="{getUrl('act','dispEpayAdminPluginList')}" class="x_btn">{$lang->cmd_list}</a>
+	</div>
+</form>
+<iframe name="hidden_iframe" frameborder="0" style="display:none"></iframe>

@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/* frontpage css */
+#frontpage_widget ul, #frontpage_widget li {  list-style:none; margin:0; }
+
+#frontpage_widget { clear:both;  }
+
+#frontpage_widget .category .title_recommend { position:relative; background:none; border-bottom:1px solid #ddd; overflow:hidden; }
+
+#frontpage_widget .category .title_recommend .title { padding:8px 20px 8px 10px; font:12px Tahoma, Dotum; color:#333; }
+#frontpage_widget .category .title_recommend ul { float:right; }
+#frontpage_widget .category .title_recommend li { float:left; }
+#frontpage_widget .category .title_recommend li a { display:block; padding:5px 10px; margin:5px; font:11px dotum; color:#eee; background:#000; }
+#frontpage_widget .category .title_recommend li a:hover { background:#ff6600; }
+
+#frontpage_widget .category .item-list { padding:10px 0; display:inline-block; width:100%; } 
+#frontpage_widget .category .item-list li { position:relative; float:left; padding:0 10px; _padding:0 9px; }
+#frontpage_widget .category .item-list li .check { position:absolute; left:0; top:0; }
+
+#frontpage_widget .category .item-list li a.thumbnail { display:block; margin:0 0 10px 0;}
+#frontpage_widget .category .item-list li a.thumbnail img{border:1px solid #e5e5e5;}
+#frontpage_widget .category .item-list li .item_name { height:30px; font-size:12px; color:#333; font-weight:600; letter-spacing:-1px; overflow:hidden; overflow:hidden; text-decoration:none; }
+#frontpage_widget .category .item-list li .item_num { padding:5px; height:24px;}
+#frontpage_widget .category .item-list li .item_price { padding:5px; height:20px; font:12px Tahoma,Sans-Serif; color:#4d4d4d;}
+#frontpage_widget .category .item-list li .item_num .won { padding:0; font:11px Gulim,Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_price .won { padding:0; font:11px Gulim,Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_content {margin-top:10px; font-size:11px; }
+
+#frontpage_widget .category .item-list .quantity {  }
+#frontpage_widget .category .item-list div.thumbnail { float:left; }
+#frontpage_widget .category .item-list div.summary { padding-left:6px; overflow:hidden; }

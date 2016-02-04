@@ -1,0 +1,282 @@
+<load target="css/style.css" />
+<load target="css/orderitems.css" />
+<load target="css/btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/orderitems.js" />
+<!--%load_js_plugin("ui")-->
+<!--%load_js_plugin("ui.datepicker")-->
+
+{@$omittedItemCount = 0}
+{@$address = unserialize($default_address->address)}
+{@$address1 = $address[0]}
+{@$address2 = $address[1]}
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div id="orderitems" class="{$module_info->colorset}">
+
+	<div class="cartStep">
+		<ul class="progress step2">
+			<li class="cart1">{$lang->cmd_cart}</li>
+			<li class="cart2 presentProgress">{$lang->title_order_payment}</li>
+			<li class="cart3">{$lang->order_complete}</li>
+		</ul>
+	</div>
+	<include target="_header.html" />
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->sales_price}</th>
+				<th>{$lang->total_discount}</th>
+				<th>{$lang->discounted_amount}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<block loop="$list=>$no,$val">
+				<tr>
+					<td>{$no+1}</td>
+					<td>
+						<a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a>
+					</td>
+					<td>
+						<div>{$val->item_name}</div>
+						<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+					</td>
+					<td>{$val->quantity}</td>
+					<td>{nproductItem::formatMoney($val->sum_price)}</td>
+					<td>{nproductItem::formatMoney($val->sum_discount_amount)}<br />{$val->discount_info}</td>
+					<td>{nproductItem::formatMoney($val->sum_discounted_price)}</td>
+				</tr>
+				<tr loop="$val->omittedItems => $no2, $val2">
+					<td colspan="7">
+						<a href="{getUrl('','document_srl',$val2->document_srl)}">{sprintf($lang->msg_omitted_item_exist, $val2->item_name)}</a>
+					</td>
+					{@$omittedItemCount++}
+				</tr>
+				<tr cond="$val->minimumOrderItems">
+					<td colspan="7">
+						<a href="{getUrl('','document_srl',$val->document_srl)}">{$val->minimumOrderItems}</a>
+					</td>
+					{@$omittedItemCount++}
+				</tr>
+			</block>
+		</tbody>
+	</table>
+	<div class="total">
+		<table class="total-table">
+			<thead>
+				<tr>
+					<th>{$lang->total_amount}</th>
+					<th></th>
+					<th>{$lang->total_discount}</th>
+					<th></th>
+					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
+					<th>{$lang->delivery_fee}</th>
+					<th></th>
+					</block>
+					<th class="total_price">{$lang->total_order_amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{nproductItem::formatMoney($sum_price)}</td>
+					<td>-</td>
+					<td>{nproductItem::formatMoney($total_discount_amount)}</td>
+					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
+					<td>+</td>
+					<td><span id="delivery_fee">{nproductItem::formatMoney($delivery_fee)}</span></td>
+					</block>
+					<td>=</td>
+					<td class="total_price" id="order_amount">{nproductItem::formatMoney($total_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<h3 class="title_benefits" cond="$logged_info" >{$lang->purchase_benefit}</h3>
+	<table class="order-table" cond="$logged_info">
+		<tbody>
+			<tr>
+				<th>{$lang->mileage}</th>
+				<td colspan="3">{round($total_price * ((float)$config->mileage_percent/100))} {$lang->purchase_benefit_postfix}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<form id="fo_insert_order" action="./" method="post">
+		<input type="hidden" name="act" value="procNcartMileagePayment">
+		<input type="hidden" name="target_module" value="ncart" />
+		<input type="hidden" name="cartnos" value="{$cartnos}" />
+		<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+		<input type="hidden" name="xe_mid" value="{$mid}" />
+
+
+		<block cond="$logged_info && $module_info->display_delivfee=='Y' || !$logged_info">
+			<h3 class="title_ordererInfo">{$lang->purchaser_info}</h3>
+			<table class="order-table">
+				<tbody>
+					<tr cond="$module_info->display_delivfee=='Y'">
+						<th>{$lang->delivery_fee_payment}</th>
+						<td>
+							<input name="delivfee_inadvance" id="delivfee_inadvance_1" type="radio" checked="checked" value="Y" /><label for="delivfee_inadvance_1">{$lang->prepay}</label>
+							<input name="delivfee_inadvance" id="delivfee_inadvance_2" type="radio" value="N" /><label for="delivfee_inadvance_2">{$lang->cash_on_delivery}</label>
+						</td>
+					</tr>
+					<tr cond="!$logged_info">
+						<th>{$lang->password}</th>
+						<td>
+							<span><input name="non_password1" id="non_password1" type="password" /><font color='red'>{$lang->about_order_number}</font></span>
+						</td>
+					</tr>
+					<tr cond="!$logged_info">
+						<th>{$lang->password3}</th>
+						<td>
+							<span><input name="non_password2" id="non_password2" type="password" /></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</block>
+
+
+		<!--// fieldset -->
+		<div loop="$fieldset_list=>$key,$val" class="fieldset">
+			<h3>{$val->fieldset_title}</h3>
+			<table>
+				<thead cond="$module_info->display_delivdest=='Y' && $key==0" id="section1">
+					<tr cond="$logged_info" id="section1">
+						<th>
+							{$lang->select_address}
+						</th>
+						<td class="destination">
+							<ul>
+								<li loop="$address_list=>$addr_key,$addr_val"><input type="radio" name="sel_destination" id="sel_{$addr_val->address_srl}" onclick="apply_address_info({$addr_val->address_srl});" value="{$addr_val->address_srl}" checked="checked"|cond="$addr_val->default=='Y'" /><label for="sel_{$addr_val->address_srl}">{$addr_val->title}</label></li>
+								<li><a class="nuribtn light small" id="popAddressBook" href="#" onclick="return false;"><span>{$lang->cmd_addresslist}</span></a></li>
+								<li><a class="nuribtn light small" id="popRecentAddress" href="#" onclick="return false;"><span>{$lang->cmd_recent_addresses}</span></a></li>
+							</ul>
+						</td>	
+					</tr>
+				</thead>
+				<tbody id="section2">
+					<tr loop="$val->fields=>$key2,$field">
+						<th>
+							<label for="column_title">{$field->html->title}</label>
+						</th>
+						<td class="{$field->column_type}">{$field->html->inputTag}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--// end of fieldset -->
+
+
+		<h3 class="title_mileage" style="display:none"|cond="!$logged_info">{$lang->use_mileage}</h3>
+		<table class="order-table" style="display:none"|cond="!$logged_info">
+			<tbody>
+				<tr>
+					<th>{$lang->use_mileage}</th>
+					<td colspan="3"><input type="hidden" name="use_mileage" value="0" /><input class="line_input" type="text" name="input_mileage" value="0" /> ({$lang->current_mileage} : {nproductItem::formatMoney($my_mileage)})</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+
+	<div class="total">
+		<table class="total-table">
+			<thead>
+				<tr>
+					<th>{$lang->total_order_amount}</th>
+					<th></th>
+					<th>{$lang->use_mileage}</th>
+					<th></th>
+					<th class="total_price">{$lang->payment_amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><span id="order_amount2">{nproductItem::formatMoney($total_price)}<span></td>
+					<td>-</td>
+					<td><span id="mileage_amount">0</span></td>
+					<td>=</td>
+					<td class="total_price" id="payment_amount">{nproductItem::formatMoney($total_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<h3 class="title_paymentInfo">{$lang->input_payment_info}</h3>
+	<div class="payment-table">
+		<p class="font_size11">{$lang->about_input_payment_info}</p><br />
+
+		<div cond="!$omittedItemCount" class="payment-table">
+			{$epay_form}
+		</div>
+		<div cond="$omittedItemCount" class="payment-table">
+			{$lang->msg_omitted_items_payment_guide}
+		</div>
+	</div>
+</div>
+
+<div id="modal-dialog"></div>
+
+<block cond="$config->decimals">{@$decimals = $config->decimals}</block>
+<block cond="!$config->decimals">{@$decimals = 0}</block>
+<script type="text/javascript">
+        var g_decimals = {$decimals};
+</script>
+
+<block cond="$purchaser->cellphone">
+{@$purchaser->cellphone = implode('-',$purchaser->cellphone)}
+</block>
+<block cond="$purchaser->telnum">
+{@$purchaser->telnum = implode('-',$purchaser->telnum)}
+</block>
+<script>
+
+<block cond="$logged_info" >
+	var purchaser_name = '{$purchaser->name}';
+	<block cond="$config->address_input=='krzip'">
+		var purchaser_address = '{$purchaser->address[0]}';
+		var purchaser_address2 = '{$purchaser->address[1]}';
+		var purchaser_postcode = '';
+	</block>
+	<block cond="$config->address_input!='krzip'">
+		var purchaser_address = '{$purchaser->address}';
+		var purchaser_address2 = '{$purchaser->address2}';
+		var purchaser_postcode = '{$purchaser->postcode}';
+	</block>
+	var purchaser_cellphone = '{$purchaser->cellphone}';
+	var purchaser_telnum = '{$purchaser->telnum}';
+	var purchaser_chk = 'Y';
+</block>	
+<block cond="!$logged_info" >
+	var purchaser_chk= 'N';
+</block>
+
+var default_recipient = '{$default_address->recipient}';
+var default_cellphone = '{$default_address->cellphone}';
+var default_telnum = '{$default_address->telnum}';
+var default_postcode = '{$default_address->postcode}';
+var default_address = '{$address1}';
+var default_address2 = '{$address2}';
+var total_price = {$total_price};
+var my_mileage = {$my_mileage};
+var delivery_fee = {$delivery_fee};
+
+(function($) {
+	jQuery(function($) {
+		var address_srl = $('input[name=sel_destination]:checked').val();
+		if (address_srl) apply_address_info(address_srl);
+	});
+}) (jQuery);
+
+</script>
+<include target="fieldset.html" />

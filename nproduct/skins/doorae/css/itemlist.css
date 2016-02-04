@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/* item list css */
+
+#itemlist_widget { clear:both; overflow:hidden; }
+#itemlist { clear:both; margin-top:30px;}
+#itemlist .list_header { position:relative; margin-bottom:20px; padding-bottom:5px; overflow:hidden; border-bottom:1px solid #ededed;} 
+#itemlist .list_header .display_list a { float:left; }
+
+#itemlist .list_header .display_style { float:right; }
+#itemlist .list_header .display_style li { float:left; margin-left:5px; list-style:none; }
+#itemlist .list_header .display_style li a.btn_cart { padding:6px 11px; width:70px; background:url(../img/btn_put.gif) no-repeat; }
+#itemlist .list_header .display_style li a.btn_wishlist { padding:6px 11px; width:70px; background:url(../img/btn_put.gif) no-repeat; }
+#itemlist .list_header .display_style li a { display:block; font:11px dotum; color:#eee; letter-spacing:-1px;}
+#itemlist .list_header .display_style li a:hover { color:#111; }
+
+:root #itemlist .list_header .display_style li a.btn_cart,
+:root #itemlist .list_header .display_style li a.btn_wishlist { padding:4px 11px; } /* firefox hack */
+
+#itemlist .product_list { clear:both; margin-bottom:20px; }
+
+#itemlist .search { text-align:center; margin-bottom:50px; }
+#itemlist .search a { color:#666; }

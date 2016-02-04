@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+/* new 
+-------------------------------------------*/
+
+.page-title { font-size:1.2em; margin-left:10px; color:#666; font-family:Gulim, Arial; letter-spacing:-1px; }
+.down_box { border-top:2px solid #555; margin:0; padding:0; display:inline-block; width:100%; }
+.down_box li { list-style:none; clear:both; border-bottom:1px dashed #ddd; padding:10px; overflow:hidden; }
+.down_box li span { float:left; }
+.down_box p { font-size:.8em; line-height:1.5em; padding-top:10px; }
+
+#orderlist dl { overflow:hidden; line-height:1.2em; background:#f1f1f1; margin:0; padding:0; width:100%; border-top:1px solid #bbb; }
+#orderlist dt { float:left; font-weight:bold; letter-spacing:-2px; overflow:hidden; padding:10px; width:25%; font-size:.9em; }
+#orderlist dd { overflow:hidden; padding:10px; background:#fff; display:block; margin:0;}
+#orderlist dd textarea { width:100%; }
+#orderlist h4 { margin:0; font-size:.9em; letter-spacing:-1px; padding-left:10px; padding:5px 0; color:#f8f8f8; background:#424851; }
+
+#orderlist .item-price { background:#424851; border-top:1px solid #bbb; border-bottom:1px solid #bbb; overflow:hidden; line-height:.7em; padding:10px 0;  }
+#orderlist .item-price dt { color:#f9f9f9; }
+#orderlist .item-price dd { color:#f9f9f9; letter-spacing:-1px; font-weight:bold; background:none; text-align:right; }

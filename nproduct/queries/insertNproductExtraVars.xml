@@ -1,0 +1,10 @@
+<query id="insertNproductExtraVars" action="insert">
+	<tables>
+		<table name="nproduct_extra_vars" />
+	</tables>
+	<columns>
+		<column name="item_srl" var="item_srl" notnull="notnull" />
+		<column name="name" var="name" notnull="notnull" />
+		<column name="value" var="value" />
+	</columns>
+</query>

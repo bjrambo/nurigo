@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+/* frontpage css */
+#frontpage_widget ul, #frontpage_widget li { margin:0; padding:0; list-style:none;}
+
+#frontpage_widget { clear:both; margin:0 auto; padding:0px 0px 20px; text-align:center; border:1px solid #ddd; overflow:hidden; _width:99%; _height:100%; position:relative;}
+
+#frontpage_widget .category .md_title { padding:10px; margin-bottom:20px; font:12px Tahoma; color:#666; background:#f4f4f4; height:17px;}
+#frontpage_widget .category .md_title a{position:absolute; top:10px; _top:20px; left:183px; color:#666; font-weight:bold;}
+#frontpage_widget .category .md_title p{width:164px; height:51px; margin:-11px 0 0 0; *margin:-11px 0 0 -800px; _text-align:left; padding:0;  position:relative; background:url('../img/title_recommend.png') no-repeat;}
+
+#frontpage_widget .category .item-list { padding:0; margin:0 auto; text-align:center; overflow:hidden;} 
+#frontpage_widget .category .item-list ul { padding:0 0 0 40px; _padding:0 0 0 20px; margin:0 auto; list-style:none; overflow:hidden;}
+#frontpage_widget .category .item-list li { position:relative; float:left; margin:10px 15px 0 15px; padding:0; text-align:center; border:none;}
+#frontpage_widget .category .item-list li .check { position:absolute; left:0; top:0; }
+
+#frontpage_widget .category .item-list li a.thumbnail { display:block; margin-bottom:10px;}
+#frontpage_widget .category .item-list li .item_name { height:30px; font:11px Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_num { padding:5px; height:24px;}
+#frontpage_widget .category .item-list li .item_price { padding:5px; height:20px; font:14px Tahoma,Sans-Serif; color:#333;}
+#frontpage_widget .category .item-list li .item_num .won { padding:0; font:12px Gulim,Dotum; color:#666;}
+#frontpage_widget .category .item-list li .item_price .won { padding:0; font:12px Gulim,Dotum; color:#666;}
+
+#frontpage_widget .category .item-list .quantity { width:50px; }

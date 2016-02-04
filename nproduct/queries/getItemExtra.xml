@@ -1,0 +1,11 @@
+<query id="getItemExtra" action="select">
+	<tables>
+		<table name="nproduct_item_extras" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="extra_srl" var="extra_srl" notnull="notnull" />
+	</conditions>
+</query>

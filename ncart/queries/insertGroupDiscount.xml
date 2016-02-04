@@ -1,0 +1,13 @@
+<query id="insertGroupDiscount" action="insert">
+	<tables>
+		<table name="nstore_group_discount" />
+	</tables>
+	<columns>
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="group_srl" var="group_srl" notnull="notnull" />
+		<column name="opt" var="opt" notnull="notnull" />
+		<column name="price" var="price" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

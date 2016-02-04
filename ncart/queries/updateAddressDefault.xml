@@ -1,0 +1,12 @@
+<query id="updateAddressDefault" action="update">
+	<tables>
+		<table name="ncart_address" />
+	</tables>
+	<columns>
+		<column name="default" var="default" default="N"/>
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="address_srl" var="address_srl" pipe="and" />
+	</conditions>
+</query>

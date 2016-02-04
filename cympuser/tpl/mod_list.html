@@ -1,0 +1,51 @@
+<load target="js/list.js" />
+<include target="_header.html" />
+
+<div class="table even easyList">
+	<table class="list_table">
+		<caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
+	<thead>
+		<tr>
+			<th scope="col"><div>#</div></th>
+			<th scope="col" class="quarter_wide"><div>모듈 이름</div></th>
+			<th scope="col" class="quarter_wide"><div>브라우저 제목</div></th>
+			<th scope="col"><div>{$lang->regdate}</div></th>
+			<th scope="col"><div>&nbsp;</div></th>
+			<th scope="col"><div>&nbsp;</div></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr loop="$list=>$no,$val">
+			<td>{$no}</td>
+			<td>{$val->mid}</td>
+			<td><a href="{getSiteUrl($val->domain, '', 'mid', $val->mid)}">{$val->browser_title}</a> </td>
+			<td>{zdate($val->regdate,"Y-m-d")}</td>
+			<td><a href="{getUrl('act','dispCympuserAdminModInsert','module_srl',$val->module_srl)}" class="buttonSet buttonSetting"><span>{$lang->cmd_setup}</span></a></td>
+			<td><a href="#delete" class="modalAnchor deleteModule" data-module-srl="{$val->module_srl}">{$lang->cmd_delete}</a></td>
+		</tr>
+		<tr cond="!count($list)">
+			<td colspan="7" style="text-align:center;">등록된 설정이 없습니다.</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+
+<!-- 버튼 -->
+<div class="btnArea">
+	<a href="{getUrl('act', 'dispCympuserAdminModInsert')}" class="x_btn">{$lang->cmd_registration}</a>
+</div>
+
+<!-- 페이지 네비게이션 -->
+<div class="x_clearfix">
+	<include target="_page_navigation.html" />
+</div>
+
+<div class="x_modal" id="delete">
+	<form action="./" class="fg form" method="post">
+		<input type="hidden" name="module" value="cympuser" />
+		<input type="hidden" name="act" value="procCympuserAdminModDelete" />
+		<div id="deleteForm">
+		</div>
+	</form>
+</div>
+

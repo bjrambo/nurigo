@@ -1,0 +1,33 @@
+<table name="nstore_digital_order">
+	<column name="order_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+
+	<!-- 0: 카트보관, 1: 입금대기, 2:배송준비, 3: 배송중, 4: 배송완료, A: 최소, B: 반품,교환, C: 환불 -->
+	<column name="order_status" type="char" size="1" default="0" notnull="notnull" index="idx_order_status" />
+
+	<!-- purchaser info -->
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="email_address" type="varchar" size="250" notnull="notnull" />
+	<column name="user_id" type="varchar" size="80" notnull="notnull" />
+	<column name="nick_name" type="varchar" size="40" notnull="notnull" />
+
+	<column name="cartnos" type="varchar" size="1024" notnull="notnull" />
+	<column name="payment_method" type="varchar" size="2" notnull="notnull" />
+	<column name="mileage" type="number" size="11" default="0" notnull="notnull" />
+	<!-- Y: 마일리지 적립완료, N: 미완료 -->
+	<column name="mileage_save" type="char" size="1" default="N" notnull="notnull" />
+	<column name="use_mileage" type="number" size="11" default="0" notnull="notnull" />
+	<column name="title" type="varchar" size="250" notnull="notnull" />
+	<column name="item_count" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="sum_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_discounted_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxation_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="supply_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="vat" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxfree_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="group_srl_list" type="varchar" size="250" />
+	<column name="extra_vars" type="text" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

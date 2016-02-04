@@ -1,0 +1,48 @@
+<load target="css/style.css" />
+<load target="css/recentaddress.css" />
+<load target="css/nu_btn.css" />
+<load target="css/addresslist.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form">
+	<div class="m_addlist">
+		<dl loop="$list=>$key,$val" class="m_add_group">
+			{@$vars=get_object_vars(unserialize($val->address))}
+			<block loop="$fieldset_list=>$key2,$val2">
+				<block loop="$val2->fields=>$key3,$field">
+					<dt><label>{$field->column_title}</label></dt>
+					<dd>
+						<span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span>
+						<span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}&nbsp;</span>
+					</dd>
+				</block>
+			</block>
+			<div class="m_btnset">
+				<a href="#" class="m_btn nu_black" onclick="apply_address({$val->address_srl});">{$lang->cmd_select}</a>
+				<a href="#" class="m_btn" onclick="delete_address('{$val->address_srl}');">{$lang->cmd_delete}</a>
+			</div>
+		</dl>
+	</div>
+	<div class="pageNavigation">
+	</div>
+</form>
+
+<script>
+	function apply_address(address_srl) {
+		parent.apply_address_info(address_srl);
+		parent.close_modal();
+	}
+
+	function delete_address(address_srl) {
+		var params = new Array();
+		params['address_srl'] = address_srl;
+		var response_tags =  ['error','message'];
+		exec_xml('ncart','procNcartDeleteAddress',params,function(ret_obj) {
+			if (ret_obj['error']==-1) alert(reb_obj['message']);
+			location.href = current_url;
+		},response_tags);
+	}
+</script>

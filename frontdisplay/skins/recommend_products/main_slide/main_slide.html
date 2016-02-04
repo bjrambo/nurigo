@@ -1,0 +1,56 @@
+
+<!-- JS 파일 로드 -->
+<load target="js/rotation.js" />
+<!-- CSS 파일 로드 -->
+<load target="default.css" />
+
+        
+<div id="main_slide" style="height:{$layout_info->main_slide_height}px">
+	<div class="main_view">
+		<div class="window" style="height:{$layout_info->main_slide_height}px">
+			<div class="image_reel">
+				<!--@if($layout_info->visual_img01)-->
+					<!--@if($layout_info->visual_link01)--><a href="{$layout_info->visual_link01}"><!--@end-->
+					<img src="{$layout_info->visual_img01}" alt="" /><!--@if($layout_info->visual_link01)--></a><!--@end-->
+				<!--@end-->
+				<!--@if($layout_info->visual_img02)-->
+					<!--@if($layout_info->visual_link02)--><a href="{$layout_info->visual_link02}"><!--@end-->
+					<img src="{$layout_info->visual_img02}" alt="" /><!--@if($layout_info->visual_link02)--></a><!--@end-->
+				<!--@end-->
+				<!--@if($layout_info->visual_img03)-->
+					<!--@if($layout_info->visual_link03)--><a href="{$layout_info->visual_link03}"><!--@end-->
+					<img src="{$layout_info->visual_img03}" alt="" /><!--@if($layout_info->visual_link03)--></a><!--@end-->
+				<!--@end-->
+				<!--@if($layout_info->visual_img04)-->
+					<!--@if($layout_info->visual_link04)--><a href="{$layout_info->visual_link04}"><!--@end-->
+					<img src="{$layout_info->visual_img04}" alt="" /><!--@if($layout_info->visual_link04)--></a><!--@end-->
+				<!--@end-->
+				<!--@if($layout_info->visual_img05)-->
+					<!--@if($layout_info->visual_link05)--><a href="{$layout_info->visual_link05}"><!--@end-->
+					<img src="{$layout_info->visual_img05}" alt="" /><!--@if($layout_info->visual_link05)--></a><!--@end-->
+				<!--@end-->
+			</div>
+		</div>
+	</div><!-- main view -->
+	
+	<div class="slider_nav">
+		<div class="page_nav">
+			<div class="paging">
+				<!--@if($layout_info->visual_img01)--><a class="iePngFix" href="#" rel="1">1</a><!--@end-->
+				<!--@if($layout_info->visual_img02)--><a class="iePngFix" href="#" rel="2">2</a><!--@end-->
+				<!--@if($layout_info->visual_img03)--><a class="iePngFix" href="#" rel="3">3</a><!--@end-->
+				<!--@if($layout_info->visual_img04)--><a class="iePngFix" href="#" rel="4">4</a><!--@end-->
+				<!--@if($layout_info->visual_img05)--><a class="iePngFix" href="#" rel="5">5</a><!--@end-->
+			</div>
+		</div>
+
+		<div class="values">
+			<a href="#" rel=""></a>
+			<a href="#" rel=""></a>
+			<a href="#" rel=""></a>
+			<a href="#" rel=""></a>
+			<a href="#" rel=""></a>
+		</div>			
+	</div>
+</div><!-- main slide -->
+        

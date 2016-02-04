@@ -1,0 +1,8 @@
+<table name="nproduct_display_items">
+	<column name="category_srl" type="number" size="11" notnull="notnull" index="idx_category_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="node_route" type="varchar" size="250" index="idx_node_route" />
+	<column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

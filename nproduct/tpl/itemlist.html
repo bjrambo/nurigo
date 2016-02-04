@@ -1,0 +1,190 @@
+<!--%import("filter/insert_item.xml")-->
+<!--%load_js_plugin("ui")-->
+<load target="js/script.js" />
+<load target="js/_lib/jquery.cookie.js" />
+<load target="js/_lib/jquery.hotkeys.js" />
+<load target="js/jquery.jstree.js" />
+<load target="js/display_category.js" />
+<load target="js/itemlist.js" />
+
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE && $inc != 'skininfo'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div style="clear:both;"></div>
+<div class="bundle_select">
+	<form aciton="./" method="get">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<ul>
+			<li>{$lang->item_name} : <input type="text" name="s_item_name" value="{$s_item_name}" /></li>
+		</ul>
+		<button type="submit" class="x_btn">{$lang->inquiry}</button>
+	</form>
+</div>
+<div style="clear:both;"></div>
+<div style="background:#666; height:40px;">
+	<img class="zbxe_widget_output" widget="category_menu" skin="admin" colorset="light" store_type="nproduct" module_srls="{$module_srl}" />
+</div>
+<include target="categorylist.html" />
+
+<form action="./" method="post" id="list_form" class="form">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNproductAdminUpdateItemList" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="category" value="{$category}" />
+	
+	<div class="table event easyList">
+		<table>
+			<caption style="text-align:right;">
+                                <a href="{getUrl('act','dispNproductAdminItemListExcelDownload')}" class="kso_btn"><span>{$lang->excel_down}</span></a>
+                        </caption>
+
+			<thead>
+				<tr>
+					<th><input type="checkbox" name="cart" value="" /></th>
+					<th>{$lang->list_order}</th>
+					<th>{$lang->item_code}</th>
+					<th>{$lang->item_name}</th>
+					<th>{$lang->tax_or_not}</th>
+					<th>{$lang->display_or_not}</th>
+					<th>{$lang->price}</th>
+					<th>{$lang->sales}</th>
+					<th>{$lang->reviews}</th>
+					<th>{$lang->cmd_main_display}</th>
+					<th>{$lang->cmd_modify}</th>
+				</tr>
+			</thead>
+			<tbody id="itemlistorder">
+				<tr loop="$list=>$no,$val" id="record_{$val->item_srl}">
+					<td><input type="hidden" name="item_srls[]" value="{$val->item_srl}" /><input type="checkbox" name="cart" value="{$val->item_srl}" /></td>
+					<td><input type="text" name="list_order[]" style="width:80px;" value="{$val->list_order}" /></td>
+					<td><input type="text" name="item_code[]" style="width:80px;" value="{$val->item_code}" /></td>
+					<td><a href="{getUrl('act','dispNproductAdminUpdateItem','item_srl',$val->item_srl)}"><span style="margin-right:6px;"><img src="{$val->getThumbnail(30)}" /></span></a><input type="text" name="item_name[]" value="{$val->item_name}" /></td>
+					<td><select name="taxfree[]" style="width:100px"><option value="N" selected="selected"|cond="$val->taxfree=='N'">{$lang->taxation}</option><option value="Y" selected="selected"|cond="$val->taxfree=='Y'">{$lang->no_taxation}</option></select></td>
+					<td><select name="display[]" style="width:100px"><option value="Y" selected="selected"|cond="$val->display=='Y'">{$lang->display}</option><option value="N" selected="selected"|cond="$val->display=='N'">{$lang->not_display}</option></select></td>
+					<td><input type="text" name="price[]" style="width:50px" value="{$val->price}" /></td>
+					<td>{number_format($val->sales_count)}</td>
+					<td><a href="{getUrl('','document_srl',$val->document_srl)}#content_02" target="_blank">{number_format($val->review_count)}</a></td>
+					<td><a href="#" onclick="appendToDisplayStand({$module_srl}, {$val->item_srl}); return false;" style="text-decoration:none;"><span>▼</span></a></td>
+					<td><a href="{getUrl('act','dispNproductAdminUpdateItem','item_srl',$val->item_srl)}">{$lang->cmd_modify}</a></td>
+				</tr>
+				<tr cond="!count($list)">
+					<td colspan="12">{$lang->msg_no_registered_items}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="btnArea">
+		<span class="btn"><button type="submit">{$lang->cmd_apply}</button></span>
+	</div>
+</form>
+
+<div class="search">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page}&raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+	<form cond="0" action="" method="post">
+		<select name="search_target">
+			<option value="">{$lang->search_target}</option>
+			{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+			<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+		</select>
+		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+		<input type="submit" value="{$lang->cmd_search}" />
+		<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+	</form>
+</div>
+
+<div id="tabs">
+	<div class="item_list">{$lang->about_display_categories}<a href="{getUrl('act','dispNproductAdminDisplayCategories')}">{$lang->category_management}</a></div>
+	<ul>
+		<li><a href="#tabs-0" category_srl="0">{$lang->product_categories}</a></li>
+		<li loop="$display_categories=>$key,$val" category_srl="{$val->category_srl}">
+			<block cond="!$selected_category_srl">{@$selected_category_srl = $val->category_srl}</block>
+			<a href="#tabs-{$val->category_srl}" category_srl="{$val->category_srl}">{$val->category_name}</a>
+		</li>
+	</ul>
+	<div id="tabs-0" style="height:300px; overflow:auto;">
+		<div><ul id="category_tree"></ul></div>
+		<ul id="tabs0-itemlist" class="sortable lined" style="margin:0;width:500px;float:left;">
+			<li cond="0" loop="$val->items=>$item_key,$item_val" id="record_{$item_val->item_srl}">
+				<span class="iconMoveTo"></span>
+				<span>{$item_val->item_name}</span>
+			</li>
+		</ul>
+	</div>
+	<div loop="$display_categories=>$key,$val" id="tabs-{$val->category_srl}">
+		<ul class="sortable lined">
+			<li loop="$val->items=>$item_key,$item_val" id="record_{$item_val->item_srl}">
+				<span class="iconMoveTo"></span>
+				<span>{$item_val->item_name}</span>
+				<a href="#" class="delete" onclick="delete_display_item({$val->category_srl},{$item_val->item_srl}); return false;">{$lang->cmd_delete}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+    var module_srl = {$module_srl};
+	var selected_category_srl = '{$selected_category_srl}';
+	jQuery(document).ready(function() {
+		init_tree({$module_srl}, '#category_tree', '{$tpl_path}img/');
+
+		jQuery( "#tabs" ).tabs({
+			select:function(event,ui) { selected_category_srl = jQuery(ui.tab).attr('category_srl'); }
+			// for jquery-ui 1.10
+			, activate:function(event,ui) { selected_category_srl = jQuery(ui.newTab).attr('category_srl'); }
+		});
+		jQuery(".sortable").sortable({ handle:'.iconMoveTo', opacity: 0.6, cursor: 'move',
+			update: function(event,ui) {
+				var order = jQuery(this).sortable("serialize");
+				var params = new Array();
+				params['order'] = order;
+				var response_tags = new Array('error','message');
+				exec_xml('nproduct', 'procNproductAdminUpdateDIListOrder', params, function(ret_obj) { }, response_tags);
+			}
+		});
+		jQuery('#list_form').submit(function() {
+			var s_item_name = jQuery('.bundle_select input[name=s_item_name]').val();
+			if(s_item_name.length) jQuery(this).append('<input type="hidden" name="s_item_name" value="' + s_item_name + '" />');
+		});
+	});
+</script>

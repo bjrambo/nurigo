@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/* Progess */
+.cart1 { background:url(../img/gray_left.png) no-repeat right; }
+.cart2 { background:url(../img/gray_left.png) no-repeat right; }
+.cart3 { background:url(../img/gray_left.png) no-repeat right; }
+
+
+
+.ordercomplete h3 { font-size:12px; height:28px; margin-top:30px; color:#666;}
+.ordercomplete h5 { font-size:11px;}
+.black .order-table tr td { text-align:center;}
+.delivery_info { margin:0; padding:0;}
+.delivery_info dt { float:left; width:150px; padding: 8px 20px;}
+.delivery_info dd { margin:0; padding: 8px 20px;}
+.btn_continue { position:relative; width:100%; height:50px;}
+.btn_continue a { position:absolute; left:50%; margin-left:-50px;}

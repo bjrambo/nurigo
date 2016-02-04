@@ -1,0 +1,13 @@
+<query id="getSubCategoryCount" action="select">
+	<tables>
+		<table name="nproduct_categories" />
+	</tables>
+	<columns>
+		<column name="COUNT(*)" alias="count" />
+	</columns>
+	<conditions>
+		<condition operation="like_prefix" column="node_route" var="node_route" />
+	</conditions>
+	<navigation>
+	</navigation>
+</query>

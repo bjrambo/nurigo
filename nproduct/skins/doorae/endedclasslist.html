@@ -1,0 +1,67 @@
+<load target="css/style.css" />
+<load target="css/button.css" />
+<load target="css/orderlist.css" />
+<load target="../../tpl/skin.js/script.js" />
+<!--%load_js_plugin("ui")-->
+
+
+<include target="_sidebar.html" />
+
+
+<div style="width:80%; float:left;">
+	<h2 class="page-title">나의강의실</h2>
+	<include target="_header.html" />
+
+	<div id="orderlist">
+
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th>등록일</th>
+					<th>강사</th>
+					<th>강좌명</th>
+					<th>수강종료일</th>
+					<th>수강연장</th>
+				</tr>
+			</thead>
+			{@$total_price=0}
+			<tbody>
+				<block loop="$order_list=>$order_srl,$order_arr">
+				<tr loop="$order_arr=>$no,$val" style="background:#fafafa;"|cond="count($order_arr)>1">
+					<td cond="$no==0" rowspan="{count($order_arr)}">
+						<div>{zdate($val->purdate,'Y-m-d')}</div>
+					</td>
+					<td>-</td>
+					<td><span><a href="{getUrl('','document_srl',$val->document_srl)}">{$val->item_name}</a></span></td>
+					<td>{date('Y-m-d',$val->expiration_time)}</td>
+					<td><span cond="$val->expiration_time > (time()-(60*60*24*10))" class="btn"><a href="{getUrl('act','dispNcartOrderItems','cartnos',$val->cart_srl)}">연장하기</a></span></td>
+				</tr>
+				</block>
+				<tr cond="!count($order_list)">
+					<td colspan="7">수강신청내역이 없습니다</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+
+<script>
+jQuery(function($) {
+	$('.receipt').click(function() {
+		var order_srl = $(this).attr('data-order-srl');
+		var $_this = $(this);
+		exec_xml(
+			'epay',
+			'getEpayReceipt',
+			{order_srl:order_srl},
+			function(ret){
+				var tpl = ret.tpl.replace(/<enter>/g, '\n');
+				$_this.html(tpl);
+			},
+			['error','message','tpl']
+		);
+		
+	});
+});
+</script>

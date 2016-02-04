@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="default_content">
+		<value xml:lang="ko"><![CDATA[[새글알림]
+%browser_title%
+%nick_name%
+%content%
+%article_url%]]></value>
+		<value xml:lang="en"><![CDATA[[Notification]\n%browser_title%\n%nick_name\n%content%\n%article_url%]]></value>
+	</item>
+	<item name="default_mail_content">
+		<value xml:lang="ko"><![CDATA[<p>브라우저제목 : %browser_title%<br />닉네임 : %nick_name%<br />내용 : %content%<br />문서 URL : %article_url%</p>]]></value>
+		<value xml:lang="en"><![CDATA[<p>Browser Title : %browser_title%<br />Nick-name: %nick_name%<br />Content : %content%<br />문서 URL : %article_url%</p>]]></value>
+	</item>
+	<item name="target_module">
+		<value xml:lang="ko"><![CDATA[대상모듈]]></value>
+		<value xml:lang="en"><![CDATA[Target Module]]></value>
+	</item>
+	<item name="content">
+		<value xml:lang="ko"><![CDATA[문자메시지]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage]]></value>
+	</item>
+	<item name="mail_content">
+		<value xml:lang="ko"><![CDATA[이메일]]></value>
+		<value xml:lang="en"><![CDATA[Email]]></value>
+	</item>
+	<item name="sending_method">
+		<value xml:lang="ko"><![CDATA[전송방식]]></value>
+		<value xml:lang="en"><![CDATA[Sending Method]]></value>
+	</item>
+	<item name="textmessage_plus_email">
+		<value xml:lang="ko"><![CDATA[문자+이메일]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage + Email]]></value>
+	</item>
+	<item name="textmessage">
+		<value xml:lang="ko"><![CDATA[문자메시지]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage]]></value>
+	</item>
+	<item name="email">
+		<value xml:lang="ko"><![CDATA[이메일]]></value>
+		<value xml:lang="en"><![CDATA[Email]]></value>
+	</item>
+	<item name="browser_title">
+		<value xml:lang="ko"><![CDATA[브라우저 제목]]></value>
+		<value xml:lang="en"><![CDATA[Browser Title]]></value>
+	</item>
+	<item name="document_content">
+		<value xml:lang="ko"><![CDATA[문서내용]]></value>
+		<value xml:lang="en"><![CDATA[Document Content]]></value>
+	</item>
+	<item name="document_userid">
+		<value xml:lang="ko"><![CDATA[작성자 아이디]]></value>
+		<value xml:lang="en"><![CDATA[User ID]]></value>
+	</item>
+	<item name="document_username">
+		<value xml:lang="ko"><![CDATA[작성자 이름]]></value>
+		<value xml:lang="en"><![CDATA[User Name]]></value>
+	</item>
+	<item name="document_nickname">
+		<value xml:lang="ko"><![CDATA[작성자 닉네임]]></value>
+		<value xml:lang="en"><![CDATA[Nickname]]></value>
+	</item>
+	<item name="article_url">
+		<value xml:lang="ko"><![CDATA[문서 URL]]></value>
+		<value xml:lang="en"><![CDATA[Article URL]]></value>
+	</item>
+	<item name="extra_var1">
+		<value xml:lang="ko"><![CDATA[Extra_vars1]]></value>
+		<value xml:lang="en"><![CDATA[Extra_vars1]]></value>
+	</item>
+	<item name="extra_var2">
+		<value xml:lang="ko"><![CDATA[Extra_vars2]]></value>
+		<value xml:lang="en"><![CDATA[Extra_vars2]]></value>
+	</item>
+	<item name="extra_var3">
+		<value xml:lang="ko"><![CDATA[Extra_vars3]]></value>
+		<value xml:lang="en"><![CDATA[Extra_vars3]]></value>
+	</item>	
+	<item name="cmd_newposts">
+		<value xml:lang="ko"><![CDATA[새글알림]]></value>
+		<value xml:lang="en"><![CDATA[Notification]]></value>
+	</item>
+	<item name="cmd_newposts_config">
+		<value xml:lang="ko"><![CDATA[새글알림설정]]></value>
+		<value xml:lang="en"><![CDATA[Notification Configurations]]></value>
+	</item>
+	<item name="about_cellphone_fieldname">
+		<value xml:lang="ko"><![CDATA[선택된 필드 값을 문자메시지 수신번호로 사용합니다. <a href="?module=admin&act=dispMemberAdminConfig">회원설정 > 가입폼관리</a> 에서 전화번호 형식으로 추가해주세요.]]></value>
+		<value xml:lang="en"><![CDATA[You need to add the cellphone input field at <a href="?module=admin&act=dispMemberAdminConfig">Member Setting > Signup Form</a>.]]></value>
+	</item>
+	<item name="about_target_module">
+		<value xml:lang="ko"><![CDATA[적용할 모듈을 선택하세요.]]></value>
+		<value xml:lang="en"><![CDATA[Select target modules.]]></value>
+	</item>
+	<item name="help_mail_content">
+		<value xml:lang="ko"><![CDATA[%browser_title% : 브라우저제목<br />%nick_name% : 닉네임<br />%content% : 내용<br />%article_url% : 문서 URL<br />]]></value>
+		<value xml:lang="en"><![CDATA[%browser_title% : Broser Title<br />%nick_name% : Nick name<br />%content% : Content <br />%article_url% : Article URL<br />]]></value>
+	</item>
+	<item name="cmd_set">
+		<value xml:lang="ko"><![CDATA[분류별 담당자지정]]></value>
+		<value xml:lang="en"><![CDATA[Set Category Admins]]></value>
+	</item>
+	<item name="cmd_cellphone">
+		<value xml:lang="ko"><![CDATA[핸드폰 번호]]></value>
+		<value xml:lang="en"><![CDATA[Mobile No.]]></value>
+	</item>
+	<item name="cmd_board">
+		<value xml:lang="ko"><![CDATA[게시판]]></value>
+		<value xml:lang="en"><![CDATA[Board]]></value>
+	</item>
+	<item name="notify_add_newposts">
+		<value xml:lang="ko"><![CDATA[새글알림이 등록되었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Newposts configuration has been created.]]></value>
+	</item>
+	<item name="notify_exist_module">
+		<value xml:lang="ko"><![CDATA[선택하신 모듈이 다른 새글알림에 이미 사용되었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[The module you have chosen is already used by other configuration.]]></value>
+	</item>
+	<item name="notify_empty_module">
+		<value xml:lang="ko"><![CDATA[대상모듈이 비었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[You need to select at least one module.]]></value>
+	</item>
+	<item name="cmd_name">
+		<value xml:lang="ko"><![CDATA[이름]]></value>
+		<value xml:lang="en"><![CDATA[Name]]></value>
+	</item>
+	<item name="sender_info">
+		<value xml:lang="ko"><![CDATA[발신자 정보]]></value>
+		<value xml:lang="en"><![CDATA[Sender Info]]></value>
+	</item>
+	<item name="cmd_admin">
+		<value xml:lang="ko"><![CDATA[관리자]]></value>
+		<value xml:lang="en"><![CDATA[Admin]]></value>
+	</item>
+	<item name="email_address">
+		<value xml:lang="ko"><![CDATA[이메일 주소]]></value>
+		<value xml:lang="en"><![CDATA[Email Address]]></value>
+	</item>
+	<item name="general_info">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+		<value xml:lang="en"><![CDATA[General Information]]></value>
+	</item>
+	<item name="multiple_phone_no">
+		<value xml:lang="ko"><![CDATA[알림을 받을 관리자 번호를 넣으세요. 콤마(,)로 구분하여 여러개 입력가능]]></value>
+		<value xml:lang="en"><![CDATA[You can enter many phone numbers by inserting commas(,).]]></value>
+	</item>
+	<item name="multiple_email">
+		<value xml:lang="ko"><![CDATA[콤마(,)로 구분하여 여러개 입력가능]]></value>
+		<value xml:lang="en"><![CDATA[You can enter many email addresses by inserting commas(,).]]></value>
+	</item>
+	<item name="help_sender_email">
+		<value xml:lang="ko"><![CDATA[입력된 이메일주소를 발신주소로 사용합니다. 비워두시면 글쓴이의 이메일 주소가 입력됩니다]]></value>
+		<value xml:lang="en"><![CDATA[The email you are entering here will be the sender's email. If empty, the email address of the writer will be the sender's email. ]]></value>
+	</item>
+	<item name="sender_cellphone">
+		<value xml:lang="ko"><![CDATA[발신자 번호]]></value>
+		<value xml:lang="en"><![CDATA[Mobile Number(Sender)]]></value>
+	</item>
+	<item name="sender_phone_help">
+		<value xml:lang="ko"><![CDATA[발신자 번호입니다.]]></value>
+		<value xml:lang="en"><![CDATA[This will be the sender's phone number. ]]></value>
+	</item>
+	<item name="title_txtmsg">
+		<value xml:lang="ko"><![CDATA[문자 설정]]></value>
+		<value xml:lang="en"><![CDATA[SMS Setting]]></value>
+	</item>
+	<item name="title_email">
+		<value xml:lang="ko"><![CDATA[E-mail 설정]]></value>
+		<value xml:lang="en"><![CDATA[E-mail Setting]]></value>
+	</item>
+</lang>

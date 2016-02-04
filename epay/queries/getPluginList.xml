@@ -1,0 +1,16 @@
+<query id="getPluginList" action="select">
+	<tables>
+		<table name="epay_plugins" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="plugin_srl" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

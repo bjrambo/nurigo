@@ -1,0 +1,181 @@
+<include target="_header.html" />
+<form action="./" class="x_form-horizontal" method="post" ruleset="insertModInst" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procPaypalAdminInsertModInst" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="primary_key" value="{$module_info->module_srl}" />
+	<input type="hidden" name="delivery_info" value="{htmlspecialchars($module_info->delivery_info)}" />
+
+	<section class="section">
+		<h1>{$lang->basic_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" id="mid" value="{$module_info->mid}" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mid_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="module_category_srl">{$lang->module_category}</label>
+			<div class="x_controls">
+				<select name="module_category_srl" id="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+				</select>
+				<a href="#module_category_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_category_srl_help" class="x_help-block" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="lang_code" id="browser_title" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="layout_srl_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="skin">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" id="skin">
+					<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key || (!$module_info->skin && $key=='xe_board')">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>API 정보</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="client_id">Client ID</label>
+			<div class="x_controls">
+				<input type="text" name="client_id" id="client_id" value="{$module_info->client_id}" />
+				<a href="#client_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="client_id_help" class="x_help-block" hidden>Paypal REST API Client ID</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="api_secret">API Secret</label>
+			<div class="x_controls">
+				<input type="text" name="api_secret" id="api_secret" value="{$module_info->api_secret}" />
+				<a href="#api_password_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="api_password_help" class="x_help-block" hidden>Paypal API Password</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="paypal_url">Endpoint</label>
+			<div class="x_controls">
+				<select name="endpoint" id="endpoint" value="{$module_info->endpoint}" >
+					<option value="sandbox" selected|cond="$module_info->endpoint=='sandbox'">
+						api.sandbox.paypal.com - 테스트용
+					</option>
+					<option value="live" selected|cond="$module_info->endpoint=='live'">
+						api.paypal.com - 실서비스용
+					</option>
+				</select>
+				<a href="#paypal_url_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="paypal_url_help" class="x_help-block" hidden> api.sandbox.paypal.com 는 결제 테스트용이고 api.paypal.com 은 실서비스용입니다. 자세한 사항은 developer.paypal.com 에서 확인하시기 바랍니다. </p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="currency_code">통화선택</label>
+			<div class="x_controls">
+				<select name="currency_code" id="currency_code">
+					<option value="">선택하세요</option>
+					<option value="AUD" selected|cond="$module_info->currency_code">Australian Dollar</option>
+					<!--option value="GBP">British Pound (£)</option-->
+					<option value="BRL" selected|cond="$module_info->currency_code=='BRL'">Brazilian Real (only for Brazilian members)</option>
+					<option value="CAD" selected|cond="$module_info->currency_code=='CAD'">Canadian Dollar</option>
+					<option value="CZK" selected|cond="$module_info->currency_code=='CZK'">Czech Koruna</option>
+					<option value="DKK" selected|cond="$module_info->currency_code=='DKK'">Danish Krone</option>
+					<option value="EUR" selected|cond="$module_info->currency_code=='EUR'">Euro</option>
+					<option value="HKD" selected|cond="$module_info->currency_code=='HKD'">Hong Kong Dollar ($)</option>
+					<option value="HUF" selected|cond="$module_info->currency_code=='HUF'">Hungarian Forint</option>
+					<option value="ILS" selected|cond="$module_info->currency_code=='ILS'">Israeli New Shekel</option>
+					<option value="JPY" selected|cond="$module_info->currency_code=='JPY'">Japanese Yen (¥)</option>
+					<option value="MXN" selected|cond="$module_info->currency_code=='MXN'">Mexican Peso</option>
+					<option value="MYR" selected|cond="$module_info->currency_code=='MYR'">Malaysian Ringgit (only for Malaysian members)</option>
+					<option value="NOK" selected|cond="$module_info->currency_code=='NOK'">Norwegian Krone</option>
+					<option value="NZD" selected|cond="$module_info->currency_code=='NZD'">New Zealand Dollar ($)</option>
+					<option value="PHP" selected|cond="$module_info->currency_code=='PHP'">Philippine Peso</option>
+					<option value="PLN" selected|cond="$module_info->currency_code=='PLN'">Polish Zloty</option>
+					<option value="GBP" selected|cond="$module_info->currency_code=='GBP'">Pound Sterling</option>
+					<option value="SGD" selected|cond="$module_info->currency_code=='SGD'">Singapore Dollar ($)</option>
+					<option value="SEK" selected|cond="$module_info->currency_code=='SEK'">Swedish Krona</option>
+					<option value="CHF" selected|cond="$module_info->currency_code=='CHF'">Swiss Franc</option>
+					<option value="THB" selected|cond="$module_info->currency_code=='THB'">Thai Baht</option>
+					<option value="TRY" selected|cond="$module_info->currency_code=='TRY'">Turkish Lira (only for Turkish members)</option>
+					<!--option value="TWD">New Taiwan Dollar</option-->
+					<option value="USD" selected|cond="$module_info->currency_code=='USD'">U.S. Dollar ($)</option>
+				</select>
+				<a href="#currency_code_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="currency_code_help" class="x_help-block" hidden>결제시 사용할 통화 선택</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="conversion_rate">변환환율</label>
+			<div class="x_controls">
+				<input type="text" name="conversion_rate" id="conversion_rate" value="{$module_info->conversion_rate}" />
+				<a href="#conversion_rate_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="conversion_rate_help" class="x_help-block" hidden>
+				기준통화 대비 결제시 사용할 통화의 환율을 입력하세요. <br>
+				예) KRW (기준통화) -> USD(결제통화) : 1 원 ÷ 1019 = 0.000981354 (변환환율)
+				</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide">안내문구</label>
+			<div class="x_controls">
+				<textarea name="guide" id="guide" rows="8" cols="50"><block cond="!$module_info->guide">{$lang->default_guide}</block><block cond="$module_info->guide">{$module_info->guide}</block></textarea>
+				<a href="#guide_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_help" class="x_help-block" hidden>하단에 출력될 안내문구를 입력하세요.</p>
+			</div>
+		</div>
+		<!--div class="x_control-group">
+			<label class="x_control-label" for="display_price">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="display_price" id="display_price">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->display_price}" selected="selected"|cond="$module_info->display_price == $val->display_price">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#display_price_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="display_price_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="logo_image">로고이미지</label>
+			<div class="x_controls">
+				<input type="text" name="logo_image" id="logo_image" value="{$module_info->logo_image}" />
+				<a href="#logo_image_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="logo_image_help" class="x_help-block" hidden>결제창에 표시될 로고이미지를 입력하세요. 이미지 크기는 90 x 34 픽셀입니다.</p>
+			</div>
+		</div-->
+		
+		<div class="x_control-group">
+			<label class="x_control-label" for="minimum_transactions">최소거래</label>
+			<div class="x_controls">
+				<input type="text" name="minimum_transactions" id="minimum_transactions" value="{$module_info->minimum_transactions}" />
+				<a href="#minimum_transactions_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="minimum_transactions_help" class="x_help-block" hidden>설정하는 최소거래 갯수 이상일 때 결제 가능하도록 설정합니다.</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" accesskey="s" />
+	</div>
+</form>

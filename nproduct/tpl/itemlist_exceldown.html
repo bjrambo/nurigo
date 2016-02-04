@@ -1,0 +1,25 @@
+<table>
+	<thead>
+		<tr>
+			<th>{$lang->item_code}</th>
+			<th>{$lang->product_name}</th>
+			<th>{$lang->tax_or_not}</th>
+			<th>{$lang->display_or_not}</th>
+			<th>{$lang->price}</th>
+		</tr>
+	</thead>
+	{@$total_price=0}
+	<tbody>
+		<tr loop="$list=>$no,$val">
+			<block cond="$val->taxfree=='Y'">{@$taxfree=$lang->no_taxation}</block>
+			<block cond="$val->taxfree=='N'">{@$taxfree=$lang->taxation}</block>
+			<block cond="$val->display=='Y'">{@$display=$lang->display}</block>
+			<block cond="$val->display=='N'">{@$display=$lang->not_display}</block>
+			<td>{$val->item_code}</td>
+			<td>{$val->item_name}</td>
+			<td>{$taxfree}</td>
+			<td>{$display}</td>
+			<td>{$val->price}</td>
+		</tr>
+	</tbody>
+</table>

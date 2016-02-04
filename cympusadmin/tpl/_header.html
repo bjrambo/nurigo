@@ -1,0 +1,17 @@
+<div class="x_page-header">
+	<h1>
+		CympusAdmin
+		<span class="path" cond="$module_info->mid"> &gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a> </span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<ul cond="$module_info" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispCympusadminAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminModInstList')}">{$lang->page_list}</a></li>
+	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminItemList','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
+	<li class="x_active"|cond="$act=='dispCympusadminAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminInsertModInst')}">{$lang->page_creation}</a></li>
+</ul>
+<ul cond="$module_srl" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispCympusadminAdminInsertModInst'"><a href="{getUrl('act','dispCympusadminAdminInsertModInst')}">{$lang->page_configuration}</a></li>
+	<li class="x_active"|cond="$act=='dispCympusadminAdminSkinInfo'"><a href="{getUrl('act','dispCympusadminAdminSkinInfo')}">{$lang->skin_settings}</a></li>
+	<li class="x_active"|cond="$act=='dispCympusadminAdminGrantInfo'"><a href="{getUrl('act','dispCympusadminAdminGrantInfo')}">{$lang->permission_settings}</a></li>
+</ul>

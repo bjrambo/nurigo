@@ -1,0 +1,12 @@
+/* 구글 나눔웹폰트 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+/* Global Navigation Bar */
+#nustyle_menu { display:inline-block; }
+#nustyle_menu { margin:0; padding:0; }
+#nustyle_menu .sf-menu { margin:0; }
+#nustyle_menu .sf-menu li { background:#f1f1f1; padding:0 20px; }
+#nustyle_menu .sf-menu li.on { color:#9eca26; }
+#nustyle_menu .sf-menu a { border:0; color:#555; font-weight:600; font-family: 'Nanum Gothic', sans-serif; }
+#nustyle_menu .sf-menu a:hover { color:#9eca26; }
+#nustyle_menu .sf-menu li:last-child a { border:0; }

@@ -1,0 +1,79 @@
+<include target="_header.html" />
+<load target="js/mileagelist.js" />
+
+<div class="table even easyList">
+	<table>
+		<thead>
+			<th>{$lang->regdate}</th>
+			<th>{$lang->email_address}</th>
+			<th>{$lang->nick_name}</th>
+			<th>{$lang->classify}</th>
+			<th>{$lang->item}</th>
+			<th>{$lang->amount}</th>
+			<th>{$lang->balance}</th>
+			<th>{$lang->remark}</th>
+		</thead>
+		<tbody>
+			<tr loop="$list=>$key,$val">
+				<td>{zdate($val->regdate)}</td> 
+				<td>{$val->email_address}</td> 
+				<td>{$val->nick_name}</td> 
+				<td><span cond="$val->action=='1'">{$lang->plus}</span><span cond="$val->action=='2'">{$lang->minus}</span></td> 
+				<td>{$val->title}</td> 
+				<td>{number_format($val->amount)}</td> 
+				<td>{number_format($val->balance)}</td> 
+				<td><span cond="$val->order_srl">{$lang->order_number}: <a href="{getUrl('act','dispNcartAdminOrderDetail','order_srl',$val->order_srl)}" target="_blank">{$val->order_srl}</a></span></td> 
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="search">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+	<form cond="0" action="" method="post">
+		<select name="search_target">
+			<option value="">{$lang->search_target}</option>
+			{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+			<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+		</select>
+		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+		<input type="submit" value="{$lang->cmd_search}" />
+		<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+	</form>
+</div>

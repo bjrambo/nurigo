@@ -1,0 +1,61 @@
+<load target="js/modinstlist.js" />
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<!-- 목록 -->
+<form action="./" method="get" onsubmit="return doChangeCategory(this);" id="fo_list">
+<table class="x_table">
+<thead>
+    <tr>
+        <th scope="col"><div>{$lang->no}</div></th>
+        <th scope="col" class="half_wide"><div>{$lang->mid}</div></th>
+        <th scope="col" class="half_wide"><div>{$lang->browser_title}</div></th>
+        <th scope="col"><div>{$lang->regdate}</div></th>
+		<th scope="col">{$lang->cmd_management}</th>
+		<th scope="col">{$lang->cmd_delete}</th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($store_list as $no => $val)-->
+    <tr>
+        <td class="center number">{$no+1}</td>
+        <td>{htmlspecialchars($val->mid)}</td>
+        <td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" onclick="window.open(this.href); return false;">{$val->browser_title}</a></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td><a href="{getUrl('act','dispNcartAdminInsertModInst','module_srl',$val->module_srl)}"><span>{$lang->cmd_management}</span></a></td>
+        <td><a href="#deleteInstance" class="modalAnchor deleteInstance" data-module-srl="{$val->module_srl}"><span>{$lang->cmd_delete}</span></a></td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+</form>
+
+
+<div class="x_clearfix">
+	<a href="{getUrl('act','dispNcartAdminInsertModInst','module_srl','')}" class="x_btn">{$lang->cmd_make}</a>
+</div>
+
+<!-- 페이지 네비게이션 -->
+<div cond="0" class="pagination a1">
+    <a href="{getUrl('page','','module_srl','')}" class="prevEnd">{$lang->first_page}</a> 
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+        <!--@if($page == $page_no)-->
+            <strong>{$page_no}</strong> 
+        <!--@else-->
+            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+        <!--@end-->
+    <!--@end-->
+    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="nextEnd">{$lang->last_page}</a>
+</div>
+
+<div class="x_modal" id="deleteInstance">
+	<form action="./" class="fg form" method="post">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="procNcartAdminDeleteModInst" />
+		<div id="deleteForm">
+		</div>
+	</form>
+</div>

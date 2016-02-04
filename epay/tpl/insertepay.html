@@ -1,0 +1,295 @@
+<!--%import("filter/insert_epay.xml")-->
+<!--%import("js/script.js")-->
+<include target="header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" class="x_form-horizontal" method="post" enctype="multipart/form-data" ruleset="insertModInst" >
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procEpayAdminInsertEpay" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" value="{$module_info->mid}" class="inputTypeText w200" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mid_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->module_category}</label>
+			<div class="x_controls">
+				<select name="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+				</select>
+				<a href="#module_category_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_category_srl_help" class="x_help-block" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="inputTypeText w400 lang_code" id="browser_title"/>
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl==$val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="layout_srl_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin">
+					<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+		<div class="x_control-group" cond="0">
+			<label class="x_control-label">{$lang->mobile_view}</label>
+			<div class="x_controls">
+				<input type="checkbox" name="use_mobile" value="Y" checked="checked"|cond="$module_info->use_mobile=='Y'" />
+				<a href="#use_mobile_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="use_mobile_help" class="x_help-block" hidden>{$lang->about_mobile_view}</p>
+			</div>
+		</div>
+		<div class="x_control-group" cond="0">
+			<label class="x_control-label">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->mlayout_srl==$val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#mlayout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mlayout_srl_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group" cond="0">
+			<label class="x_control-label">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="mskin">
+					<option loop="$mskin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->mskin==$key">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="pg1_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->pg1_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#pg1_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="pg1_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="pg2_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->pg2_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#pg2_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="pg2_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="pg3_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->pg3_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#pg3_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="pg3_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="pg4_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->pg4_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#pg4_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="pg4_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+				<select name="plugin_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$plugins=>$key,$val" value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin_srl">{$val->title}</option>
+				</select>
+				<a href="#plugin_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+			    <select name="plugin2_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$plugins=>$key,$val" value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin2_srl">{$val->title}</option>
+				</select>
+				<a href="#plugin2_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin2_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+			    <select name="plugin3_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$plugins=>$key,$val" value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin3_srl">{$val->title}</option>
+				</select>
+				<a href="#plugin3_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin3_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+			    <select name="plugin4_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$plugins=>$key,$val" value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin4_srl">{$val->title}</option>
+				</select>
+				<a href="#plugin4_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin4_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+			    <select name="plugin5_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$plugins=>$key,$val" value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin5_srl">{$val->title}</option>
+				</select>
+				<a href="#plugin5_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin5_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+
+	</section>
+
+	<section class="section">
+		<h1>{$lang->mobile_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->mobile_view}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="use_mobile"><input type="checkbox" name="use_mobile" id="use_mobile" value="Y" checked="checked"|cond="$module_info->use_mobile == 'Y'" /> {$lang->about_mobile_view}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mlayout_srl">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->mlayout_srl== $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#mobile_layout_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_layout_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mskin">{$lang->mobile_skin}</label>
+			<div class="x_controls">
+				<select name="mskin" id="mskin">
+					<option loop="$mskin_list=> $key, $val" value="{$key}" selected="selected"|cond="$module_info->mskin== $key || (!$module_info->skin && $key=='default')">{$val->title}</option>
+				</select>
+				<a href="#mobile_skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="m_pg1_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->m_pg1_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#m_pg1_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="m_pg1_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="m_pg2_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->m_pg2_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#m_pg2_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="m_pg2_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">연동모듈</label>
+			<div class="x_controls">
+			    <select name="m_pg3_module_srl">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$pg_modules=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$module_info->m_pg3_module_srl">{$val->browser_title} {$val->mid}</option>
+				</select>
+				<a href="#m_pg3_module_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="m_pg3_module_srl_help" class="x_help-block" hidden>연동모듈을 선택하세요.</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+				<select name="plugin_srl_mobile1">
+					<option value="">{$lang->cmd_select}</option>
+				<!--@foreach($plugins as $key=>$val)-->
+					<option value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin_srl_mobile1">{$val->title}</option>
+				<!--@end-->
+				</select>
+				<a href="#plugin_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->plugin}</label>
+			<div class="x_controls">
+				<select name="plugin_srl_mobile2">
+					<option value="">{$lang->cmd_select}</option>
+				<!--@foreach($plugins as $key=>$val)-->
+					<option value="{$val->plugin_srl}" selected="selected"|cond="$val->plugin_srl==$module_info->plugin_srl_mobile2">{$val->title}</option>
+				<!--@end-->
+				</select>
+				<a href="#plugin_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="plugin_srl_help" class="x_help-block" hidden>{$lang->about_plugin}</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary" accesskey="s">{$lang->cmd_registration}</button>
+		<a href="{getUrl('','module',$module,'act','dispEpayAdminEpayList')}" class="x_btn">{$lang->cmd_back}</a>
+	</div>
+</form>

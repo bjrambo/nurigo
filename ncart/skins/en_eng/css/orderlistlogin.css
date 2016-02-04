@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/* reset.css */
+html, body, div, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, address, dl, dt, dd, ol, ul, li, fieldset, form, legend, table, caption, tbody, tfoot, thead, tr, th, td, input, select, textarea { margin:0; padding:0; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+img, fieldset { border:none; }
+table { border-collapse:collapse; }
+ul, ol, li { list-style:none; }
+address, em { font-style:normal; }
+li img, object { vertical-align:top; }
+input, select, textarea, form img { vertical-align:middle; }
+
+.page-title { padding:0 0 10px 5px;}
+
+form { font:12px NanumGothic,"Malgun Gothic", Tahoma, Dotum, Sans-serif; color:#777;}
+form .ordernum { padding:10px 0;}
+form .orderpw { padding-bottom:10px;}
+form label { display:inline-block; width:150px;}
+form .ordernum input, form .orderpw input { width:270px; height:22px;}
+
+#loginbtn { float:left;}
+#loginbtn input { background: -moz-linear-gradient(center top , #696969, #141414) repeat scroll 0 0 #333333 !important; border-color: #111; color: #dadada !important;}
+#loginbtn * { background-color: #333; border-radius: 3px 3px 3px 3px; box-shadow: 0 0 1px #696969 inset; color: #dadada; cursor: pointer; display: inline-block; font-size: 12px; font-weight: bold !important; height: 22px; padding: 0 5px; text-decoration: none !important; text-shadow: 0 -1px 0 #333333; margin-left:150px; }

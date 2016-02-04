@@ -1,0 +1,13 @@
+<query id="getNproductExtraVars" action="select">
+	<tables>
+		<table name="nproduct_extra_vars" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="item_srl" var="item_srl" pipe="and"/>
+		<condition operation="equal" column="name" var="name" pipe="and" />
+		<condition operation="equal" column="value" var="value" />
+	</conditions>
+</query>

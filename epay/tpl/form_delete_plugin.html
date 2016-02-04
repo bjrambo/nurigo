@@ -1,0 +1,17 @@
+<div class="x_modal-header">
+	<h2>{$lang->cmd_delete}</h2>
+</div>
+<div class="x_modal-body">
+	<input type="hidden" name="plugin_srl" value="{$plugin_info->plugin_srl}" />
+	<table class="x_table">
+		<tr>
+			<th>{$lang->plugin_id}<th><td>{$plugin_info->plugin}</td>
+		</tr>
+		<tr>
+			<th>{$lang->plugin_title}<th><td>{$plugin_info->title}</td>
+		</tr>
+	</table>
+</div>
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+</div>

@@ -1,0 +1,13 @@
+<query id="updateCartOrderStatus" action="update">
+	<tables>
+		<table name="nstore_digital_cart" />
+	</tables>
+	<columns>
+		<column name="order_status" var="order_status" notnull="notnull" />
+		<column name="purdate" default="curdate()" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+		<condition operation="equal" column="cart_srl" var="cart_srl" pipe="and" />
+	</conditions>
+</query>

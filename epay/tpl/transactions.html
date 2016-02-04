@@ -1,0 +1,135 @@
+<load target="js/jquery.jtruncate.js" />
+<load target="js/transactions.js" />
+<include target="header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form id="searchForm" action="./" method="get" class="x_input-append">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="status" value="{$status}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<select name="search_key">
+		<option value="user_id" selected="selected"|cond="$search_key=='user_id'">{$lang->user_id}</option>
+		<option value="email_address" selected="selected"|cond="$search_key=='email_address'">{$lang->email_address}</option>
+		<option value="nick_name" selected="selected"|cond="$search_key=='nick_name'">{$lang->nick_name}</option>
+		<option value="user_name" selected="selected"|cond="$search_key=='user_name'">{$lang->user_name}</option>
+		<option value="transaction_srl" selected="selected"|cond="$search_key=='transaction_srl'">{$lang->transaction_srl}</option>
+	</select>
+	<input type="text" name="search_value" value="{$search_value}" />
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_find}</button> 
+</form>
+
+<div class="table even easyList">
+	<table>
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>{$lang->regdate}</th>
+				<th>{$lang->page}</th>
+				<th>{$lang->epay_module}</th>
+				<th>{$lang->plugin}</th>
+				<th>{$lang->order_number}</th>
+				<th>{$lang->paymethod}</th>
+				<th>{$lang->products_ordered}</th>
+				<th>{$lang->payment_amount}</th>
+				<th>{$lang->user_id}</th>
+				<th>{$lang->user_name}</th>
+				<th>{$lang->nick_name}</th>
+				<th>{$lang->status}</th>
+				<th>{$lang->pg_resultcode}</th>
+				<th>{$lang->pg_resultmessage}</th>
+				<th>{$lang->extension}</th>
+			</tr>
+			<tr loop="$list=>$no,$tran">
+				<td>{$no}</td>
+				<td>{zdate($tran->regdate)}</td>
+				<td><a href="{getUrl('','mid',$tran->mid)}" target="_blank">{$tran->browser_title}</a></td>
+				<td><a href="{getUrl('act','dispEpayAdminInsertEpay','module_srl',$tran->epay_module_srl)}" target="_blank">{$modinst_list[$tran->epay_module_srl]->browser_title}</a></td>
+				<td><a href="{getUrl('act','dispEpayAdminUpdatePlugin','plugin_srl',$tran->plugin_srl)}" target="_blank">{$tran->plugin_title}</a></td>
+				<td>{$tran->order_srl}</td>
+				<td>{$lang->payment_method[$tran->payment_method]}</td>
+				<td>
+					<a cond="$tran->target_act" href="#viewOrderInfo" class="modalAnchor viewOrderInfo" data-target-module="{$tran->target_module}" data-target-act="{$tran->target_act}"  data-order-srl="{$tran->order_srl}">{$tran->order_title}</a>
+					<block cond="!$tran->target_act">{$tran->order_title}</block>
+				</td>
+				<td>{number_format($tran->payment_amount)}</td>
+				<block cond="$tran->user_id">
+					<td><a href="#popup_menu_area" class="cMenu member_{$tran->p_member_srl}">{$tran->user_id}</a></td>
+					<td><a href="#popup_menu_area" class="cMenu member_{$tran->p_member_srl}">{$tran->user_name}</a></td>
+					<td><a href="#popup_menu_area" class="cMenu member_{$tran->p_member_srl}">{$tran->nick_name}</a></td>
+				</block>
+				<block cond="!$tran->user_id">
+					<td colspan="3">탈퇴한 회원({$tran->p_user_id})</td>
+				</block>
+				<td>
+					<select class="payment_state x_span1" data-transaction_srl="{$tran->transaction_srl}">
+						<option selected="selected"|cond="$tran->state == '1'" value="1" >{$lang->state_list['1']}</option>
+						<option selected="selected"|cond="$tran->state == '2'" value="2" >{$lang->state_list['2']}</option>
+						<option selected="selected"|cond="$tran->state == '3'" value="3" >{$lang->state_list['3']}</option>
+					</select>
+				</td>
+				<td>{$tran->result_code}</td>
+				<td>{$tran->result_message}</td>
+				<td class="long_text"><block loop="unserialize($tran->extra_vars)=>$key,$val">{$key} : <ul cond="is_array($val)"><li loop="$val=>$key2,$val2">{$key2} : {$val2}</li></ul><block cond="!is_array($val)">{$val}</block><br /></block></td>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+<!-- 페이지 네비게이션 -->
+<div class="pagination a1">
+    <a href="{getUrl('page','','module_srl','')}" class="prevEnd">{$lang->first_page}</a>
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+        <!--@if($page == $page_no)-->
+            <strong>{$page_no}</strong>
+        <!--@else-->
+            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a>
+        <!--@end-->
+    <!--@end-->
+    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="nextEnd">{$lang->last_page}</a>
+</div>
+
+<form action="./" class="x_modal" method="post" id="viewOrderInfo">
+	<div class="x_modal-header">
+		<h1>주문정보</h1>
+	</div>
+	<div id="orderInfo" class="x_modal-body" style="max-height:600px">
+	</div>
+</form>
+
+<script>
+xe.lang.msg_want_status_change = '{$lang->msg_want_status_change}';
+xe.lang.success_changed = '{$lang->success_changed}';
+jQuery(document).ready(function() {
+    jQuery('.long_text').jTruncate({
+        length: 200,
+        minTrail: 0,
+        moreText: "Read More",
+        lessText: "Read Less"
+	});
+
+	jQuery(".payment_state").change(function (){
+		if(confirm(xe.lang.msg_want_status_change))
+		{
+			var transaction_srl = jQuery(this).attr("data-transaction_srl");
+			var state = jQuery(this).find("option:selected").val();
+			var mid = '{$mid}';
+
+			var params = new Array();
+			params['transaction_srl'] = transaction_srl;
+			params['state'] = state;
+			params['mid'] = mid;
+
+			exec_xml('epay', 'procEpayAdminUpdateState', params, function(){
+				alert(xe.lang.success_changed);
+			});
+		}
+		else location.reload();
+	});
+});
+
+</script>

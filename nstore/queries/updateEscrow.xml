@@ -1,0 +1,17 @@
+<query id="updateEscrow" action="update">
+	<tables>
+		<table name="nstore_escrow" />
+	</tables>
+	<columns>
+		<column name="confirm_code" var="confirm_code" />
+		<column name="confirm_message" var="confirm_message" />
+		<column name="confirm_date" var="confirm_date" />
+		<column name="deny_order" var="deny_order" />
+		<column name="denyconfirm_code" var="denyconfirm_code" />
+		<column name="denyconfirm_message" var="denyconfirm_message" />
+		<column name="denyconfirm_date" var="denyconfirm_date" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+	</conditions>
+</query>

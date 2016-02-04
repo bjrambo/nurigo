@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="about_nmileage">
+		<value xml:lang="ko"><![CDATA[마일리지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Mileage management]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數管理]]></value>				
+	</item>
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面列示]]></value>		
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面產生]]></value>		
+	</item>
+	<item name="mileage_title">
+		<value xml:lang="ko"><![CDATA[마일리지 적립/사용 내역]]></value>
+		<value xml:lang="en"><![CDATA[Mileage savings/usage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數儲值/用法]]></value>		
+	</item>
+	<item name="mileage_subtitle">
+		<value xml:lang="ko"><![CDATA[회원님의 마일리지 내역을 확인하실 수 있습니다]]></value>
+		<value xml:lang="en"><![CDATA[Check your mileage savings and usage history]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ内訳を確認します。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[檢查您的點數資料]]></value>				
+	</item>
+	<item name="total_mileage">
+		<value xml:lang="ko"><![CDATA[사용가능 한 총 마일리지]]></value>
+		<value xml:lang="en"><![CDATA[Mileage management]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[有效總點數]]></value>				
+	</item>
+	<item name="mileage_list_summary">
+		<value xml:lang="ko"><![CDATA[마일리지 적립/사용 내역 입니다]]></value>
+		<value xml:lang="en"><![CDATA[Mileage savings/usage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數儲值/用法]]></value>	
+	</item>
+	<item name="classify">
+		<value xml:lang="ko"><![CDATA[구분]]></value>
+		<value xml:lang="en"><![CDATA[Sort]]></value>
+		<value xml:lang="jp"><![CDATA[区分]]></value>
+		<value xml:lang="zh-TW"><![CDATA[分類]]></value>				
+	</item>
+	<item name="item">
+		<value xml:lang="ko"><![CDATA[항목]]></value>
+		<value xml:lang="en"><![CDATA[Item]]></value>
+		<value xml:lang="jp"><![CDATA[アイテム]]></value>
+		<value xml:lang="zh-TW"><![CDATA[項目]]></value>			
+	</item>
+	<item name="amount">
+		<value xml:lang="ko"><![CDATA[금액]]></value>
+		<value xml:lang="en"><![CDATA[Price]]></value>
+		<value xml:lang="jp"><![CDATA[金額]]></value>
+		<value xml:lang="zh-TW"><![CDATA[金額]]></value>		
+	</item>
+	<item name="balance">
+		<value xml:lang="ko"><![CDATA[잔액]]></value>
+		<value xml:lang="en"><![CDATA[The balance]]></value>
+		<value xml:lang="jp"><![CDATA[残余]]></value>
+		<value xml:lang="zh-TW"><![CDATA[結餘]]></value>				
+	</item>
+	<item name="remark">
+		<value xml:lang="ko"><![CDATA[비고]]></value>
+		<value xml:lang="en"><![CDATA[Remarks]]></value>
+		<value xml:lang="jp"><![CDATA[備考]]></value>
+		<value xml:lang="zh-TW"><![CDATA[備註]]></value>				
+	</item>
+	<item name="memo">
+		<value xml:lang="ko"><![CDATA[메모]]></value>
+		<value xml:lang="en"><![CDATA[Memo]]></value>
+		<value xml:lang="jp"><![CDATA[メモ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[備忘錄]]></value>				
+	</item>
+	<item name="mileage">
+		<value xml:lang="ko"><![CDATA[마일리지]]></value>
+		<value xml:lang="en"><![CDATA[Mileage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數]]></value>			
+	</item>
+	<item name="plus">
+		<value xml:lang="ko"><![CDATA[적립]]></value>
+		<value xml:lang="en"><![CDATA[Savings]]></value>
+		<value xml:lang="jp"><![CDATA[貯え]]></value>
+		<value xml:lang="zh-TW"><![CDATA[儲存]]></value>				
+	</item>
+	<item name="minus">
+		<value xml:lang="ko"><![CDATA[사용]]></value>
+		<value xml:lang="en"><![CDATA[Use]]></value>
+		<value xml:lang="jp"><![CDATA[使用]]></value>
+		<value xml:lang="zh-TW"><![CDATA[使用]]></value>				
+	</item>
+	<item name="order_number">
+		<value xml:lang="ko"><![CDATA[주문번호]]></value>
+		<value xml:lang="en"><![CDATA[Order No.]]></value>
+		<value xml:lang="jp"><![CDATA[注文番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單號碼]]></value>				
+	</item>
+	<item name="setup">
+		<value xml:lang="ko"><![CDATA[설정]]></value>
+		<value xml:lang="en"><![CDATA[Settings]]></value>
+		<value xml:lang="jp"><![CDATA[設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[設定]]></value>				
+	</item>
+	<item name="cmd_skin_setup">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>				
+	</item>
+	<item name="list">
+		<value xml:lang="ko"><![CDATA[목록]]></value>
+		<value xml:lang="en"><![CDATA[List]]></value>
+		<value xml:lang="jp"><![CDATA[リスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[列表]]></value>				
+	</item>
+	<item name="mileage_method">
+		<value xml:lang="ko"><![CDATA[마일리지 처리방식]]></value>
+		<value xml:lang="en"><![CDATA[Mileage method]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ処理方法]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數處理方法]]></value>				
+	</item>
+	<item name="use_nmileage">
+		<value xml:lang="ko"><![CDATA[마일리지 모듈]]></value>
+		<value xml:lang="en"><![CDATA[Mileage module]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージモジュール]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數模組]]></value>				
+	</item>
+	<item name="use_xepoint">
+		<value xml:lang="ko"><![CDATA[XE포인트 모듈]]></value>
+		<value xml:lang="en"><![CDATA[XE point module]]></value>
+		<value xml:lang="jp"><![CDATA[XEポイントモジュール]]></value>
+		<value xml:lang="zh-TW"><![CDATA[XE point 模組]]></value>				
+	</item>
+	<item name="select_currency">
+		<value xml:lang="ko"><![CDATA[통화선택]]></value>
+		<value xml:lang="en"><![CDATA[Currency]]></value>
+		<value xml:lang="jp"><![CDATA[通貨選択]]></value>
+		<value xml:lang="zh-TW"><![CDATA[幣別選擇]]></value>	
+	</item>
+	<item name="korea_won">
+		<value xml:lang="ko"><![CDATA[원]]></value>
+		<value xml:lang="en"><![CDATA[WON]]></value>
+		<value xml:lang="jp"><![CDATA[ウォン]]></value>
+		<value xml:lang="zh-TW"><![CDATA[韓元]]></value>
+	</item>
+	<item name="usa_dollar">
+		<value xml:lang="ko"><![CDATA[미국달러]]></value>
+		<value xml:lang="en"><![CDATA[dollar]]></value>
+		<value xml:lang="jp"><![CDATA[ドール]]></value>
+		<value xml:lang="zh-TW"><![CDATA[美元]]></value>				
+	</item>
+	<item name="japan_yen">
+		<value xml:lang="ko"><![CDATA[엔]]></value>
+		<value xml:lang="en"><![CDATA[Yen]]></value>
+		<value xml:lang="jp"><![CDATA[縁]]></value>
+		<value xml:lang="zh-TW"><![CDATA[日圓]]></value>				
+	</item>
+	<item name="taiwan_twd">
+		<value xml:lang="ko"><![CDATA[대만위엔달러]]></value>
+		<value xml:lang="en"><![CDATA[Taiwan dollar]]></value>
+		<value xml:lang="jp"><![CDATA[台湾ドール]]></value>
+		<value xml:lang="zh-TW"><![CDATA[新台幣]]></value>				
+	</item>	
+	<item name="PHP">
+		<value xml:lang="ko"><![CDATA[필리핀(페소)]]></value>
+		<value xml:lang="en"><![CDATA[Philippine peso]]></value>
+		<value xml:lang="jp"><![CDATA[フィリピンペソ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[菲律賓幣]]></value>					
+	</item>	
+	<item name="currency_display_format">
+		<value xml:lang="ko"><![CDATA[통화부호 출력형식]]></value>
+		<value xml:lang="en"><![CDATA[Currency format]]></value>
+		<value xml:lang="jp"><![CDATA[通貨選択]]></value>
+		<value xml:lang="zh-TW"><![CDATA[幣別選擇]]></value>	
+	</item>
+	<item name="point_position">
+		<value xml:lang="ko"><![CDATA[소수점 자리수]]></value>
+		<value xml:lang="en"><![CDATA[Number of decimal points]]></value>
+		<value xml:lang="jp"><![CDATA[小数点数]]></value>
+		<value xml:lang="zh-TW"><![CDATA[小數點位數]]></value>	
+	</item>
+	<item name="use_or_not">
+		<value xml:lang="ko"><![CDATA[사용여부]]></value>
+		<value xml:lang="en"><![CDATA[Use or not]]></value>
+		<value xml:lang="jp"><![CDATA[Use or not]]></value>
+		<value xml:lang="zh-TW"><![CDATA[有效]]></value>	
+	</item>
+	<item name="cmd_plus">
+		<value xml:lang="ko"><![CDATA[마일리지 넣기]]></value>
+		<value xml:lang="en"><![CDATA[Increase mileage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ追加]]></value>
+		<value xml:lang="zh-TW"><![CDATA[新增點數]]></value>				
+	</item>
+	<item name="cmd_minus">
+		<value xml:lang="ko"><![CDATA[마일리지 빼기]]></value>
+		<value xml:lang="en"><![CDATA[Decrease mileage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ削減]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數減少]]></value>				
+	</item>
+	<item name="cmd_mileage_history">
+		<value xml:lang="ko"><![CDATA[마일리지 내역]]></value>
+		<value xml:lang="en"><![CDATA[Mileage history]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數歷史資料]]></value>				
+	</item>
+	<item name="help_mileage_method">
+		<value xml:lang="ko"><![CDATA[마일리지 처리방식을 선택하세요]]></value>
+		<value xml:lang="en"><![CDATA[Select a mileage method]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ処理方法を選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選擇如何處理您的點數方法]]></value>				
+	</item>
+	<item name="help_currency">
+		<value xml:lang="ko"><![CDATA[통화를 선택하세요]]></value>
+		<value xml:lang="en"><![CDATA[Select currency]]></value>
+		<value xml:lang="jp"><![CDATA[通貨を選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選擇幣別]]></value>				
+	</item>
+	<item name="help_currency_display_format">
+		<value xml:lang="ko"><![CDATA[마일리지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Mileage management]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[點數管理]]></value>				
+	</item>
+	<item name="help_point_position">
+		<value xml:lang="ko"><![CDATA[소수점 자리수를 입력하세요]]></value>
+		<value xml:lang="en"><![CDATA[Enter the number of decimal places]]></value>
+		<value xml:lang="jp"><![CDATA[小数点以下の桁を入力してください]]></value>
+		<value xml:lang="zh-TW"><![CDATA[輸入小數點位數]]></value>				
+	</item>
+	<item name="msg_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 사용하실 수 있습니다]]></value>
+		<value xml:lang="en"><![CDATA[You can use it after login]]></value>
+		<value xml:lang="jp"><![CDATA[ログインしてから使用できます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄後您即可使用]]></value>		
+	</item>
+</lang>

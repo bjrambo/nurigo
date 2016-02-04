@@ -1,0 +1,12 @@
+<query id="getOrderItems" action="select">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+		<condition operation="equal" column="module" var="module" pipe="and" />
+	</conditions>
+</query>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="elearning">
+		<value xml:lang="ko"><![CDATA[이러닝]]></value>
+		<value xml:lang="en"><![CDATA[e-Learning]]></value>
+	</item>
+	<item name="shoppingmall">
+		<value xml:lang="ko"><![CDATA[쇼핑몰]]></value>
+		<value xml:lang="en"><![CDATA[Shoppingmall]]></value>
+	</item>
+	<item name="contentsmall">
+		<value xml:lang="ko"><![CDATA[콘텐츠몰]]></value>
+		<value xml:lang="en"><![CDATA[Contentsmall]]></value>
+	</item>
+	<item name="prodid">
+		<value xml:lang="ko"><![CDATA[제품분류]]></value>
+		<value xml:lang="en"><![CDATA[Product Line]]></value>
+	</item>
+	<item name="license_id">
+		<value xml:lang="ko"><![CDATA[구매자ID]]></value>
+		<value xml:lang="en"><![CDATA[Purchaser ID]]></value>
+	</item>
+	<item name="serial_number">
+		<value xml:lang="ko"><![CDATA[제품일련번호]]></value>
+		<value xml:lang="en"><![CDATA[Serial Number]]></value>
+	</item>
+	<item name="expiration_date">
+		<value xml:lang="ko"><![CDATA[만료일]]></value>
+		<value xml:lang="en"><![CDATA[Expiration Date]]></value>
+	</item>
+	<item name="about_license_id">
+		<value xml:lang="ko"><![CDATA[정품인증서에 표기된 구매자ID를 입력해 주세요]]></value>
+		<value xml:lang="en"><![CDATA[Input xeshoppingmall.com ID(email address)]]></value>
+	</item>
+	<item name="about_serial_number">
+		<value xml:lang="ko"><![CDATA[정품인증서에 표기된 일련번호를 입력해 주세요. 숫자만 입력하셔도 됩니다]]></value>
+		<value xml:lang="en"><![CDATA[Input the serial number in the certificate. You can just input the digits except the prefix.]]></value>
+	</item>
+	<item name="about_expiration">
+		<value xml:lang="ko"><![CDATA[만료일이 끝나면 저작권이 표시됩니다.]]></value>
+		<value xml:lang="en"><![CDATA[It will display copyright on the bottom-right of the screen.]]></value>
+	</item>
+	<item name="not_registered">
+		<value xml:lang="ko"><![CDATA[등록되지 않은 제품입니다. <a href="http://www.xeshoppingmall.com" target="_xeshoppingmall">http://www.xeshoppingmall.com</a>에서 라이선스를 구입하고 인증서에 표기된 정보를 입력해주세요.]]></value>
+		<value xml:lang="en"><![CDATA[The product is not registered. you can purchase and register at <a href="http://www.xeshoppingmall.com" target="_xeshoppingmall">http://www.xeshoppingmall.com</a>]]></value>
+	</item>
+</lang>

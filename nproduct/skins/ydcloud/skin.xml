@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">YDCloud 이러닝</title>
+	<title xml:lang="zh-TW">YDCloud 線上學習網</title>
+   	<description xml:lang="ko">YDCloud 이러닝스킨입니다.</description>
+	<description xml:lang="zh-TW">YDCloud 線上學習網面版樣式</description>
+	<version>0.1</version>
+	<date>2014-02-25</date>
+	<link>http://www.nurigo.net</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="white">
+			<title xml:lang="ko">하얀색(기본)</title>
+			<title xml:lang="zh-TW">白色（預設）</title>
+		</color>
+	</colorset>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">상세페이지</title>
+			<title xml:lang="zh-TW">詳細頁版</title>
+			<var name="thumbnail_width" type="text">
+				<title xml:lang="ko">[상세페이지] 썸네일 가로크기</title>
+				<title xml:lang="zh-TW">[詳細]縮圖橫向尺寸</title>
+               	<description xml:lang="ko">
+					썸네일 가로크기 설정
+				</description>
+				<description xml:lang="zh-TW">設置縮圖寬度尺寸</description>
+			</var>
+			<var name="thumbnail_height" type="text">
+				<title xml:lang="ko">[상세페이지] 썸네일 세로크기</title>
+				<title xml:lang="zh-TW">[詳細]縮圖垂直尺寸</title>
+				<description xml:lang="ko">
+					썸네일 세로크기 설정
+				</description>
+				<description xml:lang="zh-TW">設置縮圖垂直尺寸</description>
+			</var>
+			<var name="thumbnail_type" type="select">
+				<title xml:lang="ko">썸네일 생성 방법</title>
+				<title xml:lang="zh-TW">縮圖調整方式</title>
+				<description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+				<description xml:lang="zh-TW">網站的圖片來源可能無法和面版很契合,請選擇縮圖調整方式來建立適合的圖片面版。</description>
+				<options value="crop">
+					<title xml:lang="ko">縮圖大小填滿(裁剪)</title>
+				</options>
+				<options value="ratio">
+					<title xml:lang="ko">縮圖比例調整(縮放)</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">상품목록</title>
+			<title xml:lang="zh-TW">產品列表</title>
+			<var name="list_thumbnail_width" type="text">
+				<title xml:lang="ko">[목록] 썸네일 가로크기</title>
+				<title xml:lang="zh-TW">[列表]縮圖橫向尺寸</title>
+				<description xml:lang="ko">
+					썸네일 가로크기 설정
+				</description>
+				<description xml:lang="zh-TW">設定縮圖橫向尺寸</description>
+			</var>
+			<var name="list_thumbnail_height" type="text">
+				<title xml:lang="ko">[목록] 썸네일 세로크기</title>
+				<title xml:lang="zh-TW">[詳細]縮圖垂直尺寸</title>
+				<description xml:lang="ko">
+					썸네일 세로크기 설정
+				</description>
+				<description xml:lang="zh-TW">設定縮圖垂直尺寸</description>
+			</var>
+			<var name="list_thumbnail_type" type="select">
+				<title xml:lang="ko">[목록] 썸네일 생성 방법</title>
+				<title xml:lang="zh-TW">[列表]縮圖調整方式</title>
+				<description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+				<description xml:lang="zh-TW">網站的圖片來源可能無法和面版很契合,請選擇縮圖調整方式來建立適合的圖片面版。</description>
+				<options value="crop">
+					<title xml:lang="ko">꽉 채우기</title>
+					<title xml:lang="zh-TW">縮圖大小填滿(裁剪)</title>
+				</options>
+				<options value="ratio">
+					<title xml:lang="ko">비율 맞추기</title>
+					<title xml:lang="zh-TW">縮圖比例調整(縮放)</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="zh-TW">其他</title>
+			<var name="store_top" type="textarea">
+					<title xml:lang="ko">스토어 상단</title>
+					<title xml:lang="zh-TW">商城(store)頂部</title>
+					<description xml:lang="ko">
+							스토어 상단 부분에 출력되는 부분입니다.
+					</description>
+					<description xml:lang="zh-TW">在商城(store)區中的的上半部分顯示。</description>
+			</var>
+			<var name="store_bottom" type="textarea">
+				<title xml:lang="ko">스토어 하단</title>
+				<title xml:lang="zh-TW">商城(store)底部</title>
+				<description xml:lang="ko">
+						스토어 하단 부분에 출력되는 부분입니다.
+				</description>
+				<description xml:lang="zh-TW">在商城(store)區中的的底部顯示。</description>
+			</var>
+			<var name="play_test" type="select">
+				<title xml:lang="ko">플레이 테스트 모드</title>
+				<title xml:lang="zh-TW">播放測試模式</title>
+				<description xml:lang="ko">관리자로 로그인시 강의상세페이지에서 동영상을 재생해 볼 수 있도록 플레이 버튼을 표시합니다.</description>
+				<description xml:lang="zh-TW">顯示播放按鈕來播放，當以管理員身份登錄時，就可以從內容管理媒體內容預覽頁面瀏覽影片。</description>
+				<options value="N">
+					<title xml:lang="ko">사용하지 않음</title>
+					<title xml:lang="zh-TW">不啟用</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용함</title>
+					<title xml:lang="zh-TW">啟用</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">배너이미지</title>
+			<title xml:lang="zh-TW">橫幅圖片</title>
+			<var name="banner_image" type="image">
+				<title xml:lang="ko">심플배너이미지</title>
+				<title xml:lang="zh-TW">簡單的橫幅圖片</title>
+				<description xml:lang="ko">
+					상단에 넣을 간단한 배너 이미지를 넣어주세요. 
+				</description>
+				<description xml:lang="zh-TW">請把一個簡單橫幅圖像放置頂部。</description>
+			</var>
+
+			<var name="banner_url" type="text">
+				<title xml:lang="ko">배너 URL</title>
+				<title xml:lang="zh-TW">橫幅 URL</title>
+				<description xml:lang="ko">
+					배너를 클릭시에 이동할 홈 페이지 URL을 입력해 주세요
+				</description>
+				<description xml:lang="zh-TW">輸入橫幅圖像 URL 連結路徑</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

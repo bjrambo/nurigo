@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="ko">INIpay Standard 결제 모듈</title>
+    <description xml:lang="ko">INIpay Standard는 웹표준 결제 시스템입니다. epay 모듈과 연동해야합니다.</description>
+    <version>0.1</version>
+    <date>2016-01-22</date>
+    <category>service</category>
+	
+    <author email_address="webmaster@conory.com" link="http://www.conory.com">
+        <name xml:lang="ko">CONORY</name>
+    </author>
+</module>

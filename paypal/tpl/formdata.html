@@ -1,0 +1,95 @@
+<load target="js/script.js" />
+<!--// normal -->
+<load cond="0" target="http://plugin.inicis.com/pay40_sec_uni.js" />
+<!--// open web -->
+<load target="http://plugin.inicis.com/pay61_secuni_cross.js" />
+<load target="filter/submit_payment.xml" />
+<load target="filter/submit_review.xml" />
+<load target="button.css" />
+<load target="lang" />
+
+<form id="fo_inipay" name="fo_payment" class="fo_payment" method="post" action="./" onsubmit="inipay_submit('{$join_form}'); return false;">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+
+	<!-- settings by user -->
+	<input type="hidden" name="gopaymethod" value="Card" />
+	<input type="hidden" name="goodname" value="{$item_name}" />
+	<input type="hidden" name="buyername" value="{$purchaser_name}" />
+	<input type="hidden" name="buyeremail" value="{$purchaser_email}" />
+	<input type="hidden" name="buyertel" value="{$purchaser_telnum}" />
+	<input type="hidden" name="currency" value="WON" />
+
+	<block cond="$plugin_info->paymethod_phone=='Y'">{@$HPP='1'}</block>
+	<block cond="$plugin_info->paymethod_phone=='M'">{@$HPP='2'}</block>
+	<input type="hidden" name="acceptmethod" value="SKIN({$plugin_info->skin}):HPP({$HPP}):Card(0):OCB:receipt:cardpoint" />
+	<input cond="$plugin_info->logo_image" type="hidden" name="ini_logoimage_url" value="{getFullUrl('')}{$plugin_info->logo_image}" />
+
+        <!-- settings by plugin -->
+        <input type="hidden" name="mid" value="{$inicis_id}" />
+        <input type="hidden" name="quotainterest" value="" />
+        <input type="hidden" name="paymethod" value="" />
+        <input type="hidden" name="cardcode" value="" />
+        <input type="hidden" name="cardquota" value="" />
+        <input type="hidden" name="rbankcode" value="" />
+        <input type="hidden" name="reqsign" value="DONE" />
+        <input type="hidden" name="encrypted" value="" />
+        <input type="hidden" name="sessionkey" value="" />
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="sid" value="" />
+        <input type="hidden" name="version" value="4000" />
+        <input type="hidden" name="clickcontrol" value="" />
+
+	<div id="inicisForm"></div>
+
+	<div class="choice_box">
+		{@$checked=FALSE}
+		{@$first=FALSE}
+		<span cond="$plugin_info->paymethod_card=='Y'">
+			<input name="payment_method" id="ini_1" type="radio" value="CC" checked="checked"|cond="!$checked" /><label for="ini_1">{$lang->ini_card}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_1"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_directbank=='Y'">
+			<input name="payment_method" id="ini_2" type="radio" value="IB" checked="checked"|cond="!$checked" /><label for="ini_2">{$lang->ini_bank_transfer}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_2"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_virtualbank=='Y'">
+			<input name="payment_method" id="ini_3" type="radio" value="VA" checked="checked"|cond="!$checked" /><label for="ini_3">{$lang->ini_virtual_account}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_3"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_phone!='N'">
+			<input name="payment_method" id="ini_4" type="radio" value="MP" checked="checked"|cond="!$checked" /><label for="ini_4">{$lang->ini_cellphone}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_4"}</block>
+		</span>
+	</div>
+
+	<div class="btn_payment">
+		<span>
+			<input type="submit" value="{$lang->do_payment}" class="nuribtn orange super" />
+		</span>
+	</div>
+	
+	<div id="pm_CC" class="payment_info" style="display:none"|cond="$first!='ini_1'">
+		<p class="font_size11">{$lang->about_ini_card}</p>
+	</div>
+	<div id="pm_IB" class="payment_info" style="display:none"|cond="$first!='ini_2'">
+		<p class="font_size11">{$lang->about_ini_bank_transfer}</p>
+	</div>
+	<div id="pm_VA" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">{$lang->about_ini_virtual_account}</p>
+	</div>
+	<div id="pm_MP" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">{$lang->about_ini_cellphone}</p>
+	</div>
+</form>
+
+<script cond="0" language=javascript>
+	StartSmartUpdate();
+</script>

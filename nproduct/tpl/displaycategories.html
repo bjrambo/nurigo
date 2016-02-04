@@ -1,0 +1,53 @@
+<load target="js/script.js" />
+<load target="js/displaycategories.js" />
+<load target="filter/update_display_category.xml" />
+<!--%load_js_plugin("ui")-->
+
+<div>
+	<ul id="categories" class="x_unstyled">
+		<li loop="$list=>$no,$val" id="record_{$val->category_srl}" class="x_nav-list">
+			<span class="iconMoveTo"></span>
+			<span class="category_name">{htmlspecialchars($val->category_name)} [{$val->category_srl}]</span>
+			<a href="#" class="delete" onclick="delete_category({$val->category_srl}); return false;" style="float:right;">{$lang->cmd_delete}</a>
+			<a href="#editCategory" class="modify modalAnchor _edit" style="float:right;margin-right:10px;">{$lang->cmd_modify}</a>
+		</li>
+	</ul>
+	<p class="btnArea">
+		<a href="#editCategory" class="x_btn modalAnchor _add">{$lang->add_category}</a>
+	</p>
+</div>
+
+<form action="./" id="editCategory" class="x_modal" ruleset="insertCategory" method="post">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNproductAdminInsertDisplayCategory" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="category_srl" value="" />
+	<div class="x_modal-header">
+		<h1>{$lang->add_category}</h1>
+	</div>
+	<div class="x_modal-body x_form-horizontal">
+		<div class="x_control-group">
+			<label for="category_name" class="x_control-label">{$lang->category_name}</label>
+			<div class="x_controls">
+				<input type="text" id="category_name" name="category_name" value="" />
+			</div>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_save}</button>
+	</div>
+</form>
+
+<script>
+	jQuery(function($) {
+		$("#categories").sortable({ handle:'.iconMoveTo', opacity: 0.6, cursor: 'move',
+			update: function(event,ui) {
+				var order = jQuery(this).sortable("serialize");
+				var params = new Array();
+				params['order'] = order;
+				var response_tags = new Array('error','message');
+				exec_xml('nstore_digital', 'procNproductAdminUpdateDCListOrder', params, function(ret_obj) { }, response_tags);
+			}
+		});
+	});
+</script>

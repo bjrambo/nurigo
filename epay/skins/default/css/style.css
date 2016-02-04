@@ -1,0 +1,25 @@
+/* epay css */
+.payment_info { margin-top:16px; padding:5px 20px; line-height:1.6; background:#f9f9f4;}
+.payment_info div.guide, .payment_info span { color:#3397a7; font-size:11px;}
+.btn_payment { float:right; text-align:center; padding-right:10px;}
+.fo_payment { float:left; width:100%; margin-bottom:10px; padding:10px 0; background:#f9f9f4;}
+.fo_payment label { font-size:12px; font-weight:bold; color:#666; padding-left:3px; }
+.fo_payment input { padding:0; margin:0; vertical-align:middle;}
+.choice_box { padding-left:20px; float:left;}
+.choice_box ul { padding:0; margin:0; list-style:none; padding-top:9px; }
+
+/* black */
+.black .payment_info { background:#343434;}
+.black .fo_payment { background:#343434; border:1px solid #1b1b1b;}
+
+/* pay */
+ul#select_method { overflow:hidden; padding:8px 20px; }
+ul#select_method li { list-style:none; float:left; margin-right:20px; }
+ul#select_method li label { font-weight:bold; color:#333; }
+ul#select_method li input { margin:0; padding:0; vertical-align:top; margin-right:3px; }
+div.payment_wrapper div.payment_title { background:#f8f8f8; border-bottom:1px solid #ededed; color:#666; padding:8px 20px; text-align:left; width:150px; font-weight:bold; font-size:12px; float:left; }
+
+/* Button */
+div.btn_wrap { margin-top:10px; text-align:center; }
+button.nbtn { margin:10px 0 10px 0; background:#777; color:#fff; width:100px; height:30px !important; text-shadow:none; font-weight:bold; border:1px solid #555; }
+

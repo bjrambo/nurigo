@@ -1,0 +1,171 @@
+<load target="js/script.js" />
+
+<style>
+	.x_controls ul { list-style:none; margin:0; padding:0; }
+	.x_controls ul li { float:left; margin-right:10px;}
+	.x_control-group .x_controls select.category { min-width:140px; }
+</style>
+
+
+<form method="post" action="./" class="x_form-horizontal" ruleset="@nproduct_insertItem" enctype="multipart/form-data">
+	<input name="module" type="hidden" value="{$module}" />
+	<input name="act" type="hidden" value="procNproductAdminInsertItem" />
+	<input name="module_srl" type="hidden" value="{$module_srl}" />
+	<input name="category_id" type="hidden" value="" />
+	<input name="document_srl" type="hidden" value="{$document_srl}" />
+	<input name="description" type="hidden" value="" />
+	<input name="delivery_info" type="hidden" value="" />
+	<input name="item_srl" type="hidden" value="" />
+	<input name="proc_module" type="hidden" value="{$module_info->proc_module}" />
+
+	<h1>{$lang->title_product_basicinfo}</h1>
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="category_depth1">{$lang->select_category}</label>
+		<div class="x_controls">
+			<select id="category_depth1" class="category" depth="1">
+				<option>{$lang->category_depth1}</option>
+			</select>
+			<select id="category_depth2" class="category" depth="2">
+				<option>{$lang->category_depth2}</option>
+			</select>
+			<select id="category_depth3" class="category" depth="3">
+				<option>{$lang->category_depth3}</option>
+			</select>
+			<select id="category_depth4" class="category" depth="4">
+				<option>{$lang->category_depth4}</option>
+			</select>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="item_name">{$lang->product_name} <em style="color:red">*</em></label>
+		<div class="x_controls">
+			<input name="item_name" type="text" value="" />
+			<a href="#item_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="item_name_help" class="x_help-block" hidden>{$lang->about_product_name}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="item_code">{$lang->item_code}</label>
+		<div class="x_controls">
+			<input name="item_code" type="text" value="" />
+			<a href="#item_code_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="item_code_help" class="x_help-block" hidden>{$lang->about_product_code}</p>
+		</div>
+		
+	</div>
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="thumbnail_image">{$lang->thumbnail}</label>
+		<div class="x_controls">
+			<input type="file" name="thumbnail_image" />
+			<a href="#thumbnail_image_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="thumbnail_image_help" class="x_help-block" hidden>{$lang->about_thumbnail_image}</p>
+		</div>
+	</div>
+
+	<div cond="0" id="contents_file_select" class="x_control-group">
+		<label class="x_control-label" for="contents_file">{$lang->contents_file}</label>
+		<div class="x_controls">
+			<input type="file" name="contents_file" />
+			<a href="#contents_file_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="contents_file_help" class="x_help-block" hidden>{$lang->about_contents_file}</p>
+		</div>
+	</div>
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="display">{$lang->display_or_not} <em style="color:red">*</em></label>
+		<div class="x_controls">
+			<label class="x_inline"><input type="radio" id="display_Y" name="display" value="Y" />{$lang->display}</label>
+			<label class="x_inline"><input type="radio" id="display_N" name="display" value="N" checked="checked" />{$lang->not_display}</label>
+			<a href="#display_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="display_help" class="x_help-block" hidden>{$lang->about_display_or_not}</p>
+		</div>
+
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="price">{$lang->price} <em style="color:red">*</em></label>
+		<div class="x_controls">
+			<input name="price" type="text" value="" />
+			<a href="#price_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="price_help" class="x_help-block" hidden>{$lang->about_price}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="taxfree">{$lang->tax_or_not}</label>
+		<div class="x_controls">
+			<label class="x_inline"><input type="radio" name="taxfree" value="N" checked="checked" />{$lang->taxation}</label>
+			<label class="x_inline"><input type="radio" name="taxfree" value="Y" />{$lang->no_taxation}</label>
+			<a href="#taxfree_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="taxfree_help" class="x_help-block" hidden>{$lang->about_taxation}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<div class="x_control-label" for="editor">{$lang->description} <em style="color:red">*</em></div>
+		<div class="x_controls">
+			{$editor}
+		</div>
+	</div>
+	<block loop="$extra_vars=>$key,$val">
+		<div class="x_control-group">
+			<label class="x_control-label">{$val->getTitle(TRUE)}</label>
+			<div class="x_controls">
+				{$val->getFormHTML(FALSE)}
+				<a href="#{$val->name}_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="{$val->name}_help" class="x_help-block" hidden>{$val->desc}</p>
+			</div>
+		</div>
+	</block>
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+	</div>
+</form>
+
+<script type="text/javascript">
+	function load_categories(module_srl, node_id, target) {
+		if (typeof(node_id)=='undefined') node_id = 'f.';
+		if (typeof(target)=='undefined') target = '#category_depth1';
+
+		$target = jQuery(target);
+		var $first_option = jQuery(target).children().eq(0);
+		$target.empty();
+		$target.append($first_option);
+
+		jQuery.ajax({
+			type: 'POST',
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			async : false,
+			url: "./",
+			data : { 
+				module : "nproduct"
+				, act : "getNproductCategoryList"
+				, node_id : node_id
+				, module_srl : module_srl
+			}, 
+			success : function (r) {
+				if (r.error == -1) {
+					alert(r.message);
+				} else {
+					for (i = 0; i < r.data.length; i++) {
+						jQuery('<option value="' + r.data[i].attr.node_id + '">' + r.data[i].attr.node_name + '</option>').appendTo(target);
+					}
+				}
+			}
+		});
+	}
+
+	(function($) {
+		jQuery(function($) {
+			load_categories({$module_srl});
+			$('.category').change(function() {
+				var node_id = $('option:selected', this).val();
+				var depth = $(this).attr('depth');
+				depth = parseInt(depth);
+				depth++;
+				jQuery('input[name=category_id]').val(node_id);
+				load_categories({$module_srl}, node_id, '#category_depth'+depth);
+			});
+		});
+	}) (jQuery);
+</script>

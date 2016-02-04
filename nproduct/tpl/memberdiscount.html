@@ -1,0 +1,122 @@
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="x_form-horizontal" ruleset="insertMemberDiscount">
+	<input name="act" type="hidden" value="procNproductAdminMemberDiscount" />
+	<input name="module" type="hidden" value="{$module}" />
+	<input name="module_srl" type="hidden" value="{$module_srl}" />
+
+	<section class="section">
+		<h1>
+			{$lang->member_discount}
+			<a href="#aboutMemberDiscount" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+		</h1>
+		<p id="aboutMemberDiscount" class="x_alert x_alert-info-block" hidden>{$lang->about_group_discount}</p>
+
+		<div>
+			<label for="member_discount" style="float:left;">{$lang->member_id}</label>
+			<input type="text" name="member_id" class="x_span2" id="member_discount" style="float:left;" />
+			<label for="member_opt_1" style="float:left;">{$lang->price}<input type="radio" name="member_opt" value="1" checked="checked" /> </label>
+			<label for="member_opt_2" style="float:left;">{$lang->ratio}<input type="radio" name="member_opt" value="2" /> </label> 
+
+			<input type="text" name="discount" class="x_inline x_pull-right" style="float:left;" />
+			
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_registration}</button>
+		</div>
+	</section>
+</form>
+
+<section class="section">
+	<h1>
+		{$lang->discount_list}
+		<a href="#aboutMemberDiscountList" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+	</h1>
+
+	<p id="aboutMemberDiscountList" class="x_alert x_alert-info-block" hidden>{$lang->discount_list_text}</p>
+
+<form action="./" method="post">
+	<input type="hidden" name="act" value="procNproductAdminDeleteMemberDiscount" />
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<table id="memberlist">
+		<thead> 
+			<th>{$lang->item_number}</th>
+			<th>{$lang->member_id}</th>
+			<th>{$lang->item_type}</th>
+			<th>{$lang->price}</th>
+			<th>{$lang->creation_date}</th>
+			<th><input type="checkbox" title="Check All" data-name="member_srls[]" /></th>
+		</thead>
+		<tbody>
+			<tr loop="$member_discount_list=>$no, $val">
+				<td>{$no+1}</td>
+				<td>{$val->user_id}</td>
+				<td cond="$val->opt == '1'">{$lang->price}</td>
+				<td cond="$val->opt == '2'">{$lang->ratio}</td>
+				<td>{$val->discount}</td>
+				<td>{$val->regdate}</td>
+				<td><input type="checkbox" name="member_srls[]" value="{$val->member_srl}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+</form>
+
+</section>
+
+
+<div class="search">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo;{$lang->first_page}</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page}&raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+	<form cond="0" action="" method="post">
+		<select name="search_target">
+			<option value="">{$lang->search_target}</option>
+			{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+			<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+		</select>
+		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+		<input type="submit" value="{$lang->cmd_search}" />
+		<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+	</form>
+</div>
+
+

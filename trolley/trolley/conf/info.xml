@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+	<title xml:lang="ko">장바구니 애드온</title>
+	<description xml:lang="ko">
+		장바구니, 위시리스트, 최근본상품을 보여줍니다.
+	</description>
+	<version>0.3</version>
+	<date>2013-08-23</date>
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+	<extra_vars>
+		<group>
+			<title>기본설정</title>
+			<var name="r_ncart_mid" type="text">
+				<title xml:lang="ko">통합카트 MID</title>
+				<description xml:lang="ko">사용할 통합카트의 MID값을 적어주세요.</description>
+			</var>
+			<var name="charset" type="text">
+				<title xml:lang="ko">상단 문구</title>
+				<description xml:lang="ko">상단문구를 입력하세요. ex)로그인을 하시면 이벤트와 포인트등 혜택이 많아집니다.</description>
+			</var>
+		</group>
+		<group>
+			<title>링크추가</title>
+			<var name="r_button01" type="text">
+				<title xml:lang="ko">:: 버튼문구01</title>
+				<description xml:lang="ko">버튼문구를 입력하세요. ex)배송조회</description>
+			</var>
+			<var name="r_button01_url" type="text" >
+				<title xml:lang="ko">버튼문구01 URL</title>
+				<description xml:lang="ko">'버튼문구01'에 걸 링크 주소를 입력해주세요.</description>
+			</var>
+			<var name="r_button02" type="text">
+				<title xml:lang="ko">:: 버튼문구02</title>
+				<description xml:lang="ko">버튼문구를 입력하세요. ex)다운로드</description>
+			</var>
+			<var name="r_button02_url" type="text" >
+				<title xml:lang="ko">버튼문구02 URL</title>
+				<description xml:lang="ko">'버튼문구02'에 걸 링크 주소를 입력해주세요.</description>
+			</var>
+		</group>
+		<group>
+			<title>배너 이벤트</title>
+			<var name="event_mid" type="text">
+				<title xml:lang="ko">게시판 이름(MID)</title>
+				<description xml:lang="ko">이벤트 구역과 연동할 게시판 이름(MID)을 적어주세요. ※게시판의 최근글을 가져옵니다. </description>
+			</var>
+			<var name="event_count" type="select">
+				<title xml:lang="ko">출력할 이벤트 수</title>
+				<description xml:lang="ko">이벤트 출력 개수를 고르세요. ※1개 이상은 최근글부터 순서대로 가져옵니다. </description>
+				<options value="1">
+					<title xml:lang="ko">1개 출력.</title>
+				</options>
+				<options value="2">
+					<title xml:lang="ko">2개 출력.</title>
+				</options>
+				 <options value="3">
+					<title xml:lang="ko">3개 출력.</title>
+				</options>
+			</var>
+			<var name="o_event_size" type="text">
+				<title xml:lang="ko">이벤트 이미지 크기(OPEN)</title>
+				<description xml:lang="ko">펼쳐졌을때 이벤트 이미지 크기의 가로값을 적어주세요. ※기본은 300으로 되있습니다. </description>
+			</var>
+			<var name="f_event_size" type="text">
+				<title xml:lang="ko">이벤트 이미지 크기(FOLD)</title>
+				<description xml:lang="ko">접혔을때 이벤트 이미지 크기의 가로값을 적어주세요. ※기본은 120으로 되있습니다. </description>
+			</var>
+		</group>
+	</extra_vars>
+</addon>

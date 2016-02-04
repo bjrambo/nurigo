@@ -1,0 +1,88 @@
+<load target="js/script.js" />
+<load target="js/payplus.js" type="body" />
+<load cond="$plugin_info->service_mode == 'test'" target="http://pay.kcp.co.kr/plugin/payplus_test_un.js" />
+<load cond="$plugin_info->service_mode != 'test'" target="http://pay.kcp.co.kr/plugin/payplus_un.js" />
+<load target="filter/submit_payment.xml" />
+<load target="filter/submit_review.xml" />
+<load target="button.css" />
+<load target="lang" />
+
+<form id="fo_payplus" name="fo_payplus" class="fo_payment" method="post" action="./" onsubmit="payplus_pay('{$join_form}'); return false;">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+
+        <input type="hidden" name="site_logo" value="{getFullUrl('')}{$plugin_info->site_logo}" />
+
+	<!-- settings by user -->
+        <input type="hidden" name="pay_method" value="100000000000" />
+	<input cond="0" type="hidden" name="epay_order_title" value="{$item_name}" />
+	<input cond="0" type="hidden" name="good_name" value="{$item_name}" />
+
+	<input type="hidden" name="buyr_name" value="{$purchaser_name}" />
+	<input type="hidden" name="buyr_mail" value="{$purchaser_email}" />
+	<input type="hidden" name="buyr_tel1" value="{$purchaser_cellphone}" />
+	<input type="hidden" name="buyr_tel2" value="{$buyr_telnum}" />
+	<input type="hidden" name="skin_indx" value='6'>
+
+
+
+	<div id="payplusForm"></div>
+
+	<div class="choice_box">
+		{@$checked=FALSE}
+		{@$first=FALSE}
+		<span cond="$plugin_info->paymethod_card=='Y'">
+			<input name="payment_method" id="payplus_pm_1" type="radio" value="CC" checked="checked"|cond="!$checked" /><label for="payplus_pm_1">{$lang->creditcard_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first='payplus_1'}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_directbank=='Y'">
+			<input name="payment_method" id="payplus_pm_2" type="radio" value="IB" checked="checked"|cond="!$checked" /><label for="payplus_pm_2">{$lang->bank_transfer_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first='payplus_2'}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_virtualbank=='Y'">
+			<input name="payment_method" id="payplus_pm_3" type="radio" value="VA" checked="checked"|cond="!$checked" /><label for="payplus_pm_3">{$lang->virtual_account_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first='payplus_3'}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_phone=='Y'">
+			<input name="payment_method" id="payplus_pm_4" type="radio" value="MP" checked="checked"|cond="!$checked" /><label for="payplus_pm_4">{$lang->cellphone_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first='payplus_3'}</block>
+		</span>
+	</div>
+
+	<div class="btn_payment" id="display_pay_button">
+		 <span>
+			<input type="submit" value="결제하기" class="nuribtn blue super" />
+		 </span>
+	</div>
+
+	<div id="payplus_pm_CC" class="payment_info" style="display:none"|cond="$first!='payplus_1'">
+		<p cond="!$plugin_info->paymethod_card_guide">{$lang->about_creditcard}</p>
+		<div id="display_setup_message" style="display:none">
+			<div align="center">
+				<span class="red">결제를 계속 하시려면 상단의 노란색 표시줄을 클릭</span>하시거나<br/>
+				<a href="http://pay.kcp.co.kr/plugin/file_vista/PayplusWizard.exe"><span class="bold">[수동설치]</span></a>를 눌러 Payplus Plug-in을 설치하시기 바랍니다.<br/>
+				[수동설치]를 눌러 설치하신 경우 <span class="red bold">새로고침(F5)키</span>를 눌러 진행하시기 바랍니다.
+			</div>
+		</div>
+		<p cond="$plugin_info->paymethod_card_guide">{$plugin_info->paymethod_card_guide}</p>
+	</div>
+	<div id="payplus_pm_IB" class="payment_info" style="display:none"|cond="$first!='payplus_2'">
+		<p cond="!$plugin_info->paymethod_directbank_guide">{$lang->about_bank_transfer}.</p>
+		<p cond="$plugin_info->paymethod_directbank_guide">{$plugin_info->paymethod_directbank_guide}</p>
+	</div>
+	<div id="payplus_pm_VA" class="payment_info" style="display:none"|cond="$first!='payplus_3'">
+		<p cond="!$plugin_info->paymethod_virutalbank_guide">{$lang->about_virtual_account}</p>
+		<p cond="$plugin_info->paymethod_virutalbank_guide">{$plugin_info->paymethod_virutalbank_guide}</p>
+	</div>
+	<div id="payplus_pm_MP" class="payment_info" style="display:none"|cond="$first!='payplus_4'">
+		<p cond="!$plugin_info->paymethod_phone_guide">{$lang->about_cellphone}</p>
+		<p cond="$plugin_info->paymethod_phone_guide">{$plugin_info->paymethod_phone_guide}</p>
+	</div>
+
+</form>

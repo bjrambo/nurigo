@@ -1,0 +1,28 @@
+/* Global Navigation Bar */
+#nurigo .gnb{height:35px;clear:both;border:1px solid #24a3e4;background-color:#efefef;box-shadow:inset 0 0 1px #fff;background:#efefef -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3fc0f7), to(#189adc));background:#efefef -moz-linear-gradient(top, #3fc0f7, #32b1ec, #189adc);filter:progid:DXImageTransform.Microsoft.gradient(startColorStr=#3fc0f7, endColorStr=#189adc); _background-color:#32b1ec;zoom:1; z-index:99999;}
+.e8f8ffefefefx .gnb:after{content:"";display:block;clear:both}
+#nurigo .gnb .nav li a{display:block;_float:left;color:#fff;font-size:12px;height:15px;padding:9px 0;white-space:nowrap;text-decoration:none;}
+#nurigo .gnb .nav li a span{padding:0 22px;border-left:1px solid #318fb3}
+#nurigo .gnb .nav .focus_on {color:#ffff00;}
+#nurigo .gnb .nav li a:hover,
+#nurigo .gnb .nav li a:active,
+#nurigo .gnb .nav li a:focus { background:#c8efff;}
+#nurigo .gnb .nav li li a:hover,
+#nurigo .gnb .nav li li a:active,
+#nurigo .gnb .nav li li a:focus {border:0;background:#c8efff; }
+
+/* dropdown_menu */
+#nurigo .gnb.active #dropdown{border:3px solid #33a6d1;  z-index:1;}
+#nurigo .gnb.active #dropdown li a { color:#000; }
+
+/* dropdown_off */
+#nurigo .gnb #dropdown_off li a:hover,
+#nurigo .gnb #dropdown_off li a:active,
+#nurigo .gnb #dropdown_off li a:focus {background:#60c9f6;}
+
+/* sub_menu */
+#nurigo .sub_menu { margin-bottom:30px; width:832px; float:left; }
+#nurigo .sub_menu ul li a {text-decoration:none; color:#fff; font-size:11px;}
+#nurigo .sub_menu ul li.on a{color:#ffff00; }
+#nurigo .sub_menu a:hover {color:#ffff00; }
+#nurigo .sub_check { background-color:#3d3d3d; border:none;}

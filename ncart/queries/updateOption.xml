@@ -1,0 +1,12 @@
+<query id="updateOption" action="update">
+	<tables>
+		<table name="nstore_options" />
+	</tables>
+	<columns>
+		<column name="title" var="title" />
+		<column name="price" var="price" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="option_srl" var="option_srl" notnull="notnull" />
+	</conditions>
+</query>

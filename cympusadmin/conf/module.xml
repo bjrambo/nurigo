@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+		<grant name="management" default="manager">
+			<title xml:lang="ko">관리</title>
+		</grant>
+	</grants>
+	<permissions>
+		<permission action="dispCympusadminAdminIndex" target="manager" />
+	</permissions>
+	<actions>
+		<!-- admin -->
+		<action name="dispCympusadminAdminModInstList" type="view" standalone="true" admin_index="true" />
+		<action name="dispCympusadminAdminInsertModInst" type="view" standalone="true" />
+		<action name="dispCympusadminAdminGrantInfo" type="view" standalone="true" />
+
+		<action name="procCympusadminAdminInsertModInst" type="controller" standalone="true" />
+
+		<!-- user -->
+		<action name="dispCympusadminAdminIndex" type="view" standalone="true" index="true" />
+	</actions>
+</module>

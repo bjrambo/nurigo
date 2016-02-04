@@ -1,0 +1,42 @@
+<table name="nstore_escrow">
+	<column name="order_srl" type="number" size="11" notnull="notnull" unique="unique_order_srl" />
+	<column name="pg_tid" type="varchar" size="80" notnull="notnull" />
+	<column name="pg_oid" type="varchar" size="80" notnull="notnull" />
+	<column name="invoice_no" type="varchar" size="80" notnull="notnull" />
+	<column name="registrant" type="varchar" size="80" notnull="notnull" />
+	<column name="deliverer_code" type="varchar" size="80" notnull="notnull" />
+	<column name="deliverer_name" type="varchar" size="80" notnull="notnull" />
+	<!-- 1: 판매자부담, 2:구매자부담 -->
+	<column name="delivery_type" type="char" size="1" default="1" />
+	<column name="delivery_date" type="varchar" size="14" notnull="notnull" />
+
+	<column name="sender_name" type="varchar" size="80" notnull="notnull" />
+	<column name="sender_postcode" type="varchar" size="10" notnull="notnull" />
+	<column name="sender_address1" type="varchar" size="160" notnull="notnull" />
+	<column name="sender_address2" type="varchar" size="160" notnull="notnull" />
+	<column name="sender_telnum" type="varchar" size="40" notnull="notnull" />
+	<column name="recipient_name" type="varchar" size="80" notnull="notnull" />
+	<column name="recipient_postcode" type="varchar" size="10" notnull="notnull" />
+	<column name="recipient_address" type="varchar" size="160" notnull="notnull" />
+	<column name="recipient_telnum" type="varchar" size="40" notnull="notnull" />
+
+	<column name="product_code" type="varchar" size="80" />
+	<column name="product_name" type="varchar" size="80" notnull="notnull" />
+	<column name="quantity" type="number" size="11" default="1" />
+	<column name="price" type="number" size="11" default="0" />
+
+	<column name="result_code" type="varchar" size="40" />
+	<column name="result_message" type="varchar" size="160" />
+
+	<!-- Y: 거절 , N: 확인 -->
+	<column name="deny_order" type="char" size="1" default="N" />
+	<column name="confirm_code" type="varchar" size="40" />
+	<column name="confirm_message" type="varchar" size="160" />
+	<column name="confirm_date" type="varchar" size="14" />
+
+	<column name="denyconfirm_code" type="varchar" size="40" />
+	<column name="denyconfirm_message" type="varchar" size="160" />
+	<column name="denyconfirm_date" type="varchar" size="14" />
+
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

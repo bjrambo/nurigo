@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispKcpAdminModInstList" type="view" admin_index="true" />
+		<action name="dispKcpAdminInsertModInst" type="view" />
+
+		<action name="procKcpAdminInsertModInst" type="controller" />
+
+		<action name="dispKcpForm" type="view" />
+		<action name="getKcpForm" type="model" />
+		<action name="procKcpDoIt" type="controller" />
+		<action name="procKcp" type="controller" index="true" />
+	</actions>
+</module>

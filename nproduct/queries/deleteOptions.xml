@@ -1,0 +1,8 @@
+<query id="deleteOptions" action="delete">
+	<tables>
+		<table name="nproduct_options" />
+	</tables>
+	<conditions>
+		<condition operation="in" column="option_srl" var="option_srl" notnull="notnull" />
+	</conditions>
+</query>

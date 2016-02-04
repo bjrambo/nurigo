@@ -1,0 +1,121 @@
+<load target="css/style.css" />
+<load target="css/btn.css" />
+<load target="css/ordercomplete.css" />
+<include target="header.html" />
+
+<!--// add the proc_module of the purchased products -->
+{@$purchased_modules=array()}
+
+<div class="ordercomplete {$module_info->colorset}">
+	<div class="cartStep">
+		<ul class="progress step3">
+			<li class="cart1">{$lang->cmd_cart}</li>
+			<li class="cart2">{$lang->title_order_payment}</li>
+			<li class="cart3 presentProgress">{$lang->order_complete}</li>
+		</ul>
+	</div>
+
+	<include target="_header.html" />
+
+	<div cond="$order_info->order_status=='0'" class="message error">{$lang->msg_order_cancelled}</div>
+
+	<font color="red" cond="!$logged_info"><h5>{$lang->about_order_number}</h5></font>
+
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->sales_price}</th>
+				<th>{$lang->total_discount}</th>
+				<th>{$lang->discounted_amount}</th>
+				<th cond="!$logged_info" >{$lang->order_number}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<tr cond="count($order_info->item_list)" loop="$order_info->item_list=>$no,$val">
+				<block cond="!in_array($val->module, $purchased_modules)">{@$purchased_modules[] = $val->module}</block>
+				{@$item_sum = $val->price * $val->quantity}
+				<td>{$no+1}</td>
+				<td>
+					<a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail(80,80)}" /></a>
+				</td>
+				<td>
+					<div>{$val->item_name}</div>
+					<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($option_price)})</div>
+				</td>
+				<td>{number_format($val->quantity)}</td>
+				<td>{nproductItem::formatMoney($val->price)}</td>
+				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td class="item_price">{$val->printDiscountedPrice()}</td>
+				<td cond="!$logged_info"><font color=red><h2>{$val->order_srl}</h2></font></td>
+				{@$total_price+=$item_sum}
+			</tr>
+			<tr cond="!count($order_info->item_list)">
+				<td colspan="8">{$lang->msg_no_items}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div cond="$payment_info->payment_method=='VA' || $payment_info->payment_method=='BT'">
+		<h3 class="title_benefits"><span>{$lang->bankaccount_info}</span></h3>
+		<table class="order-table">
+			<caption>{$lang->about_bankaccount_info}</caption>
+			<tr>
+				<th>{$lang->account_number}</th><td>{$payment_info->vact_num}</td>
+			</tr>
+			<tr>
+				<th>{$lang->bank_name}</th><td>{$payment_info->vact_bankname}</td>
+			</tr>
+			<tr>
+				<th>{$lang->account_holder}</th><td>{$payment_info->vact_name}</td>
+			</tr>
+			<tr>
+				<th>{$lang->deposit_amount}</th><td>{$payment_info->payment_amount}</td>
+			</tr>
+			<tr cond="$payment_info->vact_inputname">
+				<th>{$lang->sender_name}</th><td>{$payment_info->vact_inputname}</td>
+			</tr>
+			<tr cond="$payment_info->vact_date">
+				<th>{$lang->send_date}</th><td>{zdate($payment_info->vact_date,'Y-m-d')} {$lang->till}</td>
+			</tr>
+		</table>
+	</div>
+
+	<!--// fieldset -->
+	<block loop="$fieldset_list=>$key,$val">
+		{@$proc_modules = explode(',',$val->proc_modules)}
+		<!--// compare two arrays using array_diff -->
+		<div cond="count(array_diff($proc_modules, $purchased_modules))!=count($proc_modules)" class="fieldset">
+			<h3>{$val->fieldset_title}</h3>
+			<table class="order-table">
+				<tr loop="$val->fields=>$key2,$field">
+					<th>{$field->html->title}</th><td><span cond="is_array($field->value)">{implode(' ', $field->value)}</span><span cond="!is_array($field->value)">{$field->value}</span></td>
+				</tr>
+			</table>
+		</div>
+	</block>
+	<!--// end of fieldset -->
+
+
+	<block cond="$mileage_flag != 'N'">
+	<h3 class="title_benefits" cond="$logged_info"><span>{$lang->purchase_benefit}</span></h3>
+	<table class="order-table" cond="$logged_info">
+		<tbody>
+			<tr>
+				<th>{$lang->mileage}</th>
+				<td colspan="3">{nproductItem::formatMoney($order_info->mileage)} {$lang->purchase_benefit_postfix}</td>
+			</tr>
+		</tbody>
+	</table>
+	</block>
+	<br /><br />
+	<div class="btn_continue">
+		<a cond="$module_info->continuous_url" href="{$module_info->continuous_url}" class="nuribtn navy large">{$lang->cmd_continue_shopping}</a>
+	</div>
+</div>
+
+<include target="footer.html" />

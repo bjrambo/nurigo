@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispNmileageAdminModInstList" type="view" />
+		<action name="dispNmileageAdminConfig" type="view" />
+		<action name="dispNmileageAdminInsertModInst" type="view" />
+		<action name="dispNmileageAdminAdditionSetup" type="view" />
+		<action name="dispNmileageAdminSkinInfo" type="view" />
+		<action name="dispNmileageAdminMobileSkinInfo" type="view" />
+		<action name="dispNmileageAdminMileageList" type="view" />
+		<action name="dispNmileageAdminMileageHistory" type="view" />
+		<action name="dispNmileageAdminAllMileageHistory" type="view" admin_index="true" />
+
+		<action name="procNmileageAdminConfig" type="controller" />
+		<action name="procNmileageAdminInsertModInst" type="controller" />
+		<action name="procNmileageAdminDeleteModInst" type="controller" />
+		<action name="procNmileageAdminPlusMileage" type="controller" ruleset="insertMileage" />
+		<action name="procNmileageAdminMinusMileage" type="controller" />
+
+		<action name="getNmileageAdminDeleteModInst" type="model" />
+		<action name="getNmileageAdminPlusMileage" type="model" />
+		<action name="getNmileageAdminMinusMileage" type="model" />
+		<action name="getNmileageAdminCheckUserId" type="model" />
+
+		<action name="getMileage" type="model" />
+
+		<action name="dispNmileageMileageHistory" type="view" index="true" />
+		<action name="dispNmileageMyMileage" type="view" />
+	</actions>
+</module>

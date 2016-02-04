@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispEposAdminModInstList" type="view" admin_index="true" />
+		<action name="dispEposAdminInsertModInst" type="view" />
+
+		<action name="procEposAdminInsertModInst" type="controller" />
+
+		<action name="dispEposForm" type="view" />
+		<action name="dispEposError" type="view" />
+		<action name="getEposForm" type="model" />
+	</actions>
+</module>

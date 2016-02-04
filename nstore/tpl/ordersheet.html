@@ -1,0 +1,148 @@
+{@$extra_vars = unserialize($order_info->extra_vars)}
+
+<div class="x">
+	<h1>{$lang->title_ordersheet}</h1>
+
+	<h3>{$lang->purchaser_info}</h3>
+	<div class="table">
+		<table>
+			<tr>
+				<th>{$lang->order_number}</th>
+				<td>{$order_info->order_srl}</td>
+			</tr>
+			<tr>
+				<th>{$lang->order_date}</th>
+				<td>{zdate($order_info->regdate)}</td>
+			</tr>
+			<tr cond="$order_info->purchaser_name">
+				<th>{$lang->purchaser_name}</th>
+				<td>{$order_info->purchaser_name}</td>
+			</tr>
+			<tr cond="$order_info->purchaser_email">
+				<th>E-mail</th>
+				<td>{$order_info->purchaser_email}</td>
+			</tr>
+
+		</table>
+	</div>
+
+	<h3>{$lang->delivery_info}</h3>
+	<div class="table">
+		<table>
+			<tr loop="$extra_vars=>$key,$val">
+				<th>{$key}</th>
+				<td><span cond="is_array($val)">{implode(' ', $val)}</span><span cond="!is_array($val)">{$val}</span></td>
+			</tr>
+			<tr cond="$order_info->recipient_name">
+				<th>{$lang->recipient_name}</th>
+				<td>{$order_info->recipient_name}</td>
+			</tr>
+			<tr cond="$order_info->recipient_cellphone">
+				<th>{$lang->cellphone}</th>
+				<td>{$order_info->recipient_cellphone}</td>
+			</tr>
+			<tr cond="$order_info->recipient_telnum">
+				<th>{$lang->telnum}</th>
+				<td>{$order_info->recipient_telnum}</td>
+			</tr>
+			<tr cond="$order_info->recipient_address">
+				<th>{$lang->address}</th>
+				<td>{$order_info->recipient_postcode} {implode(' ', unserialize($order_info->recipient_address))}</td>
+			</tr>
+		</table>
+	</table>
+
+	<h3>{$lang->product_info}</h3>
+	<div class="table">
+		<table>
+			<caption>{$lang->msg_product_info_caption}</caption>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th>{$lang->product}</th>
+					<th>{$lang->quantity}</th>
+					<th>{$lang->item_price}</th>
+					<th>{$lang->discount}</th>
+					<th>{$lang->amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{@$total_quantity=0}
+				<tr loop="$order_info->item_list=>$key,$val">
+					{@$total_quantity+=$val->quantity}
+					<td>{$key+1}</td>
+					<td>
+						<div><span cond="$val->taxfree=='Y'"> * </span>{$val->item_name}</div>
+						<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)}원)</div>
+					</td>
+					<td>{$val->quantity}</td>
+					<td>{$val->formatMoney($val->price * $val->quantity)}</td>
+					<td>{$val->formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+					<td>{$val->formatMoney($val->discounted_price)}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>합계</td>
+					<td>{number_format($total_quantity)}</td>
+					<td>{$val->formatMoney($order_info->sum_price)}</td>
+					<td>{$val->formatMoney($order_info->total_discount_amount)}</td>
+					<td>{$val->formatMoney($order_info->total_discounted_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>{$lang->tax_products}</th>
+					<th>{$lang->vat}</th>
+					<th>{$lang->taxfree_products}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{nproductItem::formatMoney($order_info->supply_amount)}</td>
+					<td>{nproductItem::formatMoney($order_info->vat)}</td>
+					<td>{nproductItem::formatMoney($order_info->taxfree_amount)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="table">
+		<table>
+			<thead>
+				<tr>
+					<th>{$lang->total_order_amount}</th>
+					<th></th>
+					<th>{$lang->discount_amount}</th>
+					<th></th>
+					<th>{$lang->delivery_fee}</th>
+					<th></th>
+					<th>{$lang->payamount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{@$delivfee_inadvance = ($order_info->delivfee_inadvance == 'Y') ? '('.$lang->prepay.')' : '('.$lang->cash_on_delivery.')'}
+					<td>{nproductItem::formatMoney($order_info->sum_price)}</td>
+					<td>-</td>
+					<td>{nproductItem::formatMoney($order_info->total_discount_amount)}</td>
+					<td>+</td>
+					<td>{nproductItem::formatMoney($order_info->delivery_fee)}{$delivfee_inadvance}</td>
+					<td>=</td>
+					<td>{nproductItem::formatMoney($order_info->total_price)}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<script>
+	jQuery(function($) {
+		window.print();
+	});
+</script>

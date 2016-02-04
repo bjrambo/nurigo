@@ -1,0 +1,10 @@
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<div cond="$transaction_info">
+	<table>
+		<tr loop="$transaction_info=>$key,$val">
+			<th>{$key}</th><td>{$val}</td>
+		</tr>
+	</table>
+</div>

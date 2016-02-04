@@ -1,0 +1,77 @@
+<!--%import("js/script.js")-->
+<include target="_header.html" />
+
+<form action="./" method="post" class="x_form-horizontal" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNcartAdminConfig" />
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="delivery_fee">{$lang->delivery_fee}</label>
+		<div class="x_controls">
+			<input type="text" name="delivery_fee" value="{$config->delivery_fee}" />
+			<a href="#delivery_fee_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="delivery_fee_help" class="x_help-block" hidden>{$lang->about_delivery_fee}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="freedeliv_amount">{$lang->amount_for_free_delivery}</label>
+		<div class="x_controls">
+			<input type="text" name="freedeliv_amount" value="{$config->freedeliv_amount}" />
+			<a href="#freedeliv_amount" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="freedeliv_amount" class="x_help-block" hidden>{$lang->about_free_delivery}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="mileage_percent">{$lang->transaction_mileage}</label>
+		<div class="x_controls">
+			<input type="text" name="mileage_percent" value="{$config->mileage_percent}"  class="inputTypeText w400" />
+			<a href="#mileage_percent_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="mileage_percent_help" class="x_help-block" hidden>{$lang->about_transaction_mileage}</p>
+		</div>
+	</div>
+	<!-- 통합 통화 모듈에 따른 각 쇼핑몰 기본 화폐설정 disable -->
+	<!--div class="x_control-group">
+		<label class="x_control-label" for="currency">{$lang->currency}</label>
+		<div class="x_controls">
+			<select name="currency">
+				<option loop="$lang->currency_list=>$code,$val" value="{$code}" selected="selected"|cond="$config->currency==$code">{$val}</option>
+			</select>
+			<a href="#currency_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="currency_help" class="x_help-block" hidden>{$lang->about_currency}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="as_sign">{$lang->currency_format}</label>
+		<div class="x_controls">
+			<select name="as_sign">
+				<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
+				<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
+			</select>
+			<a href="#as_sign_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="as_sign_help" class="x_help-block" hidden>{$lang->about_currency_format}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="decimals">{$lang->point_position}</label>
+		<div class="x_controls">
+			<input type="text" name="decimals" value="{$config->decimals}" />
+			<a href="#decimals_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="decimals_help" class="x_help-block" hidden>{$lang->about_point_position}</p>
+		</div>
+	</div-->
+	<div class="x_control-group">
+		<label class="x_control-label" for="guest_buy">{$lang->guest_buy}</label>
+		<div class="x_controls">
+			<select name="guest_buy">
+				<option value="Y" selected="selected"|cond="$config->guest_buy == 'Y'">{$lang->use}</option>
+				<option value="N" selected="selected"|cond="$config->guest_buy == 'N'">{$lang->notuse}</option>
+		    </select>
+			<a href="#guest_buy_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="guest_buy_help" class="x_help-block" hidden>{$lang->about_guest_buy}</p>
+		</div>
+	</div>
+
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_registration}</button>
+	</div>
+</form>

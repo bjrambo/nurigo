@@ -1,0 +1,8 @@
+#item_info { overflow:hidden; }
+#item_info .info-tab { overflow:hidden; margin-bottom:30px; }
+#item_info .item-thumbnail { float:left; margin-right:10px; }
+#item_info .info-tab table { width:100%; background:#ddd; } 
+#item_info .info-tab tr { background:#fff; line-height:4em; }
+#item_info .info-tab th { border-top:1px solid #ddd; border-bottom:1px solid #ddd; background:#fafafa; color:#555; }
+#item_info .info-tab td { border-bottom:1px solid #ddd; }
+#item_info .info-tab h2 { font-weight:normal; font-size:12px; }

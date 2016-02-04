@@ -1,0 +1,3 @@
+div.guide_review { background: none repeat scroll 0 0 #fff; color: #333; padding: 10px 15px; line-height:2em; border:1px solid #ccc; }
+div.btn_payment { margin:10px 0; text-align:center; }
+div.btn_payment button.btn { width:100px; height:40px !important; }

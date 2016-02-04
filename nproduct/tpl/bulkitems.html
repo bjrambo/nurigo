@@ -1,0 +1,57 @@
+<form action="./" method="post" class="form">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNproductAdminUpdateItemList" />
+	<input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act',$act,'module_srl',$module_srl)}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="category" value="{$category}" />
+
+	<table class="x_table">
+		<thead>
+			<tr>
+				<th>{$lang->item_number}</th>
+				<th>{$lang->item_code}</th>
+				<th></th>
+				<th>{$lang->item_name}</th>
+				<th>{$lang->tax_or_not}</th>
+				<th>{$lang->display_or_not}</th>
+				<th>{$lang->price}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{@$cnt=0}
+			<tr loop="$update_list=>$item_code,$upd">
+				{@$val=$original_list[$item_code]}
+				{@$org_taxfree=''}
+				{@$org_display=''}
+				<block cond="$val->taxfree=='Y'">{@$org_taxfree=$lang->no_taxation}</block>
+				<block cond="$val->taxfree=='N'">{@$org_taxfree=$lang->taxation}</block>
+				<block cond="$val->display=='Y'">{@$org_display=$lang->display}</block>
+				<block cond="$val->display=='N'">{@$org_display=$lang->not_display}</block>
+				<td><input type="hidden" name="item_srls[]" value="{$val->item_srl}"|cond="$val->item_srl" value="0"|cond="!$val->item_srl" />{++$cnt}</td>
+				<td cond="$val->item_code"><input type="hidden" name="item_code[]" value="{$upd->item_code}" />{$val->item_code}</td>
+				<td cond="!$val->item_code"><input type="text" name="item_code[]" style="width:120px;border:solid red 1px;" value="{$upd->item_code}" />{$val->item_code}</td>
+				<td><a href="{getUrl('act','dispNstore_digitalAdminUpdateItem','item_srl',$val->item_srl)}"><span style="margin-right:6px;"><img src="{$val->getThumbnail(30)}" /></span></a></td>
+				<td><div>{$val->item_name}<div><input type="text" name="item_name[]" style="border:solid red 1px;"|cond="$upd->item_name!=$val->item_name" value="{$upd->item_name}" /></td>
+				<td><div>{$org_taxfree}</div><select name="taxfree[]" style="border:solid red 1px;"|cond="$upd->taxfree!=$val->taxfree"><option value="N" selected="selected"|cond="$upd->taxfree=='N'">{$lang->taxation}</option><option value="Y" selected="selected"|cond="$upd->taxfree=='Y'">{$lang->no_taxation}</option></select></td>
+				<td><div>{$org_display}</div><select name="display[]" style="border:solid red 1px;"|cond="$upd->display!=$val->display"><option value="Y" selected="selected"|cond="$upd->display=='Y'">{$lang->display}</option><option value="N" selected="selected"|cond="$upd->display=='N'">{$lang->not_display}</option></select></td>
+				<td><div cond="$val->price">{$val->price}</div><input type="text" name="price[]" style="width:50px"|cond="$upd->price==$val->price" style="width:50px;border:solid red 1px;"|cond="$upd->price!=$val->pricee" value="{$upd->price}" /></td>
+			</tr>
+			<tr cond="!count($original_list)">
+				<td colspan="7">{$lang->msg_no_items}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_apply}</button>
+	</div>
+</form>
+
+<div>{$lang->about_bulk_registration}</div>
+<form action="./" class="form" method="post">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="category" value="{$category}" />
+	<textarea name="item_list" style="width:600px;height:200px;"></textarea>
+	<button type="submit" class="x_btn">{$lang->cmd_confirm}</button>
+</form>

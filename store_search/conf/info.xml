@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="ko">Store Search</title>
+    <title xml:lang="en">Store Search</title>
+	<title xml:lang="zh-TW">Store Search 搜索模組</title>
+    <description xml:lang="ko">
+	통합검색 확장 모듈
+    </description>
+    <description xml:lang="en">
+	Integrated Search Module Extended
+    </description>
+	<description xml:lang="zh-TW">集成的搜索模組擴展</description>
+    <version>0.9</version>
+    <date>2013-07-02</date>
+    <category>service</category>
+
+    <author email_address="contact@nurigo.net" link="http://www.nurigo.net/">
+        <name xml:lang="ko">NURIGO</name>
+        <name xml:lang="en">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+    </author>
+</module>

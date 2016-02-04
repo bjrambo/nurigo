@@ -1,0 +1,12 @@
+<query id="getExtra" action="select">
+	<tables>
+		<table name="nstore_digital_extra" alias="cart" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" />
+		<condition operation="equal" column="cart_srl" var="cart_srl" pipe="and" />
+	</conditions>
+</query>

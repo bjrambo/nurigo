@@ -1,0 +1,71 @@
+<include target="_header.html" />
+
+<form action="./" class="x_form-horizontal" method="post" enctype="multipart/form-data" ruleset="insertConfig">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstoreAdminConfig" />
+
+	<section class="section">
+		<h1>{$lang->basic_setting}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->use_escrow}</label>
+			<div class="x_controls">
+				<select name="escrow_yn">
+					<option value="N" selected="selected"|cond="$config->escrow_yn == 'N'">{$lang->notuse}</option>
+					<option value="Y" selected="selected"|cond="$config->escrow_yn == 'Y'">{$lang->use}</option>
+				</select>
+				<a href="#escrow_yn_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="escrow_yn_help" class="x_help-block" hidden>{$lang->about_escrow}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->default_delivery_company}</label>
+			<div class="x_controls">
+				<select name="default_delivery_company">
+					<option loop="$delivery_companies=>$code,$name" value="{$code}" selected="selected"|cond="$code == $config->default_delivery_company">{$name}</option>
+				</select>
+				<a href="#default_delivery_company_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="default_delivery_company_help" class="x_help-block" hidden>{$lang->about_delivery_company}</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- 통합 통화 모듈에 따른 각 쇼핑몰 모듈의 기본 화폐 설정 disable-->
+	<!--section class="section">
+		<h1>{$lang->currency_settings}</h1>
+ 		<div class="x_control-group">
+			<label class="x_control-label">{$lang->select_currency}</label>
+			<div class="x_controls">
+				<select name="currency">
+					<option loop="$lang->currency_list=>$code,$val" value="{$code}" selected="selected"|cond="$config->currency==$code">{$val}</option>
+				</select>
+				<a href="#currency_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="currency_help" class="x_help-block" hidden>{$lang->about_select_currency}</p>
+			</div>
+		</div>
+ 		<div class="x_control-group">
+			<label class="x_control-label">{$lang->currency_format}</label>
+			<div class="x_controls">
+				<select name="as_sign">
+					<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
+					<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
+				</select>
+				<a href="#as_sign_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="as_sign_help" class="x_help-block" hidden>{$lang->about_currency_format}</p>
+			</div>
+		</div>
+ 		<div class="x_control-group">
+			<label class="x_control-label">{$lang->decimal_place}</label>
+			<div class="x_controls">
+				<input type="text" name="decimals" value="{$config->decimals}" />
+				<a href="#decimals_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="decimals_help" class="x_help-block" hidden>{$lang->about_decimal_place}</p>
+			</div>
+		</div>
+	</section-->
+
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit" accesskey="s">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>

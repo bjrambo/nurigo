@@ -1,0 +1,273 @@
+<!--%import("filter/update_item.xml")-->
+<!--%import("filter/delete_item.xml")-->
+<unload target="../../menu/tpl/css/themes/default/style.css" />
+<load target="js/script.js" />
+<load target="js/updateitem.js" />
+<load target="js/jstree.min.js" />
+<load target="css/themes/default/style.css" />
+<load target="css/updateitem.css" />
+<load target="js/productpicker.js" />
+<load target="css/productpicker.css" />
+
+<style>
+	.x_controls ul { list-style:none; margin:0; padding:0; }
+	.x_controls ul li { float:left; margin-right:10px;}
+</style>
+
+<script>
+var g_module_srl = {$module_srl}; // used in updateitem.js
+var v=xe.getApp('validator')[0];
+<block loop="$extra_vars=>$key,$val">
+v.cast('ADD_MESSAGE',['{$val->column_name}','{$val->column_title}']);
+</block>
+xe.lang.product_picker = '{$lang->product_picker}';
+xe.lang.cmd_delete = '{$lang->cmd_delete}';
+xe.lang.cmd_append = '{$lang->cmd_append}';
+</script>
+
+<form method="post" class="x_form-horizontal" ruleset="@nproduct_insertItem" enctype="multipart/form-data">
+	<input name="module" type="hidden" value="{$module}" />
+	<input name="act" type="hidden" value="procNproductAdminUpdateItem" />
+	<input name="item_srl" type="hidden" value="{$item_srl}" />
+	<input name="module_srl" type="hidden" value="{$item_info->module_srl}" />
+	<input name="category_id" type="hidden" value="{$item_info->category_id}" />
+	<input name="document_srl" type="hidden" value="{$item_info->document_srl}" />
+	<input name="description" type="hidden" value="{$oDocument->getContentText()}" />
+	<input name="delivery_info" type="hidden" value="{htmlspecialchars($item_info->delivery_info)}" />
+	<input name="proc_module" type="hidden" value="{$module_info->proc_module}" />
+	<input name="s_item_name" type="hidden" value="{$s_item_name}" />
+	<input name="category" type="hidden" value="{$category}" />
+
+	<section class="section">
+	<h1>{$lang->title_product_basicinfo}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="disp_module_srl">{$lang->display_page}</label>
+			<div class="x_controls">
+				<select name="disp_module_srl">
+					<option loop="$modinst=>$key,$val" value="{$val->module_srl}" selected="selected"|cond="$val->module_srl==$item_info->module_srl">{$val->browser_title}({$val->mid})</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label" for="category_depth1">{$lang->select_category}</label>
+			<div class="x_controls">
+				<select id="category_depth1" class="category" depth="1">
+					<option value="">{$lang->category_depth1}</option>
+					<option loop="$category_data->list[0]=>$key,$val" value="{$val->node_id}" selected="selected"|cond="$category_data->depth1==$val->node_id">{$val->category_name}</option>
+				</select>
+				<select id="category_depth2" class="category" depth="2">
+					<option value="">{$lang->category_depth2}</option>
+					<option loop="$category_data->list[1]=>$key,$val" value="{$val->node_id}" selected="selected"|cond="$category_data->depth2==$val->node_id">{$val->category_name}</option>
+				</select>
+				<select id="category_depth3" class="category" depth="3">
+					<option value="">{$lang->category_depth3}</option>
+					<option loop="$category_data->list[2]=>$key,$val" value="{$val->node_id}" selected="selected"|cond="$category_data->depth3==$val->node_id">{$val->category_name}</option>
+				</select>
+				<select id="category_depth4" class="category" depth="4">
+					<option value="">{$lang->category_depth4}</option>
+					<option loop="$category_data->list[3]=>$key,$val" value="{$val->node_id}" selected="selected"|cond="$category_data->depth4==$val->node_id">{$val->category_name}</option>
+				</select>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="item_name">{$lang->product_name} <em style="color:red">*</em></label>
+			<div class="x_controls">
+				<input name="item_name" type="text" class="x_span6" value="{$item_info->item_name}" />
+				<a href="#item_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="item_name_help" class="x_help-block" hidden>{$lang->about_product_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="item_code">{$lang->item_code}</label>
+			<div class="x_controls">
+				<input name="item_code" type="text" value="{$item_info->item_code}" />
+				<a href="#item_code_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="item_code_help" class="x_help-block" hidden>{$lang->about_product_code}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="thumbnail_image">{$lang->thumbnail}</label>
+			<div class="x_controls">
+				<div cond="$item_info->thumbnail_url"><img src="{$item_info->thumbnail_url}" /></div>
+				<input type="file" name="thumbnail_image" />
+				<a href="#thumbnail_image_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="thumbnail_image_help" class="x_help-block" hidden>{$lang->about_thumbnail_image}</p>
+			</div>
+		</div>
+		<div cond="$item_info->download_file" id="contents_file_select" class="x_control-group">
+			<label class="x_control-label" for="contents_file">{$lang->contents_file}</label>
+			<div class="x_controls">
+				<p id="file_info"><a href="{$item_info->download_file->download_url}">{$item_info->download_file->source_filename}</a> ({FileHandler::filesize($item_info->download_file->file_size)}) <button onClick="delete_file({$item_info->file_srl})">{$lang->cmd_delete}</button></p>
+				<p><a href="{getUrl('act','dispNstore_digital_contentsAdminItemList')}">{$lang->nstore_digital_management}</a>{$lang->upload_module}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="display">{$lang->display_or_not} <em style="color:red">*</em></label>
+			<div class="x_controls">
+				<label for="display_Y"><input type="radio" name="display" id="display_Y" value="Y" checked="checked"|cond="$item_info->display=='Y'" />{$lang->display}</label>
+				<label for="display_N"><input type="radio" name="display" id="display_N" value="N" checked="checked"|cond="$item_info->display=='N'" />{$lang->not_display}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="price">{$lang->price} <em style="color:red">*</em></label>
+			<div class="x_controls">
+				<input name="price" type="text" value="{$item_info->price}" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="discount_amount">{$lang->total_discount}</label>
+			<div class="x_controls">
+				<input name="discount_amount" type="text" value="{$item_info->discount_amount}" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="discount_info">{$lang->discount_title}</label>
+			<div class="x_controls">
+				<input name="discount_info" type="text" value="{$item_info->discount_info}" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="taxfree">{$lang->tax_or_not}</label>
+			<div class="x_controls">
+				<label for="taxfree_1"><input type="radio" name="taxfree" id="taxfree_1" value="N" checked="checked"|cond="$item_info->taxfree=='N'" />{$lang->taxation}</label>
+				<label for="taxfree_2"><input type="radio" name="taxfree" id="taxfree_2" value="Y" checked="checked"|cond="$item_info->taxfree=='Y'" />{$lang->no_taxation}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_control-label" for="editor">{$lang->description} <em style="color:red">*</em></div>
+			<div class="x_controls">
+				{$editor}
+			</div>
+		</div>
+		<block loop="$extra_vars=>$key,$val">
+			<div class="x_control-group">
+				<label class="x_control-label">{$val->getTitle(TRUE)}</label>
+				<div class="x_controls">
+					{$val->getFormHTML(FALSE)}
+					<a href="#{$val->name}_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="{$val->name}_help" class="x_help-block" hidden>{$val->desc}</p>
+				</div>
+			</div>
+		</block>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->order_options}</div>
+			<div class="x_controls">
+				<span class="btn small" data-item-srl="{$item_srl}"><a href="#modifyOptions" class="modalAnchor modifyOptions">{$lang->cmd_modify}</a></span>
+				<div loop="$options=>$key,$val">
+					<ul>
+						<li>{$val->title} ({$item_info->printPrice($val->price)})</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section collapsed">
+		<h1>{$lang->title_extra_options}</h1>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->related_items}</div>
+			<div class="x_controls">
+				<div style="clear:both">
+					<ul class="list_header"><li class="title">{$lang->item_name}</li><li class="check">{$lang->force_purchase}</li><li class="delete">{$lang->cmd_delete}</li></ul>
+					<input name="related_items" type="text" class="product_picker" value="{htmlspecialchars($item_info->related_items)}" />
+				</div>
+				<div style="clear:both">
+					<a href="#related_items_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="related_items_help" class="x_help-block" hidden>{$lang->about_related_items}</p>
+				</div>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->minimum_order_quantity}</div>
+			<div class="x_controls">
+				<input name="minimum_order_quantity" type="text" value="{$item_info->minimum_order_quantity}" />
+				<a href="#minimum_order_quantity_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="minimum_order_quantity_help" class="x_help-block" hidden>{$lang->about_minimum_order_quantity}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->refund_policy}</div>
+			<div class="x_controls">
+				<span class="btn small" id="{$item_srl}"><a href="#modifyDeliveryInfo" class="modalAnchor modifyDeliveryInfo">{$lang->cmd_modify}</a></span>
+				{$item_info->delivery_info}
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->group_discount}</div>
+			<div class="x_controls">
+				<block loop="$group_list=>$key,$val">
+					<div class="x_control-group">
+						<div class="x_control-label" for="group_discount_{$key}">{$val->title}</div>
+						<div class="x_controls">
+							<label for="group_opt_1_{$key}"><input type="radio" name="group_opt_{$key}" id="group_opt_1_{$key}" value="1" checked="checked"|cond="$group_discount[$key]->opt=='1'">{$lang->price}</label>
+							<label for="group_opt_2_{$key}"><input type="radio" name="group_opt_{$key}" id="group_opt_2_{$key}" value="2" checked="checked"|cond="$group_discount[$key]->opt=='2'">{$lang->ratio}&nbsp;<input type="text" name="group_discount_{$key}" id="group_discount_{$key}" value="{$group_discount[$key]->price}" /></label>
+							
+						</div>
+					</div>
+				</block>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_control-label" for="">{$lang->addgroup_after_purchase}</div>
+			<div class="x_controls">
+				<block loop="$group_list=>$key,$val">
+					<label for="group_srl_{$key}"><input type="checkbox" name="group_srl_list[]" id="group_srl_{$key}" value="{$key}" checked="checked"|cond="in_array($val->group_srl,$item_info->group_srl_list)" />{$val->title}</label>
+				</block>
+			</div>
+		</div>
+	</section>
+
+	<div class="btnArea">
+		<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+		<a href="#deleteItem" class="x_btn modalAnchor deleteItem">{$lang->cmd_delete}</a>
+		<a class="x_btn" href="{getUrl('act','dispNproductAdminItemList')}">{$lang->cmd_list}</a>
+	</div>
+</form>
+
+<div class="x_modal" id="modifyDeliveryInfo">
+	<form action="./" class="fg form" ruleset="insertDeliveryInfo" method="post">
+		<input type="hidden" name="act" value="procNproductAdminInsertDeliveryInfo" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+		<div id="extendForm">
+		</div>
+	</form>
+</div>
+
+<div class="x_modal" id="adminManualOrder">
+	<form action="./" class="fg form" ruleset="insertManualOrder" method="post">
+		<input type="hidden" name="act" value="procNproductAdminInsertManualOrder" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+		<input type="hidden" name="item_srl" value="{$item_srl}" />
+		<div id="orderForm">
+		</div>
+	</form>
+</div>
+
+<form action="./" id="deleteItem" class="x_modal" method="post">
+	<input type="hidden" name="act" value="procNproductAdminDeleteItem" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="success_return_url" value="{getUrl('act', 'dispNproductAdminItemList')}" />
+	<input type="hidden" name="item_srl" value="{$item_srl}" />
+	<div class="x_modal-header">
+		<h1>{$lang->cmd_delete}</h1>
+	</div>
+	<div class="x_modal-content">
+		<p>{$lang->msg_sure_to_delete}</p>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+	</div>
+</form>
+
+<div class="x_modal" id="modifyOptions">
+	<form action="./" class="fg form" method="post">
+		<input type="hidden" name="act" value="procNproductInsertOptions" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input name="item_srl" type="hidden" value="{$item_srl}" />
+		<div id="optionsForm">
+		</div>
+	</form>
+</div>

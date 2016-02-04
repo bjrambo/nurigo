@@ -1,0 +1,42 @@
+<load target="css/style.css" />
+<load target="../../tpl/js/script.js" />
+
+<block cond="$review_form">
+{$review_form}
+</block>
+<block cond="!$review_form">
+	<ul>
+		<li>Item Name : {$item_name}</li>
+		<li>Price : {$price}</li>
+	</ul>
+</block>
+
+<form id="fo_paypal" class="fo_payment" method="post" action="https://sslpayment.uwccb.com.tw/EPOSService/Payment/OrderInitial.aspx">
+	<input type="hidden" name="strRqXML" value="<?xml version='1.0' encoding='UTF-8'?>
+<MERCHANTXML>
+<CAVALUE>{$cavalue}</CAVALUE>
+<ORDERINFO>
+<STOREID>{$module_info->storeid}</STOREID>
+<ORDERNUMBER>{$order_srl}</ORDERNUMBER>
+<AMOUNT>{$price}</AMOUNT>
+</ORDERINFO>
+</MERCHANTXML>
+" />
+	<div class="btn_payment">
+		<button type="submit">Payment</button>
+	</div>
+
+</form>
+
+<form cond="0">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="xe_mid" value="{$mid}" />
+	<input type="hidden" name="act" value="procPaypalDoIt" />
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+	<div class="btn_payment">
+		<a href="{$redirectUrl}" class="btn">결제하기</a>
+	</div>
+</form>

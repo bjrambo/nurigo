@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="ini_card">
+		<value xml:lang="ko"><![CDATA[신용카드결제]]></value>
+		<value xml:lang="en"><![CDATA[Credit Card]]></value>
+	</item>
+	<item name="ini_bank_transfer">
+		<value xml:lang="ko"><![CDATA[실시간계좌이체]]></value>
+		<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+	</item>
+	<item name="ini_virtual_account">
+		<value xml:lang="ko"><![CDATA[가상계좌]]></value>
+		<value xml:lang="en"><![CDATA[Virtual Account]]></value>
+	</item>
+	<item name="ini_cellphone">
+		<value xml:lang="ko"><![CDATA[휴대폰결제]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+	</item>
+	<item name="do_payment">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+	</item>
+	<item name="about_ini_card">
+		<value xml:lang="ko"><![CDATA[카드 결제 시 해당 카드사에서 제공하는 인증 결제창이 카드사 사정에따라 다소 지연될 수 있습니다.<br />결제하기를 클릭하시고 잠시 기다려주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Click payment button and wait a second, please]]></value>
+	</item>
+	<item name="about_ini_bank_transfer">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+	</item>
+	<item name="about_ini_virtual_account">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Virtual Account]]></value>
+	</item>
+	<item name="about_ini_cellphone">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+	</item>
+</lang>

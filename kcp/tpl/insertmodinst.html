@@ -1,0 +1,227 @@
+<include target="_header.html" />
+<form action="./" class="x_form-horizontal" method="post" ruleset="insertModInst" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procKcpAdminInsertModInst" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="primary_key" value="{$module_info->module_srl}" />
+	<input type="hidden" name="delivery_info" value="{htmlspecialchars($module_info->delivery_info)}" />
+
+	<section class="section">
+		<h1>{$lang->basic_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" id="mid" value="{$module_info->mid}" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mid_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="module_category_srl">{$lang->module_category}</label>
+			<div class="x_controls">
+				<select name="module_category_srl" id="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+				</select>
+				<a href="#module_category_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_category_srl_help" class="x_help-block" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="lang_code" id="browser_title" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="layout_srl_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="skin">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" id="skin">
+					<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key || (!$module_info->skin && $key=='xe_board')">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>계약정보</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="service_mode">서비스모드</label>
+			<div class="x_controls">
+				<select name="service_mode" id="service_mode">
+					<option value="service" selected="selected"|cond="$module_info->service_mode=='service'">서비스</option>
+					<option value="test" selected="selected"|cond="$module_info->service_mode=='test'">테스트</option>
+				</select>
+				<a href="#service_mode_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="service_mode_help" class="x_help-block" hidden>테스트 혹은 실서비스를 선택하세요.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="site_cd">사이트코드</label>
+			<div class="x_controls">
+				<input type="text" name="site_cd" id="site_cd" value="{$module_info->site_cd}" />
+				<a href="#site_cd_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="site_cd_help" class="x_help-block" hidden>사이트 코드</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="site_key">사이트키</label>
+			<div class="x_controls">
+				<input type="text" name="site_key" id="site_key" value="{$module_info->site_key}" />
+				<a href="#site_key_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="site_key_help" class="x_help-block" hidden>사이트키</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="site_name">상점명</label>
+			<div class="x_controls">
+				<input type="text" name="site_name" id="site_name" value="{$module_info->site_name}" />
+				<a href="#site_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="site_name_help" class="x_help-block" hidden>상점명</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="site_logo">로고이미지</label>
+			<div class="x_controls">
+				<img cond="$module_info->site_logo" src="{$module_info->site_logo}" />
+				<input type="file" name="site_logo" id="site_logo" value="{$module_info->site_logo}" />
+				<a href="#site_logo_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="site_logo_help" class="x_help-block" hidden>결제창에 표시될 로고이미지를 입력하세요. 150 x 50 크기의 JPG, GIF 가능</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>옵션설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="quotaopt">할부설정</label>
+			<div class="x_controls">
+				<input type="text" name="quotaopt" id="quotaopt" value="{$module_info->quotaopt}" />
+				<a href="#quotaopt" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="quotaopt" class="x_help-block" hidden>결제시 설정한 개월수 까지만 나타남. (0 ~ 18 까지)
+					주의 : 할부는 결제금액이 50,000 원 이상일경우에만 가능합니다.
+					예) value 값을 "5" 로 설정했을경우 => 카드결제시 결제창에 5개월까지만 선택가능.
+					(기본 값 : 12)</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="not_used_card">제외카드</label>
+			<div class="x_controls">
+				<input type="text" name="not_used_card" id="not_used_card" value="{$module_info->not_used_card}" />
+				<a href="#not_used_card" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="not_used_card" class="x_help-block" hidden>이 항목에 대해 잘 모르실 경우 비워두세요.</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>결제방식</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_creditcard">신용카드</label>
+			<div class="x_controls">
+				<select name="method_creditcard" id="method_creditcard">
+					<option value="Y" selected="selected"|cond="$module_info->method_creditcard=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_creditcard=='N'">사용안함</option>
+				</select>
+				<a href="#method_creditcard_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_creditcard_help" class="x_help-block" hidden>신용카드 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_directbank">계좌이체</label>
+			<div class="x_controls">
+				<select name="method_directbank" id="method_directbank">
+					<option value="Y" selected="selected"|cond="$module_info->method_directbank=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_directbank=='N'">사용안함</option>
+				</select>
+				<a href="#method_directbank_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_directbank_help" class="x_help-block" hidden>계좌이체 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_virtualaccount">가상계좌</label>
+			<div class="x_controls">
+				<select name="method_virtualaccount" id="method_virtualaccount">
+					<option value="Y" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용안함</option>
+				</select>
+				<a href="#method_virtualaccount_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_virtualaccount_help" class="x_help-block" hidden>가상계좌 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_mobilephone">휴대폰소액</label>
+			<div class="x_controls">
+				<select name="method_mobilephone" id="method_mobilephone">
+					<option value="Y" selected="selected"|cond="$module_info->method_mobilephone=='Y'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_mobilephone=='N'">사용안함</option>
+				</select>
+				<a href="#method_mobilephone_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_mobilephone_help" class="x_help-block" hidden>휴대폰소액결제 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>가이드</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_creditcard">신용카드</label>
+			<div class="x_controls">
+				<textarea name="guide_creditcard" id="guide_creditcard"><block cond="!$module_info->guide_creditcard">{$lang->default_guide_creditcard}</block><block cond="$module_info->guide_creditcard">{$module_info->guide_creditcard}</block></textarea>
+				<a href="#guide_creditcard_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_creditcard_help" class="x_help-block" hidden>신용카드 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_directbank">계좌이체</label>
+			<div class="x_controls">
+				<textarea name="guide_directbank" id="guide_directbank"><block cond="!$module_info->guide_directbank">{$lang->default_guide_directbank}</block><block cond="$module_info->guide_directbank">{$module_info->guide_directbank}</block></textarea>
+				<a href="#guide_directbank_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_directbank_help" class="x_help-block" hidden>계좌이체 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_virtualaccount">가상계좌</label>
+			<div class="x_controls">
+				<textarea name="guide_virtualaccount" id="guide_virtualaccount"><block cond="!$module_info->guide_virtualaccount">{$lang->default_guide_virtualaccount}</block><block cond="$module_info->guide_virtualaccount">{$module_info->guide_virtualaccount}</block></textarea>
+				<a href="#guide_virtualaccount_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_virtualaccount_help" class="x_help-block" hidden>가상계좌 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_mobilephone">휴대폰소액</label>
+			<div class="x_controls">
+				<textarea name="guide_mobilephone" id="guide_mobilephone"><block cond="!$module_info->guide_mobilephone">{$lang->default_guide_mobilephone}</block><block cond="$module_info->guide_mobilephone">{$module_info->guide_mobilephone}</block></textarea>
+				<a href="#guide_mobilephone_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_mobilephone_help" class="x_help-block" hidden>휴대폰소액결제 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>기타</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_review">결제리뷰 가이드</label>
+			<div class="x_controls">
+				<textarea name="guide_review" id="guide_review">{$module_info->guide_review}</textarea>
+				<a href="#guide_review_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_review_help" class="x_help-block" hidden>결제리뷰 페이지에 설명글을 출력할 수 있습니다.</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" accesskey="s" />
+	</div>
+</form>

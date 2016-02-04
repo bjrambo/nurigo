@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="lecture_intro">
+		<value xml:lang="ko"><![CDATA[강좌소개]]></value>
+		<value xml:lang="en"><![CDATA[Lecture Intro.]]></value>
+	</item>
+	<item name="curriculum">
+		<value xml:lang="ko"><![CDATA[학습과정]]></value>
+		<value xml:lang="en"><![CDATA[Curriculum]]></value>
+	</item>
+	<item name="qna">
+		<value xml:lang="ko"><![CDATA[질문과답변]]></value>
+		<value xml:lang="en"><![CDATA[Questions and Answers]]></value>
+	</item>
+	<item name="reviews">
+		<value xml:lang="ko"><![CDATA[수강후기]]></value>
+		<value xml:lang="en"><![CDATA[Reviews]]></value>
+	</item>
+	<item name="cmd_write_review">
+		<value xml:lang="ko"><![CDATA[수강평쓰기]]></value>
+		<value xml:lang="en"><![CDATA[Write review]]></value>
+	</item>
+	<item name="cmd_ask_question">
+		<value xml:lang="ko"><![CDATA[문의남기기]]></value>
+		<value xml:lang="en"><![CDATA[Ask a question]]></value>
+	</item>
+	<item name="about_qna">
+		<value xml:lang="ko"><![CDATA[무엇이 궁금하세요?]]></value>
+		<value xml:lang="en"><![CDATA[Questions and answers about this item]]></value>
+	</item>
+        <item name="msg_no_reviews">
+                <value xml:lang="ko"><![CDATA[등록된 수강평이 없습니다]]></value>
+                <value xml:lang="en"><![CDATA[No written reviews]]></value>
+        </item>
+        <item name="msg_no_questions">
+                <value xml:lang="ko"><![CDATA[등록된 수강문의가 없습니다]]></value>
+                <value xml:lang="en"><![CDATA[No asked questions]]></value>
+        </item>
+	<item name="about_review_bonus">
+		<value xml:lang="ko"><![CDATA[수강평(후기)을 남기시면 %s원을 마일리지로 적립해 드립니다. (구매 후 최초 1회)]]></value>
+		<value xml:lang="en"><![CDATA[Save %s KRW when you leave a review (one time for the purchased item)]]></value>
+	</item>
+	<item name="about_review">
+		<value xml:lang="ko"><![CDATA[수강평(후기)을 남겨주세요]]></value>
+		<value xml:lang="en"><![CDATA[Leave a review]]></value>
+	</item>
+</lang>

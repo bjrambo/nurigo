@@ -1,0 +1,51 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@charset "utf-8";
+
+/* epay css */
+.payment_info { padding:5px 20px; line-height:1.6; background:#f9f9f4;}
+.payment_info p, .payment_info span { color:#3397a7; font-size:11px;}
+.btn_payment { float:right; text-align:center; padding-right:10px;}
+.fo_payment { width:100%; margin-bottom:10px; padding:10px 0; background:#f9f9f4;}
+.fo_payment label { font-size:12px; font-weight:bold; color:#666; padding-left:3px; }
+.fo_payment input { padding:0; margin:0; vertical-align:middle;}
+.choice_box { padding-left:20px; float:left;}
+
+/* black */
+.black .payment_info { background:#343434;}
+.black .fo_payment { background:#343434; border:1px solid #1b1b1b;}
+
+
+/* new */
+
+.pay_list { padding:0 10px; font-family:'Nanum Gothic'; }
+.pay_list h1 { font-size:1.5em; border-bottom:1px solid #ddd; line-height:2em; }
+.pay_box {  }
+.pay_box dl { border:1px solid #ddd; margin-bottom:10px; overflow:hidden; background:#f9f9f9; line-height:2em; }
+.pay_box dt { float:left; width:85px; margin:0; padding-left:10px; font-weight:bold; font-size:0.9em; }
+.pay_box dd { background:#fff; overflow:hidden; padding:0 10px; font-size:0.9em; position:relative; margin:0; }
+.no_pay { padding:10px; border:1px solid #ddd; background:#f9f9f9; text-align:center; font-size:0.8em; }
+
+
+/* payment */
+
+div.payment_wrapper p { padding:10px; }
+div.payment_wrapper ul { padding:0; }
+div.payment_wrapper li { float:left; list-style:none; margin-right:10px; }
+div.payment_wrapper li input { vertical-align:middle; }
+div.payment_wrapper div.payment_title { padding:10px; display:inline-block; float:left; width:25%; line-height:auto; }
+div.payment_wrapper ul#select_method { padding:10px; margin:0; background:#fff; width:75%; }
+
+/* Button */
+div.btn_wrap { margin-top:10px; text-align:center; }
+button.nbtn { margin-top:10px; background:#777; color:#fff; width:100px; height:30px !important; text-shadow:none; font-weight:bold; border:1px solid #555; }
+
+
+/* Phone */
+@media only screen and (max-width : 767px) {
+
+
+div.payment_wrapper div.payment_title { float:left; width:25%; line-height:1.3em; }
+div.payment_wrapper li { float:none; line-height:1.5em; }
+
+}

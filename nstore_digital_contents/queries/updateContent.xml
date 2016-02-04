@@ -1,0 +1,12 @@
+<query id="updateContent" action="update">
+	<tables>
+		<table name="nstore_digital_contents" />
+	</tables>
+	<columns>
+		<column name="item_srl" var="item_srl" />
+		<column name="file_srl" var="file_srl" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="file_srl" var="old_file_srl" notnull="notnull" />
+	</conditions>
+</query>

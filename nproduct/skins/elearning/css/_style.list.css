@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/* style.list css */
+
+/* item-table */
+.item-table {clear:both; margin-bottom:10px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+.item-table tr th { background:#F8F8F8;}
+.item-table tr th, 
+.item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+.item-table tr td { padding:20px 0 15px;}
+
+.item-table tr th.product_num { width:100px;}
+.item-table tr td input.quantity { margin:0 5px; padding:2px; width:40px; border:1px solid #ccc;}
+
+.item-table tr th.item_check { width:20px;}
+.item-table tr td.item_name { padding:20px; text-align:left; color:#56A477;}
+
+.item-table tr td .num_input { position:relative; }
+.item-table tr td .num_input .iconUp { position:absolute; left:33px; top:-4px; *top:2px; width:17px; height:9px; background:url(../img/icon_up.gif) no-repeat; cursor:pointer;}
+.item-table tr td .num_input .iconDown { position:absolute; left:33px; top:4px; *top:10px; width:17px; height:9px; background:url(../img/icon_down.gif) no-repeat; cursor:pointer;}
+
+.item-table .item_price { font:bold 18px Arial; }
+.item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+
+

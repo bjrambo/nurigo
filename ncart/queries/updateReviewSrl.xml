@@ -1,0 +1,11 @@
+<query id="updateReviewSrl" action="update">
+	<tables>
+		<table name="nstore_cart" />
+	</tables>
+	<columns>
+		<column name="review_srl" var="review_srl" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="cart_srl" var="cart_srl" notnull="notnull" />
+	</conditions>
+</query>

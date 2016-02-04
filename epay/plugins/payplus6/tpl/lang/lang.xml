@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="creditcard_payment">
+		<value xml:lang="ko"><![CDATA[신용카드결제]]></value>
+		<value xml:lang="en"><![CDATA[Credit Card]]></value>
+	</item>
+	<item name="bank_transfer_payment">
+		<value xml:lang="ko"><![CDATA[실시간계좌이체]]></value>
+		<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+	</item>
+	<item name="virtual_account_payment">
+		<value xml:lang="ko"><![CDATA[가상계좌]]></value>
+		<value xml:lang="en"><![CDATA[Virtual Account]]></value>
+	</item>
+	<item name="cellphone_payment">
+		<value xml:lang="ko"><![CDATA[휴대폰결제]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+	</item>
+	<item name="do_payment">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+	</item>
+	<item name="about_creditcard">
+		<value xml:lang="ko"><![CDATA[카드 결제 시 해당 카드사에서 제공하는 인증 결제창이 카드사 사정에따라 다소 지연될 수 있습니다.<br />결제하기를 클릭하시고 잠시 기다려주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Click payment button and wait a second, please]]></value>
+	</item>
+	<item name="about_bank_transfer">
+		<value xml:lang="ko"><![CDATA[실시간 계좌이체입니다.]]></value>
+		<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+	</item>
+	<item name="about_virtual_account">
+		<value xml:lang="ko"><![CDATA[발급되는 가상계좌로 입금을 하셔야 결제가 완료됩니다.]]></value>
+		<value xml:lang="en"><![CDATA[Virtual Account]]></value>
+	</item>
+	<item name="about_cellphone">
+		<value xml:lang="ko"><![CDATA[휴대폰소액결제 방식입니다.]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+	</item>
+</lang>

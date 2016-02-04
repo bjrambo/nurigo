@@ -1,0 +1,39 @@
+<load target="css/style.css" />
+<load target="css/cartitems.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<include target="header.html" />
+
+<div id="cartitems" class="{$module_info->colorset}">
+	<include target="_header.html" />	
+	<ul class="m_favorite">
+		<li cond="count($favorite_items)" loop="$favorite_items=>$no,$val">
+			{@$total_price=0}
+			<div class="f_thum">
+			<a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a>
+			</div>
+			<dl>
+				<dt class="item_name"><a href="{getUrl('',$val->document_srl)}">{$val->item_name}</a></dt>
+				<dd>{$lang->sales_price} : {nproductItem::formatMoney($val->price)}</dd>
+				<dd>{$lang->discount} : {nproductItem::formatMoney($val->discount_amount)}<span style="color:#ff0000; font-size:.7em;">{$val->discount_info}</span></dd>
+				<dd style="font-weight:bold; color:#f00000; font-size:15px;">{$lang->price} : {nproductItem::formatMoney($val->discounted_price)}</dd>
+				{@$total_price+=$val->price}
+			</dl>
+			<div class="f_check">
+				<input type="checkbox" name="favorite_cart" value="{$val->item_srl}" /></dd>
+			</div>
+			<div cond="!count($favorite_items)">
+				{$lang->msg_no_items}
+			</div>
+		</li>
+	</ul>
+	<div class="cart_command nu_box">
+		<a href="#" class="m_btn nu_right" id="deleteFavoriteItems" onclick="return false;"><span>{$lang->delete_selection}</span></a>
+	</div>
+</div>
+
+<include target="footer.html" />
+<script>
+	var g_total_items = {count($list)};
+	xe.lang.msg_select_items_in_order_to_delete = '{$lang->msg_select_items_in_order_to_delete}';
+</script>

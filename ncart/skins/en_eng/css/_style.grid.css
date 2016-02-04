@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/* style.grid css */
+
+.item-list { padding:10px 0 0; margin-bottom:20px; overflow:hidden; border-bottom:1px solid #ddd;}
+.item-list li { position:relative; float:left; margin:20px 0 0; padding:0 20px 30px 0; text-align:center; }
+.item-list li .check { position:absolute; left:0; top:0; }
+
+.item-list li a.thumbnail { display:block; margin-bottom:20px;}
+.item-list li .item_name { height:30px;}
+.item-list li .item_name a { text-decoration:none; color:#6c832c; }
+.item-list li .item_icon { height:20px;}
+
+.item-list li .item_price { padding:5px; height:30px; word-wrap:break-word;}
+.item-list li .item_choice { padding:5px; margin-top:10px; }
+
+.item-list li .item_num .won { padding:0 5px; font:12px Gulim,Dotum; color:#666;}
+.item-list li .item_price .won { padding:0 5px; font:12px Gulim,Dotum; color:#666;}
+
+.btn_bottom { float:right; _margin-top:20px; }
+.btn_bottom a.btn_cart { padding:4px 11px; width:70px; background:url(../img/btn_put.gif) no-repeat; }
+.btn_bottom a.btn_wishlist { padding:4px 11px; width:70px; background:url(../img/btn_put.gif) no-repeat; }
+.btn_bottom a { float:left; margin-left:5px;}
+
+/* black */
+.item-list.black { border-bottom:1px solid #343434;}
+

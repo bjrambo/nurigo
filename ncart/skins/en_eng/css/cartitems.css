@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+/* cartitems css */
+.cartStep .progress.step1 { background:url(../img/progress_step1.png) no-repeat right 20px;}
+
+#cartitems .cartList_text { margin:20px 0 10px 0; float:right;}
+#cartitems .cartList_text p { margin:0; padding:0 0 0 10px; height:16px; font-size:11px; color:#666; background:url(../img/cartArrow.gif) no-repeat 3px 5px;}
+
+#cartitems .command { clear:both; margin-bottom:50px; text-align:center; }
+
+
+#cartitems .item-table tr td input.quantity { height:12px; margin:5px 0; padding:4px 2px 3px; width:40px; font-weight:bold; color:#333; border:1px solid #ededed;}
+#cartitems .item-table tr td .item_name { padding:20px; text-align:left !important;}
+#cartitems .item-table tr td .item_name a { text-decoration:none; }
+#cartitems .item-table tr td .item_name a:hover { text-decoration:underline; }
+
+
+#cartitems .item-table tr td .num_input { position:relative; }
+#cartitems .item-table .num_input .iconUp { position:absolute; right:14px; top:6px; width:17px; height:10px; background:url(../img/icon_up.gif) no-repeat; cursor:pointer;}
+#cartitems .item-table .num_input .iconDown { position:absolute; right:14px; top:14px; width:17px; height:10px; background:url(../img/icon_down.gif) no-repeat; cursor:pointer;}
+
+#cartitems .item-table a.gray_btn { background:#646464; border:1px solid #424242; box-shadow:inset 1px 1px 0 #eee; color:#f9f9f9; font:normal 11px/15px 'NanumGothic'; padding:2px 10px; cursor:pointer; }
+#cartitems .item-table a.gray_btn2 { background:#646464; border:1px solid #424242; box-shadow:inset 1px 1px 1px #eee; color:#fff;  font:normal 12px 'NanumGothic'; padding:5px 17px; } 
+#cartitems .item-table a.blue_btn { background:#548f89; border:1px solid #305b2e; box-shadow:inset 1px 1px 1px #eee; color:#fff;  font:normal 12px 'NanumGothic'; padding:5px 17px; } 
+#cartitems a.black_btn { background:#222; border:1px solid #000; box-shadow:inset 1px 1px 1px #eee; color:#fff; padding:3px 5px; font:normal 11px 'NanumGothic'; }
+#cartitems a.red_btn{ background:#dc3b3b; border:1px solid #a94646; color:#fff; padding:8px 20px; font:bold 12px 'NanumGothic'; box-shadow:inset 1px 1px 1px #fafafa; }
+
+
+/* Progess */
+.cartStep .progress.step2 { }
+.cart1 { background:url(../img/dark_gray_left.png) no-repeat right 7px; padding-right:38px;}
+.cart2 { background:url(../img/gray_left.png) no-repeat right 7px; padding-right:38px; }
+.cart3 { background:url(../img/gray_left.png) no-repeat right 7px; padding-right:38px; }
+.cart4 { }
+

@@ -1,0 +1,95 @@
+<!--%load_js_plugin("ui")-->
+<load target="css/button.css" />
+<load target="js/script.js" />
+<load target="js/_lib/jquery.cookie.js" />
+<load target="js/_lib/jquery.hotkeys.js" />
+<load target="js/jquery.jstree.js" />
+
+<include target="_header.html" />
+
+<div>
+	<form method="post">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		상품명 : <input type="item_name" name="item_name" value="{$item_name}" />
+		모듈명 : 
+		<select name="nproduct_srl" >
+			<option value=''>선택해주세요.</option>
+			<option loop="$nproduct_modules=>$k,$v" value="{$v->module_srl}" selected="selected"|cond="$nproduct_srl == $v->module_srl">{$v->mid}</option>
+		</select>
+		<input type="submit" value="조회" />
+	</form>
+</div>
+
+
+	
+<div class="table event easyList">
+	<table>
+		<thead>
+			<tr>
+				<th>이미지</th>
+				<th>상품명</th>
+				<th>진열여부</th>
+				<th>가격</th>
+				<th cond="0">판매</th>
+				<th>평가</th>
+				<th>콘텐츠관리</th>
+			</tr>
+		</thead>
+		<tbody id="itemlistorder">
+			<tr loop="$list=>$no,$val" id="record_{$val->item_srl}">
+				<td><a href="{getUrl('','module',$module,'act','dispNproductAdminUpdateItem','item_srl',$val->item_srl)}" target=_blank > <img src="{$val->thumbnail}" /> </a></td>
+				<td><span>{$val->item_name}</span></td>
+				<td><span cond="$val->display=='Y'">진열함</span><span cond="$val->display=='N'">진열안함</span></td>
+				<td><span>{number_format($val->price)}</span></td>
+				<td cond="0"><span>{number_format($val->sales_count)}</span></td>
+				<td><a href="{getUrl('','document_srl',$val->document_srl)}#content_02" target="_blank">{number_format($val->review_count)}</a></td>
+				<td><a href="{getUrl('','module',$module,'act','dispNstore_digital_contentsAdminManageContents','item_srl',$val->item_srl)}">콘텐츠관리</a></td>
+			</tr>
+			<tr cond="!count($list)">
+				<td colspan="8">등록된 상품이 없습니다.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+	
+
+<div class="search">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+</div>

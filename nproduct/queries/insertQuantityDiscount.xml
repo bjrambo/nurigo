@@ -1,0 +1,12 @@
+<query id="insertQuantityDiscount" action="insert">
+	<tables>
+		<table name="nproduct_quantity_discount" />
+	</tables>
+	<columns>
+		<column name="item_srl" var="item_srl" notnull="notnull" />
+		<column name="quantity" var="quantity" notnull="notnull" />
+		<column name="discount" var="discount" notnull="notnull" />
+		<column name="opt" var="opt" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

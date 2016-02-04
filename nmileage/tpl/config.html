@@ -1,0 +1,68 @@
+<include target="_header.html" />
+
+<form action="./" method="post" class="x_form-horizontal" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNmileageAdminConfig" />
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="use_flag">{$lang->use_or_not}</label>
+		<div class="x_controls">
+			<select name="use_flag">
+				<option value="Y" selected="selected"|cond="$config->use_flag=='Y'">{$lang->use}</option>
+				<option value="N" selected="selected"|cond="$config->use_flag=='N'">{$lang->notuse}</option>
+			</select>
+			<a href="#use_flag_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="use_flag_help" class="x_help-block" hidden>{$lang->help_use_flag}</p>
+		</div>
+	</div>
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="mileage_method">{$lang->mileage_method}</label>
+		<div class="x_controls">
+		    <select name="mileage_method">
+				<option value="nmileage" selected="selected"|cond="$config->mileage_method=='nmileage'" >{$lang->use_nmileage}</option>
+				<option value="point" selected="selected"|cond="$config->mileage_method=='point'" >{$lang->use_xepoint}</option>
+		    </select>
+			<a href="#mileage_method_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="mileage_method_help" class="x_help-block" hidden>{$lang->help_mileage_method}</p>
+		</div>
+	</div>
+
+	<!-- 통합통화 모듈에 따른 각 쇼핑몰의 기본 화제 설정 disable -->
+	<!--div class="x_control-group">
+		<label class="x_control-label" for="currency">{$lang->select_currency}</label>
+		<div class="x_controls">
+			<select name="currency">
+				<option value="KRW" selected="selected"|cond="$config->currency=='KRW'">{$lang->korea_won}</option>
+				<option value="USD" selected="selected"|cond="$config->currency=='USD'">{$lang->usa_dollar}</option>
+				<option value="JPY" selected="selected"|cond="$config->currency=='JPY'">{$lang->japan_yen}</option>
+			</select>
+			<a href="#currency_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="currency_help" class="x_help-block" hidden>{$lang->help_currency}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="as_sign">{$lang->currency_display_format}</label>
+		<div class="x_controls">
+			<select name="as_sign">
+				<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
+				<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
+			</select>
+			<a href="#as_sign_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="as_sign_help" class="x_help-block" hidden>{$lang->help_currency_display_format}</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="decimals">{$lang->point_position}</label>
+		<div class="x_controls">
+			<input type="text" name="decimals" value="{$config->decimals}" />
+			<a href="#decimals_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="decimals_help" class="x_help-block" hidden>{$lang->help_point_position}</p>
+		</div>
+	</div-->
+
+	<div class="x_clearfix btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+	</div>
+
+</form>

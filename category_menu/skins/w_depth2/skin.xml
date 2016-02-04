@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">Sunny</title>
+    <description xml:lang="ko">
+		위너스 세무회계 세로형 카테고리위젯.
+    </description>
+    <version>1.0</version>
+    <date>2013-10-04</date>
+    <link>http://nurigo.net/</link>
+
+    <author email_address="sunny@nurigo.net" link="http://www.nurigo.net/">
+        <name xml:lang="ko">Sunny</name>
+        <name xml:lang="en">Sunny</name>
+    </author>
+
+    <colorset>
+		<color name="gray">
+			<title xml:lang="ko">회 색(기본)</title>
+			<title xml:lang="en">gray(default)</title>
+		</color>
+    </colorset>
+
+	<extra_vars>
+		<title xml:lang="ko">서브메뉴 사용여부</title>
+			<var name="sub_menu" type="select">
+				<title xml:lang="ko">서브메뉴선택</title>
+				<title xml:lang="en">Sub Menu select</title>
+				<description xml:lang="ko">서브메뉴 사용여부를 선택해 주세요.</description>
+				<description xml:lang="en">Choose whether to use the Sub Menu.</description>
+				 <options value="enabled">
+					<title xml:lang="ko">사용함</title>
+					<title xml:lang="en">Enabled</title>
+				</options>
+				 <options value="disabled">
+					<title xml:lang="ko">사용안함</title>
+					<title xml:lang="en">Disabled</title>
+				</options>
+			</var>
+	</extra_varas>
+</skin>

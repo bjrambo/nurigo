@@ -1,0 +1,31 @@
+<load target="css/style.css" />
+<load target="css/orderlistlogin.css" />
+<load target="css/nu_btn.css" />
+
+
+<div class="n_order_form">
+	<h2 class="page-title">{$lang->cmd_order_view}</h2>
+
+	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<form action="./" method="post" class="form_wrap">
+		<input type="hidden" name="act" value="dispNstoreNonOrderList" />
+		<dl class="order_box">
+			<dt class="font_0">{$lang->order_number}</dt>
+			<dd>
+			<span class="ordernum"><label for="uid">{$lang->order_number}</label><input type="text" name="non_order_srl" id="uid" value="" /></span>
+			</dd>
+			<dt class="font_0">{$lang->password}</dt>
+			<dd>
+			<span class="orderpw"><label for="upw">{$lang->password}</label><input type="password" name="non_password" id="upw" value="" /> </span>
+			</dd>
+		</dl>
+		<button id="loginbtn" type="submit" class="m_btn order_con">{$lang->cmd_confirm}</button>	
+		<p class="order_login">
+		<span class="order_member">{$lang->msg_already_member}</span>
+		<a href="{getUrl('act','dispMemberLoginForm')}" class="m_btn nu_black">{$lang->cmd_login}</a>
+		</p>
+	</form>
+</div>

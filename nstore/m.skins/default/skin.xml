@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">기본스킨</title>
+	<title xml:lang="en">Default skin</title>
+	<title xml:lang="jp">基本スキン</title>
+	<title xml:lang="zh-TW">預設版面</title>	
+	<description xml:lang="ko">기본스킨입니다</description>
+	<description xml:lang="zh-TW">預設版面</description>
+	<version>1.1</version>
+	<date>2014-02-18</date>
+	<link>http://www.xeshoppingmall.com</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="white">
+			<title xml:lang="ko">하얀색(기본)</title>
+			<title xml:lang="en">WHITE(Default)</title>
+			<title xml:lang="jp">白色(基本)</title>
+			<title xml:lang="zh-TW">白色（預設）</title>			
+		</color>
+	</colorset>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">썸네일</title>
+			<title xml:lang="en">Thumbnail</title>
+			<title xml:lang="jp">サムネイル</title>
+			<title xml:lang="zh-TW">縮圖</title>
+			<var name="thumbnail_width" type="text">
+				<title xml:lang="ko">썸네일 가로크기</title>
+				<title xml:lang="en">Horizontal thumbnail size</title>
+				<title xml:lang="jp">サムネイル横方向のサイズ</title>
+				<title xml:lang="zh-TW">縮圖橫向尺寸</title>					
+				<description xml:lang="ko">
+					썸네일 가로크기 설정 (px 제외 입력)
+				</description>
+				<description xml:lang="en">
+					Set the horizontal thumbnail size (Input number only,unit:pixel)
+				</description>
+				<description xml:lang="jp">
+					サムネイル横方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+				</description>
+				<description xml:lang="zh-TW">
+					設定縮圖橫向尺寸 （只能輸入數字，單位：pixel 像素）
+				</description>
+			</var>
+			<var name="thumbnail_height" type="text">
+				<title xml:lang="ko">썸네일 세로크기</title>
+				<title xml:lang="en">Vertical thumbnail size</title>		
+				<title xml:lang="jp">サムネイル縦方向のサイズ</title>
+				<title xml:lang="zh-TW">縮圖垂直尺寸</title>				
+				<description xml:lang="ko">
+					썸네일 세로크기 설정 (px 제외 입력)
+				</description>
+				<description xml:lang="en">
+					Set the vertical thumbnail size (Input number only,unit:pixel)
+				</description>
+				<description xml:lang="jp">
+					サムネイル縦方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+				</description>
+				<description xml:lang="zh-TW">
+					設定縮圖垂直尺寸 （只能輸入數字，單位：pixel 像素）
+				</description>
+			</var>
+			<var name="thumbnail_type" type="select">
+				<title xml:lang="ko">썸네일 생성 방법</title>
+				<title xml:lang="en">Thumbnail creation</title>
+				<title xml:lang="jp">サムネイル生成方法</title>
+				<title xml:lang="zh-TW">建立縮圖</title>		
+				<description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+				<description xml:lang="zh-TW">您可以選擇如何創建一個縮圖.</description>
+				<options value="crop">
+					<title xml:lang="ko">꽉 채우기</title>
+					<title xml:lang="en">Full size</title>
+					<title xml:lang="jp">フルサイズ</title>
+					<title xml:lang="zh-TW">全尺寸</title>		
+				</options>
+				<options value="ratio">
+					<title xml:lang="ko">비율 맞추기</title>
+					<title xml:lang="en">Fit ratio</title>
+					<title xml:lang="jp">フィット比率</title>
+					<title xml:lang="zh-TW">完全比率</title>					
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="zh-TW">其他</title>	
+			<var name="store_top" type="textarea">
+				<title xml:lang="ko">스토어 상단</title>
+				<title xml:lang="en">Store Top</title>
+				<title xml:lang="jp">ストア上部</title>
+				<title xml:lang="zh-TW">商店頁面上部</title>				
+				<description xml:lang="ko">
+					스토어 상단 부분에 출력되는 부분입니다.
+				</description>
+				<description xml:lang="en">
+					This is shown at the top of the store.
+				</description>
+				<description xml:lang="jp">
+					ストアの上部に表示されます。
+				</description>
+				<description xml:lang="zh-TW">
+					顯示在商店頁面上部.
+				</description>
+			</var>
+			<var name="store_bottom" type="textarea">
+				<title xml:lang="ko">스토어 하단</title>
+				<title xml:lang="en">Store Bottom</title>
+				<title xml:lang="jp">ストア下部</title>
+				<title xml:lang="zh-TW">商店頁面下部</title>					
+				<description xml:lang="ko">
+					스토어 하단 부분에 출력되는 부분입니다.
+				</description>
+				<description xml:lang="en">
+					This is shown at the bottom of the store.
+				</description>
+				<description xml:lang="jp">
+					ストアの下部に表示されます。
+				</description>
+				<description xml:lang="zh-TW">
+					顯示在商店頁面下部.
+				</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

@@ -1,0 +1,9 @@
+<filter name="submit_review" module="epay" act="procEpayReviewOrder">
+    <form />
+    <parameter />
+    <response callback_func="completeReviewOrder">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="tpl" />
+    </response>
+</filter>

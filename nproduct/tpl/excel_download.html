@@ -1,0 +1,24 @@
+<div id="orderlist">
+	<table>
+		<thead>
+			<tr>
+				<th>{$lang->order_date}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->price}</th>
+				<th>{$lang->purchaser}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<tr loop="$list=>$no,$val">
+				<td>{zdate($val->regdate,'Y-m-d')}</td>
+				<td><span>{$val->item_name}</span></td>
+				<td>1</td>
+				<td>{number_format($val->price)}</td>
+				<td>{$val->nick_name}</td>
+				{@$total_price+=$val->price}
+			</tr>
+		</tbody>
+	</table>
+</div>

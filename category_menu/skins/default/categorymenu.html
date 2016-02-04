@@ -1,0 +1,34 @@
+<load target="css/megamenu.css" />
+<load target="js/megamenu.js" />
+<script>
+	jQuery("#menu").megaMenu('hover_fade');
+</script>
+
+<div>
+<div id="menu_container" class="menu_blue" style="position:absolute;">
+	<!-- depth 1 -->
+    <ul id="menu">
+        <li loop="$category_tree['f']=>$no,$val">
+            <a class="drop" href="{getUrl('','mid',$category_index[$no]->mid,'category',$category_index[$no]->node_id)}"><span class="depth1">{$category_index[$no]->category_name}</span></a>
+			<!-- depth 2 -->
+			<div class="fullwidth">
+				<div class="col_2" cond="count($val)" loop="$val=>$no2,$val2">
+						<a href="{getUrl('','mid',$category_index[$no2]->mid,'category',$category_index[$no2]->node_id)}"><h5 class="depth2">{$category_index[$no2]->category_name}</h5></a>
+						<!-- depth 3 -->
+						<ul cond="count($val2)">
+							<li loop="$val2=>$no3,$val3">
+								<a href="{getUrl('','mid',$category_index[$no3]->mid,'category',$category_index[$no3]->node_id)}"><span class="depth3">{$category_index[$no3]->category_name}</span></a>
+								<!-- depth 4 -->
+								<ul cond="count($val3)">
+									<li loop="$val3=>$no4,$val4">
+										<a href="{getUrl('','mid',$category_index[$no4]->mid,'category',$category_index[$no4]->node_id)}">{$category_index[$no4]->category_name}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+				</div>
+			</div>
+        </li>
+    </ul>
+</div>
+</div>

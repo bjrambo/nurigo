@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            .title { text-align:center; font-size:110px;}
+            .details { list-style-type:none; font:30px Nanum Gothic, Malgun Gothic, Dotum; }
+            .details li { line-height:1.7em; }
+            .emblem { text-align:right; }
+        </style>
+    </head>
+    <body>
+        <div class="title"><br /><br /><br /><br /><br /><br /></div>
+        <table>
+            <tr>
+                <td width="80"></td>
+                <td width="640">
+                    <table class="details">
+                        <tr>
+				<td>
+					제품명: {$item_info->item_name}<br />
+					제품코드: {$item_info->item_code}<br />
+					일련번호: NS-{sprintf('%07u',$item_info->cart_srl)}<br />
+                        		구매자: {$logged_info->nick_name}<br />
+                        		구매자ID: {$logged_info->user_id}<br />
+                        		구매일: {zdate($item_info->purdate,'Y-m-d')}<br />
+                        		사이트주소: {implode(' / ',explode("\n",$item_info->site_url))}<br />
+				</td>
+				<td><img style="border:1px solid #eeeeee;" src="{$item_info->getThumbnail(140,140)}" /></td>
+			</tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
+

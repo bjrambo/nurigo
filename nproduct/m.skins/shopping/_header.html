@@ -1,0 +1,7 @@
+<load target="css/style.css" />
+<ul class="menuTab">
+	<li class="active"|cond="in_array($act,array('dispNstoreCartItems','dispNstoreOrderItems','dispNstoreOrderComplete'))"><a href="{getUrl('act','dispNstoreCartItems')}">{$lang->cmd_cart}</a></li>
+	<li class="active"|cond="$act=='dispNstoreFavoriteItems'"  cond="$logged_info"><a href="{getUrl('act','dispNstoreFavoriteItems')}">{$lang->cmd_favorites}</a></li>
+	<li class="active"|cond="in_array($act,array('dispNstoreOrderList','dispNstoreOrderDetail'))"><a href="{getUrl('act','dispNstoreOrderList','non_password','0')}">{$lang->cmd_order_view}</a></li>
+</ul>
+

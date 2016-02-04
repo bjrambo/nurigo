@@ -1,0 +1,54 @@
+<load target="css/style.css" />
+<load target="css/button.css" />
+
+<h2 class="page-title">내가 구매한 콘텐츠</h2>
+
+<div id="orderlist">
+	<ul class="down_box">
+		<block loop="$order_list=>$order_srl,$order_arr">
+		<li loop="$order_arr=>$no,$val" style="background:#fafafa;"|cond="count($order_arr)>1" onClick='callNewWindow("dispNstore_digitalDetail","{$val->order_srl}")'>
+			<div cond="$no==0">
+				<span><img src="{$val->getThumbnail($config->order_thumbnail_width,$config->order_thumbnail_height,$config->order_thumbnail_type)}" /></span>
+				<p style="overflow:auto;">{$val->item_name}</p>
+				<span cond="0">{number_format($val->quantity)}</span>
+				<span cond="0">{number_format($val->quantity * $val->discounted_price)}</span>
+				<span cond="0" class="ko_text">
+					<div class="ko_text red">{$order_status[$val->order_status]}</div>
+					<a cond="$val->order_status=='3'" href="#" class="receipt kso_btn" data-order-srl="{$val->order_srl}" onclick="return false;"><span>{$lang->receipt}</span></a>
+				</span>
+				<span cond="0"><a href="{getUrl('','act','procNstore_digitalFileDownload','cart_srl',$val->cart_srl)}" role="button"><img src="img/btn_download.gif" /></a></span>
+				<span cond="0">{nl2br($val->site_url)}</span>
+				<span cond="0"><a href="{getUrl('act','dispNstore_digitalCertificate','cart_srl',$val->cart_srl)}" role="button">Certificate Download</a></span>
+			</div>
+		</li>
+		</block>
+		<li cond="!count($order_list)">
+			<span colspan="7">{$lang->msg_no_orders}</span>
+		</li>
+	</ul>
+</div>
+
+<script>
+jQuery(function($) {
+	$('.receipt').click(function() {
+		var order_srl = $(this).attr('data-order-srl');
+		var $_this = $(this);
+		exec_xml(
+			'epay',
+			'getEpayReceipt',
+			{order_srl:order_srl},
+			function(ret){
+				var tpl = ret.tpl.replace(/<enter>/g, '\n');
+				$_this.html(tpl);
+			},
+			['error','message','tpl']
+		);
+		
+	});
+});
+
+function callNewWindow(act, order_srl)
+{
+	location.href =current_url.setQuery('act', act).setQuery('order_srl', order_srl);
+}
+</script>

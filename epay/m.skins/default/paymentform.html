@@ -1,0 +1,69 @@
+<load target="css/style.css" />
+<load target="css/btn.css" />
+<load target="../../tpl/js/common.js" />
+<div class="payment_wrapper">
+	{$form_data}
+</div>
+<div class="payment_wrapper">
+	<div class="payment_title">
+		결제수단
+	</div>
+        <form id="epay_form" method="post" action="./">
+                <input type="hidden" name="act" value="" />
+                <input type="hidden" name="mid" value="{$mid}" />
+                <input type="hidden" name="module" value="{$module}" />
+                <input type="hidden" name="cartnos" value="{$cartnos}" />
+                <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+                <input type="hidden" name="order_srl" value="{$order_srl}" />
+                <input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+                <ul id="select_method">
+			{@$count=0}
+                        <li loop="$payment_methods=>$key,$val">
+                                <label for="{$key}"><input type="radio" name="payment_method" id="{$key}" data-mid="{$val->mid}" data-module="{$val->module}" data-act="{$val->act}" data-mode="{$val->mode}" value="{$val->payment_method}" checked="checked"|cond="$count==0"/>{$val->title}</label>
+				{@$count++}
+                        </li>
+                </ul>
+		{@$count=0}
+                <div class="payment_info">
+                        <p loop="$payment_methods=>$key,$val" id="guide_{$key}" style="display:none;"|cond="$count>0">
+                                {$val->guide}
+                                {@$count++}
+                        </p>
+                </div>
+                <div class="btn_wrap">
+                        <button type="submit" class="btn nbtn">결제하기</button>
+                </div>
+        </form>
+</div>
+<script>
+        (function($) {
+                jQuery(function($) {
+                        $('#epay_form').submit(function() {
+                                var mid = $('#select_method input[name=payment_method]:checked').attr('data-mid');
+                                var module = $('#select_method input[name=payment_method]:checked').attr('data-module');
+                                var act = $('#select_method input[name=payment_method]:checked').attr('data-act');
+                                var mode = $('#select_method input[name=payment_method]:checked').attr('data-mode');
+                                if (mode == 'ajax') {
+                                        var params = new Array();
+                                        var responses = ['error','message','tpl'];
+                                        exec_xml(module, act, params, function(ret_obj) {
+                                                var tpl = ret_obj.tpl.replace(/<enter>/g, '\n');
+                                                $('#payment_form').html(tpl);
+                                                inipay_submit('fo_insert_order');
+                                        }, responses);
+                                        return false;
+                                } else {
+                                        if (mid) $('#epay_form input[name=mid]').val(mid);
+                                        if (module) $('#epay_form input[name=module]').val(module);
+                                        if (act) $('#epay_form input[name=act]').val(act);
+                                }
+                                copy_form('fo_insert_order', 'epay_form');
+                        });
+                        $('#epay_form input[name=payment_method]').click(function() {
+                                var id = $(this).attr('id');
+                                $('#epay_form .payment_info p').hide();
+                                $('#epay_form .payment_info p#guide_'+id).show();
+                        });
+                });
+        }) (jQuery);
+</script>

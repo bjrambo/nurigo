@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+
+	<item name="info">
+		<value xml:lang="ko"><![CDATA[님 정보.]]></value>
+		<value xml:lang="en"><![CDATA[, Information!]]></value>
+		<value xml:lang="jp"><![CDATA[, Information!]]></value>
+		<value xml:lang="zh-CN"><![CDATA[, Information!]]></value>
+		<value xml:lang="zh-TW"><![CDATA[, Information!]]></value>
+	</item>	
+
+	<item name="nurigo_cart">
+		<value xml:lang="ko"><![CDATA[장바구니]]></value>
+		<value xml:lang="en"><![CDATA[Cart]]></value>
+		<value xml:lang="jp"><![CDATA[Cart]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Cart]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Cart]]></value>
+	</item>	
+
+	<item name="nurigo_wishlist">
+		<value xml:lang="ko"><![CDATA[관심상품]]></value>
+		<value xml:lang="en"><![CDATA[Wishlist]]></value>
+		<value xml:lang="jp"><![CDATA[Wishlist]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Wishlist]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Wishlist]]></value>
+	</item>	
+
+	<item name="nurigo_order">
+		<value xml:lang="ko"><![CDATA[배송조회]]></value>
+		<value xml:lang="en"><![CDATA[Order Tracking]]></value>
+		<value xml:lang="jp"><![CDATA[Order Tracking]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Order Tracking]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Order Tracking]]></value>
+	</item>	
+
+	<item name="nurigo_price">
+		<value xml:lang="ko"><![CDATA[원]]></value>
+		<value xml:lang="en"><![CDATA[$]]></value>
+		<value xml:lang="jp"><![CDATA[$]]></value>
+		<value xml:lang="zh-CN"><![CDATA[$]]></value>
+		<value xml:lang="zh-TW"><![CDATA[$]]></value>
+	</item>	
+	
+	<item name="nurigo_detail_info">
+		<value xml:lang="ko"><![CDATA[님 마일리지 정보입니다]]></value>
+		<value xml:lang="en"><![CDATA[The Mileage Information]]></value>
+		<value xml:lang="jp"><![CDATA[The Mileage Information]]></value>
+		<value xml:lang="zh-CN"><![CDATA[The Mileage Information]]></value>
+		<value xml:lang="zh-TW"><![CDATA[The Mileage Information]]></value>
+	</item>	
+
+	<item name="nurigo_orderitems">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+		<value xml:lang="jp"><![CDATA[Payment]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Payment]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Payment]]></value>
+	</item>	
+
+	<item name="cart_no_product">
+		<value xml:lang="ko"><![CDATA[상품이 없습니다]]></value>
+		<value xml:lang="en"><![CDATA[No product]]></value>
+		<value xml:lang="jp"><![CDATA[No product]]></value>
+		<value xml:lang="zh-CN"><![CDATA[No product]]></value>
+		<value xml:lang="zh-TW"><![CDATA[No product]]></value>
+	</item>	
+
+	<item name="cart_all_btn">
+		<value xml:lang="ko"><![CDATA[전체선택]]></value>
+		<value xml:lang="en"><![CDATA[check all]]></value>
+		<value xml:lang="jp"><![CDATA[chetk all]]></value>
+		<value xml:lang="zh-CN"><![CDATA[check all]]></value>
+		<value xml:lang="zh-TW"><![CDATA[check all]]></value>
+	</item>	
+
+	<item name="cart_del_btn">
+		<value xml:lang="ko"><![CDATA[삭제]]></value>
+		<value xml:lang="en"><![CDATA[delete]]></value>
+		<value xml:lang="jp"><![CDATA[delete]]></value>
+		<value xml:lang="zh-CN"><![CDATA[delete]]></value>
+		<value xml:lang="zh-TW"><![CDATA[delete]]></value>
+	</item>	
+
+	<item name="empty_cart">
+		<value xml:lang="ko"><![CDATA[장바구니가 비었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Your Shopping Cart is Empty.]]></value>
+		<value xml:lang="jp"><![CDATA[Your Shopping Cart is Empty.]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Your Shopping Cart is Empty.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Your Shopping Cart is Empty.]]></value>
+	</item>	
+	
+	<item name="empty_wish">
+		<value xml:lang="ko"><![CDATA[관심상품이 비었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Wishlist is empty.]]></value>
+		<value xml:lang="jp"><![CDATA[Wishlist is empty.]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Wishlist is empty.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Wishlist is empty.]]></value>
+	</item>
+
+	<item name="cart_view_product">
+		<value xml:lang="ko"><![CDATA[최근 본 상품이 없습니다.]]></value>
+		<value xml:lang="en"><![CDATA[There are no Recently Viewed Products.]]></value>
+		<value xml:lang="jp"><![CDATA[There are no Recently Viewed Products.]]></value>
+		<value xml:lang="zh-CN"><![CDATA[There are no Recently Viewed Products.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[There are no Recently Viewed Products.]]></value>
+	</item>	
+
+	<item name="cart_tab_quantity">
+		<value xml:lang="ko"><![CDATA[장바구니 (<span class="cartQuantity">0</span>개)]]></value>
+		<value xml:lang="en"><![CDATA[CartItems (<span class="cartQuantity">0</span>)]]></value>
+	</item>
+	<item name="cart_tab_wish">
+		<value xml:lang="ko"><![CDATA[관심상품 (<span class="wishQuantity">0</span>개)]]></value>
+		<value xml:lang="en"><![CDATA[WishList (<span class="wishQuantity">0</span>)]]></value>
+	</item>
+	<item name="cart_tab_recent">
+		<value xml:lang="ko"><![CDATA[최근본상품 (<span class="recent_count">0</span>개)]]></value>
+		<value xml:lang="en"><![CDATA[RecentList (<span class="recent_count">0</span>)]]></value>
+	</item>
+	<item name="cart_total_amount">
+		<value xml:lang="ko"><![CDATA[총 금액 :]]></value>
+		<value xml:lang="en"><![CDATA[Total amount :]]></value>
+	</item>
+	<item name="cart_mileage">
+		<value xml:lang="ko"><![CDATA[마일리지 : ]]></value>
+		<value xml:lang="en"><![CDATA[Mileage : ]]></value>
+	</item>
+	<item name="cart_pop_area">
+		<value xml:lang="ko"><![CDATA[장바구니에 추가 되었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Added to Cart.]]></value>
+	</item>
+	<item name="wishlist_pop_area">
+		<value xml:lang="ko"><![CDATA[관심상품에 추가 되었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Has been added to your wishlist.]]></value>
+	</item>
+	<item name="wishlist_pop_area">
+		<value xml:lang="ko"><![CDATA[관심상품에 추가 되었습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Has been added to your wishlist.]]></value>
+	</item>
+
+	<item name="purchase">
+		<value xml:lang="ko"><![CDATA[구매가]]></value>
+		<value xml:lang="en"><![CDATA[Purchase]]></value>
+	</item>
+	<item name="change">
+		<value xml:lang="ko"><![CDATA[변경]]></value>
+		<value xml:lang="en"><![CDATA[Change]]></value>
+	</item>
+	<item name="quantity">
+		<value xml:lang="ko"><![CDATA[수량]]></value>
+		<value xml:lang="en"><![CDATA[Quantity]]></value>
+	</item>
+
+</lang>
+

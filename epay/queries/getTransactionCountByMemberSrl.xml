@@ -1,0 +1,12 @@
+<query id="getTransactionCountByMemberSrl" action="select">
+	<tables>
+		<table name="epay_transactions" />
+	</tables>
+	<columns>
+		<column name="COUNT(*)" alias="count" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="p_member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="state" var="state" default="2" pipe="and" />
+	</conditions>
+</query>

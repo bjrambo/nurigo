@@ -1,0 +1,36 @@
+.party_tbl_new {
+ border-top:1px solid #bbbbbb;
+ border-collapse:collapse;
+ width:100%;
+}
+.party_tbl_new tr td {
+ font-family: "굴림";
+ font-size: 13px;
+ color: #666666;
+ text-align: center;
+ border-bottom:1px solid #bbbbbb; border-left:1px solid #bbbbbb;
+ padding:5px 3px;
+ height:30px;
+ width:100px;
+}
+.party_tbl_new tr th {
+ font-family: "굴림";
+ font-size: 15px;
+ letter-spacing:-1px;
+ color: #333333;
+ font-weight: bold;
+ text-align: center;
+ border-bottom:1px solid #bbbbbb; border-left:1px solid #bbbbbb; background-color: #eee;
+ height:30px;
+}
+.party_tbl_new tbody tr:nth-child(even) { background:#f9f9f9; }
+.border_last{
+ border-right:1px solid #bbbbbb;
+}
+
+.pay_btnset { margin:30px 0 15px; }
+.pay_btnset a { text-decoration:none; color:#333; border:1px solid #ddd; padding:5px 10px; }
+
+.pagination { text-align:center; padding:20px 0 5px; font-size:13px; }
+.pagination a { text-decoration:none; color:#888; }
+.pagination a:hover { text-decoration:underline; }

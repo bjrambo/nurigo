@@ -1,0 +1,25 @@
+<!--%import("css/style.css")-->
+
+<div id="recommend_wrappper">
+	<div class="recommend_promotion">
+		<include target="main_slide/main_slide.html" />
+	</div><!-- .recommend_promotion// -->
+
+	<div id="recommend_products" class="page">
+		<div loop="$display_categories=>$cate_key,$cate_val" class="category">
+			<div class="item-list">
+				<ul>
+					{@$count=0}
+					<li loop="$cate_val->items=>$no,$val" id="item_{$val->item_srl}" style="clear:both;"|cond="($count % $widget_info->num_columns)==0" >
+						<a class="thumbnail" href="{getUrl('mid',$cate_val->mid,'item_srl',$val->item_srl)}">
+							<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+						</a><!-- thumbnail -->
+						<div class="item_name">{cut_str($val->item_name,$widget_info->title_length)}</div>
+						<div class="item_price"><strong>{$val->printDiscountedPrice()}</strong></div>
+						{@$count+=1}
+					</li>
+				</ul>
+			</div><!-- item-list -->
+		</div>	<!-- .category// -->		
+	</div><!-- .page// -->
+</div><!-- #recommend_wrappper// -->

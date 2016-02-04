@@ -1,0 +1,25 @@
+<load target="css/jquery.bxslider.css" />
+<load target="css/default.css" />
+<load target="js/jquery.bxslider.min.js" />
+<load target="js/slider.js" />
+<div id="nustyle_slider">
+	<ul class="bxslider">
+		<block loop="$display_categories=>$cate_key,$cate_val">
+			<li loop="$cate_val->items=>$no,$val">
+				<div>
+					<a class="thumbnail" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">
+						<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height,$widget_info->thumbnail_type)}" alt="{$val->item_name}" />
+					</a>
+					<block loop="$widget_info->option_view_arr=>$k,$v">
+					<a cond="$v=='title'" class="item_name" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">{cut_str($val->item_name, $widget_info->title_length)}</a>
+					<div cond="$v=='price'" class="item_price"><strong>{$val->printDiscountedPrice()}</strong></div>
+					<div cond="$v=='content'">{$val->getDocument()->getSummary()}</div>
+					</block>
+				</div>
+			</li>
+		</block>
+	</ul>
+</div>
+<script type="text/javascript">
+	var g_slideWidth = {$widget_info->thumbnail_width};
+</script>

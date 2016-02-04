@@ -1,0 +1,12 @@
+<form action="" class="search x_input-append center" no-error-return-url="true">
+	<input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act', 'page'))" type="hidden" name="{$key}" value="{$val}" />
+	<input type="hidden" name="module" value="{$module}" />
+	<select name="search_target" title="{$lang->search_target}" style="margin-right:4px">
+		<option value="user_id" selected="selected"|cond="$search_target=='user_id'">{$lang->user_id}</option>
+		<option value="nick_name" selected="selected"|cond="$search_target=='nick_name'">{$lang->nick_name}</option>
+		<option value="email_address" selected="selected"|cond="$search_target=='email_address'">{$lang->email_address}</option>
+	</select>
+	<input type="search" required name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_search}</button>
+	<a class="x_btn" href="{getUrl('', 'module', $module, 'act', $act)}">{$lang->cmd_cancel}</a>
+</form>

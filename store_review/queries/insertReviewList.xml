@@ -1,0 +1,14 @@
+<query id="insertReviewList" action="insert">
+	<tables>
+		<table name="store_review_list" />
+	</tables>
+	<columns>
+		<column name="review_srl" var="review_srl" notnull="notnull" />
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="head" var="head" filter="number" />
+		<column name="arrange" var="arrange" filter="number" />
+		<column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<column name="regdate" var="regdate" />
+		<column name="depth" var="depth" filter="number" />
+    </columns>
+</query>

@@ -1,0 +1,14 @@
+<filter name="delete_item" module="nstore" act="procNstoreAdminDeleteItem" confirm_msg_code="confirm_delete">
+    <form>
+        <node target="module_srl" required="true" filter="number" />
+        <node target="item_srl" required="true" filter="number" />
+    </form>
+    <parameter>
+        <param name="module_srl" target="module_srl" />
+        <param name="item_srl" target="item_srl" />
+    </parameter>
+    <response callback_func="completeDeleteItem">
+        <tag name="error" />
+        <tag name="message" />
+    </response>
+</filter>

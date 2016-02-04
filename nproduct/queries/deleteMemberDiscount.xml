@@ -1,0 +1,8 @@
+<query id="deleteMemberDiscount" action="delete">
+	<tables>
+		<table name="nproduct_member_discount" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+	</conditions>
+</query>

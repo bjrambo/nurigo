@@ -1,0 +1,3 @@
+keep:libs
+keep:tpl
+skip:doc

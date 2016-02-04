@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+/* store list */
+.store-list { border:solid #eeeeee 1px; margin:10px 0; padding:10px; }
+
+/* default*/
+.default_wrapper { margin-bottom:100px;}
+.default_wrapper table { width:90%; border:1px solid #ccc;}
+.default_wrapper th { padding:8px 10px; background:#f2f2f2; border-bottom:1px solid #ccc;}
+.default_wrapper tr.bottom_line { border-bottom:1px solid #ccc;}
+.default_wrapper td { padding:8px 10px; text-align:center; }
+
+.description { _clear:both; padding:20px 20px 20px 100px; margin-bottom:20px; height:50px; background:url(../img/bulb.png) no-repeat 20px 15px; border:3px solid #4E6B8B;}
+
+/* header4 */
+.header4 { position:relative; margin-bottom:20px;}
+.header4:after { content:""; display:block; clear:both;}
+.header4 ul.localNavi { margin:0; padding:0; list-style:none;}
+.header4 .localNavi li { float:left; display:inline;}
+.header4 .localNavi li a { display:block; padding-top:8px; margin-right:5px; width:80px; height:28px; font-family:Dotum; text-align:center; text-decoration:none; color:#fff !important; background:url(../img/btn_headerNavi.gif) no-repeat 0 0; }
+.header4 .localNavi li a:hover, 
+.header4 .localNavi li a.active { font-weight:bold; letter-spacing:-1px; background-position:-80px 0;}
+
+/* Submenu depth 1 */
+.submenu { float:left; width:200px;}
+.submenu ul { list-style:none; margin:0; padding:0; }
+.submenu ul li { position:relative; margin:0 0 -1px;}
+.submenu ul li a { display:block; padding:8px 20px; width:160px; font-family:나눔고딕, NanumGothic, "맑은 고딕", "Malgun Gothic", Dotum, Gulim; text-decoration:none; color:#333; background:#fafafa; border:1px solid #eee;}
+.submenu ul li a.active { color:#fff; background:#4e6b8b; z-index:2;}
+.submenu ul li a:hover { color:#ff5579 !important; }
+
+/* Submenu depth 2 */
+.submenu ul li ul { list-style:none; margin:0; padding:0;}
+.submenu ul li ul li { margin:0; padding:0;}
+.submenu ul li ul li a { padding:8px 10px 8px 30px;}
+.submenu ul li ul li a.active { color:#fff; }
+
+.admin_content { float:left; margin-left:10px; width:76%;}
+.admin_content .radio { padding:0; }
+.admin_content .radio li { list-style:none; }
+
+ul.lined { list-style:none; border:solid #eee 1px; border-top:0; padding:0; }
+ul.lined li { border-top:solid #eee 1px; height:50px; }
+ul.lined li .delete { float:right; margin:6px; }
+ul.lined li .modify { float:right; margin:6px; }
+
+.iconMoveTo { display:inline-block; background:url(../img/iconMoveTo.gif) no-repeat; width:18px; height:32px; }
+.iconMoveTo:hover { background:url(../img/iconMoveTo.gif) bottom no-repeat; cursor:move; width:18px; height:32px; }
+
+a.active { font-weight:bold; }
+
+/* dashboard */
+.default_wrapper .widget_area { float:left; margin:30px 0 0 0;width:45%;}
+.default_wrapper .widget_area.center { margin:30px 3% 0 3%;}
+
+/* itemlist */
+.bundle_select { }
+.bundle_select li { float:left; margin-right:10px; }
+#itemlistorder td { vertical-align:middle; }
+
+/* order */
+.order_menu { position:relative; margin:0 0 20px;}
+.order_menu ul { float:left;margin:0 0 20px; padding:0; list-style:none;}
+.order_menu li { float:left; margin:0 10px 0 0; padding:0; }
+.order_menu li a { display:block; padding-top:3px; width:77px; height:28px; text-align:center; text-decoration:none; color:#333 !important; background:url(../img/btn_contentMenu.gif) no-repeat 0 0;}
+.order_menu li a:hover, 
+.order_menu li a.active { font-weight:bold; background-position:-77px 0;}
+
+#orderlist { clear:both;}
+#orderlist h4 { padding-left:10px; font-size:16px; font-family:나눔고딕,NanumGothic,"맑은 고딕","Malgun Gothic",Gulim; color:#333;}
+#orderlist ul.orderDetail { margin:0 0 20px 0; padding:10px 10px 30px; width:50%; list-style:none; border:1px solid #ddd; }
+#orderlist ul.orderDetail li { margin:0; padding:7px 10px; border-bottom:1px solid #eee;}
+
+#orderlist .item-table { clear:both; margin-bottom:30px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+#orderlist .item-table tr th { background:#F8F8F8;}
+#orderlist .item-table tr th, 
+#orderlist .item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+#orderlist .item-table tr td { padding:20px 0 15px;}
+
+
+/* etc */
+.x .colTable td { border-bottom:1px solid #ddd;}
+
+#tabs .item_list { padding:15px 10px 15px 70px; font-size:12px; font-family:Gulim; background:url(../img/question.png) no-repeat 10px 5px; line-height:1.6;}
+#category_tree { margin:20px; padding:0; width:300px; float:left; display:block;}

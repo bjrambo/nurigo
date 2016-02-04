@@ -1,0 +1,38 @@
+<!--%import("filter/insert_plugin.xml")-->
+<!--%import("js/script.js")-->
+
+<!--#include("header.html")-->
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" class="x_form-horizontal" method="post" onsubmit="return procFilter(this, insert_plugin)">
+	<input type="hidden" name="layout_type" value="{$layout_type}" />
+
+    <table cellspacing="0" class="x_table">
+    <tr>
+		<th scope="row"><div>{$lang->plugin}</div></th>
+        <td>
+            <select name="plugin">
+                <optgroup label="Plugins">
+                <!--@foreach($plugins as $key => $val)-->
+                <option value="{$val->plugin}" <!--@if($layout == $val->plugin)-->selected="selected"<!--@end-->> <!--@if($val->title)-->{$val->title} ({$val->plugin})<!--@else-->{$val->plguin}<!--@end--></option>
+                <!--@end-->
+                </optgroup>
+
+            </select>
+        </td>
+    </tr>
+    <tr class="row2">
+        <th scope="row"><div>{$lang->title}</div></th>
+        <td>
+            <input type="text" name="title" value="{$info->title}" class="inputTypeText w400" />
+            <p>{$lang->about_title}</p>
+        </td>
+    </tr>
+	</table>
+		<div class="btnArea">
+			<span class="btn"><input type="submit" value="{$lang->cmd_next}" accesskey="s" /></span>
+		</div>
+</form>

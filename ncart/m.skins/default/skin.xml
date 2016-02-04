@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">기본스킨</title>
+	<title xml:lang="en">Default skin</title>
+	<title xml:lang="jp">基本スキン</title>
+	<title xml:lang="zh-TW">預設頁面版面</title>	
+	<description xml:lang="ko">기본스킨입니다</description>
+	<version>1.0</version>
+	<date>2012-01-30</date>
+	<link>http://store.nurigo.net</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="white">
+			<title xml:lang="ko">하얀색(기본)</title>
+			<title xml:lang="en">WHITE(Default)</title>
+			<title xml:lang="jp">白色(基本)</title>
+			<title xml:lang="zh-TW">白色（預設）</title>
+		</color>
+		<color name="black">
+			<title xml:lang="ko">검정색</title>
+			<title xml:lang="en">BLACK(Default)</title>
+			<title xml:lang="jp">黒色(基本)</title>
+			<title xml:lang="zh-TW">黒色</title>			
+		</color>
+	</colorset>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">카트목록</title>
+			<title xml:lang="en">Cart list</title>
+			<title xml:lang="jp">カート一覧</title>
+			<title xml:lang="zh-TW">購物車一覧表</title>	
+			<var name="thumbnail_width" type="text">
+				<title xml:lang="ko">썸네일 가로크기</title>
+				<title xml:lang="en">Horizontal thumbnail size</title>
+				<title xml:lang="jp">サムネイル横方向のサイズ</title>
+				<title xml:lang="zh-TW">縮圖水平尺寸</title>				
+				<description xml:lang="ko">
+					썸네일 가로크기 설정 (px 제외 입력)
+				</description>
+				<description xml:lang="en">
+					Set the horizontal thumbnail size (Input number only,unit:pixel)
+				</description>
+				<description xml:lang="jp">
+					サムネイル横方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+				</description>
+				<description xml:lang="zh-TW">
+					設定縮圖水平尺寸 （只能輸入數字，單位：pixel 像素）
+				</description>	
+			</var>
+			<var name="thumbnail_height" type="text">
+				<title xml:lang="ko">썸네일 세로크기</title>
+				<title xml:lang="en">Vertical thumbnail size</title>		
+				<title xml:lang="jp">サムネイル縦方向のサイズ</title>
+				<title xml:lang="zh-TW">縮圖垂直尺寸</title>				
+				<description xml:lang="ko">
+					썸네일 세로크기 설정 (px 제외 입력)
+				</description>
+				<description xml:lang="en">
+					Set the vertical thumbnail size (Input number only,unit:pixel)
+				</description>
+				<description xml:lang="jp">
+					サムネイル縦方向のサイズを設定します。 (数字のみ入力,単位:pixel)
+				</description>
+				<description xml:lang="zh-TW">
+					設定縮圖垂直尺寸 （只能輸入數字，單位：pixel 像素）
+				</description>	
+			</var>
+			<var name="thumbnail_type" type="select">
+				<title xml:lang="ko">썸네일 생성 방법</title>
+				<title xml:lang="en">Thumbnail creation</title>
+				<title xml:lang="jp">サムネイル生成方法</title>
+				<title xml:lang="zh-TW">建立縮圖</title>		
+				<description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+				<description xml:lang="zh-TW">您可以選擇如何創建一個縮圖.</description>
+				<options value="crop">
+					<title xml:lang="ko">꽉 채우기</title>
+					<title xml:lang="en">Full size</title>
+					<title xml:lang="jp">フルサイズ</title>
+					<title xml:lang="zh-TW">全尺寸</title>		
+				</options>
+				<options value="ratio">
+					<title xml:lang="ko">비율 맞추기</title>
+					<title xml:lang="en">Fit ratio</title>
+					<title xml:lang="jp">フィット比率</title>
+					<title xml:lang="zh-TW">完全比率</title>	
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="en">etc.</title>
+			<title xml:lang="jp">その他</title>
+			<title xml:lang="zh-TW">其他</title>			
+			<var name="store_top" type="textarea">
+				<title xml:lang="ko">스토어 상단</title>
+				<title xml:lang="en">Store Top</title>
+				<title xml:lang="jp">ストア上部</title>
+				<title xml:lang="zh-TW">商店頁面上部</title>				
+				<description xml:lang="ko">
+					스토어 상단 부분에 출력되는 부분입니다.
+				</description>
+				<description xml:lang="en">
+					This is shown at the top of the store.
+				</description>
+				<description xml:lang="jp">
+					ストアの上部に表示されます。
+				</description>
+				<description xml:lang="zh-TW">
+					顯示在商店頁面上部.
+				</description>				
+			</var>
+			<var name="store_bottom" type="textarea">
+				<title xml:lang="ko">스토어 하단</title>
+				<title xml:lang="en">Store Bottom</title>
+				<title xml:lang="jp">ストア下部</title>
+				<title xml:lang="zh-TW">Store Bottom</title>					
+				<description xml:lang="ko">
+					스토어 하단 부분에 출력되는 부분입니다.
+				</description>
+				<description xml:lang="en">
+					This is shown at the bottom of the store.
+				</description>
+				<description xml:lang="jp">
+					ストアの下部に表示されます。
+				</description>
+				<description xml:lang="zh-TW">
+					顯示在商店頁面下部.
+				</description>				
+			</var>
+			<var name="continuous_url" type="text">
+					<title xml:lang="ko">쇼핑계속하기 주소(URL)</title>
+					<title xml:lang="en">Continue shopping address(URL)</title>
+					<title xml:lang="jp">買い物を続ける 주소(URL)</title>
+					<title xml:lang="zh-TW">繼續購物網址（URL）</title>						
+					<description xml:lang="ko">
+							구매완료 페이지에서 [쇼핑계속하기] 버튼 클릭시 이동할 주소(URL)를 입력하세요. 비워두시면 버튼이 출력되지 않습니다.
+					</description>
+					<description xml:lang="en">
+							Input the address(URL) for [Continue shopping]button. You have to write this to show the button.
+					</description>					
+					<description xml:lang="jp">
+							ご注文完了ページで[買い物を続ける]ボータンをクリックすると移動されるページ(URL)を入力してください。　空いているとボタンが見えません。
+					</description>
+					<description xml:lang="zh-TW">
+							輸入繼續購物網址（URL）, 可讓在完成該品項購買後要繼續購物。必須有繼續購物按鈕。
+					</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

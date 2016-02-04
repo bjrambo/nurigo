@@ -1,0 +1,10 @@
+<table name="nproduct_categories">
+	<column name="node_id" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="node_route" type="varchar" size="250" notnull="notnull" index="idx_node_route" />
+	<column name="node_route_text" type="varchar" size="250" notnull="notnull" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="category_name" type="varchar" size="160" notnull="notnull" />
+	<column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />
+	<column name="subnode" type="number" size="11" default="0" notnull="notnull" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

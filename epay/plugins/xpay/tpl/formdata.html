@@ -1,0 +1,78 @@
+<load target="js/script.js" />
+<load target="http://xpay.lgdacom.net/xpay/js/xpay_ub_utf-8.js" type="body" />
+<load target="filter/submit_xpay_payment.xml" />
+<load target="filter/submit_xpay_review.xml" />
+<load target="button.css" />
+<load target="lang" />
+
+<form id="LGD_PAYINFO" name="fo_payment" class="fo_payment" method="post" action="./" onsubmit="doPay_ActiveX(); return false;">
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+
+	<!-- settings by user -->
+	<input type="hidden" name="CST_PLATFORM" value="{$plugin_info->cst_platform}" />
+	<input type="hidden" name="CST_MID" value="{$LGD_MID}" />
+	<input type="hidden" name="LGD_MID" value="{$LGD_MID}" />
+	<input type="hidden" name="LGD_BUYER" value="{$purchaser_name}" />
+	<input type="hidden" name="LGD_PRODUCTINFO" value="{$item_name}" />
+	<input type="hidden" name="LGD_CASNOTEURL" value="{getFullUrl('','module','epay','act','procEpayReport','pg','xpay')}" /><!-- 무통장입금 결과처리URL -->
+	<input type="hidden" name="LGD_PAYKEY" id="LGD_PAYKEY"><!-- LG유플러스 PAYKEY(인증후 자동셋팅)-->
+
+	<input cond="$plugin_info->skin" type="hidden" name="LGD_CUSTOM_SKIN" value="{$plugin_info->skin}" />
+	<input cond="$plugin_info->logo_image" type="hidden" name="LGD_CUSTOM_LOGO" value="{getFullUrl('')}{$plugin_info->logo_image}" />
+	<input type="hidden" name="LGD_CUSTOM_USABLEPAY" value="{$LGD_CUSTOM_USABLEPAY}" /><!-- 특정결제수단만 보이게 할 경우 사용 -->
+	<input type="hidden" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" />
+
+	<div id="xpayExtends"></div>
+
+	<div class="choice_box">
+		{@$checked=FALSE}
+		{@$first=FALSE}
+		<span cond="$plugin_info->paymethod_card=='Y'">
+			<input name="payment_method" id="xpay_pm_1" type="radio" value="CC" checked="checked"|cond="!$checked" /><label for="xpay_pm_1">{$lang->creditcard_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="xpay_pm_1"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_directbank=='Y'">
+			<input name="payment_method" id="xpay_pm_2" type="radio" value="IB" checked="checked"|cond="!$checked" /><label for="xpay_pm_2">{$lang->bank_transfer_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="xpay_pm_2"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_virtualbank=='Y'">
+			<input name="payment_method" id="xpay_pm_3" type="radio" value="VA" checked="checked"|cond="!$checked" /><label for="xpay_pm_3">{$lang->virtual_account_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="xpay_pm_3"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_phone!='N'">
+			<input name="payment_method" id="xpay_pm_4" type="radio" value="MP" checked="checked"|cond="!$checked" /><label for="xpay_pm_4">{$lang->cellphone_payment}</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="xpay_pm_4"}</block>
+		</span>
+	</div>
+
+	<div class="btn_payment">
+		<input type="submit" value="결제하기" class="nuribtn orange super" />
+	</div>
+	<div id="pm_CC" class="payment_info" style="display:none"|cond="$first!='xpay_pm_1'">
+		<p class="font_size11">{$lang->about_creditcard}</p>
+	</div>
+	<div id="pm_IB" class="payment_info" style="display:none"|cond="$first!='xpay_pm_2'">
+		<p class="font_size11">{$lang->about_bank_transfer}</p>
+	</div>
+	<div id="pm_VA" class="payment_info" style="display:none"|cond="$first!='xpay_pm_3'">
+		<p class="font_size11">{$lang->about_virtual_account}</p>
+	</div>
+	<div id="pm_MP" class="payment_info" style="display:none"|cond="$first!='xpay_pm_4'">
+		<p class="font_size11">{$lang->about_cellphone}</p>
+	</div>
+
+
+</form>
+
+<script language=javascript>
+	var join_form = '{$join_form}';
+	var cst_platform = '{$plugin_info->cst_platform}';
+</script>

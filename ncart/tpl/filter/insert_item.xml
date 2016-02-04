@@ -1,0 +1,22 @@
+<filter name="insert_item" module="nstore" act="procNstoreInsertItem" confirm_msg_code="confirm_submit">
+    <form>
+        <node target="module_srl" required="true" filter="number" />
+        <node target="item_name" required="true" maxlength="40" />
+        <node target="document_srl" required="true" filter="number" />
+        <node target="price" required="true" filter="number" />
+        <node target="description" required="true" />
+    </form>
+    <parameter>
+        <param name="module_srl" target="module_srl" />
+        <param name="item_name" target="item_name" />
+        <param name="category_id" target="category_id" />
+        <param name="document_srl" target="document_srl" />
+        <param name="price" target="price" />
+        <param name="description" target="description" />
+    </parameter>
+    <response callback_func="completeInsertItem">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="item_srl" />
+    </response>
+</filter>

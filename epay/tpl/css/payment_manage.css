@@ -1,0 +1,4 @@
+.extraVariable                { display:block; height:25px; }
+.extraVariable div.extraLabel { float:left; width:120px; line-height:24px; }
+.extraContainer               { margin-top:10px; border:1px solid #CCCCCC; padding:5px; background:#FFFFFF; display:none;  }
+.extraDescription             { margin-top:5px; border-top:1px solid #E3E3E3; padding-top:5px; }

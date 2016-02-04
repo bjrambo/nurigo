@@ -1,0 +1,35 @@
+<query id="getOrderListByStatus" action="select">
+	<tables>
+		<table name="ncart_order" alias="order" />
+		<table name="member" alias="member" type="left join">
+			<conditions>
+				<condition operation="equal" column="member.member_srl" default="order.member_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="order.*" />
+		<column name="member.member_srl" alias="member_srl" />
+		<column name="member.nick_name" alias="nick_name" />
+		<column name="member.user_name" alias="user_name" />
+		<column name="member.user_id" alias="user_id" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order.member_srl" var="member_srl" />
+		<condition operation="equal" column="order.order_status" var="order_status" pipe="and" />
+		<group pipe="and">
+			<condition operation="equal" column="member.email_address" var="email_address" pipe="or" />
+			<condition operation="equal" column="member.nick_name" var="nick_name" pipe="or" />
+			<condition operation="equal" column="member.user_name" var="user_name" pipe="or" />
+			<condition operation="equal" column="member.email_id" var="email_id" pipe="or" />
+			<condition operation="equal" column="order.member_srl" var="member_srl" pipe="or" />
+			<condition operation="equal" column="order.purchaser_cellphone" var="purchaser_cellphone" pipe="or" />
+		</group>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

@@ -1,0 +1,34 @@
+div.item_wrap, div.total { border-color:#dfdfe1 #dfdfe1 #c9cacc; border-image:none; border-style:solid; border-width:1px; position:relative; overflow:hidden; margin:20px 0 5px; width:100%; }
+
+/* table */
+
+table.item-table { width:100%; background:#fbfbfc; border:1px solid #fff; border-bottom:0;  border-collapse:collapse; border-radius:3px; color:#666; font-size:12px; text-shadow:1px 1px 0 #fff; }
+table.item-table th { padding:15px 25px 16px; font-weight:bold; border-bottom:1px solid #f3f3f3; }
+table.item-table td { text-align:center; border-top:1px solid #fff; color:#666; font-size:12px; padding:20px 0 15px; }
+
+table.error-table { width:60%; background:#fbfbfc; border:1px solid #fff; border-bottom:0;  border-collapse:collapse; border-radius:3px; color:#666; font-size:12px; text-shadow:1px 1px 0 #fff; }
+table.error-table th { padding:15px 25px 16px; font-weight:bold; border-bottom:1px solid #f3f3f3; font-size: 15px;}
+table.error-table td { text-align:center; border-top:1px solid #fff; color:#666; font-size:14px; padding:20px 0 15px; }
+
+/* total */
+
+div.total table { width:100%; background:#fbfbfc; border:1px solid #fff; border-bottom:0; border-collapse:collapse; }
+div.total table th { padding:10px 0; border-bottom:1px solid #f3f3f3; color:#666; }
+div.total table td { padding:20px 0; text-align:center; border-top:1px solid #fff; color:#666; }
+div.total td.total_price { font:bold 13px 'NanumGothic'; color:#fa3d4f; }
+
+div.btn_payment { margin:10px 0; text-align:center; }
+div.btn_payment button.btn { width:100px; height:40px !important; }
+
+
+/*cartStep*/
+.cartStep { height:40px;}
+.cartStep h2 { padding:0; margin:0; font-size:24px; color:#4e6f28;}
+.cartStep .progress { height:40px; overflow:hidden; float:right; }
+.cartStep .progress li { list-style:none; font-size:17px; color:#aeaeae; font-weight:bold; display:inline-block; margin-right:15px; }
+.cartStep .progress li span.cart_num { font:bold 26px 'Arial'; vertical-align:middle; padding-right:5px; }
+.presentProgress { font-weight:bold; color:#525252 !important; }
+.cart1 { background:url(../img/dark_gray_left.png) no-repeat right 7px; padding-right:38px;}
+.cart2 { background:url(../img/gray_left.png) no-repeat right 7px; padding-right:38px; }
+.cart3 { background:url(../img/gray_left.png) no-repeat right 7px; padding-right:38px; }
+

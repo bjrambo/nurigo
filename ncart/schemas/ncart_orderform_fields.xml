@@ -1,0 +1,15 @@
+<table name="ncart_orderform_fields">
+	<column name="field_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="fieldset_srl" type="number" size="11" notnull="notnull" index="idx_fieldset_srl" />
+	<column name="module_srl" type="number" size="11" notnull="notnull" index="idx_module_srl" />
+	<column name="column_type" type="varchar" size="60" notnull="notnull" />
+	<column name="column_name" type="varchar" size="60" notnull="notnull" />
+	<column name="column_title" type="varchar" size="160" notnull="notnull" />
+	<column name="required" type="char" size="1" default="N" notnull="notnull" />
+	<column name="default_value" type="text" />
+	<column name="is_active" type="char" size="1" default="Y" />
+	<column name="is_head" type="char" size="1" default="N" />
+	<column name="description" type="text" />
+	<column name="list_order" type="number" size="11" notnull="notnull" default="1" index="idx_list_order" />
+	<column name="regdate" type="date" />
+</table>

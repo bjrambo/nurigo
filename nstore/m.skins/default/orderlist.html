@@ -1,0 +1,115 @@
+<load target="css/style.css" />
+<load target="css/btn.css" />
+<load target="css/orderlist.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/escrow.js" />
+<!--%load_js_plugin("ui")-->
+<include target="header.html" />
+
+
+<div id="orderlist" class="{$module_info->colorset}">
+	<h2 class="order_title">{$lang->cmd_order_view}</h2>
+
+	<form id="fo_search" action="./" method="post">
+		<div class="date_box">
+			<div class="search_title">
+				{$lang->search_period}
+			</div>
+			<div class="search_date">
+				<ul>
+					<li><a href="#" class="date_btn nu_black" onclick="change_period(7,0); return false;"><span>{$lang->one_week}</span></a></li>
+					<li><a href="#" class="date_btn nu_black" onclick="change_period(0,1); return false;"><span>{$lang->one_months}</span></a></li>
+					<li><a href="#" class="date_btn nu_black" onclick="change_period(0,3); return false;"><span>{$lang->three_months}</span></a></li>
+					<li><a href="#" class="date_btn nu_black" onclick="change_period(0,6); return false;"><span>{$lang->six_months}</span></a></li>
+					<li><a href="#" class="date_btn nu_black" onclick="change_period(0,12); return false;"><span>{$lang->twelve_months}</span></a></li>
+				</ul>	
+			</div>
+		</div>
+	</form>
+
+	<block loop="$order_list=>$order_srl,$order_arr">
+	<div loop="$order_arr=>$no,$val" class="date_purchase">
+		<block cond="$curr_order_srl != $val->order_srl">
+			{@$curr_order_srl = $val->order_srl}
+			{@$count = 1}
+		</block>
+		<div cond="$count==1" class="date_detail">
+			<div cond="$no==0" rowspan="{count($order_arr)}">
+				<div class="order_date">{zdate($val->purdate,'Y-m-d')} (<a href="{getUrl('act','dispNstoreOrderDetail','order_srl',$val->order_srl)}">{$val->order_srl}</a>)</div>
+			</div>		
+			<div class="delivery">
+				<a cond="$val->order_status >= '3' && $val->order_status <= '6'" href="{$delivery_inquiry_urls[$val->express_id]}{$val->invoice_no}" class="m_btn" target="_blank"><span>{$lang->cmd_trace_delivery}</span></a>
+			</div>
+		</div>
+		<div class="date_product">
+			<div class="product">
+				<a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a>
+				<div>{$val->item_name}</div>
+				<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+			</div>
+			<div cond="$count == count($order_arr)" class="order_price">
+				<span class="order_area">{$order_status[$val->order_status]}</span>
+				<div class="order_quantity">
+					<span class="quantity">{number_format($val->quantity)}</span>개 / <span class="quantity">{nproductItem::formatMoney($val->quantity * $val->discounted_price)}</span>
+				</div>
+				<div class="nu_order">
+					<a href="{getUrl('act','dispNstoreOrderDetail','order_srl',$val->order_srl)}" class="nu_button nu_green"><span>{$lang->order_details}</span></a>
+				</div>
+			</div>
+		</div>
+		{@$count++}
+	</div>
+	</block>
+	<div cond="!count($order_list)">
+		<div>{$lang->msg_no_orders}</div>
+	</div>
+
+
+	<div cond="0" class="feedback">
+		<ul>
+			<li><a href="#" class="nuribtn"><span>교환신청</span></a></li>
+			<li><a href="#" class="nuribtn"><span>반품신청</span></a></li>
+			<li><a href="#" class="nuribtn red"><span>구매확정</span></a></li>
+		</ul>
+	</div>
+
+</div>
+
+<include target="footer.html" />
+<script type="text/javascript">
+(function($){
+	$(function(){
+		var option = { changeMonth: true, changeYear: true, gotoCurrent: false,yearRange:'-100:+10', dateFormat:'yy-mm-dd', onSelect:function(){
+
+			$(this).prev('input[type="hidden"]').val(this.value.replace(/-/g,""))}
+		};
+		$.extend(option,$.datepicker.regional['{$lang_type}']);
+		$(".inputDate").datepicker(option);
+		$(".dateRemover").click(function() {
+			$(this).parent().prevAll('input').val('');
+			return false;
+		});
+		$('.escrow').escrow();
+
+		$('#receipt').click(function() {
+			var order_srl = $(this).attr('data-order-srl');
+			var $_parent = $(this).parent();
+			exec_xml(
+				'epay',
+				'getEpayReceipt',
+				{order_srl:order_srl},
+				function(ret){
+					var tpl = ret.tpl.replace(/<enter>/g, '\n');
+					$_parent.html(tpl);
+				},
+				['error','message','tpl']
+			);
+
+		});
+
+
+	});
+})(jQuery);
+</script>
+

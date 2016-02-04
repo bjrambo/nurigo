@@ -1,0 +1,169 @@
+<form action="./" class="x_form-horizontal" method="post" ruleset="insertModInst" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNproductAdminInsertModInst" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="primary_key" value="{$module_info->module_srl}" />
+	<input type="hidden" name="delivery_info" value="{htmlspecialchars($module_info->delivery_info)}" />
+
+	<section class="section">
+		<h1>{$lang->default_setting}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="proc_module">{$lang->proc_module}</label>
+			<div class="x_controls">
+				<div cond="!$module_info->proc_module">
+					<select name="proc_module" id="proc_module">
+						<option loop="$module_list=>$key,$val" value="{$val->module}" selected="selected"|cond="$module_info->proc_module == $val->module">{$val->title} ({$val->module})</option>
+					</select>
+					<a href="#proc_module_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="proc_module_help" class="x_help-block" hidden>{$lang->about_proc_module}</p>
+				</div>
+				<div cond="$module_info->proc_module"> <input type="hidden" name="proc_module" value="{$module_info->proc_module}" />
+					<span class="x_input-large x_uneditable-input">{$module_list[$module_info->proc_module]->title}({$module_info->proc_module})</span>
+				</div>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" id="mid" value="{$module_info->mid}" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mid_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="module_category_srl">{$lang->module_category}</label>
+			<div class="x_controls">
+				<select name="module_category_srl" id="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+				</select>
+				<a href="#module_category_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_category_srl_help" class="x_help-block" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="lang_code" id="browser_title" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="layout_srl_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="skin">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" id="skin">
+					<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key || (!$module_info->skin && $key=='xe_board')">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="category_display">{$lang->category_display}</label>
+			<div class="x_controls">
+				<select name="category_display" id="category_display">
+					<option value="Y" selected="selected"|cond="$module_info->category_display=='Y'">{$lang->display}</option>
+					<option value="N" selected="selected"|cond="$module_info->category_display=='N'">{$lang->not_display}</option>
+				</select>
+				<a href="#category_display_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="category_display_help" class="x_help-block" hidden>{$lang->about_category_display}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="ncart_mid">{$lang->ncart_mid}</label>
+			<div class="x_controls">
+				<select name="ncart_mid" id="ncart_mid">
+					<option value="">{$lang->cmd_select}</option>
+					<option loop="$ncart_insts=>$key,$val" value="{$val->mid}" selected="selected"|cond="$val->mid==$module_info->ncart_mid">{$val->browser_title}</option>
+				</select>
+				<a href="#ncart_mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="ncart_mid_help" class="x_help-block" hidden>{$lang->about_ncart_mid} <a href="{getUrl('','module',$module,'act','dispNcartAdminModInstList')}" target="_blank">{$lang->cmd_cart_management}</a></p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="direct_gocart">{$lang->direct_gocart}</label>
+			<div class="x_controls">
+				<select name="direct_gocart" id="direct_gocart">
+					<option value="N" selected="selected"|cond="$module_info->direct_gocart=='N'">{$lang->not_goto_cart}</option>
+					<option value="Y" selected="selected"|cond="$module_info->direct_gocart=='Y'">{$lang->confirm_after_putting}</option>
+				</select>
+				<a href="#direct_gocart_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="direct_gocart_help" class="x_help-block" hidden>{$lang->about_direct_gocart}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="editor">{$lang->cancelation_policy}</label>
+			<div class="x_controls">
+				{$lang->about_cancelation_policy}
+				<div id="editor" class="editor">{$editor}</div>
+				<label class="x_inline" for="integrate"><input type="radio" name="display_caution" id="integrate" value="Y" checked="checked" />{$lang->batch_mode}</label>
+				<label class="x_inline" for="individual"><input type="radio" name="display_caution" id="individual" value="N" />{$lang->individual_mode}</label>
+				<a href="#editor_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="editor_help" class="x_help-block" hidden>{$lang->about_cancelation_policy2}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="store_top">{$lang->print_on_top}</label>
+			<div class="x_controls">
+				<textarea name="store_top" id="store_top">{$module_info->store_top}</textarea>
+				<a href="#store_top_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="store_top_help" class="x_help-block" hidden>{$lang->about_print_on_top}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="store_bottom">{$lang->print_on_bottom}</label>
+			<div class="x_controls">
+				<textarea name="store_bottom" id="store_bottom">{$module_info->store_bottom}</textarea>
+				<a href="#store_bottom_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="store_bottom_help" class="x_help-block" hidden>{$lang->about_print_on_bottom}</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>{$lang->mobile_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->mobile_view}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="use_mobile"><input type="checkbox" name="use_mobile" id="use_mobile" value="Y" checked="checked"|cond="$module_info->use_mobile == 'Y'" /> {$lang->about_mobile_view}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mlayout_srl">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->mlayout_srl== $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#mobile_layout_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_layout_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mskin">{$lang->mobile_skin}</label>
+			<div class="x_controls">
+				<select name="mskin" id="mskin">
+					<option loop="$mskin_list=> $key, $val" value="{$key}" selected="selected"|cond="$module_info->mskin== $key || (!$module_info->skin && $key=='default')">{$val->title}</option>
+				</select>
+				<a href="#mobile_skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" accesskey="s" />
+	</div>
+</form>

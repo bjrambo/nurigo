@@ -1,0 +1,34 @@
+<load target="css/style.css" />
+<load target="./js/script.js" />
+
+<div id="nurigo_sidebar_menu">
+	<div cond="($selected_menu && $selected_menu['list']) || count($category_index)" class="sub_menu">
+		<div>
+			<h2 cond="$selected_menu">{$selected_menu['text']}</h2>
+			<h2 cond="$category && count($parent_nodes)>2">{$category_index[$parent_nodes[1]]->category_name}</h2>
+			<h2 cond="$category && count($parent_nodes)<=2">{$category_index[$category]->category_name}</h2>
+			<ul class="depth2">
+				<block loop="$category_tree['f']=>$key,$val">
+					<block cond="$category == $category_index[$key]->node_id || (count($parent_nodes) && in_array($category_index[$key]->node_id, $parent_nodes))">
+						<li loop="$val=>$key2,$val2" class="on"|cond="$category==$category_index[$key2]->node_id">
+						<a href="{getUrl('','mid',$category_index[$key2]->mid,'category',$category_index[$key2]->node_id)}" alt="{$category_index[$key2]->category_name}">{$category_index[$key2]->category_name}</a>
+							<ul>
+								<li loop="$val2=>$key3,$val3" class="on"|cond="$category==$category_index[$key3]->node_id">
+									<a href="{getUrl('','mid',$category_index[$key3]->mid,'category',$category_index[$key3]->node_id)}" alt="{$category_index[$key3]->category_name}"><span class="url"></span>{$category_index[$key3]->category_name}</a>
+								</li>
+							</ul>
+						</li>
+					</block>
+				</block>
+				<li loop="$selected_menu['list']=>$key2,$val2" class="on"|cond="$val2['selected']">
+					<a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a>
+					<ul>
+						<li loop="$val2['list']=>$key3,$val3" class="on"|cond="$val3['selected']">
+							<a href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'"><span class="url"></span>{$val3['link']}</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div><!--end of sub_menu-->
+</div>

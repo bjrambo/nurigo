@@ -1,0 +1,33 @@
+
+<div class="x_modal-header">
+	<h1>{$lang->cmd_delete}</h1>
+</div>
+
+<div class="x_modal-content">
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+	<table class="x_table">
+		<thead>
+			<tr>
+				<th>{$lang->order_date}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->items}</th>
+				<th>{$lang->amount}</th>
+				<th>{$lang->purchaser}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr loop="$order_info_arr=>$key,$order_info">
+				<td>{zdate($order_info->regdate,'Y-m-d')}</td>
+				<td>{$order_info->title}</td>
+				<td>{$order_info->item_count}</td>
+				<td>{$order_info->total_price}</td>
+				<td>{$order_info->purchaser_name}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+</div>
+

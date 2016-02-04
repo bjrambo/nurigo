@@ -1,0 +1,17 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@charset "utf-8";
+
+/* new */
+.nmileage_wrap { font-family:'Nanum Gothic'; }
+.mileage_box dl { border:1px solid #ddd; margin-bottom:10px; overflow:hidden; background:#f9f9f9; line-height:2em; }
+.mileage_box dt { float:left; width:85px; margin:0; padding-left:10px; font-weight:bold; font-size:0.9em; }
+.mileage_box dd { background:#fff; overflow:hidden; padding:0 10px; font-size:0.9em; position:relative; margin:0; }
+.mileage_box .order_num { text-decoration:none; color:#ff0000; font-weight:bold; }
+.nmileage_wrap h2 { font-weight:bold; letter-spacing:-0.1em; font-size:1.5em; border-bottom:1px solid #ddd; line-height:1.7em; color:#555; }
+.nm_tit { margin-bottom:20px; font-size:0.9em; color:#666; }
+.mileage_total { font-size:0.9em; font-family:'Nanum Gothic'; font-weight:600; padding:13px; background:#f1f1f1; border:1px solid #ccc; border-radius:5px; margin-bottom:20px; }
+.m_point { color:#ff0000; font-size:0.9em; }
+.nmileage_wrap { padding:10px; background:#fff; }
+.nmileage_tit { background:#eee; }
+.nmileage_wrap .m_title{ text-align:left; margin-bottom:10px; }

@@ -1,0 +1,36 @@
+<query id="getItemListByDocumentSrl" action="select">
+	<tables>
+		<table name="nproduct_items" alias="item" />
+		<table name="modules" alias="module" type="left join">
+			<conditions>
+				<condition operation="equal" column="module.module_srl" default="item.module_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="module.mid" alias="mid" />
+		<column name="item.item_srl" alias="item_srl" />
+		<column name="item.item_code" alias="item_code" />
+		<column name="item.item_name" alias="item_name" />
+		<column name="item.module_srl" alias="module_srl" />
+		<column name="item.category_id" alias="category_id" />
+		<column name="item.node_route" alias="node_route" />
+		<column name="item.document_srl" alias="document_srl" />
+		<column name="item.file_srl" alias="file_srl" />
+		<column name="item.thumb_file_srl" alias="thumb_file_srl" />
+		<column name="item.price" alias="price" />
+		<column name="item.display" alias="display" />
+		<column name="item.delivery_info" alias="delivery_info" />
+		<column name="item.extra_vars" alias="extra_vars" />
+		<column name="item.regdate" alias="regdate" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="item.document_srl" var="document_srl" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="item_srl" order="asc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

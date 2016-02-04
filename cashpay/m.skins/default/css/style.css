@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+/* start */
+h3 { font:bold 12px NanumGhothic; padding:10px 0;}
+form table th, form label { font:bold 11px NanumGhothic; text-align:left; width:100px;}
+label { padding-right:50px;}
+.btnArea { float:left;}

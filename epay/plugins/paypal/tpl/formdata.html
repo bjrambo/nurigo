@@ -1,0 +1,28 @@
+<load target="js/script.js" />
+<load target="filter/submit_paypal.xml" />
+<load target="lang" />
+
+<form id="fo_paypal" class="fo_payment" method="post" action="./" onsubmit="paypal_submit(); return false;">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+        {$form_data}
+
+	<div class="choice_box">
+        	<input name="payment_method" id="payment_method_6" type="radio" value="PP" checked="checked" /><label for="payment_method_6">Paypal</label>
+	</div>
+
+        <div class="btn_payment">
+			<input type="submit" value="{$lang->do_payment}" class="nuribtn red super" />
+        </div>
+
+	<div cond="$plugin_info->display_price=='Y' || $plugin_info->guide_text" class="payment_info">
+		<p cond="$plugin_info->display_price=='Y'">{$lang->amount_to_pay} : {$price} {$plugin_info->currency_code}</p>
+		<p cond="$plugin_info->guide_text">{$plugin_info->guide_text}</p>
+	</div>
+</form>
+<script type="text/javascript">
+	var join_form = '{$join_form}';
+</script>

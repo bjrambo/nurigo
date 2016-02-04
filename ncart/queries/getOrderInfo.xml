@@ -1,0 +1,11 @@
+<query id="getOrderInfo" action="select">
+	<tables>
+		<table name="ncart_order" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" />
+	</conditions>
+</query>

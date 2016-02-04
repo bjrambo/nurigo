@@ -1,0 +1,68 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+
+/*  orderlist css */
+
+/*#orderlist ul { margin:0; padding:0; }*/
+#orderlist ul li { list-style:none; }
+
+
+#orderlist .period { margin-bottom:30px; width:100%; border-top:1px solid #c4c4c4;}
+#orderlist .period td.title { padding-left:20px; background:#f8f8f8; }
+#orderlist .period td { border-bottom:1px solid #eaeaea; padding:5px 0 5px 10px;}
+#orderlist .period ul { margin:0; padding:0; }
+#orderlist .period li { float:left; margin-right:3px; }
+
+#orderlist .feedback { margin:30px 0; padding:20px 0; border:1px solid #ddd; border-left:none; border-right:none; overflow:hidden;}
+#orderlist .feedback ul.left { float:left;}
+#orderlist .feedback ul.right { float:right;}
+#orderlist .feedback li { float:left; margin-left:10px;}
+
+#orderlist .item-table tr.gt2 { background:#fafafa;}
+#orderlist .item-table tr th.product_num { width:100px;}
+#orderlist .item-table tr td input.quantity { margin:0 5px; width:40px; }
+
+#orderlist .item-table tr th.item_check { width:20px;}
+#orderlist .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderlist .item-table .item_price { font:bold 18px Arial; }
+#orderlist .item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+
+#orderlist .item-table a.product_img { display:block; margin-bottom:10px; }
+
+/* black */
+
+
+#orderlist.black .period { border-top:1px solid #1b1b1b;}
+#orderlist.black .period td.title { background:#343434;}
+#orderlist.black .period td { border-bottom:1px solid #1b1b1b;}
+#orderlist.black .item-table tr.gt2 { background:#262626;}
+
+
+
+/* new */
+#orderlist a { text-decoration:none; color:#ff0000; font-size:13px; }
+#orderlist .order_title { text-align:center; margin:0; padding:10px; font-size:22px; letter-spacing:-1px; border-bottom:1px solid #ccc; }
+#orderlist .date_box { border:1px solid #ccc; height:60px; margin:10px; overflow:hidden; background:#f9f9f9; }
+#orderlist .search_title { width:20%; padding:20px 10px; font-size:0.9em; font-weight:bold; float:left; overflow:hidden; }
+#orderlist .search_date { overflow:hidden; background:#fff; height:100%; }
+#orderlist ul { overflow:hidden; padding:0 10px; margin-top:12px; }
+#orderlist li { float:left; width:19.8%; font-size:12px; text-align:center; }
+#orderlist li:nth-child(1) { border-left:1px solid #ccc; }
+#orderlist .date_btn { text-decoration:none; color:#fff; display:block; font-size:0.9em; letter-spacing:-0.1em; line-height:3em; border-left:0; }
+
+#orderlist .date_purchase { margin:0 10px; border:1px solid #ccc; border-bottom:0; border-top:0; }
+#orderlist .date_detail { background:#f9f9f9; border-bottom:1px solid #ccc; border-top:1px solid #ccc; overflow:hidden; }
+#orderlist .order_date { float:left; margin: 10px; }
+#orderlist .order_number { float:right; margin:10px; font-size:12px; }
+#orderlist .product { padding:10px; overflow:hidden; font-size:11px; }
+#orderlist .product img { border:1px solid #ccc; float:left; margin-right:10px; }
+#orderlist .order_price { border-top:1px solid #ccc; border-bottom:1px solid #ccc; font-size:13px; padding:10px; }
+#orderlist .order_area { color:#1f8b8f; font-weight:bold; }
+#orderlist .order_quantity { float:right; padding-bottom:10px; }
+#orderlist .quantity { color:#333; font-weight:bold; }
+#orderlist .delivery { float:right; margin:10px; }
+#orderlist .delivery .m_btn { color:#333; font-size:11px; }
+#orderlist .nu_order { padding-top:10px; margin-top:10px; border-top:1px dashed #ccc; }
+#orderlist .nu_order .nu_button { display:block; color:#fff; font-size:11px }

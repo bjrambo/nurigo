@@ -1,0 +1,19 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@charset "utf-8";
+
+/*  orderlist css */
+
+#orderlist h4 { padding-left:10px; font-size:16px; font-family:나눔고딕,NanumGothic,"맑은 고딕","Malgun Gothic",Gulim; color:#555; }
+
+/* new */
+
+#orderlist { font-family:'Nanum Gothic'; }
+#orderlist h4 { padding-left:10px; font-size:1em; color:#555; letter-spacing:-0.05em; }
+#orderlist h2 { text-align:center; font-size:1.5em; letter-spacing:-0.06em; }
+#orderlist dl { overflow:hidden; margin:10px; border:1px solid #ccc; background:#f9f9f9; }
+#orderlist dt { float:left; padding:10px 0 8px 5px; width:96px; font-size:14px; color:#333; font-weight:bold; margin:0; }
+#orderlist dd { text-align:right; padding:9px 5px 9px 0; overflow:hidden; background:#fff; font-size:14px; color:#777; margin:0; }
+#orderlist .small_text { font-size:0.8em; color:#999; }
+#orderlist .order_tit { font-size:1.2em; padding:10px 0; border-bottom:1px solid #eee; }
+#orderlist .item_box { padding:10px 0; border-bottom:1px solid #eee; }

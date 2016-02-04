@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+		<permission action="dispNstoreAdminOrderManagement" target="manager" />
+		<permission action="procNstoreAdminOrderExcelDownload" target="manager" />
+	</permissions>
+	<actions>
+		<action name="dispNstoreAdminConfig" type="view" />
+		<action name="dispNstoreAdminModInstList" type="view" />
+		<action name="dispNstoreAdminInsertModInst" type="view" />
+		<action name="dispNstoreAdminSkinInfo" type="view" />
+		<action name="dispNstoreAdminMobileSkinInfo" type="view" />
+		<action name="dispNstoreAdminOrderManagement" type="view" admin_index="true" />
+		<action name="dispNstoreAdminOrderSheet" type="view" />
+		<action name="dispNstoreAdminOrderDetail" type="view" />
+		<action name="dispNstoreAdminEscrowDelivery" type="view" />
+		<action name="dispNstoreAdminEscrowDenyConfirm" type="view" />
+		<action name="dispNstoreAdminPurchaserInfo" type="view" />
+		<action name="dispNstoreAdminGrantInfo" type="view" />
+
+		<action name="procNstoreAdminConfig" type="controller" />
+		<action name="procNstoreAdminInsertModInst" type="controller" />
+		<action name="procNstoreAdminDeleteModInst" type="controller" />
+		<action name="procNstoreAdminUpdateStatus" type="controller" />
+		<action name="procNstoreAdminUpdateOrderDetail" type="controller" />
+		<action name="procNstoreAdminDeleteOrders" type="controller" />
+		<action name="procNstoreAdminInsertListConfig" type="controller" />
+		<action name="procNstoreAdminUpdateDeliveryInfo" type="controller" />
+		<action name="procNstoreAdminOrderExcelDownload" type="controller" />
+		<action name="procNstoreAdminCSVDownloadByOrder" type="controller" />
+
+		<action name="getNstoreAdminDeleteModInst" type="model" />
+		<action name="getNstoreAdminDeleteOrders" type="model" />
+		<action name="getNstoreAdminEscrowInfo" type="model" />
+
+		<action name="dispNstoreOrderList" type="view" index="true" />
+		<action name="dispNstoreOrderDetail" type="view" />
+		<action name="dispNstoreReplyComment" type="view" />
+		<action name="dispNstoreLogin" type="view" />
+		<action name="dispNstoreEscrowConfirm" type="view" />
+		<action name="dispNstoreNonLoginOrder" type="view" />
+
+		<action name="procNstoreGuestLogin" type="controller" />
+
+		<action name="getNstoreEscrowInfo" type="model" />
+	</actions>
+</module>

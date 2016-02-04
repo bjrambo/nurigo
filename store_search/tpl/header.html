@@ -1,0 +1,10 @@
+<load target="js/integration_search_admin.js" usecdn="true" />
+
+<div class="x_page-header">
+	<h1>{$lang->integration_search}</h1>
+</div>
+
+<ul class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispStore_searchAdminContent'"><a href="{getUrl('act','dispStore_searchAdminContent')}">{$lang->cmd_setup}</a></li>
+	<li cond="0" class="x_active"|cond="$act=='dispStore_searchAdminSkinInfo'"><a href="{getUrl('act','dispStore_searchAdminSkinInfo')}">{$lang->cmd_manage_skin}</a></li>
+</ul>

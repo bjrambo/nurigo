@@ -1,0 +1,31 @@
+<query id="getPeriodListByStatus" action="select">
+	<tables>
+		<table name="nstore_digital_period" alias="period" />
+		<table name="member" alias="member" type="left join">
+			<conditions>
+				<condition operation="equal" column="member.member_srl" default="period.member_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="period.*" />
+		<column name="member.member_srl" alias="member_srl" />
+		<column name="member.nick_name" alias="nick_name" />
+		<column name="member.user_name" alias="user_name" />
+		<column name="member.user_id" alias="user_id" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="period.member_srl" var="member_srl" />
+		<condition operation="equal" column="period.order_status" var="order_status" pipe="and" />
+		<group pipe="and">
+			<condition operation="equal" column="member.email_address" var="email_address" pipe="or" />
+			<condition operation="equal" column="member.nick_name" var="nick_name" pipe="or" />
+		</group>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

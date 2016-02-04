@@ -1,0 +1,143 @@
+<load target="css/style.css" />
+<load target="css/orderdetail.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/script.js" />
+
+{@$address = unserialize($order_info->recipient_address)}
+{@$address1 = $address[0]}
+{@$address2 = $address[1]}
+
+<include target="_header.html" />
+
+<div id="orderlist">
+	<h2 class="order_tit">{$lang->order_detail_view}</h2>	
+	<div class="item_box">
+		<dl>
+			<dt>{$lang->order_number}</dt>
+			<dd>{$order_info->order_srl}&nbsp;</dd>
+			<dt>{$lang->order_date}</dt>
+			<dd>{zdate($order_info->regdate)}&nbsp;</dd>
+			<dt>{$lang->recipient}</dt>
+			<dd>{$order_info->recipient_name}&nbsp;</dd>
+			<dt>{$lang->cellphone}</dt>
+			<dd>{$order_info->recipient_cellphone}&nbsp;</dd>
+			<dt>{$lang->telnum}</dt>
+			<dd>{$order_info->recipient_telnum}&nbsp;</dd>
+			<dt>{$lang->address}</dt>
+			<dd><span cond="$order_info->recipient_postcode">({$order_info->recipient_postcode})</span>{$address1} {$address2}&nbsp;</dd>
+			<dt>{$lang->items}</dt>
+			<dd>{$order_info->item_count}&nbsp;</dd>
+			<dt>{$lang->mileage}</dt>
+			<dd>{nproductItem::formatMoney($order_info->mileage)}<div cond="$order_info->mileage_save=='Y'">{$lang->saving_complete}</div>&nbsp;</dd>
+		</dl>
+	</div>
+
+	<div class="item_box">
+		<h4>{$lang->title_payment_details}</h4>
+		<dl>
+			<dt>{$lang->paymethod}</dt>
+			<dd>{$payment_method[$order_info->payment_method]}&nbsp;</dd>
+			<dt>{$lang->use_mileage}</dt>
+			<dd>{nproductItem::formatMoney($order_info->use_mileage)}&nbsp;</dd>
+			<block cond="in_array($payment_info->payment_method,array('VA','BT'))">
+				<dt>{$lang->account_number}</dt>
+				<dd>{$payment_info->vact_num}&nbsp;</dd>
+				<dt>{$lang->bank_name}</dt>
+				<dd>{$payment_info->vact_bankname}&nbsp;</dd>
+				<dt>{$lang->account_holder}</dt>
+				<dd>{$payment_info->vact_name}&nbsp;</dd>
+				<dt>{$lang->sender_name}</dt>
+				<dd>{$payment_info->vact_inputname}&nbsp;</dd>
+				<dd cond="0">{$payment_info->vact_regnum}&nbsp;</dd>
+				<dt>{$lang->send_date}</dt>
+				<dd><span cond="$payment_info->vact_date">{zdate($payment_info->vact_date,'Y-m-d')}</span><span cond="!$payment_info->vact_date">-</span> {$lang->till}&nbsp;</dd>
+				<dd cond="0">{$payment_info->vact_time}&nbsp;</dd>
+			</block>
+		</dl>
+	</div>
+	<!--
+	<h4>[주문정보]</h4>
+	<ul class="orderDetail">
+		<li>주문번호 : {$order_info->order_srl}</li>
+		<li>주문일자 : {zdate($order_info->regdate)}</li>
+		<li>수령인 : {$order_info->recipient_name}</li>
+		<li>휴대전화 : {$order_info->recipient_cellphone}</li>
+		<li>일반전화 : {$order_info->recipient_telnum}</li>
+		<li>주소 : {unserialize($order_info->recipient_address)}</li>
+		<li>품목갯수 : {$order_info->item_count}</li>
+		<li>적립금 : {$order_info->mileage}</li>
+	</ul>
+
+	<h4>[결제정보]</h4>
+	<div>
+		<ul class="orderDetail">
+			<li>결제방식 : {$payment_method[$order_info->payment_method]}</li>
+			<li>적립금 사용 : {$order_info->use_mileage}</li>
+			<block cond="$payment_info->payment_method=='VA'">
+			<li>계좌번호 : {$payment_info->vact_num}</li>
+			<li>은행코드 : {$payment_info->vact_bankcode}</li>
+			<li>예금주명 : {$payment_info->vact_name}</li>
+			<li>송금자명 : {$payment_info->vact_inputname}</li>
+			<li cond="0">주민번호 : {$payment_info->vact_regnum}</li>
+			<li>송금일자 : {zdate($payment_info->vact_date,'Y-m-d')} 까지</li>
+			<li cond="0">송금시간 : {$payment_info->vact_time}</li>
+			</block>
+		</ul>
+	</div>
+	-->
+	<div class="item_box">
+		<h4>{$lang->title_ordered_items}</h4>
+		
+		<dl loop="$order_info->item_list=>$no,$val">
+			<dt>{$lang->contract_number}</dt>
+			<dd>{$val->cart_srl}</dd>
+			<dt>{$lang->item}</dt>
+			<dd><a href="{getUrl('act','dispNstoreItemDetail','item_srl',$val->item_srl)}"><img src="{$val->getThumbnail(40)}" /></a></dd>
+			<dt>{$lang->product_name}</dt>
+			<dd>
+				<div>{$val->item_name}</div>
+				<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+			</dd>
+			<dt>{$lang->quantity}</dt>
+			<dd>{$val->quantity}</dd>
+			<dt>{$lang->item_price}</dt>
+			<dd>{nproductItem::formatMoney($val->price * $val->quantity)}</dd>
+			<dt>{$lang->discount}</dt>
+			<dd>{nproductItem::formatMoney($val->discount_amount)} ({$val->discount_info})</dd>
+			<dt>{$lang->amount}</dt>
+			<dd>{nproductItem::formatMoney($val->discounted_price)}</dd>
+			<dt>{$lang->order_status}</dt>
+			<dd>
+				<span class="ko_text red">{$order_status[$val->order_status]}</span><br />
+				<a cond="in_array($val->order_status,array('3','4'))" href="{$delivery_inquiry_urls[$val->express_id]}{$val->invoice_no}" class="kso_btn" target="_blank"><span>{$lang->cmd_trace_delivery}</span></a>
+			</dd>
+			{@$total_price+=$val->price}
+		</dl>
+		{@$total_price=0}
+	</div>
+
+	<div class="item_box">
+		<h4>{$lang->buy_amount}</h4>
+		<dl>
+			<block cond="$order_info->delivfee_inadvance=='Y'">
+				{@$delivfee_inadvance = $lang->prepay}
+			</block>
+			<block cond="$order_info->delivfee_inadvance!='Y'">
+				{@$delivfee_inadvance = $lang->cash_on_delivery}
+			</block>	
+			<dt>{$lang->total_order_amount}</dt>
+			<dd>{nproductItem::formatMoney($order_info->sum_price)}</dd>
+			<dt>{$lang->total_discount}</dt>
+			<dd><span>-</span>{nproductItem::formatMoney($order_info->total_discount_amount)}</dd>
+			<dt>{$lang->delivery_fee}</dt>
+			<dd><span>+</span>{nproductItem::formatMoney($order_info->delivery_fee)} (<span>{$delivfee_inadvance}</span>)</dd>
+			<dt>{$lang->payment_amount}</dt>
+			<dd>{nproductItem::formatMoney($order_info->total_price)}</dd>
+		</dl>
+	</div>
+
+	<div cond="0" class="btnArea">
+		<a href="{getUrl('act','dispNstoreOrderList')}" class="kso_btn red"><span>{$lang->cmd_previous_page}</span></a>
+	</div>
+
+</div>

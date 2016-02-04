@@ -1,0 +1,47 @@
+<include target="_header" />
+<load target="js/modinstlist.js" />
+
+<table class="x_table">
+	<thead>
+		<tr>
+			<th scope="col"><div>{$lang->no}</div></th>
+			<th scope="col" cond="0"><div><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></div></th>
+			<th scope="col" class="half_wide"><div>{$lang->mid}</div></th>
+			<th scope="col" class="half_wide"><div>{$lang->browser_title}</div></th>
+			<th scope="col"><div>{$lang->regdate}</div></th>
+			<th scope="col">{$lang->cmd_management}</th>
+			<th scope="col">{$lang->cmd_delete}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr loop="$list=>$no,$val">
+			<td class="center number">{$no}</td>
+			<td cond="0" class="center"><input type="checkbox" name="cart" value="{$val->module_srl}" /></td>
+			<td>{htmlspecialchars($val->mid)}</td>
+			<td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" onclick="window.open(this.href); return false;">{$val->browser_title}</a></td>
+			<td>{zdate($val->regdate,"Y-m-d")}</td>
+			<td><a href="{getUrl('act','dispKcpAdminInsertModInst','module_srl',$val->module_srl)}" class="buttonSet buttonSetting"><span>{$lang->cmd_management}</span></a></td>
+			<td><a href="#deleteInstance" class="modalAnchor deleteInstance" data-module-srl="{$val->module_srl}"><span>{$lang->cmd_delete}</span></a></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="x_clearfix">
+	<include target="_page_navigation.html" />
+	<a class="x_btn x_pull-right" href="{getUrl('act','dispKcpAdminInsertModInst','module_srl','')}">{$lang->cmd_make}</a>
+</div>
+
+<include target="_search_bar.html" />
+
+<form action="./" class="x_modal" method="post" id="deleteInstance">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procKcpAdminDeleteModInst" />
+	<div class="x_modal-header">
+		<h1>{$lang->display_page} : {$lang->delete}</h1>
+	</div>
+	<div id="deleteForm" class="x_modal-body">
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+	</div>
+</form>

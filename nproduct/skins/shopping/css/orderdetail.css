@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+/*  orderlist css */
+
+#orderlist h4 { padding-left:10px; font-size:16px; font-family:나눔고딕,NanumGothic,"맑은 고딕","Malgun Gothic",Gulim; color:#555; }
+
+#orderlist .orderStep { margin-bottom:40px; padding:20px 20px; height:40px; background:url(../img/cartTitle_bg.gif) repeat-x 0 100%; border:1px solid #eee; overflow:hidden;}
+#orderlist .orderStep h2 { float:left; padding:0; margin:0; }
+#orderlist .orderDate { margin-bottom:10px; padding-left:20px; }
+
+#orderlist ul.orderDetail { margin:0 0 20px 0; padding:10px 10px 30px; width:50%; list-style:none; border:1px solid #ddd; }
+#orderlist ul.orderDetail li { margin:0; padding:7px 10px; border-bottom:1px solid #eee; list-style:none; }
+
+#orderlist .period { margin-bottom:30px; width:100%; border-top:1px solid #c4c4c4; }
+#orderlist .period td.title { padding-left:20px; background:#f8f8f8; }
+#orderlist .period td { border-bottom:1px solid #eaeaea; }
+#orderlist .period li { float:left; margin-right:3px; }
+
+#orderlist .feedback { margin:30px 0; padding:20px 0; border:1px solid #ddd; border-left:none; border-right:none; overflow:hidden;}
+#orderlist .feedback ul.left { float:left;}
+#orderlist .feedback ul.right { float:right;}
+#orderlist .feedback li { float:left; margin-left:10px;}
+
+#orderlist .item-table { clear:both; margin-bottom:30px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+#orderlist .item-table tr th { background:#F8F8F8;}
+#orderlist .item-table tr th, 
+#orderlist .item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+#orderlist .item-table tr td { padding:20px 0 15px;}
+
+#orderlist .item-table tr th.product_num { width:100px;}
+#orderlist .item-table tr td input.quantity { margin:0 5px; width:40px; }
+
+#orderlist .item-table tr th.item_check { width:20px;}
+#orderlist .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderlist .item-table .item_price { font:bold 18px Arial; }
+#orderlist .item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+
+#orderlist .item-table a.product_img { display:block; margin-bottom:10px; }
+
+

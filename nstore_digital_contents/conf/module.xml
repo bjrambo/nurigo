@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+		<grant name="write_comment" default="member">
+			<title xml:lang="ko">평가</title>
+		</grant>
+	</grants>
+	<permissions>
+	</permissions>
+	<menus>
+	</menus>
+	<actions>
+		<action name="dispNstore_digital_contentsAdminModInstList" type="view" />
+		<action name="dispNstore_digital_contentsAdminItemList" type="view" admin_index="true"/>
+		<action name="dispNstore_digital_contentsAdminManageContents" type="view" />
+		<action name="dispNstore_digital_contentsAdminInsertConfig" type="view" />
+
+		<action name="procNstore_digital_contentsAdminInsertContent" type="controller" />
+		<action name="procNstore_digital_contentsAdminUpdateContentListOrder" type="controller" />
+		<action name="procNstore_digital_contentsAdminDeleteContent" type="controller" />
+		<action name="procNstore_digital_contentsAdminInsertConfig" type="controller" />
+
+		<action name="getNstore_digital_contentsAdminContentInfo" type="model" />
+	</actions>
+</module>

@@ -1,0 +1,37 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->product_management}
+		<span class="path" cond="$module_info->mid"> &gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a> </span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_nproduct} <a href="{getUrl('experimental_mode','Y')}">{$lang->product_copy}</a></p>
+<ul cond="$module_info" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispNproductAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispNproductAdminModInstList')}">{$lang->page_list}</a></li>
+	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispNproductAdminItemList','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispNproductAdminInsertModInst')}">{$lang->page_creation}</a></li>
+	<!--// 현재 상품관리에는 기본설정이 없으므로 잠시 disable -->
+	<li cond="0" class="x_active"|cond="$act=='dispNproductAdminConfig'"><a href="{getUrl('act','dispNproductAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li>
+
+</ul>
+<ul cond="$module_srl" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispNproductAdminItemList'"><a href="{getUrl('act','dispNproductAdminItemList')}">{$lang->product_list}</a></li>
+	<li cond="$act=='dispNproductAdminUpdateItem'" class="x_active"><a href="{getUrl('act','dispNproductAdminUpdateItem')}">{$lang->product_modification}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminInsertItem'"><a href="{getUrl('act','dispNproductAdminInsertItem')}">{$lang->product_registration}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminBulkItems'"><a href="{getUrl('act','dispNproductAdminBulkItems')}">{$lang->bulk_registration}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminDisplayCategories'"><a href="{getUrl('act','dispNproductAdminDisplayCategories')}">{$lang->maindisplay_categories}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminItemExtraSetup'"><a href="{getUrl('act','dispNproductAdminItemExtraSetup')}">{$lang->additional_registration_form}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminCategoryManagement'"><a href="{getUrl('act','dispNproductAdminCategoryManagement')}">{$lang->product_category_management}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminGroupDiscount'"><a href="{getUrl('act','dispNproductAdminGroupDiscount')}">{$lang->group_discount}</a></li>
+	<block cond="$experimental_mode=='Y'">
+	<li class="x_active"|cond="$act=='dispNproductAdminMemberDiscount'"><a href="{getUrl('act','dispNproductAdminMemberDiscount')}">{$lang->member_discount}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminQuantityDiscount'"><a href="{getUrl('act','dispNproductAdminQuantityDiscount')}">{$lang->buy_count}</a></li> 
+	</block>
+	<li class="x_active"|cond="$act=='dispNproductAdminListSetup'"><a href="{getUrl('act','dispNproductAdminListSetup')}">{$lang->fielddisplay_settings}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminDetailListSetup'"><a href="{getUrl('act','dispNproductAdminDetailListSetup')}">{$lang->detailpage_fielddisplay_settings}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminInsertModInst'"><a href="{getUrl('act','dispNproductAdminInsertModInst')}">{$lang->page_configuration}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminSkinInfo'"><a href="{getUrl('act','dispNproductAdminSkinInfo')}">{$lang->skin_settings}</a></li>
+	<li cond="$module_info->mskin && $module_info->use_mobile=='Y'" class="x_active"|cond="$act=='dispNproductAdminMobileSkinInfo'"><a href="{getUrl('act','dispNproductAdminMobileSkinInfo')}">{$lang->mobile_skin}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminAdditionSetup'"><a href="{getUrl('act','dispNproductAdminAdditionSetup')}">{$lang->additional_settings}</a></li>
+	<li class="x_active"|cond="$act=='dispNproductAdminGrantInfo'"><a href="{getUrl('act','dispNproductAdminGrantInfo')}">{$lang->permission_settings}</a></li>
+</ul>

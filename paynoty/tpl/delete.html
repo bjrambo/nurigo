@@ -1,0 +1,19 @@
+<div class="x_modal-header">
+    <h3 class="xeAdmin">{$lang->confirm_delete}</h3>
+</div>
+<div class="x_modal-content">
+	<input type="hidden" name="config_srl" value="{$config_srl}" />
+    <table cellspacing="0" class="rowTable">
+    <tr>
+		<th scope="row"><div>{$lang->content}</div></th>
+        <td class="wide">{htmlspecialchars($config->content)}</td>
+    </tr>
+    <tr>
+		<th scope="row"><div>{$lang->target_module}</div></th>
+        <td class="wide">{htmlspecialchars($config->mid_list)}</td>
+    </tr>
+    </table>
+</div>
+<div class="x_modal-footer">
+    <input type="submit" class="x_btn x_btn-inverse" value="{$lang->cmd_delete}" />
+</div>

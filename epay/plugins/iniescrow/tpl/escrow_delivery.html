@@ -1,0 +1,302 @@
+<style>
+</style>
+
+<script language="Javascript">
+function setDate(){
+		  today= new Date();
+      var year  =today.getYear()
+      var mon  =today.getMonth()+1
+      var sday =today.getDate()
+      var hours=today.getHours();  
+      var minutes=today.getMinutes();  
+      var seconds=today.getSeconds();
+//			document.ini.dlv_date.value= year + "" + mon+"" + sday;
+//			document.ini.dlv_time.value= hours + "" + minutes+"" + seconds;
+			document.ini.dlv_invoiceday.value=year + "-" + mon + "-" + sday + " " + hours + ":" + minutes + ":" + seconds;
+		}
+	
+function checkDeliveryCharge(obj, obj0){
+		if (obj.value =="BH") {
+		  today= new Date();
+      var year  =today.getYear()
+      var mon  =today.getMonth()+1
+      var sday =today.getDate()
+      var hours=today.getHours();  
+      var minutes=today.getMinutes();  
+      var seconds=today.getSeconds();
+			obj0.value= year + "-" + mon + "-" + sday + " " + hours + ":" + minutes + ":" + seconds;
+			obj0.readOnly=false;
+			obj0.style.background = "white";
+			obj0.focus();
+		}
+	}
+	
+function checkGLSHost(obj, obj0, obj1){
+		if (obj.value!="OTHEREXPRX") {
+			if (obj.value=="choose") {
+				alert ("이메일 도메인을 선택해 주세요. \n도메인 리스트에 없는 경우 직접 입력을 선택해 주세요.");
+				obj0.value="";
+				obj0.readOnly=true;
+				obj0.style.background = "#DDDDDD";
+				return false;
+			}
+			else {
+				if(obj.value == "CJGLSLOGIS") {
+				obj1.value="CJ GLS";
+				}else if (obj.value == "HYUNDAIEXP"){
+				obj1.value="현대택배";
+				}else if (obj.value == "HANJINLOGI"){
+				obj1.value="한진택배";
+				}else if (obj.value == "KOREXEXPR"){
+				obj1.value="대한통운";
+				}else if (obj.value == "KGBLOGISTI"){
+				obj1.value="KGB";
+				}else if (obj.value == "IKGBLOGEXP"){
+				obj1.value="KGB특급택배";
+				}else if (obj.value == "LOGENEXPRE"){
+				obj1.value="로젠택배";
+				}else if (obj.value == "EPOSTEXPRE"){
+				obj1.value="우체국택배";
+				}else if (obj.value == "SMHTHEXPRE"){
+				obj1.value="HTH택배";
+				}else if (obj.value == "FAMILEXPRE"){
+				obj1.value="훼미리택배";
+				}else if (obj.value == "KUNYONGEXP"){
+				obj1.value="건영택배";
+				}else if (obj.value == "AJULOGIEXP"){
+				obj1.value="아주택배";
+				}else if (obj.value == "BELLEXPRES"){
+				obj1.value="벨익스프레스";
+				}else if (obj.value == "YELLOWCAPE"){
+				obj1.value="옐로우캡";
+				}else if (obj.value == "WOORIGLEXP"){
+				obj1.value="우리택배";
+				}else if (obj.value == "ILYANGLOGS"){
+				obj1.value="일양택배";
+				}else if (obj.value == "EKODEXLOGS"){
+				obj1.value="코덱스택배";
+				}else if (obj.value == "ETRANETEXP"){
+				obj1.value="트라넷택배";
+				}else if (obj.value == "ECLINELOGS"){
+				obj1.value="ECLINE택배";
+				}else if (obj.value == "KLSLOGISTS"){
+				obj1.value="KT로지스";
+				}
+				obj0.value=obj.value;
+				obj1.readOnly=true;
+				obj1.style.background = "#DDDDDD";
+			}
+		} else {
+			obj0.value=obj.value;
+			obj1.value="";
+			obj1.readOnly=false;
+			obj1.style.background = "white";
+			obj1.focus();
+		}
+	}
+	
+
+function f_check(){
+	if(document.all.tid.value == ""){
+		alert("거래번호가 빠졌습니다.")
+		return;
+	}
+	else if(document.all.EscrowType.value == ""){
+		alert("에스크로 작업을 선택하십시요.")
+		return;
+	}
+	else if(document.all.invoice.value == ""){
+		alert("운송장번호가 빠졌습니다.")
+		return;
+	}
+	else if(document.all.oid.value == ""){
+		alert("주문번호가 빠졌습니다.")
+		return;
+	}
+	document.ini.submit();
+	
+}
+
+</script>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div cond="$escrow_info->result_code || $escrow_info->result_message" class="message error"|cond="$escrow_info->result_code != '00'" class="message info"|cond="$escrow_info->result_code == '00'">
+	<p>
+		<div class="table">
+			<table>
+				<tr>
+					<th>PG 리턴코드</th>
+					<td>{$escrow_info->result_code}</td>
+				</tr>
+				<tr>
+					<th>PG 메시지</th>
+					<td>{$escrow_info->result_message}</td>
+				</tr>
+			</table>
+		</div>
+	</p>
+</div>
+
+
+
+<form name="ini" method="post" action="./"> 
+	<input type="hidden" name="module" value="epay" />
+	<input type="hidden" name="act" value="procEpayEscrowDelivery" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_info->plugin_srl}" />
+	<input type="hidden" name="order_srl" value="{$payment_info->order_srl}" />
+
+	<h2>배송등록정보</h2>
+
+	<div class="table even">
+		<table>
+			<tr>
+				<th>상품구매 거래번호(TID)</th>
+				<td><input type="text" name="tid" size="45" maxlength="40" value="{$payment_info->pg_tid}"></td>
+			</tr>
+			<tr>
+				<th>상품구매 주문번호(OID)</th>
+                      		<td><input type="text" name="oid" size="45" maxlength="64" value="{$payment_info->order_srl}"></td>
+			</tr>
+			<tr> 
+                      		<th>에스크로 타입</th>
+				<td>
+					<select name="EscrowType">
+						<option value="I" selected="selected"|cond="!$escrow_info">1.배송등록</option>
+						<option value="U" selected="selected"|cond="$escrow_info">2.배송수정</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>운송장 번호</th>
+				<td><input type="text" name="invoice" size="45" maxlength="20" value="{$escrow_info->invoice_no}"></td>
+			</tr>
+			<tr>
+				<th>배송등록자</th>
+				<td><input type=text name=dlv_name size=17 maxlength=30 value="{$escrow_info->registrant}"></td>
+			</tr>
+			<tr>
+				<th>택배사코드</th>
+				<td>
+					<select name="glsid_temp" onchange="javascript:checkGLSHost(this.form.glsid_temp, this.form.dlv_exCode,this.form.dlv_name)">
+						<option value=''>선택하십시오</option>
+						<option value='korex' selected="selected"|cond="$escrow_info->deliverer_code=='korex'">대한통운</option>
+						<option value='ajutb' selected="selected"|cond="$escrow_info->deliverer_code=='ajutb'">아주택배</option>
+						<option value='ktlogistics' selected="selected"|cond="$escrow_info->deliverer_code=='ktlogistics'">KT로지스</option>
+						<option value='hyundai' selected="selected"|cond="$escrow_info->deliverer_code=='hyundai'">현대택배</option>
+						<option value='cjgls' selected="selected"|cond="$escrow_info->deliverer_code=='cjgls'">CJGLS</option>
+						<option value='hanjin' selected="selected"|cond="$escrow_info->deliverer_code=='hanjin'">한진택배</option>
+						<option value='tranet' selected="selected"|cond="$escrow_info->deliverer_code=='tranet'">트라넷</option>
+						<option value='Hanaro' selected="selected"|cond="$escrow_info->deliverer_code=='Hanaro'">하나로택배</option>
+						<option value='Sagawa' selected="selected"|cond="$escrow_info->deliverer_code=='Sagawa'">사가와익스프레스</option>
+						<option value='sedex' selected="selected"|cond="$escrow_info->deliverer_code=='sedex'">SEDEX</option>
+						<option value='kgbls' selected="selected"|cond="$escrow_info->deliverer_code=='kgbls'">KGB택배</option>
+						<option value='kgb' selected="selected"|cond="$escrow_info->deliverer_code=='kgb'">로젠택배</option>
+						<option value='yellow' selected="selected"|cond="$escrow_info->deliverer_code=='yellow'">옐로우캡</option>
+						<option value='hth' selected="selected"|cond="$escrow_info->deliverer_code=='hth'">삼성HTH</option>
+						<option value='dongbu' selected="selected"|cond="$escrow_info->deliverer_code=='dongbu'">동부택배</option>
+						<option value='EPOST' selected="selected"|cond="$escrow_info->deliverer_code=='EPOST'">우체국택배</option>
+						<option value='registpost' selected="selected"|cond="$escrow_info->deliverer_code=='registpost'">우편등기</option>
+						<option value='9999' selected="selected"|cond="$escrow_info->deliverer_code=='9999'">기타택배</option>
+					</select>
+					<input type="text" name="dlv_exCode" size="15" maxlength="20" readOnly style="background-color:#DDDDDD" value="{$escrow_info->deliverer_code}" >
+				</td>
+			</tr>
+			<tr>
+				<th>택배사명</th>
+				<td><input type="text" name="dlv_exName" size="25" maxlength="50" value="{$escrow_info->deliverer_name}" ></td>
+			</tr>
+			<tr>
+				<th>배송비 지급방법</th>
+				<td>
+					<select name="dlv_charge">
+						<option value="SH" selected="selected"|cond="$escrow_info->delivery_type=='1'">판매자부담</option>
+						<option value="BH" selected="selected"|cond="$escrow_info->delivery_type=='2'">구매자부담</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>배송등록 확인일시(YYYY-MM-DD HH:MM:SS)</th>
+				<td><input type="text" name="dlv_invoiceday" size="25" maxlength="20"></td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>송신자 정보</h2>
+	<div class="table even">
+		<table>
+			<tr>
+				<th>송신자 이름</th>
+				<td><input type=text name=sendName size=25 maxlength=20 value="{$plugin_info->sender_name}"></td>
+			</tr>
+			<tr>
+				<th>송신자 우편번호<br/>(구분자없이)</th>
+				<td><input type=text name=sendPost size=25 maxlength=20 value="{$plugin_info->sender_postcode}"></td>
+			</tr>
+			<tr>
+				<th>송신자 주소1</th>
+				<td><input type=text name=sendAddr1 size=25 maxlength=100 value="{$plugin_info->sender_address1}"></td>
+			</tr>
+			<tr>
+				<th>송신자 주소2</th>
+				<td><input type=text name=sendAddr2 size=25 maxlength=100 value="{$plugin_info->sender_address2}"></td>
+			</tr>
+			<tr>
+				<th>송신자 전화번호</th>
+				<td><input type=text name=sendTel size=25 maxlength=20 value="{$plugin_info->sender_telnum}"></td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>수신자 정보</h2>
+	<div class="table even">
+		<table>
+			<tr>
+				<th>수신자 이름</th>
+				<td><input type=text name=recvName size=25 maxlength=20 value="{$order_info->recipient_name}"></td>
+			</tr>
+			<tr>
+				<th>수신자 우편번호<br/>(구분자없이)</th>
+				<td><input type=text name=recvPost size=25 maxlength=20 value="{$order_info->recipient_postcode}"></td>
+			</tr>
+			<tr>
+				<th>수신자 주소</th>
+				<td><input type=text name=recvAddr size=25 maxlength=100 value="{implode(unserialize($order_info->recipient_address), ' ')}"></td>
+			</tr>
+			<tr>
+				<th>수신자 전화번호</th>
+				<td><input type=text name=recvTel size=25 maxlength=20 value="123-1234-1234"></td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>상품 정보</h2>
+	<div class="table even">
+		<table>
+			<tr>
+				<th>상품명(필수)</th>
+				<td><input type=text name=goods size=25 maxlength=512 value="{$order_info->title}"></td>
+			</tr>
+			<tr>
+				<th>상품수량(선택)</th>
+				<td><input type=text name=goodCnt size=25 maxlength=3 value="{$order_info->item_count}"></td>
+			</tr>
+			<tr>
+				<th>상품가격(필수)</th>
+				<td><input type=text name=price size=25 maxlength=9 value="{$order_info->total_discounted_price}"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="btnArea">
+		<input type="button" value="확 인" onclick="f_check();">
+	</div>
+</form>
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+<script>
+jQuery(function($) {
+	setDate();
+});
+</script>

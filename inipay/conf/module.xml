@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispInipayAdminModInstList" type="view" admin_index="true" />
+		<action name="dispInipayAdminInsertModInst" type="view" />
+
+		<action name="procInipayAdminInsertModInst" type="controller" />
+
+		<action name="dispInipayForm" type="view" />
+
+		<action name="procInipay" type="controller" method="GET|POST" index="true" />
+		<action name="procInipayDoIt" type="controller" />
+	</actions>
+</module>

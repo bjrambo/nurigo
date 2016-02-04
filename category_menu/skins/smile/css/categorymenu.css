@@ -1,0 +1,10 @@
+#smile_container { background:#fff; position:absolute; width:936px; margin-top:35px; z-index:2; border:2px solid #555; box-shadow:1px 1px 2px #ddd; padding:20px;}
+#smile_container .nav {list-style:none; display:inline;}
+#smile_container .nav li {list-style:none; float:left;text-align:center;}
+#smile_container .nav li a {text-decoration:none; color:#555; font-weight:bold; font-size:13px; display:block; margin:3px 20px; *margin:-5px 20px; line-height:2.7;}
+#smile_container .nav li li {clear:both; margin-left:-30px; _margin-left:-20px;}
+#smile_container .nav li li a { color:#888; font-size:12px; font-weight:normal; padding:0; line-height:2; }
+#smile_container .nav li li a:hover, 
+#smile_container .nav li li a:active,
+#smile_container .nav li li a:focus {text-decoration:underline; color:#2c9da1;}
+

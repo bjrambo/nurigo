@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+/* recentaddress ::: 
+----------------------------------------------------*/
+
+.btnArea { margin:10px 0; padding:10px 0;}
+
+.item-table { clear:both; margin-bottom:10px; width:100%; border:solid #eee 1px; border-left:none; border-right:none; border-collapse:collapse;}
+.item-table tr th { padding:8px 10px; background:#F8F8F8;}
+.item-table tr th, 
+.item-table tr td { font-weight:normal; text-align:center; font:11px dotum,gulim; color:#666; border-bottom:1px solid #eee;}
+.item-table tr td { padding:20px 0 15px;}
+
+.item-table tr th.product_num { width:100px;}
+.item-table tr td input.quantity { margin:0 5px; width:40px; }
+.item-table tr th.item_check { width:20px;}
+.item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+.item-table .item_price { font:bold 18px Arial; }
+.item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+.item-table a.product_img { display:block; margin-bottom:10px; }

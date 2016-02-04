@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="dedicated_account">
+		<value xml:lang="ko"><![CDATA[전용계좌]]></value>
+		<value xml:lang="en"><![CDATA[Dedicated account]]></value>
+	</item>
+	<item name="account_list">
+		<value xml:lang="ko"><![CDATA[계좌목록]]></value>
+		<value xml:lang="en"><![CDATA[Account list]]></value>
+	</item>
+	<item name="account_registration">
+		<value xml:lang="ko"><![CDATA[계좌등록]]></value>
+		<value xml:lang="en"><![CDATA[Account registration]]></value>
+	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본설정]]></value>
+		<value xml:lang="en"><![CDATA[General Settings]]></value>
+		<value xml:lang="jp"><![CDATA[基本設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[基本設定]]></value>				
+	</item>
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面列示]]></value>		
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面產生]]></value>		
+	</item>
+	<item name="page_management">
+		<value xml:lang="ko"><![CDATA[페이지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Page management]]></value>
+		<value xml:lang="jp"><![CDATA[ページ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面管理]]></value>		
+	</item>
+	<item name="page_configuration">
+		<value xml:lang="ko"><![CDATA[페이지설정]]></value>
+		<value xml:lang="en"><![CDATA[Page setting]]></value>
+		<value xml:lang="jp"><![CDATA[ページ設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面設定]]></value>	
+	</item>
+	<item name="skin_settings">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>	
+	</item>
+	<item name="bank">
+		<value xml:lang="ko"><![CDATA[은행]]></value>
+		<value xml:lang="en"><![CDATA[Bank]]></value>
+	</item>
+	<item name="kb_bank">
+		<value xml:lang="ko"><![CDATA[국민은행]]></value>
+		<value xml:lang="en"><![CDATA[KB Kookmin]]></value>
+	</item>
+	<item name="account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호]]></value>
+		<value xml:lang="en"><![CDATA[Account numbers]]></value>
+	</item>
+
+	<item name="default_guide_creditcard">
+		<value xml:lang="ko"><![CDATA[카드 결제 시 해당 카드사에서 제공하는 인증 결제창이 카드사 사정에따라 다소 지연될 수 있습니다.<br />결제하기를 클릭하시고 잠시 기다려주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Click payment button and wait a second, please]]></value>
+	</item>
+	<item name="default_guide_directbank">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+	</item>
+	<item name="default_guide_virtualaccount">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Virtual Account]]></value>
+	</item>
+	<item name="default_guide_mobilephone">
+		<value xml:lang="ko"><![CDATA[결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확인하실 수 있습니다.<br />- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+	</item>
+
+	<item name="msg_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 사용하실 수 있습니다.]]></value>
+	</item>
+	<item name="msg_regist_count">
+		<value xml:lang="ko"><![CDATA[%u개 등록완료.]]></value>
+	</item>
+	<item name="msg_already_registered">
+		<value xml:lang="ko"><![CDATA[이미 발급된 계좌가 있습니다.]]></value>
+	</item>
+	<item name="msg_not_enough_accounts">
+		<value xml:lang="ko"><![CDATA[할당 가능한 가상계좌가 남아있지 않습니다. 관리자에게 문의하세요.]]></value>
+	</item>
+	<item name="msg_getting_product_info_failed">
+		<value xml:lang="ko"><![CDATA[상품정보를 읽어오는데 실패했습니다. 관리자에 문의하세요.]]></value>
+	</item>
+	<item name="msg_failed_to_update_balance">
+		<value xml:lang="ko"><![CDATA[잔액정보 업데이트 실패!]]></value>
+	</item>
+	<item name="success_issued">
+		<value xml:lang="ko"><![CDATA[발급되었습니다.]]></value>
+	</item>
+
+	<item name="about_bank">
+		<value xml:lang="ko"><![CDATA[현재는 국미은행만 지원합니다.]]></value>
+	</item>
+	<item name="about_van_list">
+		<value xml:lang="ko"><![CDATA[줄 단위로 계좌번호를 입력하세요.]]></value>
+	</item>
+</lang>

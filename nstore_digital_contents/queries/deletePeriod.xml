@@ -1,0 +1,8 @@
+<query id="deletePeriod" action="delete">
+	<tables>
+		<table name="nstore_digital_contents_period" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="cart_srl" var="cart_srl" notnull="notnull" />
+	</conditions>
+</query>

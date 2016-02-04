@@ -1,0 +1,211 @@
+<load target="css/style.css" />
+<load target="css/itemdetail.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/scroll.js" />
+<load target="../../tpl/skin.js/itemdetail.js" />
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="../../tpl/skin.filter/insert_review.xml" />
+<include target="categorylist.html" />
+<load target="lang" />
+
+<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+<input type="hidden" id="is_mobile" value="{$is_mobile}" />
+
+<script>
+	var g_discounted_price = {$item_info->getDiscountedPrice()};
+        xe.lang.msg_added_to_favorite_list = '{$lang->msg_added_to_favorite_list}';
+</script>
+
+
+<div class="mitem_tit">
+	{$category_info->category_name}
+</div>
+
+<div class="detail_title">
+	{$lang->course_detail_view}
+</div>
+
+<div id="itemdetail" class="{$module_info->colorset}">
+	<div class="item_align">
+		<div class="detail_list">
+			<div class="item-thumbnail">
+				<img src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height)}" style="max-width:100%;" />
+			</div>
+		</div>
+		<div class="item_title">
+			<h2 class="product_name">{$item_info->item_name}</h2><a cond="$sample_content" href="{getUrl('act','dispElearningViewContent','content_srl',$sample_content->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;"><span class="sample_view">{$lang->sample_view}</span></a>
+		</div>
+		<div class="info-tab">
+			<div class="item_block" cond="0">
+				<label class="nu_label">{$lang->item_code}</label>
+				<div class="text-right">{$item_info->item_code}</div>
+			</div>
+			<div class="item_block">
+				<block loop="$extra_vars=>$key,$val">
+					<block cond="$val->column_name == 'period'">{@$period_days = $val->value}</block>
+				</block>
+				<label class="nu_label">{$lang->course_period}</label>
+				<div class="text-right">{$period_days}</div>
+			</div>
+			<div class="item_block">
+				<label class="nu_label">{$lang->class_price}</label>
+				<div class="text-right font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{number_format($item_info->price)}</div>
+			</div>
+			<div class="item_block" cond="$discount_amount">
+				<label class="nu_label">{$discount_info}</label>
+				<div class="text-right" >- {number_format($discount_amount)} {$lang->discount_text}</div>
+			</div>
+			<div class="item_block" cond="$discount_amount">
+				<label>{$lang->discounted_price}</label>
+				<div class="font_size24 product_price text-right">{number_format($discounted_price)}</div>
+			</div>
+
+			<div loop="$list_config=>$k,$v" cond="$v->idx > -1" class="item_block">
+				<label>{$v->name}</label>
+				<div class="text-right">{$item_info->getExtraVarValue($k)}</div>
+			</div>
+			<div cond="count($item_info->related_items)" class="item_block">
+				<label class="nu_label">{$lang->course_book}</label>
+				<div class="text-right">
+					<ul loop="$item_info->related_items=>$key,$val" class="relation_book">
+						<li><input type="checkbox" name="related_item" value="{$val->item_srl}" data-price="{$val->getDiscountedPrice()}" checked="checked"></li>
+						<li><a href="{getUrl('','document_srl',$val->document_srl)}">{$val->item_name}</a></li>
+						<li class="p_orange">{$val->printDiscountedPrice()}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="item_block">
+				<label class="tprice_title">{$lang->total_price}</label>
+				<div class="total_price text-right"><span id="related_sum"></span></div>
+			</div>
+
+
+			<div class="item_block" cond="count($options)">
+				<label class="nu_label">{$lang->order_options}</label>
+				<div class="text-right">
+					<select id="select_options">
+						<option value="">{$lang->cmd_select}</option>
+						<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nproductItem::formatMoney($val->price)}</span></option>
+					</select>
+
+					<div class="text-right">
+						<table id="selected_options"></table>
+					</div>
+
+					<div class="text-right" id="total_amount">
+					</div>
+				</div>
+			</div>
+		</div><!-- info-tab -->
+	</div><!-- item_align -->
+	<div class="btn_set">
+		<a href="#" class="ngray" onclick="addItemsToCartInDetailPage({$item_info->item_srl}); return false;"><span>{$lang->cmd_cart}</span></a>
+		<a href="#" class="norange" onclick="orderItemsInDetailPage({$item_info->item_srl}, '{$module_info->ncart_mid}'); return false;"><span>{$lang->course_registration}</span></a>
+		<a href="#" class="ngray" onclick="addItemsToFavorites({$item_info->item_srl}); return false;"><span>{$lang->cmd_favorites}</span></a>
+	</div>
+
+	<div class="social_block">
+		<!--AfterDocument()-->
+	</div>
+	
+	<div class="item_block" cond="0" style="vertical-align:top;">
+		<div class="info-add" style="float:right;">		
+			<div class="add_area">
+				<div class="title_eval">{$lang->reviews}</div>
+				<div class="latest_eval">
+					<ul>
+						{@$cnt=0}
+						<li loop="$review_list=>$key,$review" cond="$cnt < 5">
+							<a href="#review_{$review->get('review_srl')}">{$review->getContentText(20)}</a>
+							{@$cnt++}
+						</li>
+						<li cond="$cnt==0"><a href="#content_02">{$lang->first_review}</a></li> 
+					</ul>
+				</div>
+			</div>
+			<div class="add_area">
+				<div class="title_eval">{$lang->qna}</div>
+				<div class="latest_eval">
+					<ul cond="$oDocument->getCommentCount()">
+						{@$cnt=0}
+						<li loop="$oDocument->getComments()=>$key,$comment" cond="$cnt < 5 && $comment->get('depth')==0">
+							
+							<a href="#comment_{$comment->get('comment_srl')}">{$comment->getContentText(20)}</a>
+							{@$cnt++}
+						</li>
+					</ul>
+					<ul cond="!$oDocument->getCommentCount()">
+						<li><a href="#content_03">{$lang->cmd_ask_question}</a></li> 
+					</ul>
+				</div>
+			</div>
+			<div class="ad_area">
+				<a href="#"><img class="zbxe_widget_output" widget="vanner" skin="default" colorset="default" order_target="list_order" order_type="desc" thumbnail_type="crop" link_extra_idx="1" thumbnail_width="200" thumbnail_height="60" link_new_window="N" module_srls="5041" /></a>
+			</div>
+		</div><!-- info-add -->
+	</div>
+
+    <!-- product detail -->
+	<div class="item-info" id="content_01">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll on">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->curriculum}</a></li>
+			</ul>
+		</div>
+		<div class="product_info">{$oDocument->getContent(false)}</div>
+	</div>
+
+
+
+	<div class="item-review" id="content_02">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll on">{$lang->curriculum}</a></li>
+			</ul>
+		</div>
+
+		<table class="item_table">
+			<thead>
+				<tr>
+					<th>{$lang->list_order}</th>
+					<th>{$lang->course_title}</th>
+					<th>{$lang->course_time}</th>
+					<th>{$lang->course_learning}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr loop="$content_list=>$key,$val">
+					<td>{$key+1}</td>
+					<td>{$val->content_title}</td>
+					<td>{$val->minutes}</td>
+					<td>
+						<a cond="$val->is_sample=='Y'" href="{getUrl('act','dispElearningViewContent','content_srl',$val->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;">{$lang->sample_view}</a>
+						<a cond="$val->is_sample!='Y' && $module_info->play_test=='Y' && $logged_info->is_admin=='Y'" href="{getUrl('act','dispElearningViewContent','content_srl',$val->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;">Play to test</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div><!-- itemdetail -->
+
+<script>
+        jQuery(document).ready(function() {
+                function calculate_sum() {
+                        var related_sum = {$item_info->getDiscountedPrice()};
+                        jQuery('input[name=related_item]:checked').each(function(idx, elm) {
+                                var price = parseInt(jQuery(elm).attr('data-price'));
+                                related_sum += price;
+                        });
+                        jQuery('#related_sum').html(number_format(related_sum));
+                }
+                calculate_sum();
+                jQuery('input[name=related_item]').change(function() {
+                        calculate_sum();
+                });
+        });
+</script>
+
+<include cond="0" target="cart.html" />

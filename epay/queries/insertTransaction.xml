@@ -1,0 +1,26 @@
+<query id="insertTransaction" action="insert">
+    <tables>
+        <table name="epay_transactions" />
+    </tables>
+    <columns>
+        <column name="transaction_srl" var="transaction_srl" filter="number" notnull="notnull" />
+        <column name="epay_module_srl" var="epay_module_srl" notnull="notnull" />
+        <column name="module_srl" var="module_srl" />
+        <column name="plugin_srl" var="plugin_srl" />
+        <column name="target_module" var="target_module" notnull="notnull" />
+        <column name="order_srl" var="order_srl" notnull="notnull" />
+        <column name="order_title" var="order_title" />
+        <column name="payment_method" var="payment_method" notnull="notnull" />
+        <column name="payment_amount" var="payment_amount" notnull="notnull" />
+        <column name="p_member_srl" var="p_member_srl" notnull="notnull" default='0' />
+        <column name="p_user_id" var="p_user_id" notnull="notnull" default='' />
+        <column name="p_name" var="p_name" notnull="notnull" default='' />
+        <column name="p_email_address" var="p_email_address" notnull="notnull" default='' />
+        <column name="result_code" var="result_code" notnull="notnull" />
+        <column name="result_message" var="result_message" notnull="notnull" />
+        <column name="pg_tid" var="pg_tid" />
+        <column name="state" var="state" notnull="notnull" />
+        <column name="extra_vars" var="extra_vars" />
+        <column name="regdate" var="regdate" default="curdate()" />
+    </columns>
+</query>

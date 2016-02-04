@@ -1,0 +1,12 @@
+<query id="getPurchasedItem" action="select">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="cart_srl" var="cart_srl" notnull="notnull" pipe="and" />
+	</conditions>
+</query>

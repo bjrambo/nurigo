@@ -1,0 +1,49 @@
+<query id="getDisplayItems" action="select">
+	<tables>
+		<table name="nproduct_display_items" alias="display" />
+		<table name="nproduct_items" alias="item" type="left join">
+			<conditions>
+				<condition operation="equal" column="display.item_srl" default="item.item_srl" />
+			</conditions>
+		</table>
+		<table name="modules" alias="module" type="left join">
+			<conditions>
+				<condition operation="equal" column="module.module_srl" default="item.module_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="module.mid" alias="mid" />
+		<column name="display.module_srl" alias="module_srl" />
+		<column name="display.regdate" alias="regdate" />
+		<column name="display.item_srl" alias="item_srl" />
+		<column name="item.item_code" alias="item_code" />
+		<column name="item.item_name" alias="item_name" />
+		<column name="item.category_id" alias="category_id" />
+		<column name="item.file_srl" alias="file_srl" />
+		<column name="item.price" alias="price" />
+		<column name="item.discount_amount" alias="discount_amount" />
+		<column name="item.discount_info" alias="discount_info" />
+		<column name="item.document_srl" alias="document_srl" />
+		<column name="item.thumb_file_srl" alias="thumb_file_srl" />
+		<column name="item.review_count" alias="review_count" />
+		<column name="item.sales_count" alias="sales_count" />
+		<column name="item.related_items" alias="related_items" />
+		<column name="item.extra_vars" alias="extra_vars" />
+		<column name="item.updatetime" alias="updatetime" />
+		<column name="item.regdate" alias="regdate" />
+		<column name="1" alias="quantity" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="display.module_srl" var="module_srl" />
+		<condition operation="equal" column="display.category_srl" var="category_srl" pipe="and" />
+		<condition operation="like_prefix" column="display.node_route" var="node_route" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="display.node_route" order="asc" />
+		<index var="sort_index" default="display.list_order" order="asc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

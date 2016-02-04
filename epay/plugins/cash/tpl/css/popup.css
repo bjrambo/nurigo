@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+/* common */
+#container {margin:0; padding:0; width:543px;font-family:'돋움','Dotum','굴림','Gulim'; font-size:12px; color:#666; }
+/*
+#container { height:540px; border:1px solid #cdcdcd;}
+*/
+#container h1 {margin:0; padding:0;}
+#container img {border: none;} 
+#container .mgt {margin-top:20px;}
+
+/* header */
+#container #header {height:55px; position:relative;}
+#container #header h1 {position:absolute; top:17px; left:12px;}
+#container #header p {position:absolute; top:7px; right:20px;}
+
+/* text style */
+#container .exTxt {font-size:12px; color:#999; line-height:1.3em; margin:5px 0 0 0; padding:0;}
+
+/* input style */
+#container .input01 {height:29px; padding:0 0 0 5px; font-size:16px; line-height:29px; color:#666; border:1px solid #dadada;}
+#container .input01:focus {border-color:#ff9435; color:#ff9435;}
+
+/* input size */
+#container .size01 {width:150px;}
+#container .size02 {width:100px;}
+#container .size03 {width:307px;}
+
+/* table style */
+#container .popTable {width:100%; border-collapse:collapse;}
+#container .popTable th {width:140px; padding:0 0 0 10px; text-align:left; border-top:1px solid #dadada; border-bottom:1px solid #dadada; font-size:16px; background:#f9f9f9;}
+#container .popTable td {padding:10px; text-align:left; border-top:1px solid #dadada; border-bottom:1px solid #dadada; font-size:16px;}
+#container .popTable select {font-size:18px; color:#666;}
+
+#container .popTable caption {padding:0 0 7px 10px; font-size:16px; font-weight:bold; color:#ff9435; text-align:left;}
+
+#container .popTable dl{text-align:center;}
+#container .popTable dl dt {font-weight:bold; margin: 0 0 10px 0; *margin-top:10px;}
+#container .popTable dl dd {font-size:12px; color:#999; line-height:1.3em; margin:0; padding:0;}
+
+#container .orangeTop {border-top:1px solid #ff9435 !important;}
+#container .orangeBottom {border-bottom:1px solid #ff9435 !important;}
+
+/* btnSec */
+#container #btnSec {padding:20px 0 0 0;}
+#container #btnSec div {text-align:center;}
+#container #btnSec div a{display:inline-block; *display:inline; *zoom:1;}
+#container #btnSec p {text-align:center; color:#999; *margin:10px 0 0 0;}
+
+#container #btnSec ul {list-style:none; text-align:center; margin-left:-70px; *margin-left:0px;}
+#container #btnSec ul li {display:inline-block; *display:inline; *zoom:1; *margin:0 2px 0 2px;}
+

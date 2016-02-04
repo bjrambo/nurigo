@@ -1,0 +1,8 @@
+<query id="deleteCartItemsByOrderSrl" action="delete">
+	<tables>
+		<table name="nstore_cart" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+	</conditions>
+</query>

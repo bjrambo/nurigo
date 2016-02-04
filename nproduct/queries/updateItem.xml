@@ -1,0 +1,27 @@
+<query id="updateItem" action="update">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="module_srl" var="module_srl" />
+		<column name="item_name" var="item_name" />
+		<column name="item_code" var="item_code" />
+		<column name="price" var="price" />
+		<column name="discount_amount" var="discount_amount" />
+		<column name="discount_info" var="discount_info" />
+		<column name="taxfree" var="taxfree" />
+		<column name="display" var="display" />
+		<column name="category_id" var="category_id" />
+		<column name="node_route" var="node_route" />
+		<column name="proc_module" var="proc_module" />
+		<column name="delivery_info" var="delivery_info" />
+		<column name="group_srl_list" var="group_srl_list" />
+		<column name="related_items" var="related_items" default="" />
+		<column name="list_order" var="list_order" />
+		<column name="extra_vars" var="extra_vars" />
+		<column name="updatetime" var="updatetime" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

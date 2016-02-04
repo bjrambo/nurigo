@@ -1,0 +1,24 @@
+<load target="css/categorylist.css" />
+
+<div class="category-list totalcorners">
+    <ul>
+        <li loop="$category_tree['f']=>$no,$val" class="depth1">
+            <a href="{getUrl('category',$category_index[$no]->node_id)}" class="active"|cond="$category_index[$no]->node_id==$category"><span class="depth1">{$category_index[$no]->category_name}</span></a>
+            <ul cond="count($val)">
+                <li loop="$val=>$no2,$val2" class="depth2">
+                    <a href="{getUrl('category',$category_index[$no2]->node_id)}" class="active"|cond="$category_index[$no2]->node_id==$category"><span class="depth2">{$category_index[$no2]->category_name}</span></a>
+                    <ul cond="count($val2)">
+                        <li loop="$val2=>$no3,$val3" class="depth3">
+                            <a href="{getUrl('category',$category_index[$no3]->node_id)}" class="active"|cond="$category_index[$no3]->node_id==$category"><span class="depth3">{$category_index[$no3]->category_name}</span></a>
+                            <ul cond="count($val3)">
+                                <li loop="$val3=>$no4,$val4" class="depth4">
+                                    <a href="{getUrl('category',$category_index[$no4]->node_id)}" class="active"|cond="$category_index[$no4]->node_id==$category">{$category_index[$no4]->category_name}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

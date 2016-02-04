@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+/* style.list css */
+
+/* item-table */
+.item-table {clear:both; margin-bottom:10px; width:100%; border:none;}
+.item-table tr th { background:#f8f8f8; white-space:nowrap; }
+.item-table tr th, 
+.item-table tr td { font-weight:normal; text-align:center; font:11px Dotum, Gulim; color:#666; border-bottom:1px solid #eee;}
+.item-table tr td { padding:20px 0 15px;}
+
+/*.item-table tr th.product_num { width:100px;}
+.item-table tr td input.quantity { position:relative; margin:0; padding:0; border:0; height:14px; width:48px; padding:2px 0 2px 1px;}*/
+
+.item-table tr th.item_check { width:20px;}
+.item-table tr td.item_name { padding:20px; }
+.item-table tr td.item_name a { text-decoration:none; }
+
+.item-table tr td .num_input { position:relative;}
+.item-table tr td .num_input .iconUp { position:absolute; left:33px; background:url(../img/icon_up.gif) no-repeat; width:17px; height:10px; cursor:pointer;}
+.item-table tr td .num_input .iconDown { position:absolute; left:33px; top:6px;  background:url(../img/icon_down.gif) no-repeat; width:17px; height:10px; cursor:pointer;}
+
+.item-table .btn_white { padding:7px 10px; width:77px; height:21px; background:url(../img/btn_white.gif) no-repeat;}
+
+#itemlist.black .item-table tr th { background:#343434;}
+#itemlist.black .item-table tr th, 
+#itemlist.black .item-table tr td { border-bottom:1px solid #343434;}
+

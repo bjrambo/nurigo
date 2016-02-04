@@ -1,0 +1,19 @@
+<query id="insertCartItem" action="insert">
+	<tables>
+		<table name="nstore_digital_cart" />
+	</tables>
+	<columns>
+		<column name="cart_srl" var="cart_srl" filter="number" notnull="notnull" />
+		<column name="item_srl" var="item_srl" notnull="notnull" />
+		<column name="member_srl" var="member_srl" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="quantity" var="quantity" default="1" />
+		<column name="price" var="price" notnull="notnull" />
+		<column name="taxfree" var="taxfree" notnull="notnull" />
+		<column name="express_id" var="express_id" />
+		<column name="option_srl" var="option_srl" default="0" />
+		<column name="option_price" var="option_price" default="0" />
+		<column name="option_title" var="option_title" default="" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

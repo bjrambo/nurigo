@@ -1,0 +1,15 @@
+<query id="updateDisplayCategory" action="update">
+	<tables>
+		<table name="nproduct_display_categories" />
+	</tables>
+	<columns>
+		<column name="category_name" var="category_name" notnull="notnull" />
+		<column name="thumbnail_width" var="thumbnail_width" />
+		<column name="thumbnail_height" var="thumbnail_height" />
+		<column name="num_columns" var="num_columns" />
+		<column name="num_rows" var="num_rows" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="category_srl" var="category_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

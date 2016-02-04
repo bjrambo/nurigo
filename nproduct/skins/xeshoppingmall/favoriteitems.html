@@ -1,0 +1,45 @@
+<load target="css/style.css" />
+<load target="css/cartitems.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/script.js" />
+
+
+<h2 class="page-title">{$lang->cmd_favorites}</h2>
+<include target="_header.html" />
+<div id="cartitems">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th><input type="checkbox" value="{$val->item_srl}" onclick="XE.checkboxToggleAll('favorite_cart',{doClick:true}); return false;" /></th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->total_amount}</th>
+				<th>{$lang->total_discount}</th>
+				<th>{$lang->discounted_amount}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<tr cond="count($favorite_items)" loop="$favorite_items=>$no,$val">
+				<td><input type="checkbox" name="favorite_cart" value="{$val->item_srl}" /></td>
+				<td><a href="{getUrl('act','dispNstore_digitalItemDetail','item_srl',$val->item_srl)}"><img src="{$val->getThumbnail($config->favorite_thumbnail_width,$config->favorite_thumbnail_height,$config->favorite_thumbnail_type)}" /></a></td>
+				<td><span>{$val->item_name}</span></td>
+				<td>{number_format($val->price)}</td>
+				<td>{number_format($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td>{number_format($val->discounted_price)}</td>
+				{@$total_price+=$val->price}
+			</tr>
+			<tr cond="!count($favorite_items)">
+				<td colspan="8">No Items</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="cart_command">
+		<span>{$lang->selected_items}</span> <a href="#" class="button" id="deleteFavoriteItems" onclick="return false;"><span>{$lang->cmd_delete}</span></a>
+	</div>
+</div>
+
+
+<script>
+	var g_total_items = {count($list)};
+</script>

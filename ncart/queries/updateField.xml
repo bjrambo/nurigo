@@ -1,0 +1,19 @@
+<query id="updateField" action="update">
+	<tables>
+		<table name="ncart_orderform_fields" />
+	</tables>
+	<columns>
+		<column name="column_type" var="column_type" notnull="notnull" />
+		<column name="column_name" var="column_name" notnull="notnull" />
+		<column name="column_title" var="column_title" notnull="notnull" />
+		<column name="required" var="required" />
+		<column name="default_value" var="default_value" />
+		<column name="is_active" var="is_active" />
+		<column name="is_head" var="is_head" />
+		<column name="description" var="description" />
+		<column name="list_order" var="list_order" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="field_srl" var="field_srl" notnull="notnull" />
+	</conditions>
+</query>

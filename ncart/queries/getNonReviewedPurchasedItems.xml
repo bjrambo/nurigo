@@ -1,0 +1,34 @@
+<query id="getNonReviewedPurchasedItems" action="select">
+	<tables>
+        	<table name="nstore_cart" alias="cart" />
+		<table name="nstore_items" alias="item" type="left join">
+			<conditions>
+				<condition operation="equal" column="item.item_srl" default="cart.item_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="cart.cart_srl" alias="cart_srl" />
+		<column name="cart.module_srl" alias="module_srl" />
+		<column name="cart.member_srl" alias="member_srl" />
+		<column name="cart.regdate" alias="regdate" />
+		<column name="cart.order_status" alias="order_status" />
+		<column name="cart.order_srl" alias="order_srl" />
+		<column name="item.item_srl" alias="item_srl" />
+		<column name="item.item_code" alias="item_code" />
+		<column name="item.item_name" alias="item_name" />
+		<column name="item.category_id" alias="category_id" />
+		<column name="item.file_srl" alias="file_srl" />
+		<column name="item.thumb_file_srl" alias="thumb_file_srl" />
+		<column name="item.price" alias="price" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="cart.member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="cart.item_srl" var="item_srl" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="cart.order_status" default="3" pipe="and" />
+		<condition operation="equal" column="cart.review_srl" default="0" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="asc" />
+	</navigation>
+</query>

@@ -1,0 +1,22 @@
+<load target="css/style.css" />
+<load target="css/orderlistlogin.css" />
+<load target="css/nu_btn.css" />
+
+
+<div class="n_order_form">
+	<h2 class="page-title">{$lang->cmd_order_view}</h2>
+
+	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<form method="POST">
+		<input type="hidden" name="act" value="procNstoreGuestLogin" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="module" value="{$module}"/>
+
+		<p class="ordernum"><label for="uid">{$lang->order_number}</label><input type="text" name="order_srl" id="uid" value="" /></p>
+		<p class="orderpw"><label for="upw">{$lang->password}</label><input type="password" name="non_password" id="upw" value="" /></p>
+		<span id="loginbtn"><input type="submit" value="{$lang->cmd_confirm}" /></span>
+	</form>
+</div>

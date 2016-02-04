@@ -1,0 +1,12 @@
+{
+	"linters": {
+		"php": {
+			"type": "php",
+			"include": "(\\.php$)"
+		},
+		"xml": {
+			"type": "xml",
+			"include": "(\\.xml$)"
+		}
+	}
+}

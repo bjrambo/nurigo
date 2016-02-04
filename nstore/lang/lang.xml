@@ -1,0 +1,1194 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="shoppingmall">
+		<value xml:lang="ko">쇼핑몰</value>
+		<value xml:lang="en">Shopping-mall</value>
+		<value xml:lang="jp">ショッピングモール</value>
+		<value xml:lang="zh-TW">線上商城</value>
+	</item>
+	<item name="order_management">
+		<value xml:lang="ko"><![CDATA[주문관리]]></value>
+		<value xml:lang="en"><![CDATA[Order Management]]></value>
+		<value xml:lang="jp"><![CDATA[注文管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單管理]]></value>		
+	</item>
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁清單]]></value>
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁生成]]></value>		
+	</item>
+	<item name="page_management">
+		<value xml:lang="ko"><![CDATA[페이지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Page management]]></value>
+		<value xml:lang="jp"><![CDATA[ページ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面管理]]></value>		
+	</item>
+	<item name="page_configuration">
+		<value xml:lang="ko"><![CDATA[페이지설정]]></value>
+		<value xml:lang="en"><![CDATA[Page setting]]></value>
+		<value xml:lang="jp"><![CDATA[ページ設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面設定]]></value>
+	</item>
+	<item name="basic_setting">
+		<value xml:lang="ko"><![CDATA[기본설정]]></value>
+		<value xml:lang="en"><![CDATA[Basic settings]]></value>
+		<value xml:lang="jp"><![CDATA[基本設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[基本設定]]></value>		
+	</item>
+	<item name="skin_settings">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>	
+	</item>
+
+	<item name="order_management_details">
+		<value xml:lang="ko"><![CDATA[주문관리내역]]></value>
+		<value xml:lang="en"><![CDATA[Order Management Details]]></value>
+		<value xml:lang="jp"><![CDATA[注文管理内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[詳細訂單管理]]></value>			
+	</item>
+	<item name="escrow">
+		<value xml:lang="ko"><![CDATA[에스크로]]></value>
+		<value xml:lang="en"><![CDATA[Escrow]]></value>
+		<value xml:lang="jp"><![CDATA[エスクロー]]></value>
+		<value xml:lang="zh-TW"><![CDATA[第三方付款機制]]></value>			
+	</item>
+	<item name="use_escrow">
+		<value xml:lang="ko"><![CDATA[에스크로 사용여부]]></value>
+		<value xml:lang="en"><![CDATA[Use escrow]]></value>
+		<value xml:lang="jp"><![CDATA[エスクロー使用]]></value>
+		<value xml:lang="zh-TW"><![CDATA[使用第三方付款機制]]></value>			
+	</item>
+	<item name="default_delivery_company">
+		<value xml:lang="ko"><![CDATA[기본 배송회사]]></value>
+		<value xml:lang="en"><![CDATA[Default delivery company]]></value>
+		<value xml:lang="jp"><![CDATA[基本配送社]]></value>
+		<value xml:lang="zh-TW"><![CDATA[預設貨運公司]]></value>	
+	</item>
+	<item name="recipient">
+		<value xml:lang="ko"><![CDATA[수령인]]></value>
+		<value xml:lang="en"><![CDATA[Recipient]]></value>
+		<value xml:lang="jp"><![CDATA[受取人]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收件人]]></value>		
+	</item>
+	<item name="recipient_name">
+		<value xml:lang="ko"><![CDATA[수령인명]]></value>
+		<value xml:lang="en"><![CDATA[Recipient name]]></value>
+		<value xml:lang="jp"><![CDATA[受取人名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收件人姓名]]></value>		
+	</item>
+
+	<item name="cellphone">
+		<value xml:lang="ko"><![CDATA[휴대전화]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+		<value xml:lang="jp"><![CDATA[携帯電話]]></value>
+		<value xml:lang="zh-TW"><![CDATA[手機]]></value>		
+	</item>
+	<item name="telnum">
+		<value xml:lang="ko"><![CDATA[일반전화]]></value>
+		<value xml:lang="en"><![CDATA[Telephone number]]></value>
+		<value xml:lang="jp"><![CDATA[電話番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[聯絡電話]]></value>
+	</item>
+	<item name="recipient_telnum">
+		<value xml:lang="ko"><![CDATA[일반전화번호]]></value>
+		<value xml:lang="en"><![CDATA[Telephone number]]></value>
+		<value xml:lang="jp"><![CDATA[電話番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[[收件人電話]]></value>		
+	</item>
+
+	<item name="address">
+		<value xml:lang="ko"><![CDATA[주소]]></value>
+		<value xml:lang="en"><![CDATA[Address]]></value>
+		<value xml:lang="jp"><![CDATA[住所]]></value>
+		<value xml:lang="zh-TW"><![CDATA[地址]]></value>		
+	</item>
+	<item name="address1">
+		<value xml:lang="ko"><![CDATA[주소]]></value>
+		<value xml:lang="en"><![CDATA[Address]]></value>
+		<value xml:lang="jp"><![CDATA[住所]]></value>
+		<value xml:lang="zh-TW"><![CDATA[地址1]]></value>		
+	</item>
+	<item name="address2">
+		<value xml:lang="ko"><![CDATA[상세주소]]></value>
+		<value xml:lang="en"><![CDATA[Address details]]></value>
+		<value xml:lang="jp"><![CDATA[住所2]]></value>
+		<value xml:lang="zh-TW"><![CDATA[地址2]]></value>		
+	</item>
+	<item name="default_address">
+		<value xml:lang="ko"><![CDATA[기본]]></value>
+		<value xml:lang="en"><![CDATA[default]]></value>
+		<value xml:lang="jp"><![CDATA[基本]]></value>
+		<value xml:lang="zh-TW"><![CDATA[基本預設]]></value>		
+	</item>
+	<item name="postcode">
+		<value xml:lang="ko"><![CDATA[우편번호]]></value>
+		<value xml:lang="en"><![CDATA[Post code]]></value>
+		<value xml:lang="jp"><![CDATA[郵便番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[郵遞區號]]></value>		
+	</item>
+
+	<item name="item">
+		<value xml:lang="ko"><![CDATA[상품]]></value>
+		<value xml:lang="en"><![CDATA[Product]]></value>
+		<value xml:lang="jp"><![CDATA[商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品]]></value>
+	</item>
+	<item name="product">
+		<value xml:lang="ko"><![CDATA[상품]]></value>
+		<value xml:lang="en"><![CDATA[Product]]></value>
+		<value xml:lang="jp"><![CDATA[商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品]]></value>
+	</item>
+	<item name="product_name">
+		<value xml:lang="ko"><![CDATA[상품명]]></value>
+		<value xml:lang="en"><![CDATA[Product name]]></value>
+		<value xml:lang="jp"><![CDATA[商品名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品名]]></value>
+	</item>
+	<item name="item_name">
+		<value xml:lang="ko"><![CDATA[상품명]]></value>
+		<value xml:lang="en"><![CDATA[Product name]]></value>
+		<value xml:lang="jp"><![CDATA[商品名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品名]]></value>
+	</item>
+	<item name="item_code">
+		<value xml:lang="ko"><![CDATA[상품코드]]></value>
+		<value xml:lang="en"><![CDATA[Product code]]></value>
+		<value xml:lang="jp"><![CDATA[商品コード]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品代碼]]></value>
+	</item>
+	<item name="price">
+		<value xml:lang="ko"><![CDATA[가격]]></value>
+		<value xml:lang="en"><![CDATA[Price]]></value>
+		<value xml:lang="jp"><![CDATA[価格]]></value>
+		<value xml:lang="zh-TW"><![CDATA[價格]]></value>
+	</item>
+	<item name="item_price">
+		<value xml:lang="ko"><![CDATA[상품가격]]></value>
+		<value xml:lang="en"><![CDATA[Price]]></value>
+		<value xml:lang="jp"><![CDATA[商品価格]]></value>
+		<value xml:lang="zh-TW"><![CDATA[價格]]></value>
+	</item>
+	<item name="description">
+		<value xml:lang="ko"><![CDATA[상세내용]]></value>
+		<value xml:lang="en"><![CDATA[Description]]></value>
+		<value xml:lang="jp"><![CDATA[詳細情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[說明]]></value>
+	</item>
+	<item name="purchaser_cellphone">
+		<value xml:lang="ko"><![CDATA[휴대전화]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+		<value xml:lang="jp"><![CDATA[携帯電話]]></value>
+		<value xml:lang="zh-TW"><![CDATA[手機]]></value>
+	</item>
+	<item name="recipient_cellphone">
+		<value xml:lang="ko"><![CDATA[휴대전화]]></value>
+		<value xml:lang="en"><![CDATA[Cellphone]]></value>
+		<value xml:lang="jp"><![CDATA[携帯電話]]></value>
+		<value xml:lang="zh-TW"><![CDATA[手機]]></value>
+	</item>
+	<item name="shoppingmall_product">
+		<value xml:lang="ko"><![CDATA[쇼핑몰 일반상품]]></value>
+		<value xml:lang="en"><![CDATA[Shoppingmall Product]]></value>
+		<value xml:lang="jp"><![CDATA[ショッピングモール商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[線上商城-商品]]></value>		
+	</item>	
+	<item name="discounted_price">
+		<value xml:lang="ko"><![CDATA[할인구매가]]></value>
+		<value xml:lang="en"><![CDATA[Discounted price]]></value>
+		<value xml:lang="jp"><![CDATA[特別価額]]></value>
+		<value xml:lang="zh-TW"><![CDATA[優惠價]]></value>
+	</item>
+	<item name="order_quantity">
+		<value xml:lang="ko"><![CDATA[구매수량]]></value>
+		<value xml:lang="en"><![CDATA[Order quantity]]></value>
+		<value xml:lang="jp"><![CDATA[購入数量]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購入數量]]></value>
+	</item>
+	<item name="quantity">
+		<value xml:lang="ko"><![CDATA[수량]]></value>
+		<value xml:lang="en"><![CDATA[Quantity]]></value>
+		<value xml:lang="jp"><![CDATA[数量]]></value>
+		<value xml:lang="zh-TW"><![CDATA[數量]]></value>
+	</item>
+	<item name="description">
+		<value xml:lang="ko"><![CDATA[상세내용]]></value>
+		<value xml:lang="en"><![CDATA[Description]]></value>
+		<value xml:lang="jp"><![CDATA[詳細情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[說明]]></value>
+	</item>
+	<item name="currency_settings">
+		<value xml:lang="ko"><![CDATA[통화설정]]></value>
+		<value xml:lang="en"><![CDATA[Currency setting]]></value>
+		<value xml:lang="jp"><![CDATA[通貨設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[幣別設定]]></value>	
+	</item>
+	<item name="select_currency">
+		<value xml:lang="ko"><![CDATA[통화선택]]></value>
+		<value xml:lang="en"><![CDATA[Currency]]></value>
+		<value xml:lang="jp"><![CDATA[通貨選択]]></value>
+		<value xml:lang="zh-TW"><![CDATA[幣別選擇]]></value>	
+	</item>
+	<item name="currency_format">
+		<value xml:lang="ko"><![CDATA[통화부호 출력형식]]></value>
+		<value xml:lang="en"><![CDATA[Currency format]]></value>
+		<value xml:lang="jp"><![CDATA[通貨選択]]></value>
+		<value xml:lang="zh-TW"><![CDATA[幣別]]></value>	
+	</item>
+	<item name="decimal_place">
+		<value xml:lang="ko"><![CDATA[소수점 자릿수]]></value>
+		<value xml:lang="en"><![CDATA[Number of decimal points]]></value>
+		<value xml:lang="jp"><![CDATA[小数点数]]></value>
+		<value xml:lang="zh-TW"><![CDATA[小數點位數]]></value>	
+	</item>
+	<item name="product">
+		<value xml:lang="ko"><![CDATA[상품]]></value>
+		<value xml:lang="en"><![CDATA[Product]]></value>
+		<value xml:lang="jp"><![CDATA[商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品]]></value>			
+	</item>
+	<item name="purchase_date">
+		<value xml:lang="ko"><![CDATA[구매일자]]></value>
+		<value xml:lang="en"><![CDATA[Date]]></value>
+		<value xml:lang="jp"><![CDATA[購入日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購入日期]]></value>		
+	</item>
+	<item name="amount">
+		<value xml:lang="ko"><![CDATA[금액]]></value>
+		<value xml:lang="en"><![CDATA[Amount]]></value>
+		<value xml:lang="jp"><![CDATA[金額]]></value>
+		<value xml:lang="zh-TW"><![CDATA[金額]]></value>
+	</item>
+
+	<item name="total_discount">
+		<value xml:lang="ko"><![CDATA[할인금액]]></value>
+		<value xml:lang="en"><![CDATA[Total discount]]></value>
+		<value xml:lang="jp"><![CDATA[割引金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[總折扣金額]]></value>
+	</item>
+	<item name="payamount">
+		<value xml:lang="ko"><![CDATA[결제금액]]></value>
+		<value xml:lang="en"><![CDATA[Payment amount]]></value>
+		<value xml:lang="jp"><![CDATA[最終決済金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[應付金額]]></value>		
+	</item>
+	<item name="payment_amount">
+		<value xml:lang="ko"><![CDATA[최종결제금액]]></value>
+		<value xml:lang="en"><![CDATA[Total amount]]></value>
+		<value xml:lang="jp"><![CDATA[最終金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[總金額]]></value>		
+	</item>
+	<item name="discounted_amount">
+		<value xml:lang="ko"><![CDATA[할인적용금액]]></value>
+		<value xml:lang="en"><![CDATA[Discounted amount]]></value>
+		<value xml:lang="jp"><![CDATA[割引した金額]]></value>
+		<value xml:lang="zh-TW"><![CDATA[折後金額]]></value>
+	</item>
+	<item name="order_amount">
+		<value xml:lang="ko"><![CDATA[주문금액]]></value>
+		<value xml:lang="en"><![CDATA[Order amount]]></value>
+		<value xml:lang="jp"><![CDATA[送購入金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單金額]]></value>
+	</item>
+	<item name="total_order_amount">
+		<value xml:lang="ko"><![CDATA[총주문금액]]></value>
+		<value xml:lang="en"><![CDATA[Total order amount]]></value>
+		<value xml:lang="jp"><![CDATA[総注文金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[總訂單金額]]></value>		
+	</item>
+	<item name="total_order_amount">
+		<value xml:lang="ko"><![CDATA[총구매금액]]></value>
+		<value xml:lang="en"><![CDATA[Total amount]]></value>
+		<value xml:lang="jp"><![CDATA[総購入金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[全部訂單總計金額]]></value>	
+	</item>
+	<item name="mileage">
+		<value xml:lang="ko"><![CDATA[마일리지]]></value>
+		<value xml:lang="en"><![CDATA[Mileage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[獎勵點數]]></value>		
+	</item>
+	<item name="use_mileage">
+		<value xml:lang="ko"><![CDATA[마일리지 사용]]></value>
+		<value xml:lang="en"><![CDATA[Use mileage]]></value>
+		<value xml:lang="jp"><![CDATA[マイレージ使用]]></value>
+		<value xml:lang="zh-TW"><![CDATA[使用獎勵點數]]></value>		
+	</item>
+	<item name="sales_price">
+		<value xml:lang="ko"><![CDATA[판매가]]></value>
+		<value xml:lang="en"><![CDATA[Price]]></value>
+		<value xml:lang="jp"><![CDATA[販売価]]></value>
+		<value xml:lang="zh-TW"><![CDATA[價格]]></value>	
+	</item>
+	<item name="discount">
+		<value xml:lang="ko"><![CDATA[할인]]></value>
+		<value xml:lang="en"><![CDATA[Discount]]></value>
+		<value xml:lang="jp"><![CDATA[割引]]></value>
+		<value xml:lang="zh-TW"><![CDATA[折扣]]></value>	
+	</item>
+	<item name="discount_amount">
+		<value xml:lang="ko"><![CDATA[할인금액]]></value>
+		<value xml:lang="en"><![CDATA[Discount amount]]></value>
+		<value xml:lang="jp"><![CDATA[割引]]></value>
+		<value xml:lang="zh-TW"><![CDATA[折後金額]]></value>
+	</item>
+	<item name="sum">
+		<value xml:lang="ko"><![CDATA[합계]]></value>
+		<value xml:lang="en"><![CDATA[Sum]]></value>
+		<value xml:lang="jp"><![CDATA[合計]]></value>
+		<value xml:lang="zh-TW"><![CDATA[合計]]></value>	
+	</item>
+	<item name="order">
+		<value xml:lang="ko"><![CDATA[주문]]></value>
+		<value xml:lang="en"><![CDATA[Order]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買]]></value>
+	</item>
+	<item name="stock">
+		<value xml:lang="ko"><![CDATA[재고]]></value>
+		<value xml:lang="en"><![CDATA[Stock]]></value>
+		<value xml:lang="jp"><![CDATA[在庫]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[庫存]]></value>	
+	</item>
+
+	<item name="checkbox">
+		<value xml:lang="ko"><![CDATA[체크박스]]></value>
+		<value xml:lang="en"><![CDATA[Checkbox]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[勾選訂購]]></value>	
+	</item>
+
+	<item name="delivery_fee">
+		<value xml:lang="ko"><![CDATA[배송비]]></value>
+		<value xml:lang="en"><![CDATA[Delivery fee]]></value>
+		<value xml:lang="jp"><![CDATA[送料]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[運費]]></value>
+	</item>
+
+	<item name="order_status">
+		<value xml:lang="ko"><![CDATA[주문상태]]></value>
+		<value xml:lang="en"><![CDATA[Order Status]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文状態]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買狀況]]></value>
+	</item>
+
+	<item name="receipt">
+		<value xml:lang="ko"><![CDATA[영수증]]></value>
+		<value xml:lang="en"><![CDATA[Receipt]]></value>
+		<value xml:lang="jp"><![CDATA[領収書]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收據]]></value>
+	</item>
+	<item name="order_complete">
+		<value xml:lang="ko"><![CDATA[주문완료]]></value>
+		<value xml:lang="en"><![CDATA[Order Completed]]></value>
+		<value xml:lang="jp"><![CDATA[注文完了]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買完成]]></value>		
+	</item>
+	<item name="bankaccount_info">
+		<value xml:lang="ko"><![CDATA[입금계좌안내]]></value>
+		<value xml:lang="en"><![CDATA[Bank account]]></value>
+		<value xml:lang="jp"><![CDATA[銀行振込案内]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行匯款信息]]></value>		
+	</item>
+	<item name="account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호]]></value>
+		<value xml:lang="en"><![CDATA[Account number]]></value>
+		<value xml:lang="jp"><![CDATA[口座番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行帳號]]></value>		
+	</item>
+	<item name="bank_name">
+		<value xml:lang="ko"><![CDATA[은행명]]></value>
+		<value xml:lang="en"><![CDATA[Bank name]]></value>
+		<value xml:lang="jp"><![CDATA[銀行名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行名稱]]></value>		
+	</item>
+	<item name="bank_code">
+		<value xml:lang="ko"><![CDATA[은행코드]]></value>
+		<value xml:lang="en"><![CDATA[Bank code]]></value>
+		<value xml:lang="jp"><![CDATA[銀行コード]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行代碼]]></value>		
+	</item>
+	<item name="account_holder">
+		<value xml:lang="ko"><![CDATA[예금주]]></value>
+		<value xml:lang="en"><![CDATA[Account holder]]></value>
+		<value xml:lang="jp"><![CDATA[口座名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳戶名稱]]></value>		
+	</item>
+	<item name="deposit_amount">
+		<value xml:lang="ko"><![CDATA[입금액]]></value>
+		<value xml:lang="en"><![CDATA[Deposit amount]]></value>
+		<value xml:lang="jp"><![CDATA[振込金額]]></value>
+		<value xml:lang="zh-TW"><![CDATA[轉賬金額]]></value>		
+	</item>
+	<item name="sender_name">
+		<value xml:lang="ko"><![CDATA[송금자명]]></value>
+		<value xml:lang="en"><![CDATA[Sender name]]></value>
+		<value xml:lang="jp"><![CDATA[振込者名]]></value>
+		<value xml:lang="zh-TW"><![CDATA[匯款人]]></value>		
+	</item>
+	<item name="send_date">
+		<value xml:lang="ko"><![CDATA[송금만료일]]></value>
+		<value xml:lang="en"><![CDATA[Send expiration]]></value>
+		<value xml:lang="jp"><![CDATA[振込日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[匯款日期]]></value>		
+	</item>
+	<item name="purchase_benefit">
+		<value xml:lang="ko"><![CDATA[구매혜택]]></value>
+		<value xml:lang="en"><![CDATA[Purchase benefit]]></value>
+		<value xml:lang="jp"><![CDATA[購入特典]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買分紅]]></value>		
+	</item>
+	<item name="purchaser_info">
+		<value xml:lang="ko"><![CDATA[주문자정보]]></value>
+		<value xml:lang="en"><![CDATA[Purchaser Info.]]></value>
+		<value xml:lang="jp"><![CDATA[注文者情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買人資料]]></value>	
+	</item>
+	<item name="delivery_info">
+		<value xml:lang="ko"><![CDATA[배송지정보]]></value>
+		<value xml:lang="en"><![CDATA[Delivery Info.]]></value>
+		<value xml:lang="jp"><![CDATA[送先情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[運送資信]]></value>			
+	</item>
+	<item name="product_info">
+		<value xml:lang="ko"><![CDATA[주문상품정보]]></value>
+		<value xml:lang="en"><![CDATA[Ordered product info.]]></value>
+		<value xml:lang="jp"><![CDATA[注文商品情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購產品信息]]></value>			
+	</item>
+	<item name="purchaser_name">
+		<value xml:lang="ko"><![CDATA[이름]]></value>
+		<value xml:lang="en"><![CDATA[Name]]></value>
+		<value xml:lang="jp"><![CDATA[お名前]]></value>
+		<value xml:lang="zh-TW"><![CDATA[名稱]]></value>		
+	</item>
+	<item name="purchase_benefit_postfix">
+		<value xml:lang="ko"><![CDATA[구매완료 후 적립됩니다.]]></value>
+		<value xml:lang="en"><![CDATA[Earned after completing the purchase.]]></value>
+		<value xml:lang="jp"><![CDATA[ご購入完了の後、貯められる。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買後完成將獲得]]></value>		
+	</item>
+	<item name="order_number">
+		<value xml:lang="ko"><![CDATA[주문번호]]></value>
+		<value xml:lang="en"><![CDATA[Order No.]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購單編號]]></value>		
+	</item>
+	<item name="order_date">
+		<value xml:lang="ko"><![CDATA[주문일자]]></value>
+		<value xml:lang="en"><![CDATA[Order date]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買日期]]></value>		
+	</item>
+	<item name="items">
+		<value xml:lang="ko"><![CDATA[품목갯수]]></value>
+		<value xml:lang="en"><![CDATA[Items]]></value>
+		<value xml:lang="jp"><![CDATA[品目数]]></value>
+		<value xml:lang="zh-TW"><![CDATA[品項]]></value>		
+	</item>
+	<item name="paymethod">
+		<value xml:lang="ko"><![CDATA[결제방식]]></value>
+		<value xml:lang="en"><![CDATA[Payment method]]></value>
+		<value xml:lang="jp"><![CDATA[お支払い方法]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款方式]]></value>		
+	</item>
+	<item name="contract_number">
+		<value xml:lang="ko"><![CDATA[체결번호]]></value>
+		<value xml:lang="en"><![CDATA[Contract No.]]></value>
+		<value xml:lang="jp"><![CDATA[締結番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[合約編號]]></value>
+	</item>
+
+	<item name="prepay">
+		<value xml:lang="ko"><![CDATA[선결제]]></value>
+		<value xml:lang="en"><![CDATA[Prepayment]]></value>
+		<value xml:lang="jp"><![CDATA[先払い]]></value>
+		<value xml:lang="zh-TW"><![CDATA[預付款項]]></value>		
+	</item>
+	<item name="cash_on_delivery">
+		<value xml:lang="ko"><![CDATA[착불]]></value>
+		<value xml:lang="en"><![CDATA[C.O.D]]></value>
+		<value xml:lang="jp"><![CDATA[着払い]]></value>
+		<value xml:lang="zh-TW"><![CDATA[貨到付款]]></value>	
+	</item>
+	<item name="recipient_address">
+		<value xml:lang="ko"><![CDATA[수령지]]></value>
+		<value xml:lang="en"><![CDATA[Recipient address]]></value>
+		<value xml:lang="jp"><![CDATA[お届け先]]></value>
+		<value xml:lang="zh-TW"><![CDATA[發票地址]]></value>	
+	</item>
+
+	<item name="default_address">
+		<value xml:lang="ko"><![CDATA[기본배송지]]></value>
+		<value xml:lang="en"><![CDATA[Default address]]></value>
+		<value xml:lang="jp"><![CDATA[基本送付先]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收件人地址]]></value>		
+	</item>
+
+	<item name="one_week">
+		<value xml:lang="ko"><![CDATA[1주일]]></value>
+		<value xml:lang="en"><![CDATA[1 week]]></value>
+		<value xml:lang="jp"><![CDATA[1週]]></value>
+		<value xml:lang="zh-TW"><![CDATA[1週]]></value>
+	</item>
+	<item name="one_months">
+		<value xml:lang="ko"><![CDATA[1개월]]></value>
+		<value xml:lang="en"><![CDATA[1 month]]></value>
+		<value xml:lang="jp"><![CDATA[1ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[1個月]]></value>
+	</item>
+	<item name="three_months">
+		<value xml:lang="ko"><![CDATA[3개월]]></value>
+		<value xml:lang="en"><![CDATA[3 months]]></value>
+		<value xml:lang="jp"><![CDATA[3ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[3個月]]></value>
+	</item>
+	<item name="six_months">
+		<value xml:lang="ko"><![CDATA[6개월]]></value>
+		<value xml:lang="en"><![CDATA[6 months]]></value>
+		<value xml:lang="jp"><![CDATA[6ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[6個月]]></value>
+	</item>
+	<item name="twelve_months">
+		<value xml:lang="ko"><![CDATA[12개월]]></value>
+		<value xml:lang="en"><![CDATA[12 months]]></value>
+		<value xml:lang="jp"><![CDATA[12ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[12個月]]></value>
+	</item>
+	<item name="details">
+		<value xml:lang="ko"><![CDATA[상세정보]]></value>
+		<value xml:lang="en"><![CDATA[Details]]></value>
+		<value xml:lang="jp"><![CDATA[詳細情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[詳細資料]]></value>
+	</item>
+	<item name="order_details">
+		<value xml:lang="ko"><![CDATA[주문상세]]></value>
+		<value xml:lang="en"><![CDATA[Order Details]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文詳細]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買明細]]></value>
+	</item>
+	<item name="search_period">
+		<value xml:lang="ko"><![CDATA[조회기간]]></value>
+		<value xml:lang="en"><![CDATA[Search period]]></value>
+		<value xml:lang="jp"><![CDATA[検索期間]]></value>
+		<value xml:lang="zh-TW"><![CDATA[搜尋期間]]></value>
+	</item>
+	<item name="search">
+		<value xml:lang="ko"><![CDATA[조회]]></value>
+		<value xml:lang="en"><![CDATA[Search]]></value>
+		<value xml:lang="jp"><![CDATA[Search]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Search]]></value>
+	</item>
+	<item name="freebie">
+		<value xml:lang="ko"><![CDATA[무료]]></value>
+		<value xml:lang="en"><![CDATA[Free]]></value>
+		<value xml:lang="jp"><![CDATA[無料]]></value>
+		<value xml:lang="zh-TW"><![CDATA[免費]]></value>		
+	</item>
+	<item name="delivery_company">
+		<value xml:lang="ko"><![CDATA[배송업체]]></value>
+		<value xml:lang="en"><![CDATA[Delivery company]]></value>
+		<value xml:lang="jp"><![CDATA[配送業社]]></value>
+		<value xml:lang="zh-TW"><![CDATA[運送公司]]></value>		
+	</item>
+	<item name="individual_delivery_company">
+		<value xml:lang="ko"><![CDATA[(개별)배송업체]]></value>
+		<value xml:lang="en"><![CDATA[(Individual)Delivery company]]></value>
+		<value xml:lang="jp"><![CDATA[(各)配送業社]]></value>
+		<value xml:lang="zh-TW"><![CDATA[（個人）運送公司]]></value>			
+	</item>
+	<item name="invoice_no">
+		<value xml:lang="ko"><![CDATA[운송장번호]]></value>
+		<value xml:lang="en"><![CDATA[Invoice no.]]></value>
+		<value xml:lang="jp"><![CDATA[運送状番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[貨運單號]]></value>			
+	</item>
+	<item name="individual_invoice_no">
+		<value xml:lang="ko"><![CDATA[(개별)운송장번호]]></value>
+		<value xml:lang="en"><![CDATA[Invoice no.]]></value>
+		<value xml:lang="jp"><![CDATA[(各)運送状番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[貨運單號]]></value>			
+	</item>
+	<item name="cart_keep">
+		<value xml:lang="ko"><![CDATA[카트보관]]></value>
+		<value xml:lang="en"><![CDATA[Cart]]></value>
+		<value xml:lang="jp"><![CDATA[カートに入れる]]></value>
+		<value xml:lang="zh-TW"><![CDATA[[購物車]]></value>
+	</item>
+	<item name="wait_deposit">
+		<value xml:lang="ko"><![CDATA[입금대기]]></value>
+		<value xml:lang="en"><![CDATA[Wait for desposit]]></value>
+		<value xml:lang="jp"><![CDATA[入金待機]]></value>
+		<value xml:lang="zh-TW"><![CDATA[等待付款]]></value>
+	</item>
+	<item name="deposit_done">
+		<value xml:lang="ko"><![CDATA[입금완료]]></value>
+		<value xml:lang="en"><![CDATA[Desposit done]]></value>
+		<value xml:lang="jp"><![CDATA[入金完了]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款完成]]></value>		
+	</item>
+	<item name="prepare_delivery">
+		<value xml:lang="ko"><![CDATA[배송준비]]></value>
+		<value xml:lang="en"><![CDATA[Preparing for delivery]]></value>
+		<value xml:lang="jp"><![CDATA[配送準備]]></value>
+		<value xml:lang="zh-TW"><![CDATA[配送準備]]></value>		
+	</item>
+	<item name="on_delivery">
+		<value xml:lang="ko"><![CDATA[배송중]]></value>
+		<value xml:lang="en"><![CDATA[On delivery]]></value>
+		<value xml:lang="jp"><![CDATA[配送中]]></value>
+		<value xml:lang="zh-TW"><![CDATA[配送中]]></value>			
+	</item>
+	<item name="delivery_done">
+		<value xml:lang="ko"><![CDATA[배송완료]]></value>
+		<value xml:lang="en"><![CDATA[Delivery done]]></value>
+		<value xml:lang="jp"><![CDATA[配送完了]]></value>
+		<value xml:lang="zh-TW"><![CDATA[配送完成]]></value>			
+	</item>
+	<item name="transaction_done">
+		<value xml:lang="ko"><![CDATA[거래완료]]></value>
+		<value xml:lang="en"><![CDATA[Transaction done]]></value>
+		<value xml:lang="jp"><![CDATA[取引完了]]></value>
+		<value xml:lang="zh-TW"><![CDATA[匯款完成]]></value>	
+	</item>
+	<item name="cancelled">
+		<value xml:lang="ko"><![CDATA[취소]]></value>
+		<value xml:lang="en"><![CDATA[Cancel]]></value>
+		<value xml:lang="jp"><![CDATA[キャンセル]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單取消]]></value>	
+	</item>
+	<item name="returns">
+		<value xml:lang="ko"><![CDATA[반품]]></value>
+		<value xml:lang="en"><![CDATA[Returns]]></value>
+		<value xml:lang="jp"><![CDATA[返品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[退貨]]></value>		
+	</item>
+	<item name="exchanges">
+		<value xml:lang="ko"><![CDATA[교환]]></value>
+		<value xml:lang="en"><![CDATA[Exchanges]]></value>
+		<value xml:lang="jp"><![CDATA[交換]]></value>
+		<value xml:lang="zh-TW"><![CDATA[換貨]]></value>	
+	</item>
+	<item name="refund">
+		<value xml:lang="ko"><![CDATA[환불]]></value>
+		<value xml:lang="en"><![CDATA[Refunds]]></value>
+		<value xml:lang="jp"><![CDATA[リファンド]]></value>
+		<value xml:lang="zh-TW"><![CDATA[退款]]></value>	
+	</item>
+	<item name="mobile_phone">
+		<value xml:lang="ko"><![CDATA[휴대폰]]></value>
+		<value xml:lang="en"><![CDATA[Mobile phone]]></value>
+		<value xml:lang="jp"><![CDATA[携帯電話]]></value>
+		<value xml:lang="zh-TW"><![CDATA[手機]]></value>			
+	</item>
+	<item name="credit_card">
+		<value xml:lang="ko"><![CDATA[신용카드]]></value>
+		<value xml:lang="en"><![CDATA[Credit card]]></value>
+		<value xml:lang="jp"><![CDATA[クレジットカード]]></value>
+		<value xml:lang="zh-TW"><![CDATA[信用卡]]></value>			
+	</item>
+	<item name="virtual_account">
+		<value xml:lang="ko"><![CDATA[가상계좌]]></value>
+		<value xml:lang="en"><![CDATA[Virtual account]]></value>
+		<value xml:lang="jp"><![CDATA[バーチャル口座]]></value>
+		<value xml:lang="zh-TW"><![CDATA[[虛擬帳戶]]></value>			
+	</item>
+	<item name="bank_transfer">
+		<value xml:lang="ko"><![CDATA[무통장입금]]></value>
+		<value xml:lang="en"><![CDATA[Bank transfer]]></value>
+		<value xml:lang="jp"><![CDATA[銀行振替で支払う]]></value>
+		<value xml:lang="zh-TW"><![CDATA[實體銀行轉帳支付]]></value>	
+	</item>
+	<item name="internet_banking">
+		<value xml:lang="ko"><![CDATA[인터넷뱅킹]]></value>
+		<value xml:lang="en"><![CDATA[Internet banking]]></value>
+		<value xml:lang="jp"><![CDATA[インターネットバンキング]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網路ATM轉帳]]></value>			
+	</item>
+
+	<item name="home">
+		<value xml:lang="ko"><![CDATA[홈]]></value>
+		<value xml:lang="en"><![CDATA[Home]]></value>
+		<value xml:lang="jp"><![CDATA[ホーム]]></value>
+		<value xml:lang="zh-TW"><![CDATA[首頁]]></value>	
+	</item>
+	<item name="guest">
+		<value xml:lang="ko"><![CDATA[비회원]]></value>
+		<value xml:lang="en"><![CDATA[Non Member]]></value>
+		<value xml:lang="jp"><![CDATA[非会員]]></value>
+		<value xml:lang="zh-TW"><![CDATA[非會員]]></value>
+	</item>
+	<item name="order_title">
+		<value xml:lang="ko"><![CDATA[%s 외 %d]]></value>
+		<value xml:lang="en"><![CDATA[%s(%d other items)]]></value>
+		<value xml:lang="jp"><![CDATA[%s外%d]]></value>
+		<value xml:lang="zh-TW"><![CDATA[%s(%d 其他)]]></value>		
+	</item>
+	<item name="mileage_saved">
+		<value xml:lang="ko"><![CDATA[적립완료]]></value>
+		<value xml:lang="en"><![CDATA[(Saving completed)]]></value>
+		<value xml:lang="jp"><![CDATA[(積立完了)]]></value>
+		<value xml:lang="zh-TW"><![CDATA[(積點完成)]]></value>	
+	</item>
+	<item name="csv_header">
+		<value xml:lang="ko"><![CDATA[주문일,상품명,수량,결제금액,구매자]]></value>
+		<value xml:lang="en"><![CDATA[Order date,Product name,Quantity,Amount,Purchaser]]></value>
+		<value xml:lang="jp"><![CDATA[注文日、商品名、数量、決済金額、購買者]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單日期，產品名稱，數量，支付金額，購買者]]></value>			
+	</item>
+	<item name="order_csv_header">
+		<value xml:lang="ko"><![CDATA[주문일,주문번호,주문상품,품목수,아이디,닉네임,결제방식,적립마일리지,적립여부,사용마일리지,총금액,합계금액,배송비,할인가,할인금액,과세금액,공급가,부가세,비과세,송장번호,배송업체,배송비선결제]]></value>
+		<value xml:lang="en"><![CDATA[Date,OrderNumber,Product,Items,UserID,NickName,PaymentMethod,Mileage,MileageSaved,MileageUse,TotalPrice,SumPrice,DeliveryFee,DiscountedPrice,DiscountedAmount,TaxationAmount,SupplyAmount,VAT,TaxfreeAmount,InvoiceNo,ExpressID,DeliverFeePayInAdvance]]></value>
+		<value xml:lang="jp"><![CDATA[注文日、注文番号、注文商品、品目数、ID、渾名、決済方法、マイレージ、積立、使用マイレージ、総金額、合計額、配送料、割引金、割引金額、課税金額、供給金額、VAT、非課税、インボイス番号、配送社、送料前払い]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單日期，訂單號碼，訂購產品，品目編號，帳號，暱稱，結算方式，獎勵點數，積點獎勵點數，獎勵點數使用，總金額，運送，折扣，折後金額，稅額，訂價，營業稅，免稅，發票號碼，運費，預付款]]></value>
+	</item>
+
+	<item name="member_srl">
+		<value xml:lang="ko"><![CDATA[회원고유번호]]></value>
+		<value xml:lang="en"><![CDATA[Member Id.]]></value>
+		<value xml:lang="jp"><![CDATA[ライセンスID]]></value>
+		<value xml:lang="zh-TW"><![CDATA[會員帳號]]></value>	
+	</item>
+	<item name="info_purchaser_input">
+		<value xml:lang="ko"><![CDATA[%s 외 구매자입력 정보]]></value>
+		<value xml:lang="en"><![CDATA[The information the purchaser input including %s]]></value>
+		<value xml:lang="jp"><![CDATA[シリアル番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[其他買家 %s ]]></value>			
+	</item>
+	<item name="tax_products">
+		<value xml:lang="ko"><![CDATA[과세물품]]></value>
+		<value xml:lang="en"><![CDATA[Taxable goods]]></value>
+		<value xml:lang="jp"><![CDATA[課税物品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[應稅商品]]></value>			
+	</item>
+	<item name="vat">
+		<value xml:lang="ko"><![CDATA[부가세]]></value>
+		<value xml:lang="en"><![CDATA[VAT]]></value>
+		<value xml:lang="jp"><![CDATA[付加価値税]]></value>
+		<value xml:lang="zh-TW"><![CDATA[營業稅]]></value>			
+	</item>
+	<item name="taxfree_products">
+		<value xml:lang="ko"><![CDATA[면세물품]]></value>
+		<value xml:lang="en"><![CDATA[Duty-free goods]]></value>
+		<value xml:lang="jp"><![CDATA[免税品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[免税品]]></value>				
+	</item>
+	<item name="purchaser">
+		<value xml:lang="ko"><![CDATA[구매자]]></value>
+		<value xml:lang="en"><![CDATA[Purchaser]]></value>
+		<value xml:lang="jp"><![CDATA[購買者]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買者]]></value>		
+	</item>
+	<item name="purchase_confirm">
+		<value xml:lang="ko"><![CDATA[구매확인]]></value>
+		<value xml:lang="en"><![CDATA[Purchase confirm]]></value>
+		<value xml:lang="jp"><![CDATA[Purchase confirm]]></value>
+		<value xml:lang="zh-TW"><![CDATA[確認購買]]></value>		
+	</item>
+
+	<item name="title_order_payment">
+		<value xml:lang="ko"><![CDATA[주문/결제]]></value>
+		<value xml:lang="en"><![CDATA[Order & Payment]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文/決済]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購&付款]]></value>			
+	</item>
+	<item name="title_purchase_details">
+		<value xml:lang="ko"><![CDATA[구매상세내역]]></value>
+		<value xml:lang="en"><![CDATA[Purchase details]]></value>
+		<value xml:lang="jp"><![CDATA[詳細内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買明細]]></value>			
+	</item>
+	<item name="title_payment_details">
+		<value xml:lang="ko"><![CDATA[결제정보]]></value>
+		<value xml:lang="en"><![CDATA[Payment details]]></value>
+		<value xml:lang="jp"><![CDATA[決済方法]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款明細]]></value>			
+	</item>
+	<item name="title_ordered_items">
+		<value xml:lang="ko"><![CDATA[주문상품]]></value>
+		<value xml:lang="en"><![CDATA[Ordered items]]></value>
+		<value xml:lang="jp"><![CDATA[注文商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買項目]]></value>			
+	</item>
+	<item name="title_delivery_info">
+		<value xml:lang="ko"><![CDATA[배송정보]]></value>
+		<value xml:lang="en"><![CDATA[Delivery information]]></value>
+		<value xml:lang="jp"><![CDATA[配送情報]]></value>
+		<value xml:lang="zh-TW"><![CDATA[配送資訊]]></value>			
+	</item>
+	<item name="title_order_info">
+		<value xml:lang="ko"><![CDATA[주문정보]]></value>
+		<value xml:lang="en"><![CDATA[Order information]]></value>
+		<value xml:lang="jp"><![CDATA[注文情報]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[訂單查詢]]></value>		
+	</item>
+	<item name="title_ordersheet">
+		<value xml:lang="ko"><![CDATA[주문확인서]]></value>
+		<value xml:lang="en"><![CDATA[Order Confirmation]]></value>
+		<value xml:lang="jp"><![CDATA[注文確認書]]></value>			
+		<value xml:lang="zh-TW"><![CDATA[訂單確認]]></value>
+	</item>
+	<item name="title_member_info">
+		<value xml:lang="ko"><![CDATA[회원정보]]></value>
+		<value xml:lang="en"><![CDATA[Member Info]]></value>
+		<value xml:lang="jp"><![CDATA[会員情報]]></value>			
+		<value xml:lang="zh-TW"><![CDATA[會員資訊]]></value>
+	</item>
+	<item name="title_purchase_details">
+		<value xml:lang="ko"><![CDATA[구매내역]]></value>
+		<value xml:lang="en"><![CDATA[Purchase details]]></value>
+		<value xml:lang="jp"><![CDATA[購買内訳]]></value>			
+		<value xml:lang="zh-TW"><![CDATA[購買資訊]]></value>		
+	</item>
+	<item name="cmd_login">
+		<value xml:lang="ko"><![CDATA[로그인]]></value>
+		<value xml:lang="en"><![CDATA[Login]]></value>
+		<value xml:lang="jp"><![CDATA[ログイン]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登入]]></value>
+	</item>
+	
+	<item name="cmd_cart">
+		<value xml:lang="ko"><![CDATA[장바구니]]></value>
+		<value xml:lang="en"><![CDATA[Cart]]></value>
+		<value xml:lang="jp"><![CDATA[カーゴ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購物車]]></value>	
+	</item>
+	<item name="cmd_favorites">
+		<value xml:lang="ko"><![CDATA[관심상품]]></value>
+		<value xml:lang="en"><![CDATA[Favorites]]></value>
+		<value xml:lang="jp"><![CDATA[お気に入り]]></value>
+		<value xml:lang="zh-TW"><![CDATA[有興趣品項]]></value>
+	</item>
+	
+	<item name="cmd_order_view">
+		<value xml:lang="ko"><![CDATA[주문/배송조회]]></value>
+		<value xml:lang="en"><![CDATA[Order/Tracking]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文/配送確認]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單/發貨查詢]]></value>
+	</item>
+	<item name="cmd_order">
+		<value xml:lang="ko"><![CDATA[주문하기]]></value>
+		<value xml:lang="en"><![CDATA[Order]]></value>
+		<value xml:lang="kp"><![CDATA[ご注文する]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購]]></value>
+	</item>
+
+	<item name="cmd_trace_delivery">
+		<value xml:lang="ko"><![CDATA[배송추적]]></value>
+		<value xml:lang="en"><![CDATA[Delivery tracking]]></value>
+		<value xml:lang="jp"><![CDATA[配送状況の確認]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單狀態查詢]]></value>
+	</item>
+	<item name="cmd_previous_page">
+		<value xml:lang="ko"><![CDATA[이전페이지]]></value>
+		<value xml:lang="en"><![CDATA[Previous]]></value>
+		<value xml:lang="jp"><![CDATA[以前ページ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[上一頁]]></value>
+	</item>
+	<item name="cmd_non_buy">
+		<value xml:lang="ko"><![CDATA[비회원 구매]]></value>
+		<value xml:lang="en"><![CDATA[Buying as a guest]]></value>
+		<value xml:lang="jp"><![CDATA[ログインせず注文]]></value>
+		<value xml:lang="zh-TW"><![CDATA[非會員購買]]></value>		
+	</item>
+
+	<item name="cmd_continue_shopping">
+		<value xml:lang="ko"><![CDATA[쇼핑 계속하기]]></value>
+		<value xml:lang="en"><![CDATA[Continue shopping]]></value>
+		<value xml:lang="jp"><![CDATA[ショッピング続ける]]></value>
+		<value xml:lang="zh-TW"><![CDATA[繼續購物]]></value>	
+	</item>
+	
+	<item name="cmd_stock">
+		<value xml:lang="ko"><![CDATA[재고]]></value>
+		<value xml:lang="en"><![CDATA[Stock]]></value>
+		<value xml:lang="jp"><![CDATA[在庫]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[庫存]]></value>		
+	</item>
+	<item name="cmd_delivery_fee">
+		<value xml:lang="ko"><![CDATA[배송비]]></value>
+		<value xml:lang="en"><![CDATA[Delivery fee]]></value>
+		<value xml:lang="jp"><![CDATA[ご注文]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[運費]]></value>	
+	</item>
+	<item name="cmd_purchaser_info">
+		<value xml:lang="ko"><![CDATA[구매자정보]]></value>
+		<value xml:lang="en"><![CDATA[Purchaser Info.]]></value>
+		<value xml:lang="jp"><![CDATA[購買者情報]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[買家信息]]></value>	
+	</item>
+	<item name="cmd_download_by_product">
+		<value xml:lang="ko"><![CDATA[상품별 CSV 다운로드]]></value>
+		<value xml:lang="en"><![CDATA[CSV Download By Product]]></value>
+		<value xml:lang="jp"><![CDATA[商品別CSVダウンロード]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[商品項目下載 (CSV)]]></value>			
+	</item>
+	<item name="cmd_download_by_order">
+		<value xml:lang="ko"><![CDATA[주문별 CSV 다운로드]]></value>
+		<value xml:lang="en"><![CDATA[CSV download by order]]></value>
+		<value xml:lang="jp"><![CDATA[注文別CSVダウンロード]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[訂單下載(CSV)]]></value>		
+	</item>
+	<item name="cmd_print_ordersheet">
+		<value xml:lang="ko"><![CDATA[주문서출력]]></value>
+		<value xml:lang="en"><![CDATA[Print ordersheet]]></value>
+		<value xml:lang="jp"><![CDATA[注文書出力]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[列印訂單]]></value>				
+	</item>
+	<item name="cmd_selected_order">
+		<value xml:lang="ko"><![CDATA[선택한 주문을]]></value>
+		<value xml:lang="en"><![CDATA[Selected order]]></value>
+		<value xml:lang="jp"><![CDATA[選択された注文]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[選擇的訂單]]></value>			
+	</item>
+	<item name="cmd_save_delivery_info">
+		<value xml:lang="ko"><![CDATA[배송정보 저장]]></value>
+		<value xml:lang="en"><![CDATA[Save delivery info]]></value>
+		<value xml:lang="jp"><![CDATA[配送情報の保存]]></value>		
+		<value xml:lang="zh-TW"><![CDATA[保存配送資訊]]></value>				
+	</item>
+	<item name="cmd_order_detail">
+		<value xml:lang="ko"><![CDATA[주문상세보기]]></value>
+		<value xml:lang="en"><![CDATA[Order Detail]]></value>
+		<value xml:lang="jp"><![CDATA[Order Detail]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單明細]]></value>		
+	</item>
+	<item name="cmd_confirm_order">
+		<value xml:lang="ko"><![CDATA[구매확인 진행하기]]></value>
+		<value xml:lang="en"><![CDATA[Confirm order]]></value>
+		<value xml:lang="jp"><![CDATA[Confirm order]]></value>
+		<value xml:lang="zh-TW"><![CDATA[檢查繼續購買]]></value>		
+	</item>
+	<item name="cmd_deny_order">
+		<value xml:lang="ko"><![CDATA[구매거절 진행하기]]></value>
+		<value xml:lang="en"><![CDATA[Deny order]]></value>
+		<value xml:lang="jp"><![CDATA[Deny order]]></value>
+		<value xml:lang="zh-TW"><![CDATA[停止繼續購買]]></value>		
+	</item>
+
+	<item name="msg_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 사용하실 수 있습니다]]></value>
+		<value xml:lang="en"><![CDATA[You can use it after login]]></value>
+		<value xml:lang="jp"><![CDATA[ログインしてから使用できます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄後您即可使用]]></value>	
+	</item>
+	<item name="msg_no_items">
+		<value xml:lang="ko"><![CDATA[상품이 없습니다]]></value>
+		<value xml:lang="en"><![CDATA[No product]]></value>
+		<value xml:lang="jp"><![CDATA[商品がありません]]></value>
+		<value xml:lang="zh-TW"><![CDATA[無商品]]></value>		
+	</item>
+
+	<item name="msg_no_orders">
+		<value xml:lang="ko"><![CDATA[구매내역이 없습니다]]></value>
+		<value xml:lang="en"><![CDATA[No orders]]></value>
+		<value xml:lang="jp"><![CDATA[ご購入内訳がありません。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[尚未購買]]></value>		
+	</item>
+	
+	<item name="msg_input_order_number_password">
+		<value xml:lang="ko"><![CDATA[주문번호와 비밀번호를 입력해주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Please enter your order number and password]]></value>
+		<value xml:lang="jp"><![CDATA[注文番号とパスワードを入力してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入訂單號碼與密碼]]></value>
+	</item>
+	<item name="msg_invalid_order_number">
+		<value xml:lang="ko"><![CDATA[주문번호를 올바르게 입력해 주세요]]></value>
+		<value xml:lang="en"><![CDATA[Please enter your order number correctly]]></value>
+		<value xml:lang="jp"><![CDATA[注文番号を正しく入力してください]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入正確訂單號碼]]></value>
+	</item>
+	<item name="msg_invalid_password">
+		<value xml:lang="ko"><![CDATA[비밀번호가 일치하지 않습니다]]></value>
+		<value xml:lang="en"><![CDATA[Password is incorrect.]]></value>
+		<value xml:lang="jp"><![CDATA[パスワードが違います。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[密碼錯誤]]></value>
+	</item>
+
+	<item name="msg_not_displayed_item">
+		<value xml:lang="ko"><![CDATA[%s 상품은 현재 진열되지 않은 상품입니다. 구매하실 수 없습니다.]]></value>
+		<value xml:lang="en"><![CDATA[%s is now not displayed. You cannot buy it.]]></value>
+		<value xml:lang="jp"><![CDATA[%s 商品は現在陳列されていない商品です。購入できません。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[%s 品項目前未列示. 不能購買.]]></value>
+	</item>
+	<item name="msg_price_changed">
+		<value xml:lang="ko"><![CDATA[%s 상품은 가격변동이 있어서 구매하실 수 없습니다.]]></value>
+		<value xml:lang="en"><![CDATA[The price of %s is changed. You cannot buy it.]]></value>
+		<value xml:lang="jp"><![CDATA[%s 商品の価格が変わりましたので購入できません。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[ %s 商品已變更. 不能購買.]]></value>			
+	</item>
+	<item name="msg_item_not_found">
+		<value xml:lang="ko"><![CDATA[%s 상품은 삭제되었거나 판매중이 아니어서 구매하실 수 없습니다.]]></value>
+		<value xml:lang="en"><![CDATA[%s is deleted or not for sale. You cannot buy it.]]></value>
+		<value xml:lang="jp"><![CDATA[%s 商品は削除されているか販売中ではないので購入できません。]]></value>
+		<value xml:lang="en"><![CDATA[%s 商品已下架. 不能購買.]]></value>
+	</item>
+	<item name="msg_no_order_list">
+		<value xml:lang="ko"><![CDATA[주문내역이 없습니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[沒有訂單記錄]]></value>
+	</item>
+	<item name="msg_product_info_caption">
+		<value xml:lang="ko"><![CDATA[* 표시 상품은 부가세 면세품목입니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[* 免稅項目商品顯示.]]></value>
+	</item>
+	<item name="msg_already_member">
+		<value xml:lang="ko"><![CDATA[혹시 회원이신가요?]]></value>
+		<value xml:lang="zh-TW"><![CDATA[是會員嗎?]]></value>
+	</item>
+	<item name="about_item_delivery_fee">
+		<value xml:lang="ko"><![CDATA[체크시 이 상품의 배송금액은 0원이 됩니다.]]></value>
+		<value xml:lang="en"><![CDATA[If you check it, the delivery fee will be free.]]></value>
+		<value xml:lang="jp"><![CDATA[チェックするとこの商品の配送料は0になります。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[檢查免運費商品]]></value>			
+	</item>
+	<item name="about_stock">
+		<value xml:lang="ko"><![CDATA[물품의 재고를 적어주세요. (미입력시 물품의 재고는 무한입니다.)]]></value>
+		<value xml:lang="en"><![CDATA[Please write the stock of goods. (If left blank, the stock of goods will set as infinity.)]]></value>
+		<value xml:lang="jp"><![CDATA[物品の在庫を入力してください。 （未入力すると在庫は無制限にセットされます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入商品庫存量。如果留空白(不輸入庫存量)將被設置為無窮大。)]]></value>			
+	</item>
+	<item name="about_escrow">
+		<value xml:lang="ko"><![CDATA[에스크로 사용여부를 선택하세요.]]></value>
+		<value xml:lang="en"><![CDATA[에스크로 사용여부를 선택하세요.]]></value>
+		<value xml:lang="jp"><![CDATA[エスクローを使用するかどうかを選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請選擇是否要使用第三方付款機制)]]></value>				
+	</item>
+	
+	<item name="about_delivery_company">
+		<value xml:lang="ko"><![CDATA[배송정보 입력시 기본 선택될 배송회사를 선택해 주세요]]></value>
+		<value xml:lang="en"><![CDATA[Select a delivery company as the default.]]></value>
+		<value xml:lang="jp"><![CDATA[配送情報を入力する時デフォルトで選択される運送会社を選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選擇一個運送公司作為預設]]></value>				
+	</item>
+	<item name="about_select_currency">
+		<value xml:lang="ko"><![CDATA[통화를 선택하세요.]]></value>
+		<value xml:lang="en"><![CDATA[Select currency]]></value>
+		<value xml:lang="jp"><![CDATA[通貨を選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選擇幣別]]></value>		
+	</item>
+	<item name="about_currency_format">
+		<value xml:lang="ko"><![CDATA[통화 선택 후 표기방식을 $과 USD 두가지 중에서 선택합니다.]]></value>
+		<value xml:lang="en"><![CDATA[After Choosing currency, select the display type neither $ or USD.]]></value>
+		<value xml:lang="jp"><![CDATA[通貨を選択した後、表記方法を$とUSD二つから選択します。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選取幣別後，選擇是以 $ 或 USD 來表示。]]></value>		
+	</item>
+	<item name="about_decimal_place">
+		<value xml:lang="ko"><![CDATA[입력된 가격을 소수점으로 처리할 자리수를 입력해 주세요. 달러의 경우 센트(cent)를 소수점 두자리로 표현하므로 2를 입력합니다.]]></value>
+		<value xml:lang="en"><![CDATA[Enter the number of decimal places. In case of USD, input 2 for showing cent.]]></value>
+		<value xml:lang="jp"><![CDATA[小数点以下の桁を入力してください。　ドルの場合、セント(cent)を表記するため2を入力します。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入小數點數位數. 例 : USD, 輸入2 表示"分(cent)"]]></value>	
+	</item>
+	<item name="about_purchase_confirm">
+		<value xml:lang="ko"><![CDATA[선택 후 확인을 클릭하시면 해당 에스크로 기관의 구매확인 절차를 진행합니다.]]></value>
+		<value xml:lang="en"><![CDATA[선택 후 확인을 클릭하시면 해당 에스크로 기관의 구매확인 절차를 진행합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[선택 후 확인을 클릭하시면 해당 에스크로 기관의 구매확인 절차를 진행합니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[單擊確定，然後選擇託管機構購買的驗證。]]></value>	
+	</item>
+
+	<item name="currency_list" type="array">
+		<item name="KRW">
+			<value xml:lang="ko"><![CDATA[원]]></value>
+			<value xml:lang="en"><![CDATA[WON]]></value>
+			<value xml:lang="jp"><![CDATA[ウォン]]></value>
+			<value xml:lang="zh-TW"><![CDATA[韓元]]></value>
+		</item>
+		<item name="USD">
+			<value xml:lang="ko"><![CDATA[미국달러]]></value>
+			<value xml:lang="en"><![CDATA[dollar]]></value>
+			<value xml:lang="jp"><![CDATA[ドール]]></value>
+			<value xml:lang="zh-TW"><![CDATA[美元]]></value>	
+		</item>
+		<item name="JPY">
+			<value xml:lang="ko"><![CDATA[엔]]></value>
+			<value xml:lang="en"><![CDATA[Yen]]></value>
+			<value xml:lang="jp"><![CDATA[縁]]></value>
+			<value xml:lang="zh-TW"><![CDATA[日圓]]></value>		
+		</item>
+		<item name="taiwan_twd">
+			<value xml:lang="ko"><![CDATA[대만위엔달러]]></value>
+			<value xml:lang="en"><![CDATA[Taiwan dollar]]></value>
+			<value xml:lang="jp"><![CDATA[台湾ドール]]></value>
+			<value xml:lang="zh-TW"><![CDATA[新台幣]]></value>				
+		</item>			
+		<item name="PHP">
+			<value xml:lang="ko"><![CDATA[필리핀(페소)]]></value>
+			<value xml:lang="en"><![CDATA[Philippine peso]]></value>
+			<value xml:lang="jp"><![CDATA[フィリピンペソ]]></value>
+			<value xml:lang="zh-TW"><![CDATA[菲律賓幣]]></value>					
+		</item>
+	</item>	
+	<item name="currency_code" type="array">
+		<item name="KRW">
+			<value xml:lang="ko"><![CDATA[원]]></value>
+			<value xml:lang="en"><![CDATA[KRW]]></value>
+			<value xml:lang="jp"><![CDATA[KRW]]></value>
+			<value xml:lang="zh-TW"><![CDATA[KRW]]></value>
+		</item>
+		<item name="USD">
+			<value xml:lang="ko"><![CDATA[USD]]></value>
+			<value xml:lang="en"><![CDATA[USD]]></value>
+			<value xml:lang="jp"><![CDATA[USD]]></value>
+			<value xml:lang="zh-TW"><![CDATA[USD]]></value>
+		</item>
+		<item name="JPY">
+			<value xml:lang="ko"><![CDATA[엔]]></value>
+			<value xml:lang="en"><![CDATA[JPY]]></value>
+			<value xml:lang="jp"><![CDATA[JPY]]></value>
+			<value xml:lang="zh-TW"><![CDATA[JPY]]></value>
+		</item>
+		<item name="NTD">
+			<value xml:lang="ko"><![CDATA[NTD]]></value>
+			<value xml:lang="en"><![CDATA[NTD]]></value>
+			<value xml:lang="jp"><![CDATA[NTD]]></value>
+			<value xml:lang="zh-TW"><![CDATA[NTD]]></value>
+		</item>		
+		<item name="PHP">
+			<value xml:lang="ko"><![CDATA[PHP]]></value>
+			<value xml:lang="en"><![CDATA[PHP]]></value>
+			<value xml:lang="jp"><![CDATA[PHP]]></value>
+			<value xml:lang="zh-TW"><![CDATA[PHP]]></value>
+		</item>
+	</item>
+
+	<item name="currency_sign" type="array">
+		<item name="KRW">
+			<value xml:lang="ko"><![CDATA[₩]]></value>
+			<value xml:lang="en"><![CDATA[₩]]></value>
+			<value xml:lang="jp"><![CDATA[₩]]></value>
+			<value xml:lang="zh-TW"><![CDATA[₩]]></value>
+		</item>
+		<item name="USD">
+			<value xml:lang="ko"><![CDATA[$]]></value>
+			<value xml:lang="en"><![CDATA[$]]></value>
+			<value xml:lang="jp"><![CDATA[$]]></value>
+			<value xml:lang="zh-TW"><![CDATA[$]]></value>
+		</item>
+		<item name="JPY">
+			<value xml:lang="ko"><![CDATA[¥]]></value>
+			<value xml:lang="en"><![CDATA[¥]]></value>
+			<value xml:lang="jp"><![CDATA[¥]]></value>
+			<value xml:lang="zh-TW"><![CDATA[¥]]></value>
+		</item>
+		<item name="NTD">
+			<value xml:lang="ko"><![CDATA[NT$]]></value>
+			<value xml:lang="en"><![CDATA[NT$]]></value>
+			<value xml:lang="jp"><![CDATA[NT$]]></value>
+			<value xml:lang="zh-TW"><![CDATA[NT$]]></value>
+		</item>		
+		<item name="PHP">
+			<value xml:lang="ko"><![CDATA[₱]]></value>
+			<value xml:lang="en"><![CDATA[₱]]></value>
+			<value xml:lang="jp"><![CDATA[₱]]></value>
+			<value xml:lang="zh-TW"><![CDATA[₱]]></value>
+		</item>
+	</item>
+</lang>

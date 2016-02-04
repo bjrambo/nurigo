@@ -1,0 +1,12 @@
+<load target="css/default.css" />
+<load target="./js/script.js" />
+
+<ul class="sub_menu">
+	<li cond="$selected_menu" class="title">{$selected_menu['text']}</li>
+	<li class="line"></li>
+	{@$count=0}
+	<li loop="$selected_menu['list']=>$key,$val" class="first_submenu on"|cond="$count==0 && $val['selected']" class="on"|cond="$count!=0 && $val['selected']" class="first_submenu"|cond="$count==0 && !$val['selected']">
+		<a href="{$val['href']}" target="_blank"|cond="$val['open_window']=='Y'">{$val['link']}</a>
+		{@$count++}
+	</li>
+</ul>

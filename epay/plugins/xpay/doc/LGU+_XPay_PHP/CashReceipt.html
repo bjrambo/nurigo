@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>LG유플러스 현금영수증 발급/취소 샘플 페이지</title>
+</head>
+<body>
+    <form method="post" id="LGD_PAYINFO" action="CashReceipt.php">
+    <div>
+        <table>	
+            <tr>
+                <td>상점아이디(t를 제외한 아이디) </td>
+                <td><input type="text" name="CST_MID" value=""/></td>
+            </tr>
+            <tr>
+                <td>서비스,테스트 </td>
+                <td><input type="text" name="CST_PLATFORM" value="test"/></td>
+            </tr>
+            <tr>
+                <td>주문번호(유니크) </td>
+                <td><input type="text" name="LGD_OID" value="1234567890"/></td>
+            </tr>
+            <tr>
+                <td>결제수단(계좌이체, 가상계좌, 무통장입금 단독) </td>
+                <td>
+                <select name="LGD_PAYTYPE" style="width:153px;">
+					<option value="SC0030">계좌이체</option>
+					<option value="SC0040">가상계좌</option>
+					<option value="SC0100">무통장입금 단독</option>
+				</select>
+                </td>
+            </tr>			
+            <tr>
+                <td>LG유플러스 거래번호 (무통장입금 단독건은 제외)</td>
+                <td><input type="text" name="LGD_TID" value=""/></td>
+            </tr>
+		    <tr>
+                <td>결제금액 </td>
+                <td><input type="text" name="LGD_AMOUNT" value="5000"/></td>
+            </tr>
+            <tr>
+                <td>발급번호</td>
+                <td><input type="text" name="LGD_CASHCARDNUM" value=""/></td>
+            </tr>
+            <tr>
+                <td>발급/취소 </td>
+                <td>
+                <select name="LGD_METHOD" style="width:153px;">
+					<option value="AUTH">발급</option>
+					<option value="CANCEL">취소</option>
+				</select>
+                </td>
+            </tr>
+            <tr>
+                <td>상점명</td>
+                <td><input type="text" name="LGD_CUSTOM_MERTNAME" value="이크레디트"/></td>
+            </tr>
+            <tr>
+                <td>사업자등록번호</td>
+                <td><input type="text" name="LGD_CUSTOM_BUSINESSNUM" value="2208643664"/></td>
+            </tr>
+            <tr>
+                <td>상점전화번호</td>
+                <td><input type="text" name="LGD_CUSTOM_MERTPHONE" value="07075508680 "/></td>
+            </tr>
+            <tr>
+                <td>현금영수증발급용도</td>
+                <td><input type="text" name="LGD_CASHRECEIPTUSE" value="1"/></td>
+            </tr>
+            <tr>
+                <td>상품명 (무통장입금 단독 발행건만 입력)</td>
+                <td><input type="text" name="LGD_PRODUCTINFO" value="테스트 상품"/></td>
+            </tr>
+			
+            <tr>
+                <td>
+                <input type="submit" value="현금영수증 발급/취소"/><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

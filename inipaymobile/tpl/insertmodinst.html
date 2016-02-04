@@ -1,0 +1,161 @@
+<include target="_header.html" />
+<form action="./" class="x_form-horizontal" method="post" ruleset="insertModInst" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procInipaymobileAdminInsertModInst" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="primary_key" value="{$module_info->module_srl}" />
+	<input type="hidden" name="delivery_info" value="{htmlspecialchars($module_info->delivery_info)}" />
+	<input type="hidden" name="use_mobile" id="use_mobile" value="Y" />
+
+	<section class="section">
+		<h1>{$lang->basic_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mid}</label>
+			<div class="x_controls">
+				<input type="text" name="mid" id="mid" value="{$module_info->mid}" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mid_help" class="x_help-block" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="module_category_srl">{$lang->module_category}</label>
+			<div class="x_controls">
+				<select name="module_category_srl" id="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl==$key">{$val->title}</option>
+				</select>
+				<a href="#module_category_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="module_category_srl_help" class="x_help-block" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="browser_title">{$lang->browser_title}</label>
+			<div class="x_controls">
+				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="lang_code" id="browser_title" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mlayout_srl">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->mlayout_srl== $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#mobile_layout_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_layout_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mskin">{$lang->mobile_skin}</label>
+			<div class="x_controls">
+				<select name="mskin" id="mskin">
+					<option loop="$mskin_list=> $key, $val" value="{$key}" selected="selected"|cond="$module_info->mskin== $key || (!$module_info->skin && $key=='default')">{$val->title}</option>
+				</select>
+				<a href="#mobile_skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>이니시스 계약정보</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="inicis_id">아이디</label>
+			<div class="x_controls">
+				<input type="text" name="inicis_id" id="inicis_id" value="{$module_info->inicis_id}" />
+				<a href="#inicis_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="inicis_id_help" class="x_help-block" hidden>상점아이디를 입력해 주세요. readme.txt파일의 Merchant ID 참조.</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>결제방식</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_creditcard">신용카드</label>
+			<div class="x_controls">
+				<select name="method_creditcard" id="method_creditcard">
+					<option value="Y" selected="selected"|cond="$module_info->method_creditcard=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_creditcard=='N'">사용안함</option>
+				</select>
+				<a href="#method_creditcard_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_creditcard_help" class="x_help-block" hidden>신용카드 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_directbank">계좌이체</label>
+			<div class="x_controls">
+				<select name="method_directbank" id="method_directbank">
+					<option value="Y" selected="selected"|cond="$module_info->method_directbank=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_directbank=='N'">사용안함</option>
+				</select>
+				<a href="#method_directbank_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_directbank_help" class="x_help-block" hidden>계좌이체 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="method_virtualaccount">가상계좌</label>
+			<div class="x_controls">
+				<select name="method_virtualaccount" id="method_virtualaccount">
+					<option value="Y" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용안함</option>
+				</select>
+				<a href="#method_virtualaccount_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_virtualaccount_help" class="x_help-block" hidden>가상계좌 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div cond="0" class="x_control-group">
+			<label class="x_control-label" for="method_mobilephone">휴대폰소액</label>
+			<div class="x_controls">
+				<select name="method_mobilephone" id="method_mobilephone">
+					<option value="Y" selected="selected"|cond="$module_info->method_mobilephone=='Y'">사용</option>
+					<option value="N" selected="selected"|cond="$module_info->method_mobilephone=='N'">사용안함</option>
+				</select>
+				<a href="#method_mobilephone_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="method_mobilephone_help" class="x_help-block" hidden>휴대폰소액결제 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>가이드</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_creditcard">신용카드</label>
+			<div class="x_controls">
+				<textarea name="guide_creditcard" id="guide_creditcard"><block cond="!$module_info->guide_creditcard">{$lang->default_guide_creditcard}</block><block cond="$module_info->guide_creditcard">{$module_info->guide_creditcard}</block></textarea>
+				<a href="#guide_creditcard_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_creditcard_help" class="x_help-block" hidden>신용카드 사용여부를 선택하세요. 이니
+시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_directbank">계좌이체</label>
+			<div class="x_controls">
+				<textarea name="guide_directbank" id="guide_directbank"><block cond="!$module_info->guide_directbank">{$lang->default_guide_directbank}</block><block cond="$module_info->guide_directbank">{$module_info->guide_directbank}</block></textarea>
+				<a href="#guide_directbank_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_directbank_help" class="x_help-block" hidden>계좌이체 사용여부를 선택하세요. 이니
+시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="guide_virtualaccount">가상계좌</label>
+			<div class="x_controls">
+				<textarea name="guide_virtualaccount" id="guide_virtualaccount"><block cond="!$module_info->guide_virtualaccount">{$lang->default_guide_virtualaccount}</block><block cond="$module_info->guide_virtualaccount">{$module_info->guide_virtualaccount}</block></textarea>
+				<a href="#guide_virtualaccount_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_virtualaccount_help" class="x_help-block" hidden>가상계좌 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+		<div cond="0" class="x_control-group">
+			<label class="x_control-label" for="guide_mobilephone">휴대폰소액</label>
+			<div class="x_controls">
+				<textarea name="guide_mobilephone" id="guide_mobilephone"><block cond="!$module_info->guide_mobilephone">{$lang->default_guide_mobilephone}</block><block cond="$module_info->guide_mobilephone">{$module_info->guide_mobilephone}</block></textarea>
+				<a href="#guide_mobilephone_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="guide_mobilephone_help" class="x_help-block" hidden>휴대폰소액결제 사용여부를 선택하세>요. 이니시스와 계약이 되어 있어야 합니다.</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" accesskey="s" />
+	</div>
+</form>

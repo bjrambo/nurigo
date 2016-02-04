@@ -1,0 +1,21 @@
+<filter name="insert_order" module="nstore" act="procNstoreInsertOrder">
+    <form>
+        <node target="cartnos" required="true" />
+        <node target="recipient" required="true" />
+        <node target="cellphone" required="true" />
+        <node target="address" required="true" />
+        <node target="address2" required="true" />
+    </form>
+    <parameter>
+        <param name="cartnos" target="cartnos" />
+        <param name="recipient" target="recipient" />
+        <param name="cellphone" target="cellphone" />
+        <param name="telnum" target="telnum" />
+        <param name="address" target="address" />
+        <param name="address2" target="address2" />
+    </parameter>
+    <response callback_func="completeInsertOrder">
+	<tag name="error" />
+	<tag name="message" />
+    </response>
+</filter>

@@ -1,0 +1,49 @@
+<load target="css/style.css" />
+<load target="css/recentaddress.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->cmd_select}</th>
+				<block loop="$fieldset_list=>$key,$val">
+				<th loop="$val->fields=>$key2,$field">{$field->column_title}</th>
+				</block>
+				<th>{$lang->cmd_delete}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr loop="$list=>$key,$val">
+				{@$vars=get_object_vars(unserialize($val->address))}
+				<td><a href="#" onclick="apply_address({$val->address_srl});">{$lang->cmd_select}</a>
+				<block loop="$fieldset_list=>$key2,$val2">
+				<td loop="$val2->fields=>$key3,$field"><span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span><span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}</span></td>
+				</block>
+				<td><a href="#" onclick="delete_address('{$val->address_srl}');">{$lang->cmd_delete}</a>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pageNavigation">
+	</div>
+</form>
+
+<script>
+	function apply_address(address_srl) {
+		parent.apply_address_info(address_srl);
+		parent.close_modal();
+	}
+
+	function delete_address(address_srl) {
+		var params = new Array();
+		params['address_srl'] = address_srl;
+		var response_tags =  ['error','message'];
+		exec_xml('ncart','procNcartDeleteAddress',params,function(ret_obj) {
+			if (ret_obj['error']==-1) alert(reb_obj['message']);
+			location.href = current_url;
+		},response_tags);
+	}
+</script>

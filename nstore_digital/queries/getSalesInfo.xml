@@ -1,0 +1,15 @@
+<query id="getSalesInfo" action="select">
+	<tables>
+		<table name="nstore_digital_order" />
+	</tables>
+	<columns>
+		<column name="COUNT(total_price)" alias="count" />
+		<column name="SUM(total_price)" alias="amount" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" />
+		<condition operation="in" column="order_status" default="'3'" pipe="and" />
+		<condition operation="like_prefix" column="regdate" var="regdate" pipe="and" />
+	</conditions>
+</query>
+

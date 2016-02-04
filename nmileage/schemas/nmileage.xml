@@ -1,0 +1,5 @@
+<table name="nmileage">
+	<column name="member_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="mileage" type="number" size="11" notnull="notnull" default="0" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+</table>

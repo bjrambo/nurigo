@@ -1,0 +1,13 @@
+<query id="getReviewParentNextSibling" action="select">
+    <tables>
+        <table name="store_review_list" />
+    </tables>
+    <columns>
+        <column name="min(store_review_list.arrange)" alias="arrange" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="store_review_list.head" var="head" filter="number" notnull="notnull" />
+        <condition operation="excess" column="store_review_list.arrange" var="arrange" filter="number" notnull="notnull" pipe="and" />
+        <condition operation="less" column="store_review_list.depth" var="depth" filter="number" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

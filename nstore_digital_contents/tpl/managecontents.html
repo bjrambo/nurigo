@@ -1,0 +1,158 @@
+<!--%load_js_plugin("ui")-->
+<load target="css/style.css" />
+<load target="js/managecontents.js" />
+
+
+<style type="text/css"> 
+	table.player-container {
+		border-collapse:collapse;
+	}
+		
+	table#player-container, table#player-container td {
+		border:0px solid red;
+		padding:0;margin:0;
+	}
+</style>
+
+<include target="_header.html" />
+
+<h2><img src="{$item_info->getThumbnail()}" />{$item_info->item_name}</h2>
+
+<a href="#periodForm" onClick="del_cookie()" class="modalAnchor _add"><span class="btn">만기일 및 연장시 가격 설정</span></a>
+
+<div>
+    <h2>현재 만기일</h2>
+
+	<div cond="$config->period && $config->period_type">
+		{$config->period}
+
+		<span cond="$config->period_type=='d'">일</span>
+		<span cond="$config->period_type=='m'">개월</span>
+		<span cond="$config->period_type=='y'">년</span>
+	</div>
+
+	<h2 cond="$extra_vars['period_price']">연장시 가격</h2>
+
+	<div cond="$extra_vars['period_price']">
+		{$extra_vars['period_price']}
+	</div>
+
+</div>
+
+<div>
+	<div class="table even">
+		<table>
+			<thead>
+				<tr>
+					<th>Move</th>
+					<th>다운로드 파일</th>
+					<th></th>
+					<th>{$lang->regdate}</th>
+				</tr>
+			</thead>
+			<tbody id="itemlistorder">
+				<tr loop="$content_list=>$key,$val" id="record_{$val->file_srl}">
+					<td><span class="iconMoveTo"></span></td>
+					<td>
+						<p cond="$val->download_file" id="file_{$val->file_srl}">
+							<a href="{$val->download_file->download_url}">{$val->download_file->source_filename}</a>
+							({FileHandler::filesize($val->download_file->file_size)})
+						</p>
+					</td>
+					<td>
+						<a href="#" class="delete" onclick="delete_content({$val->file_srl}); return false;">삭제</a>
+						<a href="#editForm" onClick="del_cookie()" id="record_{$val->file_srl}" class="modify modalAnchor _edit">수정</a>
+					</td>
+					<td> {zdate($val->regdate)}</td>
+				</tr>
+				<tr cond="!count($content_list)">
+					<td colspan="4">{$lang->msg_no_contents_uploaded}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+        <p class="btnArea">
+                <a href="#editForm" onClick="del_cookie()" class="modalAnchor _add"><span class="btn">추가</span></a>
+                <a href="{getUrl('act','dispNstore_digital_contentsAdminItemList')}"><span class="btn">돌아가기</span></a>
+        </p>
+</div>
+
+<form id="editForm" class="x_modal" method="post" action="./" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digital_contentsAdminInsertContent" />
+	<input type="hidden" name="module_srl" value="{$item_info->module_srl}" />
+	<input type="hidden" name="file_srl" value="{$file_srl}" />
+	<input type="hidden" name="item_srl" value="{$item_srl}" />
+	<div class="x_modal-header">
+		<h1>콘텐츠</h1>
+	</div>
+	<div class="x_modal-body">
+		<div class="x_form-horizontal" style="width:800px;">
+			<div class="x_control-group">
+			<p id="abcd"></p>
+				<p cond="$download_file"><a href="{$download_file->download_url}">{$download_file->source_filename}</a> ({FileHandler::filesize($download_file->file_size)})</p>
+
+				<label class="x_control-label">콘텐츠파일</label>
+				<div class="x_controls">
+					<input type="file" name="contents_file" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">저장</button>
+	</div>
+</form>
+
+
+<form id="periodForm" class="x_modal" method="post" action="./">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digital_contentsAdminInsertConfig" />
+	<input type="hidden" name="module_srl" value="{$content_info->module_srl}" />
+	<input type="hidden" name="item_srl" value="{$item_srl}" />
+
+	<div class="x_modal-header">
+		<h1>민기일 및 연장시 가격 설정</h1>
+	</div>
+	<div class="x_modal-body">
+		<div class="x_form-horizontal" style="width:800px;">
+			<div class="x_control-group">
+				<div id="div_period" class="div_select">
+					<input type="text" id="expire_period" name="expire_period" class="inputTypeText w40 tRight" value="{$config->period}" />
+					<select name="period_select" class="group_srl">
+						<option value="d" selected="selected"|cond="$config->period_type=='d'">일</option>
+						<option value="m" selected="selected"|cond="$config->period_type=='m'">개월</option>
+						<option value="y" selected="selected"|cond="$config->period_type=='y'">년</option>
+					</select>
+					<p class="clear">지정된 기간동안 다운로드를 허가합니다.</p>
+				</div>
+			</div>
+			<div class="x_control-group">
+				<div id="div_price" class="div_select">
+					<input type="text" id="period_price" name="period_price" class="inputTypeText w40 tRight" value="{$extra_vars['period_price']}" />원
+					<p class="clear">콘텐츠 다운로드 기간 연장시 가격을 설정합니다.(미설정시 원래 상품가격이 그대로 들어갑니다.)</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<input type="submit" class="x_btn x_btn-inverse" value="저장">
+	</div>
+</form>
+
+<div id="dialog-modal" title="dialog"></div>
+
+<script>
+jQuery(document).ready(function() {
+	jQuery("#itemlistorder").sortable({ handle:'.iconMoveTo', opacity: 0.6, cursor: 'move',
+		update: function(event,tbody) {
+			var order = jQuery(this).sortable("serialize");
+			var params = new Array();
+			params['order'] = order;
+			var response_tags = new Array('error','message');
+			exec_xml('elearning', 'procNstore_digital_contentsAdminUpdateContentListOrder', params, function(ret_obj) { }, response_tags);
+		}
+	});
+});
+</script>

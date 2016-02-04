@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+/* cartitems css */
+.cartStep .progress.step1 { background:url(../img/progress_step1.png) no-repeat 20px; }
+
+#cartitems .cartList_text { margin:20px 0 10px 0; float:right;}
+#cartitems .cartList_text p { margin:0; padding:0 0 0 10px; height:16px; font-size:11px; color:#666; background:url(../img/cartArrow.gif) no-repeat 3px 5px;}
+
+#cartitems .command { clear:both; margin-top:20px; text-align:left; }
+
+
+#cartitems .item-table tr td input.quantity {  height:12px; margin:0 5px; padding:2px 0 2px 1px; width:40px; font-weight:bold; color:#333; border:1px solid #ededed;}
+#cartitems .item-table tr td .item_name { padding:20px; text-align:left !important;}
+#cartitems .item-table tr td .item_name a { text-decoration:none; }
+#cartitems .item-table tr td .item_name a:hover { text-decoration:underline; }
+
+
+#cartitems .item-table tr td .num_input { position:relative; float:left; margin:0 5px; }
+#cartitems .item-table .num_input .iconUp { position:absolute; left:30px; top:0; width:17px; height:10px; background:url(../img/icon_up.gif) no-repeat; cursor:pointer;}
+#cartitems .item-table .num_input .iconDown { position:absolute; left:30px; top:8px; width:17px; height:10px; background:url(../img/icon_down.gif) no-repeat; cursor:pointer;}
+
+

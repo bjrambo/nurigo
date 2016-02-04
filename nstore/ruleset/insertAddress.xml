@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+		<field name="title" required="true" />
+		<field name="recipient" required="true" />
+		<field name="cellphone" required="true" />
+		<field name="telnum" required="true" />
+		<field name="address" required="true" />
+    </fields>
+</ruleset>

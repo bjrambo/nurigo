@@ -1,0 +1,70 @@
+<load target="css/popup.css" />
+<load target="css/btn.css" />
+<load target="lang" />
+
+{@$button_title=$lang->finish_order}
+<block cond="$module_info->button_title">{@$button_title=$module_info->button_title}</block>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div id="container">
+	<h1>{$lang->payment_transaction}</h1>
+
+	<form method="post" ruleset="requestPayment">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="act" value="procCashpayDoIt" />
+		<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+		<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+		<input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+		<input type="hidden" name="price" value="{$price}" />
+
+		<input type="hidden" name="select_account" value="{$select_account}" />
+		<table class="popTable">
+			<caption>{$lang->product_info}</caption>
+			<tr>
+				<th class="orangeTop">{$lang->product_title}</th>
+				<td class="orangeTop">{$item_name}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">{$lang->amount_to_pay}</th>
+				<td class="orangeBottom">{number_format($price, $module_info->decimals)}</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>{$lang->account_info}</caption>
+			<tr>
+				<th class="orangeTop">{$lang->bank_name}</th>
+				<td class="orangeTop">{$account_info->bank_name}</td>
+			</tr>
+			<tr>
+				<th>{$lang->account_number}</th>
+				<td>{$account_info->account_number}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">{$lang->holder_name}</th>
+				<td class="orangeBottom">{$account_info->account_holder}</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>{$lang->payer_name}</caption>
+			<tr>
+				<th class="orangeBottom">{$lang->payer_name}</th>
+				<td class="orangeBottom">
+					<input type="text" id="depositor_name" name="depositor_name" class="input01 size03" />
+					<p class="exTxt">{$module_info->guide_text}</p>
+				</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<div id="btnSec">
+			<div>
+				<button type="submit" class="nuribtn super">{$button_title}</button>
+			</div>
+		</div><!-- #btnSec// -->
+	</form>
+</div>

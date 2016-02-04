@@ -1,0 +1,16 @@
+
+<h2>{$lang->confirm_purchase}</h2>
+<p>
+선택 후 확인을 클릭하시면 해당 에스크로 기관의 구매확인 절차를 진행합니다.
+</p>
+<form action="./">
+	<input type="hidden" name="module" value="nstore" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+	<input type="radio" name="deny_order" id="deny_order_1" value="N" checked="checked" /><label for="deny_order_1">{$lang->proceed_corfirm}</label>
+	<input type="radio" name="deny_order" id="deny_order_2" value="Y" /><label for="deny_order_2">{$lang->proceed_reject}</label>
+	<div class="btnArea">
+		<input type="submit" value="{$lang->cmd_confirm}" />
+	</div>
+</form>

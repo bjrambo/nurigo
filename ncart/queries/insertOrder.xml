@@ -1,0 +1,28 @@
+<query id="insertOrder" action="insert">
+	<tables>
+		<table name="ncart_order" />
+	</tables>
+	<columns>
+		<column name="order_srl" var="order_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="member_srl" var="member_srl" />
+		<column name="cartnos" var="cartnos" />
+		<column name="payment_method" var="payment_method" notnull="notnull" />
+		<column name="mileage" var="mileage" />
+		<column name="use_mileage" var="use_mileage" />
+		<column name="title" var="title" />
+		<column name="item_count" var="item_count" notnull="notnull" />
+		<column name="total_price" var="total_price" notnull="notnull" />
+		<column name="sum_price" var="sum_price" notnull="notnull" />
+		<column name="delivery_fee" var="delivery_fee" notnull="notnull" />
+		<column name="total_discounted_price" var="total_discounted_price" notnull="notnull" />
+		<column name="total_discount_amount" var="total_discount_amount" notnull="notnull" />
+		<column name="taxation_amount" var="taxation_amount" notnull="notnull" />
+		<column name="supply_amount" var="supply_amount" notnull="notnull" />
+		<column name="taxfree_amount" var="taxfree_amount" notnull="notnull" />
+		<column name="vat" var="vat" notnull="notnull" />
+		<column name="delivfee_inadvance" var="delivfee_inadvance" default="Y" />
+		<column name="extra_vars" var="extra_vars" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

@@ -1,0 +1,15 @@
+<query id="updateOrderStatus" action="update">
+	<tables>
+		<table name="ncart_order" />
+	</tables>
+	<columns>
+		<column name="order_status" var="order_status" />
+		<column name="express_id" var="express_id" />
+		<column name="invoice_no" var="invoice_no" />
+		<column name="mileage_save" var="mileage_save" />
+		<column name="payment_method" var="payment_method" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="order_srl" var="order_srl" notnull="notnull" />
+	</conditions>
+</query>

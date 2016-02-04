@@ -1,0 +1,93 @@
+<load target="css/style.css" />
+<load target="css/button.css" />
+
+<h2 class="page-title">{$lang->cmd_download}</h2>
+
+<div id="orderlist">
+
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->purchase_date}</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->amount}</th>
+				<th>{$lang->order_status}</th>
+				<th>{$lang->cmd_download}</th>
+				<th>{$lang->site_url}</th>
+				<th>{$lang->certificate}</th>
+				<th>만기일</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<block loop="$order_list=>$order_srl,$order_arr">
+			<tr loop="$order_arr=>$no,$val" style="background:#fafafa;"|cond="count($order_arr)>1">
+				<td cond="$no==0" rowspan="{count($order_arr)}">
+					<div>{zdate($val->purdate,'Y-m-d')}</div>
+					<div>(<a href="{getUrl('act','dispNstore_digitalDetail','order_srl',$val->order_srl)}">{$val->order_srl}</a>)</div>
+				</td>
+				<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a></td>
+				<td><span>{$val->item_name}</span></td>
+				<td>{number_format($val->quantity)}</td>
+				<td>{$val->formatMoney($val->quantity * $val->discounted_price)}</td>
+				<td class="ko_text">
+					<div class="ko_text red">{$order_status[$val->order_status]}</div>
+					<a cond="$val->order_status=='3'" href="#" class="receipt kso_btn" data-order-srl="{$val->order_srl}" onclick="return false;"><span>{$lang->receipt}</span></a>
+				</td>
+				<td>
+					<p cond="$val->download_file">
+						<a href="{getUrl('','mid',$mid,'act','procNstore_digitalFileDownload','cart_srl',$val->cart_srl)}" role="button">{$val->download_file->source_filename}</a>
+					</p>
+					<p cond="$val->content_list" loop="$val->content_list=>$k,$v">
+						<a href="{getUrl('','mid',$mid,'act','procNstore_digitalFileDownload','cart_srl',$val->cart_srl, 'file_srl', $v->file_srl)}" role="button">{$v->download_file->source_filename}</a>
+					</p>
+				</td>
+				<td>{nl2br($val->site_url)}</td>
+				<td><a href="{getUrl('act','dispNstore_digitalCertificate','cart_srl',$val->cart_srl)}" role="button">Certificate Download</a></td>
+				<td>
+					<div>
+						<span cond="$val->period && !$val->exceed_date">
+							{zdate($val->period,'Y-m-d')} <br />
+						</span>
+						<span cond="$val->exceed_date" style="color:red"> 
+							만료됨 <br />
+						</span>
+						<span cond="!$val->period">-</span>
+						<span cond="$val->period_config == 'Y' && $val->period">
+							<a href="{getUrl('act','dispNstore_digitalPeriodPayment', 'item_srl', $val->item_srl, 'cart_srl', $val->cart_srl)}" class="btn">연장하기</a>
+						</span>
+					</div>
+				</td>
+
+				{@$total_price+=$val->discounted_price}
+			</tr>
+			</block>
+			<tr cond="!count($order_list)">
+				<td colspan="7">{$lang->msg_no_orders}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+<script>
+jQuery(function($) {
+	$('.receipt').click(function() {
+		var order_srl = $(this).attr('data-order-srl');
+		var $_this = $(this);
+		exec_xml(
+			'epay',
+			'getEpayReceipt',
+			{order_srl:order_srl},
+			function(ret){
+				var tpl = ret.tpl.replace(/<enter>/g, '\n');
+				$_this.html(tpl);
+			},
+			['error','message','tpl']
+		);
+		
+	});
+});
+</script>

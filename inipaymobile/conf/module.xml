@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+		<permission action="procInipaymobile" target="guest" />
+	</permissions>
+	<actions>
+		<action name="dispInipaymobileAdminModInstList" type="view" admin_index="true" />
+		<action name="dispInipaymobileAdminInsertModInst" type="view" />
+		<action name="dispInipaymobileAdminMobileSkinInfo" type="view" />
+
+		<action name="procInipaymobileAdminInsertModInst" type="controller" />
+
+		<action name="dispInipaymobileForm" type="view" />
+		<action name="procInipaymobile" type="controller" method="GET|POST" index="true" />
+	</actions>
+</module>

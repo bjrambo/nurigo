@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="payment_transaction">
+		<value xml:lang="ko"><![CDATA[법인계좌 입금]]></value>
+		<value xml:lang="en"><![CDATA[Payment Transaction]]></value>
+		<value xml:lang="zh-TW"><![CDATA[轉帳銀行資料]]></value>
+	</item>
+	<item name="dedicated_account">
+		<value xml:lang="ko"><![CDATA[전용계좌]]></value>
+		<value xml:lang="en"><![CDATA[Dedicated account]]></value>
+		<value xml:lang="zh-TW"><![CDATA[專用帳戶]]></value>
+	</item>
+	<item name="account_list">
+		<value xml:lang="ko"><![CDATA[계좌목록]]></value>
+		<value xml:lang="en"><![CDATA[Account list]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳戶清單]]></value>
+	</item>
+	<item name="account_registration">
+		<value xml:lang="ko"><![CDATA[계좌등록]]></value>
+		<value xml:lang="en"><![CDATA[Account registration]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳戶註冊]]></value>
+	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본설정]]></value>
+		<value xml:lang="en"><![CDATA[General Settings]]></value>
+		<value xml:lang="jp"><![CDATA[基本設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[基本設定]]></value>				
+	</item>
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面列示]]></value>		
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面產生]]></value>		
+	</item>
+	<item name="page_management">
+		<value xml:lang="ko"><![CDATA[페이지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Page management]]></value>
+		<value xml:lang="jp"><![CDATA[ページ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面管理]]></value>		
+	</item>
+	<item name="page_configuration">
+		<value xml:lang="ko"><![CDATA[페이지설정]]></value>
+		<value xml:lang="en"><![CDATA[Page setting]]></value>
+		<value xml:lang="jp"><![CDATA[ページ設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面設定]]></value>	
+	</item>
+	<item name="skin_settings">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>	
+	</item>
+	<item name="bank">
+		<value xml:lang="ko"><![CDATA[은행]]></value>
+		<value xml:lang="en"><![CDATA[Bank]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行]]></value>
+	</item>
+	<item name="kb_bank">
+		<value xml:lang="ko"><![CDATA[국민은행]]></value>
+		<value xml:lang="en"><![CDATA[KB Kookmin]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商業銀行]]></value>
+	</item>
+	<item name="account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호]]></value>
+		<value xml:lang="en"><![CDATA[Account numbers]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行帳號]]></value>
+	</item>
+	<item name="depositor_name">
+		<value xml:lang="ko"><![CDATA[입금자명]]></value>
+		<value xml:lang="en"><![CDATA[Account holder]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳號戶名]]></value>
+	</item>
+	<item name="basic_settings">
+		<value xml:lang="ko"><![CDATA[기본설정]]></value>
+		<value xml:lang="en"><![CDATA[Basic settings]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行匯款資料]]></value>
+	</item>
+	<item name="account_title">
+		<value xml:lang="ko"><![CDATA[계좌이름]]></value>
+		<value xml:lang="en"><![CDATA[Account title]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳戶名稱]]></value>
+	</item>
+	<item name="bank_name">
+		<value xml:lang="ko"><![CDATA[은행명]]></value>
+		<value xml:lang="en"><![CDATA[Bank name]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行名稱]]></value>
+	</item>
+	<item name="account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호]]></value>
+		<value xml:lang="en"><![CDATA[Account number]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行帳號]]></value>
+	</item>
+	<item name="account_holder">
+		<value xml:lang="ko"><![CDATA[예금주]]></value>
+		<value xml:lang="en"><![CDATA[Account number]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銀行帳號]]></value>
+	</item>
+	<item name="option_settings">
+		<value xml:lang="ko"><![CDATA[옵션설정]]></value>
+		<value xml:lang="en"><![CDATA[Options]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選項設置]]></value>
+	</item>
+	<item name="payment_description">
+		<value xml:lang="ko"><![CDATA[결제수단 설명]]></value>
+		<value xml:lang="en"><![CDATA[Payment description]]></value>
+		<value xml:lang="zh-TW"><![CDATA[支付說明]]></value>
+	</item>
+	<item name="guide_text">
+		<value xml:lang="ko"><![CDATA[안내문구]]></value>
+		<value xml:lang="en"><![CDATA[Guide text]]></value>
+		<value xml:lang="zh-TW"><![CDATA[信息句話]]></value>
+	</item>
+	<item name="button_title">
+		<value xml:lang="ko"><![CDATA[버튼타이틀]]></value>
+		<value xml:lang="en"><![CDATA[Button title]]></value>
+		<value xml:lang="zh-TW"><![CDATA[按鈕標題]]></value>
+	</item>
+	<item name="login_required">
+		<value xml:lang="ko"><![CDATA[로그인 여부]]></value>
+		<value xml:lang="en"><![CDATA[Login required]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄狀態]]></value>
+	</item>
+	<item name="login_not_required">
+		<value xml:lang="ko"><![CDATA[로그인 하지 않아도 결제 가능]]></value>
+		<value xml:lang="en"><![CDATA[Not required to log in]]></value>
+		<value xml:lang="zh-TW"><![CDATA[無需登錄可付款]]></value>
+	</item>
+	<item name="payment_after_login">
+		<value xml:lang="ko"><![CDATA[로그인 후 결제 가능]]></value>
+		<value xml:lang="en"><![CDATA[Required to log in]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄付款]]></value>
+	</item>
+
+	<item name="msg_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 사용하실 수 있습니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄後可以使用]]></value>
+	</item>
+	<item name="msg_regist_count">
+		<value xml:lang="ko"><![CDATA[%u개 등록완료.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[%u登錄完成.]]></value>
+	</item>
+	<item name="msg_already_registered">
+		<value xml:lang="ko"><![CDATA[이미 발급된 계좌가 있습니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[有已登錄的賬戶]]></value>
+	</item>
+	<item name="msg_not_enough_accounts">
+		<value xml:lang="ko"><![CDATA[할당 가능한 가상계좌가 남아있지 않습니다. 관리자에게 문의하세요.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[可分配的第三方支付帳戶不存在。請與管理員聯繫!]]></value>
+	</item>
+	<item name="msg_getting_product_info_failed">
+		<value xml:lang="ko"><![CDATA[상품정보를 읽어오는데 실패했습니다. 관리자에 문의하세요.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[讀取的產品信息失敗。請與管理員聯繫!]]></value>
+	</item>
+	<item name="msg_failed_to_update_balance">
+		<value xml:lang="ko"><![CDATA[잔액정보 업데이트 실패!]]></value>
+		<value xml:lang="zh-TW"><![CDATA[餘額信息更新失敗！]]></value>
+	</item>
+	<item name="success_issued">
+		<value xml:lang="ko"><![CDATA[발급되었습니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[已發行]]></value>
+	</item>
+
+	<item name="cmd_print">
+		<value xml:lang="ko"><![CDATA[출력.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收據]]></value>
+	</item>
+
+	<item name="about_bank">
+		<value xml:lang="ko"><![CDATA[현재는 국민은행만 지원합니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[目前只支援玉山銀行]]></value>
+	</item>
+	<item name="about_van_list">
+		<value xml:lang="ko"><![CDATA[줄 단위로 계좌번호를 입력하세요.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[按行請輸入您的銀行帳號相關資料]]></value>
+	</item>
+	<item name="about_account_title">
+		<value xml:lang="ko"><![CDATA[미입력시 "무통장입금"으로 표시됩니다]]></value>
+		<value xml:lang="zh-TW"><![CDATA[如果留空白，將顯示為“銀行轉賬”。]]></value>
+	</item>
+	<item name="about_bank_name">
+		<value xml:lang="ko"><![CDATA[은행명을 입력하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入銀行名稱]]></value>
+	</item>
+	<item name="about_account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호를 입력하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入您的銀行帳號]]></value>
+	</item>
+	<item name="about_account_holder">
+		<value xml:lang="ko"><![CDATA[예금주를 입력하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[帳號戶名]]></value>
+	</item>
+	<item name="about_payment_description">
+		<value xml:lang="ko"><![CDATA[결제수단 설명문구를 입력하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[輸入付款說明]]></value>
+	</item>
+	<item name="about_guide_text">
+		<value xml:lang="ko"><![CDATA[안내될 문구를 입력하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[請輸入一個詞組方便引導]]></value>
+	</item>
+	<item name="about_button_title">
+		<value xml:lang="ko"><![CDATA[미입력시 "주문완료하기"로 표시됩니다.]]></value>
+		<value xml:lang="zh-TW"><![CDATA[如果留空白，顯示“訂單完成”。]]></value>
+	</item>
+	<item name="about_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 결제가능여부를 선택하세요]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄後，選擇付款方式。]]></value>
+	</item>
+</lang>

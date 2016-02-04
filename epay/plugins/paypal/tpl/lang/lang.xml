@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="do_payment">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+	</item>
+	<item name="amount_to_pay">
+		<value xml:lang="ko"><![CDATA[결제금액]]></value>
+		<value xml:lang="en"><![CDATA[Amount to pay]]></value>
+	</item>
+</lang>

@@ -1,0 +1,14 @@
+<form action="" class="search x_input-append center" no-error-return-url="true">
+	<input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act', 'page'))" type="hidden" name="{$key}" value="{$val}" />
+	<select cond="count($module_category)" name="module_category_srl" title="{$lang->module_category}" style="margin-right:4px">
+		<option value="0" selected="selected"|cond="$module_category_srl==='0'">{$lang->not_exists}</option>
+		<option value="{$key}" loop="$module_category => $key,$val"  selected="selected"|cond="$module_category==$key">{$val->title}</option>
+	</select>
+	<select name="search_target" title="{$lang->search_target}" style="margin-right:4px">
+		<option value="mid" selected="selected"|cond="$search_target=='mid'">{$lang->mid}</option>
+		<option value="browser_title" selected="selected"|cond="$search_target=='browser_title'">{$lang->browser_title}</option>
+	</select>
+	<input type="search" required name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_search}</button>
+	<a class="x_btn" href="{getUrl('', 'module', $module, 'act', $act)}">{$lang->cmd_cancel}</a>
+</form>

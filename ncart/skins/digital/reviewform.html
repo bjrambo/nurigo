@@ -1,0 +1,71 @@
+<load target="css/reviewform.css" />
+<div class="cartStep">
+	<ul class="progress">
+		<li class="cart1"><span class="cart_num">01</span>{$lang->cmd_cart}</li>
+		<li class="cart2"><span class="cart_num">02</span>주문</li>
+		<li class="cart3 presentProgress"><span class="cart_num">03</span>결제</li>
+		<li class="cart4"><span class="cart_num">04</span>{$lang->order_complete}</li>
+	</ul>
+</div>
+
+<div class="item_wrap">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->sales_price}</th>
+				<th>{$lang->total_discount}</th>
+				<th>{$lang->discounted_amount}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr loop="$cart_info->item_list=>$no,$val">
+				<td>{$no+1}</td>
+				<td>
+					<a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($ncart_module_info->thumbnail_width,$ncart_module_info->thumbnail_height,$ncart_module_info->thumbnail_type)}" /></a>
+				</td>
+				<td>
+					<div>{$val->item_name}</div>
+					<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+				</td>
+				<td>{$val->quantity}</td>
+				<td>{nproductItem::formatMoney($val->sum_price)}</td>
+				<td>{nproductItem::formatMoney($val->sum_discount_amount)}<br />{$val->discount_info}</td>
+				<td>{nproductItem::formatMoney($val->sum_discounted_price)}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="total">
+	<table class="total-table">
+		<thead>
+			<tr>
+				<th>{$lang->total_amount}</th>
+				<th></th>
+				<th>{$lang->total_discount}</th>
+				<th></th>
+				<block cond="$ncart_module_info->display_delivfee=='Y' || $cart_info->delivery_fee">
+				<th>{$lang->delivery_fee}</th>
+				<th></th>
+				</block>
+				<th class="total_price">{$lang->total_order_amount}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{nproductItem::formatMoney($cart_info->sum_price)}</td>
+				<td>-</td>
+				<td>{nproductItem::formatMoney($cart_info->total_discount_amount)}</td>
+				<block cond="$ncart_module_info->display_delivfee=='Y' || $cart_info->delivery_fee">
+				<td>+</td>
+				<td><span id="delivery_fee">{nproductItem::formatMoney($cart_info->delivery_fee)}</span></td>
+				</block>
+				<td>=</td>
+				<td class="total_price" id="order_amount">{nproductItem::formatMoney($cart_info->total_price)}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

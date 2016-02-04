@@ -1,0 +1,76 @@
+<load target="css/style.css" />
+<load cond="$module_info->service_mode == 'test'" target="http://pay.kcp.co.kr/plugin/payplus_test_un.js" />
+<load cond="$module_info->service_mode != 'test'" target="http://pay.kcp.co.kr/plugin/payplus_un.js" />
+<load target="../../tpl/js/script.js" />
+<load target="../../tpl/js/payplus.js" type="body" />
+
+<block cond="$review_form">
+{$review_form}
+</block>
+<block cond="!$review_form">
+	<ul>
+		<li>Item Name : {$item_name}</li>
+		<li>Price : {$price}</li>
+	</ul>
+</block>
+
+<form id="fo_payplus" name="fo_payplus" class="fo_payment" method="post" action="./">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procKcpDoIt" />
+	<input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+	<!-- 150x50 미만의 gif/jpeg 파일 -->
+	<input type="hidden" name="site_logo" value="{getFullUrl('')}{$module_info->site_logo}" />
+
+	<!-- settings by user -->
+	<input type="hidden" name="pay_method" value="{$payment_method}" />
+	<input type="hidden" name="buyr_name" value="{$purchaser_name}" />
+	<input type="hidden" name="buyr_mail" value="{$purchaser_email}" />
+	<input type="hidden" name="buyr_tel1" value="{$purchaser_cellphone}" />
+	<input type="hidden" name="buyr_tel2" value="{$buyr_telnum}" />
+	<input type="hidden" name="skin_indx" value='6'>
+
+
+	<!-- review order -->
+<input type="hidden" name="req_tx" value="pay" />
+<input type="hidden" name="site_name" value="{$module_info->site_name}" />
+<input type="hidden" name="site_cd" value="{$module_info->site_cd}" />
+<input type="hidden" name="site_key" value="{$module_info->site_key}" />
+<input type="hidden" name="ordr_idxx" value="{$order_srl}" />
+<input type="hidden" name="good_mny" value="{$price}" />
+<input type="hidden" name="quotaopt" value="{$module_info->quotaopt}"|cond="$module_info->quotaopt" value="12"|cond="!$module_info->quotaopt" />
+<input type="hidden" name="module_type" value="01" />
+<input type="hidden" name="currency" value="WON" />
+<input type="hidden" name="save_ocb" value="Y" />
+<input type="hidden" name="kcp_noint" value="" />
+<input type="hidden" name="kcp_noint_quota" value="" />
+<input type="hidden" name="wish_vbank_list" value="05:03:04:07:11:23:26:32:34:81:71" />
+<input type="hidden" name="vcnt_expire_term" value="3" />
+<input type="hidden" name="epnt_issu" value="" />
+<input type="hidden" name="res_cd" value="" />
+<input type="hidden" name="res_msg" value="" />
+<input type="hidden" name="tno" value="" />
+<input type="hidden" name="trace_no" value="" />
+<input type="hidden" name="enc_info" value="" />
+<input type="hidden" name="enc_data" value="" />
+<input type="hidden" name="ret_pay_method" value="" />
+<input type="hidden" name="tran_cd" value="" />
+<input type="hidden" name="bank_name" value="" />
+<input type="hidden" name="bank_issu" value="" />
+<input cond="$module_info->not_used_card" type="hidden" name="not_used_card" value="{$module_info->not_used_card}" />
+<input type="hidden" name="use_pay_method" value="" />
+<input type="hidden" name="result_link" value="{$result_page}" />
+<input type="hidden" name="good_name" value="{$item_name}" />
+<input type="hidden" name="good_expr" value="0" />
+
+	<div cond="$module_info->guide_review" class="guide_review">
+		{$module_info->guide_review}
+	</div>
+	<div class="btn_payment" id="display_pay_button">
+		<button class="btn" onclick="payplus_pay(); return false;">결제하기</button>
+	</div>
+</form>

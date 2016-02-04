@@ -1,0 +1,16 @@
+<query id="getAddressList" action="select">
+	<tables>
+		<table name="ncart_address" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="opt" var="opt" pipe="and" />
+		<condition operation="equal" column="default" var="default" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="sort_order" />
+	</navigation>
+</query>

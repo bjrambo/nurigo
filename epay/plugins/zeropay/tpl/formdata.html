@@ -1,0 +1,36 @@
+<load target="js/script.js" />
+<load target="filter/submit_zeropay_review.xml" />
+<load target="filter/submit_zeropay_payment.xml" />
+
+<form id="fo_cash" class="fo_payment" method="post" action="./" onsubmit="zeropay_payment('{$join_form}'); return false;"|cond="$is_logged || $plugin_info->login_required != 'Y'" onsubmit="alert('{$lang->msg_login_required}'); return false;"|cond="!$is_logged && $plugin_info->login_required == 'Y'">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+        <input type="hidden" name="epay_order_title" value="{$order_title}" />
+        <input type="hidden" name="module" value="epay" />
+        <input type="hidden" name="act" value="dispEpayExtra1" />
+        <input type="hidden" id="depositor_name" name="depositor_name" value="" />
+
+	<div id="cashExtendForm">
+	</div>
+        {$form_data}
+
+	<div class="choice_box">
+		<input name="payment_method" id="payment_method_6" type="radio" value="BT" checked="checked" /><label for="payment_method_6">{$plugin_info->account_title}</label>
+	</div>
+
+	<div class="btn_payment">
+    	<span><input type="submit" value="결제하기" class="nuribtn magenta super" /></span>
+    </div>
+	
+	<div class="payment_info">
+		<p>
+		<span>{$plugin_info->bank_name}</span>
+		<span>{$plugin_info->account_number}</span>
+		<span>{$plugin_info->account_holder}</span>
+		</p>
+	</div>
+
+
+</form>

@@ -1,0 +1,108 @@
+<load target="css/style.css" />
+<load target="css/cartitems.css" />
+<load target="css/btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/cartitems.js" />
+<include target="header.html" />
+
+<div id="cartitems" class="{$module_info->colorset}">
+	<div class="cartStep">
+		<ul class="progress step1">
+			<li class="cart1 presentProgress">{$lang->cmd_cart}</li>
+			<li class="cart2">{$lang->title_order_payment}</li>
+			<li class="cart3">{$lang->order_complete}</li>
+		</ul>
+	</div>
+
+	<include target="_header.html" />
+
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th><input type="checkbox" value="{$val->cart_srl}" onclick="XE.checkboxToggleAll('cart',{doClick:true}); return false;" /></th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->sales_price}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->discount}</th>
+				<th>{$lang->sum}</th>
+				<th>{$lang->order}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr cond="count($list)" loop="$list=>$no,$val">
+				{@$item_sum = $val->price * $val->quantity}
+				<td><input type="checkbox" name="cart" value="{$val->cart_srl}" checked="checked" /></td>
+				<td>
+					<a class="product_img" href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($config->cart_thumbnail_width,$module_info->cart_thumbnail_height,$module_info->cart_thumbnail_type)}" /></a>
+				</td>
+				<td>
+					<div>
+						<div class="item_name"><a href="{getUrl('act','dispNstoreItemDetail','item_srl',$val->item_srl)}">{$val->item_name}</a></div>
+						<div class="item_option" cond="$val->option">{$val->option->title} ({$val->printPrice($val->option->price)})</div>
+					</div>
+				</td>
+				<td>{nproductItem::formatMoney($val->price)}</td>
+				<td>
+					<div id="item_{$val->item_srl}" class="num_input">
+						<input type="text" id="{$val->cart_srl}" class="quantity" value="{$val->quantity}" />
+						<div class="iconUp" data-for="{$val->cart_srl}"></div><div class="iconDown" data-for="{$val->cart_srl}"></div>
+					</div>
+					<div style="float:left;"><a class="nuribtn wihte"><span class="updateQuantity" data-for="{$val->cart_srl}">{$lang->cmd_change}</span></a></div>
+				</td>
+				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td class="item_price">{nproductItem::formatMoney($val->discounted_price)}</td>
+				<td>
+					<a href="#" class="nuribtn grass" onclick="progressOrderIndividual({$val->cart_srl},'{$login_chk}');"><span>{$lang->cmd_order}</span></a><br /><br />
+					<a href="#" class="nuribtn white" href="#" onclick="deleteCartItem({$val->cart_srl}); return false;"><span>{$lang->cmd_remove}</span></a>
+				</td>
+			</tr>
+			<tr cond="!count($list)">
+				<td colspan="8">{$lang->msg_no_items}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="cart_command">
+		<span>{$lang->selected_items} </span><a href="#" class="nuribtn" id="deleteCart" href="#" onclick="return false;"><span>{$lang->cmd_delete}</span></a>
+	</div>
+
+	<div class="total">
+		<table class="total-table">
+			<thead>
+				<tr>
+					<th>{$lang->total_amount}</th>
+					<th></th>
+					<th>{$lang->total_discount}</th>
+					<th></th>
+					<th>{$lang->delivery_fee}</th>
+					<th></th>
+					<th class="total_price">{$lang->payment_amount}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{nproductItem::formatMoney($sum_price)}</td>
+					<td>-</td>
+					<td><span>{nproductItem::formatMoney($total_discount_amount)}</span></td>
+					<td>+</td>
+					<td cond="$val"><span>{nproductItem::formatMoney($delivery_fee)}</span></td>
+					<td cond="!$val"><span>0</span></td>
+					<td>=</td>
+					<td cond="$val" class="total_price">{nproductItem::formatMoney($total_price)}</td>
+					<td cond="!$val" class="total_price">0</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="command">
+		<a href="#" class="nuribtn red large" onclick="progressOrderItems('{$login_chk}'); return false;"><span>{$lang->cmd_order}</span></a>
+	</div>
+</div>
+
+<include target="footer.html" />
+<script>
+	var g_total_items = {count($list)};
+	xe.lang.msg_select_items_in_order_to_delete = '{$lang->msg_select_items_in_order_to_delete}';
+</script>

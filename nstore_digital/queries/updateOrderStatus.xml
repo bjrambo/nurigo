@@ -1,0 +1,12 @@
+<query id="updateOrderStatus" action="update">
+	<tables>
+		<table name="nstore_digital_order" />
+	</tables>
+	<columns>
+		<column name="order_status" var="order_status" />
+		<column name="mileage_save" var="mileage_save" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="order_srl" var="order_srl" notnull="notnull" />
+	</conditions>
+</query>

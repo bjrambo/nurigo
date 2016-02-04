@@ -1,0 +1,11 @@
+<query id="updateReviewCount" action="update">
+	<tables>
+		<table name="nstore_items" />
+	</tables>
+	<columns>
+		<column name="review_count" default="plus(1)" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

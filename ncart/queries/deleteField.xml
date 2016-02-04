@@ -1,0 +1,8 @@
+<query id="deleteField" action="delete">
+	<tables>
+		<table name="ncart_orderform_fields" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="field_srl" var="field_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

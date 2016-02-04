@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">Epos</title>
+	<title xml:lang="en">Epos</title>
+	<description xml:lang="ko">Epos 결제모듈</description>
+	<description xml:lang="en">Epos Payment</description>
+	<version>1.0</version>
+	<date>2014-06-24</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+</module>

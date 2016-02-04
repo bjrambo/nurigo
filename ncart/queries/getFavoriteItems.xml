@@ -1,0 +1,25 @@
+<query id="getFavoriteItems" action="select">
+	<tables>
+		<table name="ncart_favorites" alias="favorite" />
+	</tables>
+	<columns>
+		<column name="module_srl" alias="module_srl" />
+		<column name="member_srl" alias="member_srl" />
+		<column name="regdate" alias="regdate" />
+		<column name="item_srl" alias="item_srl" />
+		<column name="item_name" alias="item_name" />
+		<column name="thumb_file_srl" alias="thumb_file_srl" />
+		<column name="document_srl" alias="document_srl" />
+		<column name="price" alias="price" />
+		<column name="discount_amount" alias="discount_amount" />
+		<column name="discount_info" alias="discount_info" />
+		<column name="discounted_price" alias="discounted_price" />
+		<column name="1" alias="quantity" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="asc" />
+	</navigation>
+</query>

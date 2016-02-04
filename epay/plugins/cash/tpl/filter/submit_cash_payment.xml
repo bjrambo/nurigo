@@ -1,0 +1,10 @@
+<filter name="submit_cash_payment" module="epay" act="procEpayDoPayment">
+    <form />
+    <parameter />
+    <response callback_func="completeCashPayment">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="return_url" />
+        <tag name="order_srl" />
+    </response>
+</filter>

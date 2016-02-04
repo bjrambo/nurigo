@@ -1,0 +1,16 @@
+<query id="updateCartItem" action="update">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="order_srl" var="order_srl" />
+		<column name="quantity" var="quantity" />
+		<column name="discount_amount" var="discount_amount" />
+		<column name="discount_info" var="discount_info" />
+		<column name="discounted_price" var="discounted_price" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="cart_srl" var="cart_srl" notnull="notnull" />
+		<condition operation="equal" column="order_status" default="0" notnull="notnull" pipe="and" />
+	</conditions>
+</query>

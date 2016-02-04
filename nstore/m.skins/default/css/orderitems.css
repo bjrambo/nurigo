@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.cartStep .progress.step2 { background:url(../img/progress_step2.png) no-repeat right 20px;}
+
+#orderitems .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderitems h3 { font-size:12px; margin-top:30px; height:28px; color:#666;}
+
+#orderitems .order-table input { margin:0; padding:0; height:18px;}
+
+#orderitems .payment-table { float:left; width:100%; border-top:1px solid #ddd; border-bottom:1px solid #eee;}
+#orderitems .address_input { list-style:none; }
+#orderitems .address_input .list-title { width:100px; display:inline-block; }
+#orderitems .address_input input { width:400px; }
+#orderitems .inputboxL { width:280px; height:18px;}
+
+
+/* black */
+#orderitems.black .order-table input { background:transparent; border:1px solid #343434;}
+#orderitems.black .payment-table { border-top:1px solid #343434; border-bottom:1px solid #343434;}

@@ -1,0 +1,21 @@
+<query id="getItemsByNodeRoute" action="select">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="like_prefix" column="node_route" var="node_route" />
+		<condition operation="equal" column="display" var="display" pipe="and" />
+		<condition operation="equal" column="module_srl" var="module_srl" pipe="and" />
+		<condition operation="equal" column="proc_module" var="proc_module" pipe="and" />
+		<condition operation="like" column="item_name" var="item_name" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="item_srl" order="order_type" />
+		<list_count var="list_count" default="30" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

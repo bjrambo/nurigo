@@ -1,0 +1,31 @@
+<query id="insertEscrowDelivery" action="insert">
+	<tables>
+		<table name="nstore_escrow" />
+	</tables>
+	<columns>
+		<column name="order_srl" var="order_srl" filter="number" notnull="notnull" />
+		<column name="pg_tid" var="pg_tid" />
+		<column name="pg_oid" var="pg_oid" notnull="notnull" />
+		<column name="invoice_no" var="invoice_no" notnull="notnull" />
+		<column name="registrant" var="registrant" notnull="notnull" />
+		<column name="deliverer_code" var="deliverer_code" notnull="notnull" />
+		<column name="deliverer_name" var="deliverer_name" notnull="notnull" />
+		<column name="delivery_type" var="delivery_type" notnull="notnull" />
+		<column name="delivery_date" var="delivery_date" notnull="notnull" />
+		<column name="sender_name" var="sender_name" notnull="notnull" />
+		<column name="sender_postcode" var="sender_postcode" notnull="notnull" />
+		<column name="sender_address1" var="sender_address1" notnull="notnull" />
+		<column name="sender_address2" var="sender_address2" notnull="notnull" />
+		<column name="sender_telnum" var="sender_telnum" notnull="notnull" />
+		<column name="recipient_name" var="recipient_name" notnull="notnull" />
+		<column name="recipient_postcode" var="recipient_postcode" notnull="notnull" />
+		<column name="recipient_address" var="recipient_address" notnull="notnull" />
+		<column name="recipient_telnum" var="recipient_telnum" notnull="notnull" />
+		<column name="product_code" var="product_code" />
+		<column name="product_name" var="product_name" />
+		<column name="quantity" var="quantity" />
+		<column name="result_code" var="result_code" />
+		<column name="result_message" var="result_message" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

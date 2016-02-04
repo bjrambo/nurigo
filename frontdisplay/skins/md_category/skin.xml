@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">MD Category</title>
+	<description xml:lang="ko">MD Category</description>
+	<version>0.2</version>
+	<date>2012-10-25</date>
+	<link>http://www.nurigo.net</link>
+
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="default">
+			<title xml:lang="ko">default</title>
+		</color>
+	</colorset>
+</skin>

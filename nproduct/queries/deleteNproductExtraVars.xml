@@ -1,0 +1,9 @@
+<query id="deleteNproductExtraVars" action="delete">
+	<tables>
+		<table name="nproduct_extra_vars" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="name" var="name" pipe="and" />
+	</conditions>
+</query>

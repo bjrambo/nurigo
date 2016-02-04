@@ -1,0 +1,65 @@
+<load target="css/default.css" />
+<load target="css/pagination.css" />
+<load cond="$colorset == 'white'" target="css/default.css" />
+<load cond="$colorset == 'black'" target="css/black.css" />
+<load cond="$colorset == 'transparent'" target="css/transparent.css" />
+
+<div class="nmileage_wrap">
+	<div class="nm_tit">
+		<h2>{$lang->mileage_title}</h2>
+		<span>{$lang->mileage_subtitle}</span>
+	</div>
+	<div class="mileage_total">
+		<span>{$lang->total_mileage} : <span class="m_point">{number_format($mileage)}</span></span>
+	</div>
+	<div class="mileage_box">
+		<dl loop="$list=>$key,$val">
+			<dt>{$lang->regdate}</dt>
+			<dd>{zdate($val->regdate)}</dd> 
+			<dt>{$lang->classify}</dt>
+			<dd><span cond="$val->action=='1'">{$lang->plus}</span><span cond="$val->action=='2'">{$lang->minus}</span></dd> 
+			<dt>{$lang->item}</dt>
+			<dd>{$val->title}</dd> 
+			<dt>{$lang->amount}</dt>
+			<dd>{number_format($val->amount)}</dd> 
+			<dt>{$lang->balance}</dt>
+			<dd>{number_format($val->balance)}</dd> 
+			<dt>{$lang->remark}</dt>
+			<dd><span cond="$val->order_srl">{$lang->order_number}: <a href="{getUrl('act','dispNcartOrderDetail','order_srl',$val->order_srl)}" class="order_num">{$val->order_srl}</a></span></dd>	
+		</dl>
+	</div>
+
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+
+</div><!-- nmileage_wrap -->

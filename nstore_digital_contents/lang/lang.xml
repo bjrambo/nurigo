@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="title_contents_management">
+		<value xml:lang="ko"><![CDATA[디지털 콘텐츠 관리]]></value>
+		<value xml:lang="en"><![CDATA[Content Management]]></value>
+	</item>
+	<item name="msg_item_not_found">
+		<value xml:lang="ko"><![CDATA[상품을 찾을 수 없습니다]]></value>
+		<value xml:lang="en"><![CDATA[Item not found]]></value>
+	</item>
+	<item name="msg_no_contents_uploaded">
+		<value xml:lang="ko"><![CDATA[등록된 콘텐츠가 없습니다]]></value>
+		<value xml:lang="en"><![CDATA[No contents uploaded]]></value>
+	</item>
+</lang>

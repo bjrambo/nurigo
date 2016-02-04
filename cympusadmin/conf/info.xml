@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">CYMPUS 관리자</title>
+	<title xml:lang="en">CYMPUS Manager</title>
+	<title xml:lang="jp">CYMPUSマネージャー</title>
+	<title xml:lang="zh-TW">CYMPUS 管理者</title>
+	<description xml:lang="ko">CYMPUS 관리자 모듈입니다.</description>
+	<description xml:lang="en">CYMPUS Manager module</description>
+	<description xml:lang="jp">CYMPUSマネージャーモジュール</description>
+	<description xml:lang="zh-TW">CYMPUS管理模組</description>	
+	<version>1.4</version>
+	<date>2015-04-26</date>
+	<category>system</category>
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+	</author>
+</module>

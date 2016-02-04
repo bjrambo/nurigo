@@ -1,0 +1,15 @@
+<query id="getOrderList" action="select">
+	<tables>
+		<table name="nstore_order" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" />
+		<condition operation="more" column="order_status" var="order_status" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="desc" />
+	</navigation>
+</query>

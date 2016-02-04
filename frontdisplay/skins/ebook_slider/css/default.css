@@ -1,0 +1,8 @@
+#ebook_slider { background:#fff; max-width:100%; }
+#ebook_slider ul { margin:0; padding:0; overflow:hidden; }
+#ebook_slider .bx-wrapper { margin:0; }
+#ebook_slider .bx-wrapper .bx-viewport { border:0; left:0; box-shadow:none; }
+#ebook_slider .bx-wrapper .bx-viewport .item_name { text-decoration:none; color:#555; font-size:16px; font-weight:600; overflow: hidden; text-overflow: ellipsis; width:50px; }
+#ebook_slider .bx-wrapper .bx-viewport .item_content { color:#999; margin-top:10px; display:block; width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
+#ebook_slider .bx-wrapper img { margin-bottom:23px; }
+#ebook_slider .bx-wrapper .bx-viewport .bxslider li { text-align:center; }

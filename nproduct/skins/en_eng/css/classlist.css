@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+#my_classroom {width:81%; float:left;}
+/*  classlist css */
+#my_classroom #classlist {float:left; width:100%; }
+#my_classroom #classlist .list_tit {border-bottom:2px solid #333; padding:5px; color:#333; }
+#my_classroom #classlist .list_tit h3 {display:inline;} 
+#my_classroom #classlist .list_tit .list_word {color:#999; font-size:12px; letter-spacing:-1px; float:right; }
+#my_classroom #classlist ul {float:left; padding:0; width:100%; margin:0; position:relative; overflow:hidden;}
+#my_classroom #classlist li {list-style:none; float:left; position:relative; display:inline;}
+#my_classroom #classlist li.box-bottom {padding:15px 0; border-bottom:1px dashed #ddd;}
+/* thumbnail*/
+#my_classroom #classlist .thumbnail {float:left; text-align:center; width:90px;}
+
+/* content */
+#my_classroom #classlist .summary {float:left; margin-left:20px; width:83%;}
+#my_classroom #classlist .summary .sub_tit {color:#b5590e;}
+#my_classroom #classlist .summary .item_tit a {text-decoration:none; font-size:16px; color:#000; font-weight:bold;}
+#my_classroom #classlist .summary .item_tit a:hover {text-decoration:underline;}
+
+/* class_bg */
+#my_classroom #classlist .summary .class_bg {padding:10px 0 0 15px; *padding-bottom:10px;  overflow:hidden; margin:5px 1px; background:#f0f0f0; border:1px solid #ccc; box-shadow:inset 0 0 1px #fff;}
+#my_classroom #classlist .summary .class_bg li {float:left; list-style:none;}
+#my_classroom #classlist .summary .class_bg .bar_score {float:left; width:400px;  padding:0;}
+#my_classroom #classlist .summary .class_bg .bar_score li {height:18px; width:400px; background:url(../img/bar_off.jpg) repeat-x; padding-right:5px; margin:0 0 10px 10px;}
+
+/* class_date bar */
+
+#my_classroom #classlist .summary .class_bg .bar_score li .red_bar {height:13px; width:30%; margin: 2px 5px 0 2px; position:relative; border: solid 1px #ff0000; background: #ff8929; background: -webkit-gradient(linear, left top, left bottom, from(#ff8929), to(#ff7200)); background: -moz-linear-gradient(top,  #ff8929,  #ff7200); filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8929', endColorstr='#ff7200');}
+
+#my_classroom #classlist .summary .class_bg .class_day {float:left; color:#ff6600; font-weight:bold; text-shadow:0 1px 1px #ccc;}
+#my_classroom #classlist .summary .class_bg .class_date {float:left; font-size:11px; margin:0; line-height:19px; padding-left:20px; }
+
+/* class_attendance bar */
+
+#my_classroom #classlist .summary .class_bg .bar_score li .blue_bar {height:13px; width:10%; margin: 2px 5px 0 2px; position:relative; border: solid 1px #002aff; background: #2e9aff; background: -webkit-gradient(linear, left top, left bottom, from(#2e9aff), to(#007bfb)); background: -moz-linear-gradient(top,  #2e9aff,  #007bfb); filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#2e9aff', endColorstr='#007bfb');}
+#my_classroom #classlist .summary .class_bg .class_attendance {float:left; padding-left:11.5px; color:#2485e9; font-weight:bold; text-shadow:0 1px 1px #ccc;}

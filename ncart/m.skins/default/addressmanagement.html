@@ -1,0 +1,85 @@
+<load target="css/style.css" />
+<load target="css/addresslist.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/addmanagement.js" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<script cond="$XE_VALIDATOR_MESSAGE" type="text/javascript">
+	jQuery('document').ready(function() {
+		jQuery('#addressList').hide();
+		jQuery('#newAddress').show();
+	});
+</script>
+
+<h2 class="Add_tit">{$lang->cmd_addr_manage}</h2>
+<div id="addressList" class="m_addlist">
+	<dl loop="$list=>$key,$val" class="m_add_group">
+		<dt><label>{$lang->default_address}</label></dt>
+		<dd>{$val->default}</dd>
+		{@$vars=get_object_vars(unserialize($val->address))}
+		<block loop="$fieldset_list=>$key2,$val2">
+			<block loop="$val2->fields=>$key3,$field">
+				<dt><label>{$field->column_title}</label></dt>
+				<dd>
+					<span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span>
+					<span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}&nbsp;</span>
+				</dd>
+			</block>
+		</block>
+		<div class="m_btnset">
+			<a href="#" class="m_btn nu_black" onclick="modify_address({$val->address_srl}); return false;"><span>{$lang->cmd_modify}</span></a>
+			<a href="#" class="m_btn" onclick="delete_address({$val->address_srl});"><span>{$lang->cmd_delete}</span></a>
+		</div>
+	</dl>
+
+
+	<div class="pageNavigation">
+	</div>
+	<div class="m_new">
+		<a href="#" onclick="append_address();return false;" class="m_btn">{$lang->cmd_new_address}</a>
+	</div>
+</div>
+
+<div id="newAddress" style="display:none;">
+	<form action="./" id="newAddrForm" class="fg form" ruleset="@ncart_insertAddress" method="post">
+		<input type="hidden" name="act" value="procNcartInsertAddress" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="address_srl" value="" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+		<input type="hidden" name="opt" value="1" />
+
+		<input type="checkbox" id="default" name="default" value="Y" /><label for="default" class="add_default">{$lang->msg_as_default_address}</label>
+
+		<!--// fieldset -->
+		<div loop="$fieldset_list=>$key,$val" class="fieldset m_addlist">
+			<h3>{$val->fieldset_title}</h3>
+			<dl>
+				<block loop="$val->fields=>$key2,$field">
+					<dt>
+						<label for="column_title">{$field->html->title}</label>
+					</dt>
+					<dd class="{$field->column_type}">{$field->html->inputTag}</dd>
+				</block>
+			</dl>
+		</div>
+		<!--// end of fieldset -->
+
+		<div class="m_btnset">
+			<input type="submit" value="{$lang->cmd_submit}" class="m_btn nu_black" />
+			<a href="#" class="m_btn" onclick="jQuery('#addressList').toggle();jQuery('#newAddress').toggle(); jQuery('#newAddrForm').get(0).reset(); return false;">{$lang->cmd_cancel}</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	var fieldset = new Array();
+	<block loop="$fieldset_list=>$key,$val">
+		<block loop="$val->fields=>$key2,$field">
+		fieldset[fieldset.length] = { column_type:'{$field->column_type}', column_name:'{$field->column_name}', column_title:'{$field->column_title}' };
+		</block>
+	</block>
+</script>

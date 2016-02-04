@@ -1,0 +1,8 @@
+<query id="deleteReviewListByItemSrl" action="delete">
+    <tables>
+        <table name="store_review_list" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="item_srl" var="item_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

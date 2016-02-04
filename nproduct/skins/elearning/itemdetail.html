@@ -1,0 +1,317 @@
+<load target="css/style.css" />
+<load target="css/itemdetail.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/scroll.js" />
+<load target="../../tpl/skin.js/itemdetail.js" />
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="../../tpl/skin.filter/insert_review.xml" />
+<include target="categorylist.html" />
+<load target="lang" />
+
+<include target="header.html" />
+
+<script>
+	var g_discounted_price = {$item_info->getDiscountedPrice()};
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.msg_input_more_than_one = '{$lang->msg_input_more_than_one}';
+	xe.lang.each = '{$lang->each}';
+</script>
+
+<form cond="$module_info->direct_gocart=='Y'" id="dummy_form">
+	<input type="hidden" id="is_mobile" value="true" />
+	<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+</form>
+
+
+<div id="itemdetail">
+	<table width="100%" colspan="0" cellspacing="0">
+		<tr>
+			<td style="vertical-align:top;">
+				<div class="item-thumbnail">
+					<img src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height)}" />
+					<div class="social_block">
+						<!--AfterDocument()-->
+					</div>
+				</div><!-- thumbnail -->
+			</td>
+			<td></td>
+			<td style="padding:0 16px; vertical-align:top; width:90%;">
+				<div class="info-tab">
+					<table colspan="0" cellspacing="0" width="100%" class="ko_text">
+						<tr>
+							<th>강좌명</th>
+							<td>
+								<div class="subtitle">{$item_info->subtitle}</div>
+								<h2 class="product_name">{$item_info->item_name}</h2>
+							</td>
+						</tr>
+						<tr cond="0">
+							<th>{$lang->item_code}</th>
+							<td>{$item_info->item_code}</td>
+						</tr>
+						<tr>
+							<block loop="$extra_vars=>$key,$val">
+								<block cond="$val->column_name == 'period'">{@$period_days = $val->value}</block>
+							</block>
+							<th>수강기간</th>
+							<td>{$period_days}일</td>
+						</tr>
+						<tr>
+							<th>수강료</th>
+							<td class="font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{number_format($item_info->price)}<span class="font_size12">원</span></td>
+						</tr>
+						<tr cond="$discount_amount">
+							<th>{$discount_info}</th>
+							<td class="product_price">- {number_format($discount_amount)} <span class="font_size12">원 할인</span></td>
+						</tr>
+						<tr cond="$discount_amount">
+							<th>{$lang->discounted_price}</th>
+							<td class="font_size24 product_price">{number_format($discounted_price)} <span class="font_size12">원</span></td>
+						</tr>
+						<tr>
+							<th>샘플</th>
+							<td><a href="#content_02">샘플보러가기</a></td>
+						</tr>
+						<tr loop="$extra_vars=>$key,$val" cond="$val->getValueHTML() != null">
+							<th>{$val->getTitle()}</th>
+							<td>{$val->getValueHTML()}</td>
+						</tr>
+						<tr cond="0" cond="!count($options)">
+							<th>{$lang->order_quantity}</th>
+							<td>
+								<div id="item_{$item_info->item_srl}" class="num_input">
+									<input type="text" id="quantity_{$item_info->item_srl}" class="quantity" value="1" />
+									<span class="iconUp" data-for="quantity_{$item_info->item_srl}"></span><span class="iconDown" data-for="quantity_{$item_info->item_srl}"></span>
+								</div>
+							</td>
+						</tr>
+						<tr cond="0">
+							<th>구매가</th>
+							<td class="font_size24 product_price">{number_format($item_info->price)}<span class="font_size12">원</span></td>
+						</tr>
+						<tr cond="count($options)">
+							<th>구매옵션</th>
+							<td>
+								<select id="select_options">
+									<option value="">선택하세요</option>
+									<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nstore_coreItem::formatMoney($val->price)}</span></option>
+								</select>
+
+								<div>
+									<table id="selected_options"></table>
+								</div>
+
+								<div id="total_amount">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="btn_item">
+						<a href="#" class="btn_buynow" onclick="direct_order({$item_info->item_srl}, '{$module_info->ncart_mid}'); return false;"><span>바로구매</span></a>
+						<a href="#" class="btn_cart" onclick="addItemsToCart({$item_info->item_srl}); return false;"><span>장바구니</span></a>
+						<a href="#" class="btn_apply" onclick="addItemsToFavorites({$item_info->item_srl});"><span>찜하기</span></a>
+						<a href="{getUrl('act','','item_srl','','document_srl','')}" class="btn_list"><span>목록보기</span></a>
+					</div>
+				</div><!-- product info -->
+			</td>
+		</tr>
+	</table>
+
+    <!-- product detail -->
+	<div class="item-info" id="content_01">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll on">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->curriculum}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->reviews}</a></li>
+			</ul>
+		</div>
+		<div class="product_info">{$oDocument->getContent(false)}</div>
+	</div>
+
+
+
+	<div class="item-review" id="content_02">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll on">{$lang->curriculum}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->reviews}</a></li>
+			</ul>
+		</div>
+
+		<table class="item-table">
+			<thead>
+				<tr>
+					<th>강</th>
+					<th>강의명</th>
+					<th>시간</th>
+					<th>학습</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr loop="$content_list=>$key,$val">
+					<td>{$key+1}</td>
+					<td>{$val->content_title}</td>
+					<td>{$val->minutes}</td>
+					<td><a cond="$val->is_sample=='Y'" href="{getUrl('act','dispElearningViewContent','content_srl',$val->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;">Sample</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="item-inquiry"  id="content_03">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->curriculum}</a></li>
+				<li><a href="#content_03" class="scroll on">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->reviews}</a></li>
+			</ul>
+		</div>
+
+		<ul cond="$oDocument->getCommentCount()" class="comments">
+			<li loop="$oDocument->getComments()=>$key,$comment" id="comment_{$comment->get('comment_srl')}">
+				<div class="indent" <!--@if($comment->get('depth'))--> style="margin-left:{($comment->get('depth'))*15}px" <!--@end-->>
+				
+				<div class="authorBox">
+					<a href="#" onclick="return false;" class="member_{$comment->get('member_srl')}">{$comment->getNickName()}</a>
+					<span class="date">{$comment->getRegdate("Y.m.d")}</span>
+				</div>
+
+				<div class="contentBox">
+					{$comment->getContent()}
+				</div>
+				<div class="nullBox"></div>
+
+				<div class="btnBox">
+					<!--@if($comment->isGranted())-->
+					<a href="{getUrl('act','dispNstore_digitalReplyComment','comment_srl',$comment->comment_srl)}" class="button small"><span>{$lang->cmd_reply}</span></a> 
+					<a href="{getUrl('act','procNstore_digitalDeleteComment','item_srl',$item_info->item_srl,'comment_srl',$comment->comment_srl)}" onclick="if(confirm('{$lang->confirm_delete}')) {return true;} else {return false;}" class="deleteBtn button small"><span>{$lang->cmd_delete}</span></a>
+					<!--@end-->
+				</div>
+
+			</li>
+		</ul><!-- Question comment -->
+		<ul cond="!$oDocument->getCommentCount()" class="comments">
+			<li>{$lang->msg_no_questions}</li>
+		</ul>
+
+		<!--@if($is_logged)-->
+		<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="commentForm" >
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="item_srl" value="{$item_srl}" />
+
+		<div class="light_bx">
+			<div class="light_bx_wrp">
+				<table width="100%" cellspacing="0" cellpadding="0" class="view_type1">
+				<tr>
+					<td class="advence_td">
+						<span>{$lang->about_qna}</span><span cond="0" style="float:right;">자주하는 질문 보러가기</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="center"><textarea name="content" class="commentArea"></textarea></td>
+				</tr>
+				<tr>
+					<td class="center">
+						<span class="kso_btn green"><input type="submit" value="{$lang->cmd_ask_question}" accesskey="s" /></span>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		</form><!-- Question form -->
+		<!--@end-->
+	</div>
+
+
+
+	<div class="delivery-info"  id="content_04">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->lecture_intro}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->curriculum}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll on">{$lang->reviews}</a></li>
+			</ul>
+		</div>
+
+		<ul class="comments">
+			<li loop="$review_list=>$key,$review" id="review_{$review->get('review_srl')}">
+				
+				<div class="authorBox">
+					<a href="#" onclick="return false;" class="member_{$review->get('member_srl')}">{$review->getNickName()}</a><br />
+					<span class="date">{$review->getRegdate("Y.m.d")}</span>					
+					<span class="estimate">
+						<!--@for($i=0;$i<5;$i++)--><!--@if($i<$review->get('voted_count'))--><img src="./img/starOn.gif" alt="" /><!--@else--><img src="./img/starOff.gif" alt="" /><!--@end--><!--@end-->
+					</span>		
+				</div>
+
+				<div class="contentBox">
+					{$review->getContent(false)}
+				</div>
+				<div class="nullBox"></div>
+
+				<div class="btnBox">
+					<!--@if($review->isGranted())-->
+					<a href="{getUrl('act','procNstore_digitalDeleteReview','item_srl',$item_info->item_srl,'review_srl',$review->review_srl)}" onclick="if(confirm('{$lang->confirm_delete}')) {return true;} else {return false;}" class="deleteBtn button small"><span>{$lang->cmd_delete}</span></a>
+					<!--@end-->
+				</div>
+			</li>
+		</ul>
+		<ul cond="!count($review_list)" class="comments">
+			<li>{$lang->msg_no_reviews}</li>
+		</ul>
+
+
+		<!--@if($is_logged)-->
+		<form action="./" method="post" onsubmit="return procFilter(this, insert_review)" class="commentForm" >
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="item_srl" value="{$item_srl}" />
+		<input type="hidden" name="document_srl" value="{$item_info->document_srl}" />
+		<input type="hidden" name="star_point" value="" />
+
+		<div class="light_bx">
+			<div class="light_bx_wrp">
+				<table width="100%" cellspacing="0" cellpadding="0" class="view_type1">
+				<tr>
+					<td class="star_td">
+						<ul class="starPoint">
+							<li><a href="#" onclick="return false;" rel="1">1</a></li>
+							<li><a href="#" onclick="return false;" rel="2">2</a></li>
+							<li><a href="#" onclick="return false;" rel="3">3</a></li>
+							<li><a href="#" onclick="return false;" rel="4">4</a></li>
+							<li><a href="#" onclick="return false;" rel="5">5</a></li>
+						</ul>
+					</td>
+					<td class="advence_td">
+						<span cond="$config->review_bonus">{sprintf($lang->about_review_bonus,number_format($config->review_bonus))}</span>
+                                                <span cond="!$config->review_bonus">{$lang->about_review}</span>
+
+					</td>
+				</tr>
+				<tr>
+					<td class="center" colspan="2"><textarea name="content" class="commentArea"></textarea></td>
+				</tr>
+				<tr>
+					<td class="center" colspan="2">
+						<span class="kso_btn green"><input type="submit" value="{$lang->cmd_write_review}" accesskey="s" /></span>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		</form>
+		<!--@end-->
+	</div>
+</div>
+
+<include target="footer.html" />

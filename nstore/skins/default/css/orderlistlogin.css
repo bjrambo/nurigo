@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+
+.page-title { padding:0 0 10px 5px; margin:0; font-size:15px; text-align:left; border-bottom:1px dashed #aaa; }
+
+.n_order_form form { font:12px NanumGothic,"Malgun Gothic", Tahoma, Dotum, Sans-serif; color:#777; }
+.n_order_form form .ordernum { *margin-left:-2px; }
+.n_order_form form label { display:inline-block; width:70px; }
+.n_order_form form .ordernum input, form .orderpw input { width:290px; height:27px; border:1px solid #aaa;}
+.n_order_form { width:500px; margin:0 auto; text-align:center; overflow:hidden; }
+.n_order_form .order_box { width:78%; float:left; margin:20px 0; }
+.n_order_form .order_con { padding:25px 30px; *padding:28px 26px; margin-top:31px; *margin-top:22px; float:left; }
+.n_order_form .order_login { margin-top:10px; padding-top:10px; border-top:1px dashed #aaa; text-align:right; clear:both; }
+.n_order_form .order_member { margin-right:8px; }

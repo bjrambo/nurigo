@@ -1,0 +1,153 @@
+<load target="css/nu_btn.css" />
+<load target="css/style.css" />
+<load target="css/itemdetail.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/json2.js" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/scroll.js" />
+<load target="../../tpl/skin.js/itemdetail.js" />
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="../../tpl/skin.filter/insert_review.xml" />
+
+<include target="header.html" />
+<include target="categorylist.html" />
+<load target="lang" />
+
+<script>
+	var g_discounted_price = {$item_info->getDiscountedPrice()};
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.msg_input_more_than_one = '{$lang->msg_input_more_than_one}';
+	xe.lang.each = '{$lang->each}';
+</script>
+
+<block cond="!$module_info->thumbnail_height">{@$module_info->thumbnail_height='250px'}</block>
+
+<form cond="$module_info->direct_gocart=='Y'" id="dummy_form">
+	<input type="hidden" id="is_mobile" value="true" />
+	<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+</form>
+
+<div id="itemdetail">
+	<div class="class_tit">
+		{$category_info->category_name}
+	</div>
+	<div class="class-top" style="height:{$module_info->thumbnail_height+55}px">
+		<div class="thumb_box">
+			<div class="item-thumbnail">
+				<img src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" />
+			</div>
+		</div><!-- thumb_box -->
+	</div><!-- class-top -->
+	<div class="info-tab_wrap">
+		<div class="info-tab">
+			<table cellspacing="0" cellpadding="0" width="100%" class="ko_text class_text info_table" style="height:{$module_info->thumbnail_height+23}px;">
+				<tr>
+					<td colspan="3" style="border:0;">
+						<div class="subtitle">{$item_info->subtitle}</div>
+						<h2 class="product_name">{$item_info->item_name}</h2><a cond="$sample_content" href="{getUrl('act','dispElearningViewContent','content_srl',$sample_content->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;"><span class="sample_view">{$lang->sample_view}</span></a>
+					</td>
+				</tr>
+				<tr cond="!$discount_amount">
+					<td colspan="3" class="font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{$item_info->printPrice()}</td>
+				</tr>
+				<tr cond="$discount_amount">
+					<th>{$discount_info}</th>
+					<td class="product_price">- {number_format($discount_amount)} <span class="font_size12">{$lang->discount_text}</span></td>
+					<th>{$lang->discounted_price}</th>
+					<td class="font_size14 product_price sale_price">{$item_info->printDiscountedPrice()}</td>
+				</tr>
+				<tr loop="$list_config=>$k,$v" cond="$v->idx > -1">
+					<th>{$v->name}</th>
+					<td>{$item_info->getExtraVarValue($k)}</td>
+				</tr>
+				<tr cond="is_array($item_info->related_items) && count($item_info->related_items)">
+					<th>{$lang->course_book}</th>
+					<td>
+						<ul loop="$item_info->related_items=>$key,$val" class="relation_book">
+							<li><input type="checkbox" name="related_item" id="relatedItem{$key}" value="{$val->item_srl}" data-price="{$val->getDiscountedPrice()}" checked="checked"></li>
+							<li><label for="relatedItem{$key}">{$val->item_name}</label><a href="{getUrl('','document_srl',$val->document_srl)}" class="view_btn">{$lang->cmd_view}</a></li>
+							<li class="p_orange">{$val->printDiscountedPrice()}</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th class="tprice_title">{$lang->total_price}</th>
+					<td class="total_price" colspan="3"><span id="related_sum"></span></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div class="t_bottom">
+							<div class="btn_item t_right">
+								<a href="#" class="gray_btn" onclick="addItemsToCartInDetailPage({$item_info->item_srl}); return false;"><span>{$lang->cmd_cart}</span></a>
+								<a href="#" class="orange_btn" onclick="orderItemsInDetailPage({$item_info->item_srl}, '{$module_info->ncart_mid}'); return false;"><span>{$lang->course_registration}</span></a>
+								<a href="#" class="gray_btn" onclick="addItemsToFavorites({$item_info->item_srl});"><span>{$lang->cmd_favorites}</span></a>
+								<a href="{getUrl('act','','item_srl','','document_srl','')}" class="gray_btn"><span>{$lang->cmd_view_list}</span></a>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr cond="count($options)">
+					<th>{$lang->order_options}</th>
+					<td>
+						<select id="select_options">
+							<option value="">{$cmd_select}</option>
+							<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nproductItem::formatMoney($val->price)}</span></option>
+						</select>
+
+						<div>
+							<table id="selected_options"></table>
+						</div>
+
+						<div id="total_amount">
+						</div>
+					</td>
+				</tr>
+			</table>
+
+		</div><!-- info-tab -->
+	</div><!-- info-tab_wrap -->
+
+</div><!-- itemdetail -->
+
+<div class="item-info" id="content_01">
+	<div class="product_title">
+		<ul>
+			<li><a href="#content_01" class="scroll on">{$lang->lecture_intro}</a></li>
+			<li><a href="#content_02" class="scroll">{$lang->curriculum}</a></li>
+		</ul>
+	</div>
+	<div class="product_info">{$oDocument->getContent(false)}</div>
+</div><!-- item-info -->
+
+<div class="item-review" id="content_02">
+	<div class="product_title">
+		<ul>
+			<li><a href="#content_01" class="scroll first">{$lang->lecture_intro}</a></li>
+			<li><a href="#content_02" class="scroll on">{$lang->curriculum}</a></li>
+		</ul>
+	</div>
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->list_order}</th>
+				<th>{$lang->course_title}</th>
+				<th>{$lang->course_time}</th>
+				<th>{$lang->course_learning}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr loop="$content_list=>$key,$val">
+				<td>{$key+1}</td>
+				<td>{$val->content_title}</td>
+				<td>{$val->minutes}</td>
+				<td>
+					<a cond="$val->is_sample=='Y'" href="{getUrl('act','dispElearningViewContent','content_srl',$val->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;">Sample</a>
+					<a cond="$val->is_sample!='Y' && $module_info->play_test=='Y' && $logged_info->is_admin=='Y'" href="{getUrl('act','dispElearningViewContent','content_srl',$val->content_srl,'hide_trolley','true')}" onclick="winopen(this.href, '_view', 'width=1028,height=498,scrollbars=yes,resizable=yes,toolbars=no');return false;">Play to test</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- item-review -->
+
+<include target="footer.html" />

@@ -1,0 +1,16 @@
+/* item_account */
+div.item_account { width:95%; margin:10px auto; }
+div.item_account dl { background:#f8f8f8;  border-color:#dfdfe1 #dfdfe1 #c9cacc; border-image:none; border-style:solid; border-width:1px; overflow:hidden; position:relative; }
+div.item_account dt { width:35%; float:left; padding:10px 20px; }
+div.item_account dd { margin-left:35%; padding:10px 20px; border-left:1px solid #ececec; }
+div.item_account .thum_box { text-align:center; }
+
+/* total */
+div.total { background:#f8f8f8;  border-color:#dfdfe1 #dfdfe1 #c9cacc; border-image:none; border-style:solid; border-width:1px; overflow:hidden; position:relative; width:95%; margin:0 auto;}
+div.total table { background:#fbfbfc; border-collapse:collapse; border-color:#fff #fff; border-image:none; border-style:solid solid none; border-width:1px 1px 0; width:100%; text-align:center; }
+div.total table th { padding:10px; border-bottom:1px solid #ececec; }
+div.total table td { padding:10px; }
+
+/* Button */
+div.btn_wrap { margin-top:10px; text-align:center; }
+div.btn_payment button.nbtn { margin-top:10px; background:#777; color:#fff; width:100px; height:30px !important; text-shadow:none; font-weight:bold; border:1px solid #555; }

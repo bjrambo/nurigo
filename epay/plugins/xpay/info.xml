@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<title xml:lang="ko">LGU+ Xpay</title>
+	<description xml:lang="ko">LGU+ Xpay plugin</description>
+	<version>1.2</version>
+	<date>2013-10-21</date>
+	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+	<license link="">Commercial</license>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본설정</title>
+			<var name="cst_platform" type="select">
+				<title xml:lang="ko">서비스 모드</title>
+				<description xml:lang="ko">테스트 혹은 실서비스를 선택하세요.</description>
+				<options value="service">
+					<title xml:lang="ko">서비스</title>
+				</options>
+				<options value="test">
+					<title xml:lang="ko">테스트</title>
+				</options>
+			</var>
+			<var name="mert_id" type="text">
+				<title xml:lang="ko">상점 아이디</title>
+				<description xml:lang="ko">상점아이디를 입력해 주세요. 테스트 아이디: tlgdacomxpay</description>
+			</var>
+			<var name="mert_key" type="text">
+				<title xml:lang="ko">상점 키(key)</title>
+				<description xml:lang="ko">부여받은 상점 키(Key)를 입력하세요. 테스트 키: 95160cce09854ef44d2edb2bfb05f9f3</description>
+			</var>
+			<var name="logo_image" type="image">
+				<title xml:lang="ko">로고이미지</title>
+				<description xml:lang="ko">결제창에 표시될 로고이미지를 입력하세요. 이미지 크기는 90 x 34 픽셀입니다.</description>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">옵션설정</title>
+			<var name="skin" type="select">
+				<title xml:lang="ko">스킨선택</title>
+				<description xml:lang="ko">스킨을 선택하세요.</description>
+				<options value="red">
+					<title xml:lang="ko">Red</title>
+				</options>
+				<options value="blue">
+					<title xml:lang="ko">Blue</title>
+				</options>
+				<options value="green">
+					<title xml:lang="ko">Green</title>
+				</options>
+				<options value="cyan">
+					<title xml:lang="ko">Cyan</title>
+				</options>
+				<options value="yellow">
+					<title xml:lang="ko">Yellow</title>
+				</options>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">결제방식</title>
+			<var name="paymethod_card" type="select">
+				<title xml:lang="ko">신용카드</title>
+				<description xml:lang="ko">신용카드 사용여부를 선택하세요. LGU+와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+			<var name="paymethod_directbank" type="select">
+				<title xml:lang="ko">계좌이체</title>
+				<description xml:lang="ko">계좌이체 사용여부를 선택하세요. LGU+와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+			<var name="paymethod_virtualbank" type="select">
+				<title xml:lang="ko">가상계좌</title>
+				<description xml:lang="ko">가상계좌 사용여부를 선택하세요. LGU+와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+			<var name="paymethod_phone" type="select">
+				<title xml:lang="ko">휴대폰소액</title>
+				<description xml:lang="ko">휴대폰소액결제 사용여부를 선택하세요. LGU+와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+		</group>
+
+	</extra_vars>
+</plugin>

@@ -1,0 +1,110 @@
+<include target="_header.html" />
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" class="x_form-horizontal" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procLicenseAdminConfig" />
+
+	<section cond="in_array('elearning', $products)" class="section">
+	<h1>{$lang->elearning}</h1>
+		<div cond="$ELEARNING_MESSAGE" class="message {$ELEARNING_MESSAGE_TYPE}">
+			<p>{$ELEARNING_MESSAGE}</p>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->license_id}</label>
+			<div class="x_controls">
+				<input type="text" name="e_user_id" value="{$config->e_user_id}" />
+				<a href="#e_user_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="e_user_id_help" class="x_help-block" hidden>{$lang->about_license_id}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->serial_number}</label>
+			<div class="x_controls">
+				<input type="text" name="e_serial_number" value="{$config->e_serial_number}" />
+				<a href="#e_serial_number_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="e_serial_number_help" class="x_help-block" hidden>{$lang->about_serial_number}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->expiration_date}</label>
+			<div class="x_controls">
+				<span>{zdate($elearning_expiration, 'Y-m-d')}</span>
+				<a href="#elearning_expiration_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="elearning_expiration_help" class="x_help-block" hidden>{$lang->about_expiration}</p>
+			</div>
+		</div>
+	</section>
+
+	<section cond="in_array('nstore', $products)" class="section">
+		<h1>{$lang->shoppingmall}</h1>
+		<div cond="$NSTORE_MESSAGE" class="message {$NSTORE_MESSAGE_TYPE}">
+			<p>{$NSTORE_MESSAGE}</p>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->license_id}</label>
+			<div class="x_controls">
+				<input type="text" name="user_id" value="{$config->user_id}" />
+				<a href="#user_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="user_id_help" class="x_help-block" hidden>{$lang->about_license_id}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->serial_number}</label>
+			<div class="x_controls">
+				<input type="text" name="serial_number" value="{$config->serial_number}" />
+				<a href="#serial_number_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="serial_number_help" class="x_help-block" hidden>{$lang->about_serial_number}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->expiration_date}</label>
+			<div class="x_controls">
+				<span>{zdate($nstore_expiration, 'Y-m-d')}</span>
+				<a href="#expiration_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="expiration_help" class="x_help-block" hidden>{$lang->about_expiration}</p>
+			</div>
+		</div>
+	</section>
+	<section cond="in_array('nstore_digital', $products)" class="section">
+		<h1>{$lang->contentsmall}</h1>
+		<div cond="$NSTORE_DIGITAL_MESSAGE" class="message {$NSTORE_DIGITAL_MESSAGE_TYPE}">
+			<p>{$NSTORE_DIGITAL_MESSAGE}</p>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->license_id}</label>
+			<div class="x_controls">
+				<input type="text" name="d_user_id" value="{$config->d_user_id}" />
+				<a href="#d_user_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="d_user_id_help" class="x_help-block" hidden>{$lang->about_license_id}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->serial_number}</label>
+			<div class="x_controls">
+				<input type="text" name="d_serial_number" value="{$config->d_serial_number}" />
+				<a href="#d_serial_number_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="d_serial_number_help" class="x_help-block" hidden>{$lang->about_serial_number}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->expiration_date}</label>
+			<div class="x_controls">
+				<span>{zdate($nstore_digital_expiration, 'Y-m-d')}</span>
+				<a href="#nstore_digital_expiration_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="nstore_digital_expiration_help" class="x_help-block" hidden>{$lang->about_expiration}</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit" accesskey="s">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>

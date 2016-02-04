@@ -1,0 +1,12 @@
+<query id="isExistsExtraKey" action="select">
+    <tables>
+        <table name="nproduct_item_extras" />
+    </tables>
+    <columns>
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" pipe="where" />
+        <condition operation="equal" column="column_name" var="column_name" pipe="and" />
+    </conditions>
+</query>

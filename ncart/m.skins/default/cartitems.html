@@ -1,0 +1,117 @@
+<load target="css/style.css" />
+<load target="css/cartitems.css" />
+<load target="css/btn.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/cartitems.js" />
+<include target="header.html" />
+
+<div id="cartitems" class="{$module_info->colorset}">
+	<include target="_header.html" />
+
+	<div class="cart_item">
+		<ul class="items_box">
+			<li>
+				<dl cond="count($list)" loop="$list=>$no,$val" class="item_b">
+					{@$item_sum = $val->price * $val->quantity}
+					<dt>
+						<span class="che_box"><input type="checkbox" name="cart" value="{$val->cart_srl}" checked="checked" /></span>
+						<a class="product_img" href="{getUrl('','document_srl',$val->document_srl)}" >
+							<span class="item_name">
+								<span><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></span>
+								<span class="item_title">{$val->item_name}</span>
+							</span>
+						</a>
+					</dt>
+					<dd class="item_info">
+						<div cond="$val->option">{$val->option->title} ({$val->printPrice($val->option->price)})</div><!-- option_box -->
+						<dl class="item_price">
+							<dt>
+								{$lang->sales_price}
+							</dt>
+							<dd>
+								{nproductItem::formatMoney($val->price)}	
+							</dd>
+							<dt>
+								{$lang->quantity}
+							</dt>
+							<dd id="item_{$val->item_srl}" class="num_input">
+								<div class="input-append">
+									<input type="text" id="{$val->cart_srl}" class="quantity" value="{$val->quantity}" />
+								</div>
+								<div class="btn-group">
+									<a href="#" class="m_btn m_modi"><span class="updateQuantity" data-for="{$val->cart_srl}">{$lang->cmd_change}</span></a>
+								</div>
+							</dd>
+							<dt>
+								{$lang->discount}
+							</dt>
+							<dd>
+								<span class="option_text" cond="$val->discount_info">({$val->discount_info})</span> {nproductItem::formatMoney($val->discount_amount)}
+							</dd>
+							<dt class="price_sum">
+								{$lang->sum}
+							</dt>
+							<dd class="price_sum">
+								{nproductItem::formatMoney($val->discounted_price)}
+							</dd>
+						</dl>
+						<dl class="order_btn_set">
+							<span class="order_btn">
+							<a href="#" class="btn_size nu_button nu_green" onclick="progressOrderIndividual({$val->cart_srl},'{$login_chk}');"><span>{$lang->cmd_order}</span></a>
+							</span>
+							<span class="order_btn">
+							<a href="#" class="btn_size nu_button nu_white" onclick="deleteCartItem({$val->cart_srl}); return false;"><span>{$lang->cmd_remove}</span></a>
+							</span>
+						</dl>
+					</dd>
+				</dl>
+			</li>
+			<li cond="!count($list)">
+				<div class="no_item_area">{$lang->msg_no_items}</div>
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="total_new">
+		<ul class="total_border">
+			<li>	
+				<strong>{$lang->total_amount}</strong>
+				<span class="pay_total">{nproductItem::formatMoney($sum_price)}</span>
+			</li>
+			<li>
+				<strong>{$lang->total_discount}</strong>
+				<span class="pay_total">-{nproductItem::formatMoney($total_discount_amount)}</span>
+			</li>
+			<li>
+				<strong>{$lang->delivery_fee}</strong>
+				<span cond="$val" class="pay_total">+{nproductItem::formatMoney($delivery_fee)}</span>
+				<span cond="!$val" class="pay_total">0 </span>
+			</li>
+		</ul>
+		<p class="total_payment">
+			<strong><span class="total_m">{$lang->payment_amount}</span></strong>
+			<span cond="$val" class="pay_total total_m">{nproductItem::formatMoney($total_price)}</span>
+			<span cond="!$val" class="pay_total total_m">0 </span>
+		</p>
+	</div>
+
+	<ul class="m_cart_command">
+		<li cond="count($list)" class="select_button item_b select_del" >
+			<a href="#" class="nu_button" href="#" ><span>{$lang->cmd_select_all}</span></a>
+		</li>
+		<li cond="count($list)" class="select_button item_b select_del" >
+			<a href="#" class="nu_button" id="deleteCart" href="#" onclick="return false;"><span>{$lang->cmd_remove}</span></a>
+		</li>
+		<li class="order_button"><a href="#" class="nu_button nu_orange" onclick="progressOrderItems('{$login_chk}'); return false;"><strong>{$lang->cmd_order}</strong></a></li>
+	</div>
+
+</div>
+
+<include target="footer.html" />
+<script>
+	var g_total_items = {count($list)};
+	xe.lang.msg_select_items_in_order_to_delete = '{$lang->msg_select_items_in_order_to_delete}';
+	xe.lang.msg_order_selected_items = '{$lang->msg_order_selected_items}';
+</script>

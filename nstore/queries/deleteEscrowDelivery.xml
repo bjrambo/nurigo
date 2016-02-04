@@ -1,0 +1,8 @@
+<query id="deleteEscrowDelivery" action="delete">
+	<tables>
+		<table name="nstore_escrow" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

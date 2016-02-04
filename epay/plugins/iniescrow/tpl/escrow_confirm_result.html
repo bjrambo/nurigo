@@ -1,0 +1,58 @@
+
+<html>
+<head>
+
+<title>INIescrow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+
+
+<style type="text/css">
+	BODY{font-size:9pt; line-height:160%}
+	TD{font-size:9pt; line-height:160%}
+	INPUT{font-size:9pt;}
+	.emp{background-color:#E0EFFE;}
+</style>
+
+</head>
+
+<body>
+<table border=0 width=500>
+<tr>
+<td>
+<hr noshade size=1>
+<b>거절 확인 처리 결과</b>
+<hr noshade size=1>
+</td>
+</tr>
+</table>
+<br>
+
+<table border=0 width=500>
+	
+		
+	<tr>
+	<td align=right nowrap>결과코드 : </td><td><font class=emp>{$resultCode}</font></td>
+	</tr>
+	
+	<tr>
+	<td align=right nowrap>결과메세지 : </td><td><font class=emp>{iconv('euc-kr','utf-8',$resultMsg)}</font></td>
+	</tr>
+	
+	<tr>
+	<td align=right nowrap>처리날짜(YYYYMMDD)  : </td><td><font class=emp>{$resultDate}</font></td>
+	</tr>
+	
+	<tr>
+	<td align=right nowrap>처리시각(hhmmss)  : </td><td><font class=emp>{$resultTime}</font></td>
+	</tr>
+	
+	<tr>
+	<td colspan=2><hr noshade size=1></td>
+	</tr>
+	<tr>
+	<td align=right colspan=2>Copyright Inicis, Co.<br>www.inicis.com</td>
+	</tr>
+</table>
+</body>
+

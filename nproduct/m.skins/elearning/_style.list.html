@@ -1,0 +1,22 @@
+
+<load target="css/style.css" />
+<load target="css/_style.list.css" />
+	
+<table class="item-table" width="100%">
+	<tbody>
+		<tr id="item_{$val->item_srl}" loop="$list=>$no,$val">
+			<block loop="$list_config=>$k,$v">
+				<td cond="$k == 'image'"><a href="{getUrl('mid',$mid,'item_srl',$val->item_srl,'act','')}"><img src="{$val->getThumbnail($module_info->list_thumbnail_width,$module_info->list_thumbnail_height,$module_info->list_thumbnail_type)}" /></a></td>
+				<td class="item_name" cond="$v->type == 'title'">
+					<p><a href="{getUrl('mid',$mid,'item_srl',$val->item_srl,'act','')}">{$val->item_name}</a></p>
+				</td><!-- name -->
+				<td cond="!$val->discount_amount && $k == 'amount'"><span class="item_price">{$val->printPrice()}</span></td>
+				<td cond="$val->discount_amount && $k == 'amount'"><span style="text-decoration:line-through;">{nproductItem::formatMoney($val->price)}</span><br /><span class="font_size12"><strong>{$val->printDiscountedPrice()}</strong></span></td>
+			</block>
+		</tr>
+
+		<tr cond="!count($list)">
+			<td colspan="8">{$lang->msg_no_items}</td>
+		</tr>
+	</tbody>
+</table>

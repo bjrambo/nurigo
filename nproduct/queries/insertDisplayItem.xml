@@ -1,0 +1,12 @@
+<query id="insertDisplayItem" action="insert">
+	<tables>
+		<table name="nproduct_display_items" />
+	</tables>
+	<columns>
+		<column name="category_srl" var="category_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="node_route" var="node_route" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

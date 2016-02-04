@@ -1,0 +1,33 @@
+<query id="getNewestReviewList" action="select">
+    <tables>
+        <table name="store_review" alias="review" />
+        <table name="modules" alias="module" type="left join">
+		<conditions>
+			<condition operation="equal" column="module.module_srl" default="review.module_srl" />
+		</conditions>
+	</table>
+    </tables>
+    <columns>
+	<column name="review.review_srl" alias="review_srl" />
+	<column name="review.module_srl" alias="module_srl" />
+	<column name="review.item_srl" alias="item_srl" />
+	<column name="review.parent_srl" alias="parent_srl" />
+	<column name="review.is_secret" alias="is_secret" />
+	<column name="review.content" alias="content" />
+	<column name="review.voted_count" alias="voted_count" />
+	<column name="review.user_id" alias="user_id" />
+	<column name="review.user_name" alias="user_name" />
+	<column name="review.nick_name" alias="nick_name" />
+	<column name="review.member_srl" alias="member_srl" />
+	<column name="review.regdate" alias="regdate" />
+	<column name="review.list_order" alias="list_order" />
+	<column name="module.mid" alias="mid" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="review.module_srl" var="module_srl" filter="number" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="review.review_srl" order="desc" />
+        <list_count var="list_count" default="20" />
+    </navigation>
+</query>

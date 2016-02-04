@@ -1,0 +1,107 @@
+<load target="js/script.js" />
+<!--// normal -->
+<load cond="0" target="http://plugin.inicis.com/pay40_sec_uni.js" />
+<!--// open web -->
+<load target="http://plugin.inicis.com/pay61_secuni_cross.js" />
+<load target="filter/submit_iniescrow_payment.xml" />
+<load target="filter/submit_iniescrow_review.xml" />
+<load target="button.css" />
+
+<form id="fo_iniescrow" name="fo_iniescrow" class="fo_payment" method="post" action="./" onsubmit="iniescrow_submit('{$join_form}'); return false;">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+
+	<!-- settings by user -->
+	<input type="hidden" name="gopaymethod" value="Card" />
+	<input type="hidden" name="goodname" value="{$item_name}" />
+	<input type="hidden" name="buyername" value="{$purchaser_name}" />
+	<input type="hidden" name="buyeremail" value="{$purchaser_email}" />
+	<input type="hidden" name="buyertel" value="{$purchaser_telnum}" />
+	<input type="hidden" name="currency" value="WON" />
+
+	<block cond="$plugin_info->paymethod_phone=='Y'">{@$HPP='1'}</block>
+	<block cond="$plugin_info->paymethod_phone=='M'">{@$HPP='2'}</block>
+	<input type="hidden" name="acceptmethod" value="SKIN({$plugin_info->skin}):HPP({$HPP}):Card(0):OCB:receipt:cardpoint" />
+	<input cond="$plugin_info->logo_image" type="hidden" name="ini_logoimage_url" value="{getFullUrl('')}{$plugin_info->logo_image}" />
+
+        <!-- settings by plugin -->
+        <input type="hidden" name="mid" value="{$inicis_id}" />
+        <input type="hidden" name="quotainterest" value="" />
+        <input type="hidden" name="paymethod" value="" />
+        <input type="hidden" name="cardcode" value="" />
+        <input type="hidden" name="cardquota" value="" />
+        <input type="hidden" name="rbankcode" value="" />
+        <input type="hidden" name="reqsign" value="DONE" />
+        <input type="hidden" name="encrypted" value="" />
+        <input type="hidden" name="sessionkey" value="" />
+        <input type="hidden" name="uid" value="" />
+        <input type="hidden" name="sid" value="" />
+        <input type="hidden" name="version" value="4000" />
+        <input type="hidden" name="clickcontrol" value="" />
+
+	<div id="iniescrowForm"></div>
+
+	<div class="choice_box">
+		{@$checked=FALSE}
+		{@$first=FALSE}
+		<span cond="$plugin_info->paymethod_card=='Y'">
+			<input name="payment_method" id="iniescrow_paymethod_1" type="radio" value="CC" checked="checked"|cond="!$checked" /><label for="iniescrow_paymethod_1">에스크로 신용카드</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_1"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_directbank=='Y'">
+			<input name="payment_method" id="iniescrow_paymethod_2" type="radio" value="IB" checked="checked"|cond="!$checked" /><label for="iniescrow_paymethod_2">에스크로 계좌이체</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_2"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_virtualbank=='Y'">
+			<input name="payment_method" id="iniescrow_paymethod_3" type="radio" value="VA" checked="checked"|cond="!$checked" /><label for="iniescrow_paymethod_3">에스크로 가상계좌</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_3"}</block>
+		</span>
+		<span cond="$plugin_info->paymethod_phone!='N'">
+			<input name="payment_method" id="iniescrow_paymethod_4" type="radio" value="MP" checked="checked"|cond="!$checked" /><label for="iniescrow_paymethod_4">에스크로 휴대폰결제</label>
+			{@$checked=TRUE}
+			<block cond="!$first">{@$first="ini_4"}</block>
+		</span>
+	</div>
+
+	<div class="btn_payment">
+		<span>
+			<input type="submit" value="결제하기" class="nuribtn orange super" />
+		</span>
+	</div>
+	
+	<div id="iniescrow_pm_CC" class="payment_info" style="display:none"|cond="$first!='ini_1'">
+		<p class="font_size11">카드 결제 시 해당 카드사에서 제공하는 인증 결제창이 카드사 사정에따라 다소 지연될 수 있습니다.<br />
+		결제하기를 클릭하시고 잠시 기다려주세요.</p>
+	</div>
+	<div id="iniescrow_pm_IB" class="payment_info" style="display:none"|cond="$first!='ini_2'">
+		<p class="font_size11">결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확
+인하실 수 있습니다.<br />
+- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />
+- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.
+		</p>
+	</div>
+	<div id="iniescrow_pm_VA" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">결제하신 금액 중 아래 결제수단의 금액은 현금영수증이 발행되며, 입금확인 후 2일 이내에 확
+인하실 수 있습니다.<br />
+- 현금영수증 발행 대상: 현금잔고, 제휴사 포인트, 은행송금, 계좌이체, CMA 계좌이체, 하나알뜰쇼핑, 외화입금 세금계산서 발행을 원하시는 경우에는 수정버튼을 통해 현금영수증(지출증빙용)으로 신청해 주시기 바랍니다.<br />
+- 현금영수증(지출증빙용)은 법인세법 116조 2항 및 부가가치세법 32조 2의 3항에 의해 세금계산서와 동일한 자격 및 효력이 있습니다.</p>
+	</div>
+	<div id="iniescrow_pm_MP" class="payment_info" style="display:none"|cond="$first!='ini_4'">
+		<p class="font_size11">결제하신 금액 중 아래 결제수단의 금액은 다음과 같은 사유로 현금영수증이 발행되지 않습니다.<br />
+- G마일리지,북캐시 : 조세틀례제한법 제 126조의 3에 의해 현긍영수증 발행금액에서 제외됩니다.<br />
+- T머니 : 한국스마트카드에서 현금영수증이 발행되며, 국세청 현금영수증 사이트에서 확인하실 수 있습니다.<br />
+- 휴대폰 소액결제 : 통신사 요금 납부 후 결제대행업체 명의의 현금영수증이 발행되며, 국세청 현금영수증 사이트에서 확인하실 수 있습니다.</p>
+	</div>
+
+
+</form>
+
+<script language=javascript>
+	StartSmartUpdate();
+</script>

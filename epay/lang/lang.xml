@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁清單]]></value>		
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁生成]]></value>		
+	</item>
+	<item name="page_management">
+		<value xml:lang="ko"><![CDATA[페이지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Page management]]></value>
+		<value xml:lang="jp"><![CDATA[ページ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁管理]]></value>		
+	</item>
+	<item name="page_configuration">
+		<value xml:lang="ko"><![CDATA[페이지설정]]></value>
+		<value xml:lang="en"><![CDATA[Page setting]]></value>
+		<value xml:lang="jp"><![CDATA[ページ設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁設定]]></value>	
+	</item>
+	<item name="skin_settings">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>	
+	</item>
+	<item name="plugin">
+		<value xml:lang="ko"><![CDATA[플러그인]]></value>
+		<value xml:lang="en"><![CDATA[Plug-in]]></value>
+		<value xml:lang="jp"><![CDATA[プラグイン]]></value>
+		<value xml:lang="zh-TW"><![CDATA[外掛程式插件]]></value>	
+	</item>
+	<item name="page">
+		<value xml:lang="ko"><![CDATA[페이지]]></value>
+		<value xml:lang="en"><![CDATA[Page]]></value>
+		<value xml:lang="jp"><![CDATA[ページ]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網頁]]></value>		
+	</item>
+	<item name="plugin_creation">
+		<value xml:lang="ko"><![CDATA[플러그인 생성]]></value>
+		<value xml:lang="en"><![CDATA[Plug-in creation]]></value>
+		<value xml:lang="jp"><![CDATA[プラグイン生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[外掛程式生成]]></value>	
+	</item>
+	<item name="plugin_configuration">
+		<value xml:lang="ko"><![CDATA[플러그인 설정]]></value>
+		<value xml:lang="en"><![CDATA[Plug-in setting]]></value>
+		<value xml:lang="jp"><![CDATA[プラグイン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[外掛程式設定]]></value>	
+	</item>
+	<item name="payment_details">
+		<value xml:lang="ko"><![CDATA[결제내역]]></value>
+		<value xml:lang="en"><![CDATA[Payment details]]></value>
+		<value xml:lang="jp"><![CDATA[決済内訳]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款結算明細]]></value>	
+	</item>
+	<item name="plugin_id">
+		<value xml:lang="ko"><![CDATA[플러그인 아이디]]></value>
+		<value xml:lang="en"><![CDATA[Plug-in ID]]></value>
+		<value xml:lang="jp"><![CDATA[プラグインID]]></value>
+		<value xml:lang="zh-TW"><![CDATA[外掛程式ID]]></value>			
+	</item>
+	<item name="plugin_title">
+		<value xml:lang="ko"><![CDATA[플러그인 타이틀]]></value>
+		<value xml:lang="en"><![CDATA[Plug-in title]]></value>
+		<value xml:lang="jp"><![CDATA[プラグインタイトル]]></value>
+		<value xml:lang="zh-TW"><![CDATA[外掛程式標題]]></value>			
+	</item>
+	<item name="state_list" type="array">
+		<item name="1">
+			<value xml:lang="ko"><![CDATA[진행]]></value>
+			<value xml:lang="en"><![CDATA[Progress]]></value>
+			<value xml:lang="jp"><![CDATA[進行]]></value>
+			<value xml:lang="zh-TW"><![CDATA[進行]]></value>
+		</item>
+		<item name="2">
+			<value xml:lang="ko"><![CDATA[완료]]></value>
+			<value xml:lang="en"><![CDATA[Completed]]></value>			
+			<value xml:lang="jp"><![CDATA[完了]]></value>
+			<value xml:lang="zh-TW"><![CDATA[完成]]></value>			
+		</item>
+		<item name="3">
+			<value xml:lang="ko"><![CDATA[오류]]></value>
+			<value xml:lang="en"><![CDATA[Error]]></value>					
+			<value xml:lang="jp"><![CDATA[エラー]]></value>
+			<value xml:lang="zh-TW"><![CDATA[錯誤]]></value>				
+		</item>
+	</item>
+	<item name="payment_method" type="array">
+		<item name="VA">
+			<value xml:lang="ko"><![CDATA[가상계좌]]></value>
+			<value xml:lang="en"><![CDATA[Virtual accunt]]></value>				
+			<value xml:lang="jp"><![CDATA[仮想口座]]></value>
+			<value xml:lang="zh-TW"><![CDATA[虛擬帳戶]]></value>				
+		</item>
+		<item name="CC">
+			<value xml:lang="ko"><![CDATA[신용카드]]></value>
+			<value xml:lang="en"><![CDATA[Credit card]]></value>
+			<value xml:lang="jp"><![CDATA[クレジットカード]]></value>
+			<value xml:lang="zh-TW"><![CDATA[信用卡]]></value>	
+		</item>
+		<item name="MP">
+			<value xml:lang="ko"><![CDATA[휴대폰]]></value>
+			<value xml:lang="en"><![CDATA[Mobile phone]]></value>
+			<value xml:lang="jp"><![CDATA[携帯電話]]></value>
+			<value xml:lang="zh-TW"><![CDATA[手機號碼]]></value>	
+		</item>
+		<item name="IB">
+			<value xml:lang="ko"><![CDATA[계좌이체]]></value>
+			<value xml:lang="en"><![CDATA[Account transfer]]></value>
+			<value xml:lang="jp"><![CDATA[口座振込]]></value>
+			<value xml:lang="zh-TW"><![CDATA[帳戶轉賬]]></value>
+		</item>
+		<item name="PP">
+			<value xml:lang="ko"><![CDATA[페이팔]]></value>
+			<value xml:lang="en"><![CDATA[Paypal]]></value>
+			<value xml:lang="jp"><![CDATA[ペイパル]]></value>
+			<value xml:lang="zh-TW"><![CDATA[PayPal 結帳]]></value>
+		</item>
+		<item name="BT">
+			<value xml:lang="ko"><![CDATA[무통장입금]]></value>
+			<value xml:lang="en"><![CDATA[Bank Transfer]]></value>
+			<value xml:lang="jp"><![CDATA[口座振込]]></value>
+			<value xml:lang="zh-TW"><![CDATA[實體銀行轉帳支付]]></value>
+		</item>
+	</item>
+	<item name="no_data">
+		<value xml:lang="ko"><![CDATA[자료없음]]></value>
+		<value xml:lang="en"><![CDATA[No data]]></value>
+		<value xml:lang="jp"><![CDATA[データ無し]]></value>
+		<value xml:lang="zh-TW"><![CDATA[無資料]]></value>
+	</item>
+	<item name="order_number">
+		<value xml:lang="ko"><![CDATA[주문번호]]></value>
+		<value xml:lang="en"><![CDATA[Order No.]]></value>
+		<value xml:lang="jp"><![CDATA[注文番号]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購單編號]]></value>
+	</item>
+	<item name="paymethod">
+		<value xml:lang="ko"><![CDATA[결제방식]]></value>
+		<value xml:lang="en"><![CDATA[Payment method]]></value>
+		<value xml:lang="jp"><![CDATA[お支払い方法]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款方式]]></value>
+	</item>
+		
+	<item name="products_ordered">
+		<value xml:lang="ko"><![CDATA[결제상품]]></value>
+		<value xml:lang="en"><![CDATA[Order product]]></value>
+		<value xml:lang="jp"><![CDATA[決済商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂購的商品]]></value>
+	</item>
+	
+	<item name="epay_module">
+		<value xml:lang="ko"><![CDATA[결제모듈]]></value>
+		<value xml:lang="en"><![CDATA[Payment module]]></value>
+		<value xml:lang="jp"><![CDATA[決済モジュール]]></value>
+		<value xml:lang="zh-TW"><![CDATA[支付模組]]></value>	
+	</item>
+	<item name="payment_amount">
+		<value xml:lang="ko"><![CDATA[결제금액]]></value>
+		<value xml:lang="en"><![CDATA[Payment amount]]></value>
+		<value xml:lang="jp"><![CDATA[最終決済金閣]]></value>
+		<value xml:lang="zh-TW"><![CDATA[應付金額]]></value>		
+	</item>
+	<item name="payment_member">
+		<value xml:lang="ko"><![CDATA[결제회원]]></value>
+		<value xml:lang="en"><![CDATA[Paid member]]></value>
+		<value xml:lang="jp"><![CDATA[決済会員]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款會員]]></value>
+	</item>
+	<item name="payment_date">
+		<value xml:lang="ko"><![CDATA[결제일]]></value>
+		<value xml:lang="en"><![CDATA[Payment date]]></value>
+		<value xml:lang="jp"><![CDATA[決済日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款日期]]></value>
+	</item>
+	<item name="product">
+		<value xml:lang="ko"><![CDATA[상품]]></value>
+		<value xml:lang="en"><![CDATA[Product]]></value>
+		<value xml:lang="jp"><![CDATA[商品]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品]]></value>
+	</item>
+	<item name="price">
+		<value xml:lang="ko"><![CDATA[가격]]></value>
+		<value xml:lang="en"><![CDATA[Price]]></value>
+		<value xml:lang="jp"><![CDATA[価格]]></value>
+		<value xml:lang="zh-TW"><![CDATA[價格]]></value>
+	</item>
+	<item name="status">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+		<value xml:lang="en"><![CDATA[Status]]></value>
+		<value xml:lang="jp"><![CDATA[状態]]></value>
+		<value xml:lang="zh-TW"><![CDATA[狀態]]></value>
+	</item>
+	<item name="pg_resultcode">
+		<value xml:lang="ko"><![CDATA[결과값(PG)]]></value>
+		<value xml:lang="en"><![CDATA[Result(PG)]]></value>
+		<value xml:lang="jp"><![CDATA[結果値(PG)]]></value>
+		<value xml:lang="zh-TW"><![CDATA[結果値（PG）]]></value>
+	</item>
+	<item name="pg_resultmessage">
+		<value xml:lang="ko"><![CDATA[결과메시지(PG)]]></value>
+		<value xml:lang="en"><![CDATA[Result message(PG)]]></value>
+		<value xml:lang="jp"><![CDATA[結果メッセージ(PG)]]></value>
+		<value xml:lang="zh-TW"><![CDATA[結果信息(PG)]]></value>
+	</item>
+	<item name="extension">
+		<value xml:lang="ko"><![CDATA[추가정보]]></value>
+		<value xml:lang="en"><![CDATA[Extension]]></value>
+		<value xml:lang="jp"><![CDATA[拡張]]></value>
+		<value xml:lang="zh-TW"><![CDATA[延期]]></value>
+	</item>
+	<item name="view_all">
+		<value xml:lang="ko"><![CDATA[전체보기]]></value>
+		<value xml:lang="en"><![CDATA[View all]]></value>
+		<value xml:lang="jp"><![CDATA[全て見る]]></value>
+		<value xml:lang="zh-TW"><![CDATA[查看全部]]></value>
+	</item>
+	<item name="view_today">
+		<value xml:lang="ko"><![CDATA[당일보기]]></value>
+		<value xml:lang="en"><![CDATA[Today]]></value>
+		<value xml:lang="jp"><![CDATA[상태]]></value>
+		<value xml:lang="zh-TW"><![CDATA[今天]]></value>
+	</item>
+	<item name="view_1month">
+		<value xml:lang="ko"><![CDATA[1개월]]></value>
+		<value xml:lang="en"><![CDATA[1 Month]]></value>
+		<value xml:lang="jp"><![CDATA[1ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[1個月]]></value>
+	</item>
+	<item name="view_3month">
+		<value xml:lang="ko"><![CDATA[3개월]]></value>
+		<value xml:lang="en"><![CDATA[3 Months]]></value>
+		<value xml:lang="jp"><![CDATA[3ヶ月]]></value>
+		<value xml:lang="zh-TW"><![CDATA[3個月]]></value>
+	</item>
+	<item name="details">
+		<value xml:lang="ko"><![CDATA[상세내용]]></value>
+		<value xml:lang="en"><![CDATA[Details]]></value>
+		<value xml:lang="jp"><![CDATA[詳細]]></value>
+		<value xml:lang="zh-TW"><![CDATA[詳細]]></value>
+	</item>
+	<item name="receipt">
+		<value xml:lang="ko"><![CDATA[영수증]]></value>
+		<value xml:lang="en"><![CDATA[Receipt]]></value>
+		<value xml:lang="jp"><![CDATA[領収書]]></value>
+		<value xml:lang="zh-TW"><![CDATA[收據]]></value>
+	</item>
+	<item name="result">
+		<value xml:lang="ko"><![CDATA[결과)]]></value>
+		<value xml:lang="en"><![CDATA[Result]]></value>
+		<value xml:lang="jp"><![CDATA[結果]]></value>
+		<value xml:lang="zh-TW"><![CDATA[結果]]></value>
+	</item>
+	<item name="payment_method">
+		<value xml:lang="ko"><![CDATA[결제수단)]]></value>
+		<value xml:lang="en"><![CDATA[Payment method]]></value>
+		<value xml:lang="jp"><![CDATA[Payment method]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款]]></value>
+	</item>
+	<item name="payment_management">
+		<value xml:lang="ko"><![CDATA[결제관리]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+		<value xml:lang="jp"><![CDATA[決済管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[付款結算管理]]></value>
+	</item>
+	<item name="transaction_srl">
+		<value xml:lang="ko"><![CDATA[거래번호]]></value>
+		<value xml:lang="en"><![CDATA[Transaction ID]]></value>
+		<value xml:lang="jp"><![CDATA[Transaction ID]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Transaction ID]]></value>
+	</item>
+
+	<item name="cmd_place_order">
+		<value xml:lang="ko"><![CDATA[구매하기]]></value>
+		<value xml:lang="en"><![CDATA[Place an order]]></value>
+		<value xml:lang="jp"><![CDATA[Place an order]]></value>
+		<value xml:lang="zh-TW"><![CDATA[購買]]></value>
+	</item>
+	
+	<item name="about_epay">
+		<value xml:lang="ko"><![CDATA[결제 플러그인 관리 및 결제내역 조회가 가능합니다.]]></value>
+		<value xml:lang="en"><![CDATA[You can manage the payment plug-in and view payment results.]]></value>
+		<value xml:lang="jp"><![CDATA[決済プラグインの管理及び支払い履歴の照会ができます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[可以管理付款外掛程式和檢視付款歷史記錄.]]></value>
+	</item>
+	<item name="about_plugin">
+		<value xml:lang="ko"><![CDATA[결제 플러그인을 선택해 주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Select payment plug-in.]]></value>
+		<value xml:lang="jp"><![CDATA[決済プラグインを選択してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[選擇付款外掛程式]]></value>
+	</item>
+
+	<item name="msg_invalid_epay_module">
+		<value xml:lang="ko"><![CDATA[EPAY 모듈정보를 찾을 수 없습니다. 설정을 확인하세요.]]></value>
+		<value xml:lang="en"><![CDATA[Can't find ePay module information. Check the setting.]]></value>
+		<value xml:lang="jp"><![CDATA[ePAYモジュールの情報を見けることができません。設定を確認してください。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[無法找到EPAY模組。請檢查您的設定。]]></value>
+	</item>
+	<item name="msg_login_required">
+		<value xml:lang="ko"><![CDATA[로그인 후 사용하실 수 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[You can use it after login]]></value>
+		<value xml:lang="jp"><![CDATA[ログインしてから使用できます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[登錄後您才可以使用.]]></value>		
+	</item>
+	<item name="msg_want_status_change">
+		<value xml:lang="ko"><![CDATA[바꾸시겠습니까?]]></value>
+		<value xml:lang="en"><![CDATA[Do you want to change?]]></value>
+		<value xml:lang="jp"><![CDATA[変更しますか？]]></value>
+		<value xml:lang="zh-TW"><![CDATA[要變更嗎?]]></value>		
+	</item>
+	<item name="msg_no_payment_list">
+		<value xml:lang="ko"><![CDATA[결제내역이 없습니다.]]></value>
+		<value xml:lang="en"><![CDATA[There is no payment history.]]></value>
+		<value xml:lang="jp"><![CDATA[支払い履歴がありません。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[無付款歷史記錄]]></value>		
+	</item>
+</lang>

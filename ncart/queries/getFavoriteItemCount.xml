@@ -1,0 +1,12 @@
+<query id="getFavoriteItemCount" action="select">
+	<tables>
+		<table name="ncart_favorites" alias="favorite" />
+	</tables>
+	<columns>
+		<column name="COUNT(*)" alias="count" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" />
+		<condition operation="equal" column="item_srl" var="item_srl" pipe="and" />
+	</conditions>
+</query>

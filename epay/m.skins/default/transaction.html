@@ -1,0 +1,72 @@
+<load target="css/userinfo.css" />
+<load target="css/nu_btn.css" />
+<load target="css/style.css" />
+
+<div class="pay_list">
+	<h1>{$lang->payment_details}</h1>
+
+	<div class="pay_btnset">
+		<a class="m_btn" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', 'a')}" >{$lang->view_all]</a>
+		<a class="m_btn" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', 't')}" >{$lang->view_today}</a>
+		<a class="m_btn" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', '1')}" >{$lang->view_1month}</a>
+		<a class="m_btn" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', '3')}" >{$lang->view_3months}</a>
+	</div>
+
+	<div class="pay_box">
+		<dl loop="$epay_user_info=>$k,$v">
+			<dt>{$lang->payment_date}</dt>
+			<dd>{substr(zdate($v->regdate),0,10)}</dd>
+			<dt>{$lang->product}</dt>
+			<dd>{$v->order_title}</dd>
+			<dt>{$lang->price}</dt>
+			<dd>{$v->payment_amount}</dd>
+			<dt>{$lang->paymethod}</dt>
+			<dd>{$v->payment_method}</dd>
+			<dt>{$lang->details}</dt>
+			<dd cond="$v->extra_vars['vact_bankname']">{$v->extra_vars['vact_bankname']}<br>{$v->extra_vars['vact_num']}</dd>
+			<dd cond="!$v->extra_vars['vact_bankname']">{$v->payment_method}</dd>
+			<dt>{$lang->result}</dt>
+			<dd>{$v->result_message}</dd>
+		</dl>
+	</div>
+
+	<div cond="!$epay_user_info" class="no_pay">
+		{$lang->msg_no_payment_list}
+	</div>
+
+	<div id="dialog-modal" title="dialog"></div>
+
+
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+</div>

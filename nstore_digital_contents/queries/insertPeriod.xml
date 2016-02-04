@@ -1,0 +1,10 @@
+<query id="insertPeriod" action="insert">
+	<tables>
+		<table name="nstore_digital_contents_period" />
+	</tables>
+	<columns>
+		<column name="cart_srl" var="cart_srl" filter="number" notnull="notnull" />
+		<column name="period" var="period" filter="number" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

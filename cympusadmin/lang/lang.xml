@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>  
+	<item name="page_list">
+		<value xml:lang="ko"><![CDATA[페이지 목록]]></value>
+		<value xml:lang="en"><![CDATA[Page list]]></value>
+		<value xml:lang="jp"><![CDATA[ページリスト]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面列示]]></value>		
+	</item>
+	<item name="page_creation">
+		<value xml:lang="ko"><![CDATA[페이지 생성]]></value>
+		<value xml:lang="en"><![CDATA[Page creation]]></value>
+		<value xml:lang="jp"><![CDATA[ページ生成]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面產生]]></value>		
+	</item>
+	<item name="page_management">
+		<value xml:lang="ko"><![CDATA[페이지 관리]]></value>
+		<value xml:lang="en"><![CDATA[Page management]]></value>
+		<value xml:lang="jp"><![CDATA[ページ管理]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面管理]]></value>		
+	</item>
+	<item name="page_configuration">
+		<value xml:lang="ko"><![CDATA[페이지설정]]></value>
+		<value xml:lang="en"><![CDATA[Page setting]]></value>
+		<value xml:lang="jp"><![CDATA[ページ設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面設定]]></value>	
+	</item>
+	<item name="skin_settings">
+		<value xml:lang="ko"><![CDATA[스킨설정]]></value>
+		<value xml:lang="en"><![CDATA[Skin setting]]></value>
+		<value xml:lang="jp"><![CDATA[スキン設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[頁面版面設定]]></value>	
+	</item>
+	<item name="permission_settings">
+		<value xml:lang="ko"><![CDATA[권한설정]]></value>
+		<value xml:lang="en"><![CDATA[Permissions]]></value>
+		<value xml:lang="jp"><![CDATA[権限設定]]></value>
+		<value xml:lang="zh-TW"><![CDATA[權限設定]]></value>				
+	</item>
+	<item name="site_status">
+		<value xml:lang="ko"><![CDATA[사이트 현황]]></value>
+		<value xml:lang="en"><![CDATA[Site Status]]></value>
+		<value xml:lang="jp"><![CDATA[サイト現状]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網站狀態]]></value>
+	</item>
+	<item name="elearning_status">
+		<value xml:lang="ko"><![CDATA[수강신청 현황]]></value>
+		<value xml:lang="en"><![CDATA[Registration Status]]></value>
+		<value xml:lang="jp"><![CDATA[受講申込の現況]]></value>
+		<value xml:lang="zh-TW"><![CDATA[註冊狀態]]></value>		
+	</item>
+	<item name="freepass_status">
+		<value xml:lang="ko"><![CDATA[프리패스 신청현황]]></value>
+		<value xml:lang="en"><![CDATA[Freepass Status]]></value>
+		<value xml:lang="jp"><![CDATA[Freepass Status]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Freepass Status]]></value>		
+	</item>
+	<item name="nstore_status">
+		<value xml:lang="ko"><![CDATA[쇼핑몰 주문처리별 현황]]></value>
+		<value xml:lang="en"><![CDATA[Shoppingmall Status]]></value>
+		<value xml:lang="jp"><![CDATA[ショッピングモール注文状況]]></value>
+		<value xml:lang="zh-TW"><![CDATA[訂單處理狀態]]></value>		
+	</item>
+	<item name="nstore_digital_status">
+		<value xml:lang="ko"><![CDATA[콘텐츠몰 주문처리별 현황]]></value>
+		<value xml:lang="en"><![CDATA[Contents-mall Status]]></value>
+		<value xml:lang="jp"><![CDATA[コンテンツモール注文状況]]></value>
+		<value xml:lang="zh-TW"><![CDATA[內容課程狀態]]></value>		
+	</item>
+	<item name="new_members">
+		<value xml:lang="ko"><![CDATA[신규가입]]></value>
+		<value xml:lang="en"><![CDATA[New Members]]></value>
+		<value xml:lang="jp"><![CDATA[新規登録]]></value>
+		<value xml:lang="zh-TW"><![CDATA[新帳號]]></value>		
+	</item>
+	<item name="member_management">
+		<value xml:lang="ko"><![CDATA[회원관리]]></value>
+		<value xml:lang="en"><![CDATA[Member Management]]></value>
+		<value xml:lang="jp"><![CDATA[]]></value>
+		<value xml:lang="zh-TW"><![CDATA[]]></value>		
+	</item>
+	<item name="latest_documents">
+		<value xml:lang="ko"><![CDATA[새로운글]]></value>
+		<value xml:lang="en"><![CDATA[New Posts]]></value>
+		<value xml:lang="jp"><![CDATA[新コメント]]></value>
+		<value xml:lang="zh-TW"><![CDATA[最新貼文與上架]]></value>		
+	</item>
+	<item name="latest_comments">
+		<value xml:lang="ko"><![CDATA[최근댓글]]></value>
+		<value xml:lang="en"><![CDATA[Latest Comments]]></value>
+		<value xml:lang="jp"><![CDATA[最新コメント]]></value>
+		<value xml:lang="zh-TW"><![CDATA[最新評論]]></value>		
+	</item>
+	<item name="registrations">
+		<value xml:lang="ko"><![CDATA[수강신청]]></value>
+		<value xml:lang="en"><![CDATA[Registrations]]></value>
+		<value xml:lang="jp"><![CDATA[登録]]></value>
+		<value xml:lang="zh-TW"><![CDATA[註冊]]></value>		
+	</item>
+	<item name="elearning_sales">
+		<value xml:lang="ko"><![CDATA[매출]]></value>
+		<value xml:lang="en"><![CDATA[Sales Amount]]></value>
+		<value xml:lang="jp"><![CDATA[売上]]></value>
+		<value xml:lang="zh-TW"><![CDATA[銷售收益]]></value>		
+	</item>
+	<item name="current_play">
+		<value xml:lang="ko"><![CDATA[현재 재생중인 강좌]]></value>
+		<value xml:lang="en"><![CDATA[Current Play]]></value>
+		<value xml:lang="jp"><![CDATA[再生中講座]]></value>
+		<value xml:lang="zh-TW"><![CDATA[當前正在播放課程]]></value>		
+	</item>
+	<item name="product_sell">
+		<value xml:lang="ko"><![CDATA[상품판매]]></value>
+		<value xml:lang="en"><![CDATA[Product Sell]]></value>
+		<value xml:lang="jp"><![CDATA[商品販売]]></value>
+		<value xml:lang="zh-TW"><![CDATA[產品銷售]]></value>		
+	</item>
+	<item name="product_sales">
+		<value xml:lang="ko"><![CDATA[상품매출]]></value>
+		<value xml:lang="en"><![CDATA[Product Sales]]></value>
+		<value xml:lang="jp"><![CDATA[商品売上]]></value>
+		<value xml:lang="zh-TW"><![CDATA[商品]]></value>		
+	</item>
+	<item name="sunday">
+		<value xml:lang="ko"><![CDATA[일요일]]></value>
+		<value xml:lang="en"><![CDATA[Sunday]]></value>
+		<value xml:lang="jp"><![CDATA[日曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期日]]></value>		
+	</item>
+	<item name="monday">
+		<value xml:lang="ko"><![CDATA[월요일]]></value>
+		<value xml:lang="en"><![CDATA[Monday]]></value>
+		<value xml:lang="jp"><![CDATA[月曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期一]]></value>		
+	</item>
+	<item name="tuesday">
+		<value xml:lang="ko"><![CDATA[화요일]]></value>
+		<value xml:lang="en"><![CDATA[Tuesday]]></value>
+		<value xml:lang="jp"><![CDATA[火曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期二]]></value>		
+	</item>
+	<item name="wednesday">
+		<value xml:lang="ko"><![CDATA[수요일]]></value>
+		<value xml:lang="en"><![CDATA[Wednesday]]></value>
+		<value xml:lang="jp"><![CDATA[水曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期三]]></value>		
+	</item>
+	<item name="thursday">
+		<value xml:lang="ko"><![CDATA[목요일]]></value>
+		<value xml:lang="en"><![CDATA[Thursday]]></value>
+		<value xml:lang="jp"><![CDATA[木曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期四]]></value>		
+	</item>
+	<item name="friday">
+		<value xml:lang="ko"><![CDATA[금요일]]></value>
+		<value xml:lang="en"><![CDATA[Friday]]></value>
+		<value xml:lang="jp"><![CDATA[金曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期五]]></value>		
+	</item>
+	<item name="saturday">
+		<value xml:lang="ko"><![CDATA[토요일]]></value>
+		<value xml:lang="en"><![CDATA[Saturday]]></value>
+		<value xml:lang="jp"><![CDATA[土曜日]]></value>
+		<value xml:lang="zh-TW"><![CDATA[星期六]]></value>		
+	</item>
+	<item name="dashboard">
+		<value xml:lang="ko"><![CDATA[XE 제어판]]></value>
+		<value xml:lang="en"><![CDATA[XE 面板]]></value>
+		<value xml:lang="jp"><![CDATA[XE コントロールパンネル]]></value>
+		<value xml:lang="zh-TW"><![CDATA[XE 面板]]></value>		
+	</item>
+	<item name="link_text">
+		<value xml:lang="ko"><![CDATA[NURIGO]]></value>
+		<value xml:lang="en"><![CDATA[NURIGO]]></value>
+		<value xml:lang="jp"><![CDATA[NURIGO]]></value>
+		<value xml:lang="zh-TW"><![CDATA[通達資訊 Mastel]]></value>		
+	</item>
+	<item name="link_url">
+		<value xml:lang="ko"><![CDATA[http://www.cympus.com]]></value>
+		<value xml:lang="en"><![CDATA[http://www.cympus.com]]></value>
+		<value xml:lang="jp"><![CDATA[http://www.cympus.com]]></value>
+		<value xml:lang="zh-TW"><![CDATA[http://www.mastel.com.tw]]></value>		
+	</item>
+	<item name="site_management">
+                <value xml:lang="ko"><![CDATA[사이트관리]]></value>
+                <value xml:lang="en"><![CDATA[Site Management]]></value>
+                <value xml:lang="jp"><![CDATA[サイト管理]]></value>
+                <value xml:lang="zh-TW"><![CDATA[網站管理]]></value>
+	</item>
+	<item name="site_status">
+		<value xml:lang="ko"><![CDATA[전체현황]]></value>
+		<value xml:lang="en"><![CDATA[Site Status]]></value>
+		<value xml:lang="jp"><![CDATA[サイト現状]]></value>
+		<value xml:lang="zh-TW"><![CDATA[網站狀態]]></value>
+	</item>
+
+	<item name="about_dashboard">
+		<value xml:lang="ko"><![CDATA[더욱 세밀한 환경설정을 하실 수 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[You can configure in detail.]]></value>
+		<value xml:lang="jp"><![CDATA[詳細な設定ができます。]]></value>
+		<value xml:lang="zh-TW"><![CDATA[偏好可以更詳細]]></value>		
+	</item>
+
+	<item name="title_admin">
+		<value xml:lang="ko"><![CDATA[ADMIN]]></value>
+		<value xml:lang="en"><![CDATA[ADMIN]]></value>
+		<value xml:lang="jp"><![CDATA[ADMIN]]></value>
+		<value xml:lang="zh-TW"><![CDATA[ADMIN 管理選單]]></value>		
+	</item>
+
+	<item name="msg_is_not_administrator">
+		<value xml:lang="ko"><![CDATA[관리자만 접속이 가능합니다.]]></value>
+		<value xml:lang="en"><![CDATA[Only administrator can access this page.]]></value>
+		<value xml:lang="jp"><![CDATA[管理者のみアクセスできます。]]></value>
+		<value xml:lang="zh-CN"><![CDATA[只允许管理员访问]]></value>
+		<value xml:lang="zh-TW"><![CDATA[只有管理員才可以檢視]]></value>
+		<value xml:lang="fr"><![CDATA[Administrateur seulement]]></value>
+		<value xml:lang="ru"><![CDATA[Только для администраторов!]]></value>
+		<value xml:lang="es"><![CDATA[Sólo se permite el ingreso del administrador.]]></value>
+		<value xml:lang="tr"><![CDATA[Sadece yöneticilerin bağlanması mümkündür.]]></value>
+		<value xml:lang="vi"><![CDATA[Dành riêng Administrator]]></value>
+	</item>
+</lang>

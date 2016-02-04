@@ -1,0 +1,5 @@
+<table name="nstore_digital_contents_period">
+	<column name="cart_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" index="idx_cart_srl" />
+	<column name="period" type="number" size="11" notnull="notnull" index="idx_period" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

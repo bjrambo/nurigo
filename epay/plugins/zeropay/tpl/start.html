@@ -1,0 +1,59 @@
+<load target="js/script.js" />
+<load target="css/popup.css" />
+<load target="css/btn.css" />
+
+{@$button_title='주문완료하기'}
+<block cond="$plugin_info->button_title">{@$button_title=$plugin_info->button_title}</block>
+
+<div id="container">
+	<div id="header">
+		<h1><img src="img/h1_bank_pay.gif" alt="법인계좌 입금" /></h1>
+	</div> <!-- #header// -->
+
+	<form>
+		<table class="popTable">
+			<caption>상품 정보</caption>
+			<tr>
+				<th class="orangeTop">상품명</th>
+				<td class="orangeTop">{$order_title}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">결제금액</th>
+				<td class="orangeBottom">{number_format($price, $plugin_info->decimals)} 원</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>입금하실 계좌 정보</caption>
+			<tr>
+				<th class="orangeTop">은행명</th>
+				<td class="orangeTop">{$plugin_info->bank_name}</td>
+			</tr>
+			<tr>
+				<th>계좌번호</th>
+				<td>{$plugin_info->account_number}</td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">예금주</th>
+				<td class="orangeBottom">{$plugin_info->account_holder}</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<table class="popTable mgt">
+			<caption>입금자명</caption>
+			<tr>
+				<th class="orangeBottom">입금자명</th>
+				<td class="orangeBottom">
+					<input type="text" id="depositor_name" name="depositor_name" class="input01 size03" />
+					<p class="exTxt">{$plugin_info->guide_text}</p>
+				</td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		<div id="btnSec">
+			<div>
+				<button class="nuribtn super" onclick="doCashPayment(); return false;">{$button_title}</button>
+			</div>
+		</div><!-- #btnSec// -->
+	</form>
+</div>

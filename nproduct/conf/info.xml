@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">상품관리</title>
+	<title xml:lang="en">Products management</title>
+	<title xml:lang="jp">商品管理</title>
+	<title xml:lang="zh-TW">商品管理</title>
+	<description xml:lang="ko">상품을 등록하고 관리하는 모듈입니다.</description>
+	<description xml:lang="en">You can register and manage product here.</description>
+	<description xml:lang="jp">商品の登録、管理するためのモジュールです。</description>
+	<description xml:lang="zh-TW">商品登録與管理</description>	
+	<version>1.7</version>
+	<date>2015-04-18</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+	</author>
+</module>

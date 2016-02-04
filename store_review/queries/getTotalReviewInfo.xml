@@ -1,0 +1,12 @@
+<query id="getTotalReviewInfo" action="select">
+	<tables>
+		<table name="store_review" />
+	</tables>
+	<columns>
+		<column name="COUNT(voted_count)" alias="count" />
+		<column name="SUM(voted_count)" alias="sum" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

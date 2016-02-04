@@ -1,0 +1,8 @@
+<table name="nstore_digital_contents">
+	<column name="file_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" index="idx_file_srl" />
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="module_srl" type="number" size="11" notnull="notnull" index="idx_module_srl" />
+	<column name="extra_vars" type="text" />
+	<column name="list_order" type="number" size="11" notnull="notnull" default="1" index="idx_list_order" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

@@ -1,0 +1,42 @@
+<query id="getOrderItems" action="select">
+	<tables>
+		<table name="nstore_digital_cart" alias="cart" />
+		<table name="nproduct_items" alias="items" type="left join">
+			<conditions>
+				<condition operation="equal" column="items.item_srl" default="cart.item_srl" />
+			</conditions>
+		</table>
+		<table name="member" alias="member" type="left join">
+			<conditions>
+				<condition operation="equal" column="member.member_srl" default="cart.member_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="items.item_srl" alias="item_srl" />
+		<column name="items.item_code" alias="item_code" />
+		<column name="items.item_name" alias="item_name" />
+		<column name="items.module_srl" alias="module_srl" />
+		<column name="items.category_id" alias="category_id" />
+		<column name="items.node_route" alias="node_route" />
+		<column name="items.document_srl" alias="document_srl" />
+		<column name="items.file_srl" alias="file_srl" />
+		<column name="items.price" alias="price" />
+		<column name="cart.cart_srl" alias="cart_srl" />
+		<column name="cart.order_status" alias="order_status" />
+		<column name="cart.invoice_no" alias="invoice_no" />
+		<column name="cart.express_id" alias="express_id" />
+		<column name="cart.regdate" alias="regdate" />
+		<column name="cart.discounted_price" alias="discounted_price" />
+		<column name="member.member_srl" alias="member_srl" />
+		<column name="member.user_id" alias="user_id" />
+		<column name="member.nick_name" alias="nick_name" />
+		<column name="member.user_name" alias="user_name" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="cart.order_status" var="order_status" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="cart.cart_srl" order="desc" />
+	</navigation>
+</query>

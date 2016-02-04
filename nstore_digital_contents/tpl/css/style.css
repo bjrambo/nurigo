@@ -1,0 +1,2 @@
+.iconMoveTo { display:inline-block; background:url(../img/iconMoveTo.gif) no-repeat; width:18px; height:32px; }
+.iconMoveTo:hover { background:url(../img/iconMoveTo.gif) bottom no-repeat; cursor:move; width:18px; height:32px; }

@@ -1,0 +1,15 @@
+<query id="insertMileageHistory" action="insert">
+	<tables>
+		<table name="nmileage_history" />
+	</tables>
+	<columns>
+		<column name="history_srl" var="history_srl" filter="number" notnull="notnull" />
+		<column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+		<column name="amount" var="amount" filter="number" notnull="notnull" />
+		<column name="action" var="action" notnull="notnull" />
+		<column name="title" var="title" notnull="notnull" />
+		<column name="balance" var="balance" notnull="notnull" />
+		<column name="order_srl" var="order_srl" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

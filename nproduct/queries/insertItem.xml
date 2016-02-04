@@ -1,0 +1,31 @@
+<query id="insertItem" action="insert">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="item_code" var="item_code" notnull="notnull" />
+		<column name="item_name" var="item_name" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="category_id" var="category_id" default="0" />
+		<column name="proc_module" var="proc_module" notnull="notnull" />
+		<column name="node_route" var="node_route" />
+		<column name="document_srl" var="document_srl" notnull="notnull" />
+		<column name="file_srl" var="file_srl" />
+		<column name="thumb_file_srl" var="thumb_file_srl" />
+		<column name="price" var="price" notnull="notnull" />
+		<column name="discount_amount" var="discount_amount" />
+		<column name="discount_info" var="discount_info" />
+		<column name="taxfree" var="taxfree" default="N" />
+		<column name="display" var="display" notnull="notnull" />
+		<column name="review_count" var="review_count" />
+		<column name="sales_count" var="sales_count" />
+		<column name="download_count" var="download_count" />
+		<column name="delivery_info" var="delivery_info" />
+		<column name="group_srl_list" var="group_srl_list" />
+		<column name="list_order" var="list_order" />
+		<column name="extra_vars" var="extra_vars" />
+		<column name="updatetime" var="updatetime" default="curdate()" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

@@ -1,0 +1,18 @@
+<filter name="insert_modinst" module="nstore" act="procNstoreAdminInsertModInst" confirm_msg_code="confirm_submit">
+    <form>
+        <node target="mid" required="true" maxlength="40" filter="alpha_number" />
+        <node target="browser_title" required="true" maxlength="250" />
+    </form>
+    <parameter>
+        <param name="mid" target="mid" />
+        <param name="module_srl" target="module_srl" />
+        <param name="module_category_srl" target="module_category_srl" />
+        <param name="layout_srl" target="layout_srl" />
+        <param name="skin" target="skin" />
+        <param name="browser_title" target="browser_title" />
+    </parameter>
+    <response callback_func="completeInsertNstore">
+        <tag name="error" />
+        <tag name="message" />
+    </response>
+</filter>

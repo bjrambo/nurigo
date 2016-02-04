@@ -1,0 +1,26 @@
+<load target="css/style.css" />
+<load target="css/categorylist.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/categorylist.js" />
+
+<div id="category-box">
+	<div class="category-route">
+		<ul>
+			<li><span class="h_btn"></span><a href="{getUrl('category','','item_srl','')}">{$lang->home}</a></li>
+			<li loop="$category_info->route=>$key,$val" cond="$val">&gt;<a href="{getUrl('category',$val,'item_srl','')}">{$entire_category_index[$val]->category_name}</a></li>
+		</ul>
+	</div>
+	<div class="category-list totalcorners {$module_info->colorset}">
+		<div id="current-category"><span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:70%; display:inline-block;">{$parent_category_info->category_name}</span><span class="arrow"></span></div>
+
+		<div class="cate_list" style="width:{$module_info->category_width}"|cond="$module_info->category_width">
+			<ul class="children">
+				<li loop="$category_list=>$no,$val"><a href="{getUrl('category',$val->node_id,'item_srl','')}" class="active"|cond="$category==$val->node_id">{$val->category_name}</a></li>
+			</ul>
+		</div>
+
+	</div>
+	<ul id="siblings">
+		<li loop="$siblings=>$no,$val"><a href="{getUrl('category',$val->node_id,'item_srl','')}">{$val->category_name}</a></li>
+	</ul>
+</div>

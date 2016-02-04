@@ -1,0 +1,14 @@
+<query id="getOrderStat" action="select">
+	<tables>
+		<table name="nstore_order" />
+	</tables>
+	<columns>
+		<column name="order_status" alias="order_status" />
+		<column name="COUNT(order_status)" alias="count" />
+	</columns>
+	<groups>
+		<group column="order_status" />
+	</groups>
+	<conditions>
+	</conditions>
+</query>

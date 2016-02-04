@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispPaypalAdminModInstList" type="view" admin_index="true" />
+		<action name="dispPaypalAdminInsertModInst" type="view" />
+
+		<action name="procPaypalAdminInsertModInst" type="controller" />
+
+		<action name="dispPaypalForm" type="view" />
+		<action name="dispPaypalError" type="view" />
+		<action name="getPaypalForm" type="model" />
+		<action name="procPaypalDoIt" type="controller" />
+		<action name="procPaypalExecutePayment" type="controller" method="GET|POST" />
+	</actions>
+</module>

@@ -1,0 +1,10 @@
+<filter name="submit_payment" module="epay" act="procEpayDoPayment">
+    <form />
+    <parameter />
+    <response callback_func="completeSubmitPayment">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="order_srl" />
+        <tag name="return_url" />
+    </response>
+</filter>

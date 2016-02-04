@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+/* cart ::: 
+----------------------------------------------------*/
+
+* html #bottom-cart {position:absolute;}
+#bottom-cart { height:32px; background:#fff url(../img/footer_panel_bg.gif) repeat-x 0 top; }
+#bottom-cart { position:fixed; left:0; bottom:0; width:100%; _height:100%; z-index:9999;}
+#bottom-cart .cart-header { position:relative; padding:7px 0 0; margin:0 auto; width:960px; height:26px; color:#fff;}
+#bottom-cart .cart-header .cartPrice_area { position:absolute; top:7px; right:70px;}
+#bottom-cart .cart-header .cartPrice_area .cartPrice { font-weight:bold; color:#FEFB00;}
+#bottom-cart .cart-header .btn_door { position:absolute; top:5px; right:0;}
+
+#bottom-cart .cart-header #tabCart { display:inline-block; padding-top:3px; width:143px; height:22px; text-align:center; position:relative; top:3px;cursor:pointer;}
+#bottom-cart .cart-header #tabCart.active {  background:url(../img/tab_bg.gif) no-repeat; color:#106A75; }
+#bottom-cart .cart-header #tabCart.inactive { background:none; color:#fff;}
+#bottom-cart .cart-header #tabFavorite { display:inline-block; padding-top:3px; width:143px; height:22px; text-align:center; position:relative; top:3px; cursor:pointer;}
+#bottom-cart .cart-header #tabFavorite.active { background:url(../img/tab_bg.gif) no-repeat; color:#106A75;}
+#bottom-cart .cart-header #tabFavorite.inactive { background:none; color:#fff;}
+#bottom-cart #cmdCart,
+#bottom-cart #cmdFavorite { float:left; margin:32px 0 0 20px; }
+
+#main_panel { margin:0 auto; width:960px; overflow:hidden;}
+#main_panel .main_bar { margin:30px auto 30px auto; }
+#main_panel .main_bar .login_request { margin-bottom:10px; }
+#main_panel #cartLayer {  }
+
+#bottom-cart #itemList { list-style:none; }
+#bottom-cart #itemList li { float:left; }
+
+#bottom-cart .cart_information { width:480px; height:100px; background:url(../img/cart_information.gif) no-repeat; }
+#bottom-cart .mileage { margin-bottom:6px; }

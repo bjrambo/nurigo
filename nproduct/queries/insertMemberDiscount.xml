@@ -1,0 +1,11 @@
+<query id="insertMemberDiscount" action="insert">
+	<tables>
+		<table name="nproduct_member_discount" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" notnull="notnull" />
+		<column name="discount" var="discount" notnull="notnull" />
+		<column name="opt" var="opt" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

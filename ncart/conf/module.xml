@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+		<permission action="getNcartAdminOrderDetails" target="manager" />
+	</permissions>
+	<actions>
+		<action name="dispNcartAdminConfig" type="view" />
+		<action name="dispNcartAdminModInstList" type="view" admin_index="true" />
+		<action name="dispNcartAdminInsertModInst" type="view" />
+		<action name="dispNcartAdminAdditionSetup" type="view" />
+		<action name="dispNcartAdminSkinInfo" type="view" />
+		<action name="dispNcartAdminMobileSkinInfo" type="view" />
+		<action name="dispNcartAdminOrderForm" type="view" />
+		<action name="dispNcartAdminOrderDetail" type="view" />
+		<action name="dispNcartAdminOrderManagement" type="view" />
+
+		<action name="procNcartAdminConfig" type="controller" />
+		<action name="procNcartAdminInsertModInst" type="controller" />
+		<action name="procNcartAdminDeleteModInst" type="controller" />
+		<action name="procNcartAdminUpdateStatus" type="controller" />
+		<action name="procNcartAdminDeleteOrders" type="controller" />
+		<action name="procNcartAdminInsertFieldset" type="controller" />
+		<action name="procNcartAdminDeleteFieldset" type="controller" />
+		<action name="procNcartAdminArrangeItem" type="controller" />
+		<action name="procNcartAdminInsertField" type="controller" />
+		<action name="procNcartAdminDeleteField" type="controller" />
+		<action name="procNcartAdminUpdateFieldListOrder" type="controller" />
+
+		<action name="getNcartAdminDeleteModInst" type="model" />
+		<action name="getNcartAdminDeleteOrders" type="model" />
+		<action name="getNcartAdminFieldInfo" type="model" />
+		<action name="getNcartAdminOrderDetails" type="model" />
+
+		<action name="dispNcartCartItems" type="view" index="true" />
+		<action name="dispNcartFavoriteItems" type="view" />
+		<action name="dispNcartOrderDetail" type="view" />
+		<action name="dispNcartOrderItems" type="view" />
+		<action name="dispNcartOrderComplete" type="view" />
+		<action name="dispNcartOrderList" type="view" />
+		<action name="dispNcartReplyComment" type="view" />
+		<action name="dispNcartAddressList" type="view" />
+		<action name="dispNcartAddressManagement" type="view" />
+		<action name="dispNcartRecentAddress" type="view" />
+		<action name="dispNcartLogin" type="view" />
+
+		<action name="procNcartDeleteCart" type="controller" />
+		<action name="procNcartDeleteFavoriteItems" type="controller" />
+		<action name="procNcartInsertAddress" type="controller" />
+		<action name="procNcartUpdateQuantity" type="controller" />
+		<action name="procNcartInsertOrder" type="controller" />
+		<action name="procNcartDeleteAddress" type="controller" />
+		<action name="procNcartMileagePayment" type="controller" />
+
+		<action name="getNcartCartItems" type="model" />
+		<action name="getNcartFavoriteItems" type="model" />
+		<action name="getNcartDisplayItems" type="model" />
+		<action name="getNcartAddressInfo" type="model" />
+	</actions>
+</module>

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="default_content">
+		<value xml:lang="ko"><![CDATA[[주문알림]
+상품명 : %order_title%
+닉네임 : %p_name%
+가격 : %payment_amount%]]>
+</value>
+		<value xml:lang="en"><![CDATA[[Order Noti.]
+Content : %order_title%
+Nick-name: %p_name%
+Price : %payment_amount%]]>
+</value>
+	</item>
+	<item name="default_mail_content">
+		<value xml:lang="ko"><![CDATA[<p>상품명 : %order_title%<br />닉네임 : %p_name%<br />가격 : %payment_amount% <br />결제종류 : %payment_method% <br /> 결제단계 : %state%</p>]]></value>
+		<value xml:lang="en"><![CDATA[<p>Content : %order_title%<br /> Nick-name: %p_name%<br /> Price : %payment_amount% <br />Kinds of payment : %payment_method% <br /> Step payment : %state%</p>]]></value>
+	</item>
+	<item name="target_module">
+		<value xml:lang="ko"><![CDATA[대상모듈]]></value>
+		<value xml:lang="en"><![CDATA[Target Module]]></value>
+	</item>
+	<item name="content">
+		<value xml:lang="ko"><![CDATA[문자메시지]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage]]></value>
+	</item>
+	<item name="mail_content">
+		<value xml:lang="ko"><![CDATA[이메일]]></value>
+		<value xml:lang="en"><![CDATA[Email]]></value>
+	</item>
+	<item name="sending_method">
+		<value xml:lang="ko"><![CDATA[전송방식]]></value>
+		<value xml:lang="en"><![CDATA[Sending Method]]></value>
+	</item>
+	<item name="textmessage_plus_email">
+		<value xml:lang="ko"><![CDATA[문자+이메일]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage + Email]]></value>
+	</item>
+	<item name="textmessage">
+		<value xml:lang="ko"><![CDATA[문자메시지]]></value>
+		<value xml:lang="en"><![CDATA[TextMessage]]></value>
+	</item>
+	<item name="email">
+		<value xml:lang="ko"><![CDATA[이메일]]></value>
+		<value xml:lang="en"><![CDATA[Email]]></value>
+	</item>
+	<item name="browser_title">
+		<value xml:lang="ko"><![CDATA[브라우저 제목]]></value>
+		<value xml:lang="en"><![CDATA[Browser Title]]></value>
+	</item>
+	<item name="document_content">
+		<value xml:lang="ko"><![CDATA[문서내용]]></value>
+		<value xml:lang="en"><![CDATA[Document Content]]></value>
+	</item>
+	<item name="document_userid">
+		<value xml:lang="ko"><![CDATA[작성자 아이디]]></value>
+		<value xml:lang="en"><![CDATA[User ID]]></value>
+	</item>
+	<item name="document_username">
+		<value xml:lang="ko"><![CDATA[작성자 이름]]></value>
+		<value xml:lang="en"><![CDATA[User Name]]></value>
+	</item>
+	<item name="document_nickname">
+		<value xml:lang="ko"><![CDATA[작성자 닉네임]]></value>
+		<value xml:lang="en"><![CDATA[Nickname]]></value>
+	</item>
+	<item name="article_url">
+		<value xml:lang="ko"><![CDATA[문서 URL]]></value>
+		<value xml:lang="en"><![CDATA[Article URL]]></value>
+	</item>
+	<item name="cmd_paynoty">
+		<value xml:lang="ko"><![CDATA[상품주문알림]]></value>
+		<value xml:lang="en"><![CDATA[Notification]]></value>
+	</item>
+	<item name="cmd_paynoty_config">
+		<value xml:lang="ko"><![CDATA[상품주문알림 설정]]></value>
+		<value xml:lang="en"><![CDATA[Notification Configurations]]></value>
+	</item>
+	<item name="about_cellphone_fieldname">
+		<value xml:lang="ko"><![CDATA[선택된 필드 값을 문자메시지 수신번호로 사용합니다. <a href="?module=admin&act=dispMemberAdminConfig">회원설정 > 가입폼관리</a> 에서 전화번호 형식으로 추가해주세요.]]></value>
+		<value xml:lang="en"><![CDATA[You need to add the cellphone input field at <a href="?module=admin&act=dispMemberAdminConfig">Member Setting > Signup Form</a>.]]></value>
+	</item>
+	<item name="about_target_module">
+		<value xml:lang="ko"><![CDATA[적용할 모듈을 선택하세요.]]></value>
+		<value xml:lang="en"><![CDATA[Select target modules.]]></value>
+	</item>
+	<item name="help_content">
+
+		<value xml:lang="ko"><![CDATA[원하는 항목을 넣거나 빼주세요.<br />상품명 : %order_title%<br />닉네임 : %p_name%<br />가격 : %payment_amount% <br />결제종류 : %payment_method% <br />  결제단계 : %state%]]></value>
+		<value xml:lang="en"><![CDATA[Were putting the item you want, please. <br />Content : %order_title%<br /> Nick-name: %p_name%<br /> Price : %payment_amount% <br />Kinds of payment : %payment_method% <br /> Step payment : %state%]]></value>
+	</item>
+
+</lang>

@@ -1,0 +1,11 @@
+<query id="getGroupDiscount" action="select">
+	<tables>
+        	<table name="nstore_group_discount" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" />
+	</conditions>
+</query>

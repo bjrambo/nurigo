@@ -1,0 +1,7 @@
+<table name="nproduct_quantity_discount">
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" primary_key="primary_key" />
+	<column name="quantity" type="number" size="11" notnull="notnull" />
+	<column name="discount" type="number" size="11" notnull="notnull" />
+	<column name="opt" type="char" size="1" default="1" notnull="notnull" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

@@ -1,0 +1,21 @@
+
+<div class="x_modal-header">
+	<h1>삭제</h1>
+</div>
+
+<div class="x_modal-content">
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<table class="x_table">
+		<tr>
+			<th>모듈 이름<th><td>{$module_info->mid}</td>
+		</tr>
+		<tr>
+			<th>브라우저 제목<th><td>{$module_info->browser_title}</td>
+		</tr>
+	</table>
+</div>
+
+<div class="x_modal-footer">
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_delete}</button>
+</div>
+

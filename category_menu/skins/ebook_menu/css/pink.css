@@ -1,0 +1,6 @@
+/* Global Navigation Bar */
+
+#nustyle_menu ul li a:hover { color:#ecc4ba; }
+#nustyle_menu ul li.on a { color:#ecc4ba; }
+#nustyle_menu .sf-menu li { background:#405760; }
+

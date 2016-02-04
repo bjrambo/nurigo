@@ -1,0 +1,12 @@
+<query id="updateFieldset" action="update">
+	<tables>
+		<table name="ncart_orderform_fieldsets" />
+	</tables>
+	<columns>
+		<column name="fieldset_title" var="fieldset_title" notnull="notnull" />
+		<column name="proc_modules" var="proc_modules" default="" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="fieldset_srl" var="fieldset_srl" notnull="notnull" />
+	</conditions>
+</query>

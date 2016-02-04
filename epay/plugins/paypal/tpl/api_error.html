@@ -1,0 +1,5 @@
+<block cond="$_SESSION['curl_error_no']">CURL_ERROR_NO : {$_SESSION['curl_error_no']} </block>
+<block cond="$_SESSION['curl_error_msg']">CURL_ERROR_MSG : {$_SESSION['curl_error_msg']} </block>
+<block loop="$resArray=>$key,$val">
+{$key}={$val}
+</block>

@@ -1,0 +1,5 @@
+.list_header li { display:inline-block; font-weight:bold; text-align:center; }
+.list_header li.title { width:190px; text-align:left; }
+.list_header li.check { width:70px; }
+.list_header li.delete { width:70px; }
+.header_wrap { padding-top:5px; }

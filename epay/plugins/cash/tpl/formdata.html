@@ -1,0 +1,46 @@
+<load target="js/script.js" />
+<load target="filter/submit_cash_review.xml" />
+<load target="filter/submit_cash_payment.xml" />
+<load target="lang" />
+
+<form id="fo_cash" class="fo_payment" method="post" action="./" onsubmit="cash_payment('{$join_form}'); return false;"|cond="$is_logged || $plugin_info->login_required != 'Y'" onsubmit="alert('{$lang->msg_login_required}'); return false;"|cond="!$is_logged && $plugin_info->login_required == 'Y'">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+        <input type="hidden" name="epay_order_title" value="{$item_name}" />
+        <input type="hidden" name="module" value="epay" />
+        <input type="hidden" name="act" value="dispEpayExtra1" />
+        <input type="hidden" id="depositor_name" name="depositor_name" value="" />
+		<input type="hidden" name="payment_method" value="BT" />
+
+	<div id="cashExtendForm">
+	</div>
+        {$form_data}
+
+	<div class="choice_box">
+		{$plugin_info->account_title}
+		<ul>
+			{@$count=0}
+			<li loop="$account_list=>$key,$val">
+				<label for="select_account_{$key}">
+					<input name="select_account" id="select_account_{$key}" type="radio" value="{$key}" checked="checked"|cond="$count==0" />
+					<span>{$val->bank_name}</span>
+					<span>{$val->account_number}</span>
+					<span>{$val->account_holder}</span>
+				</label>
+				{@$count++}
+			</li>
+		</ul>
+	</div>
+
+	<div class="btn_payment">
+		<span><input type="submit" value="{$lang->do_payment}" class="nuribtn magenta super" /></span>
+    </div>
+	
+	<div class="payment_info">
+
+	</div>
+
+
+</form>

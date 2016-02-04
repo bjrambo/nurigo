@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/* reset.css */
+html, body, div, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, address, dl, dt, dd, ol, ul, li, fieldset, form, legend, table, caption, tbody, tfoot, thead, tr, th, td, input, select, textarea { margin:0; padding:0; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+img, fieldset { border:none; }
+table { border-collapse:collapse; }
+ul, ol, li { list-style:none; }
+li img, object { vertical-align:top; }
+input, select, textarea, form img { vertical-align:middle; }
+
+/* anchor */
+a { text-decoration:none; }
+a:link { color:#666; }
+a:visited { color:#666; }
+a:hover { color:#999; }
+a:focus { background:#ff0; }
+
+.page-title { padding:0 0 10px 5px; }
+
+.form { position:relative; background:#f9f9f9; padding:0 5px; }
+form { font:12px NanumGothic,"Malgun Gothic", Tahoma, Dotum, Sans-serif; color:#777; }
+form .id { padding:10px 0; background:#fff; }
+form .pw { padding-bottom:10px; background:#fff; }
+form .id label, form .pw label { display:inline-block; width:150px; }
+form .id input, form .pw input { width:100%; height:22px; border:0; }
+
+form .keeping_id { display:inline; float:left; padding-top:4px; }
+form .logi { width:100%; height:30px; margin-top:3px; border-bottom:1px solid #eee; font-size:13px; letter-spacing:-1px; }
+form button { width:70px; height:76px; border-radius:0; -moz-border-radius:0; -webkit-border-radius:0; -webkit-appearance:none; position:absolute; right:0; display:inline-block; top:10px; margin-right:5px; text-shadow:0; }
+
+.joinus { overflow: hidden; padding: 20px 0; background:#fff; }
+
+.m_logform { overflow:hidden; margin:5px 75px 0 3px; }
+.m_logform input { -webkit-appearance:none; margin-bottom:3px; }
+.m_logform p { padding:7px 32px 0 5px; position:relative; border:1px solid #ddd; margin-top:10px; }

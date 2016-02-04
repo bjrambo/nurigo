@@ -1,0 +1,54 @@
+<load target="js/modinstlist.js" />
+<include target="_header.html" />
+
+<!-- 목록 -->
+<form cond="0" action="./" method="get" onsubmit="return doChangeCategory(this);" id="fo_list">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<select name="module_category_srl">
+		<option value="">{$lang->module_category}</option>
+		<option loop="$module_category=>$key,$val" value="{$key}" selected="selected"|cond="$module_category_srl==$key">{$val->title}</option>
+	</select>
+	<input type="submit" name="go_button" id="go_button" value="GO" class="buttonTypeGo" />
+</form>
+
+<table class="x_table">
+	<thead>
+		<tr>
+			<th scope="col"><div>{$lang->no}</div></th>
+			<th scope="col"><div><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></div></th>
+			<th scope="col" class="half_wide"><div>{$lang->mid}</div></th>
+			<th scope="col" class="half_wide"><div>{$lang->browser_title}</div></th>
+			<th scope="col"><div>{$lang->regdate}</div></th>
+			<th scope="col">{$lang->cmd_management}</th>
+			<th scope="col">{$lang->cmd_delete}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--@foreach($list as $no => $val)-->
+		<tr>
+			<td class="center number">{$no}</td>
+			<td class="center"><input type="checkbox" name="cart" value="{$val->module_srl}" /></td>
+			<td>{htmlspecialchars($val->mid)}</td>
+			<td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" onclick="window.open(this.href); return false;">{$val->browser_title}</a></td>
+			<td>{zdate($val->regdate,"Y-m-d")}</td>
+			<td><a href="{getUrl('act','dispNstore_digitalAdminInsertModInst','module_srl',$val->module_srl)}" class="buttonSet buttonSetting"><span>{$lang->cmd_management}</span></a></td>
+			<td><a href="#deleteInstance" class="modalAnchor deleteInstance" data-module-srl="{$val->module_srl}"><span>{$lang->cmd_delete}</span></a></td>
+		</tr>
+		<!--@end-->
+	</tbody>
+</table>
+
+<div class="x_clearfix">
+	<include target="_page_navigation.html" />
+	<a class="x_btn x_pull-right" href="{getUrl('act','dispNstore_digitalAdminInsertModInst','module_srl','')}">{$lang->cmd_make}</a>
+</div>
+
+<include target="_search_bar.html" />
+
+<form action="./" class="x_modal" method="post" id="deleteInstance">
+	<input type="hidden" name="module" value="nproduct" />
+	<input type="hidden" name="act" value="procNstore_digitalAdminDeleteModInst" />
+	<div id="deleteForm" class="x_modal-body">
+	</div>
+</form>

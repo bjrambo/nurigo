@@ -1,0 +1,62 @@
+/* Global Navigation Bar */
+#nurigo .gnb{height:36px;clear:both;border-bottom:1px solid #c1c1c1;background:#efefef zoom:1; z-index:99999; }
+.e8f8ffefefefx .gnb:after {content:"";display:block;clear:both}
+#nurigo .gnb .nav{float:left;position:relative;display:inline-block;*display:inline;zoom:1;margin:0;padding:1px;list-style:none;}
+#nurigo .gnb .nav ul{_position:absolute;display:block;_display:inline;zoom:1;clear:both;margin:0;padding:0;border:0;overflow:hidden}
+#nurigo .gnb.active .nav ul{top:0;_position:relative;box-shadow:none;display:block;_display:inline;clear:both;padding:0;margin:0;border:0}
+#nurigo .gnb .nav:after{content:"";display:block;clear:both}
+#nurigo .gnb .nav li{position:relative;display:inline-block;*display:inline;zoom:1;vertical-align:top;overflow:hidden;margin:0; padding:0 3px 0 3px;}
+#nurigo .gnb .nav li.activeOn{z-index:10;}
+#nurigo .gnb .nav li.activeOn>a{border:1px solid #ccc}
+#nurigo .gnb .nav li li{display:block;_float:left;clear:both;overflow:hidden;border:0;margin:0}
+#nurigo .gnb .nav li li:first-child{border:0}
+#nurigo .gnb .nav li a{display:inline-block;_float:left; font-weight:bold; color:#000;font-size:12px;height:15px;padding:9px 0;white-space:nowrap;text-decoration:none;cursor:pointer;}
+#nurigo .gnb .nav li a span{padding:0 22px;border-left:1px solid #f7f7f7;}
+#nurigo .gnb.active .nav li a span{zoom:1}
+#nurigo .gnb .nav li:first-child a span,
+#nurigo .gnb .nav li.activeOn+li a span{border:0;margin:0 0 0 1px;}
+#nurigo .gnb .nav li.on {font-weight:bold;}
+#nurigo .gnb .nav .focus_on {color:#ff9000;}
+#nurigo .gnb .nav li a:hover,
+#nurigo .gnb .nav li a:active,
+#nurigo .gnb .nav li a:focus {background:#f9f9f9; box-shadow:inset 0 0 10px #eee; border:0;}
+#nurigo .gnb .nav li.activeOn>a{background:#fff;padding:8px 0}
+#nurigo .gnb .nav li li a{color:#555;text-shadow:none;background:#fff;padding:8px 20px !important;font-weight:normal !important;border:0 !important}
+#nurigo .gnb .nav li li a:hover,
+#nurigo .gnb .nav li li a:active,
+#nurigo .gnb .nav li li a:focus {background:#f9f9f9; border:0; box-shadow:inset 0 0 10px #eee;}
+#nurigo .gnb .bmk{position:relative;float:right;padding:8px 15px;margin:0 20px -100% 0;text-align:right;display:inline}
+#nurigo .gnb .bmk.active{padding:12px;background-color:#fff;border:1px solid #aaa;box-shadow:0 0 10px #999;height:15px;}
+#nurigo .gnb .bmk .bmAnchor{height:16px;text-shadow:0 1px 0 #fff;display:inline-block;padding:0 0 0 20px;background:url(../img/iconFavorite.gif) no-repeat 0 -16px}
+#nurigo .gnb .bmk ul{display:none}
+#nurigo .gnb .bmk.active ul{position:relative;list-style:none;display:block !important;text-align:left;background:none;margin:0 !important;padding:10px 0 0 0 !important;border:0;box-shadow:none;border-radius:0}
+#nurigo .gnb .bmk li{display:block;position:relative;padding:3px 15px 3px 0 !important;white-space:nowrap}
+#nurigo .gnb .bmk li a{display:inline;padding:0;background:none !important;font-weight:normal}
+#nurigo .gnb .bmk li .action{position:absolute;top:0;right:0}
+#nurigo .gnb .bmk li .action .text{text-decoration:none;width:16px;text-align:center;margin:0;padding:0;border:0;background:none;overflow:visible}
+#nurigo .gnb .mnv{width:100%;height:32px;display:none}
+@media only all and (max-width:860px){
+#nurigo .gnb{height:auto}
+#nurigo .gnb .nav,
+#nurigo .gnb .bmk{display:none}
+#nurigo .gnb .mnv{display:block}
+}
+
+/* dropdown_menu */
+#nurigo .gnb.active #dropdown{top:-5px;padding:5px 5px;margin:0 0 -100% 0;border:3px solid #555; background:#fff; z-index:2;}
+#nurigo .gnb.active #dropdown li a { color:#000; }
+
+/* dropdown_off */
+#nurigo .gnb #dropdown_off li a:hover,
+#nurigo .gnb #dropdown_off li a:active,
+#nurigo .gnb #dropdown_off li a:focus {background:#fdfdfd; box-shadow:inset 0 0 10px #eee;}
+
+/* sub_menu */
+#nurigo .sub_menu {width:100%; height:30px; position:relative;}
+#nurigo .sub_menu ul {}
+#nurigo .sub_menu ul li {float:left; list-style:none; margin:0 15px 0 0 }
+#nurigo .sub_menu ul li a {text-decoration:none; color:#888; font-size:11px; }
+#nurigo .sub_menu ul li.on a{color:#ff9804; }
+#nurigo .sub_menu a:hover {color:#ff9804; text-decoration:underline;}
+
+

@@ -1,0 +1,50 @@
+<!--%import("js/script.js")-->
+
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="x_form-horizontal" enctype="multipart/form-data" ruleset="insertConfig">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digitalAdminConfig" />
+
+	<section class="section">
+		<h1>통화설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="currency">통화선택</label>
+			<div class="x_controls">
+				<select name="currency">
+						<option value="KRW" selected="selected"|cond="$config->currency=='KRW'">한국(원)</option>
+						<option value="USD" selected="selected"|cond="$config->currency=='USD'">미국(달러)</option>
+						<option value="JPY" selected="selected"|cond="$config->currency=='JPY'">일본(엔)</option>
+					</select>
+				<a href="#currency_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="currency_help" class="x_help-block" hidden>통화를 선택하세요.</p>
+			</div>
+		</div>
+        <div class="x_control-group">
+			<label class="x_control-label" for="as_sign">통화부호 출력형식</label>
+			<div class="x_controls">
+				<select name="as_sign">
+						<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
+						<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
+					</select>
+				<a href="#as_sign_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="as_sign_help" class="x_help-block" hidden>$ 혹은 USD 부분은 각각 설정된 통화대로 출력됩니다.</p>
+			</div>
+		</div>      
+        <div class="x_control-group">
+			<label class="x_control-label" for="decimals">소수점 자리수</label>
+			<div class="x_controls">
+				<input type="text" name="decimals" value="{$config->decimals}" />
+				<a href="#decimals_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="decimals_help" class="x_help-block" hidden>입력된 가격을 소수점으로 처리할 자리수를 입력해 주세요. 달러의 경우 센트(cent)를 소수점 두자리로 표현하므로 2를 입력합니다.</p>
+			</div>
+		</div>    
+	</section>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+	</div>
+</form>

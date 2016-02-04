@@ -1,0 +1,20 @@
+<div class="x_page-header">
+	<h1>
+		KCP Payplus6
+		<span class="path" cond="$module_info->mid"> &gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a> </span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>.... </p>
+<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<li class="x_active"|cond="$act=='dispKcpAdminModInstList'"><a href="{getUrl('act','dispKcpAdminModInstList','module_srl','')}">{$lang->page_list}</a></li>
+	<li class="x_active"|cond="$act=='dispKcpAdminInsertModInst' && !$module_srl"><a href="{getUrl('act','dispKcpAdminInsertModInst','module_srl','')}">{$lang->page_creation}</a></li>
+	<li cond="$act=='dispKcpAdminInsertModInst' && $module_srl" class="x_active"><a href="{getUrl('act','dispKcpAdminInsertModInst','module_srl','')}">{$lang->page_management}</a></li>
+
+</ul>
+<ul cond="$module_srl" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispKcpAdminSkinInfo'"><a href="{getUrl('act','dispKcpAdminSkinInfo')}">{$lang->skin_settings}</a></li>
+</ul>
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>

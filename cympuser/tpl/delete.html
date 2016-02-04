@@ -1,0 +1,19 @@
+<div class="x_modal-header">
+	<h3>{$lang->confirm_delete}</h3>
+</div>
+<div class="x_modal-body">
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+    <table cellspacing="0" class="x_table">
+	    <tr>
+			<th scope="row"><div>{$lang->content}</div></th>
+			<td class="wide">{htmlspecialchars($module_info->mid)}</td>
+   		</tr>
+    	<tr>
+			<th scope="row"><div>{$lang->target_module}</div></th>
+			<td class="wide">{htmlspecialchars($module_info->browser_title)}</td>
+	    </tr>
+  </table>
+</div>
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+</div>

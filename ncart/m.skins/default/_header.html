@@ -1,0 +1,11 @@
+<load target="css/style.css" />
+<load cond="$is_logged" target="../../tpl/skin.js/loadcount.js" />
+<load cond="!$is_logged" target="../../tpl/skin.js/loadcount_cart.js" />
+
+<ul class="menuTab">
+	<li class="active"|cond="in_array($act,array(NULL, 'dispNcartCartItems','dispNcartOrderComplete'))"><a href="{getUrl('','mid',$mid,'act','dispNcartCartItems')}">{$lang->cmd_cart}(<span id="count_cart_items"></span>){$lang->item_count}</a></li>
+	<li class="active"|cond="$act=='dispNcartOrderItems'"  cond="$logged_info"><a href="{getUrl('act','dispNcartOrderItems')}">{$lang->title_order_payment}</a></li>
+	<li class="active"|cond="$act=='dispNcartFavoriteItems'"  cond="$logged_info"><a href="{getUrl('','mid',$mid,'act','dispNcartFavoriteItems')}">{$lang->cmd_favorites}(<span id="count_favorites_items"></span>){$lang->item_count}</a></li>
+	<li cond="0" class="active"|cond="in_array($act,array('dispNcartOrderList','dispNcartOrderDetail'))"><a href="{getUrl('act','dispNcartOrderList','non_password','0')}">($lang->title_payment_list)</a></li>
+</ul>
+

@@ -1,0 +1,71 @@
+<script language="Javascript">
+
+function f_check(){
+	if(document.ini.tid.value == ""){
+		alert("거래번호가 빠졌습니다.")
+		return;
+	}
+	else if(document.ini.mid.value == ""){
+		alert("상점 아이디가 빠졌습니다.")
+		return;
+	}
+	else if(document.ini.dcnf_name.value == ""){
+		alert("거절 확인자 이름을 선택하십시요.")
+		return;
+	}
+	document.ini.submit();
+	
+}
+
+</script>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div cond="$escrow_info->denyconfirm_code || $escrow_info->denyconfirm_message" class="message error"|cond="$escrow_info->denyconfirm_code != '00'" class="message info"|cond="$escrow_info->denyconfirm_code == '00'">
+        <p>
+                <div class="table">
+                        <table>
+                                <tr>
+                                        <th>PG 리턴코드</th>
+                                        <td>{$escrow_info->denyconfirm_code}</td>
+                                </tr>
+                                <tr>
+                                        <th>PG 메시지</th>
+                                        <td>{$escrow_info->denyconfirm_message}</td>
+                                </tr>
+                        </table>
+                </div>
+        </p>
+</div>
+
+<!-- 거절확인을 위한 폼 : 이름 변경 불가 -->
+<form name="ini" method="post" action="./">
+	<input type="hidden" name="module" value="epay" />
+	<input type="hidden" name="act" value="procEpayEscrowDenyConfirm" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_info->plugin_srl}" />
+	<input type="hidden" name="order_srl" value="{$payment_info->order_srl}" />
+	<input type=hidden name=mid value="{$plugin_info->inicis_id}" />
+
+	<h2><b>INIESCROW 거절확인</b></h2>
+	<div class="table even">
+		<table>
+			<tr>
+				<th>거래번호(TID)</th>
+				<td><input type="text" name="tid" size="45" maxlength="40" value="{$payment_info->pg_tid}"></td>
+			</tr>
+			<tr>
+				<th>구매거절 확인자</th>
+				<td><input type="text" name="dcnf_name" size="17" maxlength="30" value="거절확인해줌"></td>
+			</tr>
+		</table>
+	</div>
+	<input type="button" value="확 인" onClick=f_check()>
+</form>
+ 
+<script>
+jQuery(function($) {
+        // setDate();
+});
+</script>

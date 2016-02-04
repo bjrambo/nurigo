@@ -1,0 +1,37 @@
+<include target="_header.html" />
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="x_form-horizontal">
+	<input name="act" type="hidden" value="procNproductAdminGroupDiscount" />
+	<input name="module" type="hidden" value="{$module}" />
+	<input name="module_srl" type="hidden" value="{$module_srl}" />
+
+	<section class="section">
+		<h1>
+			{$lang->title_group_discount}
+			<a href="#aboutGroupDiscount" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+		</h1>
+		<p id="aboutGroupDiscount" class="x_alert x_alert-info-block" hidden>{$lang->about_group_discount}</p>
+
+		<div class="x_control-group" loop="$group_list=>$key,$val">
+			<label class="x_control-label" for="group_discount_{$key}">{$val->title}</label>
+			<div class="x_controls">
+				<input type="text" name="group_discount_{$key}" class="x_span2" id="group_discount_{$key}" value="{$group_discount[$key]->price}" />
+				<label class="x_inline x_pull-right" for="group_opt_1_{$key}">
+					<input type="radio" name="group_opt_{$key}" id="group_opt_1_{$key}" value="1" checked="checked"|cond="$group_discount[$key]->opt=='1'" />
+					{$lang->price}
+				</label>
+				<label class="x_inline x_pull-right" for="group_opt_2_{$key}">
+					<input type="radio" name="group_opt_{$key}" id="group_opt_2_{$key}" value="2" checked="checked"|cond="$group_discount[$key]->opt=='2' || !$group_discount[$key]->opt" />
+					{$lang->ratio}
+				</label>
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_submit}</button>
+	</div>
+</form>

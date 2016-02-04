@@ -1,0 +1,14 @@
+<query id="getItemExtraList" action="select">
+	<tables>
+		<table name="nproduct_item_extras" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="asc" />
+	</navigation>
+</query>

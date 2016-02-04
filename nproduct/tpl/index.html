@@ -1,0 +1,36 @@
+<include target="_header.html" />
+
+<!-- Content -->
+<div class="admin_content">
+	{@$inc=strtolower($act)}
+	{@$inc=preg_replace('/dispnproductadmin/','',$inc)}
+
+	<div cond="$XE_VALIDATOR_MESSAGE && $inc != 'skininfo'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<include target="config" cond="$inc=='config'" />
+	<include target="modinstlist" cond="$inc=='modinstlist'" />
+	<include target="insertmodinst" cond="$inc=='insertmodinst'" />
+	<include target="categorymanagement" cond="$inc=='categorymanagement'" />
+	<include target="insertitem" cond="$inc=='insertitem'" />
+	<include target="updateitem" cond="$inc=='updateitem'" />
+	<include target="itemlist" cond="$inc=='itemlist'" />
+	<include target="additionsetup" cond="$inc=='additionsetup'" />
+	<include target="ordermanagement" cond="$inc=='ordermanagement'" />
+	<include target="orderdetail" cond="$inc=='orderdetail'" />
+	<include target="displaycategories" cond="$inc=='displaycategories'" />
+	<include target="itemextrasetup" cond="$inc=='itemextrasetup'" />
+	<include target="dashboard" cond="$inc=='dashboard'" />
+	<include target="mailsetuplist" cond="$inc=='mailsetuplist'" />
+	<include target="mailsetup" cond="$inc=='mailsetup'" />
+	<include target="smssetup" cond="$inc=='smssetup'" />
+	<include target="statdaily" cond="$inc=='statdaily'" />
+	<include target="statmonthly" cond="$inc=='statmonthly'" />
+	<include target="taxinvoice" cond="$inc=='taxinvoice'" />
+	<include target="skininfo" cond="$inc=='skininfo'" />
+	<include target="mileagelist" cond="$inc=='mileagelist'" />
+	<include target="mileagehistory" cond="$inc=='mileagehistory'" />
+	<include target="bulkitems" cond="$inc=='bulkitems'" />
+	<include target="listsetup" cond="$inc=='listsetup'" />
+</div><!-- Content -->

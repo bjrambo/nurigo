@@ -1,0 +1,41 @@
+<load target="js/itemextrasetup.js" />
+<!--%load_js_plugin("ui")-->
+
+<div>
+	<ul id="extraList" class="x_unstyled">
+		<li loop="$list=>$key,$val" id="record_{$val->extra_srl}" class="x_nav-list">
+			<span class="iconMoveTo"></span>
+			<span style="width:90px;">{$val->column_title}</span>
+			<a href="#extraDelete" class="delete modalAnchor extendFormDelete" data-extra-srl="{$val->extra_srl}" style="float:right;">{$lang->cmd_delete}</a>
+			<a href="#extraDefine" class="modify modalAnchor _edit" data-extra-srl="{$val->extra_srl}" style="float:right;margin-right:10px;">{$lang->cmd_modify}</a>
+			<span cond="$val->index_extra">{$lang->default_reg_field}</span>
+		</li>
+	</ul>
+	<p class="btnArea">
+		<a href="#extraDefine" class="x_btn modalAnchor extendFormEdit">{$lang->cmd_append_field}</a>
+	</p>
+</div>
+
+<form action="./" id="extraDefine" class="x_modal" ruleset="insertItemExtra" method="post">
+	<input type="hidden" name="act" value="procNproductAdminInsertItemExtra" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+	<div id="extendForm">
+	</div>
+</form>
+
+<form action="./" id="extraDelete" class="x_modal" method="post">
+	<input type="hidden" name="act" value="procNproductAdminDeleteItemExtra" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+	<input type="hidden" name="extra_srl" id="extra_srl" />
+	<div class="x_modal-header">
+		<h1>{$lang->delete}</h1>
+	</div>
+	<div class="x_modal-body">
+		{$lang->item_to_delete} : <span id="item_to_delete"></span>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_delete}</button>
+	</div>
+</form>

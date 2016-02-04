@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">무통장입금</title>
+	<title xml:lang="zh-TW">銀行轉帳</title>
+	<description xml:lang="ko">무통장입금 결제모듈</description>
+	<description xml:lang="zh-TW">銀行轉帳匯款支付模組</description>
+	<version>1.0</version>
+	<date>2014-06-24</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+	</author>
+</module>

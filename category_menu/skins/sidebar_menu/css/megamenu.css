@@ -1,0 +1,526 @@
+/*
+Theme Name : Mega Menu Complete Set
+Item URI : http://codecanyon.net/item/mega-menu-complete-set/152825
+Author URI : http://themeforest.net/user/Keliah
+Version : 1.2
+*/
+
+/*
+
+TABLE OF CONTENTS
+
+01 MENU BAR
+02 DROP DOWN COMMON CONTAINER
+03 DROP DOWN SPECIFIC CONTAINERS
+04 COLUMNS GRID
+05 DROP DOWN TYPOGRAPHY
+06 COLORS
+07 VERTICAL VARIANT
+*/
+
+/*_____________________________________________________________________________
+
+	01 MENU BAR
+____________________________________________________________________________  */
+
+#menu_container {	position: relative;	margin:0px auto; width:830px; height:44px;}
+#menu_container #menu { list-style:none; z-index:9999; padding:0;	margin:0; font-family:Gulim,Arial,sans-serif; font-size:12px;	color:#FFFFFF; line-height:1;}
+#menu_container #menu li { float:left;	margin:0px 12px 0px 0px;border:none;	}
+#menu_container #menu li a { font-size:12px; color:#fff; text-transform:uppercase; /*text-shadow:1px 1px 1px #0b3c3b;*/ outline:0; text-decoration:none; display:block; padding: 15px 20px 15px 20px;}
+#menu_container #menu li:hover, .active {  }		
+#menu_container #menu li:hover a { color:#d0a37a; /*text-shadow:1px 1px 1px #000000*/;}
+
+#menu_container #menu .fullwidth ul li a { color:#666;}
+#menu_container #menu .fullwidth ul li a:hover { color:#675a4e; text-decoration:underline;}
+
+/* Right aligned menu item */
+#menu_container #menu li.right {float:right;margin-right:-1px;}
+#menu_container #menu li.right a {margin-right:5px;}
+
+/*  _____________________________________________________________________________
+
+    02 DROP DOWN COMMON CONTAINER
+    _____________________________________________________________________________  */
+
+#menu_container #menu li .dropcontent { margin:0px auto; position:absolute; left:-9999em; top:44px; z-index:9998; padding:24px 0px 10px 0px; text-align:left;
+border:1px solid #1b1b1b; border-top:none; background:#161616; /* Rounded Corners */-moz-border-radius: 0px 0px 4px 4px; -webkit-border-radius: 0px 0px 4px 4px; border-radius: 0px 0px 4px 4px;
+}
+#menu_container #menu li .dropfirst {margin:0px auto 0px -1px; /* Fixes a 1px issue for the 1st drop down */}
+
+/* Showing Drop Down on Mouse Hover - Left aligned */
+#menu_container #menu li:hover .dropcontent {left:auto;}
+/* Showing Drop Down on Mouse Hover - Right aligned */
+#menu_container #menu li .align_right {right:-1px;}
+#menu_container #menu li:hover .align_right { left:auto; right:-1px;}
+
+/* Full width drop down */
+
+#menu_container #menu li .fullwidth {	position: absolute; width: 958px; padding:24px 0px 10px 20px; left:-9999em;	top:41px; border:2px solid #675A4E; border-top:none; background:#fcfcf4;	-moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; border-radius: 0px 0px 10px 10px;}
+#menu_container #menu li:hover .fullwidth {	display: block;	z-index:9998;	left: -1px;}
+
+
+/*  _____________________________________________________________________________
+
+    03 DROP DOWN SPECIFIC CONTAINERS
+    _____________________________________________________________________________  */
+
+
+#menu_container #menu .drop1column {width: 80px;}
+#menu_container #menu .drop2columns {width: 160px;}
+#menu_container #menu .drop3columns {width: 240px;}
+#menu_container #menu .drop4columns {width: 320px;}
+#menu_container #menu .drop5columns {width: 400px;}
+#menu_container #menu .drop6columns {width: 480px;}
+#menu_container #menu .drop7columns {width: 560px;}
+#menu_container #menu .drop8columns {width: 640px;}
+#menu_container #menu .drop9columns {width: 720px;}
+#menu_container #menu .drop10columns {width: 800px;}
+#menu_container #menu .drop11columns {width: 880px;}
+#menu_container #menu .drop12columns {width: 960px;}
+
+
+/*  _____________________________________________________________________________
+
+    04 COLUMNS GRID
+    _____________________________________________________________________________  */
+
+
+#menu_container #menu .col_1,
+#menu_container #menu .col_2,
+#menu_container #menu .col_3,
+#menu_container #menu .col_4,
+#menu_container #menu .col_5,
+#menu_container #menu .col_6,
+#menu_container #menu .col_7,
+#menu_container #menu .col_8,
+#menu_container #menu .col_9,
+#menu_container #menu .col_10,
+#menu_container #menu .col_11,
+#menu_container #menu .col_12 { display:inline; float: left; position: relative; margin-left: 15px; margin-right: 15px;}
+
+#menu_container #menu .col_1 {width:50px;}
+#menu_container #menu .col_2 {width:130px;}
+#menu_container #menu .col_3 {width:210px;}
+#menu_container #menu .col_4 {width:290px;}
+#menu_container #menu .col_5 {width:370px;}
+#menu_container #menu .col_6 {width:450px;}
+#menu_container #menu .col_7 {width:530px;}
+#menu_container #menu .col_8 {width:610px;}
+#menu_container #menu .col_9 {width:690px;}
+#menu_container #menu .col_10 {width:770px;}
+#menu_container #menu .col_11 {width:850px;}
+#menu_container #menu .col_12 {width:930px;}
+
+.clear {clear:both; display:block; overflow:hidden; visibility: hidden; width:0; height:0;}
+
+
+/*  _____________________________________________________________________________
+
+    05 DROP DOWN TYPOGRAPHY
+    _____________________________________________________________________________  */
+
+
+#menu_container #menu p, #menu_container #menu h1, #menu_container #menu h2, #menu_container #menu h3, #menu_container #menu h4, #menu_container #menu h5, #menu_container #menu h6 {
+	padding:0;
+	margin:0;
+	color:#666;
+	text-shadow: 1px 1px 1px #eee;
+}
+#menu_container #menu p {
+	font-size:12px; 
+	line-height:21px; 
+	margin-bottom:18px;
+}
+#menu_container #menu h1, #menu_container #menu h2 {
+	background:url("../img/menu_separator.jpg") bottom repeat-x;
+	padding-bottom:12px;
+}
+#menu_container #menu h1, #menu_container #menu h2, #menu_container #menu h3 {
+	margin-bottom:18px;
+}
+#menu_container #menu h4, #menu_container #menu h5, #menu_container #menu h6 {
+	margin-bottom:12px;
+}
+#menu_container #menu h1 {
+	font-size:36px;
+	line-height:36px;
+}
+#menu_container #menu h2 {
+	font-size:30px; 
+	line-height:42px;
+}
+#menu_container #menu h3 {
+	font-size:28px; 
+	line-height:28px;
+}
+#menu_container #menu h4 {
+	font-size:21px; 
+	line-height:24px;
+}
+#menu_container #menu h5 {
+	font-size:12px; 
+	line-height:20px;
+}
+#menu_container #menu h6 {
+	font-family:"Lucida Grande","Lucida Sans Unicode",sans-serif;
+	font-size:14px; 
+	line-height:18px; 
+	text-transform:uppercase;
+}
+
+/* Links */
+
+#menu_container #menu li .dropcontent a, #menu_container #menu li .fullwidth a {
+	text-transform:none;
+	font-size:12px;
+	display:inline;
+	padding:0;
+}
+#menu_container #menu li .dropcontent a:hover, #menu_container #menu li .fullwidth a:hover {
+	padding:0;
+}
+
+/* Images & Boxes */
+
+#menu_container #menu li .black_box {
+	background-color:#111111;
+	color: #eeeeee;
+	text-shadow: 1px 1px 1px #000;
+	padding:6px 8px 6px 8px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+	-webkit-box-shadow:inset 0 0 3px #000000;
+	-moz-box-shadow:inset 0 0 3px #000000;
+	box-shadow:inset 0 0 3px #000000;
+}
+#menu_container #menu .imgshadow {
+	background:#000000;
+	padding:4px;
+	border:1px solid #222222;
+	margin-top:5px;
+	margin-bottom:18px;
+	-moz-box-shadow:0px 0px 5px #000000;
+	-webkit-box-shadow:0px 0px 5px #000000;
+	box-shadow:0px 0px 5px #000000;
+}
+#menu_container #menu .img_left {
+	float:left;
+	margin-right:12px;
+}
+#menu_container #menu .img_right {
+	float:right;
+	margin-left:12px;
+}
+
+/* Lists */
+
+#menu_container #menu li ul {
+	list-style:none;
+	padding:0;
+	margin:0 0 12px 0;
+}
+#menu_container #menu li ul li {
+	font-size:12px;
+	line-height:24px;
+	position:relative;
+	padding:0;
+	margin:0;
+	float:none;
+	text-align:left;
+}
+#menu_container #menu li ul li:hover {
+	background:none;
+	border:none;
+}
+
+
+#menu_container #menu ul.list, #menu_container #menu ul.list2, #menu_container #menu ol.num, #menu_container #menu ol.num2 {
+	margin:0 0 18px 20px;
+	padding:0;
+}
+#menu_container #menu ul.list li, #menu_container #menu ul.list2 li, #menu_container #menu ol.num li, #menu_container #menu ol.num2 li{
+	padding:0 0 0 12px;
+	line-height:24px;
+}
+#menu_container #menu .list li {
+	list-style:disc;
+}
+#menu_container #menu .list2 li {
+	list-style:square;
+}
+#menu_container #menu .num li {
+	list-style:decimal;
+}
+#menu_container #menu .num2 li {
+	list-style:upper-latin;
+}
+
+#menu_container #menu li .dropcontent ul.list li a, #menu_container #menu li .dropcontent ul.list2 li a, #menu_container #menu li .dropcontent ol.num li a, #menu_container #menu li .dropcontent ol.num2 li a,
+#menu_container #menu li .fullwidth ul.list li a, #menu_container #menu li .fullwidth ul.list2 li a, #menu_container #menu li .fullwidth ol.num li a, #menu_container #menu li .fullwidth ol.num2 li a {
+	color:#cccccc;
+}
+#menu_container #menu li .dropcontent ul.list li a:hover, #menu_container #menu li .dropcontent ul.list2 li a:hover, #menu_container #menu li .dropcontent ol.num li a:hover, #menu_container #menu li .dropcontent ol.num2 li a:hover,
+#menu_container #menu li .fullwidth ul.list li a:hover, #menu_container #menu li .fullwidth ul.list2 li a:hover, #menu_container #menu li .fullwidth ol.num li a:hover, #menu_container #menu li .fullwidth ol.num2 li a:hover {
+	color:#ffffff;
+}
+
+#menu_container #menu ul.thumbnails li {
+	margin-bottom:18px;
+}
+
+#menu_container #menu ul.categories {
+	background:url("../img/menu_separator.jpg") top repeat-x; 
+}
+#menu_container #menu ul.categories li, #menu_container #menu ul.categories li:hover {
+	background:url("../img/menu_separator.jpg") bottom repeat-x; 
+	padding:9px 0 9px 0;
+}
+#menu_container #menu li .dropcontent ul.categories li a,
+#menu_container #menu li .fullwidth ul.categories li a {
+	color:#cccccc;
+}
+#menu_container #menu li .dropcontent ul.categories li a:hover,
+#menu_container #menu li .fullwidth ul.categories li a:hover {
+	color:#ffffff;
+}
+
+/* Paragraphs with Icons */
+
+#menu_container #menu .calendar, #menu_container #menu .note, #menu_container #menu .help, #menu_container #menu .delete, #menu_container #menu .favorite, #menu_container #menu .lock, #menu_container #menu .archive, #menu_container #menu .briefcase, #menu_container #menu .search, #menu_container #menu .user {
+	padding-left:36px; 
+	margin-bottom:18px;
+}
+#menu_container #menu .calendar {background:url("../img/icons/calendar.png") no-repeat 0px 5px}
+#menu_container #menu .note {background:url("../img/icons/note.png") no-repeat 0px 5px}
+#menu_container #menu .archive {background:url("../img/icons/archive.png") no-repeat 0px 5px}
+#menu_container #menu .search {background:url("../img/icons/search.png") no-repeat 0px 5px}
+#menu_container #menu .help {background:url("../img/icons/help.png") no-repeat 0px 5px}
+#menu_container #menu .delete {background:url("../img/icons/delete.png") no-repeat 0px 5px}
+#menu_container #menu .favorite {background:url("../img/icons/favorite.png") no-repeat 0px 5px}
+#menu_container #menu .lock {background:url("../img/icons/lock.png") no-repeat 0px 5px}
+#menu_container #menu .briefcase {background:url("../img/icons/briefcase.png") no-repeat 0px 5px}
+#menu_container #menu .user {background:url("../img/icons/user.png") no-repeat 0px 5px}
+
+/* Paragraphs with borders */
+
+#menu_container #menu .dark, #menu_container #menu .brown, #menu_container #menu .yellow, #menu_container #menu .red, #menu_container #menu .blue, #menu_container #menu .green {
+	padding-left:15px; 
+	color:#cccccc; 
+	margin-bottom:18px;
+}
+#menu_container #menu .dark {border-left:#3B3B3B solid 7px}
+#menu_container #menu .brown {border-left:#8D8767 solid 7px}
+#menu_container #menu .yellow {border-left:#DBA742 solid 7px}
+#menu_container #menu .red {border-left:#C05D48 solid 7px}
+#menu_container #menu .blue {border-left:#52878B solid 7px}
+#menu_container #menu .green {border-left:#B0BD85 solid 7px}
+
+/* Tables */
+
+#menu_container #menu #table_light, #menu_container #menu #table_dark {
+	width:100%;
+	padding:0;
+	margin:6px 0 18px 0;
+	font-size:12px;
+}
+#menu_container #menu #table_light th, #menu_container #menu #table_dark th {
+	text-align:left; 
+	padding:12px 9px 12px 9px; 
+	font-weight:bold; 
+	font-size:12px;
+}
+#menu_container #menu #table_light {
+	border:1px solid #cbcbcb;
+	border-bottom:none;
+}
+#menu_container #menu #table_light th {
+	color:#3A3A3A; 
+	border-bottom:1px solid #cbcbcb; 
+	background:#F5F5F5;
+}
+#menu_container #menu #table_light td {
+	border-bottom:1px solid #cbcbcb; 
+	background:#fff; 
+	padding:12px 9px 12px 9px; 
+	color:#888;
+}
+
+#menu_container #menu #table_dark {
+	border:1px solid #000; 
+	border-bottom:none;
+}
+	#menu_container #menu #table_dark th {
+		color:#FFF; 
+		border-bottom:1px solid #000; 
+		background:#0D0D0D;
+	}
+	#menu_container #menu #table_dark td {
+		border-bottom:1px solid #000; 
+		background:#0F0F0F; 
+		padding:12px 9px 12px 9px; 
+		color:#DDD;
+	}
+
+/* Dropcap */
+
+.dropcap {
+	display:block; 
+	float:left; 
+	font-size:42px; 
+	line-height:36px; 
+	margin:2px 8px 0 0;
+}
+
+#menu_container #menu .blackbg {
+	background:#000000;
+}
+
+
+
+/*  _____________________________________________________________________________
+
+    06 COLORS
+    _____________________________________________________________________________  */
+
+
+
+/* Blue */
+
+.menu_blue {background-color:none;} /* 43% */
+.menu_blue #menu li .dropcontent a, .menu_blue #menu_container #menu li .fullwidth a {color:#666; text-shadow:none;} /* 53% */
+.menu_blue #menu li .dropcontent a:hover, 
+.menu_blue #menu li .fullwidth a:hover { color:#145856; } /* 43% */
+
+/* Brown */
+
+.menu_brown {background-color:#866e56;}
+.menu_brown #menu li .dropcontent a, .menu_brown #menu li .fullwidth a {color:#a1886e;}
+.menu_brown #menu li .dropcontent a:hover, .menu_brown #menu li .fullwidth a:hover {color:#866e56;}
+
+/* Cherry */
+
+.menu_cherry {background-color:#ab2d5c;}
+.menu_cherry #menu li .dropcontent a, .menu_cherry #menu li .fullwidth a {color:#cc3f73;}
+.menu_cherry #menu li .dropcontent a:hover, .menu_cherry #menu li .fullwidth a:hover {color:#ab2d5c;}
+
+/* Coffee */
+
+.menu_coffee {background-color:#7b675c;}
+.menu_coffee #menu li .dropcontent a, .menu_coffee #menu li .fullwidth a {color:#978073;}
+.menu_coffee #menu li .dropcontent a:hover, .menu_coffee #menu li .fullwidth a:hover {color:#7b675c;}
+
+/* Green */
+
+.menu_green {background-color:#788951;}
+.menu_green #menu li .dropcontent a, .menu_green #menu li .fullwidth a {color:#93a568;}
+.menu_green #menu li .dropcontent a:hover, .menu_green #menu li .fullwidth a:hover {color:#788951;}
+
+/* Grey */
+
+.menu_grey {background-color:#6a6a6a;}
+.menu_grey #menu li .dropcontent a, .menu_grey #menu li .fullwidth a {color:#8c8c8c;}
+.menu_grey #menu li .dropcontent a:hover, .menu_grey #menu li .fullwidth a:hover {color:#6a6a6a;}
+
+/* Ocean */
+
+.menu_ocean {background-color:#528a8f;}
+.menu_ocean #menu li .dropcontent a, .menu_ocean #menu li .fullwidth a {color:#6aa5aa;}
+.menu_ocean #menu li .dropcontent a:hover, .menu_ocean #menu li .fullwidth a:hover {color:#528a8f;}
+
+/* Orange */
+
+.menu_orange {background-color:#e34f00;}
+.menu_orange #menu li .dropcontent a, .menu_orange #menu li .fullwidth a {color:#ff6717;}
+.menu_orange #menu li .dropcontent a:hover, .menu_orange #menu li .fullwidth a:hover {color:#e34f00;}
+
+/* Pink */
+
+.menu_pink {background-color:#d50065;}
+.menu_pink #menu li .dropcontent a, .menu_pink #menu li .fullwidth a {color:#ff097d;}
+.menu_pink #menu li .dropcontent a:hover, .menu_pink #menu li .fullwidth a:hover {color:#d50065;}
+
+/* Purple */
+
+.menu_purple {background-color:#68449a;}
+.menu_purple #menu li .dropcontent a, .menu_purple #menu li .fullwidth a {color:#815ab7;}
+.menu_purple #menu li .dropcontent a:hover, .menu_purple #menu li .fullwidth a:hover {color:#68449a;}
+
+/* Red */
+
+.menu_red {background-color:#b82323;}
+.menu_red #menu li .dropcontent a, .menu_red #menu li .fullwidth a {color:#d83636;}
+.menu_red #menu li .dropcontent a:hover, .menu_red #menu li .fullwidth a:hover {color:#b82323;}
+
+/* Tan */
+
+.menu_tan {background-color:#837361;}
+.menu_tan #menu li .dropcontent a, .menu_tan #menu li .fullwidth a {color:#9c8c7b;}
+.menu_tan #menu li .dropcontent a:hover, .menu_tan #menu li .fullwidth a:hover {color:#837361;}
+
+/* Yellow */
+
+.menu_yellow {background-color:#caa616;}
+.menu_yellow #menu li .dropcontent a, .menu_yellow #menu li .fullwidth a {color:#e8c22c;}
+.menu_yellow #menu li .dropcontent a:hover, .menu_yellow #menu li .fullwidth a:hover {color:#caa616;}
+
+
+
+/*  _____________________________________________________________________________
+
+    07 VERTICAL VARIANT
+    _____________________________________________________________________________  */
+
+
+
+#menu_container_vertical {
+	width:140px;
+	float:left;
+	position: relative;
+	border:solid 1px #000000;
+	background-image:url("../img/bg.png");
+}
+	#menu_container_vertical #menu li {
+		margin:0px;
+		width:140px;
+	}
+		#menu_container_vertical #menu li .drop {
+			padding-right:30px;
+			background:url("../img/right.png") no-repeat right center;
+		}
+		#menu_container_vertical #menu li.right {
+			float:left;
+			margin-right:auto;
+		}
+		#menu_container_vertical #menu li.right a {
+			margin-right:auto;
+		}
+
+#menu_container_vertical #menu li .dropcontent,
+#menu_container_vertical #menu li .fullwidth {
+	margin:-44px auto 0px 140px;
+	top:auto;
+	-moz-border-radius: 0px 4px 4px 4px;
+    -webkit-border-radius: 0px 4px 4px 4px;
+    border-radius: 0px 4px 4px 4px;
+}
+#menu_container_vertical #menu li .dropfirst {
+	margin:-45px auto 0px 140px; /* Fixes a 1px issue for the 1st drop down */
+}
+#menu_container_vertical #menu li .align_right {right:auto;}
+#menu_container_vertical #menu li:hover .align_right {
+	left:auto;
+	right:auto;
+}
+#menu_container_vertical #menu .levels li:hover ul ul,
+#menu_container_vertical #menu .levels li:hover ul ul ul {
+	left: -999em;
+}
+#menu_container_vertical #menu .levels li:hover ul {
+	left: 130px;
+}
+#menu_container_vertical #menu .levels li li:hover ul,
+#menu_container_vertical #menu .levels li li li:hover ul {
+	left: 130px;
+}

@@ -1,0 +1,13 @@
+<query id="getTransactionByOrderSrl" action="select">
+	<tables>
+		<table name="epay_transactions" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+	</conditions>
+	<navigation>
+	</navigation>
+</query>

@@ -1,0 +1,11 @@
+<table name="ncart_address">
+	<column name="address_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" primary_key="idx_member_srl" />
+	<!-- 1: 배송주소록, 2: 최근배송지 -->
+	<column name="opt" type="char" size="1" default="1" notnull="notnull" />
+	<column name="title" type="varchar" size="120" notnull="notnull" index="idx_title" />
+	<column name="address" type="text" notnull="notnull" />
+	<column name="default" type="char" size="1" default="N" notnull="notnull" />
+	<column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

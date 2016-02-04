@@ -1,0 +1,53 @@
+<include target="header.html" />
+<load target="js/pluginlist.js" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<table cellspacing="0" class="x_table x_table-striped x_table-hover">
+	<thead>
+	    <tr>
+		<th scope="col"><div>{$lang->no}</div></th>
+		<th scope="col"><div>{$lang->plugin_id}</div></th>
+		<th scope="col"><div>{$lang->title}</div></th>
+		<th scope="col"><div>{$lang->regdate}</div></th>
+		<th scope="col"><div>{$lang->cmd_modify}</div></th>
+		<th scope="col"><div>{$lang->cmd_delete}</div></th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <!--@foreach($plugins as $no => $val)-->
+	    <tr class="row{$cycle_idx}">
+		<td class="number center">{$no}</td>
+		<td>
+		    {$val->plugin}
+		</td>
+		<td class="wide">{htmlspecialchars($val->title)}</td>
+		<td class="nowrap">{zdate($val->regdate,"Y-m-d")}</td>
+		<td>
+				<a href="{getUrl('act','dispEpayAdminUpdatePlugin','plugin_srl',$val->plugin_srl)}"><span>{$lang->cmd_modify}</span></a>
+
+		</td>
+		<td>
+			<a href="#deleteInstance" class="modalAnchor deleteInstance" data-plugin-srl="{$val->plugin_srl}"><span>{$lang->cmd_delete}</span></a>
+		</td>
+	    </tr>
+	    <!--@end-->
+	</tbody>
+</table>
+
+<include target="_page_navigation.html" />
+
+<div class="x_btn-gruop x_pull-right">
+	<a href="{getUrl('act','dispEpayAdminInsertPlugin','plugin_srl','')}" class="x_btn"><span>{$lang->cmd_make}</span></a>
+</div>
+
+<div class="x_modal" id="deleteInstance">
+        <form action="./" class="fg form" method="post">
+                <input type="hidden" name="module" value="epay" />
+                <input type="hidden" name="act" value="procEpayAdminDeletePlugin" />
+                <div id="deleteForm">
+                </div>
+        </form>
+</div>

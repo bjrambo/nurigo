@@ -1,0 +1,8 @@
+/* Global Navigation Bar */
+#nustyle_footer {  }
+#nustyle_footer ul { overflow:hidden; margin:0; padding:0; width:100%; }
+#nustyle_footer ul li { line-height:2em; list-style:none; }
+#nustyle_footer ul li a { color:#fff; font-size:12px; margin-left:5px; text-decoration:none; font-family:Arial; }
+#nustyle_footer ul li a:hover { text-decoration:underline; }
+
+

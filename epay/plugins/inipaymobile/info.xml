@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<title xml:lang="ko">INICIS INIpay Mobile</title>
+	<description xml:lang="ko">INICIS INIpay Mobile Plugin</description>
+	<version>1.0</version>
+	<date>2013-08-22</date>
+	<author email_address="contact@nurigo.net" link="http://store.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+	<license link="">Commercial</license>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본설정</title>
+			<var name="inicis_id" type="text">
+				<title xml:lang="ko">아이디</title>
+				<description xml:lang="ko">상점아이디를 입력해 주세요. readme.txt파일의 Merchant ID 참조.</description>
+			</var>
+		</group>
+
+		<group>
+			<title xml:lang="ko">결제방식</title>
+			<var name="paymethod_card" type="select">
+				<title xml:lang="ko">신용카드</title>
+				<description xml:lang="ko">신용카드 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+			<var name="paymethod_directbank" type="select">
+				<title xml:lang="ko">계좌이체</title>
+				<description xml:lang="ko">계좌이체 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+			<var name="paymethod_virtualbank" type="select">
+				<title xml:lang="ko">가상계좌</title>
+				<description xml:lang="ko">가상계좌 사용여부를 선택하세요. 이니시스와 계약이 되어 있어야 합니다.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용안함</title>
+				</options>
+			</var>
+		</group>
+	</extra_vars>
+</plugin>

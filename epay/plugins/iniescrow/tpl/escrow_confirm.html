@@ -1,0 +1,128 @@
+<style>
+</style>
+
+<script language=javascript src="http://plugin.inicis.com/pay60_escrow.js"></script>
+<script language="Javascript">
+// 플러그인 설치(확인)
+StartSmartUpdate();
+
+function f_check(){
+	if(document.ini.tid.value == ""){
+		alert("거래번호가 빠졌습니다.")
+		return;
+	}
+}
+
+
+var openwin;
+
+function pay(frm)
+{
+  // 필드 체크
+  f_check();
+  
+	// MakePayMessage()를 호출함으로써 플러그인이 화면에 나타나며, Hidden Field
+	// 에 값들이 채워지게 됩니다. 플러그인은 통신을 하는 것이 아니라, Hidden
+	// Field의 값들을 채우고 종료한다는 사실에 유의하십시오.
+
+	if(document.ini.clickcontrol.value == "enable")
+	{
+		if(document.INIpay==null||document.INIpay.object==null)
+		{
+			alert("플러그인을 설치 후 다시 시도 하십시오.");
+			return false;
+		}
+		else
+		{						
+			 
+			if (MakePayMessage(frm))
+			{				
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function enable_click()
+{
+	document.ini.clickcontrol.value = "enable"
+}
+
+function disable_click()
+{
+	document.ini.clickcontrol.value = "disable"
+}
+
+function focus_control()
+{
+	if(document.ini.clickcontrol.value == "disable")
+		openwin.focus();
+}
+</script>	
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div cond="$escrow_info->confirm_code || $escrow_info->confirm_message" class="message error"|cond="$escrow_info->confirm_code != '00'" class="message info"|cond="$escrow_info->confirm_code == '00'">
+        <p>
+                <div class="table">
+                        <table>
+                                <tr>
+                                        <th>PG 리턴코드</th>
+                                        <td>{$escrow_info->confirm_code}</td>
+                                </tr>
+                                <tr>
+                                        <th>PG 메시지</th>
+                                        <td>{$escrow_info->confirm_message}</td>
+                                </tr>
+                        </table>
+                </div>
+        </p>
+</div>
+
+
+<!-- 구매확인을 위한 폼 : 이름 변경 불가 -->
+<!-- pay()가 "true"를 반환하면 post된다 -->
+<form name=ini method=post action="./" onSubmit="return pay(this)">
+<input type="hidden" name="module" value="epay" />
+<input type="hidden" name="act" value="procEpayEscrowConfirm" />
+<input type="hidden" name="plugin_srl" value="{$plugin_info->plugin_srl}" />
+<input type="hidden" name="order_srl" value="{$order_info->order_srl}" />
+
+	<h2>구매결정</h2>
+	<p>
+		구매를 결정합니다. 확인 버튼을 눌러 진행해 주세요.
+	</p>
+	<input type="submit" value="확 인">
+
+<input type="hidden" name="tid" size=45 value="{$payment_info->pg_tid}">
+
+<!-- 플러그인에서 설정 -->
+<input type=hidden name=paymethod value="">
+<input type=hidden name=encrypted value="">
+<input type=hidden name=sessionkey value="">
+<input type=hidden name=version value=5000>
+<input type=hidden name=clickcontrol value="">
+<!-- 플러그인 필요값 -->
+<input type=hidden name=acceptmethod value=" ">
+
+</form>
+
+<script>
+
+jQuery(function($) {
+	enable_click();
+	$('body').focus(function() { focus_control(); });
+});
+</script>
+
+
+

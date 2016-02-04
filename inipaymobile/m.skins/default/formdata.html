@@ -1,0 +1,89 @@
+<load target="css/style.css" />
+<load target="js/script.js" />
+<load target="lang" />
+
+<block cond="$review_form">
+{$review_form}
+</block>
+<block cond="!$review_form">
+        <ul>
+                <li>Item Name : {$item_name}</li>
+                <li>Price : {$price}</li>
+        </ul>
+</block>
+
+<form id="fo_inipaymobile" name="fo_inipaymobile" class="fo_payment" method="post" action="https://mobile.inicis.com/smart/wcard/" accept-charset="EUC-KR">
+	<!--
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+	<input type="hidden" name="epay_order_title" value="{$item_name}" />
+	<input type="hidden" name="order_title" value="{$item_name}" />
+	<input type="hidden" name="transaction_srl" value="{$transaction_srl}" />
+	<input type="hidden" name="paymethod" value="wcard" />
+	-->
+
+	<!-- settings by user -->
+	<input type="hidden" name="P_GOODS" value="{$item_name}" />
+	<input type="hidden" name="P_UNAME" value="{$purchaser_name}" />
+	<input type="hidden" name="P_MNAME" value="상점명" />
+	<input type="hidden" name="P_EMAIL" value="{$purchaser_email}" />
+	<input type="hidden" name="P_MOBILE" value="{$purchaser_telnum}" />
+
+	<input type="hidden" name="P_AMT" value="{$price}" />
+	<input type="hidden" name="P_OID" value="{$order_srl}" />
+	<input type="hidden" name="P_NOTI_URL" value="{$noti_url}" />
+	<input type="hidden" name="P_NEXT_URL" value="{$next_url}" />
+	<input type="hidden" name="P_RETURN_URL" value="{$return_url}" />
+	<input type="hidden" name="P_APP_BASE" value="ON"|cond="$payment_method=='IB'" />
+
+	<block cond="0" cond="$module_info->paymethod_phone=='Y'">{@$HPP='1'}</block>
+	<block cond="0" cond="$module_info->paymethod_phone=='M'">{@$HPP='2'}</block>
+	<input cond="$module_info->logo_image" type="hidden" name="ini_logoimage_url" value="{getFullUrl('')}{$module_info->logo_image}" />
+
+	<!-- settings by plugin -->
+	<input type="hidden" name="P_MID" value="{$module_info->inicis_id}" />
+	<input cond="0" type="hidden" name="P_HPP_METHOD" value="{$HPP}" />
+	<input type="hidden" name="P_NOTI" value="transaction_srl={$transaction_srl}&epay_module_srl={$epay_module_srl}&module_srl={$module_srl}&order_srl={$order_srl}&epay_target_module={$epay_target_module}&epay_order_title={$order_title}&purchaser_name={$purchaser_name}" />
+
+	<div class="btn_payment btn_wrap">
+		<button type="submit" id="payment" class="btn nbtn">결제</button>
+	</div>
+</form>
+
+<script>
+	(function($) {
+		jQuery(function($) {
+			jQuery('#fo_inipaymobile #payment').click(function() {
+				var width = 330;
+				var height = 480;
+				var xpos = (screen.width - width) / 2;
+				var ypos = (screen.width - height) / 2;
+				var position = "top=" + ypos + ",left=" + xpos;
+				var features = position + ", width=320, height=440";
+				var paymethod = 'wcard';
+				var order_form = document.getElementById('fo_inipaymobile');
+				var payment_method = '{$payment_method}';
+				switch(payment_method) {
+					case 'CC':
+						paymethod = 'wcard';
+						break;
+					case 'IB':
+						paymethod = 'bank';
+						break;
+					case 'VA':
+						paymethod = 'vbank';
+						break;
+					case 'MP':
+						paymethod = 'mobile';
+						break;
+				}
+				//order_form.target = "BTPG_WALLET";
+				order_form.action = "https://mobile.inicis.com/smart/" + paymethod + "/";
+			});
+		});
+	}) (jQuery);
+</script>

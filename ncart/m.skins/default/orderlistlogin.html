@@ -1,0 +1,18 @@
+<load target="css/style.css" />
+<load target="css/orderlistlogin.css" />
+
+<div class="cartStep">
+	<p class="progress"></p>
+</div>
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post">
+	<input type="hidden" name="act" value="dispNstoreNonOrderList" />
+		<p class="ordernum"><label for="uid">{$lang->order_number}</label><input type="text" name="non_order_srl" id="uid" value="" /></p>
+		<p class="orderpw"><label for="upw">{$lang->password}</label><input type="password" name="non_password" id="upw" value="" /></p>
+	<span id="loginbtn"><input type="submit" value="{$lang->cmd_confirm}" /></span>
+</form>

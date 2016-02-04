@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">쇼핑몰 주문관리</title>
+	<title xml:lang="en">Order management</title>
+	<title xml:lang="jp">注文管理</title>
+	<title xml:lang="zh-TW">訂單管理</title>			
+	<description xml:lang="ko">인터넷 쇼핑몰 주문관리 모듈입니다.</description>
+	<description xml:lang="en">Order management module of shopping mall.</description>
+	<description xml:lang="jp">インターネットショッピングモール注文管理モジュールです。</description>
+	<description xml:lang="zh-TW">商品訂單管理</description>
+	<version>2.2</version>
+	<date>2015-04-19</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
+		<name xml:lang="ko">NURIGO</name>
+		<name xml:lang="zh-TW">NURIGO</name>
+	</author>
+</module>

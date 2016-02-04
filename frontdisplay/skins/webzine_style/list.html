@@ -1,0 +1,30 @@
+<!--%import("css/style.css")-->
+
+<div id="frontpage_widget" class="page">
+	<div class="category" loop="$display_categories=>$cate_key,$cate_val">
+
+		<div class="md_title">
+			<p>&nbsp;</p>
+		</div>
+
+		<div class="item-list">
+			<ul>
+				{@$count=0}
+				<li loop="$cate_val->items=>$no,$val" id="item_{$val->item_srl}" style="clear:both;"|cond="($count % $widget_info->num_columns)==0" >
+					<a class="thumbnail" href="{getUrl('','mid',$val->mid,'item_srl',$val->item_srl)}">
+						<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+					</a><!-- thumbnail -->
+					<div class="item_name">{cut_str($val->item_name,$widget_info->title_length)}</div>
+					<div cond="$val->discounted_price>0" class="item_price"><strong>{$val->printDiscountedPrice()}</strong></div>
+					<div cond="$val->discounted_price==0" class="item_price"><strong>무료</strong></div>
+ 					<div cond="0">{print_r($val)}</div>
+					{@$count+=1}
+					<!-- <div class="item_choice">
+						<a href="#" class="btn_interest" onclick="addItemsToCart({$val->item_srl});"><img src="img/btn_basket.gif" alt="" /></a> 
+						<a href="#" class="btn_basket" onclick="addItemsToFavorites({$val->item_srl});"><img src="img/btn_interest.gif" alt="" /></a>
+					</div> -->
+				</li>
+			</ul>
+		</div><!-- item-list -->
+	</div>			
+</div>

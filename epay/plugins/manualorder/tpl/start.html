@@ -1,0 +1,47 @@
+<load target="js/script.js" />
+<load target="js/start.js" />
+<load target="css/popup.css" />
+<load target="css/btn.css" />
+
+{@$button_title='주문완료하기'}
+<block cond="$plugin_info->button_title">{@$button_title=$plugin_info->button_title}</block>
+
+<div id="container">
+	<div id="header">
+		<h1><img src="img/h1_bank_pay.gif" alt="법인계좌 입금" /></h1>
+	</div> <!-- #header// -->
+
+	<form>
+		<table class="popTable">
+			<caption>상품 정보</caption>
+			<tr>
+				<th class="orangeTop">상품명</th>
+				<td class="orangeTop">{$order_title}</td>
+			</tr>
+			<tr>
+				<th>결제금액</th>
+				<td>{number_format($price, $plugin_info->decimals)} 원</td>
+			</tr>
+			<tr>
+				<th>유저아이디</th>
+				<td>{$manorder_pid}</td>
+			</tr>
+			<tr>
+				<th>이메일주소</th>
+				<td id="manorder_email"></td>
+			</tr>
+			<tr>
+				<th class="orangeBottom">닉네임</th>
+				<td class="orangeBottom" id="manorder_nick"></td>
+			</tr>
+		</table><!-- .popTable// -->
+
+		
+
+		<div id="btnSec">
+			<div>
+				<button class="nuribtn super" onclick="doMakePayment(); return false;">{$button_title}</button>
+			</div>
+		</div><!-- #btnSec// -->
+	</form>
+</div>

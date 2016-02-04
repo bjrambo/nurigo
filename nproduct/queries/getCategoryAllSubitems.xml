@@ -1,0 +1,15 @@
+<query id="getCategoryAllSubitems" action="select">
+	<tables>
+		<table name="nproduct_categories" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+		<condition operation="like_prefix" column="node_route" var="node_route" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="asc" />
+	</navigation>
+</query>

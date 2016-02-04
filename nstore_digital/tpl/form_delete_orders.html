@@ -1,0 +1,26 @@
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+	<div class="table even easyList">
+		<table>
+			<thead>
+				<tr>
+					<th>주문일</th>
+					<th>상품명</th>
+					<th>품목</th>
+					<th>결제금액</th>
+					<th>구매자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr loop="$order_info_arr=>$key,$order_info">
+					<td>{zdate($order_info->regdate,'Y-m-d')}</td>
+					<td>{$order_info->title}</td>
+					<td>{$order_info->item_count}</td>
+					<td>{$order_info->total_price}</td>
+					<td>{$order_info->nick_name}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="btnArea">
+		<button type="submit">{$lang->cmd_delete}</button>
+	</div>

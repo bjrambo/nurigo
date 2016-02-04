@@ -1,0 +1,14 @@
+<query id="getFieldList" action="select">
+	<tables>
+		<table name="ncart_orderform_fields" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="fieldset_srl" var="fieldset_srl" notnull="notnull" />
+	</conditions>
+	<navigation>
+		<index var="list_order" default="list_order" order="asc" />
+	</navigation>
+</query>

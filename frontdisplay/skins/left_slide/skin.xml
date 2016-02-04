@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.1">
+	<title xml:lang="ko">상품진열 가로 스킨</title>
+	<description xml:lang="ko">
+        상품목록을 가로 슬라이드로 크게 출력합니다.
+	</description>
+	<version>0.1</version>
+	<date>2013-02-25</date>
+	<link>http://www.nurigo.net</link>
+	<author email_address="yubin@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+
+	<colorset>
+		<color name="default">
+			<title xml:lang="ko">default</title>
+		</color>
+	</colorset>
+</skin>

@@ -1,0 +1,32 @@
+<query id="getMileageHistory" action="select">
+	<tables>
+		<table name="nmileage_history" alias="history" />
+		<table name="member" alias="member" type="left join">
+			<conditions>
+				<condition operation="equal" column="history.member_srl" default="member.member_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="history.history_srl" alias="history_srl" />
+		<column name="history.order_srl" alias="order_srl" />
+		<column name="history.action" alias="action" />
+		<column name="history.title" alias="title" />
+		<column name="history.amount" alias="amount" />
+		<column name="history.balance" alias="balance" />
+		<column name="history.regdate" alias="regdate" />
+		<column name="member.user_id" alias="user_id" />
+		<column name="member.nick_name" alias="nick_name" />
+		<column name="member.member_srl" alias="member_srl" />
+		<column name="member.email_address" alias="email_address" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="history.member_srl" var="member_srl" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="history.regdate" order="desc" />
+		<list_count var="list_count" default="10" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

@@ -1,0 +1,121 @@
+<load target="css/btn.css" />
+<load target="css/style.css" />
+<load target="css/itemlist.css" />
+<load target="../../tpl/skin.js/loadcount.js" />
+<!-- <load target="css/button.css" /> -->
+
+<block cond="!$module_info->list_style">
+{@$module_info->list_style='list'}
+</block>
+<block cond="!$listStyle">
+{@$listStyle=$module_info->list_style}
+</block>
+{@$btn_color='blue'}
+<block cond="$module_info->colorset=='black'">
+	{@$btn_color='purple'}
+</block>
+
+<load target="css/style.css" />
+<load target="../../tpl/skin.js/script.js" />
+<include target="header.html" />
+
+<div style="background:#ddd; padding:10px; text-align:right; font-size:12px;">
+	<span style="float:left">
+		<a href="{getUrl('mid',$mileage_mid)}" target=_blank>마일리지 : {$nmileage}<span id="n_mileage"></span></a>
+	</span>
+	<span cond="$logged_info"><a href="{getUrl('mid', $module_info->ncart_mid, 'act', 'dispNcartFavoriteItems')}">Wish List (<span id="count_favorites_items">0</span>)</a> | </span>  
+	<a href="{getUrl('mid', $module_info->ncart_mid)}"> Cart (<span id="count_cart_items">0</span>)</a>
+</div>
+
+<include cond="$module_info->category_display!='N'" target="categorylist.html" />
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div id="itemlist" class="{$module_info->colorset}">
+	<form class="list_header">
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input type="hidden" name="category" value="{$category}" />
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="listStyle" value="{$listStyle}" />
+
+		<div class="display_list">
+			<select name="disp_numb" onchange="this.form.submit();">
+				<option value="1" selected="selected"|cond="$disp_numb=='1'">{$lang->cmd_order_lowprice}</option>
+				<option value="2" selected="selected"|cond="$disp_numb=='2'">{$lang->cmd_order_highprice}</option>
+				<option value="3" selected="selected"|cond="$disp_numb=='3'">{$lang->cmd_order_bestsell}</option>
+				<option value="4" selected="selected"|cond="$disp_numb=='4'">{$lang->cmd_order_review}</option>
+			</select>
+			<!--
+					<a href="{getUrl('sort_index','price','order_type','asc')}">{$lang->cmd_order_lowprice}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','price','order_type','desc')}">{$lang->cmd_order_highprice}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','sales_count','order_type','desc')}">{$lang->cmd_order_bestsell}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','review_count','order_type','desc')}">{$lang->cmd_order_review}</a>
+					--!>
+		</div>	
+		
+		<ul class="display_style">
+			<li><a href="{getUrl('listStyle','list')}"><img src="img/icon_list.gif" /></a></li>
+			<li><a href="{getUrl('listStyle','grid')}"><img src="img/icon_grid.gif" /></a></li>
+		</ul>
+	</form>
+	<div class="product_list">
+		<include cond="$listStyle=='list'" target="_style.list.html" />
+		<include cond="$listStyle=='grid'" target="_style.grid.html" />
+	</div>
+	<div class="search">
+		<form action="" class="pagination" method="post">
+			<input type="hidden" name="error_return_url" value="" />
+			<input type="hidden" name="module" value="{$module}" />
+			<input type="hidden" name="act" value="{$act}" />
+			<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+			<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+			<input cond="$category_srl" type="hidden" name="category_srl" value="{$category}" />
+			<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+			<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+			<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+			<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+				{@$isGoTo = true}
+				<a href="{getUrl('page', '')}">1</a>
+				<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			</block>
+
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+				{@$last_page = $page_no}
+				<strong cond="$page_no == $page">{$page_no}</strong>
+				<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+			<!--@end-->
+
+			<block cond="$last_page != $page_navigation->last_page">
+				{@$isGoTo = true}
+				<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+				<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+			</block>
+
+			<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+			<span cond="$isGoTo" id="goTo" class="tgContent">
+				<input name="page" title="{$lang->cmd_go_to_page}" />
+				<button type="submit">Go</button>
+			</span>
+		</form>
+		<form cond="0" action="" method="post">
+			<select name="search_target">
+				<option value="">{$lang->search_target}</option>
+				{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+				<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+			</select>
+			<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+			<input type="submit" value="{$lang->cmd_search}" />
+			<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+		</form>
+	</div><!-- 네비게이션 -->
+</div>
+<include target="footer.html" />

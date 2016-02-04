@@ -1,0 +1,21 @@
+<query id="getItemList" action="select">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" />
+		<condition operation="equal" column="category_id" var="category_id" pipe="and" />
+		<condition operation="in" column="item_srl" var="item_srl" pipe="and" />
+		<condition operation="equal" column="display" var="display" pipe="and" />
+		<condition operation="more" column="updatetime" var="updatetime" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="item_srl" order="asc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

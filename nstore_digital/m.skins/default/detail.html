@@ -1,0 +1,92 @@
+<load target="css/style.css" />
+<load target="css/nu_btn.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<h2 class="page-title">{$lang->title_purchase_details}</h2>
+
+<div id="orderlist">
+	<form action="./" class="form" method="post">
+		<input type="hidden" name="module" value="nstore_digital" />
+		<input type="hidden" name="act" value="procNstore_digitalUpdateOrderDetail" />
+		<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+		<dl>
+			<dt>{$lang->order_number}</dt>
+			<dd>{$order_info->order_srl}</dd>
+			<dt>{$lang->order_date}</dt>
+			<dd>{zdate($order_info->regdate)}</dd>
+			<dt>{$lang->items}</dt>
+			<dd>{$order_info->item_count}</dd>
+			<dt>{$lang->mileage}</dt>
+			<dd>{number_format($order_info->mileage)}<div cond="$order_info->mileage_save=='Y'">(적립완료)</div></dd>
+		</dl>
+
+		<h4>01. {$lang->title_payment_details}</h4>
+		<dl>
+			<dt>{$lang->paymethod}</dt>
+			<dd>{$payment_method[$order_info->payment_method]}</dd>
+			<dt>{$lang->use_mileage}</dt>
+			<dd>{$order_info->use_mileage}</dd>
+			<block cond="$payment_info->payment_method=='VA'">
+			<dt>{$lang->account_number}</dt>
+			<dd>{$payment_info->vact_num}</dd>
+			<dt>{$lang->bank_name}</dt>
+			<dd>{$payment_info->vact_bankname}</dd>
+			<dt>{$lang->account_holder}</dt>
+			<dd>{$payment_info->vact_name}</dd>
+			<dt>{$lang->sender_name}</dt>
+			<dd>{$payment_info->vact_inputname}</dd>
+			<dd cond="0">{$payment_info->vact_regnum}</dd>
+			<dt>{$lang->send_date}</dt>
+			<dd>{zdate($payment_info->vact_date,'Y-m-d')} 까지</dd>
+			<dd cond="0">{$payment_info->vact_time}</dd>
+			</block>
+		</dl>
+
+		<h4>02. {$lang->title_ordered_items}</h4>
+		<dl loop="$order_info->item_list=>$no,$val">
+			<dt>{$lang->contract_number}</dt>
+			<dd><input type="hidden" name="cart_srls[]" value="{$val->cart_srl}" />{$val->cart_srl}</dd>
+			<dt>{$lang->item}</dt>
+			<dd><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail(40)}" /></a></dd>
+			<dt>{$lang->product_name}</dt>
+			<dd><span>{$val->item_name}</span></dd>
+			<dt>{$lang->quantity}</dt>
+			<dd>{$val->quantity}</dd>
+			<dt>{$lang->item_price}</dt>
+			<dd>{number_format($val->price * $val->quantity)}</dd>
+			<dt>{$lang->discount}</dt>
+			<dd>{number_format($val->discount_amount)}<br />{$val->discount_info}</dd>
+			<dt>{$lang->amount}</dt>
+			<dd>{number_format($val->discounted_price)}</dd>
+			<dt>{$lang->order_status}</dt>
+			<dd>
+				<span class="ko_text red">{$order_status[$val->order_status]}</span><br />
+			</dd>
+			<dt cond="0">{$lang->site_url}</dt>
+			<dd cond="0"><textarea name="site_url[]">{$val->site_url}</textarea></dd>
+		</dl>
+
+		<dl class="item-price">
+			<dt>{$lang->total_order_amount}</dt>
+			<dd>{number_format($order_info->sum_price)}</dd>
+			<dt>{$lang->total_discount}</dt>
+			<dd><span>-</span> {number_format($order_info->total_discount_amount)}</dd>
+			<dt>{$lang->use_mileage}</dt>
+			<dd><span>-</span> {$order_info->use_mileage}</dd>
+			<dt>{$lang->payment_amount}</dt>
+			<dd>{number_format($order_info->total_price)}</span></dd>
+		</dl>
+
+		<div cond="0">
+			<ul style="overflow:hidden">
+				<li class="nu_left"><a href="{getUrl('act','dispNstore_digitalOrderList')}" class="nu_button"><span>이전페이지</span></a></li>
+				<li class="nu_right"><button type="submit" class="nu_button nu_blue">{$lang->cmd_save}</button></li>
+				<li cond="0"><a href="#" class="nu_button"><span>주문취소</span></a></li>
+			</ul>
+		</div>
+	</form>
+</div>

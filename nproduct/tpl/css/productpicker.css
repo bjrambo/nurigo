@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.item_list li { display:block; clear:both;}
+.item_list li span { display:inline-block; margin-right:10px; }
+.item_list li span.title { width:190px; }
+.item_list li span.check { width:75px; text-align:center; }
+.item_list li span.delete { width:60px; text-align:center; }

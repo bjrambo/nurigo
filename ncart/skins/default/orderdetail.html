@@ -1,0 +1,127 @@
+<load target="css/style.css" />
+<load target="css/orderdetail.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/script.js" />
+
+<include target="_header.html" />
+
+<div id="orderlist">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->order_number}</th>
+				<th>{$lang->order_date}</th>
+				<th>{$lang->items}</th>
+				<th>{$lang->mileage}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$order_info->order_srl}</td>
+				<td>{zdate($order_info->regdate)}</td>
+				<td>{$order_info->item_count}</td>
+				<td>{nproductItem::formatMoney($order_info->mileage)}<div cond="$order_info->mileage_save=='Y'">{$lang->saving_complete}</div></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h4>{$lang->title_payment_details}</h4>
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->paymethod}</th>
+				<th>{$lang->use_mileage}</th>
+				<block cond="in_array($payment_info->payment_method,array('VA','BT'))">
+				<th>{$lang->account_number}</th>
+				<th>{$lang->bank_name}</th>
+				<th>{$lang->account_holder}</th>
+				<th>{$lang->sender_name}</th>
+				<th>{$lang->send_date}</th>
+				</block>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$payment_method[$order_info->payment_method]}</td>
+				<td>{nproductItem::formatMoney($order_info->use_mileage)}</td>
+				<block cond="in_array($payment_info->payment_method,array('VA','BT'))">
+				<td>{$payment_info->vact_num}</td>
+				<td>{$payment_info->vact_bankname}</td>
+				<td>{$payment_info->vact_name}</td>
+				<td>{$payment_info->vact_inputname}</td>
+				<td cond="0">{$payment_info->vact_regnum}</td>
+				<td><span cond="$payment_info->vact_date">{zdate($payment_info->vact_date,'Y-m-d')}</span><span cond="!$payment_info->vact_date">-</span> 까지</td>
+				<td cond="0">{$payment_info->vact_time}</td>
+				</block>
+			</tr>
+		</tbody>
+	</table>
+	<h4>{$lang->title_ordered_items}</h4>
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->contract_number}</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->item_price}</th>
+				<th>{$lang->discount}</th>
+				<th>{$lang->amount}</th>
+				<th>{$lang->order_status}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<tr loop="$order_info->item_list=>$no,$val">
+				<td>{$val->cart_srl}</td>
+				<td><a href="{getUrl('act','dispNstoreItemDetail','item_srl',$val->item_srl)}"><img src="{$val->getThumbnail(40)}" /></a></td>
+				<td>
+					<div>{$val->item_name}</div>
+					<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+				</td>
+				<td>{$val->quantity}</td>
+				<td>{nproductItem::formatMoney($val->price * $val->quantity)}</td>
+				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td>{nproductItem::formatMoney($val->discounted_price)}</td>
+
+				<td>
+					<span class="ko_text red">{$order_status[$val->order_status]}</span><br />
+					<a cond="in_array($val->order_status,array('3','4'))" href="{$delivery_inquiry_urls[$val->express_id]}{$val->invoice_no}" class="kso_btn" target="_blank"><span>{$lang->cmd_trace_delivery}</span></a>
+				</td>
+
+				{@$total_price+=$val->price}
+			</tr>
+		</tbody>
+	</table>
+
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->total_order_amount}</th>
+				<th></th>
+				<th>{$lang->total_discount}</th>
+				<th></th>
+				<th>{$lang->delivery_fee}</th>
+				<th></th>
+				<th>{$lang->payment_amount}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<block cond="$order_info->delivfee_inadvance=='Y'">
+					{@$delivfee_inadvance = $lang->prepay}
+				</block>
+				<block cond="$order_info->delivfee_inadvance!='Y'">
+					{@$delivfee_inadvance = $lang->cash_on_delivery}
+				</block>
+				<td>{nproductItem::formatMoney($order_info->sum_price)}</td>
+				<td>-</td>
+				<td>{nproductItem::formatMoney($order_info->total_discount_amount)}</td>
+				<td>+</td>
+				<td>{nproductItem::formatMoney($order_info->delivery_fee)}<div>{$delivfee_inadvance}</div></td>
+				<td>=</td>
+				<td>{nproductItem::formatMoney($order_info->total_price)}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,16 @@
+
+<h2>{$lang->purchase_confirm}</h2>
+<p>
+{$lang->about_purchase_confirm}
+</p>
+<form action="./">
+	<input type="hidden" name="module" value="nstore" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+	<input type="radio" name="deny_order" id="deny_order_1" value="N" checked="checked" /><label for="deny_order_1">구매확인 진행하기</label>
+	<input type="radio" name="deny_order" id="deny_order_2" value="Y" /><label for="deny_order_2">구매거절 진행하기</label>
+	<div class="btnArea">
+		<input type="submit" value="확인" />
+	</div>
+</form>

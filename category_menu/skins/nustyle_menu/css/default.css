@@ -1,0 +1,7 @@
+/* Global Navigation Bar */
+#nustyle_menu { display:inline-block; }
+#nustyle_menu { margin:0; padding:0; }
+#nustyle_menu .sf-menu { margin:0; }
+#nustyle_menu .sf-menu li { background:#5B9FA0; }
+#nustyle_menu .sf-menu a { border:0; color:#fff; }
+#nustyle_menu .sf-menu li:last-child a { border:0; }

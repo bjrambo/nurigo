@@ -1,0 +1,9 @@
+<table name="nstore_guest_order">
+	<column name="order_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="order_id" type="varchar" size="64" notnull="notnull" unique="unique_order_id" />
+	<column name="email_address" type="varchar" size="250" notnull="notnull" index="idx_email_address" />
+	<column name="password" type="varchar" size="80" notnull="notnull" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="cart_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

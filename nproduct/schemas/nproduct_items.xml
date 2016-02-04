@@ -1,0 +1,28 @@
+<table name="nproduct_items">
+	<column name="item_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="item_code" type="varchar" size="64" notnull="notnull" unique="unique_item_code" />
+	<column name="item_name" type="varchar" size="64" notnull="notnull" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="category_id" type="number" size="11" default="0" notnull="notnull" index="idx_category_id" />
+	<column name="proc_module" type="varchar" size="250" notnull="notnull" index="idx_proc_module" />
+	<column name="node_route" type="varchar" size="250" notnull="notnull" index="idx_node_route" />
+	<column name="document_srl" type="number" size="11" default="0" notnull="notnull" index="idx_document_srl" />
+	<column name="file_srl" type="number" size="11" default="0" notnull="notnull" />
+	<column name="thumb_file_srl" type="number" size="11" default="0" notnull="notnull" />
+	<column name="price" type="number" size="11" default="0" notnull="notnull" index="idx_price" />
+	<column name="discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="discount_info" type="varchar" size="250" />
+	<column name="taxfree" type="char" size="1" default="N" notnull="notnull" />
+	<column name="display" type="char" size="1" default="N" notnull="notnull" />
+	<column name="review_count" type="number" size="11" default="0" notnull="notnull" index="idx_review_count" />
+	<column name="sales_count" type="number" size="11" default="0" notnull="notnull" index="idx_sales_count" />
+	<column name="download_count" type="number" size="11" default="0" notnull="notnull" index="idx_download_count" />
+	<column name="delivery_info" type="text" />
+	<column name="group_srl_list" type="varchar" size="250" />
+	<column name="related_items" type="text" />
+	<column name="minimum_order_quantity" type="number" size="11" default="0" notnull="notnull" />
+	<column name="extra_vars" type="text" />
+	<column name="list_order" type="number" size="11" notnull="notnull" default="1" index="idx_list_order" />
+	<column name="updatetime" type="date" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

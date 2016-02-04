@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+#admin_index { width:100%; }
+#admin_index h5 { font-size:13px; color:#333; padding:0; letter-spacing:-1px; }
+
+/* index_box */
+#admin_index ul { border-bottom:1px solid #ddd; overflow:hidden; }
+#admin_index li { list-style:none; border:1px solid #ddd; box-shadow:1px 1px 1px #ddd; background:#fff; float:left; margin:0 30px 30px 0; }	
+
+/* index_box_background */
+#admin_index .join { background:#fff url(../img/admin_07.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .new_doc { background:#fff url(../img/admin_09.png) no-repeat; background-position:20px 15px; width:30%; height:90px; }
+#admin_index .new_commen { background:#fff url(../img/admin_11.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .order { background:#fff url(../img/admin_35.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .class_in { background:#fff url(../img/admin_37.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .class_play { background:#fff url(../img/admin_33.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .pro_out { background:#fff url(../img/admin_42.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+#admin_index .pro_in { background:#fff url(../img/admin_45.png) no-repeat; background-position:20px 15px; width:30%; height:90px;}
+
+/* index_box_text */
+#admin_index .totalcount { font-size:11px; display:block; float:right; }
+#admin_index .todaycount { font-size:18px; color:#31accb;  display:block; float:right; }
+#admin_index .todaycount:hover { text-decoration:underline; }
+#admin_index .todayc { font-size:13px; letter-spacing:-1px; }
+#admin_index a.link_area { line-height:2em; color:#333; text-decoration:none; width:160px; display:inline-block; }
+#admin_index .area_group { float:right; margin-right:20px; margin-top:20px; }
+
+/* index_table */
+#admin_index table { width:100%; line-height:2em; }
+#admin_index td a { text-decoration:none; color:#333; padding:5px; }
+#admin_index td a:hover { text-decoration:underline; }

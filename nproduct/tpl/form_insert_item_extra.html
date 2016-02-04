@@ -1,0 +1,78 @@
+<div class="x_modal-header">
+	<h1>{$lang->title_item_extra}</h1>
+</div>
+<div class="x_modal-body x_form-horizontal">
+	<input type="hidden" name="extra_srl" value="{$formInfo->extra_srl}" />
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label" for="column_name">{$lang->column_name}</label>
+			<div class="x_controls">
+				<input type="text" id="column_name" name="column_name" value="{$formInfo->column_name}" />
+				<a href="#column_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="column_name_help" class="x_help-block" hidden>{$lang->about_column_name}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="column_title">{$lang->column_title}</label>
+			<div class="x_controls">
+				<input type="text" id="column_title" name="column_title" value="{$formInfo->column_title}" />
+				<a href="#column_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="column_title_help" class="x_help-block" hidden>{$lang->about_column_title}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="column_type">{$lang->column_type}</label>
+			<div class="x_controls">
+				{@unset($lang->column_type_list['kr_zip'])}
+				<select class="typeSelect" style="width:290px" name="column_type">
+					<option loop="$lang->column_type_list=>$key,$type_info" value="{$key}" selected="selected"|cond="$formInfo->column_type == $key" >{$lang->column_type_list[$key]}</option>
+				</select>
+			</div>
+			<div class="x_controls">
+				<p class="q multiExample">{$lang->about_multi_type}</p>
+				<p class="a multiExample"><textarea rows="5" cols="42" id="multiSelect" name="default_value"><!--@if($default_value)-->{implode('<enter>', $default_value)}<!--@end--></textarea></p>
+				<script type="text/javascript">
+				var $ = jQuery;
+				var typeSelect = $('.typeSelect');
+				var multiOption = $('.typeSelect>option[value=checkbox], .typeSelect>option[value=radio], .typeSelect>option[value=selectM], .typeSelect>option[value=select]');
+				var multiExample = $('.multiExample');
+			{@$default_value_types = array('checkbox', 'radio', 'select')}
+			<!--@if(!in_array($formInfo->column_type, $default_value_types))-->
+				multiExample.hide();
+			<!--@end-->
+				typeSelect.change(function(){
+					if(multiOption.is(':selected')){
+						multiExample.slideDown(200);
+					} else {
+						multiExample.slideUp(200);
+					}
+				});
+				</script>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="desc">{$lang->description}</label>
+			<div class="x_controls">
+				<textarea rows="5" cols="42" id="desc" name="description">{$formInfo->description}</textarea>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="required">{$lang->mandatory}</label>
+			<div class="x_controls">
+				<label for="radio_required" class="x_inline">
+					<input type="radio" id="radio_required" name="required" checked="checked"|cond="$formInfo->required=='Y'" value="Y" /> 
+					{$lang->cmd_required}
+				</label>
+				<label for="radio_option" class="x_inline">
+					<input type="radio" id="radio_option" name="required" checked="checked"|cond="$formInfo->required=='N' || !$formInfo->required" value="N" />
+					{$lang->cmd_optional}
+				</label>
+				<a href="#required_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="required_help" class="x_help-block" hidden>{$lang->about_mandatory}</p>
+			</div>
+		</div>
+	</section>
+</div>
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse" name="mode" <!--@if($formInfo)-->value="update"<!--@else-->value="insert"<!--@end--> >{$lang->cmd_save}</button>
+</div>

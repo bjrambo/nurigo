@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">누리고 라이선스 관리</title>
+	<description xml:lang="ko">누리고 XE쇼핑몰 라이선스를 관리합니다.</description>
+	<version>1.2.1</version>
+	<date>2014-03-06</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+</module>

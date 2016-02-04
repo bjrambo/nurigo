@@ -1,0 +1,11 @@
+<query id="updateCategoryListOrder" action="update">
+	<tables>
+		<table name="nproduct_categories" />
+	</tables>
+	<columns>
+		<column name="list_order" var="list_order" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="node_id" var="node_id" filter="number" notnull="notnull" />
+	</conditions>
+</query>

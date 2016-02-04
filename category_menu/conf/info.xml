@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget version="0.2">
+	<title xml:lang="ko">카테고리메뉴</title>
+	<description xml:lang="ko">Category Menu</description>
+	<version>1.2</version>
+	<date>2014-02-07</date>
+	<license>Commercial</license>
+
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">wiley</name>
+		<name xml:lang="jp">wiley</name>
+	</author>
+
+	<extra_vars>
+            <var id="module_srls">
+                <type>module_srl_list</type>
+                <name xml:lang="ko">대상 모듈</name>
+                <name xml:lang="jp">対象モージュル</name>
+                <description xml:lang="ko">선택하신 모듈에 등록된 글을 대상으로 합니다.</description>
+                <description xml:lang="jp">選んだモージュルに登録されたコメントが対象になります。</description>
+            </var>
+	</extra_vars>
+</widget>

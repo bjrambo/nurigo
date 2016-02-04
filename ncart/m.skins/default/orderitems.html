@@ -1,0 +1,266 @@
+<load target="css/style.css" />
+<load target="css/orderitems.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/orderitems.js" />
+<!--%load_js_plugin("ui")-->
+<!--%load_js_plugin("ui.datepicker")-->
+{@$address = unserialize($default_address->address)}
+{@$address1 = $address[0]}
+{@$address2 = $address[1]}
+<!--// add the proc_module of the purchased products -->
+{@$purchased_modules=array()}
+
+<div id="orderitems" class="{$module_info->colorset}">
+	<include target="_header.html" />
+	<div class="order_top">
+	</div>
+	<div class="order_box" id="order_box_1" data="test_1">
+		<a href="#"><strong class="order_tit"><span>0{++$i} {$lang->title_ordered_items_info}</span><span>({count($list)})</span></strong><span class="rollbtn" id="arrow">{$lang->ordered_items_open}</span></a>
+	</div>
+	<ul class="item-table test_1">
+		{@$count=0}
+		<li loop="$list=>$no,$val" class="m_item_box" style="display:none;"|cond="$count>0">
+			<block cond="!in_array($val->module, $purchased_modules)">{@$purchased_modules[] = $val->module}</block>
+			<div class="order_thumbox">
+				<a class="order_thum" href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($config->cart_thumbnail_width,$config->cart_thumbnail_height,$config->cart_thumbnail_type)}" /></a>
+			</div>
+			<dl class="m_order_info">
+				<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+				<dt class="m_order_tit">{$val->item_name}</dt>
+				<dd>
+					<dl>
+						<dt>{$lang->sales_price} ({$val->quantity})</dt>
+						<dd>{nproductItem::formatMoney($val->sum_price)}</dd>
+						<dt>{$lang->total_discount}</dt>
+						<dd><span cond="$val->discount_info">({$val->discount_info})</span> {nproductItem::formatMoney($val->discount_amount)}</dd>
+						<dt>{$lang->discounted_amount}</dt>
+						<dd>{nproductItem::formatMoney($val->discounted_price)}</dd>
+					</dl>
+				</dd>
+			</dl>
+			{@$count++}
+		</li>
+		<li cond="count($list)>1" class="more_text" id="more_items" onclick="jQuery(this).siblings().css('display','block'); jQuery(this).remove();">{$lang->more}</li>
+	</ul>
+	<block cond="$mileage_flag != 'N'">
+	<div class="order_box title_benefits" id="order_box_2" data="test_2" cond="$logged_info">
+		<a href="#"><strong class="order_tit"><span>0{++$i} {$lang->purchase_benefit}</span></strong><span class="rollbtn" id="arrow">{$lang->open_purchase_benefits}</span></a>
+	</div>
+	<div cond="$logged_info" class="test_2 m_point">
+		<dl>
+			<dt><label>{$lang->mileage}</label></dt>
+			<dd>{round($total_price * ((float)$config->mileage_percent/100),-1)} {$lang->purchase_benefit_postfix}</dd>
+		</dl>
+	</div>
+	</block>
+
+	<form id="fo_insert_order" action="./" method="post">
+		<input type="hidden" name="act" value="procNcartMileagePayment">
+		<input type="hidden" name="target_module" value="ncart" />
+		<input type="hidden" name="cartnos" value="{$cartnos}" />
+		<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+		<input type="hidden" name="xe_mid" value="{$mid}" />
+
+
+		<block cond="$logged_info && $module_info->display_delivfee=='Y' || !$logged_info" cond="in_array('nstore', $purchased_modules)">
+			<div class="order_box title_ordererInfo" id="order_box_3" data="test_3">
+				<a href="#"><strong class="order_tit"><span>0{++$i} {$lang->delivery_fee_payment}</span></strong><span class="rollbtn" id="arrow">{$lang->open_shipping_billing}</span></a>
+			</div>
+			<div class="m_point test_3">
+				<dl cond="$module_info->display_delivfee=='Y'">
+					<dt><label for="delivfee_inadvance_1">{$lang->delivery_fee_payment}</label></dt>
+					<dd>
+						<input name="delivfee_inadvance" id="delivfee_inadvance_1" type="radio" checked="checked" value="Y" /><label for="delivfee_inadvance_1">{$lang->prepay}</label>
+						<input name="delivfee_inadvance" id="delivfee_inadvance_2" type="radio" value="N" /><label for="delivfee_inadvance_2">{$lang->cash_on_delivery}</label>
+					</dd>
+				</dl>
+			</div>
+
+			<div class="order_box title_ordererInfo" id="order_box_3" data="test_3" cond="!$logged_info">
+				<a href="#"><strong class="order_tit"><span>0{++$i} {$lang->password}</span></strong><span class="rollbtn" id="arrow">{$lang->password}</span></a>
+			</div>
+			<div class="m_point test_0 m_pass">
+				<dl cond="!$logged_info">
+					<dt>{$lang->password}</dt>
+					<dd>
+						<input name="non_password1" id="non_password1" type="password" /><p><font color='red'>{$lang->about_order_password}</font></p>
+					</dd>
+					<dt>{$lang->password3}</dt>
+					<dd>
+						<input name="non_password2" id="non_password2" type="password" />
+					</dd>
+				</dl>
+			</div>
+		</block>
+
+		<!--// fieldset -->
+		<block loop="$fieldset_list=>$key,$val">
+			{@$proc_modules = explode(',',$val->proc_modules)}
+			<!--// compare two arrays using array_diff -->
+			<div cond="count(array_diff($proc_modules, $purchased_modules))!=count($proc_modules)" class="fieldset">
+				<div class="order_box title_ordererInfo" id="order_box_4" data="test_4">
+					<a href="#"><strong class="order_tit"><span>0{++$i} {$val->fieldset_title}</span></strong><span class="rollbtn" id="arrow">{$lang->open_shipping_information}</span></a>
+				</div>
+				<div class="m_point test_4">
+					<div cond="$module_info->display_delivdest=='Y' && $key==0" id="section1">
+						<dl cond="$logged_info" id="section1">
+							<dt>
+								{$lang->shipping_select}
+							</dt>
+							<dd class="destination">
+								<ul>
+									<li loop="$address_list=>$addr_key,$addr_val"><input type="radio" name="sel_destination" id="sel_{$addr_val->address_srl}" onclick="apply_address_info({$addr_val->address_srl});" value="{$addr_val->address_srl}" checked="checked"|cond="$addr_val->default=='Y'" /><label for="sel_{$addr_val->address_srl}">{$addr_val->title}</label></li>
+									<li><a class="nuribtn light small" id="popAddressBook" href="#" onclick="return false;"><span>{$lang->cmd_addresslist}</span></a></li>
+									<li><a class="nuribtn light small" id="popRecentAddress" href="#" onclick="return false;"><span>{$lang->cmd_recent_addresses}</span></a></li>
+								</ul>
+							</dd>	
+						</dl>
+					</div>
+					<dl id="section2">
+						<block loop="$val->fields=>$key2,$field">
+							<dt>
+								<label for="column_title">{$field->html->title}</label>
+							</dt>
+							<dd class="{$field->column_type}">{$field->html->inputTag}</dd>
+						</block>
+					</dl>
+				</div>
+			</div>
+		</block>
+		<!--// end of fieldset -->
+
+		<block cond="$mileage_flag != 'N'">
+		<div class="order_box title_mileage" id="order_box_5" style="display:none"|cond="!$logged_info" data="test_5">
+			<a href="#"><strong class="order_tit"><span>0{++$i} {$lang->use_mileage}</span></strong><span class="rollbtn" id="arrow">{$lang->open_purchase_benefits}</span></a>
+		</div>		
+		<div class="m_point test_5" style="display:none"|cond="!$logged_info">
+			<dl>
+				<dt>{$lang->use_mileage}</dt>
+				<dd><input type="hidden" name="use_mileage" value="0" /><input class="line_input" type="text" name="input_mileage" value="0" /> <br />({$lang->current_mileage} : {nproductItem::formatMoney($my_mileage)})</dd>
+			</dl>
+		</div>
+		</block>
+	</form>
+	<div class="total_new2">
+		<ul class="total_border">
+			<li>
+				<strong>{$lang->total_amount}</strong>
+				<span class="pay_total">{nproductItem::formatMoney($sum_price)} </span>
+			</li>
+			<li>
+				<strong>{$lang->total_discount}</strong>
+				<span class="pay_total">- {nproductItem::formatMoney($total_discount_amount)} </span>
+			</li>
+			<li cond="$module_info->display_delivfee=='Y' || $delivery_fee">
+				<strong>{$lang->delivery_fee}</strong>
+				<span class="pay_total" id="delivery_fee">+ {nproductItem::formatMoney($delivery_fee)} </span>
+			</li>
+			<li cond="$mileage_flag != 'N'">
+				<strong>{$lang->use_mileage}</strong>
+				<span class="pay_total" id="mileage_amount"> - 0 </span>
+			</li>
+			<li>
+				<strong cond="0">{$lang->total_order_amount}</strong>
+				<span class="pay_total" id="order_amount" cond="0">{nproductItem::formatMoney($total_price)} </span>
+			</li>
+			
+		</ul>
+		<p class="total_payment">
+			<strong class="total_m">{$lang->payment_amount}</strong>
+			<span class="total_m pay_total" id="payment_amount">{nproductItem::formatMoney($total_price)} </span>
+		</p>
+	</div> 
+
+	<div class="order_box title_paymentInfo" id="order_box_6" style="display:none"|cond="!$logged_info" data="test_6">
+		<a href="#">
+			<strong class="order_tit"><span>0{++$i} {$lang->input_payment_info}</span> 
+				<span class="font_size11">{$lang->about_input_payment_info}</span>
+			</strong>
+			<span class="rollbtn" id="arrow">{$lang->open_saved_money}</span>
+		</a>
+	</div>		
+	<div class="test_6 payment-table">
+		{$epay_form}
+	</div>
+</div>
+
+<div id="modal-dialog"></div>
+
+<block cond="$config->decimals">{@$decimals = $config->decimals}</block>
+<block cond="!$config->decimals">{@$decimals = 0}</block>
+<script type="text/javascript">
+        var g_decimals = {$decimals};
+</script>
+
+<block cond="$purchaser->cellphone">
+{@$purchaser->cellphone = implode('-',$purchaser->cellphone)}
+</block>
+<block cond="$purchaser->telnum">
+{@$purchaser->telnum = implode('-',$purchaser->telnum)}
+</block>
+<script>
+
+<block cond="$logged_info" >
+	var purchaser_name = '{$purchaser->name}';
+	<block cond="$config->address_input=='krzip'">
+		var purchaser_address = '{$purchaser->address[0]}';
+		var purchaser_address2 = '{$purchaser->address[1]}';
+		var purchaser_postcode = '';
+	</block>
+	<block cond="$config->address_input!='krzip'">
+		var purchaser_address = '{$purchaser->address}';
+		var purchaser_address2 = '{$purchaser->address2}';
+		var purchaser_postcode = '{$purchaser->postcode}';
+	</block>
+	var purchaser_cellphone = '{$purchaser->cellphone}';
+	var purchaser_telnum = '{$purchaser->telnum}';
+	var purchaser_chk = 'Y';
+</block>	
+<block cond="!$logged_info" >
+	var purchaser_chk= 'N';
+</block>
+
+var default_recipient = '{$default_address->recipient}';
+var default_cellphone = '{$default_address->cellphone}';
+var default_telnum = '{$default_address->telnum}';
+var default_postcode = '{$default_address->postcode}';
+var default_address = '{$address1}';
+var default_address2 = '{$address2}';
+var total_price = {$total_price};
+var my_mileage = {$my_mileage};
+var delivery_fee = {$delivery_fee};
+
+(function($) {
+	jQuery(function($) {
+		var address_srl = $('input[name=sel_destination]:checked').val();
+		if (address_srl) apply_address_info(address_srl);
+	});
+}) (jQuery);
+
+
+
+jQuery(function($) {
+
+	$(".order_box").click(function ()
+	{
+		order_box = $(this).attr('id');
+		order_box = "#" + order_box;
+		arrow_id = $(order_box).find('#arrow');
+		arrow_class = arrow_id.attr('class');
+
+		arrow_id.removeClass("arrow_top");
+		arrow_id.removeClass("rollbtn");
+		if(arrow_class == "arrow_top") $(arrow_id).addClass("rollbtn");
+		if(arrow_class == "rollbtn") $(arrow_id).addClass("arrow_top");
+
+		toggle_box = '.' + $(this).attr('data');
+		$(toggle_box).toggle();
+		return false;
+	});
+});
+
+
+</script>
+
+<include target="fieldset.html" />

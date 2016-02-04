@@ -1,0 +1,54 @@
+﻿@charset "utf-8";
+/* vi:set ts=4 sw=4 expandtab enc=utf8: */
+
+.phonescreen_bg {
+    border: solid #cccccc 1px;
+    display: block;
+}
+
+.phonescreen {
+    font-family: 돋움체;
+    font-size: 9pt;
+    overflow: hidden;
+    width: 100px;
+    height: 82px;
+    border: 0;
+    padding: 0;
+    color: #363636;
+    cursor: pointer;
+    word-break: break-all;
+    margin: 4px;
+    letter-spacing: 0;
+}
+
+.pscreen_bg {
+    background-color: transparent;
+    padding: 2px 15px 2px 15px;
+}
+
+.pscreen {
+    background-color: transparent;
+    font-family: 돋움체;
+    font-size: 9pt;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+    width: 118px;
+    height: 110px;
+    border: 0;
+    padding: 8px;
+    color: #363636;
+    word-break: break-all;
+    margin: 4px;
+    letter-spacing: 0;
+
+    scrollbar-face-color:#01669a;
+    scrollbar-track-color: #f9f9ff;
+    scrollbar-arrow-color: #ff7901;
+    scrollbar-highlight-color:#f9f9ff;
+    scrollbar-3dlight-color: #f9f9ff;
+    scrollbar-shadow-color: #f9f9ff;
+    scrollbar-darkshadow-color: #f9f9ff;
+}
+
+
+.x_control-group .xpress-editor select { min-width:0; }

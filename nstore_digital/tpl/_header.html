@@ -1,0 +1,27 @@
+<div class="x_page-header">
+	<h1>
+		콘텐츠 판매관리
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a>
+		</span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
+
+<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<li class="x_active"|cond="$act=='dispNstore_digitalAdminModInstList'"><a href="{getUrl('act','dispNstore_digitalAdminModInstList')}">다운로드 페이지</a></li>
+	<li cond="!$module_srl && $act=='dispNstore_digitalAdminInsertModInst'" class="x_active"|cond="$act=='dispNstore_digitalAdminInsertModInst'"><a href="{getUrl('act','dispNstore_digitalAdminInsertModInst')}">생성</a></li>
+	<block cond="$module_srl">
+		<li class="x_active"|cond="$act=='dispNstore_digitalAdminInsertModInst'"><a href="{getUrl('act','dispNstore_digitalAdminInsertModInst')}">설정</a></li>
+		<li class="x_active"|cond="$act=='dispNstore_digitalAdminSkinInfo' && $module_info->skin"><a href="{getUrl('act','dispNstore_digitalAdminSkinInfo')}">스킨설정</a></li>
+		<li cond="$module_info->use_mobile=='Y' && $module_info->mskin" class="x_active"|cond="$act=='dispNstore_digitalAdminMobileSkinInfo'"><a href="{getUrl('act','dispNstore_digitalAdminMobileSkinInfo')}">모바일스킨</a></li>
+	</block>
+	<li class="x_active"|cond="$act=='dispNstore_digitalAdminOrderManagement'"><a href="{getUrl('', 'module', $module, 'act','dispNstore_digitalAdminOrderManagement')}">주문관리</a></li>
+	<li class="x_active"|cond="$act=='dispNstore_digitalAdminIndividualOrderManagement'"><a href="{getUrl('', 'module', $module, 'act','dispNstore_digitalAdminIndividualOrderManagement')}">개별주문관리</a></li>
+	<li class="x_active"|cond="$act=='dispNstore_digitalAdminPeriodManagement'"><a href="{getUrl('', 'module', $module, 'act','dispNstore_digitalAdminPeriodManagement')}">기간연장관리</a></li>
+	<li cond="0" class="x_active"|cond="$act=='dispNstore_digitalAdminDashboard'" ><a href="{getUrl('act','dispNstore_digitalAdminDashboard')}">상점현황</a></li>
+	<li cond="0" class="x_active"|cond="$act=='dispNstore_digitalAdminConfig'"><a href="{getUrl('act','dispNstore_digitalAdminConfig')}">기본설정</a></li>
+
+	<li class="x_active"|cond="$act=='dispNstore_digitalAdminMailSetup'"><a href="{getUrl('act','dispNstore_digitalAdminMailSetup')}">메일설정</a></li>
+</ul>

@@ -1,0 +1,140 @@
+<load target="css/btn.css" />
+<load target="css/style.css" />
+<load target="css/itemlist.css" />
+<load target="css/_style.grid.css" />
+<load target="css/nu_btn.css" />
+<!-- <load target="css/nu_btn.css" /> -->
+
+<block cond="!$module_info->list_style">
+{@$module_info->list_style='list'}
+</block>
+<block cond="!$listStyle">
+{@$listStyle=$module_info->list_style}
+</block>
+{@$btn_color='n_button'}
+<block cond="$module_info->colorset=='black'">
+	{@$btn_color='nu_green'}
+</block>
+
+<load target="css/style.css" />
+<load target="../../tpl/skin.js/script.js" />
+<include target="header.html" />
+<include cond="$module_info->category_display!='N'" target="categorylist.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form cond="$module_info->direct_gocart=='Y'" id="dummy_form">
+	<input type="hidden" id="is_mobile" value="true" />
+	<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+</form>
+
+<div id="itemlist_widget" cond="$module_info->recommenditem_on == 'Y'">
+	<img class="zbxe_widget_output" widget="frontdisplay" skin="md_category" colorset="default" module_srls="{$module_info->module_srl}" category_srl="{$category}" num_columns="6" num_rows="1" thumbnail_width="110" thumbnail_height="110" category_type="B" store_type="nstore" />
+</div>
+
+
+<div class="class_tit">
+	{$category_info->category_name}
+</div>
+
+<div id="itemlist" class="{$module_info->colorset}">
+	<block cond="$module_info->display_cart_buttons != 'N'">
+		<div class="item_btn">
+			<a class="nu_button {$btn_color}" href="#" onclick="addItemsToCart();"><span>{$lang->cmd_add_cart}</span></a>
+			<a class="nu_button {$btn_color}" href="#" onclick="addItemsToFavorites();"><span>{$lang->cmd_add_favorites}</span></a>
+		</div>
+	</block>
+	<form cond="0" class="list_header">
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input type="hidden" name="category" value="{$category}" />
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="listStyle" value="{$listStyle}" />
+
+		<div class="display_list">
+					<a href="{getUrl('sort_index','price','order_type','asc')}">{$lang->cmd_order_lowprice}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','price','order_type','desc')}">{$lang->cmd_order_highprice}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','sales_count','order_type','desc')}">{$lang->cmd_order_bestsell}</a>
+					<span>|</span>
+					<a href="{getUrl('sort_index','review_count','order_type','desc')}">{$lang->cmd_order_review}</a>
+			</div>	
+		
+		<ul class="display_style">
+			<li><a href="{getUrl('listStyle','list')}"><img src="img/icon_list.gif" /></a></li>
+			<li><a href="{getUrl('listStyle','grid')}"><img src="img/icon_grid.gif" /></a></li>
+			<li>
+				<select name="disp_numb" onchange="this.form.submit();">
+					<option value="30" selected="selected"|cond="$disp_numb=='30'">{$lang->per30}</option>
+					<option value="60" selected="selected"|cond="$disp_numb=='60'">{$lang->per60}</option>
+				</select>
+			</li>
+		</ul>
+	</form>
+
+	<div class="product_list">
+		<include cond="$listStyle=='list'" target="_style.list.html" />
+		<include cond="$listStyle=='grid'" target="_style.grid.html" />
+	</div>
+
+	<div cond="$module_info->display_cart_buttons != 'N'" class="btn_bottom">
+		<a class="nu_button {$btn_color}" href="#" onclick="additemstocart(); return false;"><span>{$lang->cmd_add_cart}</span></a>
+		<a class="nu_button {$btn_color}" href="#" onclick="additemstofavorites(); return false;"><span>{$lang->cmd_add_favorites}</span></a>
+	</div>
+
+	<div class="search">
+		<form action="" class="pagination" method="post">
+			<input type="hidden" name="error_return_url" value="" />
+			<input type="hidden" name="module" value="{$module}" />
+			<input type="hidden" name="act" value="{$act}" />
+			<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+			<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+			<input cond="$category_srl" type="hidden" name="category_srl" value="{$category}" />
+			<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+			<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+			<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+			<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+				{@$isGoTo = true}
+				<a href="{getUrl('page', '')}">1</a>
+				<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			</block>
+
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+				{@$last_page = $page_no}
+				<strong cond="$page_no == $page">{$page_no}</strong>
+				<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+			<!--@end-->
+
+			<block cond="$last_page != $page_navigation->last_page">
+				{@$isGoTo = true}
+				<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+				<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+			</block>
+
+			<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+			<span cond="$isGoTo" id="goTo" class="tgContent">
+				<input name="page" title="{$lang->cmd_go_to_page}" />
+				<button type="submit">Go</button>
+			</span>
+		</form>
+		<form action="" method="post">
+			<select name="search_target">
+				<option value="">{$lang->search_target}</option>
+				{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+				<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+			</select>
+			<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+			<input type="submit" value="{$lang->cmd_search}" />
+			<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+		</form>
+	</div>
+</div>
+
+<include target="footer.html" />

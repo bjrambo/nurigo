@@ -1,0 +1,48 @@
+<load target="css/style.css" />
+<load target="css/cartitems.css" />
+<load target="css/btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<include target="header.html" />
+
+<div id="cartitems" class="{$module_info->colorset}">
+	<div class="cartStep">
+		<p class="progress"></p>
+	</div>
+	<include target="_header.html" />	
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th><input type="checkbox" value="{$val->item_srl}" onclick="XE.checkboxToggleAll('favorite_cart',{doClick:true}); return false;" /></th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->total_amount}</th>
+				<th>{$lang->total_discount}</th>
+				<th>{$lang->discounted_amount}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<tr cond="count($favorite_items)" loop="$favorite_items=>$no,$val">
+				<td><input type="checkbox" name="favorite_cart" value="{$val->item_srl}" /></td>
+				<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a></td>
+				<td><div class="item_name"><a href="{getUrl('','document_srl',$val->document_srl)}">{$val->item_name}</a></div></td>
+				<td>{nproductItem::formatMoney($val->price)}</td>
+				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td>{nproductItem::formatMoney($val->discounted_price)}</td>
+				{@$total_price+=$val->price}
+			</tr>
+			<tr cond="!count($favorite_items)">
+				<td colspan="8">{$lang->msg_no_items}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="cart_command">
+		<span>{$lang->selected_items} </span><a href="#" class="nuribtn" id="deleteFavoriteItems" onclick="return false;"><span>{$lang->cmd_delete}</span></a>
+	</div>
+</div>
+
+<include target="footer.html" />
+<script>
+	var g_total_items = {count($list)};
+	xe.lang.msg_select_items_in_order_to_delete = '{$lang->msg_select_items_in_order_to_delete}';
+</script>

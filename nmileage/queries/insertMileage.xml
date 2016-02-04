@@ -1,0 +1,10 @@
+<query id="insertMileage" action="insert">
+	<tables>
+		<table name="nmileage" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+		<column name="mileage" var="mileage" filter="number" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

@@ -1,0 +1,125 @@
+<include target="_header.html" />
+
+<div id="orderlist">
+	<form action="./" method="post">
+		<input type="hidden" name="module" value="nstore_digital" />
+		<input type="hidden" name="act" value="procNstore_digitalAdminUpdateOrderDetail" />
+		<input type="hidden" name="status" value="{$status}" />
+		<input type="hidden" name="order_srl" value="{$order_srl}" />
+
+		<div class="orderStep">
+			<h2>주문 상세내역</h2>
+		</div>
+
+		<h4>◈ 주문정보</h4>
+		<table class="x_table">
+			<thead>
+				<tr>
+					<th>주문번호</th>
+					<th>주문일자</th>
+					<th>품목갯수</th>
+					<th>적립금</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$order_info->order_srl}</td>
+					<td>{zdate($order_info->regdate)}</td>
+					<td>{$order_info->item_count}</td>
+					<td>{number_format($order_info->mileage)}<div cond="$order_info->mileage_save=='Y'">(적립완료)</div></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>◈ 결제정보</h4>
+		<table class="x_table">
+			<thead>
+				<tr>
+					<th>결제방식</th>
+					<th>적립금 사용</th>
+					<block cond="$payment_info->payment_method=='VA'">
+					<th>계좌번호</th>
+					<th>은행코드</th>
+					<th>예금주명</th>
+					<th>송금자명</th>
+					<th cond="0">주민번호</th>
+					<th>송금일자</th>
+					<th cond="0">송금시간</th>
+					</block>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$payment_method[$order_info->payment_method]}</td>
+					<td>{$order_info->use_mileage}</td>
+					<block cond="$payment_info->payment_method=='VA'">
+					<td>{$payment_info->vact_num}</td>
+					<td>{$payment_info->vact_bankcode}</td>
+					<td>{$payment_info->vact_name}</td>
+					<td>{$payment_info->vact_inputname}</td>
+					<td cond="0">{$payment_info->vact_regnum}</td>
+					<td>{zdate($payment_info->vact_date,'Y-m-d')} 까지</td>
+					<td cond="0">{$payment_info->vact_time}</td>
+					</block>
+				</tr>
+			</tbody>
+		</table>
+		<h4>◈ 상품정보</h4>
+		<table class="x_table">
+			<thead>
+				<tr>
+					<th>체결번호</th>
+					<th>상품</th>
+					<th>상품명</th>
+					<th>수량</th>
+					<th>가격</th>
+					<th>할인</th>
+					<th>주문금액</th>
+					<th>주문상태</th>
+					<th>사이트URL</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr loop="$order_info->item_list=>$no,$item">
+					<td><input type="hidden" name="cart_srls[]" value="{$item->cart_srl}" />{$item->cart_srl}</td>
+					<td><a href="{getUrl('','document_srl',$item->document_srl)}" target="_blank"><img src="{$item->getThumbnail(40)}" /></a></td>
+					<td><span>{$item->item_name}</span></td>
+					<td>{$item->quantity}</td>
+					<td>{number_format($item->price)}</td>
+					<td>{number_format($item->discount_amount)}<br />{$item->discount_info}</td>
+					<td>{number_format($item->discounted_price)}</td>
+					<td>
+						<span class="ko_text red">{$order_status[$item->order_status]}</span><br />
+						<a cond="in_array($item->order_status,array('3','4'))" href="#" class="receipt" onclick="return false;" data-order-srl="{$item->order_srl}" ><span>영수증</span></a>
+					</td>
+					<td>{nl2br($item->site_url)}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="btnArea">
+			<a href="{getUrl('act','dispNstore_digitalAdminOrderManagement')}" class="button"><span>이전페이지</span></a>
+		</div>
+
+	</form>
+</div>
+
+<script>
+jQuery(function($) {
+        $('.receipt').click(function() {
+                var order_srl = $(this).attr('data-order-srl');
+                var $_this = $(this);
+                exec_xml(
+                        'epay',
+                        'getEpayReceipt',
+                        {order_srl:order_srl},
+                        function(ret){
+                                var tpl = ret.tpl.replace(/<enter>/g, '\n');
+                                $_this.html(tpl);
+                        },
+                        ['error','message','tpl']
+                );
+
+        });
+});
+</script>

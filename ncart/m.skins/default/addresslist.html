@@ -1,0 +1,46 @@
+<load target="css/style.css" />
+<load target="css/addresslist.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/iscroll.js" />
+<load target="../../tpl/skin.js/iscroll_use.js" cond="$_COOKIE['check_browser'] == 'true'"/>
+
+<div id="iscroll_header"></div>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div class="btnArea">
+	<a href="#" style="text-shadow:none;"class="m_btn nu_black" onclick="window.open('{getUrl('act','dispNcartAddressManagement')}', 'addressbook_popup', 'left=50, top=20, scrollbars=yes, height=600, toolbars=no');parent.close_modal();"><span>{$lang->cmd_addr_manage}</span></a>
+</div>
+
+<div class="m_addlist">
+	
+	<div id="wrapper">
+		<div id="scroller">
+		<ul id="thelist">
+			<li loop="$list=>$key,$val">
+				{@$vars=get_object_vars(unserialize($val->address))}
+				<div class="cho_btn"><a class="m_btn" href="#" onclick="apply_address({$val->address_srl});"><span>{$lang->selection}</span></a></div>
+				<block loop="$fieldset_list=>$key2,$val2">
+				<div class="add_box">
+				<p loop="$val2->fields=>$key3,$field"><span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span><span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}</span></p>
+				</div>
+				</block>
+			</li>
+		</ul>
+		</div>
+	</div>
+
+</div>
+<div class="pageNavigation">
+</div>
+
+<div id="iscroll_footer"></div>
+
+<script>
+	function apply_address(address_srl) {
+		parent.apply_address_info(address_srl);
+		parent.close_modal();
+	}
+</script>

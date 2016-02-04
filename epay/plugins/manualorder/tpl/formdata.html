@@ -1,0 +1,32 @@
+<load target="js/script.js" />
+<load target="filter/submit_manualorder_review.xml" />
+<load target="filter/submit_manualorder_payment.xml" />
+<load target="js/manorder_pid.js" />
+
+<form id="fo_manualorder" class="fo_payment" method="post" action="./" onsubmit="manualorder_payment('{$join_form}'); return false;"|cond="$is_logged || $plugin_info->login_required != 'Y'" onsubmit="alert('{$lang->msg_login_required}'); return false;"|cond="!$is_logged && $plugin_info->login_required == 'Y'"  cond="$logged_info->is_admin == 'Y'">
+        <input type="hidden" name="epay_module_srl" value="{$epay_module_srl}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="plugin_srl" value="{$plugin_srl}" />
+        <input type="hidden" name="order_srl" value="{$order_srl}" />
+        <input type="hidden" name="epay_order_title" value="{$item_name}" />
+        <input type="hidden" name="module" value="epay" />
+        <input type="hidden" name="act" value="dispEpayExtra1" />
+		<input type="hidden" name="payment_method" id="payment_method_7" value="MO" />
+
+		<table class="popTable">
+			<tr>
+				<th class="orangeBottom">유저아이디</th>
+				<td class="orangeBottom">
+					<input type="text" id="manorder_pid" name="manorder_pid" />
+					<div id="manorder_pid_message"></div>
+					<div id="manorder_pid_info"></div>
+				</td>
+			</tr>
+		</table>
+		<div id="manualorderExtendForm">
+		</div>
+		
+		<div class="btn_payment">
+			<span><input type="submit"  value="결제대행" class="nuribtn magenta super" /></span>
+		</div>
+</form>

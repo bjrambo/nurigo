@@ -1,0 +1,52 @@
+<load target="css/style.css" />
+<load target="css/login_form.css" />
+<load target="css/nu_btn.css" />
+
+<include target="_header.html"  cond="$config->guest_buy != 'N'" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	ii<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form ruleset="@login" action="./" method="post" id="fo_member_login" class="form">
+	<input type="hidden" name="success_return_url" value="{getUrl('act', 'dispNcartOrderItems')}" />
+	<input type="hidden" name="act" value="procMemberLogin" />
+	<div class="m_logform">
+		<p class="id"><input type="text" name="user_id" id="ns_uid" value="" placeholder="{$lang->user_id}" /></p>
+		<p class="pw"><input type="password" name="password" id="ns_upw" value="" placeholder="{$lang->password}" /></p>
+	</div>
+	<button type="submit" class="m_btn nu_black">{$lang->cmd_login}</button>
+	<div class="logi">
+		<p class="keeping_id"> 
+		<input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" />
+		<label for="keepid_opt">{$lang->keep_signed}</label>
+		</p>
+	</div>
+
+	<div class="message info" id="keep_msg">
+		<p>{$lang->about_keep_warning}</p>
+	</div>
+		
+	<div class="joinus">
+		<span class="etc">
+			<a href="{getUrl('act','dispMemberFindAccount')}"><span>{$lang->cmd_find_member_account}</span></a> |
+			<a href="{getUrl('act','dispMemberSignUpForm')}"><span>{$lang->cmd_signup}</span></a> |
+			<a href="{getUrl('act','dispNcartOrderItems','cartnos',Context::get('cartnos'))}" cond="$config->guest_buy != 'N'"><span>{$lang->cmd_non_buy}</span></a>
+		</span>
+	</div>
+</form>
+
+<script type="text/javascript">
+jQuery(function($){
+	var keep_msg = $('#keep_msg');
+	keep_msg.hide();
+	$('#keepid_opt').change(function(){
+		if($(this).is(':checked')){
+			keep_msg.slideDown(200);
+		} else {
+			keep_msg.slideUp(200);
+		}
+	});
+});
+</script>
+

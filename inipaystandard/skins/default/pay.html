@@ -1,0 +1,45 @@
+<load target="css/style.css" />
+<load target="../../tpl/js/inipaystandard.js" />
+<load target="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" cond="$module_info->ini_payment_test_mode=='Y'" />
+<load target="https://stdpay.inicis.com/stdjs/INIStdPay.js" cond="$module_info->ini_payment_test_mode!='Y'" />
+
+{$review_form}
+
+<form id="fo_inipay" name="fo_payment" class="fo_payment" method="post" action="./" onsubmit="return inipay()">
+	<input type="hidden" name="version" value="1.0" >
+	<input type="hidden" name="mid" value="{$pay_mid}" >
+	<input type="hidden" name="goodname" value="{$item_name}" >
+	<input type="hidden" name="oid" value="{$order_srl}" >
+	<input type="hidden" name="price" value="{$price}" >
+	<input type="hidden" name="currency" value="WON" >
+	<input type="hidden" name="buyername" value="{$purchaser_name}" >
+	<input type="hidden" name="buyertel" value="{$purchaser_telnum}" >
+	<input type="hidden" name="buyeremail" value="{$purchaser_email}" >
+	<input type="hidden" name="timestamp" value="{$timestamp}" >
+	<input type="hidden" name="signature" value="{$sign}" >
+	<input type="hidden" name="returnUrl" value="{getFullUrl('', 'mid', $mid, 'act', 'procInipaystandardDoIt')}" >
+	<input type="hidden" name="mKey" value="{$mKey}" >
+	<input type="hidden" name="gopaymethod" value="{$payment_method}" >
+	<input type="hidden" name="acceptmethod" value="{$acceptmethod}" >
+	<input type="hidden" name="languageView" value="ko" >
+	<input type="hidden" name="charset" value="UTF-8" >
+	<input type="hidden" name="payViewType" value="overlay" >
+	
+	<!-- 카드무이자 옵션 -->
+	<input type="hidden" name="nointerest" value="" >
+	
+	<!-- 할부 옵션 -->
+	<input type="hidden" name="quotabase" value="2:3:6" >
+	
+	<div class="btn_payment">
+		<button type="submit" class="btn">결제하기</button>
+	</div>
+</form>
+
+<script>
+	function inipay()
+	{
+		INIStdPay.pay('fo_inipay');
+		return false;
+	}
+</script>

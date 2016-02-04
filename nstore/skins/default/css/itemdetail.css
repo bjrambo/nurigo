@@ -1,0 +1,80 @@
+@charset "utf-8";
+
+/* itemdetail css */
+#itemdetail { clear:both;}
+#itemdetail table th,
+#itemdetail table th { padding:0; }
+#itemdetail .item-thumbnail { margin:0 0 30px 0; padding:0; vertical-align:top; }
+#itemdetail .item-thumbnail img { border:1px solid #eee; max-width:none; }
+#itemdetail .item-thumbnail .social_block { padding:10px; }
+
+#itemdetail .info-tab { float:left; margin:0 10px 30px 0; width:100%; }
+#itemdetail .info-tab .btn_item { margin:10px 0 30px;}
+#itemdetail .info-tab .product_name { font:bold 14px 'NanumGothic','나눔고딕', Gulim,Dotum; color:#333; margin:0; }
+#itemdetail .info-tab .btn_item a.btn_buynow { display:block; width:82px; height:33px; text-indent:-9999em; background:url(../img/btn_purchase.gif) no-repeat;}
+#itemdetail .info-tab .btn_item a.btn_cart { display:block; width:82px; height:33px; text-indent:-9999em; background:url(../img/btn_cart.gif) no-repeat;}
+#itemdetail .info-tab .btn_item a.btn_apply { display:block; width:82px; height:33px; text-indent:-9999em; background:url(../img/btn_favorites.gif) no-repeat;}
+#itemdetail .info-tab .btn_item a.btn_list { display:block; width:82px; height:33px; text-indent:-9999em; background:url(../img/btn_list.gif) no-repeat;}
+#itemdetail .info-tab .btn_item a { float:left; margin-right:4px; }
+#itemdetail .info-tab .num_input { position:relative; }
+#itemdetail .info-tab .num_input input { padding:2px; width:80px; border:1px solid #ccc;}
+#itemdetail .info-tab .num_input .iconUp { position:absolute; left:67px; top:1px; *top:2px;width:17px; height:10px; background:url(../img/icon_up.gif) no-repeat; cursor:pointer;}
+#itemdetail .info-tab .num_input .iconDown { position:absolute; left:67px; top:9px; width:17px; height:10px; background:url(../img/icon_down.gif) no-repeat; cursor:pointer;}
+
+#itemdetail .info-add { padding:0; width:200px; }
+#itemdetail .info-add .ad_area { overflow:hidden;}
+#itemdetail .info-add .add_area { padding:0; margin-bottom:10px; border:1px solid #dcdcdc;} 
+#itemdetail .info-add .add_area .title_eval { padding:5px 10px; text-align:center; color:#999; background:#f3f3f3; border-bottom:1px solid #dcdcdc;}
+#itemdetail .info-add .add_area .latest_eval { padding:10px;  color:#999; }
+#itemdetail .info-add li a { color:#666;}
+
+#itemdetail .ko_text th { text-align:left;}
+#itemdetail .item-info { clear:both; margin:0 auto; overflow:hidden;}
+#itemdetail .item-info .product_info { clear:both;}
+#itemdetail .info-tab tr th { width:80px; line-height:32px; }
+
+
+/* item detail > star point */
+#itemdetail .starPoint { margin:0 0 10px 0; padding:0; list-style:none; overflow:hidden; *zoom:1; }
+#itemdetail .starPoint li { float:left; margin-right:3px; }
+#itemdetail .starPoint li a { text-decoration:none; width:18px; height:18px; background:url(../img/starOff.gif) no-repeat left top; color:#fff; font-size:1px; line-height:0; display:block; }
+#itemdetail .starPoint li a.on { background-image:url(../img/starOn.gif); }
+#itemdetail .commentArea { margin:0 auto; width:95%; border:1px solid #ddd; height:60px; margin-bottom:10px; font-size:12px; }
+
+#itemdetail .comments { list-style:none; overflow:hidden; padding:0; }
+#itemdetail .comments li { position:relative; padding:20px; margin-bottom:10px; font:11px dotum; color:#666; border:solid #eee 1px; }
+#itemdetail .comments .date { float:left; display:block; margin:5px 0 0 0; width:80px; }
+#itemdetail .comments .estimate { float:right; width:100px; }
+
+#itemdetail .comments .authorBox { float:left; margin:0; width:200px; }
+#itemdetail .comments .authorBox a { margin:0 10px 0 0; font:bold 12px Tahoma, Gulim, Dotum; color:#6C832C;}
+#itemdetail .comments .btnBox { position:absolute; right:20px; top:20px;}
+#itemdetail .comments .contentBox { display:block; overflow:hidden; width:70%;}
+
+/* comment */
+#itemdetail .item-review .comments { margin-bottom:20px; }
+#itemdetail .item-inquiry .comments { margin-bottom:20px; }
+
+#itemdetail .light_bx_wrp { margin-bottom:40px; padding:10px; background:#f8f8f8;}
+#itemdetail .light_bx_wrp .center { text-align:center;}
+#itemdetail .light_bx_wrp .advence_td { padding:10px 30px;}
+#itemdetail .light_bx_wrp .commentArea { padding:5px;}
+
+#itemdetail #selected_options .deleteItem { display:inline-block; width:11px; height:11px; background:url(../img/delitem.gif) no-repeat; text-indent:-9999em; }
+#itemdetail #selected_options input { width:20px; }
+#selected_options td { padding-left:5px;}
+#selected_options { display:inline-block; background:#efefef; padding:3px;}
+#selected_options span { font-size:11px; font-weight:bold; color:#555; padding:0 3px 0 5px;} 
+#total_amount span { display:inline-block; padding:3px; font-size:12px; font-weight:bold;}
+
+
+
+/* black */
+#itemdetail.black .product_title a { background:#585858; border:1px solid #4f4e4e; border-left:none; border-bottom:1px solid #333; color:#c5c5c5;}
+#itemdetail.black .product_title a.on { background:#1b1b1b; border:1px solid #1b1b1b;}
+#itemdetail.black .comments li { border:1px solid #343434;}
+#itemdetail.black .light_bx_wrp { background:#000; border:1px solid #343434;}
+#itemdetail.black .commentArea { border:1px solid #1b1b1b; background:#1b1b1b;}
+#itemdetail.black .starPoint li a { background:url(../img/starOff_black.gif) no-repeat left top; }
+#itemdetail.black .starPoint li a.on { background-image:url(../img/starOn_black.gif);}
+

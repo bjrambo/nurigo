@@ -1,0 +1,155 @@
+<load target="css/style.css" />
+<load target="css/itemdetail.css" />
+<load target="css/button.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/scroll.js" />
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="../../tpl/skin.filter/insert_review.xml" />
+{@$category = $item_info->category_id}
+
+<!--// initialize variables -->
+<block cond="!$module_info->thumbnail_width">{@$module_info->thumbnail_width=140}</block>
+<block cond="!$module_info->thumbnail_height">{@$module_info->thumbnail_height=140}</block>
+<block cond="!$module_info->thumbnail_type">{@$module_info->thumbnail_type='ratio'}</block>
+
+<script>
+	var g_discounted_price = {$item_info->getDiscountedPrice()};
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.msg_input_more_than_one = '{$lang->msg_input_more_than_one}';
+	xe.lang.each = '{$lang->each}';
+</script>
+
+<include target="header.html" />
+
+<include cond="$module_info->category_display!='N'" target="categorylist.html" />
+
+<form cond="$module_info->direct_gocart=='Y'" id="dummy_form">
+	<input type="hidden" id="is_mobile" value="true" />
+	<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+</form>
+
+<div id="itemdetail">
+	<input type="hidden" id="quantity_{$item_info->item_srl}" class="quantity" value="1" />
+	<table width="100%" colspan="0" cellspacing="0" style="border-collapse: separate">
+		<tr>
+			<td style="vertical-align:bottom; text-align:center;">
+				<div class="item-thumbnail">
+					<img cond="$item_info->thumbnailExists($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)" src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" />
+					<img cond="!$item_info->thumbnailExists($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)" src="img/no_img.gif" alt="no image" width="{$module_info->thumbnail_width}" height="{$module_info->thumbnail_height}" />
+				</div><!-- thumbnail -->
+			</td>
+			<td></td>
+			<td style="padding:0 16px;">
+				<div class="info-tab">
+					<table colspan="0" cellspacing="0" width="100%" class="ko_text">
+						<tr>
+							<th>{$lang->product_name}</th>
+							<td><h2 class="product_name">{$item_info->item_name}</h2></td>
+						</tr>
+						<tr cond="0">
+							<th>{$lang->item_code}</th>
+							<td>{$item_info->item_code}</td>
+						</tr>
+						<tr>
+							<th>{$lang->sales_price}</th>
+							<td class="font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{$item_info->printPrice()}</td>
+						</tr>
+						<tr cond="$discount_amount">
+							<th>{$discount_info}</th>
+							<td class="product_price">- {nproductItem::formatMoney($discount_amount)} <span class="font_size12"> 할인</span></td>
+						</tr>
+						<tr cond="$discount_amount">
+							<th>{$lang->discounted_price}</th>
+							<td class="font_size24 product_price">{nproductItem::formatMoney($discounted_price)}</td>
+						</tr>
+						<tr loop="$extra_vars=>$key,$val" cond="$val->getValueHTML() != null">
+							<th>{$val->getTitle()}</th>
+							<td>{$val->getValueHTML()}</td>
+						</tr>
+						<tr cond="0">
+							<th>{$lang->order_quantity}</th>
+							<td>
+								<div id="item_{$item_info->item_srl}" class="num_input">
+									<input type="text" id="quantity_{$item_info->item_srl}" class="quantity" value="1" />
+									<span class="iconUp" data-for="quantity_{$item_info->item_srl}"></span><span class="iconDown" data-for="quantity_{$item_info->item_srl}"></span>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="btn_item">
+						<a href="#" class="btn_buynow" onclick="direct_order({$item_info->item_srl}, '{$module_info->ncart_mid}'); return false;"><span>구매하기</span></a>
+						<a cond="0" href="#" class="btn_cart" onclick="addItemsToCart({$item_info->item_srl}); return false;"><span>장바구니</span></a>
+						<a cond="0" href="#" class="btn_apply" onclick="addItemsToFavorites({$item_info->item_srl});"><span>찜하기</span></a>
+						<a cond="0" href="{getUrl('act','procNstore_digitalFreebieDownload','item_srl',$item_info->item_srl)}" class="btn_freedown"><span>다운로드</span></a>
+						<a href="{getUrl('act','','item_srl','','document_srl','')}" class="btn_list"><span>돌아가기</span></a>
+					</div>
+				</div><!-- product info -->
+			</td>
+
+			<td cond="0" style="vertical-align:top;">
+				<div class="info-add" style="float:right;">
+					<div class="add_area">
+						<div class="title_eval">구매자 상품평</div>
+						<div class="latest_eval">
+							<ul>
+								{@$cnt=0}
+								<li loop="$review_list=>$key,$review" cond="$cnt < 5">
+									<a href="#review_{$review->get('review_srl')}">{$review->getContentText(20)}</a>
+									{@$cnt++}
+								</li>
+								<li cond="$cnt==0"><a href="#content_02">첫번째 상품평을 남겨보세요</a></li> 
+							</ul>
+						</div>
+					</div>
+					<div class="add_area">
+						<div class="title_eval">{$lang->qna}</div>
+						<div class="latest_eval">
+							<ul cond="$oDocument->getCommentCount()">
+								{@$cnt=0}
+								<li loop="$oDocument->getComments()=>$key,$comment" cond="$cnt < 5 && $comment->get('depth')==0">
+									
+									<a href="#comment_{$comment->get('comment_srl')}">{$comment->getContentText(20)}</a>
+									{@$cnt++}
+								</li>
+							</ul>
+							<ul cond="!$oDocument->getCommentCount()">
+								<li><a href="#content_03">상품문의 남기기</a></li> 
+							</ul>
+						</div>
+					</div>
+					<div class="ad_area"><a href="#">
+						<img class="zbxe_widget_output" widget="vanner" skin="default" colorset="default" order_target="list_order" order_type="desc" thumbnail_type="crop" link_extra_idx="1" thumbnail_width="200" thumbnail_height="60" link_new_window="N" module_srls="5041" />
+					</div>
+				</div><!-- add area -->
+			</td>
+		</tr>
+	</table>
+
+    <!-- product detail -->
+	<div class="item-info" id="content_01">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll on">{$lang->description}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+		<div class="product_info">{$oDocument->getContent(false)}</div>
+	</div>
+	<div class="delivery-info"  id="content_04">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->description}</a></li>
+				<li><a href="#content_04" class="scroll on">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+		<div cond="$module_info->display_caution=='Y'">
+			{$module_info->delivery_info}
+		</div>
+		<div cond="$module_info->display_caution=='N'">
+			{$item_info->delivery_info}
+		</div>
+	</div>
+</div>
+
+<include target="footer.html" />

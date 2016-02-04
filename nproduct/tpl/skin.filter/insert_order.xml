@@ -1,0 +1,12 @@
+<filter name="insert_order" module="nproduct" act="procNproductInsertOrder">
+    <form>
+        <node target="cartnos" required="true" />
+    </form>
+    <parameter>
+        <param name="cartnos" target="cartnos" />
+    </parameter>
+    <response callback_func="completeInsertOrder">
+	<tag name="error" />
+	<tag name="message" />
+    </response>
+</filter>

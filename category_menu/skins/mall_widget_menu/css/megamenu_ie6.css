@@ -1,0 +1,25 @@
+body {
+	behavior: url("js/csshover3.htc");
+}
+#menu_container, #menu_container_vertical {
+	background-image:none;
+}
+#menu li .drop {
+	background:url("../img/down.gif") no-repeat right center;
+}
+#menu li ul li {
+	width:130px;
+}
+#menu .imgshadow {
+	padding:3px;
+}
+#menu ul.list, #menu ul.list2, #menu ol.num, #menu ol.num2 {
+	margin:0 0 18px 15px;
+}
+#menu ul.list li, #menu ul.list2 li, #menu ol.num li, #menu ol.num2 li{
+	padding:0;
+	width:90px;
+}
+#menu_container_vertical #menu li .drop {
+	background:url("../img/right.gif") no-repeat right center;
+}

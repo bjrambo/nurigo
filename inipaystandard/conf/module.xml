@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <actions>
+		<action name="dispInipaystandardAdminModuleList" type="view" admin_index="true" />
+		<action name="dispInipaystandardAdminInsertModule" type="view" />
+		
+		<action name="procInipaystandardAdminInsertModule" type="controller" />
+		<action name="procInipaystandardAdminDeleteModule" type="controller" />
+		
+		<action name="dispInipaystandardForm" type="view" />
+		<action name="procInipaystandardDoIt" type="controller" check_csrf="false" />
+		<action name="procInipay" type="controller" method="GET|POST" index="true" check_csrf="false" />
+    </actions>
+	<menus>
+		<menu name="inipaystandard">
+			<title xml:lang="ko">INIpay Standard 결제 모듈</title>
+		</menu>
+	</menus>
+</module>

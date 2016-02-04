@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="do_payment">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Payment]]></value>
+	</item>
+	<item name="amount_to_pay">
+		<value xml:lang="ko"><![CDATA[결제금액]]></value>
+		<value xml:lang="en"><![CDATA[Amount to pay]]></value>
+	</item>
+	<item name="finish_order">
+		<value xml:lang="ko"><![CDATA[주문완료하기]]></value>
+		<value xml:lang="en"><![CDATA[Finish Order]]></value>
+	</item>
+	<item name="product_info">
+		<value xml:lang="ko"><![CDATA[상품정보]]></value>
+		<value xml:lang="en"><![CDATA[Product Information]]></value>
+	</item>
+	<item name="product_title">
+		<value xml:lang="ko"><![CDATA[상품명]]></value>
+		<value xml:lang="en"><![CDATA[Product Title]]></value>
+	</item>
+	<item name="account_info">
+		<value xml:lang="ko"><![CDATA[입금하실 계좌 정보]]></value>
+		<value xml:lang="en"><![CDATA[Bank Account]]></value>
+	</item>
+	<item name="bank_name">
+		<value xml:lang="ko"><![CDATA[입금은행]]></value>
+		<value xml:lang="en"><![CDATA[Bank]]></value>
+	</item>
+	<item name="account_number">
+		<value xml:lang="ko"><![CDATA[계좌번호]]></value>
+		<value xml:lang="en"><![CDATA[Account Number]]></value>
+	</item>
+	<item name="holder_name">
+		<value xml:lang="ko"><![CDATA[예금주]]></value>
+		<value xml:lang="en"><![CDATA[Holder Name]]></value>
+	</item>
+	<item name="payer_name">
+		<value xml:lang="ko"><![CDATA[입금자명]]></value>
+		<value xml:lang="en"><![CDATA[Payer Name]]></value>
+	</item>
+</lang>

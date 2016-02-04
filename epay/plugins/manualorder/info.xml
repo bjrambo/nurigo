@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<title xml:lang="ko">관리자구매처리</title>
+	<description xml:lang="ko">관리자가 대신 결제 해주는 플러그인 입니다.</description>
+	<version>0.9</version>
+	<date>2012-08-09</date>
+	<author email_address="contact@nurigo.net" link="http://store.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+	<license link="">Commercial</license>
+
+	<extra_vars>
+	</extra_vars>
+</plugin>

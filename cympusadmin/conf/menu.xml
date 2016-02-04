@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<item>
+		<title xml:lang="ko">사이트관리</title>
+		<title xml:lang="en">Site Management</title>
+		<title xml:lang="jp">サイト管理</title>
+		<title xml:lang="zh-TW">網站管理</title>		
+		<icon>dashboard</icon>
+		<action>dispCympusadminAdminIndex</action>
+		<description xml:lang="ko">공통메뉴</description>
+		<description xml:lang="en">Common menu</description>		
+		<description xml:lang="jp">共同メニュー</description>
+		<description xml:lang="zh-TW">常用選單</description>		
+		<item>
+			<title xml:lang="ko">전체현황</title>
+			<title xml:lang="en">Site Status</title>
+			<title xml:lang="jp">サイト現状</title>
+			<title xml:lang="zh-TW">網站狀態</title>
+			<action>dispCympusadminAdminIndex</action>
+		</item>
+		<item>
+			<title xml:lang="ko">회원관리</title>
+			<title xml:lang="en">Member Management</title>
+			<title xml:lang="jp">商品管理</title>
+			<title xml:lang="zh-TW">商品管理</title>
+			<action>dispCympuserAdminMemberList</action>
+			<action_prefix>dispCympuserAdmin</action_prefix>
+		</item>
+		<item>
+			<title xml:lang="ko">상품관리</title>
+			<title xml:lang="en">Product Management</title>
+			<title xml:lang="jp">商品管理</title>
+			<title xml:lang="zh-TW">商品管理</title>
+			<action>dispNproductAdminModInstList</action>
+			<action_prefix>dispNproductAdmin</action_prefix>
+		</item>
+		<item>
+			<title xml:lang="ko">결제관리</title>
+			<title xml:lang="en">Payment</title>
+			<title xml:lang="jp">決済管理</title>
+			<title xml:lang="zh-TW">付款結算管理</title>			
+			<action>dispEpayAdminTransactions</action>
+			<action_prefix>dispEpayAdmin</action_prefix>
+			<description xml:lang="ko">결제모듈관리.</description>
+			<description xml:lang="zh-TW">付款結算支付管理</description>
+		</item>
+		<item>
+			<title xml:lang="ko">마일리지</title>
+			<title xml:lang="en">Mileage</title>
+			<title xml:lang="jp">マイレージ</title>
+			<title xml:lang="zh-TW">獎勵點數管理</title>		
+			<action>dispNmileageAdminAllMileageHistory</action>
+			<action_prefix>dispNmileageAdmin</action_prefix>
+			<description xml:lang="ko">마일리지 관리</description>
+			<description xml:lang="zh-TW">獎勵點數管理</description>
+		</item>
+		<item>
+			<title xml:lang="ko">장바구니</title>
+			<title xml:lang="en">Cart Setup</title>
+			<title xml:lang="jp">カート設定</title>
+			<title xml:lang="zh-TW">購物車設定</title>
+			<action>dispNcartAdminModInstList</action>
+			<action_prefix>dispNcartAdmin</action_prefix>
+			<description xml:lang="ko">장바구니</description>
+			<description xml:lang="ko">購物車設定</description>
+		</item>
+		<item>
+			<title xml:lang="ko">통화설정</title>
+			<title xml:lang="en">Currency Setup</title>
+			<title xml:lang="jp">Currency Setup</title>
+			<title xml:lang="zh-TW">幣別設定</title>
+			<action>dispCurrencyAdminContent</action>
+			<action_prefix>dispCurrencyAdmin</action_prefix>
+			<description xml:lang="ko">통화 설정</description>
+			<description xml:lang="zh-TW">顯示幣別</description>
+		</item>
+		<item cond="getClass('ftpclient')">
+			<title xml:lang="ko">FTP설정</title>
+			<title xml:lang="en">FTP Setup</title>
+			<title xml:lang="jp">FTP 設定</title>
+			<title xml:lang="zh-TW">FTP 設定</title>			
+			<action>dispFtpclientAdminModInstList</action>
+			<description xml:lang="ko">FTP설정</description>
+			<description xml:lang="zh-TW">FTP設置</description>
+		</item>
+		<item cond="getClass('license')">
+			<title xml:lang="ko">라이선스</title>
+			<title xml:lang="en">License</title>
+			<title xml:lang="jp">ライセンス</title>
+			<title xml:lang="zh-TW">系統許可授權</title>			
+			<action>dispLicenseAdminConfig</action>
+			<description xml:lang="ko">라이선스 관리</description>
+			<description xml:lang="ko">購買或租用本系統許可授權碼相關信息</description>
+		</item>
+		<item cond="getClass('professor')">
+			<title xml:lang="ko">교수관리</title>
+			<title xml:lang="en">Professor</title>
+			<title xml:lang="jp">Professor</title>
+			<title xml:lang="zh-TW">開課講師管理</title>			
+			<action>dispProfessorAdminIndex</action>
+			<action_prefix>dispProfessorAdmin</action_prefix>
+			<description xml:lang="ko">교수 관리</description>
+			<description xml:lang="zh-TW">開課講師管理</description>
+		</item>
+	</item>
+	<item cond="getClass('elearning')">
+		<title xml:lang="ko">강좌수강관리</title>
+		<title xml:lang="en">Course Management</title>
+		<title xml:lang="jp">コース管理</title>
+		<title xml:lang="zh-TW">課程管理</title>		
+		<icon>lecture</icon>
+		<action>dispElearningAdminModInstList</action>
+		<item>
+			<title xml:lang="ko">콘텐츠관리</title>
+			<title xml:lang="en">Contents Management</title>
+			<title xml:lang="jp">콘텐츠관리</title>
+			<title xml:lang="zh-TW">內容管理</title>			
+			<action>dispElearning_contentsAdminItemList</action>
+			<action_prefix>dispElearning_contentsAdmin</action_prefix>
+			<description xml:lang="ko">콘텐츠관리</description>
+			<description xml:lang="zh-TW">內容管理</description>
+		</item>
+		<item>
+			<title xml:lang="ko">수강관리</title>
+			<title xml:lang="en">Enrollment Management</title>
+			<title xml:lang="jp">注文管理</title>
+			<title xml:lang="zh-TW">課程訂購管理</title>			
+			<action>dispElearningAdminManageEnrollment</action>
+			<action_prefix>dispElearningAdmin</action_prefix>
+			<description xml:lang="ko">각 단계별로 처리 : 입금대기 > 입금완료 > 수강중 > 수강종료 > 취소 > 환불</description>
+			<description xml:lang="zh-TW">步驟過程：匯款等待 > 完成付款 > 課程 > 課程退出 > 取消> 退款</description>
+		</item>
+		<item>
+			<title xml:lang="ko">프리패스관리</title>
+			<title xml:lang="en">Freepass Management</title>
+			<title xml:lang="jp">Freepass Management</title>
+			<title xml:lang="zh-TW">Freepass Management</title>			
+			<action>dispFreepassAdminManageEnrollment</action>
+			<action_prefix>dispFreepassAdmin</action_prefix>
+			<description xml:lang="ko">각 단계별로 처리 : 입금대기 > 입금완료 > 사용중 > 사용만료 > 취소 > 환불</description>
+		</item>
+		<item cond="getClass('package_contents')">
+			<title xml:lang="ko">패키지상품관리</title>
+			<title xml:lang="en">Package Management</title>
+			<title xml:lang="jp">Package Management</title>
+			<title xml:lang="zh-TW">Package Management</title>			
+			<action>dispPackageAdminManageEnrollment</action>
+			<action_prefix>dispPackageAdmin</action_prefix>
+			<description xml:lang="ko">각 단계별로 처리 : 입금대기 > 입금완료 > 사용중 > 사용만료 > 취소 > 환불</description>
+		</item>
+		<item cond="getClass('roadmap')">
+			<title xml:lang="ko">로드맵 관리</title>
+			<title xml:lang="en">Roadmap Management</title>
+			<title xml:lang="jp">Roadmap Management</title>
+			<title xml:lang="zh-TW">Roadmap Management</title>			
+			<action>dispRoadmapAdminIndex</action>
+			<action_prefix>dispRoadmapAdmin</action_prefix>
+			<description xml:lang="ko">로드맵 관리 페이지</description>
+		</item>
+		<item cond="getClass('exam')">
+			<title xml:lang="ko">모의고사 관리</title>
+			<title xml:lang="en">MockTest Management</title>
+			<title xml:lang="jp">MockTest Management</title>
+			<title xml:lang="zh-TW">MockTest Management</title>			
+			<action>dispExamAdminList</action>
+			<action_prefix>dispExamAdminList</action_prefix>
+			<description xml:lang="ko">모의고사 관리 페이지</description>
+		</item>
+		<item>
+			<title xml:lang="ko">재생현황</title>
+			<title xml:lang="en">Play Status</title>
+			<title xml:lang="jp">再生現況</title>
+			<title xml:lang="zh-TW">播放狀況管理</title>			
+			<icon>media</icon>
+			<action>dispScmsAdminConnecting</action>
+			<action_prefix>dispScmsAdmin</action_prefix>
+			<description xml:lang="ko">재생현황을 보여줍니다.</description>
+			<description xml:lang="zh-TW">顯示當前播放狀態</description>
+		</item>
+	</item>
+	<item cond="getClass('nstore')">
+		<title xml:lang="ko">쇼핑몰</title>
+		<title xml:lang="en">Shopping-mall</title>
+		<title xml:lang="jp">ショッピングモール</title>
+		<title xml:lang="zh-TW">線上商城</title>		
+		<icon>cart</icon>
+		<action>dispNproductAdminModInstList</action>
+		<description xml:lang="ko">쇼핑몰을 관리합니다.</description>
+		<description xml:lang="zh-TW">管理線上商城</description>
+		<item>
+			<title xml:lang="ko">주문관리</title>
+			<title xml:lang="en">Order Management</title>
+			<title xml:lang="jp">注文管理</title>
+			<title xml:lang="zh-TW">線上商城訂單管理</title>			
+			<action>dispNstoreAdminOrderManagement</action>
+			<action_prefix>dispNstoreAdmin</action_prefix>
+			<description xml:lang="ko">주문을 관리합니다.</description>
+			<description xml:lang="zh-TW">線上商城訂單管理</description>
+		</item>
+	</item>
+	<item cond="getClass('nstore_digital') || getClass('nstore_digital_contents')">
+		<title xml:lang="ko">콘텐츠몰</title>
+		<title xml:lang="en">Contents-mall</title>
+		<title xml:lang="jp">コンテンツモール</title>
+		<title xml:lang="zh-TW">內容商城</title>		
+		<icon>product</icon>
+		<action>dispNstore_digitalAdminOrderManagement</action>
+		<description xml:lang="ko">콘텐츠몰을 관리합니다.</description>
+		<description xml:lang="zh-TW">管理商城</description>
+		<item cond="getClass('nstore_digital_contents')">
+			<title xml:lang="ko">콘텐츠관리</title>
+			<title xml:lang="en">Contents Management</title>
+			<title xml:lang="jp">コンテンツ管理</title>
+			<title xml:lang="zh-TW">內容管理</title>			
+			<action>dispNstore_digital_contentsAdminItemList</action>
+			<action_prefix>dispNstore_digital_contentsAdmin</action_prefix>
+			<description xml:lang="ko">콘텐츠몰 상품의 콘텐츠를 업로드 합니다.</description>
+			<description xml:lang="zh-TW">上傳商城的內容</description>
+		</item>
+		<item cond="getClass('nstore_digital')">
+			<title xml:lang="ko">판매관리</title>
+			<title xml:lang="en">Sales Management</title>
+			<title xml:lang="jp">販売管理</title>
+			<title xml:lang="zh-TW">銷售管理</title>			
+			<action>dispNstore_digitalAdminOrderManagement</action>
+			<action_prefix>dispNstore_digitalAdmin</action_prefix>
+			<description xml:lang="ko">콘텐츠몰 판매를 관리합니다.</description>
+			<description xml:lang="en">콘텐츠몰 판매를 관리합니다.</description>
+            <description xml:lang="zh-TW">商城內容銷售管理</description>			
+		</item>
+	</item>
+</menu>

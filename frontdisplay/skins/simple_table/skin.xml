@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">심플 목록형 상품진열 스킨</title>
+	<description xml:lang="ko">
+        상품목록을 심플하게 테이블형식으로 출력합니다.
+	</description>
+	<version>0.2</version>
+	<date>2012-10-25</date>
+	<link>http://www.nurigo.net</link>
+	<author email_address="sexystar80@nurigo.net" link="http://www.nurigo.net">
+		<name xml:lang="ko">Joo L</name>
+	</author>
+
+	<colorset>
+		<color name="default">
+			<title xml:lang="ko">default</title>
+		</color>
+	</colorset>
+</skin>

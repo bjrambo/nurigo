@@ -1,0 +1,11 @@
+<query id="updateItemExtraOrder" action="update">
+	<tables>
+		<table name="nproduct_item_extras" />
+	</tables>
+	<columns>
+		<column name="list_order" var="list_order" filter="number" notnull="notnull" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="extra_srl" var="extra_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

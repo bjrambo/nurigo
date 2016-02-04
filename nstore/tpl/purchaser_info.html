@@ -1,0 +1,81 @@
+<h2>{$lang->title_member_info}</h2>
+<table class="x_table x_table-striped x_table-hover">
+	<tr>
+		<th style="width:120px">{$lang->signup_date}</th>
+		<td>{zdate($memberInfo[regdate],"Y-m-d")}</td>
+	</tr>
+	<tr>
+		<th>{$lang->last_login}</th>
+		<td>{zdate($memberInfo[last_login],"Y-m-d H:i:s")}</td>
+	</tr>
+	<tr loop="$displayDatas => $item">
+		<th scope="row" ><em style="color:red" cond="$item->required || $item->mustRequired">*</em> {$item->title}</th>
+		<td class="text">{$item->value}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->member_group}</th>
+		<td class="text">{implode(', ', $memberInfo['group_list'])}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->allow_mailing}</th>
+		<td class="text"><!--@if($memberInfo['allow_mailing'] == 'Y')-->{$lang->cmd_yes}<!--@else-->{$lang->cmd_no}<!--@end--></td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->allow_message}</th>
+		<td class="text">{$lang->allow_message_type[$memberInfo['allow_message']]}</td>
+	</tr>
+	<tr cond="$memberInfo['is_admin'] == 'Y'">
+		<th scope="row">{$lang->is_admin}</th>
+		<td class="text">{$lang->cmd_yes}</td>
+	</tr>
+	<tr>
+		<th scope="row">{$lang->member_group}</th>
+		<td class="text">{implode(', ', $memberInfo['group_list'])}</td>
+	</tr>
+	<tr cond="$memberInfo['description']">
+		<th scope="row"><div>{$lang->description}</div></th>
+		<td>{$memberInfo['description']}&nbsp;</td>
+	</tr>
+	<style scoped>
+	.x_table th{text-align:right}
+	</style>
+</table>
+
+<h2>{$lang->title_purchase_details}</h2>
+<table class="x_table">
+	<thead>
+		<tr>
+			<th>주문번호</th>
+			<th>주문일시</th>
+			<th>상품</th>
+			<th>{$lang->quantity}</th>
+			<th>{$lang->amount}</th>
+			<th>{$lang->order_status}</th>
+			<th>확장</th>
+		</tr>
+	</thead>
+	{@$total_price=0}
+	<tbody>
+		<tr loop="$order_list=>$key,$order_info">
+			<td>{$order_info->order_srl}</td>
+			<td>{zdate($order_info->regdate,'Y-m-d')}</td>
+			<td>{$order_info->title}</td>
+			<td>{$order_info->item_count}</td>
+			<td>{number_format($order_info->total_discounted_price)}</td>
+			<td>{$order_status[$order_info->order_status]}</td>
+			<td>
+				{@$extra_vars = unserialize($order_info->extra_vars)}
+				<block loop="$extra_vars=>$extra_key,$extra_val">
+					<span cond="is_array($extra_val)">{implode(' ', $extra_val)}</span>
+					<span cond="!is_array($extra_val)">{$extra_val}</span>
+				</block>
+			</td>
+			{@$total_price+=$order_info->total_discounted_price}
+		</tr>
+		<tr cond="!count($order_list)">
+			<td colspan="7">{$lang->msg_no_orders}</td>
+		</tr>
+	</tbody>
+</table>
+<div>Total : {number_format($total_price)}</div>
+

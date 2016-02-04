@@ -1,0 +1,20 @@
+<ul class="item-list">
+	<block loop="$output->data=>$no,$document">
+	{@$item = $document->item}
+        <li cond="$item && $item->display == 'Y'" id="item_{$item->item_srl}" style="width:190px;">
+                <a class="thumbnail" href="{getUrl('','mid',$item->mid,'item_srl',$item->item_srl)}">
+                    <img src="{$item->getThumbnail(80)}" alt="" />
+                </a>
+                <div class="item_name">{$item->item_name}</div>
+                <div class="item_num" cond="0">
+                        수량
+                        <span class="num">
+                                <input type="text" id="quantity_{$item->item_srl}" class="quantity" value="1" />
+                                <span class="iconUp" for="quantity_{$item->item_srl}"></span>
+                                <span class="iconDown" for="quantity_{$item->item_srl}"></span>
+                        </span>
+                </div>
+                <div class="item_price"><strong>{number_format($item->price)}</strong></div>
+        </li>
+	</block>
+</ul>

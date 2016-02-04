@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">디지털 콘텐츠 관리</title>
+	<description xml:lang="ko">콘텐츠 파일 업로드 관리 모듈입니다.</description>
+	<version>1.1</version>
+	<date>2014-02-07</date>
+	<category>service</category>
+	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+</module>

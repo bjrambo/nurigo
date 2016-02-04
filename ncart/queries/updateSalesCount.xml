@@ -1,0 +1,11 @@
+<query id="updateSalesCount" action="update">
+	<tables>
+		<table name="nstore_items" />
+	</tables>
+	<columns>
+		<column name="sales_count" default="plus(1)" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

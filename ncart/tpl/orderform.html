@@ -1,0 +1,185 @@
+<!--%load_js_plugin("ui.datepicker")-->
+<load target="css/style.css" />
+<load target="./js/orderform.js" />
+<include target="_header.html" />
+
+<script type="text/javascript">
+xe.lang.confirm_delete = "{$lang->confirm_delete}";
+jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMenuGrantZone(); } ); doShowMenuGrantZone() } );
+</script>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<block cond="!$fieldset_list">
+	<div>{$lang->about_fieldset}</div>
+</block>
+<block loop="$fieldset_list=>$key,$value">
+	{@$fieldset_srl = $value->fieldset_srl}
+	<form class="x_form-horizontal" id="fieldset_{$fieldset_srl}" method="post" action="#fieldset_{$fieldset_srl}">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="procNcartAdminArrangeItem" />
+		<input type="hidden" name="fieldset_srl" value="{$fieldset_srl}" />
+		<input type="hidden" name="field_srl" value="" />
+		<input type="hidden" name="success_return_url" value="{getUrl('', 'module', $module, 'act', 'dispNcartAdminOrderForm','module_srl', $module_srl)}#fieldsetTop_{$fieldset_srl}" />
+		<fieldset>
+
+			<h1 id="fieldsetTop_{$fieldset_srl}"><input name="fieldset_title" value="{$value->fieldset_title}" /></h1>
+			<a cond="0" href="#nav_{$key}" class="tgMap">{$lang->collapsing}/{$lang->expanding}</a>
+			<div class="x_control-group">
+				<label class="x_control-label">적용 상품</label>
+				<div class="x_controls">
+					{@$proc_keys=array_keys($proc_modules)}
+					<block loop="$proc_modules=>$key,$proc">
+						<label><input type="checkbox" name="proc_modules[]" value="{$proc->module}" checked="checked"|cond="in_array($proc->module, explode(',',$value->proc_modules))" />{$proc->title}</label>
+					</block>
+				</div>
+			</div>
+			<div cond="!count($value->fields)">{$lang->about_field}</div>
+			<ul class="sortable lined" id="nav_{$key}" cond="count($value->fields) > 0" <!--@if($_COOKIE['sitemap_toggle_#nav_'.$key])-->style="display:none;"<!--@end-->>
+				<li loop="$value->fields=>$key2,$item" id="record_{$item->field_srl}">
+					<span class="iconMoveTo"></span>
+					<input type="hidden" name="ind_fieldset_srl[]" value="{$item->fieldset_srl}" class="_parent_key" />
+					<input type="hidden" name="ind_field_srl[]" value="{$item->field_srl}" class="_item_key" />
+					<input type="hidden" name="ind_module_srl[]" value="{$item->module_srl}" class="_module_srl_key" />
+					{$item->column_title}
+					<span class="side">
+						<a href="#addField" class="modalAnchor _edit">{$lang->cmd_modify}</a> | 
+						<a href="#delete" class="_delete">{$lang->cmd_delete}</a>
+					</span>
+				</li>
+			</ul>
+			<p class="x_clearfix btnArea">
+				<a href="#addField" class="modalAnchor _add x_btn">{$lang->add_field}</a>
+				<button value="procNcartAdminArrangeItem" name="act" type="submit" class="x_btn">{$lang->cmd_save}</button>
+				<button value="procNcartAdminDeleteFieldset" name="act" type="submit" onclick="return confirmDelete();" class="x_btn">{$lang->cmd_delete}</button>
+			</p>
+		</fieldset>
+	</form>
+</block>
+
+<form action="./" method="post" class="form">
+<input type="hidden" name="module" value="{$module}" />
+<input type="hidden" name="act" value="procNcartAdminInsertFieldset" />
+<input type="hidden" name="module_srl" value="{$module_srl}" />
+<input type="hidden" name="fieldset_title" value="{$lang->untitle}" />
+<input type="hidden" name="success_return_url" value="{getUrl('', 'module', $module, 'act', 'dispNcartAdminOrderForm', 'module_srl', $module_srl)}" />
+<div class="x_clearfix btnArea">
+	<button type="submit" class="x_btn x_medium">{$lang->cmd_new_fieldset}</button>
+</div>
+</form>
+
+<form ruleset="insertField" id="addField" action="./" method="post" enctype="multipart/form-data" class="x_modal">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNcartAdminInsertField" />
+	<input type="hidden" name="field_srl" value="" />
+	<input type="hidden" name="fieldset_srl" value="{$fieldset_srl}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="success_return_url" value="{getUrl('', 'module', $module, 'act', 'dispNcartAdminOrderForm', 'module_srl', $module_srl)}#fieldsetTop_" />
+	<div class="x_modal-header">
+		<h1>{$lang->add_field}</h1>
+	</div>
+	<div class="x_modal-body x_form-horizontal">
+		<section class="section">
+			<div class="x_control-group">
+				<label class="x_control-label" for="column_type">{$lang->column_type} <em>*</em></label>
+				<div class="x_controls">
+					<select class="typeSelect" style="width:290px" name="column_type">
+						<option loop="$lang->column_type_list=>$key,$type_info" value="{$key}" selected="selected"|cond="$formInfo->column_type == $key" >{$lang->column_type_list[$key]}</option>
+					</select>
+				</div>
+				<div class="x_controls">
+					<p class="q multiExample">{$lang->about_multi_type}</p>
+					<p class="a multiExample"><textarea rows="5" cols="42" id="multiSelect" name="default_value"><!--@if($default_value)-->{implode('<enter>', $default_value)}<!--@end--></textarea></p>
+					<script type="text/javascript">
+					var $ = jQuery;
+					var typeSelect = $('.typeSelect');
+					var multiOption = $('.typeSelect>option[value=checkbox], .typeSelect>option[value=radio], .typeSelect>option[value=selectM], .typeSelect>option[value=select]');
+					var multiExample = $('.multiExample');
+			{@$default_value_types = array('checkbox', 'radio', 'select')}
+			<!--@if(!in_array($formInfo->column_type, $default_value_types))-->
+					multiExample.hide();
+			<!--@end-->
+					typeSelect.change(function(){
+						if(multiOption.is(':selected')){
+							multiExample.slideDown(200);
+						} else {
+							multiExample.slideUp(200);
+						}
+					});
+					</script>
+				</div>
+			</div>
+			<div class="x_control-group">
+				<label class="x_control-label" for="column_name">{$lang->column_name} *</label>
+				<div class="x_controls">
+					<input type="text" id="column_name" name="column_name" value="{$formInfo->column_name}" />
+					<a href="#column_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="column_name_help" class="x_help-block" hidden>{$lang->about_column_name}</p>
+				</div>
+			</div>
+			<div class="x_control-group">
+				<label class="x_control-label" for="column_title">{$lang->column_title}<em>*</em></label>
+				<div class="x_controls">
+					<input type="text" id="name" name="column_title" value="{$formInfo->column_title}" />
+				</div>
+			</div>
+			<div class="x_control-group">
+				<label class="x_control-label" for="desc">{$lang->description}</label>
+				<div class="x_controls">
+					<textarea rows="5" cols="42" id="desc" name="description">{$formInfo->description}</textarea>
+				</div>
+			</div>
+			<div class="x_control-group">
+				<label class="x_control-label" for="radio_required">{$lang->mandatory}</label>
+				<div class="x_controls">
+					<label class="x_inline" for="radio_required"><input type="radio" id="radio_required" name="required" checked="checked"|cond="$formInfo->required=='Y' || !$formInfo->required" value="Y" />{$lang->cmd_required}</label>
+					<label class="x_inline" for="radio_option"><input type="radio" id="radio_option" name="required" checked="checked"|cond="$formInfo->required=='N'" value="N" />{$lang->cmd_optional}</label>
+					<a href="#required_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="required_help" class="x_help-block" hidden>{$lang->about_mandatory}</p>
+				</div>
+			</div>
+			<div class="x_control-group">
+				<label class="x_control-label" for="radio_is_head">{$lang->representative}</label>
+				<div class="x_controls">
+					<label class="x_inline" for="radio_is_head"><input type="radio" id="radio_is_head" name="is_head" checked="checked"|cond="$formInfo->is_head=='Y'" value="Y" />{$lang->representative}</label>
+					<label class="x_inline" for="radio_is_head_option"><input type="radio" id="radio_is_head_option" name="is_head" checked="checked"|cond="$formInfo->is_head=='N' || !$formInfo->is_head" value="N" />{$lang->ordinary}</label>
+					<a href="#is_head_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p id="is_head_help" class="x_help-block" hidden>{$lang->about_representative}</p>
+				</div>
+			</div>
+		</ul>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_save}</button>
+	</div>
+</form>
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(".sortable").sortable({ handle:'.iconMoveTo', opacity: 0.6, cursor: 'move',
+			update: function(event,ui) {
+				var order = jQuery(this).sortable("serialize");
+				var params = new Array();
+				params['order'] = order;
+				var response_tags = new Array('error','message');
+				exec_xml('nstore', 'procNcartAdminUpdateFieldListOrder', params, function(ret_obj) { }, response_tags);
+			}
+		});
+	});
+</script>
+<style>
+.adminMap ul{background:#eee;list-style:none;margin:0;position:relative;border-radius:5px}
+.adminMap li{position:relative}
+.adminMap li:first-child{border:0 !important} 
+.adminMap li.parent{padding:0 15px 1px 15px;border-top:1px dotted #fff}
+.adminMap li.parent>span{display:block;height:33px;line-height:33px;font-weight:bold}
+.adminMap li>ul{background:#fff;border-radius:5px;margin:0 0 10px 0;box-shadow:0 0 4px #999 inset}
+.adminMap li li{cursor:move;border-top:1px dotted #ddd}
+.adminMap li *{vertical-align:middle}
+.adminMap li.active{background-color:#f7f7f7;border-radius:3px;box-shadow:0 0 3px #666;border:0;padding:1px 0 0 0}
+.adminMap li:first-child.active{padding:0}
+.adminMap .side{position:absolute;top:0;right:15px;padding-top:0 !important;padding-bottom:0 !important;line-height:30px;background:transparent !important}
+.adminMap .parent>.side{right:30px}
+.adminMap .placeholder{background:#000;border-radius:5px}
+</style>

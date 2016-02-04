@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<grants />
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispCurrencyAdminContent" type="view" admin_index="true" />
+		<action name="procCurrencyAdminConfig" type="controller" />
+	</actions>
+	<menus>
+		<menu name="page" type="all">
+			<title xml:lang="en">Currency</title>
+			<title xml:lang="ko">통합통화</title>
+			<title xml:lang="TW">幣別設定</title>
+		</menu>
+	</menus>
+</module>

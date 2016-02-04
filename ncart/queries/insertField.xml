@@ -1,0 +1,20 @@
+<query id="insertField" action="insert">
+	<tables>
+		<table name="ncart_orderform_fields" />
+	</tables>
+	<columns>
+		<column name="field_srl" var="field_srl" default="sequence()" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="fieldset_srl" var="fieldset_srl" notnull="notnull" />
+		<column name="column_type" var="column_type" />
+		<column name="column_name" var="column_name" />
+		<column name="column_title" var="column_title" />
+		<column name="required" var="required" default="N" />
+		<column name="default_value" var="default_value" />
+		<column name="is_active" var="is_active" default="N" />
+		<column name="is_head" var="is_head" default="N" />
+		<column name="description" var="description" />
+		<column name="regdate" default="curdate()" />
+		<column name="list_order" var="list_order" default="1" />
+	</columns>
+</query>

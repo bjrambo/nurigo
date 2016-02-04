@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+#orderitems .cartStep .cart1 { background:url(../img/gray_left.png) no-repeat right; }
+#orderitems .cartStep .cart2 { background:url(../img/dark_gray_left.png) no-repeat right; }
+
+#orderitems .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderitems h3 { font-size:14px; margin-top:30px; height:28px; color:#666;}
+#orderitems h3 span.title_text { font:normal 14px 'NanumGothic' !important; padding-left:10px; color:#de2121; }
+
+#orderitems .order-table input { margin:0; padding:0; height:18px;}
+
+#orderitems .payment-table { float:left; width:100%; border-top:1px solid #c3c3c3;}
+#orderitems .address_input { list-style:none; }
+#orderitems .address_input .list-title { width:100px; display:inline-block; }
+#orderitems .address_input input { width:400px; }
+#orderitems .inputboxL { width:280px; height:18px;}
+
+
+/* black */
+#orderitems.black .order-table input { background:transparent; border:1px solid #343434;}
+#orderitems.black .payment-table { border-top:1px solid #343434; border-bottom:1px solid #343434;}
+
+/* fieldset */
+#orderitems .fieldset table.fieldset_table {border-top:1px solid #c4c4c4; width:100%;}
+#orderitems .fieldset table.fieldset_table > thead > th {border-bottom:1px solid #ededed; color:#666; padding:8px 20px; width:17.6%; text-align:left; background:#f8f8f8; }
+#orderitems .fieldset table.fieldset_table > tbody > tr > td {border-bottom:1px solid #ededed; color:#666; padding:5px 5px 5px 10px; width:82%; overflow:hidden}
+#orderitems .fieldset textarea { width:60%; border:1px solid #ccc; padding:1px; }
+#orderitems .fieldset input { width:60%; border:1px solid #ccc; padding:3px; margin:3px 0; }
+#orderitems .fieldset ul { margin:0; padding:0; }
+#orderitems .fieldset li {float:left; list-style:none;}
+/* for XE 1.7 under versions */
+#orderitems .fieldset .krZip .a input.current_address,
+#orderitems .fieldset .krZip .a input.addr3_input,
+#orderitems .fieldset .krZip .a input.addr_second { width:300px; }
+#orderitems .fieldset .krZip .a.address2 input { width:200px; }
+/* for XE 1.8 upper versions */
+#orderitems .fieldset .krZip label { display:block; }
+#orderitems .fieldset .krZip input.krzip-postcode { width:120px; }
+#orderitems .fieldset .krZip input.krzip-search { width:80px; height:32px !important; }
+#orderitems .fieldset .krZip input.krzip-roadAddress { width:60%; margin:0; margin-bottom:3px; }
+#orderitems .fieldset .krZip input.krzip-jibunAddress { width:60%; margin:0; margin-bottom:3px; }
+#orderitems .fieldset .krZip input.krzip-extraAddress { width:60%; margin:0; margin-bottom:3px; }
+
+#orderitems .fieldset .destination ul {padding:0; margin:0;}
+#orderitems .fieldset .destination li {margin:3px 5px 0 0;}
+#orderitems .fieldset .destination input {width:15px; float:left; border:0; margin-top:1.5px; }
+#orderitems .fieldset .destination label {padding-left:3px; float:left; line-height:1.6em;}
+
+#orderitems .fieldset .radio ul {padding:0; margin:0;} 
+#orderitems .fieldset .radio input {width:13px; float:left; border:0;}
+#orderitems .fieldset .radio label {float:left; line-height:2em; padding:0 10px 0 5px;}
+#orderitems .fieldset .radio p {clear:both; padding-top:10px; *padding:0;}
+#orderitems 
+#orderitems .fieldset .tel {padding:4px;} 
+#orderitems .fieldset .tel input {width:70px; margin:3px 5px;}
+#orderitems .fieldset .tel p {padding-left:4px;}
+
+#orderitems .fieldset .checkbox input {width:15px; float:left; border:0; }
+#orderitems .fieldset .checkbox label {float:left; line-height:1.6em; *line-height:2em; padding:0 20px 0 5px;}
+#orderitems .fieldset .checkbox ul {padding:0; margin:0;}
+#orderitems .fieldset .checkbox p {clear:both; padding-top:10px; float:left;}
+
+#orderitems .fieldset .date input {width:100px; padding:3px;}
+#orderitems .fieldset .date input.dateRemover {width:50px; padding:2px;}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants />
+    <permissions />
+	<menus>
+	</menus>
+    <actions>
+        <action name="dispCympuserAdminModList" type="view" />
+		<action name="dispCympuserAdminModInsert" type="view" />
+        <action name="dispCympuserAdminMemberList" type="view" admin_index="true" />
+		<action name="dispCympuserAdminMemberInsert" type="view" />
+
+		<action name="procCympuserAdminModInsert" type="controller" />
+		<action name="procCympuserAdminModDelete" type="controller" />
+
+		<action name="getCympuserAdminModDelete" type="model" />
+
+		<action name="dispCympuserIndex" type="view" index="true" />
+
+    </actions>
+</module>

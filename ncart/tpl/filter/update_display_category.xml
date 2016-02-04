@@ -1,0 +1,22 @@
+<filter name="update_display_category" module="nstore" act="procNstoreAdminUpdateDisplayCategory" confirm_msg_code="confirm_update">
+    <form>
+        <node target="category_srl" required="true" />
+        <node target="category_name" required="true" maxlength="40" />
+        <node target="thumbnail_width" required="true" />
+        <node target="thumbnail_height" required="true" />
+        <node target="num_columns" required="true" />
+        <node target="num_rows" required="true" />
+    </form>
+    <parameter>
+        <param name="category_srl" target="category_srl" />
+        <param name="category_name" target="category_name" />
+        <param name="thumbnail_width" target="thumbnail_width" />
+        <param name="thumbnail_height" target="thumbnail_height" />
+        <param name="num_columns" target="num_columns" />
+        <param name="num_rows" target="num_rows" />
+    </parameter>
+    <response>
+        <tag name="error" />
+        <tag name="message" />
+    </response>
+</filter>

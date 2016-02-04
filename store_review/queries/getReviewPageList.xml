@@ -1,0 +1,23 @@
+<query id="getReviewPageList" action="select">
+    <tables>
+        <table name="store_review" alias="review" />
+        <table name="store_review_list" alias="list" />
+    </tables>
+    <columns>
+        <column name="review.*" />
+        <column name="list.depth" alias="depth" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="list.item_srl" var="item_srl" notnull="notnull" pipe="and" />
+        <condition operation="equal" column="list.review_srl" var="review.review_srl" filter="number" pipe="and" />
+        <condition operation="more" column="list.head" default="0" pipe="and" />
+        <condition operation="more" column="list.arrange" default="0" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="list_order" default="list.head" order="asc" />
+        <index var="list_order" default="list.arrange" order="asc" />
+        <list_count var="list_count" default="list_count" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

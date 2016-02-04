@@ -1,0 +1,96 @@
+<load target="css/userinfo.css" />
+<load target="css/nu_btn.css" />
+<load target="css/style.css" />
+<h1>{$lang->payment_details}</h1>
+
+<div class="pay_btnset">
+	<a class="nu_white" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', 'a')}" >{$lang->view_all}</a>
+	<a class="nu_white" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', 't')}" >{$lang->view_today}</a>
+	<a class="nu_white" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', '1')}" >{$lang->view_1month}</a>
+	<a class="nu_white" href="{getUrl('', 'mid', $mid, 'act', 'dispEpayTransaction', 'start_date', '3')}" >{$lang->view_3months}</a>
+</div>
+
+<table class="party_tbl_new pay_table">
+	<thead>
+		<tr>
+			<th>{$lang->payment_date}</th>
+			<th style="width:40%">{$lang->product}</th>
+			<th>{$lang->price}</th>
+			<th>{$lang->paymethod}</th>
+			<th style="width:15%;">{$lang->details}</th>
+			<th>{$lang->receipt}</th>
+			<th class="border_last">{$lang->result}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr loop="$epay_user_info=>$k,$v">
+			<td>{substr(zdate($v->regdate),0,10)}</td>
+			<td>{$v->order_title}</td>
+			<td>{$v->payment_amount}</td>
+			<td>{$v->payment_method}</td>
+			<td cond="is_array($v->extra_vars) && $v->extra_vars['vact_bankname']">{$v->extra_vars['vact_bankname']}<br><span cond="$v->extra_vars['vact_num']">{$v->extra_vars['vact_num']}</span></td>
+			<td cond="is_array($v->extra_vars) && !$v->extra_vars['vact_bankname']">{$v->payment_method}</td>
+			<td><span class="btn"><a  class="receipt" href="#" data-order-srl="{$v->order_srl}" onclick="return false;">{$lang->receipt}</a></span></td>
+			<td cond="$v" class="border_last">{$v->result_message}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="dialog-modal" title="dialog"></div>
+
+
+<form action="" class="pagination" method="post">
+	<input type="hidden" name="error_return_url" value="" />
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+
+	<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+	<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+		{@$isGoTo = true}
+		<a href="{getUrl('page', '')}">1</a>
+		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+	</block>
+
+	<!--@while($page_no = $page_navigation->getNextPage())-->
+		{@$last_page = $page_no}
+		<strong cond="$page_no == $page">{$page_no}</strong>
+		<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+	<!--@end-->
+
+	<block cond="$last_page != $page_navigation->last_page">
+		{@$isGoTo = true}
+		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+	</block>
+
+	<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+	<span cond="$isGoTo" id="goTo" class="tgContent">
+		<input name="page" title="{$lang->cmd_go_to_page}" />
+		<button type="submit">Go</button>
+	</span>
+</form>
+<script type="text/javascript">
+(function($){
+        $(function(){
+                $('.receipt').click(function() {
+                        var order_srl = $(this).attr('data-order-srl');
+                        var $_parent = $(this).parent();
+                        exec_xml(
+                                'epay',
+                                'getEpayReceipt',
+                                {order_srl:order_srl},
+                                function(ret){
+                                        var tpl = ret.tpl.replace(/<enter>/g, '\n');
+                                        $_parent.html(tpl);
+                                },
+                                ['error','message','tpl']
+                        );
+
+                });
+
+
+        });
+})(jQuery);
+</script>

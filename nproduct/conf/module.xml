@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+		<grant name="write_review" default="member">
+			<title xml:lang="ko">상품평 쓰기</title>
+			<title xml:lang="zh-TW">課程評價</title>
+		</grant>
+		<grant name="write_comment" default="member">
+			<title xml:lang="ko">상품문의 쓰기</title>
+			<title xml:lang="zh-TW">產品諮詢</title>
+		</grant>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispNproductAdminConfig" type="view" />
+		<action name="dispNproductAdminModInstList" type="view" admin_index="true" />
+		<action name="dispNproductAdminInsertModInst" type="view" setup_index="true" />
+		<action name="dispNproductAdminCategoryManagement" type="view" />
+		<action name="dispNproductAdminInsertItem" type="view" />
+		<action name="dispNproductAdminItemList" type="view" />
+		<action name="dispNproductAdminUpdateItem" type="view" />
+		<action name="dispNproductAdminAdditionSetup" type="view" />
+		<action name="dispNproductAdminDisplayCategories" type="view" />
+		<action name="dispNproductAdminItemExtraSetup" type="view" />
+		<action name="dispNproductAdminSkinInfo" type="view" />
+		<action name="dispNproductAdminMobileSkinInfo" type="view" />
+		<action name="dispNproductAdminBulkItems" type="view" />
+		<action name="dispNproductAdminItemListExcelDownload" type="view" />
+		<action name="dispNproductAdminListSetup" type="view" />
+		<action name="dispNproductAdminDetailListSetup" type="view" />
+		<action name="dispNproductAdminGroupDiscount" type="view" />
+		<action name="dispNproductAdminGrantInfo" type="view" />
+		<action name="dispNproductAdminMemberDiscount" type="view" />
+		<action name="dispNproductAdminQuantityDiscount" type="view" />
+
+		<action name="procNproductAdminConfig" type="controller" />
+		<action name="procNproductAdminInsertModInst" type="controller" />
+		<action name="procNproductAdminDeleteModInst" type="controller" />
+		<action name="procNproductAdminInsertDisplayCategory" type="controller" />
+		<action name="procNproductAdminInsertDisplayItem" type="controller" />
+		<action name="procNproductAdminUpdateDCListOrder" type="controller" />
+		<action name="procNproductAdminUpdateDIListOrder" type="controller" />
+		<action name="procNproductAdminDeleteDisplayCategory" type="controller" />
+		<action name="procNproductAdminUpdateDisplayCategory" type="controller" />
+		<action name="procNproductAdminInsertItemExtra" type="controller" />
+		<action name="procNproductAdminInsertDeliveryInfo" type="controller" />
+		<action name="procNproductAdminUpdateItemExtraOrder" type="controller" />
+		<action name="procNproductAdminUpdateItemListOrder" type="controller" />
+		<action name="procNproductAdminDeleteItemExtra" type="controller" />
+		<action name="procNproductAdminDeleteDisplayItem" type="controller" ruleset="deleteDisplayItem" />
+		<action name="procNproductAdminDeleteItem" type="controller" />
+		<action name="procNproductAdminUpdateItemList" type="controller" />
+		<action name="procNproductAdminInsertListConfig" type="controller" />
+		<action name="procNproductAdminInsertDetailListConfig" type="controller" />
+		<action name="procNproductAdminGroupDiscount" type="controller" />
+		<action name="procNproductAdminMemberDiscount" type="controller" />
+		<action name="procNproductAdminQuantityDiscount" type="controller" />
+		<action name="procNproductAdminInsertItem" type="controller" ruleset="@nproduct_insertItem" />
+		<action name="procNproductAdminUpdateItem" type="controller" ruleset="@nproduct_insertItem" />
+		<action name="procNproductAdminDeleteMemberDiscount" type="controller" />
+		<action name="procNproductAdminDeleteQuantityDiscount" type="controller"/>
+
+		<action name="getNproductAdminInsertItemExtra" type="model" />
+		<action name="getNproductAdminInsertDeliveryInfo" type="model" />
+		<action name="getNproductAdminDisplayCategory" type="model" />
+		<action name="getNproductAdminDeleteModInst" type="model" />
+		<action name="getNproductAdminDeleteItem" type="model" />
+		<action name="getNproductAdminInsertOptions" type="model" />
+		<action name="getNproductAdminAllCategories" type="model" />
+
+		<action name="dispNproductIndex" type="view" index="true" />
+		<action name="dispNproductItemList" type="view" />
+		<action name="dispNproductItemDetail" type="view" />
+		<action name="dispNproductReplyComment" type="view" />
+
+		<action name="procNproductInsertCategory" type="controller" />
+		<action name="procNproductInsertOrder" type="controller" />
+		<action name="procNproductInsertComment" type="controller" ruleset="insertComment" />
+		<action name="procNproductInsertReview" type="controller" />
+		<action name="procNproductInsertOptions" type="controller" />
+		<action name="procNproductAddToCart" type="controller" />
+		<action name="procNproductAddToFavorite" type="controller" />
+		<action name="procNproductAddItemsToCart" type="controller" />
+		<action name="procNproductAddItemsToFavorites" type="controller" />
+		<action name="procNproductAddItemsToCartObj" type="controller" />
+		<action name="procNproductUpdateCategory" type="controller" />
+		<action name="procNproductMoveCategory" type="controller" />
+		<action name="procNproductUpdateItem" type="controller" ruleset="@nproduct_insertItem" />
+		<action name="procNproductUpdateItemFile" type="controller" />
+		<action name="procNproductUpdateQuantity" type="controller" />
+		<action name="procNproductDeleteComment" type="controller" method="GET|POST" />
+		<action name="procNproductDeleteCategory" type="controller" />
+		<action name="procNproductDeleteReview" type="controller" method="GET|POST" />
+
+		<action name="getNproductCategoryList" type="model" />
+		<action name="getNproductCategoryListJson" type="model" />
+		<action name="getNproductCategoryInfo" type="model" />
+		<action name="getNproductDisplayItems" type="model" />
+		<action name="getNproductItemInfos" type="model" />
+		<action name="getNproductExtraVars" type="model" />
+		<action name="getNproductItems" type="model" />
+	</actions>
+</module>

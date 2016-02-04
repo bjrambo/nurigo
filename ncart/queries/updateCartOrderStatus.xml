@@ -1,0 +1,15 @@
+<query id="updateCartOrderStatus" action="update">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="order_status" var="order_status" />
+		<column name="express_id" var="express_id" />
+		<column name="invoice_no" var="invoice_no" />
+		<column name="purdate" default="curdate()" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+		<condition operation="equal" column="cart_srl" var="cart_srl" pipe="and" />
+	</conditions>
+</query>

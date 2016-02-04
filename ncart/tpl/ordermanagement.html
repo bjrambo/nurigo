@@ -1,0 +1,154 @@
+<load target="js/escrow.js" />
+<load target="js/ordermanagement.js" />
+
+<include target="_header.html" />
+
+<block cond="count($list)">
+	{@$list_keys = array_keys($list)}
+	{@$first_order = $list[$list_keys[0]]}
+	{@$extra_vars = unserialize($first_order->extra_vars)}
+	<block cond="$extra_vars">
+		{@$keys = array_keys($extra_vars)}
+		{@$representative = $keys[0]}
+	</block>
+</block>
+
+
+<div style="margin-bottom:20px;">
+	<a href="{getUrl('','module',$module,'act',$act,'status','0')}" class="active"|cond="$status=='0'">{$lang->cmd_cart}</a> <i>|</i>
+	<a href="{getUrl('','module',$module,'act',$act,'status','1')}" class="active"|cond="$status=='1'">{$lang->wait_deposit}</a> <i>|</i>
+	<a href="{getUrl('','module',$module,'act',$act,'status','2')}" class="active"|cond="$status=='2'">{$lang->deposit_done}</a> <i>|</i>
+</div>
+
+<form id="searchForm" action="./" method="get" class="x_input-append" >
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="status" value="{$status}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<div>
+		<select name="s_year" style="width:80px;">
+			<option loop="$i=(intval(date('Y'))+2);$i>=(intval(date('Y'))-10);$i--" value="{$i}" selected="selected"|cond="$s_year==$i">{$i}</option>
+		</select>
+		<select name="s_month" style="width:54px;">
+			<option value="" selected="selected"|cond="!$s_month">{$lang->all}</option>
+			<option loop="$i=1;$i<=12;$i++" value="{sprintf('%02u', $i)}" selected="selected"|cond="$s_month==$i">{$i}</option>
+		</select>
+	</div>
+	<select name="search_key">
+		<option value="email_address" selected="selected"|cond="$search_key=='email_address'">{$lang->email_address}</option>
+		<option loop="$usedIdentifiers=>$key,$val" value="{$key}" selected="selected"|cond=="$search_key==$key">{Context::getLang($key)}</option>
+		<option value="member_srl" selected="selected"|cond="$search_key=='member_srl'">{$lang->member_srl}</option>
+		<option cond="$representative" value="extra_vars" selected="selected"|cond="$search_key=='extra_vars'">{sprintf($lang->info_purchaser_input, $representative)}</option>
+	</select>
+	<input type="text" name="search_value" value="{$search_value}" />
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->inquiry}</button>
+</form>
+
+<form action="./" method="post" class="x_input-append x_clearfix" id="fo_orderlist">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstoreAdminUpdateStatus" />
+	<input type="hidden" name="status" value="{$status}"/>
+
+	<div id="orderlist" class="table even easyList">
+		<table class="x_table x_table-striped x_table-hover" summary="{$lang->order_management_details}">
+			<caption cond="0" style="text-align:right; margin-bottom:10px;">
+				<a href="{getUrl('act','procNstoreAdminOrderExcelDownload')}">{$lang->cmd_download_by_product}</a>
+				<a href="{getUrl('act','procNstoreAdminCSVDownloadByOrder')}"> | {$lang->cmd_download_by_order}</a>
+			</caption>
+			<thead style="clear:both;">
+				<tr>
+					<th scope="col"><input type="checkbox" title="Check All" id="check_all" /></th>
+					<th scope="col">{$lang->order_date}</th>
+					<th scope="col">{$lang->product_name}</th>
+					<th scope="col">{$lang->items}</th>
+					<th scope="col">{$lang->payamount}</th>
+					<th loop="$usedIdentifiers=>$key,$val" scope="col">{Context::getLang($key)}</th>
+					<th cond="$representative" scope="col">{$representative}</th>
+				</tr>
+			</thead>
+			{@$total_price=0}
+			<tbody>
+				<tr loop="$list=>$no,$order">
+					{@$order_arr = get_object_vars($order)}
+					<td><input type="hidden" name="order_srls[]" value="{$order->order_srl}" /><input type="checkbox" name="cart[]" value="{$order->order_srl}" /></td>
+					<td>
+						<div>{zdate($order->regdate,'Y-m-d')}</div>
+						<div>(<a href="{getUrl('act','dispNcartAdminOrderDetail','order_srl',$order->order_srl)}">{$order->order_srl}</a>)</div>
+					</td>
+					<td><span title="{$order->title}">{cut_str($order->title, 14)}</span></td>
+					<td>{number_format($order->item_count)}</td>
+					<td>{nproductItem::formatMoney($order->total_price)}</td>
+					<td loop="$usedIdentifiers=>$key,$val"><a href="#popup_menu_area" class="member_{$order->member_srl}" title="{$order_arr[$key]}">{cut_str($order_arr[$key],6)}</a></td>
+					<td cond="$representative">
+						{@$extra_vars = unserialize($order->extra_vars)}
+						<block cond="$extra_vars">
+						{@$val = array_shift($extra_vars)}
+						{cut_str($val, 6)}
+						</block>
+					</td>
+					{@$total_price+=$order->price}
+				</tr>
+				<tr cond="!count($list)">
+					<td colspan="9">{$lang->msg_no_order_list}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div cond="0" class="x_control-group">
+			{@unset($order_status['0'])}
+			<div class="x_controls x_pull-left">
+				<label class="x_control-label x_inline" for="order_status">{$lang->cmd_selected_order}</label>
+				<select name="order_status" id="order_status">
+					<option value="2" selected="selected"|cond="$status=='1'">{$lang->deposit_done}</option>
+					<option value="1" selected="selected"|cond="$status=='2'">{$lang->wait_deposit}</option>
+					<option value="Z">삭제</option>
+				</select>
+				<button class="x_btn x_btn-inverse" onclick="update_status();return false;">{$lang->cmd_apply}</button>
+			</div><!-- //x_controls -->
+		</div><!-- //x_control-group -->
+	</div><!-- //orderlist -->
+</form>
+
+<include target="_page_navigation.html" />
+
+<div class="x_modal" id="deleteOrders">
+	<form action="./" class="fg form" method="post">
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="procNstoreAdminDeleteOrders" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="status" value="{$status}" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+		<div id="deleteForm">
+		</div>
+	</form>
+</div>
+
+<span style="display:none;"><a href="#deleteOrders" class="modalAnchor deleteOrders">Hidden Button For Delete</a></span>
+
+<script>
+	function update_status() 
+	{
+		var order_status = jQuery('select[name=order_status]').val();
+		if (order_status == 'Z') {
+			jQuery('a.modalAnchor.deleteOrders').trigger('open.mw');
+		} else {
+			var $fo = jQuery('#fo_orderlist');
+			$fo.submit();
+		}
+	}
+
+	(function($){
+		$('.escrow').escrow();
+	})(jQuery);
+/*
+	function update_status(stat) {
+		var order_srls = makeList();
+		//var str = order_srls.join(',');
+
+		var params = new Array();
+		params['order_srls'] = order_srls;
+		params['order_status'] = stat;
+
+		exec_xml('store', 'procNstoreUpdateStatus', params, function(ret_obj) { alert(ret_obj['message']); });
+	}
+*/
+</script>

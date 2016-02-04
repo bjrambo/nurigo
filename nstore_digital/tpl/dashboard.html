@@ -1,0 +1,41 @@
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div><h3>주문처리별 현황</h3></div>
+
+<div class="default_wrapper">
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			<th loop="$order_status=>$key,$val" cond="$key!='0'">{$val}</th>
+		</tr>
+		<tr class="bottom_line">
+			<td loop="$orderstat=>$key,$val" cond="$key!='0'"><a href="{getUrl('act','dispNstore_digitalAdminOrderManagement','status',$key)}">{$val}</a></td>
+		</tr>
+	</table>
+	
+	<div class="widget_area">
+		<div>고객 상품문의</div>
+		<ul>
+			<li loop="$comment_list=>$key,$val"><a href="{getUrl('','mid',$val->get('mid'),'document_srl',$val->get('document_srl'))}#comment_{$val->get('comment_srl')}" target="_blank">{$val->getSummary()}</a></li>
+		</ul>
+	</div>
+	<div class="widget_area">
+		<div>고객 상품평</div>
+		<ul>
+			<li loop="$review_list=>$key,$val"><a href="{getUrl('','mid',$val->get('mid'),'item_srl',$val->get('item_srl'))}#review_{$val->get('review_srl')}" target="_blank">{$val->getSummary()}</a></li>
+		</ul>
+	</div>
+	<div class="widget_area">
+		<div>공지사항</div>
+		<ul>
+			<!--@foreach($news as $key=>$value)-->
+			<li><a href="{$value->url}" target="_blank">{$value->title}</a> <span class="side">{zdate($value->date, 'Y-m-d')}</span></li>
+			<!--@end-->
+			<li cond="!is_array($news) || count($news) < 1">{$lang->no_data}</li>
+		</ul>
+	</div>
+</div>
+

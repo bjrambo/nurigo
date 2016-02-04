@@ -1,0 +1,11 @@
+table { border-top:2px solid #999; border-bottom:1px solid #999; }
+.nmileage_wrap { padding:10px 20px; background:#000; color:#eee; }
+.nmileage_tit { background:#000; }
+.nmileage_wrap h2 { font-weight:600; border-bottom:1px solid #555; line-height:1.7em; color:#c9c9c9; }
+.mileage_total { font-size:15px; font-family:Gulim Arial; font-weight:600; padding:13px; background:#333; border:1px solid #666; border-radius:5px; margin-bottom:20px; }
+.m_point { color:#ffab09; }
+.table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) td { background:#333; }
+.table-hover tbody tr:hover > td,
+.table-hover tbody tr:hover > th {
+  background-color: #222;
+}

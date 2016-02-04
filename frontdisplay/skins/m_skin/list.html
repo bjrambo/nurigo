@@ -1,0 +1,26 @@
+<!--%import("css/style.css")-->
+
+<div id="frontpage_widget" class="page">
+	<div loop="$display_categories=>$cate_key,$cate_val" class="category">
+		{@$count=0}
+		<block loop="$cate_val->items=>$no,$val">
+			<block cond="$count > 0 && ($count % $widget_info->num_columns)==0">
+			</ul>
+			</block>
+			<block cond="($count % $widget_info->num_columns)==0">
+			<ul class="item-list">
+			</block>
+			<li id="item_{$val->item_srl}" style="clear:both;"|cond="($count % $widget_info->num_columns)==0" >
+				<block loop="$widget_info->option_view_arr=>$k,$v">
+				<a cond="$v=='thumbnail'" class="thumbnail" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">
+					<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+				</a><!-- //thumbnail -->
+				<a cond="$v=='title'" class="item_name" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">{cut_str($val->item_name, $widget_info->title_length)}</a>
+				<div cond="$v=='price'" class="item_price"><strong>{$val->printDiscountedPrice()}</strong></div>
+				</block>
+				{@$count+=1}
+			</li>
+		</block>
+		</ul>
+	</div><!-- //category -->			
+</div><!-- //frontpage_widget -->

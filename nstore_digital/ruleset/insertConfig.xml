@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+		<field name="skin" required="true" />
+		<field name="epay_module_srl" required="true" />
+		<field name="ncart_mid" required="true" />
+		<field name="telnum" required="true" />
+		<field name="address" required="true" />
+    </fields>
+</ruleset>

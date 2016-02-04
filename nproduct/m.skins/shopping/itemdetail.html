@@ -1,0 +1,283 @@
+<load target="css/style.css" />
+<load target="css/itemdetail.css" />
+<load target="css/nu_btn.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/scroll.js" />
+<load target="../../tpl/skin.js/itemdetail.js" />
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="../../tpl/skin.filter/insert_review.xml" />
+
+<input type="hidden" id="ncart_mid" value="{$module_info->ncart_mid}" />
+<input type="hidden" id="is_mobile" value="{$is_mobile}" />
+
+{@$btn_color='blue'}
+{@$category = $item_info->category_id}
+<block cond="$module_info->colorset=='black'">
+	{@$btn_color='purple'}
+</block>
+<include target="header.html" />
+
+<script>
+	var g_discounted_price = {$item_info->getDiscountedPrice()};
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.total_amount = '{$lang->total_amount}';
+	xe.lang.msg_input_more_than_one = '{$lang->msg_input_more_than_one}';
+	xe.lang.each = '{$lang->each}';
+</script>
+
+<div class="" style="border-bottom:1px solid #ddd; padding:10px 0; font-weight:600;">
+	{$lang->product_detailed_description}
+</div>
+
+<div id="itemdetail" class="{$module_info->colorset}">
+	<div class="item_align">
+		<div class="detail_list">
+			<div class="item-thumbnail">
+				<img src="{$item_info->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" style="max-width:100%;" />
+			</div>
+		</div>
+		<div class="item_title">
+			<h2 class="product_name">{$item_info->item_name}</h2>
+		</div>
+		<div class="info-tab">
+			<div class="item_block">
+				<label class="nu_label">{$lang->item_code}</label>
+				<div class="text-right">{$item_info->item_code}</div>
+			</div>
+			<div class="item_block">
+				<label class="nu_label">{$lang->sales_price}</label>
+				<div class="text-right font_size14 product_price" style="text-decoration:line-through"|cond="$discount_amount">{$item_info->printPrice()}</div>
+			</div>
+			<div class="item_block" cond="$discount_amount">
+				<label class="nu_label">{$discount_info}</label>
+				<div class="product_price text-right">- {$item_info->printPrice($discount_amount)}<span class="font_size12"> {$lang->discount_text}</span></div>
+			</div>
+			<div class="item_block" cond="$discount_amount">
+				<label>{$lang->discounted_price}</label>
+				<div class="font_size24 product_price text-right">{$item_info->printPrice($discounted_price)}</div>
+			</div>
+                        <div loop="$list_config=>$k,$v" cond="$v->idx > -1" class="item_block">
+                                <label>{$v->name}</label>
+                                <div class="text-right">{$item_info->getExtraVarValue($k)}</div>
+                        </div>
+
+			<div class="item_block" cond="!count($options)">
+				<label class="nu_label">{$lang->order_quantity}</label>
+				<div class="text-right">
+					<div id="item_{$item_info->item_srl}" class="num_input">
+						<input type="text" id="quantity_{$item_info->item_srl}" class="quantity" value="1" />
+						<span class="iconUp" data-for="quantity_{$item_info->item_srl}"></span><span class="iconDown" data-for="quantity_{$item_info->item_srl}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="item_block" cond="count($options)">
+				<label class="nu_label">{$lang->order_options}</label>
+				<div class="text-right">
+					<select id="select_options">
+						<option value="">{$lang->cmd_select}</option>
+						<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nproductItem::formatMoney($val->price)}</span></option>
+					</select>
+
+					<div class="text-right">
+						<table id="selected_options"></table>
+					</div>
+
+					<div class="text-right" id="total_amount">
+					</div>
+				</div>
+			</div>
+		</div><!-- info-tab -->
+	</div><!-- item_align -->
+	<div class="btn_set" style="padding:20px; margin:.2em; overflow:hidden; clear:both">
+		<div style="text-align:center;">
+			<a href="#" class="nu_button nu_blue large" onclick="orderItemsInDetailPage({$item_info->item_srl}, '{$module_info->ncart_mid}'); return false;"><span>{$lang->cmd_direct_order}</span></a>
+			<a href="#" class="nu_button large" onclick="addItemsToCartInDetailPage({$item_info->item_srl}); return false;"><span>{$lang->cmd_cart}</span></a>
+			<a href="#" class="nu_button large" onclick="addItemsToFavorites({$item_info->item_srl}); return false;"><span>{$lang->cmd_favorites}</span></a>
+		</div>
+	</div>
+	<div class="social_block">
+		<!--AfterDocument()-->
+	</div>
+    <!-- product detail -->
+	<div class="item-info" id="content_01">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll on">{$lang->description}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->reviews}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+		<div class="product_info">{$oDocument->getContent(false)}</div>
+	</div>
+
+
+
+	<div class="item-review" id="content_02">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->description}</a></li>
+				<li><a href="#content_02" class="scroll on">{$lang->reviews}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+
+		<ul cond="count($review_list)" class="comments">
+			<li loop="$review_list=>$key,$review" id="review_{$review->get('review_srl')}">
+				
+				<div class="authorBox">
+					<a href="#" onclick="return false;" class="member_{$review->get('member_srl')}">{$review->getNickName()}</a><br />
+					<span class="date">{$review->getRegdate("Y.m.d")}</span>					
+					<span class="estimate">
+						<!--@for($i=0;$i<5;$i++)--><!--@if($i<$review->get('voted_count'))--><img src="./img/starOn_{$module_info->colorset}.gif" alt="" /><!--@else--><img src="./img/starOff_{$module_info->colorset}.gif" alt="" /><!--@end--><!--@end-->
+					</span>		
+				</div>
+
+				<div class="contentBox">
+					{$review->getContent(false)}
+				</div>
+				<div class="nullBox"></div>
+
+				<div class="btnBox">
+					<!--@if($review->isGranted())-->
+					<a href="{getUrl('act','procNstoreDeleteReview','item_srl',$item_info->item_srl,'review_srl',$review->review_srl)}" onclick="if(confirm('{$lang->confirm_delete}')) {return true;} else {return false;}" class="nuribtn light small">{$lang->cmd_delete}</a>
+					<!--@end-->
+				</div>
+			</li>
+		</ul>
+		<ul cond="!count($review_list)" class="comments">
+			<li>{$lang->msg_no_reviews}</li>
+		</ul>
+
+
+		<!--@if($is_logged)-->
+		<form action="./" method="post" onsubmit="return procFilter(this, insert_review)" class="commentForm" >
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="item_srl" value="{$item_srl}" />
+		<input type="hidden" name="document_srl" value="{$item_info->document_srl}" />
+		<input type="hidden" name="star_point" value="" />
+
+		<div class="light_bx">
+			<div class="light_bx_wrp">
+				<table width="100%" cellspacing="0" cellpadding="0" class="view_type1">
+				<tr>
+					<td class="star_td">
+						<ul class="starPoint">
+							<li><a href="#" onclick="return false;" rel="1">1</a></li>
+							<li><a href="#" onclick="return false;" rel="2">2</a></li>
+							<li><a href="#" onclick="return false;" rel="3">3</a></li>
+							<li><a href="#" onclick="return false;" rel="4">4</a></li>
+							<li><a href="#" onclick="return false;" rel="5">5</a></li>
+						</ul>
+					</td>
+					<td class="advence_td">
+						<span cond="$config->review_bonus">{sprintf($lang->about_review_bonus,nproductItem::formatMoney($config->review_bonus))}</span>
+                        <span cond="!$config->review_bonus" style="font-size:80%;">{$lang->about_review}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="center" colspan="2"><textarea name="content" class="commentArea"></textarea></td>
+				</tr>
+				<tr>
+					<td class="center" colspan="2">
+						<span><input type="submit" value="{$lang->cmd_write_review}" accesskey="s" class="nu_button nu_small {$btn_color}" /></span>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		</form>
+		<!--@end-->
+	</div>
+
+
+	<div class="item-inquiry"  id="content_03">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->description}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->reviews}</a></li>
+				<li><a href="#content_03" class="scroll on">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+
+		<ul cond="$oDocument->getCommentCount()" class="comments">
+			<li loop="$oDocument->getComments()=>$key,$comment" id="comment_{$comment->get('comment_srl')}">
+				<div class="indent" <!--@if($comment->get('depth'))--> style="margin-left:{($comment->get('depth'))*15}px" <!--@end-->>
+				
+				<div class="authorBox">
+					<a href="#" onclick="return false;" class="member_{$comment->get('member_srl')}">{$comment->getNickName()}</a>
+					<span class="date">{$comment->getRegdate("Y.m.d")}</span>
+				</div>
+
+				<div class="contentBox">
+					{$comment->getContent(false)}
+				</div>
+				<div class="nullBox"></div>
+
+				<div class="btnBox">
+					<!--@if($comment->isGranted())-->
+					<a href="{getUrl('act','dispNstoreReplyComment','comment_srl',$comment->comment_srl)}" class="nuribtn {$btn_color} small"><span>{$lang->cmd_reply}</span></a> 
+					<a href="{getUrl('act','procNstoreDeleteComment','item_srl',$item_info->item_srl,'comment_srl',$comment->comment_srl)}" onclick="if(confirm('{$lang->confirm_delete}')) {return true;} else {return false;}" class="nuribtn light small">{$lang->cmd_delete}</a>
+					<!--@end-->
+				</div>
+
+			</li>
+		</ul><!-- Question comment -->
+                <ul cond="!$oDocument->getCommentCount()" class="comments">
+                        <li>{$lang->msg_no_questions}</li>
+                </ul>
+
+		<!--@if($is_logged)-->
+		<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="commentForm" >
+		<input type="hidden" name="vid" value="{$vid}" />
+		<input type="hidden" name="mid" value="{$mid}" />
+		<input type="hidden" name="item_srl" value="{$item_srl}" />
+
+		<div class="light_bx">
+			<div class="light_bx_wrp">
+				<table width="100%" cellspacing="0" cellpadding="0" class="view_type1">
+				<tr>
+					<td class="advence_td">
+						<span style="font-size:80%;">{$lang->about_qna}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="center"><textarea name="content" class="commentArea"></textarea></td>
+				</tr>
+				<tr>
+					<td class="center">
+						<span><input type="submit" class="nu_button {$btn_color} nu_small" value="{$lang->cmd_ask_question}" accesskey="s" /></span>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+		</form><!-- Question form -->
+		<!--@end-->
+	</div>
+
+
+
+	<div class="delivery-info"  id="content_04">
+		<div class="product_title">
+			<ul>
+				<li><a href="#content_01" class="scroll first">{$lang->description}</a></li>
+				<li><a href="#content_02" class="scroll">{$lang->reviews}</a></li>
+				<li><a href="#content_03" class="scroll">{$lang->qna}</a></li>
+				<li><a href="#content_04" class="scroll on">{$lang->cancel_refund}</a></li>
+			</ul>
+		</div>
+		<div cond="$module_info->delivery_info_all == 'all'"> 
+			{$module_info->delivery_info}
+		</div>
+		<div cond="$module_info->delivery_info_all == 'each'"> 
+			{$item_info->delivery_info}
+		</div>
+		<div>
+		</div>
+	</div>
+</div>
+<include target="footer.html" />

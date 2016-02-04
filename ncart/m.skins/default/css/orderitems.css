@@ -1,0 +1,73 @@
+@charset "utf-8";
+body { font-family:MalgunGothic; letter-spacing:-1px; }
+
+.cartStep .progress.step2 { background:url(../img/progress_step2.png) no-repeat right 20px;}
+
+#orderitems .item-table tr td.item_name { padding:20px; text-align:left; color:#6c832c;}
+
+#orderitems h3 { font-size:12px; margin-top:30px; height:28px; color:#666;}
+
+#orderitems .order-table input { margin:0; padding:0; height:18px;}
+
+#orderitems .payment-table { width:100%; border-top:1px solid #ddd; border-bottom:1px solid #eee;}
+#orderitems .address_input { list-style:none; }
+#orderitems .address_input .list-title { width:100px; display:inline-block; }
+#orderitems .address_input input { width:400px; }
+#orderitems .inputboxL { width:280px; height:18px;}
+
+
+/* black */
+#orderitems.black .order-table input { background:transparent; border:1px solid #343434;}
+#orderitems.black .payment-table { border-top:1px solid #343434; border-bottom:1px solid #343434;}
+
+/* fieldset */
+.fieldset table {border-top:1px solid #c4c4c4; width:100%;}
+.fieldset th {border-bottom:1px solid #ededed; color:#666; padding:8px 20px; width:17.6%; text-align:left; background:#f8f8f8; }
+.fieldset td {border-bottom:1px solid #ededed; color:#666; padding:5px 5px 5px 10px; width:82%; overflow:hidden}
+.fieldset p { font-size:11px; }
+.fieldset .krZip { display:overflow:hidden; }
+.fieldset .krZip .a input { width:70%; }
+.fieldset .krZip select { width:80%; }
+.fieldset .krZip button { padding:1px 10px; }
+.fieldset .krZip .address2 input { width:100%; }
+.fieldset textarea { width:100%; border:1px solid #ccc; padding:1px; }
+.fieldset input { width:100%; border:1px solid #ccc; padding:6px 0; margin:3px 0; }
+.fieldset li {float:left; list-style:none;}
+
+.fieldset .destination ul {padding:0; margin:0; display:table; overflow:hidden; }
+.fieldset .destination li {margin:3px 5px 0 0; display:table-cell; }
+.fieldset .destination input {width:15px; float:left; border:0; margin-top:1.5px; }
+.fieldset .destination label {padding-left:3px; float:left; line-height:1.6em;}
+
+.fieldset .radio ul {padding:0; margin:0;} 
+.fieldset .radio input {width:13px; float:left; border:0; box-shadow:none; }
+.fieldset .radio label {float:left; line-height:2em; padding:0 10px 0 5px;}
+.fieldset .radio p {clear:both; padding-top:10px; *padding:0;}
+
+.fieldset .tel ul { display:table; margin:0; padding:0; } 
+.fieldset .tel li { width:31%; display:table-cell; margin:0; padding:0; overflow:hidden; }
+.fieldset .tel li.dash { width:2%; margin-right:1px; line-height:30px; color:#222; }
+.fieldset .tel input { width:96%; border:0; border:1px solid #ddd; }
+.fieldset .tel p { padding-left:4px;}
+
+.fieldset .checkbox input {width:15px; float:left; border:0; }
+.fieldset .checkbox label {float:left; line-height:1.6em; *line-height:2em; padding:0 5px; text-align:justify;}
+.fieldset .checkbox ul {padding:0; margin:0;}
+.fieldset .checkbox p {clear:both; padding-top:10px; float:left;}
+
+.fieldset .date input {width:100px; padding:3px;}
+.fieldset .date input.dateRemover {width:50px; padding:2px;}
+
+
+.m_pass input { width:100%; border:1px solid #ccc; padding:6px 0; margin:3px 0;  }
+.item-table li.more_text { text-align:center; list-style:none; font-size:13px; color:#045364; border-top:1px dashed #ddd; padding-top:10px; }
+
+
+span.font_size11 { color:#eee !important; padding-left:10px; font-weight:normal; }
+
+/* Phone */
+@media only screen and (max-width : 767px) {
+
+span.font_size11 { display:block; margin-top:-10px; }
+
+}

@@ -1,0 +1,25 @@
+<!--%import("css/style.css")-->
+
+<div id="frontpage_widget" class="page">
+	<div loop="$display_categories=>$cate_key,$cate_val" class="category">
+		<table class="item-list">
+			{@$count=0}
+			<tr loop="$cate_val->items=>$no,$val" id="item_{$val->item_srl}" style="clear:both;"|cond="($count % $widget_info->num_columns)==0" >
+				<block loop="$widget_info->option_view_arr=>$k,$v">
+				<td cond="$v=='thumbnail'" class="thumbnail">
+					<a href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">
+						<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+					</a><!-- //thumbnail -->
+				</td>
+				<td cond="$v=='title'" class="item_name">
+					<a href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">{cut_str($val->item_name, $widget_info->title_length)}</a>
+				</td>
+				<td cond="$v=='price'" class="item_price">
+					<div><strong>{$val->printDiscountedPrice()}</strong></div>
+				</td>
+				</block>
+				{@$count+=1}
+			</tr>
+		</table><!-- //item-list -->
+	</div><!-- //category -->			
+</div><!-- //frontpage_widget -->

@@ -1,0 +1,25 @@
+<load target="css/default.css" />
+<load target="./js/script.js" />
+
+<div id="nurigo">
+	<div class="gnb" >
+		<ul class="nav">
+			<li loop="$category_tree['f']=>$key,$val" class="on"|cond="$category==$category_index[$key]->node_id || (count($parent_nodes) && in_array($category_index[$key]->node_id, $parent_nodes))">
+				<a href="{getUrl('','mid',$category_index[$key]->mid,'category',$category_index[$key]->node_id)}" class="focus_on"|cond="$category==$category_index[$key]->node_id || (count($parent_nodes) && in_array($category_index[$key]->node_id, $parent_nodes))" alt="{$category_index[$key]->category_name}"><span>{$category_index[$key]->category_name}</span></a>
+				<ul cond="count($val)" cond="$widget_info->sub2_menu == 'enabled'">
+					<li loop="$val=>$key2,$val2">
+						<a href="{getUrl('','mid',$category_index[$key2]->mid,'category',$category_index[$key2]->node_id)}" alt="{$category_index[$key2]->category_name}">{$category_index[$key2]->category_name}</a>
+					</li>
+				</ul>
+			</li>
+			<li loop="$main_menu->list=>$key,$val" class="on"|cond="$val['selected'] == 1">
+				<a href="{$val['href']}" target"_blank" |cond="$val['open_window']=='Y'" class="focus_on"|cond="$val['selected'] == 1" alt="{$val['link']}"><span >{$val['link']}</span></a>
+				<ul cond="$val['list']" cond="$val['list']" cond="$widget_info->sub2_menu == 'enabled'">
+					<li loop="$val['list']=>$key2,$val2">
+						<a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'" alt="{$val2['link']}">{$val2['link']}</a>
+					</li>
+				</ul>
+			</li>
+		</ul><!-- end of nav-->
+	</div><!--end of gnb-->
+</div>

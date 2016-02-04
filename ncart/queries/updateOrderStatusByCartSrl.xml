@@ -1,0 +1,13 @@
+<query id="updateOrderStatusByCartSrl" action="update">
+	<tables>
+		<table name="nstore_cart" />
+	</tables>
+	<columns>
+		<column name="order_status" var="order_status" />
+		<column name="express_id" var="express_id" />
+		<column name="invoice_no" var="invoice_no" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="cart_srl" var="cart_srl" notnull="notnull" />
+	</conditions>
+</query>

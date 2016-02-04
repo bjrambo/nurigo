@@ -1,0 +1,88 @@
+<load target="css/style.css" />
+<load target="css/addresslist.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/addmanagement.js" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<script cond="$XE_VALIDATOR_MESSAGE">
+	jQuery('document').ready(function() {
+		jQuery('#addressList').hide();
+		jQuery('#newAddress').show();
+	});
+</script>
+
+<h2 class="Add_tit">{$lang->cmd_addr_manage}</h2>
+<div id="addressList">
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>기본배송지</th>
+				<block loop="$fieldset_list=>$key,$val">
+				<th loop="$val->fields=>$key2,$field">{$field->column_title}</th>
+				</block>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr loop="$list=>$key,$val">
+				<td>{$val->default}</td>
+				{@$vars=get_object_vars(unserialize($val->address))}
+				<block loop="$fieldset_list=>$key2,$val2">
+				<td loop="$val2->fields=>$key3,$field"><span cond="is_array($vars[$field->column_name])">{implode($vars[$field->column_name])}</span><span cond="!is_array($vars[$field->column_name])">{$vars[$field->column_name]}</span></td>
+				</block>
+				<td><a href="#" class="button" onclick="modify_address({$val->address_srl}); return false;"><span>{$lang->cmd_modify}</span></a><a href="#" class="button" onclick="delete_address({$val->address_srl});"><span>{$lang->cmd_delete}</span></a></td>
+			</tr>
+			<tr cond="!count($list)">
+				<td colspan="6">{$lang->msg_no_contents}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pageNavigation">
+	</div>
+	<div class="btnArea">
+		<span class="btn"><a href="#" onclick="append_address();return false;">{$lang->cmd_new_address}</a></span>
+	</div>
+</div>
+
+<div id="newAddress" style="display:none;">
+	<form action="./" id="newAddrForm" class="fg form" ruleset="@ncart_insertAddress" method="post">
+		<input type="hidden" name="act" value="procNcartInsertAddress" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="address_srl" value="" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+		<input type="hidden" name="opt" value="1" />
+
+		<input type="checkbox" id="default" name="default" value="Y" /><label for="default" class="add_default">{$lang->msg_as_default_address}</label>
+
+		<!--// fieldset -->
+		<div loop="$fieldset_list=>$key,$val" class="fieldset">
+			<h3>{$val->fieldset_title}</h3>
+			<table>
+				<tr loop="$val->fields=>$key2,$field">
+					<th>
+						<label for="column_title">{$field->html->title}</label>
+					</th>
+					<td class="{$field->column_type}">{$field->html->inputTag}</td>
+				</tr>
+			</table>
+		</div>
+		<!--// end of fieldset -->
+
+		<div class="btnArea">
+			<span class="btn"><input type="submit" value="{$lang->cmd_submit}" /></span>
+			<span class="btn"><a href="#" class="button" onclick="jQuery('#addressList').toggle();jQuery('#newAddress').toggle(); jQuery('#newAddrForm').get(0).reset(); return false;">{$lang->cmd_cancel}</a></span>
+		</div>
+	</form>
+</div>
+
+<script>
+	var fieldset = new Array();
+	<block loop="$fieldset_list=>$key,$val">
+		<block loop="$val->fields=>$key2,$field">
+		fieldset[fieldset.length] = { column_type:'{$field->column_type}', column_name:'{$field->column_name}', column_title:'{$field->column_title}' };
+		</block>
+	</block>
+</script>

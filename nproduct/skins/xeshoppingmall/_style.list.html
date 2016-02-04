@@ -1,0 +1,43 @@
+<load target="css/style.css" />
+<load target="css/_style.list.css" />
+<table class="item-table" width="100%">
+	<thead>
+		<tr>
+			<th loop="$list_config=>$k,$v" class="item_name"|cond="$k=='title'">{$v->name}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="item_{$val->item_srl}" loop="$list=>$no,$val">
+			<block loop="$list_config=>$k,$v">
+			<td cond="$k == 'checkbox'"><input type="checkbox" name="cart" value="{$val->item_srl}" /></td>
+			<td cond="$k == 'image'"><a href="{getUrl('mid',$mid,'document_srl',$val->document_srl,'act','')}"><img src="{$val->getThumbnail($module_info->list_thumbnail_width,$module_info->list_thumbnail_height,$module_info->list_thumbnail_type)}" /></a></td>
+			<td class="item_name" cond="$v->type == 'title'">
+				<p><a href="{getUrl('mid',$mid,'document_srl',$val->document_srl,'act','')}">{$val->item_name}</a></p>
+			</td><!-- name -->
+			<td cond="$k == 'quantity'">
+				<div class="item_num">
+					{$lang->quantity}
+					<span class="num">
+						<input type="text" id="quantity_{$val->item_srl}" class="quantity" value="1" />
+						<span class="iconUp" data-for="quantity_{$val->item_srl}"></span>
+						<span class="iconDown" data-for="quantity_{$val->item_srl}"></span>
+					</span>
+				</div>
+			</td>
+			<td cond="!$val->discount_amount && $k == 'amount'"><span class="item_price">{$val->printPrice()}</span></td>
+			<td cond="$val->discount_amount && $k == 'amount'"><span style="text-decoration:line-through;">{$val->printPrice()}</span><br /><span class="font_size12"><strong>{$val->printDiscountedPrice()}</strong></span></td>
+			<td cond="$k == 'cart_buttons'">
+				<a href="#" class="small {$btn_color} nuribtn" onclick="addItemsToCart({$val->item_srl}); return false;">{$lang->cmd_cart}</a>
+				<a href="#" class="small light nuribtn" onclick="addItemsToFavorites({$val->item_srl}); return false;">{$lang->cmd_favorites}</a>
+			</td>
+			<td cond="$k == 'sales_count'">{$val->sales_count}</td>
+			<td cond="$k == 'download_count'">{$val->download_count}</td>
+			<td cond="$v->idx > -1">{$val->getExtraVarValue($k)}</td>
+			</block>
+		</tr>
+
+		<tr cond="!count($list)">
+			<td colspan="8">{$lang->msg_no_items}</td>
+		</tr>
+	</tbody>
+</table>

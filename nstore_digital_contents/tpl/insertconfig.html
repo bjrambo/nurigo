@@ -1,0 +1,26 @@
+<include target="_header.html" />
+<div>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+	
+<form action="./" class="x_form-horizontal" method="post">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digital_contentsAdminInsertConfig" />
+
+	<section class="section">
+		<div class="x_control-group">
+		<label class="x_control-label">콘텐츠 업로드 용량 설정.</label>
+		<div class="x_controls">
+			<input type="text" name="file_size" value="{$config->file_size}"  class="inputTypeText w400" id="vod_server_url" />MB(메가바이트)
+			<a href="#file_size_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			<p id="file_size_help" class="x_help-block" hidden>업로드 가능한 파일의 최대크기를 적어주세요.(MB단위)</p>
+		</div>
+	</div>
+
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" />
+		<input type="button" class="x_btn" value="{$lang->cmd_back}" onclick="history.back(); return false;" />
+	</div>
+</form>

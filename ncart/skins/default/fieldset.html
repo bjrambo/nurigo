@@ -1,0 +1,8 @@
+<script type="text/javascript">
+	var fieldset = new Array();
+	<block loop="$fieldset_list=>$key,$val">
+		<block loop="$val->fields=>$key2,$field">
+		fieldset[fieldset.length] = { column_type:'{$field->column_type}', column_name:'{$field->column_name}', column_title:'{$field->column_title}' };
+		</block>
+	</block>
+</script>

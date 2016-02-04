@@ -1,0 +1,19 @@
+<load target="css/style.css" />
+<load target="../../tpl/js/script.js" />
+<br>
+<div style="margin-top: 55px;">
+	<img src="img/error_logo.jpg" style="float:left; width: 50px;  margin-top:-8px; margin-right: 10px;" />
+	<h1>Allpay Transaction Error </h1> 
+	<table class="error-table" >
+		<tr cond="$info->transaction"> <th> 거래 번호 </th> <td> {$info->transaction_srl} </td> </tr>
+		<tr cond="$info->order_srl"> <th> 주문 번호 </th> <td> {$info->order_srl} </td> </tr>
+		<tr cond="$info->order_title"> <th> 거래 아이템 </th> <td> {$info->order_title} </td> </tr>
+		<tr cond="$info->regdate"> <th> 거래 일자 </th> <td> {substr($info->regdate, 0, 4)}년 {substr($info->regdate, 4, 2)}월 {substr($info->regdate, 6, 2)}일 {substr($info->regdate, 8, 2)}시 {substr($info->regdate, 10, 2)}분 </td> </tr>
+		<tr> <th> 오류 메시지 </th> 
+			<td cond="$error_code=='1'"> 거래 총액이 맞지 않습니다. </td>
+			<td cond="$error_code=='2'"> 거래가 사용자에 의해 취소되었습니다. </td>
+			<td cond="$error_code=='3'"> 페이팔 거래는 보안상의 문제로 최소 {$minimum_transactions_count}회 이상 다른 거래방법으로 거래하신 사용자만 가능합니다. </td>
+		</tr>
+	</table>
+</div>
+

@@ -1,0 +1,16 @@
+<filter name="insert_review" module="nstore" act="procNstoreInsertReview">
+    <form>
+        <node target="mid" required="true" />
+        <node target="document_srl" required="true" />
+        <node target="star_point" required="true" />
+        <node target="content" required="true" />
+    </form>
+    <parameter>
+        <param name="vid" target="vid" />
+        <param name="mid" target="mid" />
+        <param name="document_srl" target="document_srl" />
+        <param name="star_point" target="star_point" />
+        <param name="content" target="content" />
+    </parameter>
+    <response/>
+</filter>

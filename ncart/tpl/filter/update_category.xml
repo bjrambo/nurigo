@@ -1,0 +1,14 @@
+<filter name="update_category" module="nstore" act="procNstoreUpdateCategory" confirm_msg_code="confirm_update">
+    <form>
+        <node target="category_name" required="true" maxlength="40" />
+    </form>
+    <parameter>
+        <param name="category_name" target="category_name" />
+    </parameter>
+    <response callback_func="completeUpdateCategory">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="node_id" />
+        <tag name="parent_node" />
+    </response>
+</filter>

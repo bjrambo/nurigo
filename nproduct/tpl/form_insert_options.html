@@ -1,0 +1,29 @@
+<div class="x_modal-header">
+	<h1>{$lang->title_option}</h1>
+</div>
+
+<div class="x_modal-content">
+	<table>
+		<thead>
+			<tr>
+				<th>{$lang->option_title}</th><th>{$lang->extra_price}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{@$count=0}
+			<tr loop="$options=>$key,$val">
+				<td><input type="hidden" name="option_srls[]" value="{$val->option_srl}" /><input type="text" name="options_title[]" value="{$val->title}" /></td>
+				<td><input type="text" name="options_price[]" value="{$val->price}" /></td>
+				{@$count++}
+			</tr>
+			<tr loop="$i=$count;$i<20;$i++">
+				<td><input type="hidden" name="option_srls[]" value="0" /><input type="text" name="options_title[]" placeholder="TITLE" value="" /></td>
+				<td><input type="text" name="options_price[]" placeholder="PRICE" value="" /></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="x_modal-footer">
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_submit}</button>
+</div>

@@ -1,0 +1,58 @@
+<load target="../../tpl/skin.filter/insert_comment.xml" />
+<load target="css/button.css" />
+<load target="css/style.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+
+
+<!--@if($oSourceComment->isExists())-->
+<div class="feedbackList">
+    <div class="item itemOnly">
+	
+		<div class="itemAside">
+			<h4 class="header"><a href="#popup_menu_area" class="member_{$oSourceComment->getMemberSrl()}" onclick="return false">{$oSourceComment->getNickName()}</a></h4>
+			<p class="meta">
+				{$oSourceComment->getRegdate("Y.m.d H:i")}
+				<!--@if($grant->manager)-->
+				<br />{$oSourceComment->get('ipaddress')}
+				<!--@end-->
+			</p>
+		</div>
+		
+		<div class="itemContent">
+			{$oSourceComment->getContent(false)}
+		</div>
+
+    </div>
+</div>
+<!--@end-->
+
+<form action="./" method="post" class="boardEditor" ruleset="insertComment">
+	<input type="hidden" name="act" value="procNproductInsertComment" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="item_srl" value="{$item_srl}" />
+	<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
+	<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
+	<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
+	<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
+
+	<div class="boardWrite commentEditor">
+		
+		<div class="editor">{$oComment->getEditor()}</div>
+		
+		<div class="editorOption">
+			<input type="checkbox" name="notify_message" value="Y" <!--@if($oComment->get('notify_message')=='Y')-->checked="checked"<!--@end--> id="notify_message" class="inputCheck" />
+			<label for="notify_message">{$lang->notify}</label>
+			<input type="checkbox" name="is_secret" value="Y" id="is_secret" <!--@if($oComment->get('is_secret')=='Y')-->checked="checked"<!--@end--> class="inputCheck" />
+			<label for="is_secret">{$lang->secret}</label>
+		</div>
+
+		<div class="btnArea">
+			<button type="submit" class="btn">{$lang->cmd_comment_registration}</button>
+		</div>
+		
+	</div>
+</form>

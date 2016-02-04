@@ -1,0 +1,19 @@
+<query id="insertFavoriteItem" action="insert">
+	<tables>
+		<table name="ncart_favorites" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+		<column name="item_srl" var="item_srl" filter="number" notnull="notnull" />
+		<column name="item_name" var="item_name" notnull="notnull" />
+		<column name="module" var="module" />
+		<column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<column name="document_srl" var="document_srl" filter="number" notnull="notnull" />
+		<column name="thumb_file_srl" var="thumb_file_srl" filter="number" />
+		<column name="price" var="price" filter="number" />
+		<column name="discount_amount" var="discount_amount" filter="number" />
+		<column name="discount_info" var="discount_info" />
+		<column name="discounted_price" var="discounted_price" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

@@ -1,0 +1,16 @@
+<query id="getCartItems" action="select">
+	<tables>
+		<table name="ncart" />
+ 	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="order_status" default="0" />
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" pipe="and" />
+		<condition operation="in" column="cart_srl" var="cartnos" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="desc" />
+	</navigation>
+</query>

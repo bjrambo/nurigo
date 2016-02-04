@@ -1,0 +1,133 @@
+<load target="js/ordermanagement.js" />
+
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+
+<div style="margin-bottom:20px;">
+	<a href="{getUrl('status','0')}" class="active"|cond="$status=='0'" cond="0">장바구니</a> <i>|</i>
+	<a href="{getUrl('status','1')}" class="active"|cond="$status=='1'">입금대기</a> <i>|</i>
+	<a href="{getUrl('status','2')}" class="active"|cond="$status=='2'">입금완료</a> <i>|</i>
+	<a href="{getUrl('status','3')}" class="active"|cond="$status=='3'">구매완료</a> <i>|</i>
+	<a href="{getUrl('status','A')}" class="active"|cond="$status=='A'">취소,반품</a> <i>|</i>
+	<a href="{getUrl('status','B')}" class="active"|cond="$status=='B'">교환</a> <i>|</i>
+	<a href="{getUrl('status','C')}" class="active"|cond="$status=='C'">환불</a> <i>|</i>
+</div>
+
+<form id="searchForm" action="./" method="get" class="x_input-append" >
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="status" value="{$status}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<select name="search_key">
+		<option value="email_address" selected="selected"|cond="$search_key=='email_address'">{$lang->email_address}</option>
+		<option value="nick_name" selected="selected"|cond="$search_key=='nick_name'">{$lang->nick_name}</option>
+	</select>
+	<input type="text" name="search_value" value="{$search_value}" />
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_find}</button>
+</form>
+
+<form action="./" method="post" id="fo_orderlist">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digitalAdminUpdateStatus" />
+	<input type="hidden" name="status" value="{$status}"/>
+
+	<div id="orderlist" class="table even easyList">
+		<table class="x_table x_table-striped x_table-hover" summary="주문관리내역">
+			<caption style="text-align:right; margin-bottom:10px;">
+				<a href="{getUrl('act','dispNstore_digitalAdminOrderExcelDownload')}"><span>엑셀파일다운</span></a>
+			</caption>
+			<thead style="clear:both;">
+				<tr>
+					<th scope="col"><input type="checkbox" title="Check All" id="check_all" /></th>
+					<th scope="col">주문일</th>
+					<th scope="col">상품명</th>
+					<th scope="col">품목</th>
+					<th scope="col">결제금액</th>
+					<th scope="col">구매자</th>
+					<th scope="col">주문서출력</th>
+				</tr>
+			</thead>
+			{@$total_price=0}
+			<tbody>
+				<tr loop="$list=>$no,$order">
+					<td><input type="hidden" name="order_srls[]" value="{$order->order_srl}" /><input type="checkbox" name="cart[]" value="{$order->order_srl}" /></td>
+					<td>
+						<div>{zdate($order->regdate,'Y-m-d')}</div>
+						<div>(<a href="{getUrl('act','dispNstore_digitalAdminOrderDetail','order_srl',$order->order_srl)}">{$order->order_srl}</a>)</div>
+					</td>
+					<td><span>{$order->title}</span></td>
+					<td>{number_format($order->item_count)}</td>
+					<td>{nproductItem::formatMoney($order->total_price)}</td>
+					<td cond="$order->nick_name">{$order->nick_name}</td>
+					<td>
+						<a cond="0" href="#" class="kso_btn blue" onclick="window.open('{getUrl('act','dispNstore_digitalAdminReceipt','order_srl',$order->order_srl)}', 'addressbook_popup', 'left=50, top=20, width=480, scrollbars=yes, height=540, toolbars=no'); return false;"><span>영수증</span></a>
+						<a cond="$status!='0'" href="#" class="kso_btn blue" onclick="window.open('{getUrl('act','dispNstore_digitalAdminOrderSheet','order_srl',$order->order_srl)}', 'addressbook_popup', 'left=50, top=20, width=700, scrollbars=yes, height=700, toolbars=no'); return false;"><span>주문서출력</span></a>
+					</td>
+					{@$total_price+=$order->price}
+				</tr>
+				<tr cond="!count($list)">
+					<td colspan="9">주문 내역이 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="x_control-group x_input-append">
+			{@unset($order_status['0'])}
+			<div class="x_controls">
+				<label class="x_control-label x_inline">선택한 주문을</label>
+				<select name="order_status">
+					<option value="1">입금대기</option>
+					<option value="2" selected="selected"|cond="$status=='1'">입금완료</option>
+					<option value="3" selected="selected"|cond="$status=='2'">구매완료</option>
+					<option value="A" selected="selected"|cond="$status=='3'">취소,반품</option>
+					<option value="B" selected="selected"|cond="$status=='A'">교환</option>
+					<option value="C" selected="selected"|cond="$status=='B'">환불</option>
+					<option value="Z">삭제</option>
+				</select>
+				<button class="x_btn x_btn-inverse" onclick="update_status();return false;">{$lang->cmd_apply}</button>
+			</div><!-- //x_controls -->
+		</div><!-- //x_control-group -->
+	</div><!-- //orderlist -->
+</form>
+
+<include target="_page_navigation.html" />
+
+<div class="x_modal" id="deleteOrders">
+        <form action="./" class="fg form" method="post">
+                <input type="hidden" name="module" value="nstore_digital" />
+                <input type="hidden" name="act" value="procNstore_digitalAdminDeleteOrders" />
+                <input type="hidden" name="module_srl" value="{$module_srl}" />
+                <input type="hidden" name="status" value="{$status}" />
+                <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+                <div id="deleteForm">
+                </div>
+        </form>
+</div>
+
+<span style="display:none;"><a href="#deleteOrders" class="modalAnchor deleteOrders">Hidden Button For Delete</a></span>
+
+<script>
+	function update_status() {
+		var order_status = jQuery('select[name=order_status]').val();
+		if (order_status == 'Z') {
+			jQuery('a.modalAnchor.deleteOrders').trigger('open.mw');
+		} else {
+			var $fo = jQuery('#fo_orderlist');
+			$fo.submit();
+		}
+	}
+
+	(function($){
+		$('#check_all')
+			.bind('click', function(e){
+				if (this.checked){
+					$('input[name=cart\\[\\]]').attr('checked', 'checked');
+				}else{
+					$('input[name=cart\\[\\]]').removeAttr('checked');
+				}
+			});
+	})(jQuery);
+</script>

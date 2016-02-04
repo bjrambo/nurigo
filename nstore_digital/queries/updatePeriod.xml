@@ -1,0 +1,15 @@
+<query id="updatePeriod" action="update">
+	<tables>
+		<table name="nstore_digital_period" />
+	</tables>
+	<columns>
+		<column name="start_date" var="start_date" />
+		<column name="end_date" var="end_date" />
+		<column name="price" var="price" />
+		<column name="order_status" var="order_status" />
+		<column name="item_srl" var="item_srl" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="period_srl" var="period_srl" />
+	</conditions>
+</query>

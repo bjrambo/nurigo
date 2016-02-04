@@ -1,0 +1,30 @@
+<table name="ncart_order">
+	<column name="order_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="cartnos" type="varchar" size="1024" notnull="notnull" />
+	<!-- 0: 카트보관, 1: 입금대기, 2:배송준비, 3: 배송중, 4: 배송완료, A: 최소, B: 반품,교환, C: 환불 -->
+	<column name="order_status" type="char" size="1" default="0" notnull="notnull" index="idx_order_status" />
+	<column name="payment_method" type="varchar" size="2" notnull="notnull" />
+	<column name="mileage" type="number" size="11" default="0" notnull="notnull" />
+	<column name="mileage_save" type="char" size="1" default="N" notnull="notnull" />
+	<column name="use_mileage" type="number" size="11" default="0" notnull="notnull" />
+	<column name="title" type="varchar" size="250" notnull="notnull" />
+	<column name="item_count" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="sum_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="delivery_fee" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_discounted_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="total_discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxation_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="supply_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="vat" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxfree_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="invoice_no" type="varchar" size="64" />
+	<!-- 00: 직배송, 10:대한통운특배, 11:CJ GLS, 12:로젠택배, 13:한진택배, 14:현대택배 -->
+	<column name="express_id" type="char" size="2" />
+	<!-- Y: in advance , N: after delivery -->
+	<column name="delivfee_inadvance" type="char" size="1" default="Y" notnull="notnull" />
+	<column name="extra_vars" type="text" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

@@ -1,0 +1,189 @@
+<load target="../lang" />
+<load target="../js/trolley.js" />
+<load target="../css/trolley.css" />
+<!--%load_js_plugin("ui")-->
+
+<input type="hidden" id="t_ncart_mid" value="{$t_ncart_mid}" cond="$t_ncart_mid"/>
+<input type="hidden" id="logged_info" value="Y" cond="$logged_info" />
+<input type="hidden" id="module_name" value="ncart"/>
+<input type="hidden" id="r_prefix" value="{$r_prefix}"/>
+<input type="hidden" id="c_recent_item" value="true" />
+<div class="t_pop_hide">
+</div>
+<div class="trolley_pop">
+	<span class="pop_t_cart" style="display:none">{$lang->cart_pop_area}</span>
+	<span class="pop_t_wish" style="display:none">{$lang->wishlist_pop_area}</span>
+</div>
+
+
+<!-- 닫혔을때 -->
+<div id="close_box">
+	<div id="t_box_close" class="t_box_close" onClick="t_box_close()"></div>
+</div>
+<!-- 접었을때 페이지 -->
+<div id="fold_box" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<div id="t_box_close" onClick="t_box_close('#fold_box')"></div>
+	<div id="box_open" alt="open"></div>
+
+	<div id="fold_menu_box">
+		<div class="user_info">
+			<block cond="!$is_logged">
+				{$addon_info->charset}
+			</block>
+			<block cond="$is_logged">
+			<ul>
+				<li><span class="nick_name" title="{$logged_info->nick_name}">{$logged_info->nick_name}</span><span>{$lang->info}</span></li>
+				<li class="login_info" cond="$is_logged=='Y'">{$lang->cart_mileage} {$t_mileage}</li>
+			</block>
+		</div>
+		<div id="simple_menu">
+			<div id='cart_open' class="open_menu" onClick="recent_hide('#f_cart_items')">{$lang->cart_tab_quantity}</div>
+			<div id='f_cart_items'>
+				<div class="recent_arrow f_cart_items r_height">
+					<span class="nothing"></span>
+				</div>
+			</div>
+			<div id='recent_open' class="open_menu" onClick="recent_hide('#f_recent_items')">{$lang->cart_tab_recent}<span class="arrow_bottom"></span></div>
+			<div id='f_recent_items'>
+				<div class="recent_arrow f_recent_items r_height">
+					<span class="nothing"></span>
+				</div>
+			</div>
+			<div id='wish_open' class="open_menu" onClick="recent_hide('#f_wish_items')" cond="$logged_info">{$lang->cart_tab_wish}</div>
+			<div id='f_wish_items'>
+				<div class="recent_arrow f_wish_items r_height">
+					<span class="nothing"></span>
+				</div>
+			</div>
+		</div>
+
+		<div id="cart">
+			<a href="#" onClick="r_view('Cart'); return false">{$lang->nurigo_cart}</a>
+		</div>
+		<div id="wishlist">
+			<a href="#" onClick="r_view('Wish'); return false">{$lang->nurigo_wishlist}</a>
+		</div>
+		<div cond="$r_button01" id="order">
+			<a href="{$addon_info->r_button01_url}">{$addon_info->r_button01}</a>
+		</div>
+		<div cond="$r_button02" id="down">
+			<a href="{$addon_info->r_button02_url}">{$addon_info->r_button02}</a>
+		</div>
+
+		<div id="event_zone" loop="$r_doc_info=>$k,$v">
+			<a href="{$event_url[$v->document_srl]}"><img src="{$v->getThumbnail($f_event_size, 0, 'ratio')}" /></a>
+		</div>
+	</div>
+</div>
+
+<!-- 펼쳤을때 페이지 -->
+
+<div id="open_box" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<div id="t_box_close" onClick="t_box_close('#open_box')"></div>
+	<div id="box_fold"></div>
+
+	<div id="open_menu_box">
+		<div class="user_info">
+			<block cond="!$is_logged">
+				{$addon_info->charset}
+			</block>
+			<block cond="$is_logged">
+				<ul>
+					<li><span class="nick_name" title="{$logged_info->nick_name}">{$logged_info->nick_name}</span>{$lang->nurigo_detail_info}</li>
+					<li class="login_info" cond="$is_logged=='Y'">{$lang->cart_mileage} {$t_mileage} <span id="my_mileage"></span></li>
+				</ul>
+			</block>
+		</div><!-- //user_info -->
+		<div id="t_menu_wrap">
+			<ul id="cart_tab">
+				<li class="menu_cart" ><a href="#menu_cart">{$lang->cart_tab_quantity}</a></li>
+				<li class="menu_today"><a href="#menu_today">{$lang->cart_tab_recent}</a></li>
+				<li class="menu_wish" cond="$logged_info"><a href="#menu_wish">{$lang->cart_tab_wish}</a></li>
+			</ul>
+
+			<div id="menu_cart" class="content" >
+				<div id="cart_items" class="open_item_list"></div>
+			</div>
+			<div id="cart_total" class="e_total">
+				<ul>
+					<li>
+						<a href="#" onclick="XE.checkboxToggleAll('t_cart',{doClick:true}); return false;" >{$lang->cart_all_btn}</a>
+					</li>
+					<li>
+						<a href="#" onClick="del_items('t_cart'); return false">{$lang->cart_del_btn}</a>
+					</li>
+					<li class="total_pay">
+					{$lang->cart_total_amount}<span class="c_total"></span>
+					</li>
+				</ul>
+				
+			</div><!-- //total -->
+			
+			<div id="menu_wish" class="content" cond="$logged_info">
+				<div id="wish_items" class="open_item_list"></div>
+			</div>
+			<div id="wish_total" class="e_total">
+				<ul>
+					<li>
+						<a href="#" onclick="XE.checkboxToggleAll('wish',{doClick:true}); return false;" >{$lang->cart_all_btn}</a>
+					</li>
+					<li>
+						<a href="#" onClick="del_items('wish'); return false">{$lang->cart_del_btn}</a>
+					</li>
+				</ul>
+			</div><!-- //total -->	
+	
+			<div id="menu_today" class="content">
+				<div id='recent_items' class="open_item_list">
+					<div id='recent_arrow'>
+						<ul>	
+							<li class="emty_items" style="margin-left:0" >{$lang->cart_view_product}</li>
+						</ul>
+					</div><!-- //recent_arrow -->
+				</div>
+			</div>
+
+			<div id="recent_total" class="e_total">
+				<ul>
+					<li>
+						<a href="#" onclick="XE.checkboxToggleAll('lately_url',{doClick:true}); return false;" >{$lang->cart_all_btn}</a>
+					</li>
+					<li>
+						<a href="#" onClick="del_items('lately_url'); return false">{$lang->cart_del_btn}</a>
+					</li>
+				</ul>
+			</div><!-- //total -->	
+		</div><!-- //menu_wrap -->
+		
+		<div id="cart_wrap">
+			<div id="open_cart">
+				<a href="#" onClick="r_view('Cart'); return false">{$lang->nurigo_cart}</a>
+			</div>
+			
+			<div id="open_pay">
+				<a href="#" onClick="r_view('Wish'); return false">{$lang->nurigo_wishlist}</a>
+			</div>
+
+			<div id="open_wishlist">
+				<a href="#" onClick="r_view('Order'); return false">{$lang->nurigo_orderitems}</a>
+			</div>
+		</div><!-- //cart_wrap -->
+
+		<div id="event_zone" loop="$r_doc_info=>$k,$v" cond="$r_doc_info">
+			<a href="{$event_url[$v->document_srl]}"><img src="{$v->getThumbnail($o_event_size, 0, 'ratio')}" /></a>
+		</div>
+	</div><!-- //open_menu_box -->
+</div><!-- //open_box -->
+
+
+<script type="text/javascript">
+	xe.lang.empty_cart = '{$lang->empty_cart}';
+	xe.lang.empty_wish = '{$lang->empty_wish}';
+	xe.lang.empty_product = '{$lang->empty_wish}';
+	xe.lang.view_product = '{$lang->cart_view_product}';
+	xe.lang.quantity = '{$lang->quantity}';
+	xe.lang.change = '{$lang->change}';
+	xe.lang.purchase = '{$lang->purchase}';
+	
+	t_no_image = 'addons/trolley/img/no_image.png';
+</script>

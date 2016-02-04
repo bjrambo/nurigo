@@ -1,0 +1,25 @@
+<query id="getDisplayCategoryInfo" action="select">
+	<tables>
+		<table name="nproduct_display_categories" alias="cate" />
+		<table name="modules" alias="module" type="left join">
+			<conditions>
+				<condition operation="equal" column="module.module_srl" default="cate.module_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="module.mid" alias="mid" />
+		<column name="cate.category_srl" alias="category_srl" />
+		<column name="cate.module_srl" alias="module_srl" />
+		<column name="cate.category_name" alias="category_name" />
+		<column name="cate.list_order" alias="list_order" />
+		<column name="cate.thumbnail_width" alias="thumbnail_width" />
+		<column name="cate.thumbnail_height" alias="thumbnail_height" />
+		<column name="cate.num_columns" alias="num_columns" />
+		<column name="cate.num_rows" alias="num_rows" />
+		<column name="cate.regdate" alias="regdate" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="cate.category_srl" var="category_srl" notnull="notnull" />
+	</conditions>
+</query>

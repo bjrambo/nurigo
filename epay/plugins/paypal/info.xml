@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<title xml:lang="ko">paypal</title>
+	<description xml:lang="ko">paypal plugin</description>
+	<version>1.1</version>
+	<date>2013-07-19</date>
+	<author email_address="contact@nurigo.net" link="http://store.nurigo.net">
+		<name xml:lang="ko">NURIGO</name>
+	</author>
+	<license link="">Commercial</license>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">기본설정</title>
+			<var name="api_username" type="text">
+				<title xml:lang="ko">API User Name</title>
+				<description xml:lang="ko">Input API User Name</description>
+			</var>
+			<var name="api_password" type="text">
+				<title xml:lang="ko">API Password</title>
+				<description xml:lang="ko">Input password.</description>
+			</var>
+			<var name="api_signature" type="text">
+				<title xml:lang="ko">API Signature</title>
+				<description xml:lang="ko">Input API Signature.</description>
+			</var>
+			<var name="api_endpoint" type="text">
+				<title xml:lang="ko">API Endpoint</title>
+				<description xml:lang="ko">Input API Endpoint.</description>
+			</var>
+			<var name="paypal_url" type="text">
+				<title xml:lang="ko">Paypal URL</title>
+				<description xml:lang="ko">Input Paypal URL</description>
+			</var>
+			<var name="currency_code" type="select">
+				<title xml:lang="ko">통화선택</title>
+				<description />
+				<options value="">
+					<title xml:lang="ko">선택하세요</title>
+				</options>
+
+
+
+				<options value="AUD">
+					<title xml:lang="ko">Australian Dollar</title>
+				</options>
+				<options value="GBP">
+					<title xml:lang="ko">British Pound (£)</title>
+				</options>
+				<options value="BRL">
+					<title xml:lang="ko">Brazilian Real (only for Brazilian members)</title>
+				</options>
+				<options value="CAD">
+					<title xml:lang="ko">Canadian Dollar</title>
+				</options>
+				<options value="CZK">
+					<title xml:lang="ko">Czech Koruna</title>
+				</options>
+				<options value="DKK">
+					<title xml:lang="ko">Danish Krone</title>
+				</options>
+				<options value="EUR">
+					<title xml:lang="ko">Euro</title>
+				</options>
+				<options value="HKD">
+					<title xml:lang="ko">Hong Kong Dollar ($)</title>
+				</options>
+				<options value="HUF">
+					<title xml:lang="ko">Hungarian Forint</title>
+				</options>
+				<options value="ILS">
+					<title xml:lang="ko">Israeli New Shekel</title>
+				</options>
+				<options value="JPY">
+					<title xml:lang="ko">Japanese Yen (¥)</title>
+				</options>
+				<options value="MXN">
+					<title xml:lang="ko">Mexican Peso</title>
+				</options>
+				<options value="MYR">
+					<title xml:lang="ko">Malaysian Ringgit (only for Malaysian members)</title>
+				</options>
+				<options value="NOK">
+					<title xml:lang="ko">Norwegian Krone</title>
+				</options>
+				<options value="NZD">
+					<title xml:lang="ko">New Zealand Dollar ($)</title>
+				</options>
+				<options value="PHP">
+					<title xml:lang="ko">Philippine Peso</title>
+				</options>
+				<options value="PLN">
+					<title xml:lang="ko">Polish Zloty</title>
+				</options>
+				<options value="GBP">
+					<title xml:lang="ko">Pound Sterling</title>
+				</options>
+				<options value="SGD">
+					<title xml:lang="ko">Singapore Dollar ($)</title>
+				</options>
+				<options value="SEK">
+					<title xml:lang="ko">Swedish Krona</title>
+				</options>
+				<options value="CHF">
+					<title xml:lang="ko">Swiss Franc</title>
+				</options>
+				<options value="THB">
+					<title xml:lang="ko">Thai Baht</title>
+				</options>
+				<options value="TRY">
+					<title xml:lang="ko">Turkish Lira (only for Turkish members)</title>
+				</options>
+				<options value="TWD">
+					<title xml:lang="ko">New Taiwan Dollar</title>
+				</options>
+				<options value="USD">
+					<title xml:lang="ko">U.S. Dollar ($)</title>
+				</options>
+			</var>
+			<var name="conversion_rate" type="text">
+				<title xml:lang="ko">변환환율</title>
+				<description xml:lang="ko">기준통화 대비 결제시 사용할 통화의 환율을 입력하세요.</description>
+			</var>
+			<var name="display_price" type="select">
+				<title xml:lang="ko">결제금액 출력</title>
+				<description xml:lang="ko">하단에 결제금액을 출력합니다.</description>
+				<options value="N">
+					<title xml:lang="ko">미출력</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">출력</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">옵션사항</title>
+			<var name="logo_image" type="image">
+				<title xml:lang="ko">로고이미지</title>
+				<description xml:lang="ko">최대 가로 750px, 세로 90px</description>
+			</var>
+			<var name="guide_text" type="text">
+				<title xml:lang="ko">안내문구</title>
+				<description xml:lang="ko">하단에 출력될 안내문구를 입력하세요.</description>
+			</var>
+			<var name="minimum_transactions" type="text">
+				<title xml:lang="ko">최소거래</title>
+				<description xml:lang="ko">설정하는 최소거래 갯수 이상일 때 결제 가능하도록 설정합니다.</description>
+			</var>
+		</group>
+	</extra_vars>
+</plugin>

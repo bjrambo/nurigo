@@ -1,0 +1,32 @@
+<table name="epay_transactions">
+	<column name="transaction_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="epay_module_srl" type="number" size="11" notnull="notnull" index="idx_epay_module_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="plugin_srl" type="number" size="11" notnull="notnull" index="idx_plugin_srl" />
+	<column name="target_module" type="varchar" size="80" />
+
+	<column name="order_srl" type="number" size="11" notnull="notnull" index="idx_order_srl" />
+	<column name="order_title" type="varchar" size="250" />
+
+	<!-- CC: Credit Card, BT: Bank Transfer, IB: Internet Banking, VA: Virtual Account , MP: Mobile Payment, PP: Paypal, ZP: Zeropay -->
+	<column name="payment_method" type="varchar" size="2" />
+	<column name="payment_amount" type="number" size="11" default="0" notnull="notnull" />
+
+	<!-- purchaser info -->
+	<column name="p_member_srl" type="number" size="11" index="idx_member_srl" />
+	<column name="p_user_id" type="varchar" size="80" />
+	<column name="p_name" type="varchar" size="40" />
+	<column name="p_email_address" type="varchar" size="250" />
+
+	<!-- P/G return values -->
+	<column name="result_code" type="varchar" size="64" />
+	<column name="result_message" type="varchar" size="250" />
+	<column name="pg_tid" type="varchar" size="250" />
+
+	
+	<!-- 1: not completed, 2: completed(success), 3: completed(failure) -->
+	<column name="state" type="char" size="1" />
+
+	<column name="extra_vars" type="text" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+</table>

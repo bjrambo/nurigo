@@ -1,0 +1,24 @@
+<query id="getCategoryInfo" action="select">
+	<tables>
+		<table name="nproduct_categories" alias="cate" />
+		<table name="modules" alias="module" type="left join">
+			<conditions>
+				<condition operation="equal" column="module.module_srl" default="cate.module_srl" />
+			</conditions>
+		</table>
+	</tables>
+	<columns>
+		<column name="module.mid" alias="mid" />
+		<column name="cate.node_id" />
+		<column name="cate.node_route" />
+		<column name="cate.node_route_text" />
+		<column name="cate.module_srl" />
+		<column name="cate.category_name" />
+		<column name="cate.list_order" />
+		<column name="cate.regdate" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="cate.node_id" var="node_id" notnull="notnull" />
+	</conditions>
+	<navigation />
+</query>

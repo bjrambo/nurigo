@@ -1,0 +1,13 @@
+<query id="getReviewCount" action="select">
+    <tables>
+        <table name="store_review" />
+    </tables>
+    <columns>
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" filter="number" />        
+		<condition operation="in" column="module_srl" var="module_srl" filter="number" pipe="and" />
+		<condition operation="like_prefix" column="regdate" var="regDate" pipe="and" />
+    </conditions>
+</query>

@@ -1,0 +1,6 @@
+.taxbill {font:dotum 8pt; letter-spacing:0;}
+.taxbill .taxbill_tab { border-collapse: collapse; border: solid #0000ff 1px; color: #0000ff; width: 100%; padding: 3px; text-align:center;}
+.taxbill .taxbill_tab td { border: solid #0000ff 1px; }
+.taxbill .taxbill_text { color: #363636; }
+.taxbill .print { text-align:center; }
+.taxbill table td { padding:2px; }

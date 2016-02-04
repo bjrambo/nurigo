@@ -1,0 +1,149 @@
+<load target="js/mileagelist.js" />
+<include target="_header.html" />
+
+<div class="table even easyList">
+	<table>
+		<thead>
+			<th>{$lang->regdate}</th>
+			<th>{$lang->user_id}</th>
+			<th>{$lang->nick_name}</th>
+			<th>{$lang->mileage}</th>
+		</thead>
+		<tbody>
+			<tr loop="$list=>$key,$val">
+				<td>{zdate($val->regdate)}</td> 
+				<td>{$val->user_id}</td> 
+				<td>{$val->nick_name}</td> 
+				<td><a href="{getUrl('act','dispNmileageAdminMileageHistory','member_srl',$val->member_srl)}"><span cond="$config->mileage_method=='nmileage'">{number_format($val->mileage)}</span><span cond="$config->mileage_method=='point'">{number_format($val->point)}</span></a></td> 
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div class="search">
+	<form action="" class="pagination" method="post">
+		<input type="hidden" name="error_return_url" value="" />
+		<input type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="{$act}" />
+		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+
+		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<a href="{getUrl('page', '')}">1</a>
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+		</block>
+
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<strong cond="$page_no == $page">{$page_no}</strong>
+			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+		<!--@end-->
+
+		<block cond="$last_page != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+		</block>
+
+		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+	</form>
+	<form cond="0" action="" method="post">
+		<select name="search_target">
+			<option value="">{$lang->search_target}</option>
+			{@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+			<option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+		</select>
+		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+		<input type="submit" value="{$lang->cmd_search}" />
+		<a href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+	</form>
+</div>
+
+
+<div class="btnArea">
+	<a href="#plusMileage" class="x_btn modalAnchor plusMileage">{$lang->cmd_plus}</a>
+	<a href="#minusMileage" class="x_btn modalAnchor minusMileage">{$lang->cmd_minus}</a>
+</div>
+
+<form action="./" id="plusMileage" class="x_modal" method="post" ruleset="insertMileage">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNmileageAdminPlusMileage" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="search_target" value="{$search_target}" />
+	<input type="hidden" name="search_keyword" value="{$search_keyword}" />
+	<div class="x_modal-header">
+		<h1>{$lang->cmd_plus}</h1>
+	</div>
+	<div class="x_modal-content x_form-horizontal">
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_user_id">{$lang->user_id}</label>
+		   	<div class="x_controls">
+				<input type="text" id="plus_user_id" name="user_id" class="user_id" value="" />
+				<div class="user_id_help"></div>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_mileage">{$lang->mileage}</label>
+			<div class="x_controls">
+				<input type="text" name="mileage" value="" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_title">{$lang->memo}</label>
+			<div class="x_controls">
+				<input type="text" name="memo" value="" />
+			</div>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_plus}</button>
+	</div>
+</form>
+
+<form action="./" id="minusMileage" class="x_modal" method="post" ruleset="insertMileage">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNmileageAdminMinusMileage" />
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="search_target" value="{$search_target}" />
+	<div class="x_modal-header">
+		<h1>{$lang->cmd_minus}</h1>
+	</div>
+	<div class="x_modal-content x_form-horizontal">
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_user_id">{$lang->user_id}</label>
+		   	<div class="x_controls">
+				<input type="text" id="plus_user_id" name="user_id" class="user_id" value="" />
+				<div class="user_id_help"></div>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_mileage">{$lang->mileage}</label>
+			<div class="x_controls">
+				<input type="text" name="mileage" value="" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="plus_title">{$lang->memo}</label>
+			<div class="x_controls">
+				<input type="text" name="memo" value="" />
+			</div>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_minus}</button>
+	</div>
+</form>
+
+<include target="_search_bar.html" />

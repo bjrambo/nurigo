@@ -1,0 +1,24 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->order_management}
+		<span class="path" cond="$module_info->mid">
+			&gt; <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" target="_blank"|cond="$module=='admin'">{$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block></a>
+		</span>
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
+<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<li class="x_active"|cond="$act=='dispNstoreAdminOrderManagement'" ><a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminOrderManagement')}">{$lang->order_management}</a></li>
+	<li cond="$order_srl" class="x_active"|cond="$act=='dispNstoreAdminOrderDetail'" ><a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminOrderDetail','order_srl',$order_srl)}">{$lang->order_details}</a></li>
+	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminModInstList'" ><a href="{getUrl('','module',$module,'act','dispNstoreAdminModInstList')}">{$lang->page_list}</a></li>
+	<li cond="!$mid && $module_srl" class="x_active"><a href="{getUrl('act','dispNstoreAdminItemList')}">{$module_info->mid} {$lang->page_management}</a></li>
+	<li cond="!$mid" lass="x_active"|cond="$act=='dispNstoreAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispNstoreAdminInsertModInst')}">{$lang->page_creation}</a></li>
+	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminConfig'"><a href="{getUrl('','module',$module,'act','dispNstoreAdminConfig')}">{$lang->basic_setting}</a></li>
+</ul>
+<ul cond="!$mid && $module_srl" class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act=='dispNstoreAdminInsertModInst'"><a href="{getUrl('act','dispNstoreAdminInsertModInst')}">{$lang->page_configuration}</a></li>
+	<li class="x_active"|cond="$act=='dispNstoreAdminSkinInfo' && $module_info->skin"><a href="{getUrl('act','dispNstoreAdminSkinInfo')}">{$lang->skin_settings}</a></li>
+	<li cond="$module_info->use_mobile=='Y' && $module_info->mskin" class="x_active"|cond="$act=='dispNstoreAdminMobileSkinInfo'"><a href="{getUrl('act','dispNstoreAdminMobileSkinInfo')}">{$lang->mobile_skin}</a></li>
+	<li class="x_active"|cond="$act=='dispNstoreAdminGrantInfo' && $module_info->skin"><a href="{getUrl('act','dispNstoreAdminGrantInfo')}">{$lang->grant}</a></li>
+</ul>

@@ -1,0 +1,27 @@
+<table name="ncart">
+	<column name="cart_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="module" type="varchar" size="250" index="idx_module" />
+	<column name="order_srl" type="number" size="11" default="0" index="idx_order_srl" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="item_srl" type="number" size="11" notnull="notnull" index="idx_item_srl" />
+	<column name="item_code" type="varchar" size="250" notnull="notnull" />
+	<column name="item_name" type="varchar" size="250" notnull="notnull" />
+	<column name="document_srl" type="number" size="11" notnull="notnull" />
+	<column name="file_srl" type="number" size="11" />
+	<column name="thumb_file_srl" type="number" size="11" />
+	<column name="quantity" type="number" size="11" default="0" notnull="notnull" />
+	<column name="price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="taxfree" type="char" size="1" default="N" notnull="notnull" />
+	<!-- 0: 카트보관, 1: 입금대기, 2:배송준비, 3: 배송중, 4: 배송완료, A: 최소, B: 반품,교환, C: 환불 -->
+	<column name="order_status" type="char" size="1" default="0" notnull="notnull" index="idx_order_status" />
+	<column name="discount_amount" type="number" size="11" default="0" notnull="notnull" />
+	<column name="discount_info" type="varchar" size="250" />
+	<column name="discounted_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="purdate" type="date" notnull="notnull" index="idx_purdate" />
+	<column name="option_srl" type="number" size="11" default="0" notnull="notnull" />
+	<column name="option_price" type="number" size="11" default="0" notnull="notnull" />
+	<column name="option_title" type="varchar" size="250" />
+	<column name="non_key" type="varchar" size="250" />
+	<column name="regdate" type="date" notnull="notnull" />
+</table>

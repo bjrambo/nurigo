@@ -1,0 +1,30 @@
+<query id="insertCartItem" action="insert">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="cart_srl" var="cart_srl" filter="number" notnull="notnull" />
+		<column name="module" var="module" notnull="notnull" />
+		<column name="item_srl" var="item_srl" notnull="notnull" />
+		<column name="item_name" var="item_name" notnull="notnull" />
+		<column name="item_code" var="item_code" notnull="notnull" />
+		<column name="document_srl" var="document_srl" notnull="notnull" />
+		<column name="file_srl" var="file_srl" />
+		<column name="thumb_file_srl" var="thumb_file_srl" />
+		<column name="member_srl" var="member_srl" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="quantity" var="quantity" notnull="notnull" />
+		<column name="price" var="price" notnull="notnull" />
+		<column name="taxfree" var="taxfree" notnull="notnull" />
+		<column name="discount_amount" var="discount_amount" />
+		<column name="discount_info" var="discount_info" />
+		<column name="discounted_price" var="discounted_price" />
+		<column name="express_id" var="express_id" />
+		<column name="option_srl" var="option_srl" default="0" />
+		<column name="option_price" var="option_price" default="0" />
+		<column name="option_title" var="option_title" default="" />
+		<column name="purdate" var="purdate" default="curdate()" />
+		<column name="regdate" var="regdate" default="curdate()" />
+		<column name="non_key" var="non_key" />
+	</columns>
+</query>

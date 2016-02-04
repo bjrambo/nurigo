@@ -1,0 +1,10 @@
+<query id="insertExtra" action="insert">
+	<tables>
+		<table name="nstore_digital_extra" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" notnull="notnull" />
+		<column name="cart_srl" var="cart_srl" notnull="notnull" />
+		<column name="period" var="period" />
+	</columns>
+</query>

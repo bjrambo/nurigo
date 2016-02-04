@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="dispCashpayAdminModInstList" type="view" admin_index="true" />
+		<action name="dispCashpayAdminInsertModInst" type="view" />
+
+		<action name="procCashpayAdminInsertModInst" type="controller" />
+
+		<action name="dispCashpayForm" type="view" />
+		<action name="getCashpayForm" type="model" />
+		<action name="procCashpayDoIt" type="controller" ruleset="requestPayment" />
+	</actions>
+</module>

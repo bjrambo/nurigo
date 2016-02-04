@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>LG유플러스 전자결제 샘플 페이지 (XPay)</title>
+</head>
+<body>
+<form method="post" id="LGD_PAYINFO" action="payreq.php">
+    <div>
+        <table>
+            <tr>
+                <td>상점아이디(t를 제외한 아이디) </td>
+                <td><input type="text" name="CST_MID" value=""/></td>
+            </tr>
+            <tr>
+                <td>서비스,테스트 </td>
+                <td><input type="text" name="CST_PLATFORM" value="test"/></td>
+            </tr>
+            <tr>
+                <td>구매자 이름 </td>
+                <td><input type="text" name="LGD_BUYER" value="홍길동"/></td>
+            </tr>
+            <tr>
+                <td>구매자IP</td>
+                <td><input type="text" name="LGD_BUYERIP" value=""/></td>
+            </tr>
+            <tr>
+                <td>구매자ID </td>
+                <td><input type="text" name="LGD_BUYERID" value=""/></td>
+            </tr>
+            <tr>
+                <td>상품정보 </td>
+                <td><input type="text" name="LGD_PRODUCTINFO" value="myLG070-인터넷전화기"/></td>
+            </tr>
+            <tr>
+                <td>결제금액 </td>
+                <td><input type="text" name="LGD_AMOUNT" value="50000"/></td>
+            </tr>
+            <tr>
+                <td>구매자 이메일 </td>
+                <td><input type="text" name="LGD_BUYEREMAIL" value=""/></td>
+            </tr>
+            <tr>
+                <td>주문번호 </td>
+                <td><input type="text" name="LGD_OID" value="test_1234567890020"/></td>
+            </tr>
+            <tr>
+                <td>타임스탬프 </td>
+                <td><input type="text" name="LGD_TIMESTAMP" value="1234567890"/></td>
+            </tr>           
+            
+            <tr>
+                <td>
+                <input type="submit" value="결제하기" /><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

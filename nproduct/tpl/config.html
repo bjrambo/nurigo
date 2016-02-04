@@ -1,0 +1,48 @@
+<!--%import("js/script.js")-->
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form action="./" method="post" class="form" enctype="multipart/form-data">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNproductAdminConfig" />
+
+	<fieldset class="section">
+		<h1>{$lang->currency_settings}</h1>
+		<ul>
+			<li>
+				<p class="q">{$lang->select_currency}</p>
+				<p class="a">
+					<select name="currency">
+						<option loop="$lang->currency_list=>$code,$val" value="{$code}" selected="selected"|cond="$config->currency==$code">{$val}</option>
+					</select>
+				</p>
+				<p class="desc">{$lang->about_select_currency}</p>
+			</li>
+			<li>
+			<p class="q">{$lang->currency_format}</p>
+				<p class="a">
+					<select name="as_sign">
+						<option value="Y" selected="selected"|cond="$config->as_sign=='Y'">$ 1,234</option>
+						<option value="N" selected="selected"|cond="$config->as_sign=='N'">1,234 USD</option>
+					</select>
+				</p>
+				<p class="desc">{$lang->about_currency_format}</p>
+			</li>
+			<li>
+				<p class="q">{$lang->decimal_place}</p>
+				<p class="a">
+					<input type="text" name="decimals" value="{$config->decimals}" />
+				</p>
+				<p class="desc">{$lang->about_decimal_place}</p>
+			</li>
+		</ul>
+	</fieldset>
+
+	<div class="btnArea">
+		<button type="submit" class="x_btn">{$lang->cmd_registration}</button>
+	</div>
+
+</form>

@@ -1,0 +1,121 @@
+<load target="js/periodmanagement.js" />
+<include target="_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+
+<div style="margin-bottom:20px;">
+	<a href="{getUrl('status','1')}" class="active"|cond="$status=='1'">입금대기</a> <i>|</i>
+	<a href="{getUrl('status','2')}" class="active"|cond="$status=='2'">입금완료</a> <i>|</i>
+</div>
+
+<form id="searchForm" action="./" method="get" class="x_input-append" >
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="status" value="{$status}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<select name="search_key">
+		<option value="email_address" selected="selected"|cond="$search_key=='email_address'">{$lang->email_address}</option>
+		<option value="nick_name" selected="selected"|cond="$search_key=='nick_name'">{$lang->nick_name}</option>
+	</select>
+	<input type="text" name="search_value" value="{$search_value}" />
+	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_find}</button>
+</form>
+
+<form action="./" method="post" id="fo_orderlist">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procNstore_digitalAdminUpdatePeriodStatus" />
+	<input type="hidden" name="status" value="{$status}"/>
+
+	<div id="orderlist" class="table even easyList">
+		<table class="x_table x_table-striped x_table-hover" summary="주문관리내역">
+			<thead style="clear:both;">
+				<tr>
+					<th scope="col"><input type="checkbox" title="Check All" id="check_all" /></th>
+					<th scope="col">주문일</th>
+					<th scope="col">카트번호</th>
+					<th scope="col">상품명</th>
+					<th scope="col">시작일</th>
+					<th scope="col">만료일</th>
+					<th scope="col">품목</th>
+					<th scope="col">결제금액</th>
+					<th scope="col">구매자</th>
+				</tr>
+			</thead>
+			{@$total_price=0}
+			<tbody>
+				<tr loop="$list=>$no,$order">
+					<td><input type="hidden" name="order_srls[]" value="{$order->order_srl}" /><input type="checkbox" name="cart[]" value="{$order->period_srl}" /><input type="hidden" name="cart_srls[]" value="{$order->cart_srl}" /></td>
+					<td>
+						<div>{zdate($order->regdate,'Y-m-d')}</div>
+						<div>주문번호({$order->order_srl})</div>
+					</td>
+					<td><span>{$order->cart_srl}</span></td>
+					<td><span>{$order->item_name}</span></td>
+					<td><span>{zdate($order->start_date,'Y-m-d')}</span></td>
+					<td><span>{zdate($order->end_date,'Y-m-d')}</span></td>
+					<td>{number_format($order->item_count)}</td>
+					<td>{nproductItem::formatMoney($order->total_price)}</td>
+					<td cond="$order->nick_name">{$order->nick_name}</td>
+					{@$total_price+=$order->price}
+				</tr>
+				<tr cond="!count($list)">
+					<td colspan="9">주문 내역이 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="x_control-group x_input-append">
+			{@unset($order_status['0'])}
+			<div class="x_controls">
+				<label class="x_control-label x_inline">선택한 주문을</label>
+				<select name="order_status">
+					<option value="1">입금대기</option>
+					<option value="2" selected="selected"|cond="$status=='1'">입금완료</option>
+					<option value="Z">삭제</option>
+				</select>
+				<button class="x_btn x_btn-inverse" onclick="update_status();return false;">{$lang->cmd_apply}</button>
+			</div><!-- //x_controls -->
+		</div><!-- //x_control-group -->
+	</div><!-- //orderlist -->
+</form>
+
+<include target="_page_navigation.html" />
+
+<div class="x_modal" id="deletePeriods">
+        <form action="./" class="fg form" method="post">
+                <input type="hidden" name="module" value="nstore_digital" />
+                <input type="hidden" name="act" value="procNstore_digitalAdminDeletePeriod" />
+                <input type="hidden" name="module_srl" value="{$module_srl}" />
+                <input type="hidden" name="status" value="{$status}" />
+                <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+                <div id="deleteForm">
+                </div>
+        </form>
+</div>
+
+<span style="display:none;"><a href="#deletePeriods" class="modalAnchor deletePeriods">Hidden Button For Delete</a></span>
+
+<script>
+	function update_status() {
+		var order_status = jQuery('select[name=order_status]').val();
+		if (order_status == 'Z') {
+			jQuery('a.modalAnchor.deletePeriods').trigger('open.mw');
+		} else {
+			var $fo = jQuery('#fo_orderlist');
+			$fo.submit();
+		}
+	}
+
+	(function($){
+		$('#check_all')
+			.bind('click', function(e){
+				if (this.checked){
+					$('input[name=cart\\[\\]]').attr('checked', 'checked');
+				}else{
+					$('input[name=cart\\[\\]]').removeAttr('checked');
+				}
+			});
+	})(jQuery);
+</script>

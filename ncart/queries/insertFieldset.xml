@@ -1,0 +1,12 @@
+<query id="insertFieldset" action="insert">
+	<tables>
+		<table name="ncart_orderform_fieldsets" />
+	</tables>
+	<columns>
+		<column name="fieldset_srl" var="fieldset_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" notnull="notnull" />
+		<column name="fieldset_title" var="fieldset_title" />
+		<column name="list_order" var="list_order" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>

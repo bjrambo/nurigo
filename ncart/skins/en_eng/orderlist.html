@@ -1,0 +1,101 @@
+<load target="css/style.css" />
+<load target="css/btn.css" />
+<load target="css/orderlist.css" />
+<load target="../../tpl/skin.js/script.js" />
+<load target="../../tpl/skin.js/escrow.js" />
+<!--%load_js_plugin("ui")-->
+<include target="header.html" />
+
+<div id="orderlist" class="{$module_info->colorset}">
+	<div class="cartStep">
+		<p class="progress"></p>
+	</div>
+	<include target="_header.html" />
+
+	<form id="fo_search" action="./" method="post">
+		<table class="period" cond="$logged_info">
+			<tr>
+				<td rowspan="2" class="title">
+					{$lang->search_period}
+				</td>
+				<td>
+					<ul>
+						<li><a href="#" class="nuribtn small" onclick="change_period(7,0); return false;"><span>{$lang->one_week}</span></a></li>
+						<li><a href="#" class="nuribtn small" onclick="change_period(0,1); return false;"><span>{$lang->one_months}</span></a></li>
+						<li><a href="#" class="nuribtn small" onclick="change_period(0,3); return false;"><span>{$lang->three_months}</span></a></li>
+						<li><a href="#" class="nuribtn small" onclick="change_period(0,6); return false;"><span>{$lang->six_months}</span></a></li>
+						<li><a href="#" class="nuribtn small" onclick="change_period(0,12); return false;"><span>{$lang->twelve_months}</span></a></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="hidden" name="startdate" value="{$startdate}" /><input type="text" id="startdateInput" class="inputDate" value="{zdate($startdate,'Y-m-d')}" /> ~ <input type="hidden" name="enddate" value="{$enddate}" /><input type="text" id="enddateInput" class="inputDate" value="{zdate($enddate,'Y-m-d')}" />
+					<input type="submit" value="조회" class="nuribtn green small" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<table class="item-table">
+		<thead>
+			<tr>
+				<th>{$lang->purchase_date}</th>
+				<th>{$lang->item}</th>
+				<th>{$lang->product_name}</th>
+				<th>{$lang->quantity}</th>
+				<th>{$lang->amount}</th>
+				<th>{$lang->order_status}</th>
+				<th cond="0">{$lang->details}</th>
+			</tr>
+		</thead>
+		{@$total_price=0}
+		<tbody>
+			<block loop="$order_list=>$order_srl,$order_arr">
+			<tr loop="$order_arr=>$no,$val" class="gt2"|cond="count($order_arr)>1">
+				<td cond="$no==0" rowspan="{count($order_arr)}">
+					<div>{zdate($val->purdate,'Y-m-d')}</div>
+					<div cond="0">(<a href="{getUrl('act','dispNstoreOrderDetail','order_srl',$val->order_srl)}">{$val->order_srl}</a>)</div>
+				</td>
+				<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($config->order_thumbnail_width,$config->order_thumbnail_height,$config->order_thumbnail_type)}" /></a></td>
+				<td>
+					<div>{$val->item_name}</div>
+					<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($val->option_price)})</div>
+				</td>
+				<td>{number_format($val->quantity)}</td>
+				<td>{nproductItem::formatMoney($val->quantity * $val->discounted_price)}</td>
+				<td class="ko_text">
+					<div class="ko_text red">{$order_status[$val->order_status]}</div>
+					<a cond="in_array($val->order_status,array('3','4'))" href="{$delivery_inquiry_urls[$val->express_id]}{$val->invoice_no}" class="nuribtn" target="_blank"><span>{$lang->cmd_trace_delivery}</span></a>
+					<span class="escrow" data-order-srl="{$val->order_srl}"><a cond="in_array($val->order_status,array('3','4'))" href="#" id="escrow_{$val->order_srl}" onclick="window.open('{getUrl('act','dispNstoreEscrowConfirm','order_srl',$val->order_srl)}', 'popup', 'left=50, top=20, width=500, scrollbars=yes, height=400, toolbars=no'); return false;" target="_blank"><img src="./img/loading.gif" /></a></span>
+				</td>
+				<td cond="0"><a href="{getUrl('act','dispNstoreOrderDetail','order_srl',$val->order_srl)}" class="nuribtn"><span>{$lang->order_details}</span></a></td>
+				{@$total_price+=$val->price}
+			</tr>
+			</block>
+			<tr cond="!count($order_list)">
+				<td colspan="7">{$lang->msg_no_orders}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<include target="footer.html" />
+<script type="text/javascript">
+(function($){
+	$(function(){
+		var option = { changeMonth: true, changeYear: true, gotoCurrent: false,yearRange:'-100:+10', dateFormat:'yy-mm-dd', onSelect:function(){
+
+			$(this).prev('input[type="hidden"]').val(this.value.replace(/-/g,""))}
+		};
+		$.extend(option,$.datepicker.regional['{$lang_type}']);
+		$(".inputDate").datepicker(option);
+		$(".dateRemover").click(function() {
+			$(this).parent().prevAll('input').val('');
+			return false;
+		});
+		$('.escrow').escrow();
+	});
+})(jQuery);
+</script>
+

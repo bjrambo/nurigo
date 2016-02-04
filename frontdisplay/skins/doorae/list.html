@@ -1,0 +1,38 @@
+<load target="css/style.css" />
+<load target="js/script.js" />
+
+<div id="doorae" class="page">
+	<ul class="tablistTab">
+		{@$i=0}
+		<li loop="$display_categories=>$cate_key,$cate_val" class="active"|cond="$i==0"><a href="" onmouseover="tablist_show(jQuery(this),jQuery(this).parents('ul.tablistTab').next('div.tablistDivider'),{$i++})">{$cate_val->category_name}</a></li>
+{@$i++}
+	</ul>
+	<div class="tablistDivider">
+		{@$cate_count=0}
+		<ul loop="$display_categories=>$cate_key,$cate_val" class="item-list"|cond="$cate_count!=0" class="item-list open"|cond="$cate_count==0">
+			{@$count=0}
+			<li loop="$cate_val->items=>$no,$val" id="item_{$val->item_srl}" style="clear:both;"|cond="($count % $widget_info->num_columns)==0" >
+				<div class="item_image">
+					<a class="item_name" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">
+						<img src="{$val->getThumbnail($widget_info->thumbnail_width,$widget_info->thumbnail_height)}" alt="{$val->item_name}" />
+					</a>
+				</div>
+				<div class="item_summary">
+					<div>
+						<a class="item_name" href="{getUrl('mid',$cate_val->mid,'document_srl',$val->document_srl)}">{cut_str($val->item_name, $widget_info->title_length)}</a>
+					</div>
+					<div>
+						<span>{$val->getExtraVarValue('author')}</span> 저 
+						<span>{$val->getExtraVarValue('company')}</span> | 
+						<span>{$val->getExtraVarValue('date')}</span>
+					</div>
+					<div>
+						<span class="item_price"><strong>{$val->printDiscountedPrice()}</strong></span>
+					</div>
+				</div>
+				{@$count+=1}
+			</li>
+			{@$cate_count++}
+		</ul><!-- //item-list -->
+	</div><!-- //tablistDivider -->	
+</div><!-- //tablist -->

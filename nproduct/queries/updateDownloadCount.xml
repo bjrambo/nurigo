@@ -1,0 +1,11 @@
+<query id="updateDownloadCount" action="update">
+	<tables>
+		<table name="nproduct_items" />
+	</tables>
+	<columns>
+		<column name="download_count" default="plus(1)" />
+	</columns>
+	<conditions>
+		<condition operation="in" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

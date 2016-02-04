@@ -1,0 +1,8 @@
+<query id="deleteQuantityDiscount" action="delete">
+	<tables>
+		<table name="nproduct_quantity_discount" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="item_srl" var="item_srl" notnull="notnull" />
+	</conditions>
+</query>

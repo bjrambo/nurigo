@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+        <permissions>
+                <permission action="dispEpayAdminTransactions" target="manager" />
+                <permission action="procEpayAdminUpdateState" target="manager" />
+        </permissions>
+	<actions>
+		<action name="dispEpayAdminEpayList" type="view" />
+		<action name="dispEpayAdminInsertEpay" type="view" />
+		<action name="dispEpayAdminPluginList" type="view" />
+		<action name="dispEpayAdminInsertPlugin" type="view" />
+		<action name="dispEpayAdminUpdatePlugin" type="view" />
+		<action name="dispEpayAdminTransactions" type="view" admin_index="true" />
+		<action name="dispEpayAdminSkinInfo" type="view" />
+		<action name="dispEpayAdminMobileSkinInfo" type="view" />
+		<action name="dispEpayAdminGrantInfo" type="view" />
+
+		<action name="procEpayAdminInsertEpay" type="controller" />
+		<action name="procEpayAdminInsertPlugin" type="controller" />
+		<action name="procEpayAdminUpdatePlugin" type="controller" />
+		<action name="procEpayAdminDeletePlugin" type="controller" />
+		<action name="procEpayAdminDeleteModInst" type="controller" />
+		<action name="procEpayAdminUpdateState" type="controller" ruleset="updateState" />
+
+		<action name="getEpayAdminDeletePlugin" type="model" />
+		<action name="getEpayAdminDeleteModInst" type="model" />
+
+		<action name="dispEpayExtra1" type="view" />
+		<action name="dispEpayExtra2" type="view" />
+		<action name="dispEpayExtra3" type="view" />
+		<action name="dispEpayExtra4" type="view" />
+		<action name="dispEpayTransaction" type="view" index="true" />
+		<action name="dispEpayError" type="view" />
+
+		<action name="procEpayReviewOrder" type="controller" />
+		<action name="procEpayExtra1" type="controller" />
+		<action name="procEpayExtra2" type="controller" />
+		<action name="procEpayExtra3" type="controller" />
+		<action name="procEpayExtra4" type="controller" />
+		<action name="procEpayDoPayment" type="controller" method="GET|POST" />
+		<action name="procEpayReport" type="controller" />
+		<action name="procEpayEscrowDelivery" type="controller" />
+		<action name="procEpayEscrowConfirm" type="controller" />
+
+		<action name="getEpayReceipt" type="model" />
+		<action name="getEpaySalesData" type="model" />
+		<action name="getEpayCheckUserId" type="model" />
+	</actions>
+</module>

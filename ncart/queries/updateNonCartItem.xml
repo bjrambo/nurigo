@@ -1,0 +1,13 @@
+<query id="updateNonCartItem" action="update">
+	<tables>
+		<table name="ncart" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" />
+		<column name="non_key" var="del_non_key" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="non_key" var="non_key" notnull="notnull" />
+		<condition operation="equal" column="order_status" default="0" pipe="and" />
+	</conditions>
+</query>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+	<permissions>
+	</permissions>
+	<actions>
+		<!--admin -->
+		<action name="dispStore_searchAdminContent" type="view" admin_index="true" />	
+		<action name="dispStore_searchAdminSkinInfo" type="view" />	
+		<action name="dispStore_searchAdminView" type="view" />	
+
+		<action name="procStore_searchAdminInsertConfig" type="controller" />
+		<action name="procStore_searchAdminDel" type="controller" />
+
+		
+		<!--member -->
+		<!--<action name="dispTestView" type="view" index="true" /> -->
+	</actions>
+</module>
