@@ -1,3 +1,0 @@
-skip:demo_module.xml
-skip:module.xml
-move:org_module.xml > module.xml

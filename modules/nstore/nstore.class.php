@@ -40,7 +40,7 @@ class nstore extends ModuleObject
 			,'60'=>'KGB택배'
 		);
 		var $delivery_inquiry_urls = array(
-			'16'=>'http://www.kdexp.com/sub4_1.asp?stype=1&p_item='
+			'16'=>'http://www.kdexp.com/sub3_shipping.asp?stype=1&p_item='
 			,'18'=>'http://home.daesinlogistics.co.kr/daesin/jsp/d_freight_chase/d_general_process2.jsp?billno1='
 			,'20'=>'https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no='
 			,'22'=>'http://www.dongbups.com/newHtml/delivery/dvsearch_View.jsp?item_no='
