@@ -13,6 +13,6 @@
 		<action name="procInipaymobileAdminInsertModInst" type="controller" />
 
 		<action name="dispInipaymobileForm" type="view" />
-		<action name="procInipaymobile" type="controller" method="GET|POST" index="true" />
+		<action name="procInipaymobile" type="controller" method="GET|POST" index="true" check_csrf="false" />
 	</actions>
 </module>

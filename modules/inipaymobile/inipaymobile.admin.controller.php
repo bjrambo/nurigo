@@ -98,7 +98,7 @@ class inipaymobileAdminController extends inipaymobile
 		$this->add('page', Context::get('page'));
 		$this->setMessage('success_deleted');
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileModInstList');
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileAdminModInstList');
 		$this->setRedirectUrl($returnUrl);
 	}
 }
