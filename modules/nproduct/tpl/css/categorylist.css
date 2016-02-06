@@ -20,3 +20,5 @@ ul,ol,dl,dt,dd,li { margin:0; padding:0; list-style:none;}
 .category-list ul li.depth2 a { display:block; margin-bottom:10px; }
 .category-list ul li.depth3 a { display:block; margin-bottom:5px; _margin-bottom:0px; _line-height:0.5;}
 .category-list ul li.depth4 a { display:block; margin-bottom:5px; _margin-bottom:0px; _line-height:0.5;}
+
+.iconMoveTo{display:inline-block; width:18px; height:12px; margin-top:6px; margin-right:6px; background:url(../img/iconMoveTo.gif) no-repeat 0px -9px}
