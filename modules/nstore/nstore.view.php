@@ -126,7 +126,8 @@ class nstoreView extends nstore
 		}
 		else  // 로그인 되어있지 않다면
 		{
-			$config = $oNstoreModel->getModuleConfig();
+			$oNcartModel = &getModel('ncart');
+			$config = $oNcartModel->getModuleConfig();
 
 			// 설정에서 비회원 구매를 N으로 해놨다면 return
 			if($config->guest_buy != 'Y') return new Object(-1, 'msg_not_permitted');
@@ -136,7 +137,7 @@ class nstoreView extends nstore
 			$non_password = Context::get("non_password");
 			$compare_password = $order_info->non_password;
 			$output = $oNstoreController->checkOrderPermission($compare_password, $non_password);
-			if(!$output->toBool()) return $output;
+			if(!is_null($output) && !$output->toBool()) return $output;
 			unset($vars);
 		}
 
