@@ -28,8 +28,8 @@
 		<action name="procNstoreAdminDeleteOrders" type="controller" />
 		<action name="procNstoreAdminInsertListConfig" type="controller" />
 		<action name="procNstoreAdminUpdateDeliveryInfo" type="controller" />
-		<action name="procNstoreAdminOrderExcelDownload" type="controller" />
-		<action name="procNstoreAdminCSVDownloadByOrder" type="controller" />
+		<action name="procNstoreAdminOrderExcelDownload" type="controller" method="GET|POST" />
+		<action name="procNstoreAdminCSVDownloadByOrder" type="controller" method="GET|POST" />
 
 		<action name="getNstoreAdminDeleteModInst" type="model" />
 		<action name="getNstoreAdminDeleteOrders" type="model" />
