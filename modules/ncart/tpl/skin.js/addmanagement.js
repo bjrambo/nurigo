@@ -20,7 +20,12 @@ function completeGetAddressInfo(ret_obj) {
 		{
 			case 'kr_zip':
 				jQuery('input[name="'+obj.column_name+'[]"]').each(function(index) {
-					jQuery(this).val(addrinfo[obj.column_name].item[index])
+					jQuery(this).val(addrinfo[obj.column_name].item[index]);
+					if(jQuery(this).hasClass('krzip-hidden-postcode')) jQuery(this).parent().find('.krzip-postcode').val(jQuery(this).val());
+					if(jQuery(this).hasClass('krzip-hidden-roadAddress')) jQuery(this).parent().find('.krzip-roadAddress').val(jQuery(this).val());
+					if(jQuery(this).hasClass('krzip-hidden-jibunAddress')) jQuery(this).parent().find('.krzip-jibunAddress').val(jQuery(this).val());
+					if(jQuery(this).hasClass('krzip-hidden-detailAddress')) jQuery(this).parent().find('.krzip-detailAddress').val(jQuery(this).val());
+					if(jQuery(this).hasClass('krzip-hidden-extraAddress')) jQuery(this).parent().find('.krzip-extraAddress').val(jQuery(this).val());
 				});
 				var full_address = "";
 				for(var i = 0; i < addrinfo[obj.column_name].item.length; i++) {
