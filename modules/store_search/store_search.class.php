@@ -15,6 +15,7 @@
 			$oModuleController = &getController('module');
 			$oModuleController->insertModuleExtend('integration_search','store_search','view','');
 			$oModuleController->insertModuleExtend('integration_search','store_search','model','');
+			$oModuleController->insertModuleExtend('integration_search','store_search','mobile','');
 			return new Object();
 		}
 
@@ -25,6 +26,7 @@
 			$oModuleModel = &getModel('module');
 			if (!$oModuleModel->getModuleExtend('integration_search','view','')) return true;
 			if (!$oModuleModel->getModuleExtend('integration_search','model','')) return true;
+			if (!$oModuleModel->getModuleExtend('integration_search','mobile','')) return true;
 			return false;
 		}
 
@@ -36,6 +38,7 @@
 			$oModuleModel = &getModel('module');
 			if (!$oModuleModel->getModuleExtend('integration_search','view','')) $oModuleController->insertModuleExtend('integration_search','store_search','view','');
 			if (!$oModuleModel->getModuleExtend('integration_search','model','')) $oModuleController->insertModuleExtend('integration_search','store_search','model','');
+			if (!$oModuleModel->getModuleExtend('integration_search','mobile','')) $oModuleController->insertModuleExtend('integration_search','store_search','mobile','');
 			return new Object(0, 'success_updated');
 		}
 
