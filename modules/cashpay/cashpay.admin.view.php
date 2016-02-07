@@ -12,7 +12,7 @@ class cashpayAdminView extends cashpay
 	 */
 	function init() 
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// use $this->module_srl if the module_srl is not passed
 		$module_srl = Context::get('module_srl');
@@ -57,6 +57,7 @@ class cashpayAdminView extends cashpay
 	function dispCashpayAdminModInstList() 
 	{
 		// get the module instance list
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -82,7 +83,7 @@ class cashpayAdminView extends cashpay
 	function dispCashpayAdminInsertModInst() 
 	{
 		// get the skin list
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -110,7 +111,7 @@ class cashpayAdminView extends cashpay
 	 **/
 	function dispCashpayAdminSkinInfo() 
 	{
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

@@ -12,14 +12,14 @@ class cashpayController extends cashpay
 	 */
 	function procCashpayDoIt()
 	{
-		debugPrint('procCashpayDoIt');
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 
 		$vars = Context::getRequestVars();
 		$output = $oEpayController->beforePayment($vars);
-		debugPrint($output);
+
 		if(!$output->toBool()) return $output;
 
+		$obj = new stdClass();
 		$obj->bank_name = $this->module_info->bank_name;
 		$obj->account_number = $this->module_info->account_number;
 		$obj->account_holder = $this->module_info->account_holder;
@@ -56,6 +56,7 @@ class cashpayController extends cashpay
 		$str_usec = substr($str_usec, 0, 6);
 		return date("YmdHis") . $str_usec . $randval;
 	}
+
 	function getPaymethod($paymethod)
 	{
 		switch ($paymethod) {

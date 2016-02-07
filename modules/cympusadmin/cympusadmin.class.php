@@ -15,7 +15,6 @@ class cympusadmin extends ModuleObject
 	function init()
 	{
 		// forbit access if the user is not an administrator
-		$oMemberModel = &getModel('member');
 		if(!$this->grant->manager && !$this->grant->is_admin) return $this->stop("msg_is_not_administrator");
 
 		// change into administration layout
@@ -28,10 +27,8 @@ class cympusadmin extends ModuleObject
 		if($this->grant->is_admin)
 		{
 			// parse admin menu
-			$act = Context::get('act');
 			$oXmlParser = new XmlParser();
 			$xml_obj = $oXmlParser->loadXmlFile('./modules/cympusadmin/conf/' . _CYMPUSADMIN_MENU_);
-			$admin_menu = array();
 			$admin_menu = cympusadmin::getMenu($xml_obj->menu->item);
 			Context::set('cympusadmin_menu', $admin_menu);
 		}

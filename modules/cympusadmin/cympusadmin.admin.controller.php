@@ -13,13 +13,12 @@ class cympusadminAdminController extends cympusadmin
 	function procCympusadminAdminInsertModInst() 
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
 		$args->module = 'cympusadmin';
-		$extra_var_info = $args;
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
 		if($args->module_srl) 

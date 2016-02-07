@@ -27,7 +27,7 @@ class currencyAdminView extends currency
 	 */
 	function dispCurrencyAdminContent()
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		$config = $oCurrencyModel->getModuleConfig();
 		Context::set('config', $config);
 		$this->setTemplateFile('index');

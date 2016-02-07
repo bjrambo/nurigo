@@ -20,6 +20,7 @@ class cashpayModel extends cashpay
 	function triggerGetPgModules(&$pg_modules)
 	{
 		// get the module instance list
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = 1;
 		$args->list_count = 100;
@@ -37,7 +38,7 @@ class cashpayModel extends cashpay
 
 	function getPaymentMethods($module_srl)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 
 		$list = array();

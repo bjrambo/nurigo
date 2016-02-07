@@ -23,7 +23,7 @@ class cympusadminAdminView extends cympusadmin
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -62,8 +62,9 @@ class cympusadminAdminView extends cympusadmin
 
 	function dispCympusadminAdminModInstList() 
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -88,7 +89,7 @@ class cympusadminAdminView extends cympusadmin
 	function dispCympusadminAdminInsertModInst() 
 	{
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -96,7 +97,7 @@ class cympusadminAdminView extends cympusadmin
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -113,9 +114,10 @@ class cympusadminAdminView extends cympusadmin
 	/**
 	 * @brief display the grant information
 	 **/
-	function dispCympusadminAdminGrantInfo() {
+	function dispCympusadminAdminGrantInfo()
+	{
 		// get the grant infotmation from admin module
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$grant_content = $oModuleAdminModel->getModuleGrantHTML($this->module_info->module_srl, $this->xml_info->grant);
 		Context::set('grant_content', $grant_content);
 

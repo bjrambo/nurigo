@@ -28,7 +28,7 @@ class cashpayView extends cashpay
 		{
 			if(!Context::get('is_logged')) return new Object(-1, 'msg_login_required');
 		}
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 		// get products info using cartnos
 		$reviewOutput = $oEpayController->reviewOrder();
 		if(!$reviewOutput->toBool()) return $output;
@@ -41,6 +41,7 @@ class cashpayView extends cashpay
 		Context::set('purchaser_email', $reviewOutput->purchaser_email);
 		Context::set('purchaser_telnum', $reviewOutput->purchaser_telnum);
 
+		$obj = new stdClass();
 		$obj->bank_name = $this->module_info->bank_name;
 		$obj->account_number = $this->module_info->account_number;
 		$obj->account_holder = $this->module_info->account_holder;
