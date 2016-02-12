@@ -207,15 +207,7 @@ class nstoreController extends nstore
 			else return new Object(-1, '비밀번호가 다릅니다.');
 		}
 
-		// nstore상품의 cart_srl만 추출하여 다시 카트정보를 가져온다.
-		$origin_cart = $args->cart;
-		$cartnos = array();
-		foreach ($origin_cart->item_list as $key=>$val)
-		{
-			if($val->module != 'nstore') continue;
-			$cartnos[] = $val->cart_srl;
-		}
-		$cart = $oNcartModel->getCartInfo($cartnos);
+		$cart = $args->carts;
 
 		// from ncart db-table
 		$item_list = $cart->item_list;
