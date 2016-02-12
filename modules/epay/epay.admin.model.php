@@ -13,9 +13,11 @@ class epayAdminModel extends epay
 
 	function getEpayAdminDeletePlugin()
 	{
+		$args = new stdClass();
 		$args->plugin_srl = Context::get('plugin_srl');
 		$output = executeQuery('epay.getPluginInfo', $args);
-		if($output->toBool() && $output->data){
+		if($output->toBool() && $output->data)
+		{
 			$plugin_info = $output->data;
 			Context::set('plugin_info', $output->data);
 		}
@@ -27,7 +29,7 @@ class epayAdminModel extends epay
 
 	function getEpayAdminDeleteModInst()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);

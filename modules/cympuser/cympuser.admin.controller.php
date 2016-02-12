@@ -16,8 +16,8 @@ class cympuserAdminController extends cympuser
 		
 	function procCympuserAdminModInsert()
 	{
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		$args = Context::getRequestVars();
 		$args->module = 'cympuser';
@@ -27,14 +27,19 @@ class cympuserAdminController extends cympuser
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl) 
+			{
 				unset($args->module_srl);
+			}
 		}
 
 		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl) {
+		if(!$args->module_srl)
+		{
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
-		} else {
+		}
+		else
+		{
 			$output = $oModuleController->updateModule($args);
 			$msg_code = 'success_updated';
 		}
@@ -51,10 +56,15 @@ class cympuserAdminController extends cympuser
 
 		$module_srl = Context::get('module_srl');
 		if(!$module_srl) 
+		{
 			return new Object(-1, 'module_srl 이 비었습니다.');
+		}
 
 		$output = $oModuleController->deleteModule($module_srl);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	
 		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCympuserAdminList');
 		$this->setRedirectUrl($redirectUrl);

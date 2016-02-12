@@ -39,7 +39,9 @@ class cympuserAdminView extends cympuser
 			{
 				Context::set('module_srl','');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
 				Context::set('module_info',$module_info);
@@ -59,6 +61,7 @@ class cympuserAdminView extends cympuser
 
 	function dispCympuserAdminModList()
 	{
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -91,6 +94,7 @@ class cympuserAdminView extends cympuser
 		Context::set('layout_list', $layout_list);
 
 		$module_srl = Context::get('module_srl');
+		$args = new stdClass();
 		if($module_srl)
 		{
 			$args->module_srl = $module_srl;

@@ -11,6 +11,7 @@ class cympuserAdminModel extends cympuser
 	function getCympuserAdminDelete() 
 	{
 		// get configs.
+		$args = new stdClass();
 		$args->module_srl = Context::get('module_srl');
 		$output = executeQueryArray("cympuser.getModuleInfo", $args);
 		if(!$output->toBool()) return $output;
@@ -30,7 +31,6 @@ class cympuserAdminModel extends cympuser
 	 */
 	function getCympuserMemberList()
 	{
-		debugprint("ASDF");
 		// Search option
 		$args = new stdClass();
 		$args->is_admin = Context::get('is_admin')=='Y'?'Y':'';
@@ -133,11 +133,10 @@ class cympuserAdminModel extends cympuser
 		$args->page = Context::get('page');
 		$args->list_count = 20;
 		$args->page_count = 10;
-		debugprint($query_id);
+
 		$output = executeQuery($query_id, $args);
 
 		return $output;
 	}
-
 }
 ?>

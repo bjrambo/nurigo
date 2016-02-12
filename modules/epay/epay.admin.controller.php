@@ -21,16 +21,20 @@ class epayAdminController extends epay
 		$args->module = 'epay';
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
-		if($args->module_srl) {
+		if($args->module_srl)
+		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl) unset($args->module_srl);
 		}
 
 		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl) {
+		if(!$args->module_srl)
+		{
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
-		} else {
+		}
+		else
+		{
 			$output = $oModuleController->updateModule($args);
 			$msg_code = 'success_updated';
 		}
@@ -66,6 +70,7 @@ class epayAdminController extends epay
 	function procEpayAdminInsertPlugin()
 	{
 		$plugin_srl = getNextSequence();
+		$args = new stdClass();
 		$args->plugin_srl = $plugin_srl;
 		$args->plugin = Context::get('plugin');
 		$args->title = Context::get('title');
@@ -77,7 +82,7 @@ class epayAdminController extends epay
 
 		$tmp_fn = create_function('', "return new {$args->plugin}();");
 		$oPlugin = $tmp_fn();
-		if (@method_exists($oPlugin,'pluginInstall'))
+		if(@method_exists($oPlugin,'pluginInstall'))
 		{
 			$oPlugin->pluginInstall($args);
 		}
@@ -106,8 +111,10 @@ class epayAdminController extends epay
 		$plugin_info = $oEpayModel->getPluginInfo($args->plugin_srl);
 
 		// extra_vars의 type이 image일 경우 별도 처리를 해줌
-		if($plugin_info->extra_var) {
-			foreach($plugin_info->extra_var as $name => $vars) {
+		if($plugin_info->extra_var)
+		{
+			foreach($plugin_info->extra_var as $name => $vars)
+			{
 				if($vars->type!='image') continue;
 
 				$image_obj = $extra_vars->{$name};
@@ -117,7 +124,8 @@ class epayAdminController extends epay
 				$del_var = $extra_vars->{"del_".$name};
 				unset($extra_vars->{"del_".$name});
 				// 삭제 요청이 있거나, 새로운 파일이 업로드 되면, 기존 파일 삭제
-				if($del_var == 'Y' || $image_obj['tmp_name']) {
+				if($del_var == 'Y' || $image_obj['tmp_name'])
+				{
 					FileHandler::removeFile($extra_vars->{$name});
 					$extra_vars->{$name} = '';
 					if($del_var == 'Y' && !$image_obj['tmp_name']) continue;
@@ -171,6 +179,7 @@ class epayAdminController extends epay
 	{
 		$plugin_srl = Context::get('plugin_srl');
 		if (!$plugin_srl) return new Object(-1, 'msg_invalid_request');
+		$args = new stdClass();
 		$args->plugin_srl = $plugin_srl;
 		$output = executeQuery('epay.deletePlugin',$args);
 		if (!$output->toBool()) return $output;
@@ -179,7 +188,8 @@ class epayAdminController extends epay
 
 		$this->setMessage('success_deleted');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
+		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		{
 			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispEpayAdminPluginList','module_srl',Context::get('module_srl'));
 			$this->setRedirectUrl($returnUrl);
 			return;
@@ -191,9 +201,13 @@ class epayAdminController extends epay
 	 */
 	function procEpayAdminUpdateState()
 	{
-		if(!Context::get('transaction_srl') || !Context::get('state')) return;
+		if(!Context::get('transaction_srl') || !Context::get('state'))
+		{
+			return;
+		}
 		else
 		{
+			$args = new stdClass();
 			$args->transaction_srl = Context::get('transaction_srl');
 			$args->state = Context::get('state');
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set ts=4 sw=4 noexpandtab fileencoding=utf-8:
  * @class epayAdminView
@@ -12,9 +13,8 @@ class epayAdminView extends epay
 	 */
 	function init()
 	{
-		$template_path = sprintf("%stpl/",$this->module_path);
-		$this->setTemplatePath($template_path);	
-
+		$template_path = sprintf("%stpl/", $this->module_path);
+		$this->setTemplatePath($template_path);
 
 		// module model 객체 생성
 		$oModuleModel = &getModel('module');
@@ -23,20 +23,17 @@ class epayAdminView extends epay
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if (Context::get('module') == 'cympusadmin') {
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if (file_exists($classfile)) {
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
-		if(!$module_srl && $this->module_srl)
-		{
+		if (!$module_srl && $this->module_srl) {
 			$module_srl = $this->module_srl;
 			Context::set('module_srl', $module_srl);
 		}
@@ -44,17 +41,15 @@ class epayAdminView extends epay
 		$oModuleModel = &getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
-		{
+		if ($module_srl) {
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
-			{
-				Context::set('module_srl','');
+			if (!$module_info) {
+				Context::set('module_srl', '');
 				$this->act = 'list';
 			} else {
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 	}
@@ -65,6 +60,7 @@ class epayAdminView extends epay
 	function dispEpayAdminEpayList()
 	{
 		// load epay module instances
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -93,30 +89,30 @@ class epayAdminView extends epay
 		$oEpayModel = &getModel('epay');
 
 		$module_srl = Context::get('module_srl');
-		if(!$module_srl && $this->module_srl)
+		if (!$module_srl && $this->module_srl)
 		{
 			$module_srl = $this->module_srl;
 			Context::set('module_srl', $module_srl);
 		}
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl)
+		if ($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info)
+			if (!$module_info)
 			{
 				return new Object(-1, 'msg_invalid_request');
 			}
 			else
 			{
 				ModuleModel::syncModuleToSite($module_info);
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 
 		// 스킨 목록을 구해옴
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
 		Context::set('mskin_list', $mskin_list);
@@ -126,7 +122,7 @@ class epayAdminView extends epay
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// plugins
@@ -135,12 +131,12 @@ class epayAdminView extends epay
 
 		$pg_modules = array();
 		$output = ModuleHandler::triggerCall('epay.getPgModules', 'before', $pg_modules);
-		if(!$output->toBool()) return $output;
+		if (!$output->toBool()) return $output;
 		Context::set('pg_modules', $pg_modules);
 
 		$this->setTemplateFile('insertepay');
 	}
-	
+
 	/**
 	 * @brief list plugins.
 	 */
@@ -165,7 +161,7 @@ class epayAdminView extends epay
 	function dispEpayAdminInsertPlugin()
 	{
 		// plugins
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugins = $oEpayModel->getPluginsXmlInfo();
 		Context::set('plugins', $plugins);
 
@@ -177,7 +173,7 @@ class epayAdminView extends epay
 	 */
 	function dispEpayAdminUpdatePlugin()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		$plugin_srl = Context::get('plugin_srl');
 
@@ -193,24 +189,25 @@ class epayAdminView extends epay
 	 */
 	function dispEpayAdminTransactions()
 	{
-		$classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-		if(file_exists($classfile))
+		$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+		if (file_exists($classfile))
 		{
-				require_once($classfile);
-				$output = cympusadmin::init();
-				if(!$output->toBool()) return $output;
+			require_once($classfile);
+			$output = cympusadmin::init();
+			if (!$output->toBool()) return $output;
 		}
 
 		// transactions
+		$args = new stdClass();
 		$args->page = Context::get('page');
-		if(Context::get('search_key'))
+		if (Context::get('search_key'))
 		{
 			$search_key = Context::get('search_key');
 			$search_value = Context::get('search_value');
 			$args->{$search_key} = $search_value;
 		}
-		$output = executeQueryArray('epay.getTransactionList',$args);
-		if(!$output->toBool()) return $output;
+		$output = executeQueryArray('epay.getTransactionList', $args);
+		if (!$output->toBool()) return $output;
 		$list = $output->data;
 		ModuleHandler::triggerCall('epay.getTransactionList', 'after', $list);
 		Context::set('list', $list);
@@ -223,12 +220,12 @@ class epayAdminView extends epay
 		$output = executeQueryArray('epay.getAllModInstList');
 		$modinst_list = array();
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
-		foreach($list as $key=>$modinfo)
+		if (!is_array($list)) $list = array();
+		foreach ($list as $key => $modinfo)
 		{
 			$modinst_list[$modinfo->module_srl] = $modinfo;
 		}
-		Context::set('modinst_list',$modinst_list);
+		Context::set('modinst_list', $modinst_list);
 
 		$this->setTemplateFile('transactions');
 	}
@@ -236,7 +233,7 @@ class epayAdminView extends epay
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispEpayAdminSkinInfo() 
+	function dispEpayAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = &getAdminModel('module');
@@ -248,7 +245,7 @@ class epayAdminView extends epay
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispEpayAdminMobileSkinInfo() 
+	function dispEpayAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = &getAdminModel('module');

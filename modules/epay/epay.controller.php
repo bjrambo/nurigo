@@ -19,9 +19,6 @@ class epayController extends epay
 	 */
 	function reviewOrder()
 	{
-		$oEpayModel = &getModel('epay');
-		$oModuleModel = &getModel('module');
-
 		$order_srl = getNextSequence();
 		$transaction_srl = $order_srl;
 		$review_args = Context::getRequestVars();
@@ -114,8 +111,7 @@ class epayController extends epay
 	 */
 	function beforePayment($params)
 	{
-		$oModuleModel = &getModel('module');
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		// get transaction info by transaction_srl
 		$transaction_info = $oEpayModel->getTransactionInfo($params->transaction_srl);
@@ -153,7 +149,6 @@ class epayController extends epay
 	 */
 	function afterPayment($params)
 	{
-		$oModuleModel = &getModel('module');
 		$oEpayModel = &getModel('epay');
 
 		// get transaction info by transaction_srl
@@ -200,8 +195,6 @@ class epayController extends epay
 		$args->vact_time = $params->get('vact_time');
 		$args->pg_tid = $params->get('pg_tid');
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
-		debugPrint('after trigger');
-		debugPrint($output);
 		if(!$output->toBool()) return $output;
 
 		// check state
@@ -212,8 +205,6 @@ class epayController extends epay
 		}
 
 		$return_url = $args->return_url;
-		debugPrint('return_url');
-		debugPrint($return_url);
 		if (!$return_url) $return_url = Context::get('return_url');
 		$output = new Object();
 		$output->add('return_url', $return_url);
@@ -279,7 +270,6 @@ class epayController extends epay
 	 */
 	function procEpayDoPayment()
 	{
-		$oModuleModel = &getModel('module');
 		$oEpayModel = &getModel('epay');
 
 		$p_user_id = Context::get('purchaser_name');
@@ -329,17 +319,20 @@ class epayController extends epay
 
 		// call
 		$pp_ret = $plugin->processPayment($obj);
-		if(is_object($pp_ret) && method_exists($pp_ret, 'toBool') && !$pp_ret->toBool()) {
+		if(is_object($pp_ret) && method_exists($pp_ret, 'toBool') && !$pp_ret->toBool())
+		{
 			Context::set('content', $pp_ret->data);
 			$this->setTemplatePath($this->module_path . 'tpl');
 			$this->setTemplateFile('error');
-			if(in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
+			if(in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+			{
 				return $pp_ret;
 			}
 			return;
 		}
 
 		// save transaction info.
+		$args = new stdClass();
 		$args->xe_mid = $mid;
 		$args->target_module = $target_module;
 		$args->transaction_srl = getNextSequence();
@@ -425,7 +418,7 @@ class epayController extends epay
 		 * Reporting URL
 		 * http://mydomain.name/?module=epay&act=procEpayReport&pg=inipay5
 		 */
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		$plugin = $oEpayModel->getPluginByName(Context::get('pg'));
 
@@ -447,7 +440,7 @@ class epayController extends epay
 	 */
 	function sendTaxinvoice($module_srl, $history_srl, $member_srl=false)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);

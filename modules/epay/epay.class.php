@@ -17,9 +17,11 @@ class epay extends ModuleObject
 	function mergeKeywords($text, &$obj)
 	{
 		if (!is_object($obj)) return $text;
-		foreach ($obj as $key => $val) {
+		foreach ($obj as $key => $val)
+		{
 			if (is_array($val)) $val = join($val);
-			if (is_string($key) && is_string($val)) {
+			if (is_string($key) && is_string($val))
+			{
 				if (substr($key,0,10)=='extra_vars') $val = str_replace('|@|', '-', $val);
 				$text = preg_replace("/%" . preg_quote($key) . "%/", $val, $text);
 			}
@@ -32,7 +34,6 @@ class epay extends ModuleObject
 	 */
 	function moduleInstall() 
 	{
-		$oModuleController = &getController('module');    
 		return new Object();
 	}
 
