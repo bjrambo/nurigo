@@ -161,7 +161,7 @@
 		$logged_info = Context::get('logged_info');
 		if($logged_info)
 		{
-			$oNmileageModel = &getModel('nmileage');
+			$oNmileageModel = getModel('nmileage');
 			if(!$oNmileageModel)
 			{
 				Context::set('t_mileage', 'nmileage not installed.');
@@ -205,6 +205,7 @@
 	{
 		$oDocumentModel = getModel('document');
 
+		$args = new stdClass();
 		$args->mid = $addon_info->event_mid;
 		$output = executeQuery('module.getMidInfo',$args);
 		if(!$output->toBool())
