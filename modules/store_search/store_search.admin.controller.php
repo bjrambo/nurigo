@@ -19,8 +19,11 @@ class store_searchAdminController extends store_search
 		// Get configurations (using module model object)
 		$oModuleModel = &getModel('module');
 		$config = $oModuleModel->getModuleConfig('store_search');
-
-		$args->skin = Context::get('skin');
+		if(!is_object($config))
+		{
+			$config = new stdClass();
+		}
+		$config->skin = Context::get('skin');
 
 		$oModuleController = &getController('module');
 		$output = $oModuleController->insertModuleConfig('store_search',$args);

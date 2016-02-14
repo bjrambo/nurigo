@@ -17,7 +17,7 @@ class store_searchAdminView extends store_search
 	function init()
 	{
 		// Get configurations (using module model object)
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$this->config = $oModuleModel->getModuleConfig('integration_search');
 		Context::set('config',$this->config);
 
@@ -54,6 +54,8 @@ class store_searchAdminView extends store_search
 	 */
 	function dispStore_searchAdminSkinInfo()
 	{
+		$oModuleModel = getModel('module');
+		$module_srl = Context::get('module_srl');
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
 		{
@@ -62,15 +64,17 @@ class store_searchAdminView extends store_search
 			{
 				Context::set('module_srl','');
 				$this->act = 'list';
-			} else {
-				ModuleModel::syncModuleToSite($module_info);
+			}
+			else
+			{
+				$oModuleModel->syncModuleToSite($module_info);
 				$this->module_info = $module_info;
 				Context::set('module_info',$module_info);
 			}
 		}
 
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -80,6 +84,4 @@ class store_searchAdminView extends store_search
 	{ 
 		$this->setTemplateFile('store_search');
 	}	
-}	
-
-?>
+}

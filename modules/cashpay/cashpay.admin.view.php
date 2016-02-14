@@ -30,7 +30,9 @@ class cashpayAdminView extends cashpay
 			{
 				Context::set('module_srl','');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
 				Context::set('module_info',$module_info);
@@ -70,7 +72,7 @@ class cashpayAdminView extends cashpay
 		Context::set('list', $list);
 
 		// get the module categories
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
