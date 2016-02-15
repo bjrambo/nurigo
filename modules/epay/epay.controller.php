@@ -249,7 +249,6 @@ class epayController extends epay
 		$_SESSION['epay_target_module'] = $args->target_module;
 		$_SESSION['xe_mid'] = Context::get('xe_mid');
 
-
 		$review_output = $plugin->processReview($args);
 		if (!$review_output->toBool()) return $review_output;
 
