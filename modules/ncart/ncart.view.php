@@ -72,7 +72,7 @@ class ncartView extends ncart
 	 */
 	function triggerReviewForm(&$in_args)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// load module config
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($in_args->module_srl);
@@ -82,12 +82,20 @@ class ncartView extends ncart
 		Context::set('ncart_module_info', $module_info);
 
 		// load cart info.
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos);
 		Context::set('cart_info', $cart_info);
-		
+
 		// compile template file
-		$template_path = sprintf('%sskins/%s', $this->module_path, $module_info->skin);
+		if(Mobile::isMobileCheckByAgent)
+		{
+			$template_path = sprintf('%sm.skins/%s', $this->module_path, $module_info->mskin);
+		}
+		else
+		{
+			$template_path = sprintf('%sskins/%s', $this->module_path, $module_info->skin);
+		}
+
 		$oTemplate = &TemplateHandler::getInstance();
 		$in_args->review_form = $oTemplate->compile($template_path, 'reviewform.html');
 	}
