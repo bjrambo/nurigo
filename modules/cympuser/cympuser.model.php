@@ -14,4 +14,3 @@ class cympuserModel extends cympuser
 	{
 	}
 }
-?>

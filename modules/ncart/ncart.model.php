@@ -122,9 +122,11 @@ class ncartModel extends ncart
 		if (!$height) $height = 80;
 
 		// cart items
+		$args = new stdClass();
 		$args->cartnos = $cartnos;
 		$args->member_srl = $member_srl;
 		$output = executeQueryArray('ncart.getCartItems', $args);
+
 		if (!$output->toBool()) return $output;
 
 		$item_list = $output->data;
@@ -164,8 +166,7 @@ class ncartModel extends ncart
 
 			// 로그인 되어 있을 때 회원 카트정보 가져옴
 			$cart_info = $this->getMemberCartInfo($logged_info->member_srl, $cartnos, $width, $height);
-			debugPrint('$cart_info');
-			debugPrint($cart_info);
+
 		}
 
 		return $cart_info;

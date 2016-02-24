@@ -379,8 +379,6 @@ class epayModel extends epay
 
 	function getPaymentMethods($module_srl)
 	{
-		debugPrint('getPaymentMethods');
-		debugPrint($module_srl);
 		$oModuleModel = &getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 

@@ -291,9 +291,7 @@ class ncartAdminController extends ncart
 		$args->fieldset_title = Context::get('fieldset_title');
 		$args->proc_modules = implode(',', Context::get('proc_modules'));
 		$output = executeQuery('ncart.updateFieldset', $args);
-		debugPrint('updateFieldset');
-		debugPrint($args->proc_modules);
-		debugPrint($output);
+
 		if(!$output->toBool()) return $output;
 
 

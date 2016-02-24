@@ -280,8 +280,6 @@ class epayView extends epay
 				{
 					foreach($post_data as $key => $val)
 					{
-						debugPrint('key : ' . $key);
-						debugPrint('val : ' . $val);
 						$oRequest->addPostData($key, $val);
 					}
 				}

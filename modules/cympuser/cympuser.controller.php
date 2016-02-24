@@ -7,6 +7,4 @@
  */
 class cympuserController extends cympuser 
 {
-
 }
-?>

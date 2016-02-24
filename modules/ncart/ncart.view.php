@@ -36,10 +36,13 @@ class ncartView extends ncart
 	{
 		$oNcartModel = &getModel('ncart');
 		$category = Context::get('category');
-		if ($category && $this->module_info->category_display=='2') {
+		$args = new stdClass();
+		if ($category && $this->module_info->category_display=='2')
+		{
 			$category_info = $oNcartModel->getCategoryInfo($category);
 			$top = preg_split('/\./', $category_info->node_route);
-			if (count($top) >= 2) {
+			if (count($top) >= 2)
+			{
 				$args->node_route = sprintf("%s.%s.", $top[0], $top[1]);
 				Context::set('top_category_srl', $top[1]);
 			}
@@ -47,6 +50,7 @@ class ncartView extends ncart
 		}
 
 		// category tree
+
 		$args->module_srl = $module_srl;
 		$output = $this->executeQueryArray('getCategoryAllSubitems', $args);
 		if (!$output->toBool()) return $output;
@@ -195,10 +199,10 @@ class ncartView extends ncart
 	{
 		global $lang;
 
-		$oFileModel = &getModel('file');
-		$oEpayView = &getView('epay');
-		$oStoreController = &getController('ncart');
-		$oNcartModel = &getModel('ncart');
+		$oFileModel = getModel('file');
+		$oEpayView = getView('epay');
+		$oStoreController = getController('ncart');
+		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
 
@@ -224,9 +228,10 @@ class ncartView extends ncart
 		 * stock check
 		 */
 
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 
 		//quantity
+		$stock = array();
 		foreach ($cart->item_list as $key=>$val) 
 		{
 			$item_info = $oNproductModel->getItemInfo($val->item_srl);
@@ -294,7 +299,7 @@ class ncartView extends ncart
 		Context::addJsFile('./modules/krzip/tpl/js/krzip_search.js');
 		Context::set('soldout_process', $this->soldout_process);
 
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 		$mileage_config = $oNmileageModel->getModuleConfig();
 		Context::set('mileage_flag', $mileage_config->use_flag);
 
@@ -343,8 +348,8 @@ class ncartView extends ncart
 
 	function dispNcartOrderComplete() 
 	{
-		$oNcartModel = &getModel('ncart');
-		$oEpayModel = &getModel('epay');
+		$oNcartModel = getModel('ncart');
+		$oEpayModel = getModel('epay');
 		$logged_info = Context::get('logged_info');
 
 		$order_srl = Context::get('order_srl');
@@ -389,9 +394,8 @@ class ncartView extends ncart
 
 	function dispNcartOrderDetail() 
 	{
-		$oFileModel = &getModel('file');
-		$oEpayModel = &getModel('epay');
-		$oNcartModel = &getModel('ncart');
+		$oEpayModel = getModel('epay');
+		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
 
@@ -469,6 +473,7 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 		if (!$logged_info) return new Object(-1, 'msg_login_required');
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->opt = '1';
 		$output = executeQueryArray('ncart.getAddressList', $args);
@@ -484,7 +489,7 @@ class ncartView extends ncart
 
 	function dispNcartAddressManagement() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
 		if (!$logged_info) return new Object(-1, 'msg_login_required');
@@ -507,11 +512,12 @@ class ncartView extends ncart
 
 	function dispNcartRecentAddress() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
 		if (!$logged_info) return new Object(-1, 'msg_login_required');
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->opt = '2';
 		$args->sort_index = 'address_srl';
@@ -529,7 +535,7 @@ class ncartView extends ncart
 
 	function dispNcartLogin() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
 		Context::set('config',$config);

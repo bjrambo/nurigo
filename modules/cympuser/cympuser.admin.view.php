@@ -7,19 +7,18 @@
  */ 
 class cympuserAdminView extends cympuser 
 {
-
 	function init() 
 	{
 		// module이 cympusadmin일때 관리자 레이아웃으로
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if(Context::get('module') == 'cympusadmin')
+		{
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if(file_exists($classfile))
+			{
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
@@ -29,7 +28,7 @@ class cympuserAdminView extends cympuser
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -42,7 +41,7 @@ class cympuserAdminView extends cympuser
 			}
 			else
 			{
-				ModuleModel::syncModuleToSite($module_info);
+				$oModuleModel->syncModuleToSite($module_info);
 				$this->module_info = $module_info;
 				Context::set('module_info',$module_info);
 			}
@@ -134,7 +133,11 @@ class cympuserAdminView extends cympuser
 			}
 		}
 		$config = $this->memberConfig;
-		$memberIdentifiers = array('user_id'=>'user_id', 'user_name'=>'user_name', 'nick_name'=>'nick_name');
+		$memberIdentifiers = array(
+			'user_id'=>'user_id',
+			'user_name'=>'user_name',
+			'nick_name'=>'nick_name'
+		);
 		$usedIds = array();	
 
 		if(is_array($config->signupForm))
@@ -211,8 +214,4 @@ class cympuserAdminView extends cympuser
 		Context::set('identifierForm', $identifierForm);
 		$this->setTemplateFile('insert_member');
 	}
-
-
 }
-
-?>

@@ -456,6 +456,7 @@ class ncartController extends ncart
 	 */
 	function triggerProcessReview(&$in_args)
 	{
+		debugPrint($in_args);
 		// return if the target_module is not itself.
 		if ($in_args->target_module != 'ncart') return;
 
@@ -486,7 +487,10 @@ class ncartController extends ncart
 		}
 
 		$item_count = count($cart->item_list);
-		if (!$item_count) return new Object(-1, 'No items to order');
+		if(!$item_count)
+		{
+			return new Object(-1, 'No items to order');
+		}
 
 		// check the gotten values.
 		$fieldset_list = $oNcartModel->getFieldSetList($in_args->module_srl);
@@ -495,10 +499,6 @@ class ncartController extends ncart
 		foreach($fieldset_list as $key=>$fieldset)
 		{
 			$proc_modules = explode(',', $fieldset->proc_modules);
-			debugPrint('$purchased_modules');
-			debugPrint($purchased_modules);
-			debugPrint($proc_modules);
-			debugPrint($fieldset);
 			if(count(array_diff($proc_modules, $purchased_modules))==count($proc_modules)) continue;
 			foreach($fieldset->fields as $key2=>$field)
 			{
@@ -632,12 +632,12 @@ class ncartController extends ncart
 				}
 				else
 				{
-					debugPrint(sprintf("processCartReview does not exist in %s controller.", $val));
+
 				}
 			}
 			else
 			{
-				debugPrint(sprintf("%s module controller does not exist.", $val));
+
 			}
 		}
 	}
@@ -704,12 +704,12 @@ class ncartController extends ncart
 				}
 				else
 				{
-					debugPrint(sprintf("processCartPayment does not exist in %s controller.", $val));
+
 				}
 			}
 			else
 			{
-				debugPrint(sprintf("%s module controller does not exist.", $val));
+
 			}
 		}
 

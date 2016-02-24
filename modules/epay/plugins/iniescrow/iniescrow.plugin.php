@@ -350,7 +350,6 @@ class iniescrow extends EpayPlugin
 		$inipayhome = sprintf(_XE_PATH_."files/epay/%s", $this->plugin_info->plugin_srl);
 
 		$vars = Context::getRequestVars();
-		debugPrint($vars);
 		extract(get_object_vars($vars));
 
 		require("libs/INILib.php");
@@ -460,13 +459,8 @@ class iniescrow extends EpayPlugin
 		$inipayhome = sprintf(_XE_PATH_."files/epay/%s", $this->plugin_info->plugin_srl);
 
 		$vars = Context::getRequestVars();
-		debugPrint('procEscrowConfirm');
-		debugPrint($vars);
 
 		extract(get_object_vars($vars));
-
-		debugPrint('encrypted : ' . $encrypted);
-		debugPrint('sessionkey : ' . $sessionkey);
 
 		require("libs/INILib.php");
 		$iniescrow = new INIpay50;
@@ -509,10 +503,6 @@ class iniescrow extends EpayPlugin
 		Context::set('resultDate', $resultDate);
 		Context::set('resultTime', $resultTime);
 
-
-		debugPrint('$resultDate.$resultTime');
-		debugPrint($resultDate.$resultTime);
-
 		$oTemplate = &TemplateHandler::getInstance();
 		$tpl_path = _XE_PATH_."modules/epay/plugins/iniescrow/tpl";
 		$tpl_file = 'escrow_confirm_result.html';
@@ -532,8 +522,7 @@ class iniescrow extends EpayPlugin
 		$inipayhome = sprintf(_XE_PATH_."files/epay/%s", $this->plugin_info->plugin_srl);
 
 		$vars = Context::getRequestVars();
-		debugPrint('procEscrowDenyConfirm');
-		debugPrint($vars);
+
 		extract(get_object_vars($vars));
 
 		/**************************
@@ -568,8 +557,7 @@ class iniescrow extends EpayPlugin
 		/**********************
 		 * 4. 거절확인  결과 *
 		 **********************/
-		 
-		debugPrint($iniescrow->m_Data);
+
 		$tid          = $iniescrow->GetResult("tid"); 					// 거래번호
 		$resultCode   = $iniescrow->GetResult("ResultCode");		// 결과코드 ("00"이면 지불 성공)
 		$resultMsg    = $iniescrow->GetResult("ResultMsg");    // 결과내용 (지불결과에 대한 설명)

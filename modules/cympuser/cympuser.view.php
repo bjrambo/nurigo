@@ -16,8 +16,4 @@ class cympuserView extends cympuser
 		$this->setTemplatePath($this->module_path.$path);
 		Context::set('module_info',$this->module_info);
 	}
-
-
-
 }
-?>
