@@ -153,6 +153,7 @@ class nstoreController extends nstore
 		unset($args);
 
 		// update cart items.
+		$args = new stdClass();
 		$args->order_srl = $in_args->order_srl;
 		$args->member_srl = $in_args->member_srl;
 		$args->module_srl = $in_args->module_srl;
@@ -207,7 +208,7 @@ class nstoreController extends nstore
 			else return new Object(-1, '비밀번호가 다릅니다.');
 		}
 
-		$cart = $args->carts;
+		$cart = $args->cart;
 
 		// from ncart db-table
 		$item_list = $cart->item_list;
