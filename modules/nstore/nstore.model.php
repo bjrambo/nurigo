@@ -162,6 +162,7 @@ class nstoreModel extends nstore
 	{
 		if(Context::get('extra_values')) $extra_values = Context::get('extra_values');
 
+		$extra_var = new stdClass();
 		$extra_var->column_type = "checkbox";
 		$extra_var->column_name = "item_delivery_free";
 		$extra_var->column_title = Context::getLang('cmd_delivery_fee');
@@ -173,6 +174,7 @@ class nstoreModel extends nstore
 
 		unset($extra_var);
 
+		$extra_var = new stdClass();
 		$extra_var->column_type = "text";
 		$extra_var->column_name = "stock";
 		$extra_var->column_title = Context::getLang('cmd_stock');

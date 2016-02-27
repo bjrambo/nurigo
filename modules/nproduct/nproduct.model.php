@@ -397,6 +397,7 @@ class nproductModel extends nproduct
 	function getItemListByCategory($category_id, $list_count=20, $sort_index='list_order') 
 	{
 		$config = $this->getModuleConfig();
+		$args = new stdClass();
 		$args->category_id = $category_id;
 		$args->list_count = $list_count;
 		$args->sort_index = $sort_index;
@@ -1458,6 +1459,7 @@ class nproductModel extends nproduct
 	 */
 	function getItemExtraByModuleSrl($module_srl)
 	{
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQueryArray('nproduct.getItemExtraList', $args);
 		if($output->data) return $output->data;

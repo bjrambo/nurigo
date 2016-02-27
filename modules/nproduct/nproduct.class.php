@@ -95,6 +95,7 @@ class nproduct extends ModuleObject
 		$oModuleAdminModel = &getAdminModel('module');
 		$oNproductModel =  &getModel('nproduct');
 
+		$args = new stdClass();
 		$args->module = 'nproduct';
 		$args->site_srl = '0';
 		$output = $oModuleAdminModel->getModuleMidList($args); // module_list get
