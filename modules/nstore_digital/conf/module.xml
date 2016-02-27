@@ -44,4 +44,9 @@
 		<action name="procNstore_digitalFileDownload" type="controller" method="GET|POST" />
 		<action name="procNstore_digitalFreebieDownload" type="controller" />
 	</actions>
+	<menus>
+		<menu name="storeModInstList">
+			<title xml:lang="ko">스토어 페이지리스트</title>
+		</menu>
+	</menus>
 </module>
