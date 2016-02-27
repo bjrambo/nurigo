@@ -91,7 +91,7 @@ class ncartView extends ncart
 		Context::set('cart_info', $cart_info);
 
 		// compile template file
-		if(Mobile::isMobileCheckByAgent)
+		if(Mobile::isMobileCheckByAgent())
 		{
 			$template_path = sprintf('%sm.skins/%s', $this->module_path, $module_info->mskin);
 		}
