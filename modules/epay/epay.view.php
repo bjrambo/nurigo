@@ -12,8 +12,13 @@ class epayView extends epay
 		Context::set('admin_bar', 'false');
 		Context::set('hide_trolley', 'true');
 
-		if (!$this->module_info->skin) $this->module_info->skin = 'default';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
+		$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
+		if(!is_dir($template_path)||!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+			$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
+		}
+		$this->setTemplatePath($template_path);
 	}
 
 	/**
@@ -172,20 +177,22 @@ class epayView extends epay
 		Context::set('form_data', $form_data);
 		Context::set('order_srl', $in_args->order_srl);
 
+		debugPrint($this->module_path);
 		if($_COOKIE['mobile'] == "true")
 		{
-			$template_path = sprintf("%sm.skins/%s/",$this->module_path, $this->module_info->mskin);
-			if(!is_dir($template_path)||!$this->module_info->mskin) {
-					$this->module_info->mskin = 'default';
-					$template_path = sprintf("%sm.skins/%s/",$this->module_path, $this->module_info->mskin);
+			$template_path = sprintf("%sm.skins/%s/",$this->module_path, $module_info->mskin);
+			if(!is_dir($template_path)||!$module_info->mskin) {
+					$module_info->mskin = 'default';
+					$template_path = sprintf("%sm.skins/%s/",$this->module_path, $module_info->mskin);
 			}
 		}
 		else
 		{
-			$template_path = $this->module_path."skins/{$module_info->skin}";
-			if(!is_dir($template_path)||!$this->module_info->skin) {
-				$this->module_info->skin = 'default';
-				$template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
+			$template_path = sprintf("%sskins/%s/",$this->module_path, $module_info->skin);
+			if(!is_dir($template_path)||!$module_info->skin)
+			{
+				$module_info->skin = 'default';
+				$template_path = sprintf("%sskins/%s/",$this->module_path, $module_info->skin);
 			}
 		}
 
@@ -325,13 +332,6 @@ class epayView extends epay
 
 	function dispEpayTransaction()
 	{
-		if($_COOKIE['mobile'] != "true")
-		{
-			if(!$this->module_info->skin) $this->module_info->skin = 'default';
-			$skin = $this->module_info->skin;
-			$this->setTemplatePath(sprintf('%sskins/%s', $this->module_path, $skin));
-		}
-
 		/**
 		 * inipaymobile P_RETURN_URL 페이지 처리를 위한 코드
 		 * ISP 결제시 r_page에 order_srl이 담겨져옴, 결제처리는 P_NOTI_URL이 호출되므로 여기서는 그냥 결과만 보여줌

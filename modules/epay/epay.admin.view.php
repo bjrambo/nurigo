@@ -105,7 +105,7 @@ class epayAdminView extends epay
 			}
 			else
 			{
-				ModuleModel::syncModuleToSite($module_info);
+				$oModuleModel->syncModuleToSite($module_info);
 				Context::set('module_info', $module_info);
 			}
 		}
