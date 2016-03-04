@@ -14,9 +14,6 @@ class cympusadmin extends ModuleObject
 {
 	function init()
 	{
-		// forbit access if the user is not an administrator
-		if(!$this->grant->manager && !$this->grant->is_admin) return $this->stop("msg_is_not_administrator");
-
 		// change into administration layout
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
 		$this->setLayoutPath('./modules/cympusadmin/tpl');
