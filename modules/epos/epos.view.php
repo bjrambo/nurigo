@@ -27,11 +27,11 @@ class eposView extends epos
 	 */
 	function dispEposForm() 
 	{
-		$oEpayController = &getController('epay');
-		$oNcartModel = &getModel('ncart');
-		$oModuleModel = &getModel('module');
+		$oEpayController = getController('epay');
+		$oNcartModel = getModel('ncart');
+		$oModuleModel = getModel('module');
 		$oEposModuleConfig = $oModuleModel->getModuleConfig('epos');
-		$oEposModel = &getModel('epos');
+		$oEposModel = getModel('epos');
 
 		// get products info using cartnos
 		Context::set('plugin_srl', $this->module_info->module_srl);
@@ -56,7 +56,7 @@ class eposView extends epos
 
 	function dispEposError()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$transaction_srl = Context::get('transaction_srl');
 		$error_code = Context::get('error_code');
 		$output = $oEpayModel->getTransactionInfo($transaction_srl);

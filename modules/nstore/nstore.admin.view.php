@@ -21,7 +21,7 @@ class nstoreAdminView extends nstore
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -103,7 +103,7 @@ class nstoreAdminView extends nstore
 		}
 
 		// newest comment
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 		$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
@@ -147,8 +147,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminOrderManagement() 
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oMemberModel = &getModel('member');
+		$oNstoreModel = getModel('nstore');
+		$oMemberModel = getModel('member');
 
 		$classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
 		if(file_exists($classfile))
@@ -220,8 +220,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminOrderDetail() 
 	{
-		$oNstore_coreModel = &getModel('nstore');
-		$oEpayModel = &getModel('epay');
+		$oNstore_coreModel = getModel('nstore');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
@@ -238,7 +238,7 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminOrderSheet() 
 	{
-		$oNstore_coreModel = &getModel('nstore');
+		$oNstore_coreModel = getModel('nstore');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
@@ -260,7 +260,7 @@ class nstoreAdminView extends nstore
 		$list = $output->data;
 		Context::set('list', $list);
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 		$this->setTemplateFile('modinstlist');
@@ -269,7 +269,7 @@ class nstoreAdminView extends nstore
 	function dispNstoreAdminInsertModInst() 
 	{
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -277,7 +277,7 @@ class nstoreAdminView extends nstore
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -293,8 +293,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminConfig() 
 	{
-		$oNstore_coreModel = &getModel('nstore');
-		$oModuleModel = &getModel('module');
+		$oNstore_coreModel = getModel('nstore');
+		$oModuleModel = getModel('module');
 
 		$config = $oNstore_coreModel->getModuleConfig();
 		Context::set('config',$config);
@@ -307,7 +307,7 @@ class nstoreAdminView extends nstore
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -316,12 +316,12 @@ class nstoreAdminView extends nstore
 
 		/*
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 		 */
 
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		if($oNcartModel)
 		{
 			$ncart_insts = $oNcartModel->getModInstList();
@@ -334,8 +334,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminEscrowDelivery()
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oEpayModel = &getModel('epay');
+		$oNstoreModel = getModel('nstore');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
@@ -361,8 +361,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminEscrowDenyConfirm()
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oEpayModel = &getModel('epay');
+		$oNstoreModel = getModel('nstore');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
@@ -388,8 +388,8 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminPurchaserInfo()
 	{
-		$oMemberModel = &getModel('member');
-		$oMemberView = &getView('member');
+		$oMemberModel = getModel('member');
+		$oMemberView = getView('member');
 
 		$member_config = $oMemberModel->getMemberConfig();
 		$member_srl = Context::get('member_srl');
@@ -433,7 +433,7 @@ class nstoreAdminView extends nstore
 	function dispNstoreAdminSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -445,7 +445,7 @@ class nstoreAdminView extends nstore
 	function dispNstoreAdminMobileSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

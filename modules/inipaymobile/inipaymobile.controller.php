@@ -46,8 +46,8 @@ class inipaymobileController extends inipaymobile
 	 */
 	function processNextUrl($transaction_srl)
 	{
-		$oEpayController = &getController('epay');
-		$oEpayModel = &getModel('epay');
+		$oEpayController = getController('epay');
+		$oEpayModel = getModel('epay');
 
 
 		$vars = Context::getRequestVars();
@@ -129,7 +129,7 @@ class inipaymobileController extends inipaymobile
 	 */
 	function processReturnUrl($transaction_srl)
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$vars = Context::getRequestVars();
 
 		$transaction_info = $oEpayModel->getTransactionInfo($transaction_srl);
@@ -143,7 +143,7 @@ class inipaymobileController extends inipaymobile
 	 */
 	function processReport($order_srl)
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$transaction_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
 		if(!$transaction_info) return new Object(-1, 'could not find transaction');
 
@@ -240,7 +240,7 @@ class inipaymobileController extends inipaymobile
 		$output->add('vact_inputname', $transaction_info->vact_inputname);
 
 		// afterPayment will call an after trigger
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 		$output = $oEpayController->afterPayment($output);
 		if(!$output->toBool()) return $output;
 		// OK를 출력하고 끝내야 한다
@@ -255,7 +255,7 @@ class inipaymobileController extends inipaymobile
 	function processNotiUrl()
 	{
 		debugPrint('processNotiUrl');
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 		$vars = Context::getRequestVars();
 
 		// 가상계좌 채번 후 이니시스 서버에서 한번 더 호출되는데 그냥 return 하자. 도대체 왜 호출해주는거지?

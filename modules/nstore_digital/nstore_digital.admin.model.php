@@ -10,7 +10,7 @@ class nstore_digitalAdminModel extends nstore_digital
 
 	function getNstore_digitalAdminDeleteModInst() 
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -23,7 +23,7 @@ class nstore_digitalAdminModel extends nstore_digital
 
 	function getNstore_digitalAdminDeleteOrders() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$order_info_arr = $oNstore_digitalModel->getOrdersInfo(Context::get('order_srl'));
 		Context::set('order_info_arr', $order_info_arr);
@@ -35,7 +35,7 @@ class nstore_digitalAdminModel extends nstore_digital
 
 	function getNstore_digitalAdminDeletePeriods() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$period_info_arr = $oNstore_digitalModel->getPeriodsInfo(Context::get('period_srl'));
 

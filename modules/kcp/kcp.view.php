@@ -29,8 +29,8 @@ class kcpView extends kcp
 	 */
 	function dispKcpForm() 
 	{
-		$oEpayController = &getController('epay');
-		$oNcartModel = &getModel('ncart');
+		$oEpayController = getController('epay');
+		$oNcartModel = getModel('ncart');
 
 		$kcphome = sprintf(_XE_PATH_."files/epay/%s", $this->module_info->module_srl);
 

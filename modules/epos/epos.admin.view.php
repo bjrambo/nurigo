@@ -12,7 +12,7 @@ class eposAdminView extends epos
 	 */
 	function init() 
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// use $this->module_srl if the module_srl is not passed
 		$module_srl = Context::get('module_srl');
@@ -69,7 +69,7 @@ class eposAdminView extends epos
 		Context::set('list', $list);
 
 		// get the module categories
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
@@ -82,7 +82,7 @@ class eposAdminView extends epos
 	function dispEposAdminInsertModInst() 
 	{
 		// get the skin list
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -91,7 +91,7 @@ class eposAdminView extends epos
 		Context::set('mskin_list', $mskin_list);
 
 		// get the layout list
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -110,7 +110,7 @@ class eposAdminView extends epos
 	 **/
 	function dispEposAdminSkinInfo() 
 	{
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

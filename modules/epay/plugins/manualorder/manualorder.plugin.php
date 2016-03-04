@@ -79,7 +79,7 @@ class manualorder extends EpayPlugin
 
 	function dispExtra1(&$epayObj)
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$epayObj->setLayoutFile('default_layout');
 
 		$vars = Context::getRequestVars();

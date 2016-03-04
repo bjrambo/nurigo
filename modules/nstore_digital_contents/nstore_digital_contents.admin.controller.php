@@ -11,7 +11,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 	{
 		if(Context::get('file_srl'))
 		{
-			$oFileController = &getController('file');
+			$oFileController = getController('file');
 
 			$file_srl = Context::get('file_srl');
 
@@ -26,7 +26,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 
 	function procNstore_digital_contentsAdminInsertContent()
 	{
-		$oFileController = &getController('file');
+		$oFileController = getController('file');
 
 		$file_srl = Context::get('file_srl');
 		$args->item_srl = Context::get('item_srl');
@@ -98,7 +98,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 /*
 	function procNstore_digital_contentsAdminInsertConfig()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 
 		$nstore_digital_contents_config->file_size = Context::get("file_size") + 'M';
 

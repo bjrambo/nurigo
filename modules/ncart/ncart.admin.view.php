@@ -20,7 +20,7 @@ class ncartAdminView extends ncart
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -127,7 +127,7 @@ class ncartAdminView extends ncart
 		}
 		Context::set('store_list', $store_list);
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 		$this->setTemplateFile('modinstlist');
@@ -135,8 +135,8 @@ class ncartAdminView extends ncart
 
 	function dispNcartAdminConfig() 
 	{
-		$oNcartModel = &getModel('ncart');
-		$oModuleModel = &getModel('module');
+		$oNcartModel = getModel('ncart');
+		$oModuleModel = getModel('module');
 
 		$config = $oNcartModel->getModuleConfig();
 		Context::set('config',$config);
@@ -149,7 +149,7 @@ class ncartAdminView extends ncart
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -157,7 +157,7 @@ class ncartAdminView extends ncart
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 
@@ -167,10 +167,10 @@ class ncartAdminView extends ncart
 
 	function dispNcartAdminInsertModInst() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -178,7 +178,7 @@ class ncartAdminView extends ncart
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -186,13 +186,13 @@ class ncartAdminView extends ncart
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 
 		//Context::set('delivery_companies', $oNcartModel->getDeliveryCompanies());
 
-		$oEditorModel = &getModel('editor');
+		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// 에디터 옵션 변수를 미리 설정
 		$option->skin = $config->editor_skin;
@@ -221,7 +221,7 @@ class ncartAdminView extends ncart
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
 
-		$oEditorView = &getView('editor');
+		$oEditorView = getView('editor');
 		$oEditorView->triggerDispEditorAdditionSetup($content);
 		Context::set('setup_content', $content);
 		$this->setTemplateFile('additionsetup');
@@ -233,7 +233,7 @@ class ncartAdminView extends ncart
 	function dispNcartAdminSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -245,7 +245,7 @@ class ncartAdminView extends ncart
 	function dispNcartAdminMobileSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -253,8 +253,8 @@ class ncartAdminView extends ncart
 
 	function dispNcartAdminOrderForm()
 	{
-		$oNcartModel = &getModel('ncart');
-		$oNproductModel = &getModel('nproduct');
+		$oNcartModel = getModel('ncart');
+		$oNproductModel = getModel('nproduct');
 		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
 		Context::set('fieldset_list', $fieldset_list);
 		$proc_modules = $oNproductModel->getProcModules();
@@ -264,8 +264,8 @@ class ncartAdminView extends ncart
 
 	function dispNcartAdminOrderDetail() 
 	{
-		$oNcartModel = &getModel('ncart');
-		$oEpayModel = &getModel('epay');
+		$oNcartModel = getModel('ncart');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNcartModel->getOrderInfo($order_srl);
@@ -282,8 +282,8 @@ class ncartAdminView extends ncart
 
 	function dispNcartAdminOrderManagement() 
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oMemberModel = &getModel('member');
+		$oNstoreModel = getModel('nstore');
+		$oMemberModel = getModel('member');
 
 		$config = $oNstoreModel->getModuleConfig();
 		Context::set('config', $config);

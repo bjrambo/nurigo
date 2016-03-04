@@ -96,8 +96,8 @@ class ncartAdminController extends ncart
 	function procNcartAdminInsertModInst() 
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -141,7 +141,7 @@ class ncartAdminController extends ncart
 	{
 		$module_srl = Context::get('module_srl');
 
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool())
 		{
@@ -159,7 +159,7 @@ class ncartAdminController extends ncart
 
 	function procNcartAdminUpdateStatus() 
 	{
-		$oNcartController = &getController('ncart');
+		$oNcartController = getController('ncart');
 
 		$carts = Context::get('cart');
 		if(!is_array($carts))
@@ -303,7 +303,7 @@ class ncartAdminController extends ncart
 
 	function procNcartAdminInsertField()
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 
 		$args = Context::gets('module_srl', 'fieldset_srl', 'field_srl', 'column_type', 'column_name', 'column_title', 'required', 'is_head', 'default_value', 'description');
 		if($args->field_srl)

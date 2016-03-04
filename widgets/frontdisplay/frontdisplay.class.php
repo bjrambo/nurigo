@@ -6,7 +6,7 @@ class frontdisplay extends WidgetHandler
 {
 	function proc($widget_info)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$widget_info->option_view_arr = explode(',',$widget_info->option_view);
 
 		// default
@@ -24,7 +24,7 @@ class frontdisplay extends WidgetHandler
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 			if(!$module_info || $module_info->module != 'nproduct') continue;
-			$oStoreModel = &getModel($module_info->module);
+			$oStoreModel = getModel($module_info->module);
 			if(!$oStoreModel) continue;
 			if ($widget_info->category_type=='M')
 			{

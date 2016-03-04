@@ -28,13 +28,13 @@ class nstoreController extends nstore
 
 	function updateSalesCount($item_srl, $quantity) 
 	{
-		$oNproductController = &getController('nproduct');
+		$oNproductController = getController('nproduct');
 		$oNproductController->updateSalesCount($item_srl, $quantity);
 	}
 
 	function updateOrderStatus($order_srl, $in_args) 
 	{
-		$oNstoreModel = &getModel('nstore');
+		$oNstoreModel = getModel('nstore');
 
 		// if the order is completed, give mileage to the member.
 		if ($in_args->order_status==nstore::ORDER_STATE_COMPLETE)
@@ -42,7 +42,7 @@ class nstoreController extends nstore
 			$order_info = $oNstoreModel->getOrderInfo($order_srl);
 			if ($order_info->member_srl && $order_info->mileage && $order_info->mileage_save=='N')
 			{
-				$oNmileageController = &getController('nmileage');
+				$oNmileageController = getController('nmileage');
 				$oNmileageController->plusMileage($order_info->member_srl, $order_info->mileage, $order_info->title, $order_srl);
 				$args->mileage_save = 'Y';
 			}
@@ -137,7 +137,7 @@ class nstoreController extends nstore
 
 	function insertOrder($in_args, &$cart) 
 	{
-		$oNstoreModel = &getModel('nstore');
+		$oNstoreModel = getModel('nstore');
 
 		$args = $in_args;
 		if (is_array($args->purchaser_cellphone)) $args->purchaser_cellphone = implode('-',$in_args->purchaser_cellphone);
@@ -177,11 +177,11 @@ class nstoreController extends nstore
 	function processCartReview(&$args)
 	{
 		// get objects to be used below.
-		$oNstoreModel = &getModel('nstore');
-		$oModuleModel = &getModel('module');
-		$oMemberModel = &getModel('member');
-		$oNproductModel = &getModel('nproduct');
-		$oNcartModel = &getModel('ncart');
+		$oNstoreModel = getModel('nstore');
+		$oModuleModel = getModel('module');
+		$oMemberModel = getModel('member');
+		$oNproductModel = getModel('nproduct');
+		$oNcartModel = getModel('ncart');
 
 		// get the member information.
 		$logged_info = Context::get('logged_info');
@@ -322,8 +322,8 @@ class nstoreController extends nstore
 	function processCartPayment(&$obj) {
 		if ($obj->target_module != 'ncart') return;
 
-		$oNstoreModel = &getModel('nstore');
-		$oModuleModel = &getModel('module');
+		$oNstoreModel = getModel('nstore');
+		$oModuleModel = getModel('module');
 
 		$logged_info = Context::get('logged_info');
 
@@ -379,9 +379,9 @@ class nstoreController extends nstore
 	 */
 	function updateStock($order_srl, $order_status)
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oNproductModel = &getModel('nproduct');
-		$oNproductController = &getController('nproduct');
+		$oNstoreModel = getModel('nstore');
+		$oNproductModel = getModel('nproduct');
+		$oNproductController = getController('nproduct');
 
 		// 1(입금대기) ~ 6(거래완료) 상태일 때만 처리, 그외 카트대기, 상품취소, 반품 이런 것들은 처리하면 안됨.
 		if($order_status > 7) return new Object();

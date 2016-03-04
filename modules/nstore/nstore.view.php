@@ -16,7 +16,7 @@ class nstoreView extends nstore
 		}
 		else
 		{
-			$oModuleModel = &getModel('module');
+			$oModuleModel = getModel('module');
 			$this->nstore_config = $oModuleModel->getModuleConfig('nstore');
 			$skin = $this->nstore_config->skin;
 		}
@@ -39,8 +39,8 @@ class nstoreView extends nstore
 	// 주문내역 보기 (날짜별)
 	function dispNstoreOrderList() 
 	{
-		$oFileModel = &getModel('file');
-		$oNstoreModel = &getModel('nstore');
+		$oFileModel = getModel('file');
+		$oNstoreModel = getModel('nstore');
 
 		$config = $oNstoreModel->getModuleConfig();
 		Context::set('config',$config);
@@ -103,9 +103,9 @@ class nstoreView extends nstore
 
 	function dispNstoreOrderDetail() 
 	{
-		$oFileModel = &getModel('file');
-		$oEpayModel = &getModel('epay');
-		$oNstoreModel = &getModel('nstore');
+		$oFileModel = getModel('file');
+		$oEpayModel = getModel('epay');
+		$oNstoreModel = getModel('nstore');
 
 		$logged_info = Context::get('logged_info');
 		$order_srl = Context::get('order_srl');
@@ -133,7 +133,7 @@ class nstoreView extends nstore
 			if($config->guest_buy != 'Y') return new Object(-1, 'msg_not_permitted');
 
 			// 설정에서 비회원 구매를 Y로 해놨다면 PermissionCheck
-			$oNstoreController = &getController('nstore');
+			$oNstoreController = getController('nstore');
 			$non_password = Context::get("non_password");
 			$compare_password = $order_info->non_password;
 			$output = $oNstoreController->checkOrderPermission($compare_password, $non_password);
@@ -167,7 +167,7 @@ class nstoreView extends nstore
 		if(!$parent_srl) return new Object(-1, 'msg_invalid_request');
 
 		// 해당 댓글를 찾아본다
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 		$oSourceComment = $oCommentModel->getComment($parent_srl, $this->grant->manager);
 
 		// 댓글이 없다면 오류
@@ -194,7 +194,7 @@ class nstoreView extends nstore
 
 	function dispNstoreLogin() 
 	{
-		$oNstoreModel = &getModel('nstore');
+		$oNstoreModel = getModel('nstore');
 		// get module config
 		$config = $oNstoreModel->getModuleConfig();
 		Context::set('config',$config);
@@ -209,8 +209,8 @@ class nstoreView extends nstore
 
 	function dispNstoreEscrowConfirm()
 	{
-		$oNstoreModel = &getModel('nstore');
-		$oEpayModel = &getModel('epay');
+		$oNstoreModel = getModel('nstore');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);

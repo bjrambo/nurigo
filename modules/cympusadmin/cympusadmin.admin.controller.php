@@ -56,7 +56,7 @@ class cympusadminAdminController extends cympusadmin
 	{
 		$module_srl = Context::get('module_srl');
 
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool())
 		{

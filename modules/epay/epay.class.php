@@ -42,7 +42,7 @@ class epay extends ModuleObject
 	 */
 	function checkUpdate() 
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 
 		// 2012.02.07 add target_module
@@ -69,8 +69,8 @@ class epay extends ModuleObject
 	 */
 	function moduleUpdate() 
 	{
-		$oModuleController = &getController('module');    
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();	
 
 		if (!$oDB->isColumnExists('epay_transactions','target_module')) 
@@ -110,7 +110,7 @@ class epay extends ModuleObject
 	 */
 	function moduleUninstall()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 	}
 
 	/**

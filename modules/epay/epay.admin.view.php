@@ -17,7 +17,7 @@ class epayAdminView extends epay
 		$this->setTemplatePath($template_path);
 
 		// module model 객체 생성
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// 모듈 카테고리 목록을 구함
 		$module_category = $oModuleModel->getModuleCategories();
@@ -38,7 +38,7 @@ class epayAdminView extends epay
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if ($module_srl) {
@@ -85,8 +85,8 @@ class epayAdminView extends epay
 	 */
 	function dispEpayAdminInsertEpay()
 	{
-		$oModuleModel = &getModel('module');
-		$oEpayModel = &getModel('epay');
+		$oModuleModel = getModel('module');
+		$oEpayModel = getModel('epay');
 
 		$module_srl = Context::get('module_srl');
 		if (!$module_srl && $this->module_srl)
@@ -118,7 +118,7 @@ class epayAdminView extends epay
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -236,7 +236,7 @@ class epayAdminView extends epay
 	function dispEpayAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -248,7 +248,7 @@ class epayAdminView extends epay
 	function dispEpayAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

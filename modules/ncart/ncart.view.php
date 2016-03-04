@@ -11,7 +11,7 @@ class ncartView extends ncart
 	{
 		if(!$this->module_info->skin) $this->module_info->skin = 'default';
 		$skin = $this->module_info->skin;
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		// 템플릿 경로 설정
 		$this->setTemplatePath(sprintf('%sskins/%s', $this->module_path, $skin));
 
@@ -34,7 +34,7 @@ class ncartView extends ncart
 
 	function getCategoryTree($module_srl) 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		$category = Context::get('category');
 		$args = new stdClass();
 		if ($category && $this->module_info->category_display=='2')
@@ -106,7 +106,7 @@ class ncartView extends ncart
 
 	function dispNcartCartItems() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		$cart = $oNcartModel->getCartInfo(Context::get('cartnos'));
 
 		Context::set('list',$cart->item_list);
@@ -125,8 +125,8 @@ class ncartView extends ncart
 
 	function dispNcartFavoriteItems() 
 	{
-		$oFileModel = &getModel('file');
-		$oNcartModel = &getModel('ncart');
+		$oFileModel = getModel('file');
+		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
 		if (!$logged_info) return new Object(-1, 'msg_login_required');
@@ -148,7 +148,7 @@ class ncartView extends ncart
 	 */
 	function setOmittedItems(&$itemList)
 	{
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 		$itemSrlsOfPurchasingItems = array();
 		foreach($itemList as $item)
 		{
@@ -175,7 +175,7 @@ class ncartView extends ncart
 	function setMinimumOrderItems(&$inputItemList)
 	{
 		// get nproduct model reference
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 
 		// get item srls
 		$itemSrlsToPurchase = $oNproductModel->getItemSrls($inputItemList);
@@ -385,7 +385,7 @@ class ncartView extends ncart
 		Context::set('fieldset_list', $fieldset_list);
 		Context::set('order_status', $this->getOrderStatus());
 
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 		$mileage_config = $oNmileageModel->getModuleConfig();
 		Context::set('mileage_flag', $mileage_config->use_flag);
 
@@ -440,7 +440,7 @@ class ncartView extends ncart
 		if(!$parent_srl) return new Object(-1, 'msg_invalid_request');
 
 		// 해당 댓글를 찾아본다
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 		$oSourceComment = $oCommentModel->getComment($parent_srl, $this->grant->manager);
 
 		// 댓글이 없다면 오류
@@ -467,7 +467,7 @@ class ncartView extends ncart
 
 	function dispNcartAddressList() 
 	{
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		$oNcartModel->checkBrowser(); // iphone check
 
 		$logged_info = Context::get('logged_info');

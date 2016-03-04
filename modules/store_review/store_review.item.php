@@ -177,7 +177,7 @@ class store_reviewItem extends Object
 		$receiver_srl = $this->get('member_srl');
 		$sender_member_srl = $logged_info->member_srl;
 		// send a message
-		$oCommunicationController = &getController('communication');
+		$oCommunicationController = getController('communication');
 		$oCommunicationController->sendMessage($sender_member_srl, $receiver_srl, $title, $content, false);
 	}
 
@@ -373,7 +373,7 @@ class store_reviewItem extends Object
 			return;
 		}
 
-		$oFileModel = &getModel('file');
+		$oFileModel = getModel('file');
 		$file_list = $oFileModel->getFiles($this->review_srl, $is_admin);
 		return $file_list;
 	}
@@ -388,7 +388,7 @@ class store_reviewItem extends Object
 		{
 			$module_srl = Context::get('module_srl');
 		}
-		$oEditorModel = &getModel('editor');
+		$oEditorModel = getModel('editor');
 		return $oEditorModel->getModuleEditor('comment', $module_srl, $this->review_srl, 'review_srl', 'content');
 	}
 
@@ -401,7 +401,7 @@ class store_reviewItem extends Object
 		{
 			return;
 		}
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 		$profile_info = $oMemberModel->getProfileImage($this->get('member_srl'));
 		if(!$profile_info)
 		{
@@ -422,12 +422,12 @@ class store_reviewItem extends Object
 			return;
 		}
 		// get the signiture information
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 		$signature = $oMemberModel->getSignature($this->get('member_srl'));
 		// check if max height of the signiture is specified on the member module
 		if(!isset($GLOBALS['__member_signature_max_height']))
 		{
-			$oModuleModel = &getModel('module');
+			$oModuleModel = getModel('module');
 			$member_config = $oModuleModel->getModuleConfig('member');
 			$GLOBALS['__member_signature_max_height'] = $member_config->signature_max_height;
 		}

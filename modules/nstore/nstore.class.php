@@ -84,8 +84,8 @@ class nstore extends ModuleObject
 
 		function installTriggers()
 		{
-            $oModuleModel = &getModel('module');
-            $oModuleController = &getController('module');
+            $oModuleModel = getModel('module');
+            $oModuleController = getController('module');
 			/*
 			if (!$oModuleModel->getTrigger('epay.processPayment', 'nstore', 'controller', 'triggerProcessPayment', 'after')) {
 				$oModuleController->insertTrigger('epay.processPayment', 'nstore', 'controller', 'triggerProcessPayment', 'after');
@@ -132,8 +132,8 @@ class nstore extends ModuleObject
          **/
         function checkUpdate()
         {
-			$oModuleModel = &getModel('module');
-			$oNproductModel =  &getModel('nproduct');
+			$oModuleModel = getModel('module');
+			$oNproductModel =  getModel('nproduct');
 			
             $oDB = &DB::getInstance();
 
@@ -158,8 +158,8 @@ class nstore extends ModuleObject
         function moduleUpdate()
         {
             $oDB = &DB::getInstance();
-			$oModuleModel = &getModel('module');
-            $oModuleController = &getController('module');
+			$oModuleModel = getModel('module');
+            $oModuleController = getController('module');
 
 			$this->installTriggers();
 
@@ -213,9 +213,9 @@ class nstore extends ModuleObject
 
 		function getNstoreModules()
 		{
-			$oModuleModel = &getModel('module');
-			$oNstoreAdminModel = &getAdminModel('nstore');
-			$oNproductModel =  &getModel('nproduct');
+			$oModuleModel = getModel('module');
+			$oNstoreAdminModel = getAdminModel('nstore');
+			$oNproductModel =  getModel('nproduct');
 
 			$args->module = 'nproduct';
 			$output = $oNstoreAdminModel->getModuleMidList($args); // module_list get

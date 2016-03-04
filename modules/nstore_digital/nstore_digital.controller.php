@@ -10,14 +10,14 @@ class nstore_digitalController extends nstore_digital
 
 	function updateSalesCount($item_srl, $quantity) 
 	{
-		$oNproductController = &getController('nproduct');
+		$oNproductController = getController('nproduct');
 		$oNproductController->updateSalesCount($item_srl, $quantity);
 	}
 
 	function addGroups($member_srl, $group_srl_list) 
 	{
-		$oMemberModel = &getModel('member');
-		$oMemberController = &getController('member');
+		$oMemberModel = getModel('member');
+		$oMemberController = getController('member');
 
 		$groups = $oMemberModel->getMemberGroups($member_srl);
 		foreach ($group_srl_list as $group_srl) {
@@ -30,8 +30,8 @@ class nstore_digitalController extends nstore_digital
 
 	function updateOrderStatus($order_srl, $order_status) 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oModuleModel = &getModel('module');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oModuleModel = getModel('module');
 		        
 		$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
 		if(!$order_info) return Object(-1, 'order info not found');
@@ -42,7 +42,7 @@ class nstore_digitalController extends nstore_digital
 			//$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
 			if ($order_info->member_srl && $order_info->mileage && $order_info->mileage_save=='N')
 			{
-				$oNmileageController = &getController('nmileage');
+				$oNmileageController = getController('nmileage');
 				$oNmileageController->plusMileage($order_info->member_srl, $order_info->mileage, $order_info->title, $order_srl);
 				$args->mileage_save = 'Y';
 			}
@@ -87,12 +87,12 @@ class nstore_digitalController extends nstore_digital
 */
 
 		$config = $oNstore_digitalModel->getModuleConfig();
-		$oNcartController = &getController('ncart');
+		$oNcartController = getController('ncart');
 		$args->state = $order_status;
 		$output = $oNcartController->updateOrderStatus($order_srl, $args);
 
 		unset($order_info->item_list);
-		$oAutomailController = &getController('automail');
+		$oAutomailController = getController('automail');
 		if($oAutomailController) $oAutomailController->sendMail('nstore_digital', $order_status, $order_info->email_address, $order_info);
 
 		return new Object();
@@ -108,15 +108,15 @@ class nstore_digitalController extends nstore_digital
 
 	function triggerUpdateDownloadedCount($obj) 
 	{
-		$oModuleModel = &getModel('module');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oModuleModel = getModel('module');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// check whether this module's file.
 		if (!$obj->module_srl) return;
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
 		if ($module_info->module != 'nproduct') return;
 
-		$oNproductController = &getController('nproduct');
+		$oNproductController = getController('nproduct');
 		$output = $oNproductController->updateDownloadCount($obj->upload_target_srl);
 
 		return new Object();
@@ -127,15 +127,15 @@ class nstore_digitalController extends nstore_digital
 	 */
 	function triggerCheckPermission($obj) 
 	{
-		$oModuleModel = &getModel('module');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oModuleModel = getModel('module');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// check whether this module's file.
 		if (!$obj->module_srl) return;
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
 
 		$config = $oNstore_digitalModel->getModuleConfig();
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 		$item_info = $oNproductModel->getItemInfo($obj->upload_target_srl);
 		if ($item_info->proc_module != 'nstore_digital') return;
 
@@ -159,11 +159,11 @@ class nstore_digitalController extends nstore_digital
 
 	function procNstore_digitalFileDownload()
 	{
-		$oFileModel = &getModel('file');
-		$oFileController = &getController('file');
-		$oModuleModel = &getModel('module');
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oNdcModel = &getModel('nstore_digital_contents');
+		$oFileModel = getModel('file');
+		$oFileController = getController('file');
+		$oModuleModel = getModel('module');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oNdcModel = getModel('nstore_digital_contents');
 
 		$nstore_digital_contents_config = $oModuleModel->getModuleConfig('nstore_digital_contents');
 
@@ -230,10 +230,10 @@ class nstore_digitalController extends nstore_digital
 
 	function procNstore_digitalFreebieDownload()
 	{
-		$oFileModel = &getModel('file');
-		$oFileController = &getController('file');
-		$oModuleModel = &getModel('module');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oFileModel = getModel('file');
+		$oFileController = getController('file');
+		$oModuleModel = getModel('module');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$item_srl = Context::get('item_srl');
 
@@ -278,7 +278,7 @@ class nstore_digitalController extends nstore_digital
 
 	function insertOrder($in_args, &$cart) 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// make group_srl_list
 		$group_srl_list = array();
@@ -344,9 +344,9 @@ class nstore_digitalController extends nstore_digital
 
 	function processCartReview(&$args)
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oModuleModel = &getModel('module');
-		$oMemberModel = &getModel('member');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oModuleModel = getModel('module');
+		$oMemberModel = getModel('member');
 		if (!$args->order_srl) return;
 
 		$logged_info = Context::get('logged_info');
@@ -460,9 +460,9 @@ class nstore_digitalController extends nstore_digital
 	 */
 	function processCartPayment(&$obj) 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oModuleModel = &getModel('module');
-		$oNdcModel = &getModel('nstore_digital_contents');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oModuleModel = getModel('module');
+		$oNdcModel = getModel('nstore_digital_contents');
 
 		if (!$obj->order_srl) return;
 
@@ -556,9 +556,9 @@ class nstore_digitalController extends nstore_digital
 		if(!$args->module_srl) return;
 		if(!$args->cart_srl) return;
 
-		$oMemberController = &getController('member');
-		$oModuleModel = &getModel('module');
-		$oNdcModel = &getModel('nstore_digital_contents');
+		$oMemberController = getController('member');
+		$oModuleModel = getModel('module');
+		$oNdcModel = getModel('nstore_digital_contents');
 
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 		$logged_info = Context::get('logged_info');
@@ -643,8 +643,8 @@ class nstore_digitalController extends nstore_digital
 		if($obj->target_module != 'nstore_digital') return;
 		if(!$obj->module_srl) return;
 
-		$oModuleModel = &getModel('module');
-		$oMemberController = &getController('member');
+		$oModuleModel = getModel('module');
+		$oMemberController = getController('member');
 
 		$logged_info = Context::get('logged_info');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
@@ -679,9 +679,9 @@ class nstore_digitalController extends nstore_digital
 
 	function checkPeriod($purchased_item)
 	{
-		$oNdcModel = &getModel('nstore_digital_contents');
-		$oNdcController = &getController('nstore_digital_contents');
-		$oNcartModel = &getModel('ncart');
+		$oNdcModel = getModel('nstore_digital_contents');
+		$oNdcController = getController('nstore_digital_contents');
+		$oNcartModel = getModel('ncart');
 
 		if(!$purchased_item->cart_srl) return new Object(-1, 'cart_srl is not defined');
 

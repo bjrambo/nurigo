@@ -267,7 +267,7 @@ class epayModel extends epay
 
 	function getEpayReceipt()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$order_srl = Context::get('order_srl');
 		if (!$order_srl)
 		{
@@ -348,7 +348,7 @@ class epayModel extends epay
 		if(!Context::get('manorder_pid')) return;
 		else 
 		{
-			$oMemberModel = &getModel('member');
+			$oMemberModel = getModel('member');
 
 			$columnList = array('email_address', 'user_id', 'nick_name');
 
@@ -379,11 +379,11 @@ class epayModel extends epay
 
 	function getPaymentMethods($module_srl)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 
 		$method_list = array();
-		$oPgModuleModel = &getModel($module_info->module);
+		$oPgModuleModel = getModel($module_info->module);
 		if(method_exists($oPgModuleModel, 'getPaymentMethods'))
 		{
 			$method_list = $oPgModuleModel->getPaymentMethods($module_srl);
@@ -420,7 +420,7 @@ class epayModel extends epay
 
 	function triggerGetManagerMenu(&$manager_menu)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$logged_info = Context::get('logged_info');
 

@@ -10,7 +10,7 @@ class cympusadminModel extends cympusadmin
 
     function triggerGetManagerMenu(&$manager_menu)
     {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$logged_info = Context::get('logged_info');
 

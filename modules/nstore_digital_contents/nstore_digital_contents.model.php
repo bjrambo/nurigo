@@ -9,7 +9,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 {
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nstore_digital_contents');
 		return $config;
 	}
@@ -24,7 +24,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 	function getThumbnail($file_srl = null, $width = 80, $height = 0, $thumbnail_type = 'crop') 
 	{
-		$oFileModel = &getModel('file');
+		$oFileModel = getModel('file');
 
 		if(!$file_srl) return;
 		if(!$height) $height = $width;
@@ -67,7 +67,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 	{
 		if(!$item_srl) return;
 
-		$oFileModel = &getModel('file');
+		$oFileModel = getModel('file');
 
 		$args->item_srl = $item_srl;
 		$output = executeQueryArray('nstore_digital_contents.getContentList', $args);

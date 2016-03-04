@@ -9,7 +9,7 @@ class ncartAdminModel extends ncart
 {
 
 	function getNcartAdminDeleteModInst() {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -23,7 +23,7 @@ class ncartAdminModel extends ncart
 
 	function getNcartAdminDeleteOrders() 
 	{
-		$oNcartModel = &getModel($this->getExtMod());
+		$oNcartModel = getModel($this->getExtMod());
 
 		$order_info_arr = $oNcartModel->getOrdersInfo(Context::get('order_srl'));
 		Context::set('order_info_arr', $order_info_arr);
@@ -47,8 +47,8 @@ class ncartAdminModel extends ncart
 	 */
 	function getNcartAdminOrderDetails() 
 	{
-		$oNcartModel = &getModel('ncart');
-		$oEpayModel = &getModel('epay');
+		$oNcartModel = getModel('ncart');
+		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNcartModel->getOrderInfo($order_srl);

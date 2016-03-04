@@ -42,8 +42,8 @@ class kcpController extends kcp
 	 */
 	function procKcpDoIt()
 	{
-		$oEpayController = &getController('epay');
-		$oKcpModel = &getModel('kcp');
+		$oEpayController = getController('epay');
+		$oKcpModel = getModel('kcp');
 
 		$vars = Context::getRequestVars();
 
@@ -183,7 +183,7 @@ class kcpController extends kcp
 	 */
 	function processReport($order_srl)
 	{
-        $oEpayModel = &getModel('epay');
+        $oEpayModel = getModel('epay');
         $transaction_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
         if(!$transaction_info) return new Object(-1, 'could not find transaction');
 	
@@ -233,7 +233,7 @@ class kcpController extends kcp
 		$output->add('vact_inputname', $transaction_info->vact_inputname);
 
 		// doPayment will call an after trigger
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 		$afterOutput = $oEpayController->afterPayment($output);
 		if(!$afterOutput->toBool()) return $afterOutput;
 		// OK를 출력하고 끝내야 한다.

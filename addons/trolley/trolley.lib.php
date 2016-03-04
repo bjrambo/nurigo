@@ -102,7 +102,7 @@
 			if($search_type == 'N')
 			{
 				require_once('./modules/nstore_core/nstore_core.item.php');
-				$oNstore_coreModel = &getModel('nstore');
+				$oNstore_coreModel = getModel('nstore');
 				$config = $oNstore_coreModel->getModuleConfig();
 
 				$srl = substr($v, 0, -1);
@@ -120,7 +120,7 @@
 			else if($search_type == 'D')
 			{
 				require_once('./modules/nstore_core/nstore_core.item.php');
-				$oNstore_coreModel = &getModel('nstore_digital');
+				$oNstore_coreModel = getModel('nstore_digital');
 				$config = $oNstore_coreModel->getModuleConfig();
 
 				$srl = substr($v, 0, -1);

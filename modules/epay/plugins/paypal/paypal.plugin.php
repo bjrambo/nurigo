@@ -61,7 +61,7 @@ class paypal extends EpayPlugin
 			$logged_info = Context::get('logged_info');
 			if($logged_info)
 			{
-				$oEpayModel = &getModel('epay');
+				$oEpayModel = getModel('epay');
 				$transaction_count = $oEpayModel->getTransactionCountByMemberSrl($logged_info->member_srl);
 				if($transaction_count < $this->plugin_info->minimum_transactions) return new Object(0, 'Minimum transactions required');
 			}

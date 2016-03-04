@@ -64,7 +64,7 @@ class inipaymobile extends EpayPlugin
 
 	function processReview($args)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$epay_module_srl = Context::get('epay_module_srl');
 
 		$epay_module_info = $oModuleModel->getModuleInfoByModuleSrl($epay_module_srl);

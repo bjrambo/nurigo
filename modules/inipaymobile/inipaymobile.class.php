@@ -12,8 +12,8 @@ class inipaymobile extends ModuleObject
 	 */
 	function moduleInstall()
 	{
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaymobile', 'model', 'triggerGetPgModules', 'before'))
 		{
@@ -28,7 +28,7 @@ class inipaymobile extends ModuleObject
 	 */
 	function checkUpdate()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 		if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaymobile', 'model', 'triggerGetPgModules', 'before')) return true;
 		return false;
@@ -40,8 +40,8 @@ class inipaymobile extends ModuleObject
 	function moduleUpdate()
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		if (!$oModuleModel->getTrigger('epay.getPgModules', 'inipaymobile', 'model', 'triggerGetPgModules', 'before')) {
 			$oModuleController->insertTrigger('epay.getPgModules', 'inipaymobile', 'model', 'triggerGetPgModules', 'before');
@@ -53,7 +53,7 @@ class inipaymobile extends ModuleObject
 	 */
 	function moduleUninstall()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$oModuleController->deleteTrigger('epay.getPgModules', 'inipaymobile', 'model', 'triggerGetPgModules', 'before');
 	}
 

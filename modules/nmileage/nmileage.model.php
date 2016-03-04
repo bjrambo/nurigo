@@ -15,7 +15,7 @@ class nmileageModel extends nmileage
 
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nmileage');
 		if (!$config->mileage_method) $config->mileage_method = 'nmileage';
 		return $config;
@@ -35,7 +35,7 @@ class nmileageModel extends nmileage
 				if (!$output->toBool() || !$output->data) return 0;
 				return $output->data->mileage;
 			case 'point':
-				$oPointModel = &getModel('point');
+				$oPointModel = getModel('point');
 				$point = $oPointModel->getPoint($member_srl, TRUE);
 				return $point;
 		}

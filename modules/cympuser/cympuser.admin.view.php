@@ -83,12 +83,12 @@ class cympuserAdminView extends cympuser
 	function dispCympuserAdminModInsert()
 	{
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutMode = &getModel('layout');
+		$oLayoutMode = getModel('layout');
 		$layout_list = $oLayoutMode->getLayoutList();
 		Context::set('layout_list', $layout_list);
 

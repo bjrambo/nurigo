@@ -82,7 +82,7 @@ class nproductView extends nproduct
 	 */
 	function getCategoryTree($module_srl) 
 	{
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 		$category = Context::get('category');
 
 		$this->getEntireCategoryTree($module_srl);
@@ -158,10 +158,10 @@ class nproductView extends nproduct
 	 */
 	function dispNproductItemList() 
 	{
-		$oNproductModel = &getModel('nproduct');
-		$oStore_reviewModel = &getModel('store_review');
-		$oNproductModel = &getModel('nproduct');
-		$oFileModel = &getModel('file');
+		$oNproductModel = getModel('nproduct');
+		$oStore_reviewModel = getModel('store_review');
+		$oNproductModel = getModel('nproduct');
+		$oFileModel = getModel('file');
 
 		$config = $oNproductModel->getModuleConfig();
 
@@ -234,7 +234,7 @@ class nproductView extends nproduct
 		$logged_info = Context::get('logged_info');
 		if($logged_info)
 		{
-			$oNmileageModel = &getModel('nmileage');
+			$oNmileageModel = getModel('nmileage');
 			if($this->module_info->store_mileage_mid) Context::set('mileage_mid', $this->module_info->store_mileage_mid);
 
 			if(!$oNmileageModel)
@@ -266,10 +266,10 @@ class nproductView extends nproduct
 	{
 		if($_COOKIE['mobile'] == "true") Context::set('is_mobile', 'true');
 
-		$oDocumentModel = &getModel('document');
-		$oFileModel = &getModel('file');
-		$oNproductModel = &getModel('nproduct');
-		$oStoreReviewModel = &getModel('store_review');
+		$oDocumentModel = getModel('document');
+		$oFileModel = getModel('file');
+		$oNproductModel = getModel('nproduct');
+		$oStoreReviewModel = getModel('store_review');
 	
 		$item_srl = Context::get('item_srl');
 		$document_srl = Context::get('document_srl');
@@ -365,7 +365,7 @@ class nproductView extends nproduct
 	 */
 	function dispNproductReplyComment() 
 	{
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 
 		// 권한 체크
 		if(!$this->grant->write_comment) return new Object(-1,'msg_not_permitted');

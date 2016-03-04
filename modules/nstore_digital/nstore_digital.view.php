@@ -38,20 +38,14 @@ class nstore_digitalView extends nstore_digital
 		if(!$this->module_info->display_caution) $this->module_info->display_caution = 'Y';
 		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
 		Context::set('module_info',$this->module_info);
-
-		$oLicenseModel = &getModel('license');
-		if(!$oLicenseModel || ($oLicenseModel && !$oLicenseModel->getLicenseConfirm('nstore_digital')))
-		{
-			Context::addHtmlHeader("<script>jQuery(document).ready(function() { jQuery('<div style=\"background:#fff; padding:6px; position:fixed; right:6px; bottom:6px; z-index:999999; \">Powered by <a href=\"http://www.xeshoppingmall.com\">NURIGO</a></div>').appendTo('body'); });</script>");
-		}
 	}
 
 	function dispNstore_digitalIndex() 
 	{
-		$oFileModel = &getModel('file');
-		$oNstore_digital_contentsModel = &getModel('nstore_digital_contents');
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oNdcModel = &getModel('nstore_digital_contents');
+		$oFileModel = getModel('file');
+		$oNstore_digital_contentsModel = getModel('nstore_digital_contents');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oNdcModel = getModel('nstore_digital_contents');
 
 		$logged_info = Context::get('logged_info');
 		if(!$logged_info) return new Object(-1, 'msg_login_required');
@@ -119,7 +113,7 @@ class nstore_digitalView extends nstore_digital
 
 	function dispNstore_digitalFrontPage() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$this->getCategoryTree($this->module_info->module_srl);
 
@@ -132,9 +126,9 @@ class nstore_digitalView extends nstore_digital
 
 	function dispNstore_digitalDetail() 
 	{
-		$oFileModel = &getModel('file');
-		$oEpayModel = &getModel('epay');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oFileModel = getModel('file');
+		$oEpayModel = getModel('epay');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$config = $oNstore_digitalModel->getModuleConfig();
 
@@ -155,7 +149,7 @@ class nstore_digitalView extends nstore_digital
 
 	function dispNstore_digitalCertificate() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 		$logged_info = Context::get('logged_info');
 		$cart_srl = Context::get('cart_srl');
 		if(!$logged_info) return new Object(-1, 'msg_login_required');
@@ -231,9 +225,9 @@ class nstore_digitalView extends nstore_digital
 
 	function dispNstore_digitalPeriodPayment() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oNdc_model = &getModel('nstore_digital_contents');
-		$oNproduct_model = &getModel('nproduct');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oNdc_model = getModel('nstore_digital_contents');
+		$oNproduct_model = getModel('nproduct');
 
 		$vars = Context::getRequestVars();
 		$module_info = Context::get('module_info');
@@ -293,7 +287,7 @@ class nstore_digitalView extends nstore_digital
 		$args->purchaser_telnum = '010-0000-0000';
 		$args->join_form = 'fo_period';
 
-		$oEpayView = &getView('epay');
+		$oEpayView = getView('epay');
 		$output = $oEpayView->getPaymentForm($args);
 
 		if (!$output->toBool()) return $output;
@@ -310,8 +304,8 @@ class nstore_digitalView extends nstore_digital
 	
 	function dispNstore_digitalOrderComplete()
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
-		$oEpayModel = &getModel('epay');
+		$oNstore_digitalModel = getModel('nstore_digital');
+		$oEpayModel = getModel('epay');
 		$logged_info = Context::get('logged_info');
 
 		$order_srl = Context::get('order_srl');

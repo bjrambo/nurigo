@@ -8,7 +8,7 @@
 class nstoreAdminModel extends nstore
 {
 	function getNstoreAdminDeleteModInst() {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -21,7 +21,7 @@ class nstoreAdminModel extends nstore
 
 	function getNstoreAdminDeleteOrders() 
 	{
-		$oNstoreModel = &getModel('nstore');
+		$oNstoreModel = getModel('nstore');
 
 		$order_info_arr = $oNstoreModel->getOrdersInfo(Context::get('order_srl'));
 		Context::set('order_info_arr', $order_info_arr);

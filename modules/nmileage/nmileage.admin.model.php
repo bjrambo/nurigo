@@ -8,7 +8,7 @@
 class nmileageAdminModel extends nmileage
 {
 	function getNmileageAdminDeleteModInst() {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -20,7 +20,7 @@ class nmileageAdminModel extends nmileage
 	}
 
 	function getNmileageAdminPlusMileage() {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -32,7 +32,7 @@ class nmileageAdminModel extends nmileage
 	}
 
 	function getNmileageAdminMinusMileage() {
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
@@ -45,7 +45,7 @@ class nmileageAdminModel extends nmileage
 
 	function getNmileageAdminCheckUserId()
 	{
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 
 		$logged_info = Context::get('logged_info');
 		if($logged_info->is_admin != 'Y') return new Object(-1, 'msg_invalid_request');

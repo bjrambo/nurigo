@@ -12,11 +12,11 @@ class nmileageView extends nmileage
 		if($this->module_info->module != 'nmileage') $this->module_info->skin = 'default';
 		if(!$this->module_info->skin) $this->module_info->skin = 'default';
 		$skin = $this->module_info->skin;
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		// 템플릿 경로 설정
 		$this->setTemplatePath(sprintf('%sskins/%s', $this->module_path, $skin));
 
-		$oLicenseModel = &getModel('license');
+		$oLicenseModel = getModel('license');
 		if(!$oLicenseModel || ($oLicenseModel && !$oLicenseModel->getLicenseConfirm()))
 		{
 			Context::addHtmlHeader("<script>jQuery(document).ready(function() { jQuery('<div style=\"background:#fff; padding:6px; position:fixed; right:6px; bottom:6px; z-index:999999; \">Powered by <a href=\"http://www.xeshoppingmall.com\">NURIGO</a></div>').appendTo('body'); });</script>");
@@ -25,7 +25,7 @@ class nmileageView extends nmileage
 
 	function dispNmileageMileageHistory() 
 	{
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 
 		$logged_info = Context::get('logged_info');
 
@@ -53,7 +53,7 @@ class nmileageView extends nmileage
 
 	function dispNmileageMyMileage() 
 	{
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 
 		$logged_info = Context::get('logged_info');
 

@@ -52,7 +52,7 @@ class cympuserAdminController extends cympuser
 
 	function procCympuserAdminModDelete()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 
 		$module_srl = Context::get('module_srl');
 		if(!$module_srl) 

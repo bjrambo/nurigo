@@ -35,8 +35,8 @@ class nstore_digitalAdminController extends nstore_digital
 	function procNstore_digitalAdminInsertModInst() 
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -84,7 +84,7 @@ class nstore_digitalAdminController extends nstore_digital
 	{
 		$module_srl = Context::get('module_srl');
 
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool()) return $output;
 
@@ -98,8 +98,8 @@ class nstore_digitalAdminController extends nstore_digital
 
 	function procNstore_digitalAdminUpdateStatus() 
 	{
-		$oNstore_digitalController = &getController('nstore_digital');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalController = getController('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 		$config = $oNstore_digitalModel->getModuleConfig();
 
 		$carts = Context::get('cart');
@@ -142,9 +142,9 @@ class nstore_digitalAdminController extends nstore_digital
 
 	function procNstore_digitalAdminUpdatePeriodStatus() 
 	{
-		$oNstore_digitalController = &getController('nstore_digital');
-		$oNdc_Controller = &getController('nstore_digital_contents');
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalController = getController('nstore_digital');
+		$oNdc_Controller = getController('nstore_digital_contents');
+		$oNstore_digitalModel = getModel('nstore_digital');
 		$config = $oNstore_digitalModel->getModuleConfig();
 
 		if(!Context::get('cart')) return new Object(-1, '상품을 체크해주세요');
@@ -319,7 +319,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 	function procNstore_digitalAdminDeletePeriod()
 	{
-		$oNdc_Controller = &getController('nstore_digital_contents');
+		$oNdc_Controller = getController('nstore_digital_contents');
 
 		$period_srls = Context::get('period_srl');
 		$period_srls = explode(',',$period_srls);
@@ -382,7 +382,7 @@ class nstore_digitalAdminController extends nstore_digital
 		if(3 < $order_status || 2 > $order_status) return;
 
 
-		$oNdcModel = &getModel('nstore_digital_contents');
+		$oNdcModel = getModel('nstore_digital_contents');
 
 		$args->order_srl = $order_srl;
 		$output = executeQueryArray('nstore_digital.getCartItemsByOrderSrl', $args);

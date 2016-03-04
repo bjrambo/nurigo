@@ -76,7 +76,7 @@ class store_searchView extends integration_searchView {
 		// Create integration search model object
 		if($is_keyword)
 		{
-			$oIS = &getModel('store_search');
+			$oIS = getModel('store_search');
 			switch($where)
 			{
 				case 'product' :

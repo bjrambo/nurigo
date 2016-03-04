@@ -70,8 +70,8 @@ class paynoty extends ModuleObject
 	 **/
 	function moduleInstall() 
 	{
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// Document Registration Trigger
 		$oModuleController->insertTrigger('epay.processPayment', 'paynoty', 'controller', 'triggerCompletePayment', 'after');
@@ -83,8 +83,8 @@ class paynoty extends ModuleObject
 	function checkUpdate() 
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		// Document Registration Trigger
 		if (!$oModuleModel->getTrigger('epay.processPayment', 'paynoty', 'controller', 'triggerCompletePayment', 'after'))
@@ -100,8 +100,8 @@ class paynoty extends ModuleObject
 	function moduleUpdate() 
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		// Document Registration Trigger
 		if (!$oModuleModel->getTrigger('epay.processPayment', 'paynoty', 'controller', 'triggerCompletePayment', 'after'))

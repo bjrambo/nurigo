@@ -34,8 +34,8 @@ class nmileageAdminController extends nmileage
 	function procNmileageAdminInsertModInst() 
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -78,7 +78,7 @@ class nmileageAdminController extends nmileage
 	{
 		$module_srl = Context::get('module_srl');
 
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool())
 		{
@@ -118,8 +118,8 @@ class nmileageAdminController extends nmileage
 
 	function procNmileageAdminPlusMileage() 
 	{
-		$oMemberModel = &getModel('member');
-		$oNmileageController = &getController('nmileage');
+		$oMemberModel = getModel('member');
+		$oNmileageController = getController('nmileage');
 
 		$user_id = Context::get('user_id');
 		$amount = (int)Context::get('mileage');
@@ -140,8 +140,8 @@ class nmileageAdminController extends nmileage
 
 	function procNmileageAdminMinusMileage() 
 	{
-		$oMemberModel = &getModel('member');
-		$oNmileageController = &getController('nmileage');
+		$oMemberModel = getModel('member');
+		$oNmileageController = getController('nmileage');
 
 		$user_id = Context::get('user_id');
 		$amount = (int)Context::get('mileage');

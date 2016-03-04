@@ -42,7 +42,7 @@ class nproductItem extends Object
 		if(is_object($info)) $this->setAttributes($info);
 		if(is_numeric($info)) 
 		{
-			$oStoreModel = &getModel('nproduct');
+			$oStoreModel = getModel('nproduct');
 			$item_info = $oStoreModel->getItemInfo($info);
 			if ($item_info) $this->setAttributes($item_info);
 		}
@@ -53,7 +53,7 @@ class nproductItem extends Object
 		//if($this->module_srl) 에서 아래와 같이 바꿈
 		if($this->module_srl && $this->extra_vars)
 		{
-			$oNstoreModel = &getModel('nproduct');
+			$oNstoreModel = getModel('nproduct');
 			$extra_vars = $oNstoreModel->getCombineItemExtras($this);
 
 			if(is_object($extra_vars) || is_array($extra_vars))
@@ -72,7 +72,7 @@ class nproductItem extends Object
 	 */
 	function printPrice($price = null)
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 
 		if(!$price) $price = $this->price;
 		return $oCurrencyModel->printPrice($price);
@@ -84,7 +84,7 @@ class nproductItem extends Object
 	 */
 	function setCurrency($currency = "KRW", $as_sign = "N")
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		$oCurrencyModel->setCurrency($currency, $as_sign);
 	}
 
@@ -94,7 +94,7 @@ class nproductItem extends Object
 	 */
 	function price($price)
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		return $oCurrencyModel->price($price);
 
 	}
@@ -105,7 +105,7 @@ class nproductItem extends Object
 	 */
 	function formatMoney($number)
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		return $oCurrencyModel->formatMoney($number);
 	}
 
@@ -115,7 +115,7 @@ class nproductItem extends Object
 	 */
 	function getPrice($price = null)
 	{
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		if ($price===NULL) $price = $this->price;
 		
 		return $oCurrencyModel->getPrice($price);
@@ -214,7 +214,7 @@ class nproductItem extends Object
 	 */
 	function getThumbnail($width = 80, $height = 0, $thumbnail_type = 'crop') 
 	{
-		$oFileModel = &getModel('file');
+		$oFileModel = getModel('file');
 
 		$file_srl = $this->getFileSrl();
 		if(!$file_srl) return NULL;
@@ -254,7 +254,7 @@ class nproductItem extends Object
 	 */
 	function getDocument()
 	{
-		$oDocumentModel = &getModel('document');
+		$oDocumentModel = getModel('document');
 		return $oDocumentModel->getDocument($this->document_srl);
 	}
 }

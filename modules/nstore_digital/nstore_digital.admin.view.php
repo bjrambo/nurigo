@@ -17,7 +17,7 @@ class nstore_digitalAdminView extends nstore_digital
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -39,7 +39,7 @@ class nstore_digitalAdminView extends nstore_digital
 		}
 
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 
@@ -100,7 +100,7 @@ class nstore_digitalAdminView extends nstore_digital
 		}
 
 		// newest comment
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 		$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
@@ -148,7 +148,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminOrderManagement() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
+		$oNstore_coreModel = getModel('nstore_digital');
 
 		if(!Context::get('status'))
 		{
@@ -185,8 +185,8 @@ class nstore_digitalAdminView extends nstore_digital
 	function dispNstore_digitalAdminIndividualOrderManagement() 
 	{
 
-		$oNstore_coreModel = &getModel('nstore_digital');
-		$oEpayModel = &getModel('epay');
+		$oNstore_coreModel = getModel('nstore_digital');
+		$oEpayModel = getModel('epay');
 
 		$config = $oNstore_coreModel->getModuleConfig();
 
@@ -261,8 +261,8 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminPeriodManagement() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
-		$oNproduct_Model = &getModel('nproduct');
+		$oNstore_coreModel = getModel('nstore_digital');
+		$oNproduct_Model = getModel('nproduct');
 
 		if(!Context::get('status'))
 		{
@@ -312,8 +312,8 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminOrderDetail() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
-		$oEpayModel = &getModel('epay');
+		$oNstore_coreModel = getModel('nstore_digital');
+		$oEpayModel = getModel('epay');
 
 		$config = $oNstore_coreModel->getModuleConfig();
 
@@ -349,8 +349,8 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminItemListExcelDownload() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
-		$oStoreView = &getView('nstore_digital');
+		$oNstore_coreModel = getModel('nstore_digital');
+		$oStoreView = getView('nstore_digital');
 
 		$oStoreView->getCategoryTree($this->module_info->module_srl);
 
@@ -444,7 +444,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminOrderSheet() 
 	{
-		$oNstore_digitalModel = &getModel('nstore_digital');
+		$oNstore_digitalModel = getModel('nstore_digital');
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
@@ -466,7 +466,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$list = $output->data;
 		Context::set('list', $list);
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 		$this->setTemplateFile('modinstlist');
@@ -474,8 +474,8 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminConfig() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
-		$oModuleModel = &getModel('module');
+		$oNstore_coreModel = getModel('nstore_digital');
+		$oModuleModel = getModel('module');
 
 		$config = $oNstore_coreModel->getModuleConfig();
 		Context::set('config',$config);
@@ -488,7 +488,7 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -496,11 +496,11 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		if($oNcartModel)
 		{
 			$ncart_insts = $oNcartModel->getModInstList();
@@ -512,10 +512,10 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminInsertModInst() 
 	{
-		$oNstore_coreModel = &getModel('nstore_digital');
+		$oNstore_coreModel = getModel('nstore_digital');
 
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -523,7 +523,7 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -531,11 +531,11 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$modules = $oEpayModel->getEpayList();
 		Context::set('epay_modules', $modules);
 
-		$oEditorModel = &getModel('editor');
+		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// 에디터 옵션 변수를 미리 설정
 		$option->skin = $config->editor_skin;
@@ -564,7 +564,7 @@ class nstore_digitalAdminView extends nstore_digital
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
 
-		$oEditorView = &getView('editor');
+		$oEditorView = getView('editor');
 		$oEditorView->triggerDispEditorAdditionSetup($content);
 		Context::set('setup_content', $content);
 	}
@@ -576,7 +576,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$status = Context::get('status');
 		if(!$status) $status = '1';
 
-		$oAutomailModel = &getModel('automail');
+		$oAutomailModel = getModel('automail');
 		if($oAutomailModel) $oAutomailModel->getSetup('nstore_digital', $status, $content);
 		Context::set('setup_content', $content);
 		$order_status = $this->getOrderStatus();
@@ -590,7 +590,7 @@ class nstore_digitalAdminView extends nstore_digital
 	function dispNstore_digitalAdminSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -602,7 +602,7 @@ class nstore_digitalAdminView extends nstore_digital
 	function dispNstore_digitalAdminMobileSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

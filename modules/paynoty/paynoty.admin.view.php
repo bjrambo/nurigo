@@ -11,7 +11,7 @@ class paynotyAdminView extends paynoty
 
 	function init() 
 	{
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 
 		// group 목록 가져오기
 		$this->group_list = $oMemberModel->getGroups();
@@ -64,7 +64,7 @@ class paynotyAdminView extends paynoty
 		Context::set('list', $config_list);
 
 
-		$oPaynotyModel = &getModel('paynoty');
+		$oPaynotyModel = getModel('paynoty');
 		$config = $oPaynotyModel->getModuleConfig();
 		Context::set('config',$config);
 
@@ -76,7 +76,7 @@ class paynotyAdminView extends paynoty
 	 **/
 	function dispPaynotyAdminInsert() 
 	{
-		$oEditorModel = &getModel('editor');
+		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// set editor options.
 		$option->skin = $config->editor_skin;
@@ -138,7 +138,7 @@ class paynotyAdminView extends paynoty
 		Context::set('config', $config);
 
 		// editor
-		$oEditorModel = &getModel('editor');
+		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// set options.
 		$option->skin = $config->editor_skin;

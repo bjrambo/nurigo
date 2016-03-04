@@ -33,8 +33,8 @@ class nstoreAdminController extends nstore
 	function procNstoreAdminInsertModInst() 
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -81,7 +81,7 @@ class nstoreAdminController extends nstore
 	function procNstoreAdminDeleteModInst()
 	{
 		$module_srl = Context::get('module_srl');
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool()) return $output;
 		$this->add('module', 'nstore');
@@ -93,7 +93,7 @@ class nstoreAdminController extends nstore
 
 	function procNstoreAdminUpdateStatus() 
 	{
-		$oNstoreController = &getController('nstore');
+		$oNstoreController = getController('nstore');
 
 		$carts = Context::get('cart');
 		if(!is_array($carts)) $carts = array();
@@ -148,7 +148,7 @@ class nstoreAdminController extends nstore
 
 	function procNstoreAdminUpdateDeliveryInfo()
 	{
-		$oNstoreController = &getController('nstore');
+		$oNstoreController = getController('nstore');
 
 		$carts = Context::get('cart');
 		if(!is_array($carts)) $carts = array();
@@ -330,7 +330,7 @@ class nstoreAdminController extends nstore
 
 	function procNstoreAdminCSVDownloadByOrder() 
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		if(!Context::get('status')) Context::set('status','1');
 		$args->order_status = Context::get('status');

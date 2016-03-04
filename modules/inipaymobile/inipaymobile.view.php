@@ -24,7 +24,7 @@ class inipaymobileView extends inipaymobile
 	 */
 	function dispInipaymobileForm() 
 	{
-		$oEpayController = &getController('epay');
+		$oEpayController = getController('epay');
 		// get products info using cartnos
 		$reviewOutput = $oEpayController->reviewOrder();
 		if(!$reviewOutput->toBool()) return $reviewOutput;

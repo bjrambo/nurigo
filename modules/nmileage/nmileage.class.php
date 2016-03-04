@@ -20,7 +20,7 @@ class nmileage extends ModuleObject
         function checkUpdate()
         {
 			$oDB = &DB::getInstance();
-            $oModuleModel = &getModel('module');
+            $oModuleModel = getModel('module');
 
 			// 2013. 09. 25 when add new menu in sitemap, custom menu add
 			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after')) return true;
@@ -34,8 +34,8 @@ class nmileage extends ModuleObject
         function moduleUpdate()
         {
 			$oDB = &DB::getInstance();
-			$oModuleModel = &getModel('module');
-			$oModuleController = &getController('module');
+			$oModuleModel = getModel('module');
+			$oModuleController = getController('module');
 
 			// 2013. 09. 25 when add new menu in sitemap, custom menu add
 			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after'))

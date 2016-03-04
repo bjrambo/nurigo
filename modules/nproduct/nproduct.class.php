@@ -5,8 +5,8 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproduct
  */
-require_once(_XE_PATH_.'modules/nproduct/nproduct.item.php');
-require_once(_XE_PATH_.'modules/nproduct/ExtraItem.class.php');
+require_once(_XE_PATH_ . 'modules/nproduct/nproduct.item.php');
+require_once(_XE_PATH_ . 'modules/nproduct/ExtraItem.class.php');
 
 define('WAIT_FOR_DEPOSIT', '1');
 define('PREPARE_DELIVERY', '2');
@@ -23,7 +23,7 @@ class nproduct extends ModuleObject
 	{
 		$this->ORDER_STATE_COMPLETE = nproduct::ORDER_STATE_COMPLETE;
 		$this->ORDER_STATE_PAID = nproduct::ORDER_STATE_PAID;
-		$this->order_status = array('0'=>'카트보관', '1'=>'입금대기', '2'=>'입금완료', '3'=>'구매완료','A'=>'취소','B'=>'반품,교환','C'=>'환불');
+		$this->order_status = array('0' => '카트보관', '1' => '입금대기', '2' => '입금완료', '3' => '구매완료', 'A' => '취소', 'B' => '반품,교환', 'C' => '환불');
 	}
 
 	/**
@@ -57,8 +57,8 @@ class nproduct extends ModuleObject
 	 **/
 	function moduleInstall()
 	{
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 		return new Object();
 	}
 
@@ -67,39 +67,57 @@ class nproduct extends ModuleObject
 	 **/
 	function checkUpdate()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
-				
+
 		//extra_Vars check
 		$output = $this->checkModuleExtraVars();
-		if($output == 'true') return true;
+		if($output == 'true')
+		{
+			return true;
+		}
 
 		// 2013. 09. 25 when add new menu in sitemap, custom menu add
-		if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nproduct', 'model', 'triggerModuleListInSitemap', 'after')) return true;
+		if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nproduct', 'model', 'triggerModuleListInSitemap', 'after'))
+		{
+			return true;
+		}
 
 		// 2013/10/29
-		if(!$oDB->isColumnExists('nproduct_items', 'updatetime')) return true;
+		if(!$oDB->isColumnExists('nproduct_items', 'updatetime'))
+		{
+			return true;
+		}
 
 		// 2014/04/29
-		if(!$oDB->isColumnExists('nproduct_items', 'related_items')) return true;
+		if(!$oDB->isColumnExists('nproduct_items', 'related_items'))
+		{
+			return true;
+		}
 
 		// 2014/12/30
-		if(!$oDB->isColumnExists('nproduct_items', 'minimum_order_quantity')) return true;
+		if(!$oDB->isColumnExists('nproduct_items', 'minimum_order_quantity'))
+		{
+			return true;
+		}
 
 		return false;
 	}
 
 	function checkModuleExtraVars($condition = null)
 	{
-		$oModuleModel = &getModel('module');
-		$oModuleAdminModel = &getAdminModel('module');
-		$oNproductModel =  &getModel('nproduct');
+		$oModuleModel = getModel('module');
+		$oModuleAdminModel = getAdminModel('module');
+		$oNproductModel =  getModel('nproduct');
 
 		$args = new stdClass();
 		$args->module = 'nproduct';
 		$args->site_srl = '0';
 		$output = $oModuleAdminModel->getModuleMidList($args); // module_list get
-		if(!$output->data) return;
+		if(!$output->data)
+		{
+			return;
+		}
 
 		foreach($output->data as $k => $v)
 		{
@@ -124,8 +142,14 @@ class nproduct extends ModuleObject
 
 				if(!$item_extra_output)
 				{
-					if($condition == 'install') $this->updateExtraVars($v->module_srl);
-					else return 'true';
+					if($condition == 'install')
+					{
+						$this->updateExtraVars($v->module_srl);
+					}
+					else
+					{
+						return 'true';
+					}
 				}
 				else
 				{
@@ -133,8 +157,14 @@ class nproduct extends ModuleObject
 					{
 						if(!in_array($val->column_name, $item_extra))
 						{
-							if($condition == 'install') $this->updateExtraVars($v->module_srl, $val->column_name);
-							else return 'true';
+							if($condition == 'install')
+							{
+								$this->updateExtraVars($v->module_srl, $val->column_name);
+							}
+							else
+							{
+								return 'true';
+							}
 						}
 					}
 				}
@@ -142,25 +172,32 @@ class nproduct extends ModuleObject
 		}
 	}
 
-	function updateExtraVars($module_srl, $condition=null)
+	function updateExtraVars($module_srl, $condition = null)
 	{
-		$oModuleModel =  &getModel('module');
-		$oNproductModel =  &getModel('nproduct');
-		$oNprocutAdminController = &getAdminController('nproduct');
+		$oModuleModel =  getModel('module');
+		$oNproductModel =  getModel('nproduct');
+		$oNprocutAdminController = getAdminController('nproduct');
 
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-		if(!$module_info) return;
+		if(!$module_info)
+		{
+			return;
+		}
 
 		$default_extra_forms = $oNproductModel->getNproductExtraVars($module_info->proc_module);
-		if(!$default_extra_forms) return;
-
-		foreach($default_extra_forms as $key=>$val)
+		if(!$default_extra_forms)
 		{
+			return;
+		}
+
+		foreach($default_extra_forms as $key => $val)
+		{
+			$extra = new stdClass();
 			$extra->module_srl = $module_srl;
 			$extra->column_type = $val->column_type;
 			$extra->column_name = $val->column_name;
 			$extra->column_title = $val->column_title;
-			$extra->default_value = explode("\n", str_replace("\r", '',$val->default_value));
+			$extra->default_value = explode("\n", str_replace("\r", '', $val->default_value));
 			$extra->required = $val->required;
 			$extra->is_active = (isset($extra->required));
 			$extra->description = $val->description;
@@ -187,23 +224,34 @@ class nproduct extends ModuleObject
 	function moduleUpdate()
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		// 2013. 09. 25 when add new menu in sitemap, custom menu add
 		if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nproduct', 'model', 'triggerModuleListInSitemap', 'after'))
+		{
 			$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'nproduct', 'model', 'triggerModuleListInSitemap', 'after');
+		}
 
 		$this->checkModuleExtraVars('install');
 
 		// 2013/10/29
-		if(!$oDB->isColumnExists('nproduct_items', 'updatetime')) $oDB->addColumn('nproduct_items', 'updatetime', 'date');
+		if(!$oDB->isColumnExists('nproduct_items', 'updatetime'))
+		{
+			$oDB->addColumn('nproduct_items', 'updatetime', 'date');
+		}
 
 		// 2014/04/29
-		if(!$oDB->isColumnExists('nproduct_items', 'related_items')) $oDB->addColumn('nproduct_items', 'related_items', 'text');
+		if(!$oDB->isColumnExists('nproduct_items', 'related_items'))
+		{
+			$oDB->addColumn('nproduct_items', 'related_items', 'text');
+		}
 
 		// 2014/12/30
-		if(!$oDB->isColumnExists('nproduct_items', 'minimum_order_quantity')) $oDB->addColumn('nproduct_items', 'minimum_order_quantity', 'number', '11', '0', TRUE);
+		if(!$oDB->isColumnExists('nproduct_items', 'minimum_order_quantity'))
+		{
+			$oDB->addColumn('nproduct_items', 'minimum_order_quantity', 'number', '11', '0', TRUE);
+		}
 
 		return new Object(0, 'success_updated');
 	}

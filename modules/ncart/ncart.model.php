@@ -16,7 +16,7 @@ class ncartModel extends ncart
 
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('ncart');
 		if (!$config->cart_thumbnail_width) $config->cart_thumbnail_width = 100;
 		if (!$config->cart_thumbnail_height) $config->cart_thumbnail_height = 100;
@@ -27,7 +27,7 @@ class ncartModel extends ncart
 		if (!$config->address_input) $config->address_input = 'krzip';
 		if (!$config->mileage_method) $config->mileage_method = 'ncart';
 		
-		$oCurrencyModule = &getModel('currency');
+		$oCurrencyModule = getModel('currency');
 		$currency = $oCurrencyModule->getModuleConfig();
 		if (!$currency->currency) $config->currency = 'KRW';
 		else	$config->currency = $currency->currency;
@@ -85,7 +85,7 @@ class ncartModel extends ncart
 	 */
 	function discountItems(&$item_list, $group_list=array(), $width=50, $height=50)
 	{
-		$oNproductModel = &getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 		return $oNproductModel->discountItems($item_list, $group_list, $width, $height);
 	}
 
@@ -112,7 +112,7 @@ class ncartModel extends ncart
 
 	function getMemberCartInfo($member_srl, $cartnos=null, $width=null, $height=null)
 	{
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 
 		// get group list
 		$group_list = $oMemberModel->getMemberGroups($member_srl);
@@ -148,7 +148,7 @@ class ncartModel extends ncart
 	 */
 	function getCartInfo($cartnos=null, $width=null, $height=null)
 	{
-		$oNcartController = &getController('ncart');
+		$oNcartController = getController('ncart');
 
 		$logged_info = Context::get('logged_info');
 		$non_key = $_COOKIE['non_key'];
@@ -174,9 +174,9 @@ class ncartModel extends ncart
 
 	function getCartItems($member_srl, $cartnos=null, $width=null, $height=null) 
 	{
-		$oFileModel = &getModel('file');
-		$oMemberModel = &getModel('member');
-		$oModuleModel = &getModel('module');
+		$oFileModel = getModel('file');
+		$oMemberModel = getModel('member');
+		$oModuleModel = getModel('module');
 
 		// my group list
 		$group_list = $oMemberModel->getMemberGroups($member_srl);
@@ -202,9 +202,9 @@ class ncartModel extends ncart
 	{
 
 		$logged_info = Context::get('logged_info');
-		$oFileModel = &getModel('file');
-		$oMemberModel = &getModel('member');
-		$oModuleModel = &getModel('module');
+		$oFileModel = getModel('file');
+		$oMemberModel = getModel('member');
+		$oModuleModel = getModel('module');
 		$module_srl = Context::get('module_srl');
 
 		$config = $this->getModuleConfig();
@@ -374,8 +374,8 @@ class ncartModel extends ncart
 	}
 
 	function getFavoriteItems($member_srl, $width=null, $height=null) {
-		$oFileModel = &getModel('file');
-		$oMemberModel = &getModel('member');
+		$oFileModel = getModel('file');
+		$oMemberModel = getModel('member');
 
 		if (!$width) $width = $this->module_info->thumbnail_width;
 		if (!$height) $height = $this->module_info->thumbnail_height;
@@ -477,7 +477,7 @@ class ncartModel extends ncart
 		// cpage is a number of comment pages
 		$cpage = Context::get('cpage');
 		// Get a list of comments
-		$oReviewModel = &getModel('store_review');
+		$oReviewModel = getModel('store_review');
 		$output = $oReviewModel->getReviewList($item_info->module_srl, $item_info->item_srl, $cpage, $is_admin);
 		if(!$output->toBool() || !count($output->data)) return;
 		// Create commentItem object from a comment list
@@ -541,7 +541,7 @@ class ncartModel extends ncart
 
 	function getMileage($member_srl) 
 	{
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 
 		return $oNmileageModel->getMileage($member_srl);
 	}
@@ -652,8 +652,8 @@ class ncartModel extends ncart
 
 	function getListConfig($module_srl) 
 	{
-		$oModuleModel = &getModel('module');
-		$oDocumentModel = &getModel('document');
+		$oModuleModel = getModel('module');
+		$oDocumentModel = getModel('document');
 
 		$extra_vars = array();
 
@@ -951,7 +951,7 @@ class ncartModel extends ncart
 		}
 		else if($extendForm->column_type == 'kr_zip')
 		{
-			$krzipModel = &getModel('krzip');
+			$krzipModel = getModel('krzip');
 			if($krzipModel && method_exists($krzipModel , 'getKrzipCodeSearchHtml' ))
 			{
 				$template = $krzipModel->getKrzipCodeSearchHtml($extendForm->column_name, $extendForm->value);

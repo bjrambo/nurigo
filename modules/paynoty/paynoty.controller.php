@@ -10,8 +10,8 @@ class paynotyController extends paynoty
 
 	function sendMessages($content, $mail_content, $title, $sender, $config) 
 	{
-		$oTextmessageController = &getController('textmessage');
-		$oPaynotyModel = &getModel('paynoty');
+		$oTextmessageController = getController('textmessage');
+		$oPaynotyModel = getModel('paynoty');
 
 		if (in_array($config->sending_method,array('1','2'))&&$oTextmessageController) 
 		{
@@ -69,7 +69,7 @@ class paynotyController extends paynoty
 
 /*
 		// get document info.
-		$oDocumentModel = &getModel('document');
+		$oDocumentModel = getModel('document');
 		$oDocument = $oDocumentModel->getDocument($obj->document_srl);
 		debugPrint('oDocument : ' . serialize($oDocument));
  */
@@ -120,7 +120,7 @@ class paynotyController extends paynoty
 		}
 
 		// get configuration info. no configuration? just return.
-		$oPaynotyModel = &getModel('paynoty');
+		$oPaynotyModel = getModel('paynoty');
 		$config_list = $oPaynotyModel->getConfigListByModuleSrl($state->epay_module_srl);
 		if (!$config_list) 
 		{

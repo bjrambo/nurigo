@@ -9,7 +9,7 @@ class eposController extends epos
 {
 	function processOrderInfo($strOrderInfo)
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		debugPrint('processOrderInfo');
 		$xmlObj = simplexml_load_string($strOrderInfo);
@@ -37,8 +37,8 @@ class eposController extends epos
 		debugPrint('processResult');
 		debugPrint($strRsXML);
 
-		$oEpayController = &getController('epay');
-		$oEpayModel = &getModel('epay');
+		$oEpayController = getController('epay');
+		$oEpayModel = getModel('epay');
 
 		$xmlObj = simplexml_load_string($strRsXML);
 
@@ -76,7 +76,7 @@ class eposController extends epos
 		$transactionInfo = $oEpayModel->getTransactionByOrderSrl($orderNumber);
 		if(!$transactionInfo) $this->stop('cannot find transaction information');
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($transactionInfo->plugin_srl);
 		debugPrint($module_info);
 

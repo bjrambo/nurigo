@@ -231,7 +231,7 @@ class store_reviewModel extends store_review
 	{
 		if($obj->mid)
 		{
-			$oModuleModel = &getModel('module');
+			$oModuleModel = getModel('module');
 			$obj->module_srl = $oModuleModel->getModuleSrlByMid($obj->mid);
 			unset($obj->mid);
 		}
@@ -309,7 +309,7 @@ class store_reviewModel extends store_review
 		if(!$output)
 		{
 			/*
-					$oStoreModel = &getModel('nstore_digital');
+					$oStoreModel = getModel('nstore_digital');
 					$oItemInfo = $oStoreModel->getItemInfo($item_srl);
 					$module_srl = $oItemInfo->module_srl;
 			*/
@@ -675,7 +675,7 @@ class store_reviewModel extends store_review
 	 **/
 	function getCommentConfig($module_srl)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$comment_config = $oModuleModel->getModulePartConfig('comment', $module_srl);
 		if(!isset($comment_config->comment_count))
 		{
@@ -698,7 +698,7 @@ class store_reviewModel extends store_review
 			$point = 1;
 		}
 
-		$oCommentModel = &getModel('comment');
+		$oCommentModel = getModel('comment');
 		$oComment = $oCommentModel->getComment($comment_srl, false, false);
 		$module_srl = $oComment->get('module_srl');
 		if(!$module_srl)
@@ -706,7 +706,7 @@ class store_reviewModel extends store_review
 			return new Object(-1, 'msg_invalid_request');
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$comment_config = $oModuleModel->getModulePartConfig('comment', $module_srl);
 		$args = new stdClass();
 		if($point == -1)
@@ -733,7 +733,7 @@ class store_reviewModel extends store_review
 			return $output;
 		}
 
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 		if($output->data)
 		{
 			foreach($output->data as $k => $d)

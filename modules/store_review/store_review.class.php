@@ -19,7 +19,7 @@ class store_review extends ModuleObject {
 	 **/
 	function checkUpdate() {
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		return false;
 	}
@@ -29,8 +29,8 @@ class store_review extends ModuleObject {
 	 **/
 	function moduleUpdate() {
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		return new Object(0, 'success_updated');
 	}

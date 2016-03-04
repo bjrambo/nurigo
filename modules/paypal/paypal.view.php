@@ -33,17 +33,17 @@ class paypalView extends paypal
 	 */
 	function dispPaypalForm() 
 	{
-		$oEpayController = &getController('epay');
-		$oNcartModel = &getModel('ncart');
-		$oModuleModel = &getModel('module');
+		$oEpayController = getController('epay');
+		$oNcartModel = getModel('ncart');
+		$oModuleModel = getModel('module');
 		$oPaypalModuleConfig = $oModuleModel->getModuleConfig('paypal');
-		$oPaypalModel = &getModel('paypal');
+		$oPaypalModel = getModel('paypal');
 		$paypalhome = sprintf(_XE_PATH_."files/epay/%s", $this->module_info->module_srl);
 
 		$logged_info = Context::get('logged_info');
 		if($logged_info)
 		{
-			$oEpayModel = &getModel('epay');
+			$oEpayModel = getModel('epay');
 			$transaction_count = $oEpayModel->getTransactionCountByMemberSrl($logged_info->member_srl);
 			if($transaction_count < $oPaypalModuleConfig->minimum_transactions)
 			{
@@ -140,7 +140,7 @@ class paypalView extends paypal
 
 	function dispPaypalError()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$transaction_srl = Context::get('transaction_srl');
 		$error_code = Context::get('error_code');
 		$output = $oEpayModel->getTransactionInfo($transaction_srl);

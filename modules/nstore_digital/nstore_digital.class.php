@@ -31,8 +31,8 @@ class nstore_digital extends ModuleObject
 	 **/
 	function moduleInstall()
 	{
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		// 다운로드 권한 체크
 		if (!$oModuleModel->getTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerCheckPermission', 'before'))
@@ -67,7 +67,7 @@ class nstore_digital extends ModuleObject
 	 **/
 	function checkUpdate()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 
 		if (!$oModuleModel->getTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerCheckPermission', 'before')) return true;
@@ -94,8 +94,8 @@ class nstore_digital extends ModuleObject
 	function moduleUpdate()
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		if(!$oModuleModel->getTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerCheckPermission', 'before')) {
 			$oModuleController->insertTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerCheckPermission', 'before');
@@ -125,7 +125,7 @@ class nstore_digital extends ModuleObject
 
 	function moduleUninstall()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$oModuleController->deleteTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerCheckPermission', 'before');
 		$oModuleController->deleteTrigger('file.downloadFile', 'nstore_digital', 'controller', 'triggerUpdateDownloadedCount', 'after');
 		$oModuleController->deleteTrigger('nproduct.getProcModules', 'nstore_digital', 'model', 'triggerGetProcModules', 'before');

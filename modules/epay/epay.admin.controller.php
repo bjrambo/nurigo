@@ -13,8 +13,8 @@ class epayAdminController extends epay
 	function procEpayAdminInsertEpay()
 	{
 		// module 모듈의 model/controller 객체 생성
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -54,7 +54,7 @@ class epayAdminController extends epay
 	{
 		$module_srl = Context::get('module_srl');
 		// 원본을 구해온다
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool()) return $output;
 
@@ -96,7 +96,7 @@ class epayAdminController extends epay
 	 */
 	function procEpayAdminUpdatePlugin()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		// module, act, layout_srl, layout, title을 제외하면 확장변수로 판단.. 좀 구리다..
 		$extra_vars = Context::getRequestVars();

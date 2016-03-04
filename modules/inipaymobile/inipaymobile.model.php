@@ -40,7 +40,7 @@ class inipaymobileModel extends inipaymobile
 	function getPaymentMethods($module_srl)
 	{
 		if(!$module_srl) return array();
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 
 		$list = array();

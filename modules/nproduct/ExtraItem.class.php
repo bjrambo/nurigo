@@ -12,7 +12,7 @@ class NExtraItemList
 {
 	function getList(&$item_info)
 	{
-		$oNstoreModel = &getModel('nproduct');
+		$oNstoreModel = getModel('nproduct');
 
 		// 확장변수목록과 값을 취합한다
 		$extend_form_list = $oNstoreModel->getCombineItemExtras($item_info);

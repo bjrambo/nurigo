@@ -17,7 +17,7 @@ class paynotyModel extends paynoty
 
 	function getModuleConfig() {
 		if (!$GLOBALS['__paynoty_config__']) {
-			$oModuleModel = &getModel('module');
+			$oModuleModel = getModel('module');
 			$config = $oModuleModel->getModuleConfig('paynoty');
 			$GLOBALS['__paynoty_config__'] = $config;
 		}

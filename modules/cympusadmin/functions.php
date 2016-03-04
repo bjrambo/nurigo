@@ -44,7 +44,7 @@ function getCympusStatus()
 	}
 
 	// contents-mall
-	$oNstore_digitalAdminModel = &getAdminModel('nstore_digital');
+	$oNstore_digitalAdminModel = getAdminModel('nstore_digital');
 	if($oNstore_digitalAdminModel && ($logged_info->is_admin == 'Y' || $cympusadmin_menu['nstore_digital']))
 	{
 		$salesInfoToday = $oNstore_digitalAdminModel->getSalesInfo($today);
@@ -58,7 +58,7 @@ function getCympusStatus()
 	}
 
 	// elearning
-	$oElearningAdminModel = &getAdminModel('elearning');
+	$oElearningAdminModel = getAdminModel('elearning');
 	if($oElearningAdminModel && ($logged_info->is_admin == 'Y' || $cympusadmin_menu['elearning']))
 	{
 		$salesInfoToday = $oElearningAdminModel->getSalesInfo($today);
@@ -72,7 +72,7 @@ function getCympusStatus()
 	}
 
 	// freepass
-	$oFreepassAdminModel = &getAdminModel('freepass');
+	$oFreepassAdminModel = getAdminModel('freepass');
 	if($oFreepassAdminModel && ($logged_info->is_admin == 'Y' || $cympusadmin_menu['freepass']))
 	{
 		$salesInfoToday = $oFreepassAdminModel->getSalesInfo($today);
@@ -86,7 +86,7 @@ function getCympusStatus()
 	}
 
 	// offline
-	$oOfflineAdminModel = &getAdminModel('offline');
+	$oOfflineAdminModel = getAdminModel('offline');
 	if($oOfflineAdminModel && ($logged_info->is_admin == 'Y' || $cympusadmin_menu['offline']))
 	{
 		$salesInfoToday = $oOfflineAdminModel->getSalesInfo($today);
@@ -100,7 +100,7 @@ function getCympusStatus()
 	}
 
 	// for layer
-	$oScmsAdminModel = &getAdminModel('scms');
+	$oScmsAdminModel = getAdminModel('scms');
 	if($oScmsAdminModel)
 	{
 		$status->player = new stdClass();

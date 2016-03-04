@@ -44,7 +44,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 
 		$output = executeQueryArray('nproduct.getItemsByNodeRoute', $args);
 
-		$oNstore_digitalModel = &getModel('nstore_digital_contents');
+		$oNstore_digitalModel = getModel('nstore_digital_contents');
 
 		if($output->data)
 		{
@@ -70,9 +70,9 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 	 */
 	function dispNstore_digital_contentsAdminManageContents()
 	{
-		$oModuleModel = &getModel('module');
-		$oFileModel = &getModel('file');
-		$oNproductModel = &getModel('nproduct');
+		$oModuleModel = getModel('module');
+		$oFileModel = getModel('file');
+		$oNproductModel = getModel('nproduct');
 
 		// get item info
 		$item_info = $oNproductModel->getItemInfo(Context::get('item_srl'));
@@ -106,7 +106,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 
 	function dispNstore_digital_contentsAdminInsertConfig() 
 	{ 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$nstore_digital_contents_config = $oModuleModel->getModuleConfig('nstore_digital_contents');
 		if($nstore_digital_contents_config) Context::set('config', $nstore_digital_contents_config);
 			

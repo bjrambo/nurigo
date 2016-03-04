@@ -27,7 +27,7 @@ function getApiContext() {
 	// OAuthTokenCredential class can be retrieved from 
 	// developer.paypal.com
 
-	$oModuleModel = &getModel('module');
+	$oModuleModel = getModel('module');
 	$oPaypalModuleConfig = $oModuleModel->getModuleConfig('paypal');
 	debugprint($oPaypalModuleConfig);
 	$apiContext = new ApiContext(

@@ -10,7 +10,7 @@ class nstore_digitalModel extends nstore_digital
 
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nstore_digital');
 		if (!$config->cart_thumbnail_width) $config->cart_thumbnail_width = 100;
 		if (!$config->cart_thumbnail_height) $config->cart_thumbnail_height = 100;
@@ -20,7 +20,7 @@ class nstore_digitalModel extends nstore_digital
 		if (!$config->order_thumbnail_height) $config->order_thumbnail_height = 100;
 		if (!$config->address_input) $config->address_input = 'krzip';
 
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		$currency = $oCurrencyModel->getModuleConfig();
 		if (!$currency->currency) $config->currency = 'KRW';
 		else $config->currency = $currency->currency;
@@ -73,8 +73,8 @@ class nstore_digitalModel extends nstore_digital
 	function getPeriodInfo($period_srl) 
 	{
 		$config = $this->getModuleConfig();
-		$oMemberModel = &getModel('member');
-		$oNproductModel = &getModel('nproduct');
+		$oMemberModel = getModel('member');
+		$oNproductModel = getModel('nproduct');
 
 		if(!$period_srl) return new Object(-1, 'no period_srl');
 

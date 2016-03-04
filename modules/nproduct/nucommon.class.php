@@ -71,7 +71,7 @@ class nucommon
 	 */
 	function checkLicense($prodid, $user_id, $serial_number, $force=FALSE)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$hostinfo = array($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST']);
 		$agency_url = sprintf("http://www.xeshoppingmall.com/?module=drmagency&act=getDrmagencyLicense&prodid=%s&hostinfo=%s&user=%s&serial=%s&version=%s", $prodid, implode(',',$hostinfo), $user_id, $serial_number, '1.3');
 		$cache_file = sprintf("%sfiles/cache/license_%s.cache.php", _XE_PATH_, $prodid);

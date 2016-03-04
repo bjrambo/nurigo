@@ -9,7 +9,7 @@ class category_menu extends WidgetHandler
 
 	function proc($in_args)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$args = new stdClass();
 		$args->node_id = Context::get('category');
 		if($args->node_id)

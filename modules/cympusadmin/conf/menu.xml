@@ -83,15 +83,6 @@
 			<description xml:lang="ko">FTP설정</description>
 			<description xml:lang="zh-TW">FTP設置</description>
 		</item>
-		<item cond="getClass('license')">
-			<title xml:lang="ko">라이선스</title>
-			<title xml:lang="en">License</title>
-			<title xml:lang="jp">ライセンス</title>
-			<title xml:lang="zh-TW">系統許可授權</title>			
-			<action>dispLicenseAdminConfig</action>
-			<description xml:lang="ko">라이선스 관리</description>
-			<description xml:lang="ko">購買或租用本系統許可授權碼相關信息</description>
-		</item>
 		<item cond="getClass('professor')">
 			<title xml:lang="ko">교수관리</title>
 			<title xml:lang="en">Professor</title>

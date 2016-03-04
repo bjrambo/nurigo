@@ -9,11 +9,11 @@ class nstoreModel extends nstore
 {
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nstore');
 		if (!$config->address_input) $config->address_input = 'krzip';
 
-		$oCurrencyModel = &getModel('currency');
+		$oCurrencyModel = getModel('currency');
 		$currency = $oCurrencyModel->getModuleConfig();
 		if (!$currency->currency) $config->currency = 'KRW';
 		else	$config->currency = $currency->currency;
@@ -199,12 +199,12 @@ class nstoreModel extends nstore
 		if($logged_info && $logged_info->is_admin=='Y')
 		{
 			$url = getUrl('','module','nstore','act','dispNstoreAdminPurchaserInfo','member_srl',Context::get('target_srl'));
-			$oMemberController = &getController('member');
+			$oMemberController = getController('member');
 			$oMemberController->addMemberPopupMenu($url, Context::getLang('cmd_purchaser_info'), '', 'popup');
 
  			if(Context::get('cympusadmin_menu')) $url = getUrl('','module','cympusadmin','act','dispNstoreAdminOrderManagement','search_key','member_srl','search_value',Context::get('target_srl'));
 			else $url = getUrl('','module','admin','act','dispNstoreAdminOrderManagement','search_key','member_srl','search_value',Context::get('target_srl'));
-			$oMemberController = &getController('member');
+			$oMemberController = getController('member');
 			$oMemberController->addMemberPopupMenu($url, '주문관리');
 		}
 	}
@@ -220,7 +220,7 @@ class nstoreModel extends nstore
 
 	function triggerGetManagerMenu(&$manager_menu)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		$logged_info = Context::get('logged_info');
 

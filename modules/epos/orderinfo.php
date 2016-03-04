@@ -9,7 +9,7 @@ unset($_POST['strOrderInfo']);
 $oContext = &Context::getInstance();
 $oContext->init();
 
-$oEposController = &getController('epos');
+$oEposController = getController('epos');
 $oEposController->processOrderInfo($strOrderInfo);
 
 $oContext->close();

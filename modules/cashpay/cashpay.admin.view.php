@@ -94,7 +94,7 @@ class cashpayAdminView extends cashpay
 		Context::set('mskin_list', $mskin_list);
 
 		// get the layout list
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -124,7 +124,7 @@ class cashpayAdminView extends cashpay
 	 **/
 	function dispCashpayAdminMobileSkinInfo() 
 	{
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');

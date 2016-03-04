@@ -32,7 +32,7 @@ class store_searchAdminView extends store_search
 	function dispStore_searchAdminContent()
 	{
 		// Get a list of skins(themes)
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 		// Get a list of module categories

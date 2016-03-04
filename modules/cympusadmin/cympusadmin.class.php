@@ -45,7 +45,7 @@ class cympusadmin extends ModuleObject
 		Context::set('news', $news);
 		Context::set('admin_bar', 'false');
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoXml('cympusadmin');
 		Context::set('cympus_modinfo', $module_info);
 
@@ -67,7 +67,7 @@ class cympusadmin extends ModuleObject
 	 */
 	function checkUpdate()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 
 		if(!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before')) return true;
@@ -82,8 +82,8 @@ class cympusadmin extends ModuleObject
 	function moduleUpdate()
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
 		if (!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before')) {
 		    $oModuleController->insertTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before');

@@ -125,8 +125,8 @@ class ncart extends ModuleObject
 
 		function installTriggers()
 		{
-            $oModuleModel = &getModel('module');
-            $oModuleController = &getController('module');
+            $oModuleModel = getModel('module');
+            $oModuleController = getController('module');
 			if (!$oModuleModel->getTrigger('epay.processPayment', 'ncart', 'controller', 'triggerProcessPayment', 'after')) {
 				$oModuleController->insertTrigger('epay.processPayment', 'ncart', 'controller', 'triggerProcessPayment', 'after');
 			}
@@ -163,7 +163,7 @@ class ncart extends ModuleObject
         function checkUpdate()
         {
 			$oDB = &DB::getInstance();
-            $oModuleModel = &getModel('module');
+            $oModuleModel = getModel('module');
 			if(!$oModuleModel->getTrigger('epay.processPayment', 'ncart', 'controller', 'triggerProcessPayment', 'after')) return TRUE;
 			if(!$oModuleModel->getTrigger('epay.processReview', 'ncart', 'controller', 'triggerProcessReview', 'before')) return TRUE;
 			// 2013. 09. 25 when add new menu in sitemap, custom menu add

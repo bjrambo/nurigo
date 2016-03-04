@@ -9,7 +9,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 {
 	function insertPeriod($order_srl = null)
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$nstore_digital_contents_config = $oModuleModel->getModuleConfig('nstore_digital_contents');
 
 		if(!$nstore_digital_contents_config->period) return new Object(-1, '설정된 만기일이 없습니다.');
@@ -62,7 +62,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 		$is_set_period = null;
 		if($output->data) $is_set_period = $output->data;
 
-		$oNcartModel = &getModel('ncart');
+		$oNcartModel = getModel('ncart');
 		$cart_item = $oNcartModel->getCartItem($cart_srl);
 
 		if($cart_item)

@@ -149,7 +149,7 @@ class epayController extends epay
 	 */
 	function afterPayment($params)
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		// get transaction info by transaction_srl
 		$transaction_info = $oEpayModel->getTransactionInfo($params->get('transaction_srl'));
@@ -216,8 +216,8 @@ class epayController extends epay
 	 */
 	function procEpayReviewOrder()
 	{
-		$oEpayModel = &getModel('epay');
-		$oModuleModel = &getModel('module');
+		$oEpayModel = getModel('epay');
+		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
 		if (!$module_srl) return new Object(-1, 'no module_srl');
@@ -269,7 +269,7 @@ class epayController extends epay
 	 */
 	function procEpayDoPayment()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 
 		$p_user_id = Context::get('purchaser_name');
 		$p_name = Context::get('purchaser_name');
@@ -620,7 +620,7 @@ class epayController extends epay
 	 */
 	function procEpayExtra1()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		return $plugin->procExtra1();
 	}
@@ -630,7 +630,7 @@ class epayController extends epay
 	 */
 	function procEpayExtra2()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		return $plugin->procExtra2();
 	}
@@ -640,7 +640,7 @@ class epayController extends epay
 	 */
 	function procEpayExtra3()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		return $plugin->procExtra3();
 	}
@@ -650,7 +650,7 @@ class epayController extends epay
 	 */
 	function procEpayEscrowDelivery()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowDelivery();
 		$output = ModuleHandler::triggerCall('epay.escrowDelivery', 'after', $escrow_output);
@@ -663,7 +663,7 @@ class epayController extends epay
 	 */
 	function procEpayEscrowConfirm()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowConfirm();
 		$output = ModuleHandler::triggerCall('epay.escrowConfirm', 'after', $escrow_output);
@@ -676,7 +676,7 @@ class epayController extends epay
 	 */
 	function procEpayEscrowDenyConfirm()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowDenyConfirm();
 		$output = ModuleHandler::triggerCall('epay.escrowDenyConfirm', 'after', $escrow_output);

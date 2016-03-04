@@ -20,7 +20,7 @@ class nmileageAdminView extends nmileage
 			Context::set('module_srl', $module_srl);
 		}
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
 		if($module_srl) 
@@ -59,8 +59,8 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminConfig() 
 	{
-		$oNmileageModel = &getModel('nmileage');
-		$oModuleModel = &getModel('module');
+		$oNmileageModel = getModel('nmileage');
+		$oModuleModel = getModel('module');
 
 		$config = $oNmileageModel->getModuleConfig();
 		Context::set('config',$config);
@@ -73,7 +73,7 @@ class nmileageAdminView extends nmileage
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -101,7 +101,7 @@ class nmileageAdminView extends nmileage
 
 		Context::set('list', $list);
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
@@ -110,10 +110,10 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminInsertModInst() 
 	{
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 
 		// 스킨 목록을 구해옴
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list',$skin_list);
 
@@ -121,7 +121,7 @@ class nmileageAdminView extends nmileage
 		Context::set('mskin_list', $mskin_list);
 
 		// 레이아웃 목록을 구해옴
-		$oLayoutModel = &getModel('layout');
+		$oLayoutModel = getModel('layout');
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
@@ -139,7 +139,7 @@ class nmileageAdminView extends nmileage
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
 
-		$oEditorView = &getView('editor');
+		$oEditorView = getView('editor');
 		$oEditorView->triggerDispEditorAdditionSetup($content);
 		Context::set('setup_content', $content);
 
@@ -152,7 +152,7 @@ class nmileageAdminView extends nmileage
 	function dispNmileageAdminSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -164,7 +164,7 @@ class nmileageAdminView extends nmileage
 	function dispNmileageAdminMobileSkinInfo() 
 	{
 		// 공통 모듈 권한 설정 페이지 호출
-		$oModuleAdminModel = &getAdminModel('module');
+		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
@@ -172,7 +172,7 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminMileageList() 
 	{
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
 		Context::set('config', $config);
 
@@ -198,7 +198,7 @@ class nmileageAdminView extends nmileage
 		else
 		{
 			$args->page = Context::get('page');
-			$oPointModel = &getModel('point');
+			$oPointModel = getModel('point');
 			$output = $oPointModel->getMemberList($args);
 		}
 
@@ -223,7 +223,7 @@ class nmileageAdminView extends nmileage
 		Context::set('page', $output->page);
 		Context::set('page_navigation', $output->page_navigation);
 
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 		$member_info = $oMemberModel->getMemberInfoByMemberSrl($args->member_srl);
 		Context::set('member_info', $member_info);
 
@@ -241,7 +241,7 @@ class nmileageAdminView extends nmileage
 		Context::set('page', $output->page);
 		Context::set('page_navigation', $output->page_navigation);
 
-		$oMemberModel = &getModel('member');
+		$oMemberModel = getModel('member');
 		$member_info = $oMemberModel->getMemberInfoByMemberSrl($args->member_srl);
 		Context::set('member_info', $member_info);
 

@@ -25,7 +25,7 @@ class currencyModel extends currency
 	 */
 	function getModuleConfig()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$output = $oModuleModel->getModuleConfig('currency');
 		return $output;
 	}

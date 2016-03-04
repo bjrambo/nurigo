@@ -12,8 +12,8 @@ class nstore_digital_contents extends ModuleObject
 	 **/
 	function moduleInstall()
 	{
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 		
 		return new Object();
 	}
@@ -23,7 +23,7 @@ class nstore_digital_contents extends ModuleObject
 	 **/
 	function checkUpdate()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 
 		return false;
@@ -35,13 +35,13 @@ class nstore_digital_contents extends ModuleObject
 	function moduleUpdate()
 	{
 		$oDB = &DB::getInstance();
-		$oModuleModel = &getModel('module');
-		$oModuleController = &getController('module');
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 	}
 
 	function moduleUninstall()
 	{
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 	}
 
 	/**

@@ -46,7 +46,7 @@ class nmileageController extends nmileage
 	}
 
 	function plusMileage($member_srl, $amount, $title, $order_srl=0) {
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
 		switch($config->mileage_method)
 		{
@@ -69,8 +69,8 @@ class nmileageController extends nmileage
 				break;
 
 			case 'point':
-				$oPointModel = &getModel('point');
-				$oPointController = &getController('point');
+				$oPointModel = getModel('point');
+				$oPointController = getController('point');
 				$point = $oPointModel->getPoint($member_srl, TRUE);
 				$oPointController->setPoint($member_srl, $amount, 'add');
 				$balance = $point + $amount;
@@ -88,7 +88,7 @@ class nmileageController extends nmileage
 	}
 
 	function minusMileage($member_srl, $amount, $title, $order_srl=0) {
-		$oNmileageModel = &getModel('nmileage');
+		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
 		switch($config->mileage_method)
 		{
@@ -111,8 +111,8 @@ class nmileageController extends nmileage
 				break;
 
 			case 'point':
-				$oPointModel = &getModel('point');
-				$oPointController = &getController('point');
+				$oPointModel = getModel('point');
+				$oPointController = getController('point');
 				$point = $oPointModel->getPoint($member_srl, TRUE);
 				$oPointController->setPoint($member_srl, $amount, 'minus');
 				$balance = $point - $amount;

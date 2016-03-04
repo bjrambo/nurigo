@@ -36,8 +36,8 @@ class inipaymobileAdminController extends inipaymobile
 	function procInipaymobileAdminInsertModInst() 
 	{
 		// get the instance of the model and controller of the module.
-		$oModuleController = &getController('module');
-		$oModuleModel = &getModel('module');
+		$oModuleController = getController('module');
+		$oModuleModel = getModel('module');
 
 		// get all requested vars
 		$args = Context::getRequestVars();
@@ -90,7 +90,7 @@ class inipaymobileAdminController extends inipaymobile
 		$module_srl = Context::get('module_srl');
 
 		// execute deletion calling the module controller function
-		$oModuleController = &getController('module');
+		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
 		if(!$output->toBool()) return $output;
 

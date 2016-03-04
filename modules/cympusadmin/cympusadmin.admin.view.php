@@ -79,7 +79,7 @@ class cympusadminAdminView extends cympusadmin
 		Context::set('page_navigation', $output->page_navigation);
 		Context::set('list', $list);
 
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 

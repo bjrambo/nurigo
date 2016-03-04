@@ -46,8 +46,8 @@ class epayView extends epay
 	 */
 	function getPaymentForm($in_args)
 	{
-		$oModuleModel = &getModel('module');
-		$oEpayModel = &getModel('epay');
+		$oModuleModel = getModel('module');
+		$oEpayModel = getModel('epay');
 
 		if (!$in_args->epay_module_srl)
 		{
@@ -206,7 +206,7 @@ class epayView extends epay
 
 	function dispEpayExtra1()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$output = $plugin->dispExtra1($this);
 		Context::set('content', $output);
@@ -217,7 +217,7 @@ class epayView extends epay
 	}
 	function dispEpayExtra2()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$output = $plugin->dispExtra2($this);
 		Context::set('content', $output);
@@ -228,7 +228,7 @@ class epayView extends epay
 	}
 	function dispEpayExtra3()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$output = $plugin->dispExtra3($this);
 		Context::set('content', $output);
@@ -239,7 +239,7 @@ class epayView extends epay
 	}
 	function dispEpayExtra4()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$output = $plugin->dispExtra4($this);
 		Context::set('content', $output);
@@ -386,7 +386,7 @@ class epayView extends epay
 			// inipaymobile_pass = TRUE로 해주어서 inipaymobile에서 결제처리되도록 함
 			$_SESSION['inipaymobile_pass'] = TRUE;
 
-			$oEpayController = &getController('epay');
+			$oEpayController = getController('epay');
 			$output = $oEpayController->procEpayDoPayment();
 			if(is_object($output) && method_exists($output, 'toBool'))
 			{
@@ -472,7 +472,7 @@ class epayView extends epay
 
 	function dispEpayError()
 	{
-		$oEpayModel = &getModel('epay');
+		$oEpayModel = getModel('epay');
 		$transaction_info = $oEpayModel->getTransactionInfo(Context::get('transaction_srl'));
 		Context::set('transaction_info', $transaction_info);
 		$this->setTemplatePath($this->module_path."tpl");
