@@ -57,7 +57,6 @@ class nstore_digitalModel extends nstore_digital
 		if(!is_array($item_list)) $item_list = array($item_list);
 		foreach ($item_list as $key=>$val) {
 			$item = new nproductItem($val, $config->currency, $config->as_sign, $config->decimals);
-			debugprint($item);
 			if ($item->option_srl)
 			{
 				$item->price += ($item->option_price);

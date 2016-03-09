@@ -238,7 +238,6 @@ class nstore_digitalAdminView extends nstore_digital
 			if(!$v)continue;
 
 			$item = new nproductItem($v, $config->currency, $config->as_sign, $config->decimals);
-			debugprint($item);
 			if ($item->option_srl)
 			{
 				$item->price += ($item->option_price);

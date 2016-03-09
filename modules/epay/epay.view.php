@@ -177,7 +177,6 @@ class epayView extends epay
 		Context::set('form_data', $form_data);
 		Context::set('order_srl', $in_args->order_srl);
 
-		debugPrint($this->module_path);
 		if($_COOKIE['mobile'] == "true")
 		{
 			$template_path = sprintf("%sm.skins/%s/",$this->module_path, $module_info->mskin);

@@ -29,7 +29,6 @@ function getApiContext() {
 
 	$oModuleModel = getModel('module');
 	$oPaypalModuleConfig = $oModuleModel->getModuleConfig('paypal');
-	debugprint($oPaypalModuleConfig);
 	$apiContext = new ApiContext(
 		new OAuthTokenCredential($oPaypalModuleConfig->client_id,
 			$oPaypalModuleConfig->api_secret));

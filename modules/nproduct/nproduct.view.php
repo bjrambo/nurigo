@@ -280,6 +280,7 @@ class nproductView extends nproduct
 		Context::set('config',$config);
 
 		// item info
+		$args = new stdClass();
 		if ($item_srl) 
 		{
 			$args->item_srl = $item_srl;
@@ -337,14 +338,20 @@ class nproductView extends nproduct
 		// get related items information
 		if($item_info->related_items)
 		{
-			if(!$this->isJson($item_info->related_items)) $item_info->related_items = $this->convertCsvToJson($item_info->related_items);
+			if(!$this->isJson($item_info->related_items))
+			{
+				$item_info->related_items = $this->convertCsvToJson($item_info->related_items);
+			}
 			$relatedItems = json_decode($item_info->related_items);
 			$relatedItemSrls = array();
 			foreach($relatedItems as $key => $val)
 			{
 				$relatedItemSrls[] = $val->item_srl;
 			}
-			if(count($relatedItemSrls)) $item_info->related_items = $oNproductModel->getItemList(implode(',' ,$relatedItemSrls), 999);
+			if(count($relatedItemSrls))
+			{
+				$item_info->related_items = $oNproductModel->getItemList(implode(',', $relatedItemSrls), 999);
+			}
 		}
 
 		$trigger_output = ModuleHandler::triggerCall('nproduct.dispNproductItemDetail', 'before', $item_info);
