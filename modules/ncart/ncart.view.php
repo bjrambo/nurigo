@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  ncartView
@@ -9,7 +10,10 @@ class ncartView extends ncart
 {
 	function init()
 	{
-		if(!$this->module_info->skin) $this->module_info->skin = 'default';
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
 		$skin = $this->module_info->skin;
 		$oModuleModel = getModel('module');
 		// 템플릿 경로 설정
@@ -17,8 +21,14 @@ class ncartView extends ncart
 
 		$logged_info = Context::get('logged_info');
 
-		if($logged_info) Context::set('login_chk','Y');
-		else if(!$logged_info) Context::set('login_chk','N');
+		if($logged_info)
+		{
+			Context::set('login_chk', 'Y');
+		}
+		else if(!$logged_info)
+		{
+			Context::set('login_chk', 'N');
+		}
 
 		Context::set('hide_trolley', 'true');
 	}
@@ -32,35 +42,43 @@ class ncartView extends ncart
 		return date("YmdHis") . $str_usec . $randval;
 	}
 
-	function getCategoryTree($module_srl) 
+	function getCategoryTree($module_srl)
 	{
 		$oNcartModel = getModel('ncart');
 		$category = Context::get('category');
 		$args = new stdClass();
-		if ($category && $this->module_info->category_display=='2')
+		if($category && $this->module_info->category_display == '2')
 		{
 			$category_info = $oNcartModel->getCategoryInfo($category);
 			$top = preg_split('/\./', $category_info->node_route);
-			if (count($top) >= 2)
+			if(count($top) >= 2)
 			{
 				$args->node_route = sprintf("%s.%s.", $top[0], $top[1]);
 				Context::set('top_category_srl', $top[1]);
 			}
-			if ($category_info->node_route=='f.') $args->node_route = 'f.' . $category . '.';
+			if($category_info->node_route == 'f.')
+			{
+				$args->node_route = 'f.' . $category . '.';
+			}
 		}
 
 		// category tree
 
 		$args->module_srl = $module_srl;
 		$output = $this->executeQueryArray('getCategoryAllSubitems', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$category_list = $output->data;
 		$category_tree = array();
 		$category_index = array();
-		if ($category_list) {
-			foreach ($category_list as $no => $cate) {
-				$node_route = $cate->node_route.$cate->node_id;
-				$stages = explode('.',$node_route);
+		if($category_list)
+		{
+			foreach($category_list as $no => $cate)
+			{
+				$node_route = $cate->node_route . $cate->node_id;
+				$stages = explode('.', $node_route);
 				$code_str = '$category_tree["' . implode('"]["', $stages) . '"] = array();';
 				eval($code_str);
 				$category_index[$cate->node_id] = $cate;
@@ -80,7 +98,10 @@ class ncartView extends ncart
 
 		// load module config
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($in_args->module_srl);
-		if(!$module_info->skin) $module_info->skin = 'default';
+		if(!$module_info->skin)
+		{
+			$module_info->skin = 'default';
+		}
 		// load skin config
 		$oModuleModel->syncSkinInfoToModuleInfo($module_info);
 		Context::set('ncart_module_info', $module_info);
@@ -104,32 +125,35 @@ class ncartView extends ncart
 		$in_args->review_form = $oTemplate->compile($template_path, 'reviewform.html');
 	}
 
-	function dispNcartCartItems() 
+	function dispNcartCartItems()
 	{
 		$oNcartModel = getModel('ncart');
 		$cart = $oNcartModel->getCartInfo(Context::get('cartnos'));
 
-		Context::set('list',$cart->item_list);
-		Context::set('sum_price',$cart->sum_price);
-		Context::set('total_price',$cart->total_price);
-		Context::set('delivery_fee',$cart->delivery_fee);
-		Context::set('total_discounted_price',$cart->total_discounted_price);
-		Context::set('total_discount_amount',$cart->total_discount_amount);
+		Context::set('list', $cart->item_list);
+		Context::set('sum_price', $cart->sum_price);
+		Context::set('total_price', $cart->total_price);
+		Context::set('delivery_fee', $cart->delivery_fee);
+		Context::set('total_discounted_price', $cart->total_discounted_price);
+		Context::set('total_discount_amount', $cart->total_discount_amount);
 
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$this->setTemplateFile('cartitems');
 	}
 
-	function dispNcartFavoriteItems() 
+	function dispNcartFavoriteItems()
 	{
 		$oFileModel = getModel('file');
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		// favorite items
 		$favorite_items = $oNcartModel->getFavoriteItems($logged_info->member_srl);
@@ -137,7 +161,7 @@ class ncartView extends ncart
 
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$this->setTemplateFile('favoriteitems');
 	}
@@ -158,13 +182,22 @@ class ncartView extends ncart
 		foreach($list as $key => $item)
 		{
 			$forcedItemSrls = array();
-			if($item->related_items) $forcedItemSrls = $oNproductModel->getForcedItemSrls($item->related_items);
+			if($item->related_items)
+			{
+				$forcedItemSrls = $oNproductModel->getForcedItemSrls($item->related_items);
+			}
 			$omittedItemSrls = array();
 			foreach($forcedItemSrls as $itemSrl)
 			{
-				if(!in_array($itemSrl, $itemSrlsOfPurchasingItems)) $omittedItemSrls[] = $itemSrl;
+				if(!in_array($itemSrl, $itemSrlsOfPurchasingItems))
+				{
+					$omittedItemSrls[] = $itemSrl;
+				}
 			}
-			if(count($omittedItemSrls)) $itemList[$key]->omittedItems = $oNproductModel->getItemList($omittedItemSrls, 999);
+			if(count($omittedItemSrls))
+			{
+				$itemList[$key]->omittedItems = $oNproductModel->getItemList($omittedItemSrls, 999);
+			}
 		}
 	}
 
@@ -189,13 +222,16 @@ class ncartView extends ncart
 		// add minimumOrderItems to each item of $inputItemList
 		foreach($inputItemList as $no => $item)
 		{
-			if(!isset($minimumOrderItems[$item->item_srl])) continue;
+			if(!isset($minimumOrderItems[$item->item_srl]))
+			{
+				continue;
+			}
 			$tmpItem = $minimumOrderItems[$item->item_srl];
 			$inputItemList[$no]->minimumOrderItems = $tmpItem->message;
 		}
 	}
 
-	function dispNcartOrderItems() 
+	function dispNcartOrderItems()
 	{
 		global $lang;
 
@@ -208,7 +244,7 @@ class ncartView extends ncart
 
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		if($config->guest_buy != 'Y' && !$logged_info)
 		{
@@ -218,7 +254,7 @@ class ncartView extends ncart
 		$cartnos = Context::get('cartnos');
 		$cart = $oNcartModel->getCartInfo($cartnos);
 
-		if (!count($cart->item_list))
+		if(!count($cart->item_list))
 		{
 			return new Object(-1, $lang->msg_no_items);
 		}
@@ -231,21 +267,36 @@ class ncartView extends ncart
 
 		//quantity
 		$stock = array();
-		foreach ($cart->item_list as $key=>$val)
+		foreach($cart->item_list as $key => $val)
 		{
 			$item_info = $oNproductModel->getItemInfo($val->item_srl);
 
 			if(!$stock[$val->item_srl])
 			{
-				if($stock[$val->item_srl] !== 0) $stock[$val->item_srl] = $oNproductModel->getItemExtraVarValue($val->item_srl, 'stock');
-				if($stock[$val->item_srl] == '0') return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				if($stock[$val->item_srl] !== 0)
+				{
+					$stock[$val->item_srl] = $oNproductModel->getItemExtraVarValue($val->item_srl, 'stock');
+				}
+				if($stock[$val->item_srl] == '0')
+				{
+					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				}
 			}
 
 			if($stock[$val->item_srl] != null)
 			{
-				if($stock[$val->item_srl] < $val->quantity) return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
-				if($stock[$val->item_srl] === 0 || $stock[$val->item_srl] > 0) $stock[$val->item_srl] = $stock[$val->item_srl] - $val->quantity;
-				if($stock[$val->item_srl] < 0) return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				if($stock[$val->item_srl] < $val->quantity)
+				{
+					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				}
+				if($stock[$val->item_srl] === 0 || $stock[$val->item_srl] > 0)
+				{
+					$stock[$val->item_srl] = $stock[$val->item_srl] - $val->quantity;
+				}
+				if($stock[$val->item_srl] < 0)
+				{
+					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				}
 			}
 		}
 
@@ -253,15 +304,16 @@ class ncartView extends ncart
 		 * end
 		 */
 
-		Context::set('list',$cart->item_list);
-		Context::set('sum_price',$cart->sum_price);
-		Context::set('total_price',$cart->total_price);
-		Context::set('delivery_fee',$cart->delivery_fee);
-		Context::set('total_discounted_price',$cart->total_discounted_price);
-		Context::set('total_discount_amount',$cart->total_discount_amount);
-		
+		Context::set('list', $cart->item_list);
+		Context::set('sum_price', $cart->sum_price);
+		Context::set('total_price', $cart->total_price);
+		Context::set('delivery_fee', $cart->delivery_fee);
+		Context::set('total_discounted_price', $cart->total_discounted_price);
+		Context::set('total_discount_amount', $cart->total_discount_amount);
+
 		// get order title
 		$order_title = $oNcartModel->getOrderTitle($cart->item_list);
+		$args = new stdClass();
 		$args->item_name = $order_title;
 
 		// pass payment amount, item name, etc.. to epay module.
@@ -270,24 +322,24 @@ class ncartView extends ncart
 		$args->module_srl = $this->module_info->module_srl;
 		$args->price = $cart->total_price;
 		//$args->order_srl = $order_srl;
-		
+
 		if($logged_info)
 		{
 			$args->purchaser_name = $logged_info->nick_name;
 			$args->purchaser_email = $logged_info->email_address;
-			$args->purchaser_telnum = "$lang->msg_phone_input"."ex)010-0000-0000";
+			$args->purchaser_telnum = "$lang->msg_phone_input" . "ex)010-0000-0000";
 		}
 		else if(!$logged_info)
 		{
 			$args->purchaser_name = $lang->non_member;
 			$args->purchaser_email = $lang->msg_email_input;
-			$args->purchaser_telnum = "$lang->msg_phone_input"."ex)010-0000-0000";
+			$args->purchaser_telnum = "$lang->msg_phone_input" . "ex)010-0000-0000";
 		}
 		$args->join_form = 'fo_insert_order';
 		$args->target_module = 'ncart';
 
 		$output = $oEpayView->getPaymentForm($args);
-		if (!$output->toBool()) 
+		if(!$output->toBool())
 		{
 			return $output;
 		}
@@ -304,7 +356,10 @@ class ncartView extends ncart
 
 		// mileage info
 		$my_mileage = $oNcartModel->getMileage($logged_info->member_srl);
-		if (!$my_mileage) $my_mileage = 0; 
+		if(!$my_mileage)
+		{
+			$my_mileage = 0;
+		}
 		Context::set('my_mileage', $my_mileage);
 
 		// fieldset
@@ -319,7 +374,10 @@ class ncartView extends ncart
 			{
 				$column_name = $field->column_name;
 				// if column types are tel or kr_zip, add [] in suffix
-				if(in_array($field->column_type, array('tel','kr_zip'))) $column_name = $field->column_name . '[]';
+				if(in_array($field->column_type, array('tel', 'kr_zip')))
+				{
+					$column_name = $field->column_name . '[]';
+				}
 				$script .= sprintf("appValidator.cast('ADD_MESSAGE',['%s','%s']);", $column_name, $field->column_title);
 			}
 		}
@@ -331,7 +389,10 @@ class ncartView extends ncart
 			$args->member_srl = $logged_info->member_srl;
 			$args->opt = '1';
 			$output = executeQueryArray('ncart.getAddressList', $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			unset($args);
 			Context::set('address_list', $output->data);
 		}
@@ -345,41 +406,53 @@ class ncartView extends ncart
 		$this->setTemplateFile('orderitems');
 	}
 
-	function dispNcartOrderComplete() 
+	function dispNcartOrderComplete()
 	{
 		$oNcartModel = getModel('ncart');
 		$oEpayModel = getModel('epay');
 		$logged_info = Context::get('logged_info');
 
 		$order_srl = Context::get('order_srl');
-		if (!$order_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$order_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		// 주문정보 읽어오기
 		$order_info = $oNcartModel->getOrderInfo($order_srl);
-		if(!$order_info) return new Object(-1, 'msg_invalid_order_number');
+		if(!$order_info)
+		{
+			return new Object(-1, 'msg_invalid_order_number');
+		}
 		Context::set('order_info', $order_info);
 		$extra_vars = unserialize($order_info->extra_vars);
 
 		// 주문한 사람이 아니라면
-		if($order_info->member_srl != $logged_info->member_srl) return new Object(-1, 'msg_not_permitted');
+		if($order_info->member_srl != $logged_info->member_srl)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		// 로그인 안했을 때 권한 확인 : triggerProcessPayment 에서 설정된다.
-		if(!$logged_info && $_SESSION['ORDER_COMPLETE_VIEW_PERMISSION'] != $order_srl) return new Object(-1, 'msg_not_permitted');
+		if(!$logged_info && $_SESSION['ORDER_COMPLETE_VIEW_PERMISSION'] != $order_srl)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
+		Context::set('payment_info', $payment_info);
 
 		// fieldset
 		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
-		foreach($fieldset_list as $key=>&$val)
+		foreach($fieldset_list as $key => &$val)
 		{
-				foreach($val->fields as $key2=>&$field)
+			foreach($val->fields as $key2 => &$field)
+			{
+				if(isset($extra_vars->{$field->column_name}))
 				{
-						if(isset($extra_vars->{$field->column_name}))
-						{
-							$field->value = $extra_vars->{$field->column_name};
-						}
+					$field->value = $extra_vars->{$field->column_name};
 				}
+			}
 		}
 		Context::set('fieldset_list', $fieldset_list);
 		Context::set('order_status', $this->getOrderStatus());
@@ -391,7 +464,7 @@ class ncartView extends ncart
 		$this->setTemplateFile('ordercomplete');
 	}
 
-	function dispNcartOrderDetail() 
+	function dispNcartOrderDetail()
 	{
 		$oEpayModel = getModel('epay');
 		$oNcartModel = getModel('ncart');
@@ -399,26 +472,38 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 
 		// 주문번호가 없다면
-		if(!Context::get('order_srl')) return new Object(-1, 'msg_invalid_order_number');
+		if(!Context::get('order_srl'))
+		{
+			return new Object(-1, 'msg_invalid_order_number');
+		}
 
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNcartModel->getOrderInfo($order_srl);
 
 		// 주문정보가 없다면
-		if(!$order_info) return new Object(-1, 'msg_invalid_order_number');
+		if(!$order_info)
+		{
+			return new Object(-1, 'msg_invalid_order_number');
+		}
 
 		// 로그인이 되어 있지 않다면
-		if(!$logged_info) return new Object(-1, 'msg_not_permitted');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		// 주문한 사람이 아니라면
-		if($order_info->member_srl != $logged_info->member_srl) return new Object(-1, 'msg_not_permitted');
+		if($order_info->member_srl != $logged_info->member_srl)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		Context::set('order_info', $order_info);
 		Context::set('order_status', $this->getOrderStatus());
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
-		Context::set('payment_method',$this->getPaymentMethods());
+		Context::set('payment_info', $payment_info);
+		Context::set('payment_method', $this->getPaymentMethods());
 
 		Context::set('delivery_inquiry_urls', $this->delivery_inquiry_urls);
 		Context::set('delivery_companies', $oNcartModel->getDeliveryCompanies());
@@ -427,24 +512,36 @@ class ncartView extends ncart
 		$this->setTemplateFile('orderdetail');
 	}
 
-	function dispNcartReplyComment() 
+	function dispNcartReplyComment()
 	{
 		// 권한 체크
-		if(!$this->grant->write_comment) return new Object(-1,'msg_not_permitted');
+		if(!$this->grant->write_comment)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
 		$parent_srl = Context::get('comment_srl');
 
 		// 지정된 원 댓글이 없다면 오류
-		if(!$parent_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$parent_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		// 해당 댓글를 찾아본다
 		$oCommentModel = getModel('comment');
 		$oSourceComment = $oCommentModel->getComment($parent_srl, $this->grant->manager);
 
 		// 댓글이 없다면 오류
-		if(!$oSourceComment->isExists()) return new Object(-1, 'msg_invalid_request');
-		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl')) return new Object(-1, 'msg_invalid_request');
+		if(!$oSourceComment->isExists())
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
+		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		// 대상 댓글을 생성
 		$oComment = $oCommentModel->getComment();
@@ -452,11 +549,11 @@ class ncartView extends ncart
 		$oComment->add('document_srl', $oSourceComment->get('document_srl'));
 
 		// 필요한 정보들 세팅
-		Context::set('oSourceComment',$oSourceComment);
-		Context::set('oComment',$oComment);
-		Context::set('module_srl',$this->module_info->module_srl);
+		Context::set('oSourceComment', $oSourceComment);
+		Context::set('oComment', $oComment);
+		Context::set('module_srl', $this->module_info->module_srl);
 
-		/** 
+		/**
 		 * 사용되는 javascript 필터 추가
 		 **/
 		//Context::addJsFilter($this->module_path.'tpl/filter', 'insert_comment.xml');
@@ -464,19 +561,25 @@ class ncartView extends ncart
 		$this->setTemplateFile('commentform');
 	}
 
-	function dispNcartAddressList() 
+	function dispNcartAddressList()
 	{
 		$oNcartModel = getModel('ncart');
 		$oNcartModel->checkBrowser(); // iphone check
 
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->opt = '1';
 		$output = executeQueryArray('ncart.getAddressList', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		Context::set('list', $output->data);
 
 		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
@@ -486,17 +589,23 @@ class ncartView extends ncart
 		$this->setTemplateFile('addresslist');
 	}
 
-	function dispNcartAddressManagement() 
+	function dispNcartAddressManagement()
 	{
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		$args->member_srl = $logged_info->member_srl;
 		$args->opt = '1';
 		$output = executeQueryArray('ncart.getAddressList', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		Context::set('list', $output->data);
 
@@ -509,12 +618,15 @@ class ncartView extends ncart
 		Context::addJsFile('./modules/member/tpl/js/krzip_search.js');
 	}
 
-	function dispNcartRecentAddress() 
+	function dispNcartRecentAddress()
 	{
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
@@ -522,7 +634,10 @@ class ncartView extends ncart
 		$args->sort_index = 'address_srl';
 		$args->sort_order = 'desc';
 		$output = executeQueryArray('ncart.getAddressList', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		Context::set('list', $output->data);
 
 		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
@@ -532,12 +647,12 @@ class ncartView extends ncart
 		$this->setTemplateFile('recentaddress');
 	}
 
-	function dispNcartLogin() 
+	function dispNcartLogin()
 	{
 		$oNcartModel = getModel('ncart');
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$this->setTemplateFile('login_form');
 	}
