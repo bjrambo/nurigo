@@ -56,15 +56,16 @@ class nproductView extends nproduct
 	function getEntireCategoryTree($module_srl)
 	{
 		// category tree
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQueryArray('nproduct.getCategoryAllSubitems', $args);
 		if (!$output->toBool()) return $output;
 		$category_list = $output->data;
 		$category_tree = array();
 		$category_index = array();
-		if ($category_list) 
+		if ($category_list)
 		{
-			foreach ($category_list as $no => $cate) 
+			foreach ($category_list as $no => $cate)
 			{
 				$node_route = $cate->node_route.$cate->node_id;
 				$stages = explode('.',$node_route);
@@ -80,13 +81,13 @@ class nproductView extends nproduct
 	/**
 	 * @brief get category tree
 	 */
-	function getCategoryTree($module_srl) 
+	function getCategoryTree($module_srl)
 	{
 		$oNproductModel = getModel('nproduct');
 		$category = Context::get('category');
 
 		$this->getEntireCategoryTree($module_srl);
-		if ($category) 
+		if ($category)
 		{
 			$selected_category_info = $oNproductModel->getCategoryInfo($category);
 			if ($selected_category_info->node_route=='f.') $args->node_route = 'f.' . $category . '.';
@@ -102,6 +103,7 @@ class nproductView extends nproduct
 		else
 		{
 			$current_node_route = 'f.';
+			$selected_category_info = new stdClass();
 			$selected_category_info->node = array();
 			$selected_category_info->category_name = Context::getLang('home');
 			$selected_category_info->node_route = 'f.';
@@ -156,7 +158,7 @@ class nproductView extends nproduct
 	/**
 	 * @brief display item list
 	 */
-	function dispNproductItemList() 
+	function dispNproductItemList()
 	{
 		$oNproductModel = getModel('nproduct');
 		$oStore_reviewModel = getModel('store_review');
@@ -180,7 +182,7 @@ class nproductView extends nproduct
 
 		if (!$sort_index) $sort_index = "list_order";
 		if (!$order_type) $order_type = 'asc';
-		if ($category) 
+		if ($category)
 		{
 			$category_info = $oNproductModel->getCategoryInfo($category);
 			Context::set('category_info', $category_info);
@@ -199,8 +201,8 @@ class nproductView extends nproduct
 			Context::set('total_page', $output->total_page);
 			Context::set('page', $output->page);
 			Context::set('page_navigation', $output->page_navigation);
-		} 
-		else 
+		}
+		else
 		{
 			$args->module_srl = $this->module_info->module_srl;
 			$args->display='Y';
@@ -248,7 +250,7 @@ class nproductView extends nproduct
 			}
 		}
 
-		/* 
+		/*
 		 * end
 		 */
 		// category list
@@ -262,7 +264,7 @@ class nproductView extends nproduct
 	/**
 	 * @brief display item detail info
 	 */
-	function dispNproductItemDetail() 
+	function dispNproductItemDetail()
 	{
 		if($_COOKIE['mobile'] == "true") Context::set('is_mobile', 'true');
 
@@ -270,7 +272,7 @@ class nproductView extends nproduct
 		$oFileModel = getModel('file');
 		$oNproductModel = getModel('nproduct');
 		$oStoreReviewModel = getModel('store_review');
-	
+
 		$item_srl = Context::get('item_srl');
 		$document_srl = Context::get('document_srl');
 		Context::set('list_config', $oNproductModel->getDetailListConfig($this->module_info->module_srl));
@@ -278,18 +280,17 @@ class nproductView extends nproduct
 		// get config
 		$config = $oNproductModel->getModuleConfig();
 		Context::set('config',$config);
-
-		// item info
 		$args = new stdClass();
-		if ($item_srl) 
+		// item info
+		if ($item_srl)
 		{
 			$args->item_srl = $item_srl;
 		}
-		else if ($document_srl) 
+		else if ($document_srl)
 		{
 			$args->document_srl = $document_srl;
-		} 
-		else 
+		}
+		else
 		{
 			return new Object(-1, 'Item Not Found.');
 		}
@@ -298,7 +299,7 @@ class nproductView extends nproduct
 		if (!$output->toBool()) return $output;
 		$item_info = $output->data;
 		// thumbnail
-		if($item_info->thumb_file_srl) 
+		if($item_info->thumb_file_srl)
 		{
 			$file = $oFileModel->getFile($item_info->thumb_file_srl);
 			if($file) $item_info->thumbnail_url = getFullUrl().$file->download_url;
@@ -313,7 +314,7 @@ class nproductView extends nproduct
 		$oDocument = $oDocumentModel->getDocument($item_info->document_srl);
 		Context::set('oDocument', $oDocument);
 
-		if ($item_info->item_srl) 
+		if ($item_info->item_srl)
 		{
 			$review_list = $oNproductModel->getReviews($item_info);
 			Context::set('review_list', $review_list);
@@ -338,20 +339,14 @@ class nproductView extends nproduct
 		// get related items information
 		if($item_info->related_items)
 		{
-			if(!$this->isJson($item_info->related_items))
-			{
-				$item_info->related_items = $this->convertCsvToJson($item_info->related_items);
-			}
+			if(!$this->isJson($item_info->related_items)) $item_info->related_items = $this->convertCsvToJson($item_info->related_items);
 			$relatedItems = json_decode($item_info->related_items);
 			$relatedItemSrls = array();
 			foreach($relatedItems as $key => $val)
 			{
 				$relatedItemSrls[] = $val->item_srl;
 			}
-			if(count($relatedItemSrls))
-			{
-				$item_info->related_items = $oNproductModel->getItemList(implode(',', $relatedItemSrls), 999);
-			}
+			if(count($relatedItemSrls)) $item_info->related_items = $oNproductModel->getItemList(implode(',' ,$relatedItemSrls), 999);
 		}
 
 		$trigger_output = ModuleHandler::triggerCall('nproduct.dispNproductItemDetail', 'before', $item_info);

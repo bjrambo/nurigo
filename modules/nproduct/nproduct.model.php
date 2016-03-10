@@ -776,6 +776,7 @@ class nproductModel extends nproduct
 	 */
 	function getSubcategoryCount($node_route)
 	{
+		$args = new stdClass();
 		$args->node_route = $node_route;
 		$output = executeQuery('nproduct.getSubCategoryCount', $args);
 		if(!$output->toBool())
@@ -1892,7 +1893,7 @@ class nproductModel extends nproduct
 			exit();
 		}
 
-		unset($args);
+		$args = new stdClass();
 		if($is_page)
 		{
 			$args->node_route = 'f.';
