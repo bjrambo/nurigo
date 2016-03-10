@@ -30,6 +30,7 @@ class nmileageModel extends nmileage
 		switch($config->mileage_method)
 		{
 			case 'nmileage':
+				$args = new stdClass();
 				$args->member_srl = $member_srl;
 				$output = executeQuery('nmileage.getMileageInfo', $args);
 				if (!$output->toBool() || !$output->data) return 0;

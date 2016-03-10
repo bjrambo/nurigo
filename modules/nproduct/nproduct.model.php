@@ -802,6 +802,7 @@ class nproductModel extends nproduct
 	 */
 	function getExtraVars($module_srl)
 	{
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQueryArray('nproduct.getItemExtraList', $args);
 		if(!$output->toBool())

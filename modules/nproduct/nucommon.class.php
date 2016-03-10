@@ -1,39 +1,43 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nucommon
  * @author NURIGO(contact@nurigo.net)
  * @brief  nucommon
- */ 
+ */
 class nucommon
 {
 	/**
 	 * @brief parse an xml file and generate administrator's menus.
 	 */
-	function getMenu(&$in_xml_obj, $depth=0,&$parent_item=null) 
+	function getMenu(&$in_xml_obj, $depth = 0, &$parent_item = null)
 	{
-		if(!is_array($in_xml_obj)) 
+		if(!is_array($in_xml_obj))
 		{
 			$xml_obj = array($in_xml_obj);
 		}
-		else 
+		else
 		{
 			$xml_obj = $in_xml_obj;
 		}
 		$act = Context::get('act');
 
 		$menus = array();
-		foreach ($xml_obj as $it) 
+		foreach($xml_obj as $it)
 		{
 			$obj = new StdClass();
 			$obj->id = $it->id->body;
-			if($parent_item) $obj->parent_id = $parent_item->id;
+			if($parent_item)
+			{
+				$obj->parent_id = $parent_item->id;
+			}
 
 			$obj->title = $it->title->body;
 			$obj->action = array();
 			if(is_array($it->action))
 			{
-				foreach ($it->action as $action)
+				foreach($it->action as $action)
 				{
 					$obj->action[] = $action->body;
 				}
@@ -44,21 +48,27 @@ class nucommon
 			}
 			$obj->description = $it->description->body;
 			$obj->selected = false;
-			if(in_array($act, $obj->action)) 
+			if(in_array($act, $obj->action))
 			{
 				$obj->selected = true;
-				if($parent_item) 
+				if($parent_item)
 				{
 					$parent_item->selected = true;
 				}
 			}
 
-			if($it->item && ($it->attrs->modinst != 'true'||Context::get('module_srl'))) 
+			if($it->item && ($it->attrs->modinst != 'true' || Context::get('module_srl')))
 			{
-				$obj->submenu = nucommon::getMenu($it->item, $depth+1, $obj);
-				if($obj->selected && $parent_item) $parent_item->selected= true;
+				$obj->submenu = nucommon::getMenu($it->item, $depth + 1, $obj);
+				if($obj->selected && $parent_item)
+				{
+					$parent_item->selected = true;
+				}
 
-				if($obj->selected) Context::set('selected_menu', $obj);
+				if($obj->selected)
+				{
+					Context::set('selected_menu', $obj);
+				}
 			}
 			$menus[$obj->id] = $obj;
 			unset($obj);
@@ -69,16 +79,16 @@ class nucommon
 	/**
 	 * @brief read the license info from the server, write a cache file.
 	 */
-	function checkLicense($prodid, $user_id, $serial_number, $force=FALSE)
+	function checkLicense($prodid, $user_id, $serial_number, $force = FALSE)
 	{
 		$oModuleModel = getModel('module');
 		$hostinfo = array($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST']);
-		$agency_url = sprintf("http://www.xeshoppingmall.com/?module=drmagency&act=getDrmagencyLicense&prodid=%s&hostinfo=%s&user=%s&serial=%s&version=%s", $prodid, implode(',',$hostinfo), $user_id, $serial_number, '1.3');
+		$agency_url = sprintf("http://www.xeshoppingmall.com/?module=drmagency&act=getDrmagencyLicense&prodid=%s&hostinfo=%s&user=%s&serial=%s&version=%s", $prodid, implode(',', $hostinfo), $user_id, $serial_number, '1.3');
 		$cache_file = sprintf("%sfiles/cache/license_%s.cache.php", _XE_PATH_, $prodid);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time() || $force == TRUE)
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time() || $force == TRUE)
 		{
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($agency_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($agency_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 
 		return $cache_file;
@@ -91,7 +101,7 @@ class nucommon
 	{
 		$cache_file = nucommon::checkLicense($user_id, $module, $serial_number);
 
-		if(file_exists($cache_file)) 
+		if(file_exists($cache_file))
 		{
 			$oXml = new XmlParser();
 			$buff = $oXml->parse(FileHandler::readFile($cache_file));
@@ -132,37 +142,37 @@ class nucommon
 	}
 
 	/**
-	 * @brief get news 
+	 * @brief get news
 	 */
 	function getNewsFromAgency()
 	{
 		//Retrieve recent news and set them into context
 		$newest_news_url = sprintf("http://store.nurigo.net/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", _XE_LOCATION_);
 		$cache_file = sprintf("%sfiles/cache/nstore_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time())
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 		{
 			// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing textmessageistration page
 			// Ensure to access the textmessageistration page even though news cannot be displayed
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 
-		if(file_exists($cache_file)) 
+		if(file_exists($cache_file))
 		{
 			$oXml = new XmlParser();
 			$buff = $oXml->parse(FileHandler::readFile($cache_file));
 
 			$item = $buff->zbxe_news->item;
-			if($item) 
+			if($item)
 			{
-				if(!is_array($item)) 
+				if(!is_array($item))
 				{
 					$item = array($item);
 				}
 
-				foreach($item as $key => $val) 
+				foreach($item as $key => $val)
 				{
-					$obj = null;
+					$obj = new stdClass();
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
 					$obj->url = $val->attrs->url;
