@@ -25,13 +25,18 @@ jQuery(function($) {
 		if (!option_srl) return;
 		var $opt = $('option:selected',this);
 		var title = $opt.attr('data-title');
+		var type = $opt.attr('data-type');
 		var price = parseFloat($opt.attr('data-price'));
 		var str_price='';
 		if (price > 0) str_price = '(' + '+' + number_format(price) + ')';
 		if (price < 0) str_price = '(' + number_format(price) + ')';
 
-		if (!$('#option_'+option_srl).length) {
-			$('#selected_options').append('<tr id="option_'+option_srl+'" data-price="'+ (item_price + (price)) +'"><td>'+ title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1" />개</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span>' + number_format(item_price + (price)) + '</span></td></tr>');
+		if (!$('#option_' + option_srl).length) {
+			if (type == 'Y') {
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (price) + '"><td>' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1" />' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span>' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+			} else {
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (g_discounted_price + (price)) + '"><td>' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1" />' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span>' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+			}
 		}
 
 		printTotalPrice();

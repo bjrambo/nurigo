@@ -223,7 +223,6 @@ class ncartView extends ncart
 			return new Object(-1, $lang->msg_no_items);
 		}
 
-
 		/*
 		 * stock check
 		 */
@@ -232,7 +231,7 @@ class ncartView extends ncart
 
 		//quantity
 		$stock = array();
-		foreach ($cart->item_list as $key=>$val) 
+		foreach ($cart->item_list as $key=>$val)
 		{
 			$item_info = $oNproductModel->getItemInfo($val->item_srl);
 

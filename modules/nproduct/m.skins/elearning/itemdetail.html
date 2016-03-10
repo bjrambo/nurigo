@@ -86,7 +86,7 @@
 				<div class="text-right">
 					<select id="select_options">
 						<option value="">{$lang->cmd_select}</option>
-						<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nproductItem::formatMoney($val->price)}</span></option>
+						<option loop="$options=>$key,$val" value="{$val->option_srl}" data-title="{$val->title}" data-price="{$val->price}" data-type="{$val->type}">{$val->title} <span cond="$val->price > 0">+</span><span cond="$val->price != 0">{nproductItem::formatMoney($val->price)}</span></option>
 					</select>
 
 					<div class="text-right">

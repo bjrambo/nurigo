@@ -1167,6 +1167,7 @@ class nproductController extends nproduct
 		$option_srls = Context::get('option_srls');
 		$options_title = Context::get('options_title');
 		$options_price = Context::get('options_price');
+		$options_type = Context::get('type');
 
 		$existing_options = $oNproductModel->getOptions($item_srl);
 
@@ -1185,6 +1186,7 @@ class nproductController extends nproduct
 				$args->list_order = $args->option_srl * -1;
 				$args->title = $val;
 				$args->price = $options_price[$key];
+				$args->type = $options_type[$key];
 				$output = executeQuery('nproduct.insertOption', $args);
 				if(!$output->toBool())
 				{
@@ -1197,6 +1199,7 @@ class nproductController extends nproduct
 				$args->list_order = $args->option_srl * -1;
 				$args->title = $val;
 				$args->price = $options_price[$key];
+				$args->type = $options_type[$key];
 				$output = executeQuery('nproduct.updateOption', $args);
 				if(!$output->toBool())
 				{
@@ -1205,6 +1208,7 @@ class nproductController extends nproduct
 				unset($existing_options[$args->option_srl]);
 			}
 		}
+
 
 		if(count($existing_options))
 		{

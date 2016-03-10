@@ -58,6 +58,7 @@ class nproductItem extends Object
 
 			if(is_object($extra_vars) || is_array($extra_vars))
 			{
+				$this->extra_var_objs = new stdClass();
 				foreach ($extra_vars as $key => $val)
 				{
 					$this->extra_var_objs->{$val->column_name} = $val;

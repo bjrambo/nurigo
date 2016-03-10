@@ -101,6 +101,11 @@ class nproduct extends ModuleObject
 			return true;
 		}
 
+		if(!$oDB->isColumnExists('nproduct_options', 'type'))
+		{
+			return true;
+		}
+
 		return false;
 	}
 
@@ -251,6 +256,11 @@ class nproduct extends ModuleObject
 		if(!$oDB->isColumnExists('nproduct_items', 'minimum_order_quantity'))
 		{
 			$oDB->addColumn('nproduct_items', 'minimum_order_quantity', 'number', '11', '0', TRUE);
+		}
+
+		if(!$oDB->isColumnExists('nproduct_options', 'type'))
+		{
+			$oDB->addColumn('nproduct_options', 'type', 'varchar', '11');
 		}
 
 		return new Object(0, 'success_updated');

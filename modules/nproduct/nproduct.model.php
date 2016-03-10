@@ -32,6 +32,10 @@ class nproductModel extends nproduct
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nproduct');
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
 		if(!$config->cart_thumbnail_width)
 		{
 			$config->cart_thumbnail_width = 100;
@@ -119,7 +123,7 @@ class nproductModel extends nproduct
 				$join_form_list = array($join_form_list);
 			}
 			$join_form_count = count($join_form_list);
-
+			$lang->extend_vars = array();
 			for($i = 0; $i < $join_form_count; $i++)
 			{
 				$join_form_list[$i]->column_name = strtolower($join_form_list[$i]->column_name);
@@ -361,6 +365,7 @@ class nproductModel extends nproduct
 	 */
 	function getCategoryInfo($node_id)
 	{
+		$args = new stdClass();
 		$args->node_id = $node_id;
 		$output = executeQuery('nproduct.getCategoryInfo', $args);
 		if(!$output->toBool())
@@ -417,6 +422,7 @@ class nproductModel extends nproduct
 	function getItemInfo($item_srl)
 	{
 		$config = $this->getModuleConfig();
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQuery('nproduct.getItemInfo', $args);
 		if(!$output->toBool())
@@ -470,6 +476,7 @@ class nproductModel extends nproduct
 	function getItemList($item_srl, $list_count = 20, $sort_index = 'list_order')
 	{
 		$config = $this->getModuleConfig();
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$args->list_count = $list_count;
 		$args->sort_index = $sort_index;
@@ -835,6 +842,7 @@ class nproductModel extends nproduct
 	 */
 	function getGroupDiscount(&$item_info, $group_list)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_info->item_srl;
 		$output = executeQueryArray('nproduct.getGroupDiscount', $args);
 		if(!$output->toBool())
@@ -887,6 +895,7 @@ class nproductModel extends nproduct
 	 */
 	function getGlobalGroupDiscount($module_srl, &$item_info, $group_list)
 	{
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQueryArray('nproduct.getGlobalGroupDiscount', $args);
 		if(!$output->toBool())
@@ -952,6 +961,7 @@ class nproductModel extends nproduct
 			$purchase_count = $oNcartModel->getPurchaseCount($logged_info->member_srl, $item_info->item_srl);
 		}
 
+		$args = new stdClass();
 		$args->item_srl = $item_info->item_srl;
 
 		// check 
@@ -1005,6 +1015,7 @@ class nproductModel extends nproduct
 			return new Object();
 		}
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 
 		// check 
@@ -1118,6 +1129,7 @@ class nproductModel extends nproduct
 
 		$config = $oNcartModel->getModuleConfig();
 
+		$ret_obj = new stdClass();
 		$ret_obj->total_price = 0;
 		$ret_obj->sum_price = 0;
 		$ret_obj->delivery_fee = 0;
@@ -1166,12 +1178,18 @@ class nproductModel extends nproduct
 			}
 			if($option)
 			{
-				// 단가
-				$item_list[$key]->price = $val->price + ($option->price);
-				// 할인가 합계
-				$item_list[$key]->sum_discounted_price += ($option->price * $val->quantity);
-				// 판매가(원가격)
-				$item_list[$key]->sum_price += ($option->price * $val->quantity);
+				if($option->type == 'Y')
+				{
+					$item_list[$key]->price = $option->price;
+					$item_list[$key]->sum_discounted_price = ($option->price * $val->quantity);
+					$item_list[$key]->sum_price = ($option->price * $val->quantity);
+				}
+				else
+				{
+					$item_list[$key]->price = $val->price + ($option->price);
+					$item_list[$key]->sum_discounted_price += ($option->price * $val->quantity);
+					$item_list[$key]->sum_price += ($option->price * $val->quantity);
+				}
 			}
 
 			$ret_obj->total_discounted_price += $item_list[$key]->sum_discounted_price;
@@ -1237,6 +1255,7 @@ class nproductModel extends nproduct
 		$oFileModel = getModel('file');
 
 		// display categories
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		if($category_srl)
 		{
@@ -1328,6 +1347,7 @@ class nproductModel extends nproduct
 
 		for($i = $nr_length - 1; $i >= 0; $i--)
 		{
+			$args = new stdClass();
 			$args->module_srl = $module_srls;
 			$args->node_route = $this->getNodeRoute($node_route, $i);
 			$args->list_count = $maxsize;
@@ -1423,6 +1443,7 @@ class nproductModel extends nproduct
 	 */
 	function getOptions($item_srl)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQueryArray('nproduct.getOptions', $args);
 		$options = array();
@@ -1581,6 +1602,7 @@ class nproductModel extends nproduct
 
 		if($item_srl)
 		{
+			$args = new stdClass();
 			$args->item_srl = $item_srl;
 			$output = executeQueryArray("nproduct.getNproductExtraVars", $args);
 			if(!$output->toBool())
@@ -1743,6 +1765,7 @@ class nproductModel extends nproduct
 	 */
 	function getItemExtraVarList($item_srl)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQueryArray("nproduct.getNproductExtraVars", $args);
 		if(!$output->toBool())
@@ -1822,7 +1845,7 @@ class nproductModel extends nproduct
 		$output = ModuleHandler::triggerCall('nproduct.getProcModules', 'before', $module_list);
 		if(!$output->toBool())
 		{
-			debugPrint($output);
+
 		}
 		return $module_list;
 	}
