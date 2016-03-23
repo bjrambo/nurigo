@@ -220,7 +220,7 @@ class inipaystandardController extends inipaystandard
 		$payArgs->add('transaction_srl', $transaction_info->transaction_srl);
 		$payArgs->add('payment_method', 'VA');
 		$payArgs->add('payment_amount', $transaction_info->payment_amount);
-		$payArgs->add('pg_tid', $transaction_ifno->pg_tid);
+		$payArgs->add('pg_tid', $transaction_info->pg_tid);
 		$payArgs->add('vact_bankname', $transaction_info->vact_bankname);
 		$payArgs->add('vact_num', $transaction_info->vact_num);
 		$payArgs->add('vact_name', $transaction_info->vact_name);
