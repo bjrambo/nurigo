@@ -58,13 +58,12 @@ class epayController extends epay
 		}
 		if($manorder_pid)
 		{
-			$args->user_id = $manorder_pid;
-			$output = executeQuery('member.getMemberInfo', $args);
+			$member_info = getModel('member')->getMemberInfoByUserId($manorder_pid);
 
-			$args->p_member_srl = $output->data->member_srl;
-			$args->p_user_id = $output->data->user_id;
-			$args->p_name = $output->data->nick_name;
-			$args->p_email_address = $output->data->email_address;
+			$args->p_member_srl = $member_info->member_srl;
+			$args->p_user_id = $member_info->user_id;
+			$args->p_name = $member_info->nick_name;
+			$args->p_email_address = $member_info->email_address;
 		}
 		if(!$manorder_pid && !$logged_info)
 		{
