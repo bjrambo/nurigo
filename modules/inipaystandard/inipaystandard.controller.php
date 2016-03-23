@@ -44,52 +44,47 @@
         function procInipaystandardDoIt()
 		{
 			if(!$_SESSION['inipaystandard']['transaction_srl']) return new Object(-1, 'msg_invalid_request');
-			
+
 			$vars = Context::getRequestVars();
 			$oEpayController = getController('epay');
-			
+			$vars->transaction_srl = $_SESSION['inipaystandard']['transaction_srl'];
 			//결제 실패시
 			if(strcmp("0000", $vars->resultCode) !== 0)
 			{
-				/*
-				$payArgs = new Object(-1, $resultMap["resultMsg"]);
-				$payArgs->add('transaction_srl', $_SESSION['inipaystandard']['transaction_srl']);
-				$payArgs->add('state', '3');
-				$payArgs->add('result_code', $vars->resultCode);
-				$payArgs->add('result_message', $vars->resultMsg);
-				$output = $oEpayController->afterPayment($payArgs);
-				if(!$output->toBool()) return $output;
-				*/
-				
+				$args = new stdClass();
+				$args->transaction_srl = $vars->transaction_srl;
+				$args->result_message = $vars->resultMsg;
+				$args->result_code = $vars->resultCode;
+				$args->state = 3;
+
+				$output = executeQuery('epay.updateTransaction', $args);
+				if(!$output->toBool())
+				{
+					return $output;
+				}
+
 				return new Object(-1, '결제가 취소되었습니다.');
-				
-				/*
-				$return_url = substr(Context::getRequestUri() , 0, -1) . $_SESSION['inipaystandard']['error_return_url'];
-				unset($_SESSION['inipaystandard']);
-				header('location:' . $return_url);
-				*/
 			}
 			else if(!$vars->authUrl || !$vars->authToken)
 			{
 				return new Object(-1, 'msg_invalid_request');
 			}
-			
-			$vars->transaction_srl = $_SESSION['inipaystandard']['transaction_srl'];
+
 			$output = $oEpayController->beforePayment($vars);
 			if(!$output->toBool()) return $output;
-			
+
 			require_once('libs/INIStdPayUtil.php');
 			require_once('libs/HttpClient.php');
 			$util = new INIStdPayUtil();
 			$httpUtil = new HttpClient();
-			
+
 			$timestamp = $util->getTimestamp();
-			
+
 			$signParam = array();
 			$signParam["authToken"] = $vars->authToken;
 			$signParam["timestamp"] = $timestamp;
 			$signature = $util->makeSignature($signParam);
-			
+
 			$authMap = array();
 			$authMap["mid"] = $this->module_info->inipay_mid;
 			$authMap["authToken"] = $vars->authToken;
@@ -98,7 +93,7 @@
 			$authMap["charset"] = 'UTF-8';
 			$authMap["format"] = 'JSON';
 			$authMap["price"] = $_SESSION['inipaystandard']['price'];
-			
+
 			//결제 인증
 			$authResultString = '';
 			if($httpUtil->processHTTP($vars->authUrl, $authMap))
@@ -111,10 +106,10 @@
 				echo $httpUtil->errormsg;
 				throw new Exception("Http Connect Error");
 			}
-			
+
 			//인증 결과
 			$resultMap = json_decode($authResultString, true);
-			
+
 			//성공
 			if(strcmp("0000", $resultMap["resultCode"]) == 0)
 			{
