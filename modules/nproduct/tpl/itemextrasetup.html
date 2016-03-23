@@ -16,7 +16,7 @@
 	</p>
 </div>
 
-<form action="./" id="extraDefine" class="x_modal" ruleset="insertItemExtra" method="post">
+<form action="{getUrl()}" id="extraDefine" class="x_modal" ruleset="insertItemExtra" method="post">
 	<input type="hidden" name="act" value="procNproductAdminInsertItemExtra" />
 	<input type="hidden" name="module_srl" value="{$module_srl}" />
 	<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />

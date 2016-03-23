@@ -440,7 +440,6 @@ class nproductAdminController extends nproduct
 	{
 		$oNproductModel = getModel('nproduct');
 		// Default values
-		$args->default_value = '';
 		if(in_array($args->column_type, array('checkbox', 'select', 'radio')) && count($args->default_value))
 		{
 			$args->default_value = serialize($args->default_value);
