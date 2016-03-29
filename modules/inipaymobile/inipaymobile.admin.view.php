@@ -1,16 +1,17 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  inipaymobileAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  inipaymobileAdminView
- */ 
+ */
 class inipaymobileAdminView extends inipaymobile
 {
 	/**
 	 * @brief initialize view class
 	 */
-	function init() 
+	function init()
 	{
 		$oModuleModel = getModel('module');
 
@@ -23,22 +24,24 @@ class inipaymobileAdminView extends inipaymobile
 		}
 
 		// prepare $module_info if the module_srl is passed.
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 
 		// set template path
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		Context::set('tpl_path', $tpl_path);
 	}
@@ -46,7 +49,7 @@ class inipaymobileAdminView extends inipaymobile
 	/**
 	 * @brief print account input form
 	 */
-	function dispInipaymobileAdminInsert() 
+	function dispInipaymobileAdminInsert()
 	{
 		$this->setTemplateFile('insert');
 	}
@@ -54,7 +57,7 @@ class inipaymobileAdminView extends inipaymobile
 	/**
 	 * @brief print module instance list
 	 */
-	function dispInipaymobileAdminModInstList() 
+	function dispInipaymobileAdminModInstList()
 	{
 		// get the module instance list
 		$args->sort_index = "module_srl";
@@ -63,9 +66,15 @@ class inipaymobileAdminView extends inipaymobile
 		$args->page_count = 10;
 		$args->s_module_category_srl = Context::get('module_category_srl');
 		$output = executeQueryArray('inipaymobile.getModInstList', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
+		if(!is_array($list))
+		{
+			$list = array();
+		}
 		Context::set('list', $list);
 
 		// get the module categories
@@ -79,12 +88,12 @@ class inipaymobileAdminView extends inipaymobile
 	/**
 	 * @brief print module instance creation form
 	 */
-	function dispInipaymobileAdminInsertModInst() 
+	function dispInipaymobileAdminInsertModInst()
 	{
 		// get the skin list
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		// get the mobile skin list
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
@@ -96,7 +105,7 @@ class inipaymobileAdminView extends inipaymobile
 		Context::set('layout_list', $layout_list);
 
 		// get the mobile layout list
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// get the module categories
@@ -108,7 +117,7 @@ class inipaymobileAdminView extends inipaymobile
 	/**
 	 * @brief print PC skin info
 	 **/
-	function dispInipaymobileAdminSkinInfo() 
+	function dispInipaymobileAdminSkinInfo()
 	{
 		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
@@ -119,7 +128,7 @@ class inipaymobileAdminView extends inipaymobile
 	/**
 	 * @brief print mobile skin info
 	 **/
-	function dispInipaymobileAdminMobileSkinInfo() 
+	function dispInipaymobileAdminMobileSkinInfo()
 	{
 		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);

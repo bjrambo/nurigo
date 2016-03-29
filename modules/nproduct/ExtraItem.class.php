@@ -20,7 +20,7 @@ class NExtraItemList
 		$formTags = array();
 		if($extend_form_list)
 		{
-			foreach ($extend_form_list as $no=>$field) 
+			foreach($extend_form_list as $no => $field)
 			{
 				$extra_item = new NExtraItem($field->module_srl, $no, $field->column_name, $field->column_title, $field->column_type, $field->default_value, $field->description, $field->required, 'N', $field->value);
 				$formTags[] = $extra_item;
@@ -168,10 +168,10 @@ class NExtraItem
 
 			case 'tel' :
 				return sprintf('%s - %s - %s', $value[0], $value[1], $value[2]);
-				
+
 			case 'textarea' :
 				return $value;
-				
+
 			case 'checkbox' :
 				if(is_array($value))
 				{
@@ -181,7 +181,7 @@ class NExtraItem
 				{
 					return $value;
 				}
-				
+
 			case 'date' :
 				return zdate($value, "Y-m-d");
 
@@ -332,10 +332,10 @@ class NExtraItem
 
 			case 'tel' :
 				return sprintf('%s - %s - %s', $value[0], $value[1], $value[2]);
-				
+
 			case 'textarea' :
 				return nl2br($value);
-				
+
 			case 'checkbox' :
 				if(is_array($value))
 				{
@@ -345,7 +345,7 @@ class NExtraItem
 				{
 					return $value;
 				}
-				
+
 			case 'date' :
 				return zdate($value, "Y-m-d");
 
@@ -381,7 +381,7 @@ class NExtraItem
 	 *
 	 * @return string Returns a html form.
 	 */
-	function getFormHTML($include_desc=TRUE)
+	function getFormHTML($include_desc = TRUE)
 	{
 		static $id_num = 1000;
 
@@ -404,10 +404,7 @@ class NExtraItem
 				break;
 			// Phone Number
 			case 'tel' :
-				$buff .=
-						'<input type="text" name="' . $column_name . '[]" value="' . $value[0] . '" size="4" maxlength="4" class="tel" />' .
-						'<input type="text" name="' . $column_name . '[]" value="' . $value[1] . '" size="4" maxlength="4" class="tel" />' .
-						'<input type="text" name="' . $column_name . '[]" value="' . $value[2] . '" size="4" maxlength="4" class="tel" />';
+				$buff .= '<input type="text" name="' . $column_name . '[]" value="' . $value[0] . '" size="4" maxlength="4" class="tel" />' . '<input type="text" name="' . $column_name . '[]" value="' . $value[1] . '" size="4" maxlength="4" class="tel" />' . '<input type="text" name="' . $column_name . '[]" value="' . $value[2] . '" size="4" maxlength="4" class="tel" />';
 				break;
 			// textarea
 			case 'textarea' :
@@ -430,7 +427,7 @@ class NExtraItem
 					// Temporary ID for labeling
 					$tmp_id = $column_name . '-' . $id_num++;
 
-					$buff .='<li><label for="' . $tmp_id . '"><input type="checkbox" name="' . $column_name . '[]" id="' . $tmp_id . '" value="' . htmlspecialchars($v) . '" ' . $checked . ' />' . $v . '</label></li>';
+					$buff .= '<li><label for="' . $tmp_id . '"><input type="checkbox" name="' . $column_name . '[]" id="' . $tmp_id . '" value="' . htmlspecialchars($v) . '" ' . $checked . ' />' . $v . '</label></li>';
 				}
 				$buff .= '</ul>';
 				break;
@@ -477,68 +474,39 @@ class NExtraItem
 				// datepicker javascript plugin load
 				Context::loadJavascriptPlugin('ui.datepicker');
 
-				$buff .=
-						'<input type="hidden" name="' . $column_name . '" value="' . $value . '" />' .
-						'<input type="text" id="date_' . $column_name . '" value="' . zdate($value, 'Y-m-d') . '" class="date" /> <input type="button" value="' . Context::getLang('cmd_delete') . '" id="dateRemover_' . $column_name . '" />' . "\n" .
-						'<script>' . "\n" .
-						'(function($){' . "\n" .
-						'    $(function(){' . "\n" .
-						'        var option = { dateFormat: "yy-mm-dd", changeMonth:true, changeYear:true, gotoCurrent: false,yearRange:\'-100:+10\', onSelect:function(){' . "\n" .
-						'            $(this).prev(\'input[type="hidden"]\').val(this.value.replace(/-/g,""))}' . "\n" .
-						'        };' . "\n" .
-						'        $.extend(option,$.datepicker.regional[\'' . Context::getLangType() . '\']);' . "\n" .
-						'        $("#date_' . $column_name . '").datepicker(option);' . "\n" .
-						'		$("#dateRemover_' . $column_name . '").click(function(){' . "\n" .
-						'			$(this).siblings("input").val("");' . "\n" .
-						'			return false;' . "\n" .
-						'		})' . "\n" .
-						'    });' . "\n" .
-						'})(jQuery);' . "\n" .
-						'</script>';
+				$buff .= '<input type="hidden" name="' . $column_name . '" value="' . $value . '" />' . '<input type="text" id="date_' . $column_name . '" value="' . zdate($value, 'Y-m-d') . '" class="date" /> <input type="button" value="' . Context::getLang('cmd_delete') . '" id="dateRemover_' . $column_name . '" />' . "\n" . '<script>' . "\n" . '(function($){' . "\n" . '    $(function(){' . "\n" . '        var option = { dateFormat: "yy-mm-dd", changeMonth:true, changeYear:true, gotoCurrent: false,yearRange:\'-100:+10\', onSelect:function(){' . "\n" . '            $(this).prev(\'input[type="hidden"]\').val(this.value.replace(/-/g,""))}' . "\n" . '        };' . "\n" . '        $.extend(option,$.datepicker.regional[\'' . Context::getLangType() . '\']);' . "\n" . '        $("#date_' . $column_name . '").datepicker(option);' . "\n" . '		$("#dateRemover_' . $column_name . '").click(function(){' . "\n" . '			$(this).siblings("input").val("");' . "\n" . '			return false;' . "\n" . '		})' . "\n" . '    });' . "\n" . '})(jQuery);' . "\n" . '</script>';
 				break;
 			// address
 			case "kr_zip" :
 				// krzip address javascript plugin load
 				Context::loadJavascriptPlugin('ui.krzip');
 
-				$buff .=
-						'<div id="addr_searched_' . $column_name . '" style="display:' . ($value[0] ? 'block' : 'none') . ';">' .
-						'<input type="text" readonly="readonly" name="' . $column_name . '[]" value="' . $value[0] . '" class="address" />' .
-						'<a href="#" onclick="doShowKrZipSearch(this, \'' . $column_name . '\'); return false;" class="button red"><span>' . Context::getLang('cmd_cancel') . '</span></a>' .
-						'</div>' .
-						'<div id="addr_list_' . $column_name . '" style="display:none;">' .
-						'<select name="addr_list_' . $column_name . '"></select>' .
-						'<a href="#" onclick="doSelectKrZip(this, \'' . $column_name . '\'); return false;" class="button blue"><span>' . Context::getLang('cmd_select') . '</span></a>' .
-						'<a href="#" onclick="doHideKrZipList(this, \'' . $column_name . '\'); return false;" class="button red"><span>' . Context::getLang('cmd_cancel') . '</span></a>' .
-						'</div>' .
-						'<div id="addr_search_' . $column_name . '" style="display:' . ($value[0] ? 'none' : 'block') . '">' .
-						'<input type="text" name="addr_search_' . $column_name . '" class="address" value="" />' .
-						'<a href="#" onclick="doSearchKrZip(this, \'' . $column_name . '\'); return false;" class="button green"><span>' . Context::getLang('cmd_search') . '</span></a>' .
-						'</div>' .
-						'<input type="text" name="' . $column_name . '[]" value="' . htmlspecialchars($value[1]) . '" class="address" />' .
-						'';
+				$buff .= '<div id="addr_searched_' . $column_name . '" style="display:' . ($value[0] ? 'block' : 'none') . ';">' . '<input type="text" readonly="readonly" name="' . $column_name . '[]" value="' . $value[0] . '" class="address" />' . '<a href="#" onclick="doShowKrZipSearch(this, \'' . $column_name . '\'); return false;" class="button red"><span>' . Context::getLang('cmd_cancel') . '</span></a>' . '</div>' . '<div id="addr_list_' . $column_name . '" style="display:none;">' . '<select name="addr_list_' . $column_name . '"></select>' . '<a href="#" onclick="doSelectKrZip(this, \'' . $column_name . '\'); return false;" class="button blue"><span>' . Context::getLang('cmd_select') . '</span></a>' . '<a href="#" onclick="doHideKrZipList(this, \'' . $column_name . '\'); return false;" class="button red"><span>' . Context::getLang('cmd_cancel') . '</span></a>' . '</div>' . '<div id="addr_search_' . $column_name . '" style="display:' . ($value[0] ? 'none' : 'block') . '">' . '<input type="text" name="addr_search_' . $column_name . '" class="address" value="" />' . '<a href="#" onclick="doSearchKrZip(this, \'' . $column_name . '\'); return false;" class="button green"><span>' . Context::getLang('cmd_search') . '</span></a>' . '</div>' . '<input type="text" name="' . $column_name . '[]" value="' . htmlspecialchars($value[1]) . '" class="address" />' . '';
 				break;
 			// General text
 			default :
-				$buff .=' <input type="text" name="' . $column_name . '" value="' . ($value !== NULL ? $value : $default) . '" class="text" />';
+				$buff .= ' <input type="text" name="' . $column_name . '" value="' . ($value !== NULL ? $value : $default) . '" class="text" />';
 				break;
 		}
 		if($this->desc && $include_desc)
 		{
 			$buff .= '<p>' . htmlspecialchars($this->desc) . '</p>';
 		}
-		
+
 		return $buff;
 	}
 
 	/**
 	 * @param $display_required 필수여부 출력
 	 */
-	function getTitle($display_required=FALSE)
+	function getTitle($display_required = FALSE)
 	{
-		if($display_required) 
+		if($display_required)
 		{
-			if($this->is_required == 'Y') return $this->title.' <em style="color:red">*</em>';
+			if($this->is_required == 'Y')
+			{
+				return $this->title . ' <em style="color:red">*</em>';
+			}
 		}
 
 		return $this->title;

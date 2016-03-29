@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nmileageModel
@@ -7,24 +8,31 @@
  */
 class nmileageModel extends nmileage
 {
-	function init() 
+	function init()
 	{
-		if (!$this->module_info->thumbnail_width) $this->module_info->thumbnail_width = 150;
-		if (!$this->module_info->thumbnail_height) $this->module_info->thumbnail_height = 150;
+		if(!$this->module_info->thumbnail_width)
+		{
+			$this->module_info->thumbnail_width = 150;
+		}
+		if(!$this->module_info->thumbnail_height)
+		{
+			$this->module_info->thumbnail_height = 150;
+		}
 	}
 
 	function getModuleConfig()
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nmileage');
-		if (!$config->mileage_method) $config->mileage_method = 'nmileage';
+		if(!$config->mileage_method)
+		{
+			$config->mileage_method = 'nmileage';
+		}
 		return $config;
 	}
 
 
-
-
-	function getMileage($member_srl) 
+	function getMileage($member_srl)
 	{
 		$config = $this->getModuleConfig();
 		switch($config->mileage_method)
@@ -33,7 +41,10 @@ class nmileageModel extends nmileage
 				$args = new stdClass();
 				$args->member_srl = $member_srl;
 				$output = executeQuery('nmileage.getMileageInfo', $args);
-				if (!$output->toBool() || !$output->data) return 0;
+				if(!$output->toBool() || !$output->data)
+				{
+					return 0;
+				}
 				return $output->data->mileage;
 			case 'point':
 				$oPointModel = getModel('point');
@@ -43,12 +54,18 @@ class nmileageModel extends nmileage
 		return 0;
 	}
 
-	function getMileageInfo($member_srl) 
+	function getMileageInfo($member_srl)
 	{
 		$args->member_srl = $member_srl;
 		$output = executeQuery('nmileage.getMileageInfo', $args);
-		if (!$output->toBool()) return $output;
-		if (!$output->data) return new Object(-2, 'No mileage record');
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+		if(!$output->data)
+		{
+			return new Object(-2, 'No mileage record');
+		}
 		$output->mileage = $output->data->mileage;
 		return $output;
 	}

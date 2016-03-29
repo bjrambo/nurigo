@@ -4,8 +4,8 @@ class category_menu extends WidgetHandler
 {
 
 	/**
-	* @brief widget
-	**/
+	 * @brief widget
+	 **/
 
 	function proc($in_args)
 	{
@@ -15,32 +15,38 @@ class category_menu extends WidgetHandler
 		if($args->node_id)
 		{
 			$output = executeQuery('nproduct.getCategoryInfo', $args);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$category_info = $output->data;
-			$parent_nodes = explode('.',$category_info->node_route);
+			$parent_nodes = explode('.', $category_info->node_route);
 			Context::set('parent_nodes', $parent_nodes);
 		}
 
 		$args = new stdClass();
 		$args->module_srl = $in_args->module_srls;
 		$output = executeQueryArray('nproduct.getCategoryList', $args);
-		if (!$output->toBool())
+		if(!$output->toBool())
 		{
 			return $output;
 		}
 		$category_list = $output->data;
 		$category_tree = array();
 		$category_index = array();
-		if ($category_list)
+		if($category_list)
 		{
-			foreach ($category_list as $no => $cate)
+			foreach($category_list as $no => $cate)
 			{
-				$node_route = $cate->node_route.$cate->node_id;
-				$stages = explode('.',$node_route);
+				$node_route = $cate->node_route . $cate->node_id;
+				$stages = explode('.', $node_route);
 				$code_str = '$category_tree["' . implode('"]["', $stages) . '"] = array();';
 				eval($code_str);
 				$module_info = $oModuleModel->getModuleInfoByModuleSrl($cate->module_srl);
-				if ($module_info->mid) $cate->mid = $module_info->mid;
+				if($module_info->mid)
+				{
+					$cate->mid = $module_info->mid;
+				}
 				$category_index[$cate->node_id] = $cate;
 			}
 		}

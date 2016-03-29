@@ -1,7 +1,6 @@
 <?php
 
 /**
- * vi:set ts=4 sw=4 noexpandtab fileencoding=utf-8:
  * @class  epayModel
  * @author NURIGO(contact@nurigo.net)
  * @brief  epayModel class

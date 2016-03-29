@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @class  currencyModel
  */
-class currencyModel extends currency 
+class currencyModel extends currency
 {
 	var $decimals = 0;
 	var $currency = "KRW";
@@ -15,13 +16,22 @@ class currencyModel extends currency
 	function currencyModel()
 	{
 		$config = $this->getModuleConfig();
-		if($config->decimals) $this->decimals = $config->decimals;
-		if($config->currency) $this->currency = $config->currency;
-		if($config->as_sign) $this->as_sign = $config->as_sign;
+		if($config->decimals)
+		{
+			$this->decimals = $config->decimals;
+		}
+		if($config->currency)
+		{
+			$this->currency = $config->currency;
+		}
+		if($config->as_sign)
+		{
+			$this->as_sign = $config->as_sign;
+		}
 	}
 
-	/** 
-	 * @brief get currency config 
+	/**
+	 * @brief get currency config
 	 */
 	function getModuleConfig()
 	{
@@ -32,7 +42,7 @@ class currencyModel extends currency
 
 	function setCurrency($currency, $as_sign)
 	{
-		$this->currency  = $currency;
+		$this->currency = $currency;
 		$this->as_sign = $as_sign;
 	}
 
@@ -40,7 +50,10 @@ class currencyModel extends currency
 	{
 		$config = $this->getModuleConfig();
 		$division = pow(10, $config->decimals);
-		if(!$division) return $price;
+		if(!$division)
+		{
+			return $price;
+		}
 		return $price / $division;
 	}
 
@@ -62,7 +75,7 @@ class currencyModel extends currency
 		global $lang;
 		$price = $this->getPrice($price);
 
-		if ($this->as_sign=="Y")
+		if($this->as_sign == "Y")
 		{
 			$currency = $lang->currency_sign[$this->currency];
 			return sprintf("<span class=\"currency_symbol\">%s</span>%s", $currency, number_format($price, $this->decimals));
@@ -79,11 +92,11 @@ class currencyModel extends currency
 	 */
 	function printDiscountedPrice($price)
 	{
-		if ($price!==NULL)
+		if($price !== NULL)
 		{
 			return $this->printPrice($price);
 		}
-		return $this->printPrice($this->discounted_price) ;
+		return $this->printPrice($this->discounted_price);
 	}
 }
 /* End of file currency.model.php */

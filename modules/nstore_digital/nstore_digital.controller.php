@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstore_digitalController
@@ -8,57 +9,65 @@
 class nstore_digitalController extends nstore_digital
 {
 
-	function updateSalesCount($item_srl, $quantity) 
+	function updateSalesCount($item_srl, $quantity)
 	{
 		$oNproductController = getController('nproduct');
 		$oNproductController->updateSalesCount($item_srl, $quantity);
 	}
 
-	function addGroups($member_srl, $group_srl_list) 
+	function addGroups($member_srl, $group_srl_list)
 	{
 		$oMemberModel = getModel('member');
 		$oMemberController = getController('member');
 
 		$groups = $oMemberModel->getMemberGroups($member_srl);
-		foreach ($group_srl_list as $group_srl) {
-			if (!in_array($group_srl, array_keys($groups))) {
+		foreach($group_srl_list as $group_srl)
+		{
+			if(!in_array($group_srl, array_keys($groups)))
+			{
 				$oMemberController->addMemberToGroup($member_srl, $group_srl);
 			}
 		}
 	}
 
 
-	function updateOrderStatus($order_srl, $order_status) 
+	function updateOrderStatus($order_srl, $order_status)
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$oModuleModel = getModel('module');
-		        
+
 		$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
-		if(!$order_info) return Object(-1, 'order info not found');
+		if(!$order_info)
+		{
+			return Object(-1, 'order info not found');
+		}
 
 		// give mileage
-		if ($order_status==nstore_digital::ORDER_STATE_COMPLETE)
+		if($order_status == nstore_digital::ORDER_STATE_COMPLETE)
 		{
 			//$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
-			if ($order_info->member_srl && $order_info->mileage && $order_info->mileage_save=='N')
+			if($order_info->member_srl && $order_info->mileage && $order_info->mileage_save == 'N')
 			{
 				$oNmileageController = getController('nmileage');
 				$oNmileageController->plusMileage($order_info->member_srl, $order_info->mileage, $order_info->title, $order_srl);
 				$args->mileage_save = 'Y';
 			}
-			if ($order_info->item_list)
+			if($order_info->item_list)
 			{
-				foreach ($order_info->item_list as $key=>$item)
+				foreach($order_info->item_list as $key => $item)
 				{
 					$item_srl = $item->item_srl;
 					$quantity = $item->quantity;
 					$this->updateSalesCount($item_srl, $quantity);
 				}
 			}
-			if ($order_info->group_srl_list)
+			if($order_info->group_srl_list)
 			{
 				$group_srl_list = unserialize($order_info->group_srl_list);
-				if (is_array($group_srl_list)) $this->addGroups($order_info->member_srl, $group_srl_list);
+				if(is_array($group_srl_list))
+				{
+					$this->addGroups($order_info->member_srl, $group_srl_list);
+				}
 			}
 		}
 
@@ -68,23 +77,29 @@ class nstore_digitalController extends nstore_digital
 		$args->purdate = date("YmdHiS");
 
 		$output = executeQuery('nstore_digital.updateOrderStatus', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// for cart table
 		$args->order_srl = $order_srl;
 		$args->order_status = $order_status;
 		$args->purdate = date("YmdHiS");
 		$output = executeQuery('nstore_digital.updateCartOrderStatus', $args);
-		if (!$output->toBool()) return $output;
-
-/*
-		$nstore_digital_contents_config = $oModuleModel->getModuleConfig('nstore_digital_contents');
-
-		if($nstore_digital_contents_config->period)
+		if(!$output->toBool())
 		{
-			$oNdc_admin_controller->insertPeriod($order_srl);
+			return $output;
 		}
-*/
+
+		/*
+				$nstore_digital_contents_config = $oModuleModel->getModuleConfig('nstore_digital_contents');
+
+				if($nstore_digital_contents_config->period)
+				{
+					$oNdc_admin_controller->insertPeriod($order_srl);
+				}
+		*/
 
 		$config = $oNstore_digitalModel->getModuleConfig();
 		$oNcartController = getController('ncart');
@@ -93,7 +108,10 @@ class nstore_digitalController extends nstore_digital
 
 		unset($order_info->item_list);
 		$oAutomailController = getController('automail');
-		if($oAutomailController) $oAutomailController->sendMail('nstore_digital', $order_status, $order_info->email_address, $order_info);
+		if($oAutomailController)
+		{
+			$oAutomailController->sendMail('nstore_digital', $order_status, $order_info->email_address, $order_info);
+		}
 
 		return new Object();
 	}
@@ -106,15 +124,21 @@ class nstore_digitalController extends nstore_digital
 		$args->balance = $balance;
 	*/
 
-	function triggerUpdateDownloadedCount($obj) 
+	function triggerUpdateDownloadedCount($obj)
 	{
 		$oModuleModel = getModel('module');
 		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// check whether this module's file.
-		if (!$obj->module_srl) return;
+		if(!$obj->module_srl)
+		{
+			return;
+		}
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
-		if ($module_info->module != 'nproduct') return;
+		if($module_info->module != 'nproduct')
+		{
+			return;
+		}
 
 		$oNproductController = getController('nproduct');
 		$output = $oNproductController->updateDownloadCount($obj->upload_target_srl);
@@ -125,31 +149,37 @@ class nstore_digitalController extends nstore_digital
 	/**
 	 * @brief 다운로드권한 체크
 	 */
-	function triggerCheckPermission($obj) 
+	function triggerCheckPermission($obj)
 	{
 		$oModuleModel = getModel('module');
 		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// check whether this module's file.
-		if (!$obj->module_srl) return;
+		if(!$obj->module_srl)
+		{
+			return;
+		}
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
 
 		$config = $oNstore_digitalModel->getModuleConfig();
 		$oNproductModel = getModel('nproduct');
 		$item_info = $oNproductModel->getItemInfo($obj->upload_target_srl);
-		if ($item_info->proc_module != 'nstore_digital') return;
-
-/*
-		// admin 이면 OK
-		$logged_info = Context::get('logged_info');
-		if ($logged_info && $logged_info->is_admin == 'Y')
+		if($item_info->proc_module != 'nstore_digital')
 		{
 			return;
 		}
-*/
+
+		/*
+				// admin 이면 OK
+				$logged_info = Context::get('logged_info');
+				if ($logged_info && $logged_info->is_admin == 'Y')
+				{
+					return;
+				}
+		*/
 
 		// procNstore_digitalFileDownload 에서 체크한대로...
-		if ($_SESSION['nstore_digital_downloadable'] != TRUE)
+		if($_SESSION['nstore_digital_downloadable'] != TRUE)
 		{
 			return new Object(-1, 'msg_not_permitted_download');
 		}
@@ -180,21 +210,24 @@ class nstore_digitalController extends nstore_digital
 		$output = executeQuery('nstore_digital.getPurchasedItem', $args);
 		$purchased_item = $output->data;
 
-		if (in_array($purchased_item->order_status, array('2','3'))) 
+		if(in_array($purchased_item->order_status, array('2', '3')))
 		{
 			$downloadable = TRUE;
 		}
 
 		$file_srl = $purchased_item->file_srl;
-		if(Context::get('file_srl')) $file_srl = Context::get('file_srl');
-		$file = $oFileModel->getFile($file_srl, array('file_srl','upload_target_srl','sid'));
-		Context::set('file_srl',$file->file_srl);
-		Context::set('sid',$file->sid);
+		if(Context::get('file_srl'))
+		{
+			$file_srl = Context::get('file_srl');
+		}
+		$file = $oFileModel->getFile($file_srl, array('file_srl', 'upload_target_srl', 'sid'));
+		Context::set('file_srl', $file->file_srl);
+		Context::set('sid', $file->sid);
 
-		if ($downloadable)
+		if($downloadable)
 		{
 			$_SESSION['nstore_digital_downloadable'] = TRUE;
-			if ($purchased_item && $purchased_item->order_status == '2') 
+			if($purchased_item && $purchased_item->order_status == '2')
 			{
 				$this->updateOrderStatus($purchased_item->order_srl, '3');
 			}
@@ -209,7 +242,10 @@ class nstore_digitalController extends nstore_digital
 		$vars->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $vars);
 
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		if($output->data->period)
 		{
@@ -240,31 +276,31 @@ class nstore_digitalController extends nstore_digital
 		// initialize variables.
 		$downloadable = FALSE;
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info)
+		if(!$logged_info)
 		{
 			return new Object(-1, '로그인 후 다운로드 하세요.');
 		}
 
 		// check whether there is a purchased item.
 		$item_info = $oNstore_digitalModel->getItemInfo($item_srl);
-		if ($item_info->price == 0) 
+		if($item_info->price == 0)
 		{
 			$downloadable = TRUE;
 		}
 
-		$file = $oFileModel->getFile($item_info->file_srl, array('file_srl','upload_target_srl','sid'));
-		Context::set('file_srl',$file->file_srl);
-		Context::set('sid',$file->sid);
+		$file = $oFileModel->getFile($item_info->file_srl, array('file_srl', 'upload_target_srl', 'sid'));
+		Context::set('file_srl', $file->file_srl);
+		Context::set('sid', $file->sid);
 
-/*
-		// admin, always allow
-		if ($logged_info->is_admin == 'Y')
-		{
-			$downloadable = TRUE;
-		}
-*/
+		/*
+				// admin, always allow
+				if ($logged_info->is_admin == 'Y')
+				{
+					$downloadable = TRUE;
+				}
+		*/
 
-		if ($downloadable)
+		if($downloadable)
 		{
 			$_SESSION['nstore_digital_downloadable'] = TRUE;
 		}
@@ -272,41 +308,54 @@ class nstore_digitalController extends nstore_digital
 		{
 			$_SESSION['nstore_digital_downloadable'] = FALSE;
 		}
-	
+
 		return $oFileController->procFileDownload();
 	}
 
-	function insertOrder($in_args, &$cart) 
+	function insertOrder($in_args, &$cart)
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 
 		// make group_srl_list
 		$group_srl_list = array();
-		foreach ($cart->item_list as $key=>$val)
+		foreach($cart->item_list as $key => $val)
 		{
 			$tmp_srl_list = unserialize($val->group_srl_list);
-			if (!is_array($tmp_srl_list)) $tmp_srl_list = array();
-			foreach ($tmp_srl_list as $srl)
+			if(!is_array($tmp_srl_list))
 			{
-				if (!in_array($srl, $group_srl_list)) $group_srl_list[] = $srl;
+				$tmp_srl_list = array();
+			}
+			foreach($tmp_srl_list as $srl)
+			{
+				if(!in_array($srl, $group_srl_list))
+				{
+					$group_srl_list[] = $srl;
+				}
 			}
 		}
 		$in_args->group_srl_list = serialize($group_srl_list);
 
 		$output = executeQuery('nstore_digital.insertOrder', $in_args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// update cart items.
 		$args->order_srl = $in_args->order_srl;
 		$args->member_srl = $in_args->member_srl;
 		$args->module_srl = $in_args->module_srl;
-		foreach ($cart->item_list as $key=>$val) {
+		foreach($cart->item_list as $key => $val)
+		{
 			$args->cart_srl = $val->cart_srl;
 			$args->discount_amount = $val->discount_amount;
 			$args->discount_info = $val->discount_info;
 			$args->discounted_price = $val->discounted_price;
 			$output = executeQuery('nstore_digital.updateCartItem', $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 		}
 
@@ -315,27 +364,38 @@ class nstore_digitalController extends nstore_digital
 
 	function procNstore_digitalUpdateOrderDetail()
 	{
-		
+
 		$cart_srls = Context::get('cart_srls');
 		$site_urls = Context::get('site_url');
 
-		foreach ($cart_srls as $key=>$cart_srl) {
-			if (!$cart_srl) continue;
+		foreach($cart_srls as $key => $cart_srl)
+		{
+			if(!$cart_srl)
+			{
+				continue;
+			}
 			$site_url = $site_urls[$key];
 
 			$args->cart_srl = $cart_srl;
 			$args->site_url = $site_url;
-			if (!$args->cart_srl&&!$args->site_url) continue;
+			if(!$args->cart_srl && !$args->site_url)
+			{
+				continue;
+			}
 
 			// cart info
 			$output = executeQuery('nstore_digital.updateSiteUrl', $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
 		$this->setMessage('success_saved');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid',Context::get('mid'),'act', 'dispNstore_digitalDetail','order_srl',Context::get('order_srl'));
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
+		{
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', 'dispNstore_digitalDetail', 'order_srl', Context::get('order_srl'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
@@ -347,47 +407,62 @@ class nstore_digitalController extends nstore_digital
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$oModuleModel = getModel('module');
 		$oMemberModel = getModel('member');
-		if (!$args->order_srl) return;
+		if(!$args->order_srl)
+		{
+			return;
+		}
 
 		$logged_info = Context::get('logged_info');
-		if (!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		$cart = $args->cart;
 
 
 		$item_count = count($cart->item_list);
-		if (!$item_count) return new Object(-1, 'No items to order');
+		if(!$item_count)
+		{
+			return new Object(-1, 'No items to order');
+		}
 
 		// calculate total price
 		$max_unit_price = -1;
 		$title = '';
-		foreach ($cart->item_list as $key=>$val) {
+		foreach($cart->item_list as $key => $val)
+		{
 			$sum = $val->price * $val->quantity;
-			if ($val->price > $max_unit_price) {
+			if($val->price > $max_unit_price)
+			{
 				$max_unit_price = $val->price;
 				$title = $val->item_name;
 			}
 		}
-		if ($item_count > 1) $title = $title . ' 외 ' . ($item_count-1);
+		if($item_count > 1)
+		{
+			$title = $title . ' 외 ' . ($item_count - 1);
+		}
 
 		// delivery fee
-		if ($args->delivfee_inadvance=='N') {
+		if($args->delivfee_inadvance == 'N')
+		{
 			$cart->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
 		}
-/*
-		// use mileage
-		if ($args->use_mileage) {
-			$cart->total_price = $cart->total_price - (int)$args->use_mileage;
-		}
-		// calculate mileage
-		$args->mileage = 0;
-		$config = $oNstore_digitalModel->getModuleConfig();
-		if ($config->mileage_percent)
-		{
-			$args->mileage = round($cart->total_price * ((float)$config->mileage_percent/100), -1);
-		}
-*/
+		/*
+				// use mileage
+				if ($args->use_mileage) {
+					$cart->total_price = $cart->total_price - (int)$args->use_mileage;
+				}
+				// calculate mileage
+				$args->mileage = 0;
+				$config = $oNstore_digitalModel->getModuleConfig();
+				if ($config->mileage_percent)
+				{
+					$args->mileage = round($cart->total_price * ((float)$config->mileage_percent/100), -1);
+				}
+		*/
 
 		// generate order id
 		//$order_srl = getNextSequence();
@@ -426,11 +501,17 @@ class nstore_digitalController extends nstore_digital
 		$args->supply_amount = $cart->supply_amount;
 		$args->taxfree_amount = $cart->taxfree_amount;
 		$args->vat = $cart->vat;
-		if($args->delivdest_info) $args->extra_vars = serialize($args->delivdest_info);
-
-		foreach ($cart->item_list as $key=>$val)
+		if($args->delivdest_info)
 		{
-			if($val->module != 'nstore_digital') continue;
+			$args->extra_vars = serialize($args->delivdest_info);
+		}
+
+		foreach($cart->item_list as $key => $val)
+		{
+			if($val->module != 'nstore_digital')
+			{
+				continue;
+			}
 			/**
 			 * 상품정보 카트에 담기
 			 */
@@ -442,41 +523,62 @@ class nstore_digitalController extends nstore_digital
 			$cartitem_args->price = $val->price;
 			$cartitem_args->taxfree = $val->taxfree;
 			$output = executeQuery('nstore_digital.deleteCartItem', $cartitem_args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$output = executeQuery('nstore_digital.insertCartItem', $cartitem_args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			unset($cartitem_args);
 		}
-		
+
 		$output = executeQuery('nstore_digital.deleteOrder', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$output = $this->insertOrder($args, $cart);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 
 	/**
 	 * $obj->return_url 에 URL을 넘겨주면 pay::procEpayDoPayment에서 해당 URL로 Redirect시켜준다.
 	 */
-	function processCartPayment(&$obj) 
+	function processCartPayment(&$obj)
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$oModuleModel = getModel('module');
 		$oNdcModel = getModel('nstore_digital_contents');
 
-		if (!$obj->order_srl) return;
+		if(!$obj->order_srl)
+		{
+			return;
+		}
 
 		// get order info by order id
 		$args->order_srl = $obj->order_srl;
 		$output = executeQuery('nstore_digital.getOrderInfo', $args);
 
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$order_info = $output->data;
-		if (!$order_info) return;
+		if(!$order_info)
+		{
+			return;
+		}
 		unset($args);
 
 		// update order info for success
-		switch ($obj->state) 
+		switch($obj->state)
 		{
 			case '1': // not completed
 				$order_status = '1';
@@ -489,18 +591,21 @@ class nstore_digitalController extends nstore_digital
 				break;
 		}
 
-/*
-		// complete order
-		if ($obj->state == '2') {
-			if ($order_info->use_mileage) {
-				$this->minusMileage($order_info->member_srl, $order_info->use_mileage, $order_info->title, $order_info->order_srl);
-			}
-		}
-*/
-		if ($order_status)
+		/*
+				// complete order
+				if ($obj->state == '2') {
+					if ($order_info->use_mileage) {
+						$this->minusMileage($order_info->member_srl, $order_info->use_mileage, $order_info->title, $order_info->order_srl);
+					}
+				}
+		*/
+		if($order_status)
 		{
 			$output = $this->updateOrderStatus($obj->order_srl, $order_status);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
 		// 입금완료되면 만기일 추가
@@ -508,19 +613,28 @@ class nstore_digitalController extends nstore_digital
 		{
 			$vars->order_srl = $obj->order_srl;
 			$output = executeQueryArray('nstore_digital.getCartItemsByOrderSrl', $vars);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			$cart_list = $output->data;
-			if(!$cart_list) $cart_list = array();
+			if(!$cart_list)
+			{
+				$cart_list = array();
+			}
 
 			foreach($cart_list as $k => $v)
 			{
-				if(!$v) continue;
+				if(!$v)
+				{
+					continue;
+				}
 				unset($vars);
 
 				//아이템에 만기일이 있을경우에만 만기일을 넣어준다.
 				$item_config = $oNdcModel->getItemConfig($v->item_srl);
-				
+
 				if($item_config->period && $item_config->period_type)
 				{
 					$period = $item_config->period;
@@ -532,29 +646,47 @@ class nstore_digitalController extends nstore_digital
 
 					switch($period_type)
 					{
-						case 'd' : $d = $period; break;
-						case 'm' : $m = $period; break;
-						case 'y' : $y = $period; break;
+						case 'd' :
+							$d = $period;
+							break;
+						case 'm' :
+							$m = $period;
+							break;
+						case 'y' :
+							$y = $period;
+							break;
 					}
 
-					$period = date("Ymd", mktime(0, 0, 0, date("m")+$m, date("d")+$d, date("Y")+$y));
+					$period = date("Ymd", mktime(0, 0, 0, date("m") + $m, date("d") + $d, date("Y") + $y));
 
 					$vars->cart_srl = $v->cart_srl;
 					$vars->period = $period;
 					$output = executeQuery('nstore_digital.updateCartItemPeriod', $vars);
-					if(!$output->toBool()) return $output;
+					if(!$output->toBool())
+					{
+						return $output;
+					}
 				}
 			}
 		}
 
-		$obj->return_url = getNotEncodedUrl('','act','dispNstore_digitalOrderComplete','order_srl',$obj->order_srl,'mid',$obj->xe_mid);
+		$obj->return_url = getNotEncodedUrl('', 'act', 'dispNstore_digitalOrderComplete', 'order_srl', $obj->order_srl, 'mid', $obj->xe_mid);
 	}
 
 	function triggerProcessReview(&$args)
 	{
-		if($args->target_module != 'nstore_digital') return;
-		if(!$args->module_srl) return;
-		if(!$args->cart_srl) return;
+		if($args->target_module != 'nstore_digital')
+		{
+			return;
+		}
+		if(!$args->module_srl)
+		{
+			return;
+		}
+		if(!$args->cart_srl)
+		{
+			return;
+		}
 
 		$oMemberController = getController('member');
 		$oModuleModel = getModel('module');
@@ -575,26 +707,38 @@ class nstore_digitalController extends nstore_digital
 
 		switch($period_type)
 		{
-			case 'd' : $d = $period; break;
-			case 'm' : $m = $period; break;
-			case 'y' : $y = $period; break;
+			case 'd' :
+				$d = $period;
+				break;
+			case 'm' :
+				$m = $period;
+				break;
+			case 'y' :
+				$y = $period;
+				break;
 		}
 
 		$vars->cart_srl = $args->cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $vars);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$dead_line = $output->data->period; // dead_line 은 해당 cart_srl에 설정된 만기일.
 		$start_date = $output->data->regdate; // start_date는 해당 상품이 처음 구매된날
 		$current_date = date("Ymd", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
 
 		// 설정된 만기일이 현재 날짜보다 작다면, 현재 날짜를 데드라인으로 한다.
-		if($dead_line < $current_date) $dead_line = $current_date;
+		if($dead_line < $current_date)
+		{
+			$dead_line = $current_date;
+		}
 
 		$year = substr($dead_line, 0, 4);
 		$month = substr($dead_line, 4, 2);
 		$day = substr($dead_line, 6, 2);
-		$end_date = date("Ymd", mktime(0, 0, 0, $month+$m, $day+$d, $year+$y));
+		$end_date = date("Ymd", mktime(0, 0, 0, $month + $m, $day + $d, $year + $y));
 
 		// 같은 cart_srl이 state 1로 되있으면 삭제한다.
 
@@ -603,21 +747,30 @@ class nstore_digitalController extends nstore_digital
 		$q_args->member_srl = $logged_info->member_srl;
 
 		$output = executeQueryArray('nstore_digital.getPeriod', $q_args);
-		if(!$output->toBool())return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		if($output->data)
 		{
-			foreach($output->data as $k=>$v)
+			foreach($output->data as $k => $v)
 			{
 				$args->period_srl = $v->period_srl;
 				$output = executeQuery('nstore_digital.deletePeriod', $args);
-				if(!$output->toBool())return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 			}
 		}
 
 		$price = $args->price;
 		$extra_vars = unserialize($item_config->extra_vars);
-        if(isset($extra_vars['period_price'])) $price = $extra_vars['period_price'];
+		if(isset($extra_vars['period_price']))
+		{
+			$price = $extra_vars['period_price'];
+		}
 
 		// end
 
@@ -634,14 +787,23 @@ class nstore_digitalController extends nstore_digital
 		Context::set('cart_srl', $args->cart_srl);
 
 		$output = executeQuery('nstore_digital.insertPeriod', $args);
-		if(!$output->toBool())return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 
-	
+
 	function triggerProcessPayment($obj)
 	{
-		if($obj->target_module != 'nstore_digital') return;
-		if(!$obj->module_srl) return;
+		if($obj->target_module != 'nstore_digital')
+		{
+			return;
+		}
+		if(!$obj->module_srl)
+		{
+			return;
+		}
 
 		$oModuleModel = getModel('module');
 		$oMemberController = getController('member');
@@ -649,11 +811,14 @@ class nstore_digitalController extends nstore_digital
 		$logged_info = Context::get('logged_info');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($obj->module_srl);
 
-		if ($obj->state=='2' && $_SESSION['period_srl'])
+		if($obj->state == '2' && $_SESSION['period_srl'])
 		{
 			$args->period_srl = $_SESSION['period_srl'];
 			$output = executeQuery('nstore_digital.getPeriod', $args);
-			if(!$output->toBool())return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			$cart_srl = $output->data->cart_srl;
 			$end_date = $output->data->end_date;
@@ -662,18 +827,24 @@ class nstore_digitalController extends nstore_digital
 
 			$args->order_status = '2';
 			$output = executeQuery('nstore_digital.updatePeriod', $args);
-			if(!$output->toBool())return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			// nstore_digital_cart에서도 업데이트
 
 			$vars->cart_srl = $cart_srl;
 			$vars->period = $end_date;
 			$output = executeQuery('nstore_digital.updateCartItemPeriod', $vars);
-			if(!$output->toBool())return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
-		$obj->return_url = getNotEncodedUrl('','act','dispNstore_digitalOrderComplete','period_srl',$_SESSION['period_srl'],'order_srl',$obj->order_srl,'mid',$obj->xe_mid);
-		$returnUrl = getNotEncodedUrl('','act','dispNstore_digitalOrderComplete','period_srl',$_SESSION['period_srl'],'order_srl',$obj->order_srl,'mid',$obj->xe_mid);
+		$obj->return_url = getNotEncodedUrl('', 'act', 'dispNstore_digitalOrderComplete', 'period_srl', $_SESSION['period_srl'], 'order_srl', $obj->order_srl, 'mid', $obj->xe_mid);
+		$returnUrl = getNotEncodedUrl('', 'act', 'dispNstore_digitalOrderComplete', 'period_srl', $_SESSION['period_srl'], 'order_srl', $obj->order_srl, 'mid', $obj->xe_mid);
 		$this->setRedirectUrl($returnUrl);
 	}
 
@@ -683,21 +854,30 @@ class nstore_digitalController extends nstore_digital
 		$oNdcController = getController('nstore_digital_contents');
 		$oNcartModel = getModel('ncart');
 
-		if(!$purchased_item->cart_srl) return new Object(-1, 'cart_srl is not defined');
+		if(!$purchased_item->cart_srl)
+		{
+			return new Object(-1, 'cart_srl is not defined');
+		}
 
 
 		// 만기일 확인 
 
 		$args->cart_srl = $purchased_item->cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $args);
-		if(!$output->toBool())return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		if($output->data->period)
 		{
 			$current_date = date("Ymd", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
 
 			// 만기일이 지났으면 다운로드 안되게 함.
-			if($output->data->period < $current_date) $_SESSION['nstore_digital_downloadable'] = FALSE;
+			if($output->data->period < $current_date)
+			{
+				$_SESSION['nstore_digital_downloadable'] = FALSE;
+			}
 		}
 	}
 }

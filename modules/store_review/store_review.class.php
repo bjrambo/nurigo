@@ -4,20 +4,24 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief store_review module's high class
  **/
-require_once(_XE_PATH_.'modules/store_review/store_review.item.php');
-class store_review extends ModuleObject {
+require_once(_XE_PATH_ . 'modules/store_review/store_review.item.php');
+
+class store_review extends ModuleObject
+{
 
 	/**
 	 * @brief implemented if additional tasks are required when installing
 	 **/
-	function moduleInstall() {
+	function moduleInstall()
+	{
 		return new Object();
 	}
 
 	/**
 	 * @brief method to check if installation is succeeded
 	 **/
-	function checkUpdate() {
+	function checkUpdate()
+	{
 		$oDB = &DB::getInstance();
 		$oModuleModel = getModel('module');
 
@@ -27,7 +31,8 @@ class store_review extends ModuleObject {
 	/**
 	 * @brief Execute update
 	 **/
-	function moduleUpdate() {
+	function moduleUpdate()
+	{
 		$oDB = &DB::getInstance();
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
@@ -38,7 +43,8 @@ class store_review extends ModuleObject {
 	/**
 	 * @brief Regenerate cache file
 	 **/
-	function recompileCache() {
+	function recompileCache()
+	{
 	}
 }
 /* End of file store_review.admin.controller.php */

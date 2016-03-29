@@ -1,4 +1,5 @@
 <?php
+
 /**
  * cympusadminView class
  * Admin view class of cympusadmin module
@@ -7,6 +8,6 @@
  * @package /modules/cympusadmin
  * @version 0.1
  */
-class cympusadminView extends cympusadmin 
+class cympusadminView extends cympusadmin
 {
 }

@@ -113,7 +113,7 @@ class nproduct extends ModuleObject
 	{
 		$oModuleModel = getModel('module');
 		$oModuleAdminModel = getAdminModel('module');
-		$oNproductModel =  getModel('nproduct');
+		$oNproductModel = getModel('nproduct');
 
 		$args = new stdClass();
 		$args->module = 'nproduct';
@@ -179,8 +179,8 @@ class nproduct extends ModuleObject
 
 	function updateExtraVars($module_srl, $condition = null)
 	{
-		$oModuleModel =  getModel('module');
-		$oNproductModel =  getModel('nproduct');
+		$oModuleModel = getModel('module');
+		$oNproductModel = getModel('nproduct');
 		$oNprocutAdminController = getAdminController('nproduct');
 
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);

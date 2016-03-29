@@ -1,16 +1,16 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  eposModel
  * @author NURIGO(contact@nurigo.net)
  * @brief  eposModel
  */
-class eposModel extends epos 
+class eposModel extends epos
 {
 	/**
 	 * @brief initialize this class
 	 */
-	function init() 
+	function init()
 	{
 	}
 
@@ -25,10 +25,16 @@ class eposModel extends epos
 		$args->list_count = 100;
 		$args->page_count = 10;
 		$output = executeQueryArray('epos.getModInstList', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
-		foreach($list as $key=>$val)
+		if(!is_array($list))
+		{
+			$list = array();
+		}
+		foreach($list as $key => $val)
 		{
 			$pg_modules[$val->module_srl] = $val;
 		}
@@ -39,7 +45,10 @@ class eposModel extends epos
 	 */
 	function getPaymentMethods($module_srl)
 	{
-		if(!$module_srl) return array();
+		if(!$module_srl)
+		{
+			return array();
+		}
 		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 
@@ -65,5 +74,5 @@ class eposModel extends epos
 		// Allpay returns error if decimal number is not equal to 2.
 		return number_format(round($price * $rate, 2), 2);
 	}
-	
+
 }

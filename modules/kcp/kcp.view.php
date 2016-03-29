@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  kcpView
@@ -13,30 +14,39 @@ class kcpView extends kcp
 	function init()
 	{
 		// set template path
-		if ($this->module_info->module != 'kcp') $this->module_info->skin = 'default';
-		if (!$this->module_info->skin) $this->module_info->skin = 'default';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
-		if ($this->module_info->service_mode == 'test')
+		if($this->module_info->module != 'kcp')
 		{
-			$this->module_info->site_cd = "T0000" ;
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
+		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		if($this->module_info->service_mode == 'test')
+		{
+			$this->module_info->site_cd = "T0000";
 			$this->module_info->site_key = "3grptw1.zW0GSo4PQdaGvsF__";
 		}
-		Context::set('module_info',$this->module_info);
+		Context::set('module_info', $this->module_info);
 	}
 
 	/**
 	 * @brief epay.getPaymentForm 에서 호출됨
 	 */
-	function dispKcpForm() 
+	function dispKcpForm()
 	{
 		$oEpayController = getController('epay');
 		$oNcartModel = getModel('ncart');
 
-		$kcphome = sprintf(_XE_PATH_."files/epay/%s", $this->module_info->module_srl);
+		$kcphome = sprintf(_XE_PATH_ . "files/epay/%s", $this->module_info->module_srl);
 
 		// get products info using cartnos
 		$reviewOutput = $oEpayController->reviewOrder();
-		if(!$reviewOutput->toBool()) return $reviewOutput;
+		if(!$reviewOutput->toBool())
+		{
+			return $reviewOutput;
+		}
 		debugPrint('$reviewOutput');
 		debugPrint($reviewOutput);
 		Context::set('review_form', $reviewOutput->review_form);

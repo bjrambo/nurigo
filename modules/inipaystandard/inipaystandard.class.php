@@ -1,67 +1,78 @@
 <?php
+
+/**
+ * @class  inipaystandard
+ * @author CONORY (http://www.conory.com)
+ * @brief The parent class of the inipaystandard module
+ */
+class inipaystandard extends ModuleObject
+{
 	/**
-	 * @class  inipaystandard
-     * @author CONORY (http://www.conory.com)
-	 * @brief The parent class of the inipaystandard module
+	 * @brief install module
 	 */
-	class inipaystandard extends ModuleObject
+	function moduleInstall()
 	{
-		/**
-		 * @brief 모듈 설치
-		 */
-		function moduleInstall()
-		{
-            $oModuleModel = getModel('module');
-            $oModuleController = getController('module');
-			
-			return new Object();
-		}
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
 
-		/**
-		 * @brief 업데이트 체크
-		 */
-		function checkUpdate()
-		{
-            $oDB = DB::getInstance();
-            $oModuleModel = getModel('module');	
-			
-			if(!$oModuleModel->getTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before')) return true;
-			if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before')) return true;
-			
-			return false;
-		}
-
-		/**
-		 * @brief 업데이트
-		 */
-		function moduleUpdate()
-		{
-            $oDB = DB::getInstance();
-            $oModuleModel = getModel('module');
-            $oModuleController = getController('module');		
-			
-			if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before'))
-				$oModuleController->insertTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before');
-			
-			if(!$oModuleModel->getTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before'))
-				$oModuleController->insertTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before');
-			
-			return new Object(0, 'success_updated');
-		}
-		
-		/**
-		 * @brief 모듈삭제
-		 */
-		function moduleUninstall()
-		{
-			return new Object();
-		}
-		
-		/**
-		 * @brief 캐시파일 재생성
-		 */
-		function recompileCache()
-		{
-			
-		}
+		return new Object();
 	}
+
+	/**
+	 * @brief update check.
+	 */
+	function checkUpdate()
+	{
+		$oDB = DB::getInstance();
+		$oModuleModel = getModel('module');
+
+		if(!$oModuleModel->getTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before'))
+		{
+			return true;
+		}
+		if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before'))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @brief module update
+	 */
+	function moduleUpdate()
+	{
+		$oDB = DB::getInstance();
+		$oModuleModel = getModel('module');
+		$oModuleController = getController('module');
+
+		if(!$oModuleModel->getTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before'))
+		{
+			$oModuleController->insertTrigger('epay.getPgModules', 'inipaystandard', 'model', 'triggerGetPgModules', 'before');
+		}
+
+		if(!$oModuleModel->getTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before'))
+		{
+			$oModuleController->insertTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before');
+		}
+
+		return new Object(0, 'success_updated');
+	}
+
+	/**
+	 * @brief Uninstall module
+	 */
+	function moduleUninstall()
+	{
+		return new Object();
+	}
+
+	/**
+	 * @brief cache file recompile.
+	 */
+	function recompileCache()
+	{
+
+	}
+}

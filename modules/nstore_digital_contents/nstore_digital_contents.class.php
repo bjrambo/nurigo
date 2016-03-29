@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstore_digital_contents
@@ -14,7 +15,7 @@ class nstore_digital_contents extends ModuleObject
 	{
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
-		
+
 		return new Object();
 	}
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * store_reviewAdminController class
  * admin controller class of the store_review module
@@ -18,12 +19,18 @@ class store_reviewAdminController extends store_review
 	function deleteReviewList($item_srl)
 	{
 		$args->item_srl = $item_srl;
-		$output = executeQuery('store_review.deleteReviewsByItemSrl', $args);	
-		if(!$output->toBool()) return $output;
+		$output = executeQuery('store_review.deleteReviewsByItemSrl', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$args->item_srl = $item_srl;
-		$output = executeQuery('store_review.deleteReviewListByItemSrl', $args);	
-		if(!$output->toBool()) return $output;
+		$output = executeQuery('store_review.deleteReviewListByItemSrl', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		return new Object();
 	}

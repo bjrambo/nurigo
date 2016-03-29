@@ -1,16 +1,17 @@
 <?php
-    /**
-     * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
-     * @class  ncartAdminView
-     * @author NURIGO(contact@nurigo.net)
-     * @brief  ncartAdminView
-     */ 
+
+/**
+ * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
+ * @class  ncartAdminView
+ * @author NURIGO(contact@nurigo.net)
+ * @brief  ncartAdminView
+ */
 class ncartAdminView extends ncart
 {
 	/**
 	 * @brief Contructor
 	 **/
-	function init() 
+	function init()
 	{
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
@@ -23,17 +24,19 @@ class ncartAdminView extends ncart
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 		if($module_info && !in_array($module_info->module, array('ncart')))
@@ -42,21 +45,21 @@ class ncartAdminView extends ncart
 		}
 
 		// set template file
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		$this->setTemplateFile('index');
 		Context::set('tpl_path', $tpl_path);
 
 
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if(Context::get('module') == 'cympusadmin')
+		{
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if(file_exists($classfile))
+			{
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 	}
 
 	function getNewsFromAgency()
@@ -64,28 +67,29 @@ class ncartAdminView extends ncart
 		//Retrieve recent news and set them into context
 		$newest_news_url = sprintf("http://store.nurigo.net/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", _XE_LOCATION_);
 		$cache_file = sprintf("%sfiles/cache/ncart_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time())
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 		{
 			// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing textmessageistration page
 			// Ensure to access the textmessageistration page even though news cannot be displayed
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 
-		if(file_exists($cache_file)) 
+		if(file_exists($cache_file))
 		{
 			$oXml = new XmlParser();
 			$buff = $oXml->parse(FileHandler::readFile($cache_file));
 
 			$item = $buff->zbxe_news->item;
-			if($item) 
+			if($item)
 			{
-				if(!is_array($item)) 
+				if(!is_array($item))
 				{
 					$item = array($item);
 				}
 
-				foreach($item as $key => $val) {
+				foreach($item as $key => $val)
+				{
 					$obj = null;
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
@@ -102,16 +106,16 @@ class ncartAdminView extends ncart
 	function getLicenseFromAgency()
 	{
 		$hostinfo = array($_SERVER['SERVER_ADDR'], $_SERVER['SERVER_NAME'], $_SERVER['HTTP_HOST']);
-		$agency_url = sprintf("http://store.nurigo.net/?module=drmagency&act=getDrmagencyLicense&prodid=%s&hostinfo=%s", $this->getExtMod(), implode(',',$hostinfo));
+		$agency_url = sprintf("http://store.nurigo.net/?module=drmagency&act=getDrmagencyLicense&prodid=%s&hostinfo=%s", $this->getExtMod(), implode(',', $hostinfo));
 		$cache_file = sprintf("%sfiles/cache/ncart_drm.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time())
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 		{
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($agency_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($agency_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 	}
 
-	function dispNcartAdminModInstList() 
+	function dispNcartAdminModInstList()
 	{
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
@@ -121,7 +125,7 @@ class ncartAdminView extends ncart
 		$output = executeQueryArray('ncart.getModInstList', $args);
 		$store_list = $output->data;
 
-		if(!is_array($store_list)) 
+		if(!is_array($store_list))
 		{
 			$store_list = array();
 		}
@@ -133,13 +137,13 @@ class ncartAdminView extends ncart
 		$this->setTemplateFile('modinstlist');
 	}
 
-	function dispNcartAdminConfig() 
+	function dispNcartAdminConfig()
 	{
 		$oNcartModel = getModel('ncart');
 		$oModuleModel = getModel('module');
 
 		$config = $oNcartModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		// list of skins for member module
 		$skin_list = $oModuleModel->getSkins($this->module_path);
@@ -153,7 +157,7 @@ class ncartAdminView extends ncart
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
@@ -165,14 +169,14 @@ class ncartAdminView extends ncart
 		$this->setTemplateFile('config');
 	}
 
-	function dispNcartAdminInsertModInst() 
+	function dispNcartAdminInsertModInst()
 	{
 		$oNcartModel = getModel('ncart');
 
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
 		Context::set('mskin_list', $mskin_list);
@@ -182,7 +186,7 @@ class ncartAdminView extends ncart
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
@@ -216,7 +220,7 @@ class ncartAdminView extends ncart
 		$this->setTemplateFile('insertmodinst');
 	}
 
-	function dispNcartAdminAdditionSetup() 
+	function dispNcartAdminAdditionSetup()
 	{
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
@@ -230,7 +234,7 @@ class ncartAdminView extends ncart
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNcartAdminSkinInfo() 
+	function dispNcartAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -242,7 +246,7 @@ class ncartAdminView extends ncart
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNcartAdminMobileSkinInfo() 
+	function dispNcartAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -262,7 +266,7 @@ class ncartAdminView extends ncart
 		$this->setTemplateFile('orderform');
 	}
 
-	function dispNcartAdminOrderDetail() 
+	function dispNcartAdminOrderDetail()
 	{
 		$oNcartModel = getModel('ncart');
 		$oEpayModel = getModel('epay');
@@ -271,7 +275,7 @@ class ncartAdminView extends ncart
 		$order_info = $oNcartModel->getOrderInfo($order_srl);
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
+		Context::set('payment_info', $payment_info);
 		Context::set('order_info', $order_info);
 		Context::set('order_status', $this->getOrderStatus());
 		Context::set('delivery_companies', $oNcartModel->getDeliveryCompanies());
@@ -280,7 +284,7 @@ class ncartAdminView extends ncart
 		$this->setTemplateFile('orderdetail');
 	}
 
-	function dispNcartAdminOrderManagement() 
+	function dispNcartAdminOrderManagement()
 	{
 		$oNstoreModel = getModel('nstore');
 		$oMemberModel = getModel('member');
@@ -288,7 +292,10 @@ class ncartAdminView extends ncart
 		$config = $oNstoreModel->getModuleConfig();
 		Context::set('config', $config);
 
-		if(Context::get('status')===NULL) Context::set('status','1');
+		if(Context::get('status') === NULL)
+		{
+			Context::set('status', '1');
+		}
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
@@ -302,29 +309,38 @@ class ncartAdminView extends ncart
 			}
 			$args->{$search_key} = $search_value;
 		}
-		if(!Context::get('s_year')) Context::set('s_year', date('Y'));
+		if(!Context::get('s_year'))
+		{
+			Context::set('s_year', date('Y'));
+		}
 		$args->regdate = Context::get('s_year');
-	   	if(Context::get('s_month')) $args->regdate = $args->regdate . Context::get('s_month');
+		if(Context::get('s_month'))
+		{
+			$args->regdate = $args->regdate . Context::get('s_month');
+		}
 		$output = executeQueryArray('ncart.getOrderListByStatus', $args);
-		if(!$output->toBool()) 
+		if(!$output->toBool())
 		{
 			return $output;
 		}
 		$order_list = $output->data;
-		if(!is_array($order_list)) 
+		if(!is_array($order_list))
 		{
 			$order_list = array();
 		}
 
 		$member_config = $oMemberModel->getMemberConfig();
-		$memberIdentifiers = array('user_id'=>'user_id', 'user_name'=>'user_name', 'nick_name'=>'nick_name');
-		$usedIdentifiers = array();	
+		$memberIdentifiers = array('user_id' => 'user_id', 'user_name' => 'user_name', 'nick_name' => 'nick_name');
+		$usedIdentifiers = array();
 
 		if(is_array($member_config->signupForm))
 		{
 			foreach($member_config->signupForm as $signupItem)
 			{
-				if(!count($memberIdentifiers)) break;
+				if(!count($memberIdentifiers))
+				{
+					break;
+				}
 				if(in_array($signupItem->name, $memberIdentifiers) && ($signupItem->required || $signupItem->isUse))
 				{
 					unset($memberIdentifiers[$signupItem->name]);

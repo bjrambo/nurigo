@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nmileageView
@@ -9,8 +10,14 @@ class nmileageView extends nmileage
 {
 	function init()
 	{
-		if($this->module_info->module != 'nmileage') $this->module_info->skin = 'default';
-		if(!$this->module_info->skin) $this->module_info->skin = 'default';
+		if($this->module_info->module != 'nmileage')
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
 		$skin = $this->module_info->skin;
 		$oModuleModel = getModel('module');
 		// 템플릿 경로 설정
@@ -23,13 +30,16 @@ class nmileageView extends nmileage
 		}
 	}
 
-	function dispNmileageMileageHistory() 
+	function dispNmileageMileageHistory()
 	{
 		$oNmileageModel = getModel('nmileage');
 
 		$logged_info = Context::get('logged_info');
 
-		if(!$logged_info) return new Object(-1, "msg_login_required");
+		if(!$logged_info)
+		{
+			return new Object(-1, "msg_login_required");
+		}
 
 		$args->member_srl = $logged_info->member_srl;
 		$args->page = Context::get('page');
@@ -47,11 +57,11 @@ class nmileageView extends nmileage
 
 		$mileage = $oNmileageModel->getMileage($logged_info->member_srl);
 		Context::set('mileage', $mileage);
-		
+
 		$this->setTemplateFile('mileagehistory');
 	}
 
-	function dispNmileageMyMileage() 
+	function dispNmileageMyMileage()
 	{
 		$oNmileageModel = getModel('nmileage');
 
@@ -64,7 +74,7 @@ class nmileageView extends nmileage
 
 		$mileage = $oNmileageModel->getMileage($logged_info->member_srl);
 		Context::set('mileage', $mileage);
-		
+
 		$this->setTemplateFile('mymileage');
 	}
 }

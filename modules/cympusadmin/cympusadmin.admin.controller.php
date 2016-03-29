@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  cympusAdminController
@@ -10,7 +11,7 @@ class cympusadminAdminController extends cympusadmin
 	/**
 	 * @brief 모듈 환경설정값 쓰기
 	 **/
-	function procCympusadminAdminInsertModInst() 
+	function procCympusadminAdminInsertModInst()
 	{
 		// module 모듈의 model/controller 객체 생성
 		$oModuleController = getController('module');
@@ -21,7 +22,7 @@ class cympusadminAdminController extends cympusadmin
 		$args->module = 'cympusadmin';
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
-		if($args->module_srl) 
+		if($args->module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl)
@@ -31,7 +32,7 @@ class cympusadminAdminController extends cympusadmin
 		}
 
 		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl) 
+		if(!$args->module_srl)
 		{
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
@@ -42,13 +43,16 @@ class cympusadminAdminController extends cympusadmin
 			$msg_code = 'success_updated';
 		}
 
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
-		
-		$this->add('module_srl',$output->get('module_srl'));
+
+		$this->add('module_srl', $output->get('module_srl'));
 		$this->setMessage($msg_code);
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCympusadminAdminInsertModInst','module_srl',$output->get('module_srl'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCympusadminAdminInsertModInst', 'module_srl', $output->get('module_srl'));
 		$this->setRedirectUrl($returnUrl);
 	}
 

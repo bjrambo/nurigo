@@ -1,13 +1,13 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  cympuserAdminView
  * @author billy(contact@nurigo.net)
  * @brief  cympuserAdminView
- */ 
-class cympuserAdminView extends cympuser 
+ */
+class cympuserAdminView extends cympuser
 {
-	function init() 
+	function init()
 	{
 		// module이 cympusadmin일때 관리자 레이아웃으로
 		if(Context::get('module') == 'cympusadmin')
@@ -31,19 +31,19 @@ class cympuserAdminView extends cympuser
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
 			}
 			else
 			{
 				$oModuleModel->syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 		if($module_info && !in_array($module_info->module, array('nproduct')))
@@ -52,7 +52,7 @@ class cympuserAdminView extends cympuser
 		}
 
 		// set template file
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		$this->setTemplateFile('member_list');
 		Context::set('tpl_path', $tpl_path);
@@ -66,7 +66,10 @@ class cympuserAdminView extends cympuser
 		$args->list_count = 20;
 		$args->page_count = 10;
 		$output = executeQueryArray('cympuser.getModuleList', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 
 		// 템플릿에 쓰기 위해서 context::set
@@ -85,7 +88,7 @@ class cympuserAdminView extends cympuser
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		// 레이아웃 목록을 구해옴
 		$oLayoutMode = getModel('layout');
@@ -98,7 +101,10 @@ class cympuserAdminView extends cympuser
 		{
 			$args->module_srl = $module_srl;
 			$output = executeQuery('cympuser.getModuleInfo', $args);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			Context::set('module_info', $output->data);
 		}
 		$this->setTemplateFile('mod_insert');
@@ -114,39 +120,37 @@ class cympuserAdminView extends cympuser
 		global $lang;
 		switch($filter)
 		{
-		case 'super_admin' : 
-			Context::set('filter_type_title', $lang->cmd_show_super_admin_member);
-			break;
-		case 'site_admin' : 
-			Context::set('filter_type_title', $lang->cmd_show_site_admin_member);
-			break;
-		default : 
-			Context::set('filter_type_title', $lang->cmd_show_all_member);
-			break;
+			case 'super_admin' :
+				Context::set('filter_type_title', $lang->cmd_show_super_admin_member);
+				break;
+			case 'site_admin' :
+				Context::set('filter_type_title', $lang->cmd_show_site_admin_member);
+				break;
+			default :
+				Context::set('filter_type_title', $lang->cmd_show_all_member);
+				break;
 		}
 		// retrieve list of groups for each member
 		if($output->data)
 		{
 			foreach($output->data as $key => $member)
 			{
-				$output->data[$key]->group_list = $oMemberModel->getMemberGroups($member->member_srl,0);
+				$output->data[$key]->group_list = $oMemberModel->getMemberGroups($member->member_srl, 0);
 			}
 		}
 		$config = $this->memberConfig;
-		$memberIdentifiers = array(
-			'user_id'=>'user_id',
-			'user_name'=>'user_name',
-			'nick_name'=>'nick_name'
-		);
-		$usedIds = array();	
+		$memberIdentifiers = array('user_id' => 'user_id', 'user_name' => 'user_name', 'nick_name' => 'nick_name');
+		$usedIds = array();
 
 		if(is_array($config->signupForm))
 		{
 			foreach($config->signupForm as $signupItem)
 			{
-				if(!count($memberIdentifiers)) break;
-				if(in_array($signupItem->name, $memberIdentifiers) 
-					&& ($signupItem->required || $signupItem->isUse))
+				if(!count($memberIdentifiers))
+				{
+					break;
+				}
+				if(in_array($signupItem->name, $memberIdentifiers) && ($signupItem->required || $signupItem->isUse))
 				{
 					unset($memberIdentifiers[$signupItem->name]);
 					$usedIds[$signupItem->name] = $lang->{$signupItem->name};

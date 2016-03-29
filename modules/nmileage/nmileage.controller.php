@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nmileageController
@@ -13,20 +14,24 @@ class nmileageController extends nmileage
 		$args->member_srl = $member_srl;
 		$args->item_srl = $item_srl;
 		$item_list = $this->executeQuery('getNonReviewedPurchasedItems', $args);
-		if ($item_list->toBool() && count($item_list->data))
+		if($item_list->toBool() && count($item_list->data))
 		{
 			$item = $item_list->data[0];
 			$args->cart_srl = $item->cart_srl;
 			$args->review_srl = $review_srl;
 			$output = $this->executeQuery('updateReviewSrl', $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			$title = '상품평 등록';
 			$this->plusMileage($member_srl, $amount, $title, $item->order_srl);
 		}
 	}
 
-	function insertMileage($member_srl, $amount) {
+	function insertMileage($member_srl, $amount)
+	{
 		$args->member_srl = $member_srl;
 		$args->mileage = $amount;
 		return executeQuery('nmileage.insertMileage', $args);
@@ -39,32 +44,41 @@ class nmileageController extends nmileage
 		$args->title = $title;
 		$args->balance = $balance;
 	*/
-	function insertMileageHistory($args, $order_srl=0) {
+	function insertMileageHistory($args, $order_srl = 0)
+	{
 		$args->history_srl = getNextSequence();
 		$args->order_srl = $order_srl;
 		return executeQuery('nmileage.insertMileageHistory', $args);
 	}
 
-	function plusMileage($member_srl, $amount, $title, $order_srl=0) {
+	function plusMileage($member_srl, $amount, $title, $order_srl = 0)
+	{
 		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
 		switch($config->mileage_method)
 		{
 			case 'nmileage':
 				$output = $oNmileageModel->getMileageInfo($member_srl);
-				if ($output->getError()==-2) {
+				if($output->getError() == -2)
+				{
 					$output = $this->insertMileage($member_srl, 0);
 					$output->mileage = 0;
 				}
-				if (!$output->toBool()) return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 
 				$current_mileage = $output->mileage;
 				$balance = $current_mileage + $amount;
-			
+
 				$args->member_srl = $member_srl;
 				$args->mileage = $balance;
 				$output = executeQuery('nmileage.updateMileage', $args);
-				if (!$output->toBool()) return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 				unset($args);
 				break;
 
@@ -87,26 +101,34 @@ class nmileageController extends nmileage
 		return new Object();
 	}
 
-	function minusMileage($member_srl, $amount, $title, $order_srl=0) {
+	function minusMileage($member_srl, $amount, $title, $order_srl = 0)
+	{
 		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
 		switch($config->mileage_method)
 		{
 			case 'nmileage':
 				$output = $oNmileageModel->getMileageInfo($member_srl);
-				if ($output->getError()==-2) {
+				if($output->getError() == -2)
+				{
 					$output = $this->insertMileage($member_srl, 0);
 					$output->mileage = 0;
 				}
-				if (!$output->toBool()) return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 
 				$current_mileage = $output->mileage;
 				$balance = $current_mileage - $amount;
-			
+
 				$args->member_srl = $member_srl;
 				$args->mileage = $balance;
 				$output = executeQuery('nmileage.updateMileage', $args);
-				if (!$output->toBool()) return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 				unset($args);
 				break;
 

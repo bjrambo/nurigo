@@ -22,23 +22,29 @@ class paypalView extends paypal
 	function init()
 	{
 		// set template path
-		if ($this->module_info->module != 'paypal') $this->module_info->skin = 'default';
-		if (!$this->module_info->skin) $this->module_info->skin = 'default';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
-		Context::set('module_info',$this->module_info);
+		if($this->module_info->module != 'paypal')
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
+		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		Context::set('module_info', $this->module_info);
 	}
 
 	/**
 	 * @brief epay.getPaymentForm 에서 호출됨
 	 */
-	function dispPaypalForm() 
+	function dispPaypalForm()
 	{
 		$oEpayController = getController('epay');
 		$oNcartModel = getModel('ncart');
 		$oModuleModel = getModel('module');
 		$oPaypalModuleConfig = $oModuleModel->getModuleConfig('paypal');
 		$oPaypalModel = getModel('paypal');
-		$paypalhome = sprintf(_XE_PATH_."files/epay/%s", $this->module_info->module_srl);
+		$paypalhome = sprintf(_XE_PATH_ . "files/epay/%s", $this->module_info->module_srl);
 
 		$logged_info = Context::get('logged_info');
 		if($logged_info)
@@ -56,7 +62,10 @@ class paypalView extends paypal
 
 		// get products info using cartnos
 		$output = $oEpayController->reviewOrder();
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		Context::set('review_form', $output->review_form);
 		//$cart_info = $output->cart_info;
@@ -77,10 +86,7 @@ class paypalView extends paypal
 		$item = new Item();
 		$item_name = $output->item_name;
 
-		$item->setName($item_name)
-		     ->setCurrency($oPaypalModuleConfig->currency_code)
-		     ->setQuantity(1)
-		     ->setPrice($oPaypalModel->getConvertedPrice($output->price, $oPaypalModuleConfig->conversion_rate));
+		$item->setName($item_name)->setCurrency($oPaypalModuleConfig->currency_code)->setQuantity(1)->setPrice($oPaypalModel->getConvertedPrice($output->price, $oPaypalModuleConfig->conversion_rate));
 
 		$itemList = new ItemList();
 		$itemList->setItems(array($item));
@@ -91,42 +97,40 @@ class paypalView extends paypal
 				->setTax(number_format($cart_info->vat, 2))
 				->setSubtotal(number_format($cart_info->supply_amount, 2));
 		 */
-		
+
 		$amount = new Amount();
-		$amount->setCurrency($oPaypalModuleConfig->currency_code)
-			   ->setTotal($oPaypalModel->getConvertedPrice($output->price, $oPaypalModuleConfig->conversion_rate));
-//			   ->setDetails($details);
+		$amount->setCurrency($oPaypalModuleConfig->currency_code)->setTotal($oPaypalModel->getConvertedPrice($output->price, $oPaypalModuleConfig->conversion_rate));
+		//			   ->setDetails($details);
 
 		$transaction = new Transaction();
-		$transaction->setAmount($amount)
-					->setItemList($itemList)
-					->setDescription("Payment description");
+		$transaction->setAmount($amount)->setItemList($itemList)->setDescription("Payment description");
 
 		$baseUrl = getBaseUrl();
 		$redirectUrls = new RedirectUrls();
 
-	
+
 		$returnURL = getNotEncodedFullUrl('', 'module', $this->module_info->module, 'act', 'procPaypalExecutePayment', 'success', 'true', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
 		$cancelURL = getNotEncodedFullUrl('', 'module', $this->module_info->module, 'act', 'procPaypalExecutePayment', 'success', 'false', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
-		
-		$redirectUrls->setReturnUrl($returnURL)
-					 ->setCancelUrl($cancelURL);
+
+		$redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
 		$payment = new Payment();
-		$payment->setIntent("sale")
-			->setPayer($payer)
-			->setRedirectUrls($redirectUrls)
-			->setTransactions(array($transaction));
-		try {
+		$payment->setIntent("sale")->setPayer($payer)->setRedirectUrls($redirectUrls)->setTransactions(array($transaction));
+		try
+		{
 			$output = $payment->create($apiContext);
-		} catch (PayPal\Exception\PPConnectionException $ex) {
+		}
+		catch(PayPal\Exception\PPConnectionException $ex)
+		{
 			echo "Exception: " . $ex->getMessage() . PHP_EOL;
-			var_dump($ex->getData());	
+			var_dump($ex->getData());
 			exit(1);
 		}
 
-		foreach($payment->getLinks() as $link) {
-			if($link->getRel() == 'approval_url') {
+		foreach($payment->getLinks() as $link)
+		{
+			if($link->getRel() == 'approval_url')
+			{
 				$redirectUrl = $link->getHref();
 				break;
 			}

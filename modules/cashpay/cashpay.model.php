@@ -1,16 +1,16 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  cashpayModel
  * @author NURIGO(contact@nurigo.net)
  * @brief  cashpayModel
  */
-class cashpayModel extends cashpay 
+class cashpayModel extends cashpay
 {
 	/**
 	 * @brief initialize this class
 	 */
-	function init() 
+	function init()
 	{
 	}
 
@@ -26,11 +26,17 @@ class cashpayModel extends cashpay
 		$args->list_count = 100;
 		$args->page_count = 10;
 		$output = executeQueryArray('cashpay.getModInstList', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
+		if(!is_array($list))
+		{
+			$list = array();
+		}
 
-		foreach($list as $key=>$val)
+		foreach($list as $key => $val)
 		{
 			$pg_modules[$val->module_srl] = $val;
 		}
@@ -74,7 +80,7 @@ class cashpayModel extends cashpay
 		 */
 
 		$oTemplate = &TemplateHandler::getInstance();
-		$tpl = $oTemplate->compile($this->module_path.'tpl', 'formdata');
-		$this->add('tpl', str_replace("\n"," ",$tpl));
+		$tpl = $oTemplate->compile($this->module_path . 'tpl', 'formdata');
+		$this->add('tpl', str_replace("\n", " ", $tpl));
 	}
 }

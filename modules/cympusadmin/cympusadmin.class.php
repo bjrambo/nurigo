@@ -32,10 +32,13 @@ class cympusadmin extends ModuleObject
 		else
 		{
 			$output = ModuleHandler::triggerCall('cympusadmin.getManagerMenu', 'before', $manager_menu);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			Context::set('cympusadmin_menu', $manager_menu);
-			
+
 		}
 
 		$news = getNewsFromAgency();
@@ -67,7 +70,10 @@ class cympusadmin extends ModuleObject
 		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
 
-		if(!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before')) return true;
+		if(!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before'))
+		{
+			return true;
+		}
 
 		return false;
 	}
@@ -82,8 +88,9 @@ class cympusadmin extends ModuleObject
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
 
-		if (!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before')) {
-		    $oModuleController->insertTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before');
+		if(!$oModuleModel->getTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before'))
+		{
+			$oModuleController->insertTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before');
 		}
 
 		return new Object();
@@ -98,22 +105,25 @@ class cympusadmin extends ModuleObject
 	}
 
 
-	function getMenu(&$in_xml_obj, $depth=0,&$parent_item=null) 
+	function getMenu(&$in_xml_obj, $depth = 0, &$parent_item = null)
 	{
-		if(!is_array($in_xml_obj)) 
+		if(!is_array($in_xml_obj))
 		{
 			$xml_obj = array($in_xml_obj);
-		} else {
+		}
+		else
+		{
 			$xml_obj = $in_xml_obj;
 		}
 		$act = Context::get('act');
 
 		$menus = array();
 		$idx = 0;
-		foreach ($xml_obj as $it) {
+		foreach($xml_obj as $it)
+		{
 			$obj = new StdClass();
 			$obj->id = $idx++;
-			if($parent_item) 
+			if($parent_item)
 			{
 				$obj->parent_id = $parent_item->id;
 			}
@@ -122,7 +132,7 @@ class cympusadmin extends ModuleObject
 			$obj->action = array();
 			if(is_array($it->action))
 			{
-				foreach ($it->action as $action)
+				foreach($it->action as $action)
 				{
 					$obj->action[] = $action->body;
 				}
@@ -135,22 +145,22 @@ class cympusadmin extends ModuleObject
 			$obj->description = $it->description->body;
 			$obj->selected = false;
 
-			if(in_array($act, $obj->action) || ($obj->action_prefix && $obj->action_prefix == substr($act, 0, strlen($obj->action_prefix))) ) 
+			if(in_array($act, $obj->action) || ($obj->action_prefix && $obj->action_prefix == substr($act, 0, strlen($obj->action_prefix))))
 			{
 				$obj->selected = true;
-				if($parent_item) 
+				if($parent_item)
 				{
 					$parent_item->selected = true;
 				}
 			}
-			if($it->item && ($it->attrs->modinst != 'true'||Context::get('module_srl'))) 
+			if($it->item && ($it->attrs->modinst != 'true' || Context::get('module_srl')))
 			{
-				$obj->submenu = cympusadmin::getMenu($it->item, $depth+1, $obj);
-				if($obj->selected && $parent_item) 
+				$obj->submenu = cympusadmin::getMenu($it->item, $depth + 1, $obj);
+				if($obj->selected && $parent_item)
 				{
-					$parent_item->selected= true;
+					$parent_item->selected = true;
 				}
-				if($obj->selected) 
+				if($obj->selected)
 				{
 					Context::set('cympusadmin_selected_menu', $obj);
 				}

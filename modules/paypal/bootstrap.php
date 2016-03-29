@@ -1,6 +1,7 @@
 <?php
 // Include the composer autoloader
-if(!file_exists(__DIR__ .'/vendor/autoload.php')) {
+if(!file_exists(__DIR__ . '/vendor/autoload.php'))
+{
 	echo "The 'vendor' folder is missing. You must run 'composer update --no-dev' to resolve application dependencies.\nPlease see the README for more information.\n";
 	exit(1);
 }
@@ -19,8 +20,9 @@ $apiContext = getApiContext();
  *
  * @return PayPal\Rest\ApiContext
  */
-function getApiContext() {
-	
+function getApiContext()
+{
+
 	// ### Api context
 	// Use an ApiContext object to authenticate 
 	// API calls. The clientId and clientSecret for the 
@@ -29,20 +31,10 @@ function getApiContext() {
 
 	$oModuleModel = getModel('module');
 	$oPaypalModuleConfig = $oModuleModel->getModuleConfig('paypal');
-	$apiContext = new ApiContext(
-		new OAuthTokenCredential($oPaypalModuleConfig->client_id,
-			$oPaypalModuleConfig->api_secret));
+	$apiContext = new ApiContext(new OAuthTokenCredential($oPaypalModuleConfig->client_id, $oPaypalModuleConfig->api_secret));
 
-	$apiContext->setConfig(
-		array(
-			'mode' => $oPaypalModuleConfig->endpoint,
-			'http.ConnectionTimeOut' => 30,
-			'log.LogEnabled' => true,
-			'log.FileName' => '../PayPal.log',
-			'log.LogLevel' => 'FINE'
-		)
-	);
-	
+	$apiContext->setConfig(array('mode' => $oPaypalModuleConfig->endpoint, 'http.ConnectionTimeOut' => 30, 'log.LogEnabled' => true, 'log.FileName' => '../PayPal.log', 'log.LogLevel' => 'FINE'));
+
 	/*
 	// Register the sdk_config.ini file in current directory
 	// as the configuration source.

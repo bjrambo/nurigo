@@ -398,7 +398,11 @@ class ncartController extends ncart
 			}
 		}
 
-		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
+		if(!in_array(Context::getRequestMethod(), array(
+			'XMLRPC',
+			'JSON'
+		))
+		)
 		{
 			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'act', 'dispNcartAddressList');
 			$this->setRedirectUrl($returnUrl);
@@ -484,7 +488,11 @@ class ncartController extends ncart
 		}
 		$args = new stdClass();
 		// get destination
-		if(in_array($parent_id, array('f.', 't.', 's.')))
+		if(in_array($parent_id, array(
+			'f.',
+			't.',
+			's.'
+		)))
 		{
 			$dest_route = $parent_id;
 		}
@@ -685,7 +693,13 @@ class ncartController extends ncart
 				{
 					$title = $in_args->{$field->column_name};
 				}
-				if(in_array($field->column_type, array('kr_zip', 'tel', 'checkbox', 'radio')) && isset($in_args->{$field->column_name}))
+				if(in_array($field->column_type, array(
+						'kr_zip',
+						'tel',
+						'checkbox',
+						'radio'
+					)) && isset($in_args->{$field->column_name})
+				)
 				{
 					if(!is_array($in_args->{$field->column_name}))
 					{

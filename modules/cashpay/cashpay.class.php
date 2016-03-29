@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  cashpay
@@ -30,7 +31,10 @@ class cashpay extends ModuleObject
 	{
 		$oModuleModel = getModel('module');
 		$oDB = &DB::getInstance();
-		if(!$oModuleModel->getTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before')) return true;
+		if(!$oModuleModel->getTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before'))
+		{
+			return true;
+		}
 		return false;
 	}
 
@@ -43,7 +47,8 @@ class cashpay extends ModuleObject
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
 
-		if (!$oModuleModel->getTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before')) {
+		if(!$oModuleModel->getTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before'))
+		{
 			$oModuleController->insertTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before');
 		}
 	}

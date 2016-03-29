@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  eposView
@@ -13,19 +14,28 @@ class eposView extends epos
 	function init()
 	{
 		// default values
-		if(!$this->module_info->service_type) $this->module_info->service_type = 'sandbox';
+		if(!$this->module_info->service_type)
+		{
+			$this->module_info->service_type = 'sandbox';
+		}
 
 		// set template path
-		if ($this->module_info->module != 'epos') $this->module_info->skin = 'default';
-		if (!$this->module_info->skin) $this->module_info->skin = 'default';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
-		Context::set('module_info',$this->module_info);
+		if($this->module_info->module != 'epos')
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
+		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		Context::set('module_info', $this->module_info);
 	}
 
 	/**
 	 * @brief epay.getPaymentForm 에서 호출됨
 	 */
-	function dispEposForm() 
+	function dispEposForm()
 	{
 		$oEpayController = getController('epay');
 		$oNcartModel = getModel('ncart');
@@ -37,7 +47,10 @@ class eposView extends epos
 		Context::set('plugin_srl', $this->module_info->module_srl);
 		$review_args = Context::getRequestVars();
 		$output = $oEpayController->reviewOrder();
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		Context::set('review_form', $output->review_form);
 		//$cart_info = $output->cart_info;

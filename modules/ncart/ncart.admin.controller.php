@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  ncartAdminController
@@ -7,33 +8,28 @@
  */
 class ncartAdminController extends ncart
 {
-	function init() 
+	function init()
 	{
 	}
 
 	function _createInsertAddressRuleset($fieldset_list)
 	{
 		$xml_file = './files/ruleset/ncart_insertAddress.xml';
-		$buff = '<?xml version="1.0" encoding="utf-8"?>'
-				.'<ruleset version="1.5.0">'
-				.'<customrules>'
-				.'</customrules>'
-				.'<fields>%s</fields>'						
-				.'</ruleset>';
+		$buff = '<?xml version="1.0" encoding="utf-8"?>' . '<ruleset version="1.5.0">' . '<customrules>' . '</customrules>' . '<fields>%s</fields>' . '</ruleset>';
 
 		$fields = array();
 		$fields[] = '<field name="member_srl" required="true" rule="number" />';
 		$fields[] = '<field name="opt" required="true" />';
 		$fields[] = '<field name="title" required="true" />';
 		$fields[] = '<field name="address" required="true" />';
-		
+
 		if(count($fieldset_list))
 		{
 			foreach($fieldset_list as $fieldset)
 			{
 				foreach($fieldset->fields as $field)
 				{
-					if($field->required=='Y')
+					if($field->required == 'Y')
 					{
 						switch($field->column_type)
 						{
@@ -60,7 +56,7 @@ class ncartAdminController extends ncart
 		FileHandler::writeFile($xml_file, $xml_buff);
 		unset($xml_buff);
 
-		$validator   = new Validator($xml_file);
+		$validator = new Validator($xml_file);
 		$validator->setCacheDir('files/cache');
 		$validator->getJsPath();
 	}
@@ -69,20 +65,20 @@ class ncartAdminController extends ncart
 	/**
 	 * @brief 모듈 환경설정값 쓰기
 	 **/
-	function procNcartAdminConfig() 
+	function procNcartAdminConfig()
 	{
 
 		$args = Context::getRequestVars();
-		
+
 		// save module configuration.
 		$oModuleControll = getController('module');
 		$output = $oModuleControll->insertModuleConfig('ncart', $args);
 
 		$this->setMessage('success_updated');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) 
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminConfig','module_srl',Context::get('module_srl'));
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminConfig', 'module_srl', Context::get('module_srl'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
@@ -93,7 +89,7 @@ class ncartAdminController extends ncart
 	/**
 	 * @brief 모듈 환경설정값 쓰기
 	 **/
-	function procNcartAdminInsertModInst() 
+	function procNcartAdminInsertModInst()
 	{
 		// module 모듈의 model/controller 객체 생성
 		$oModuleController = getController('module');
@@ -104,7 +100,7 @@ class ncartAdminController extends ncart
 		$args->module = 'ncart';
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
-		if($args->module_srl) 
+		if($args->module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl)
@@ -114,7 +110,7 @@ class ncartAdminController extends ncart
 		}
 
 		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl) 
+		if(!$args->module_srl)
 		{
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
@@ -130,14 +126,14 @@ class ncartAdminController extends ncart
 			return $output;
 		}
 
-		$this->add('module_srl',$output->get('module_srl'));
+		$this->add('module_srl', $output->get('module_srl'));
 		$this->setMessage($msg_code);
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminInsertModInst','module_srl',$this->get('module_srl'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminInsertModInst', 'module_srl', $this->get('module_srl'));
 		$this->setRedirectUrl($returnUrl);
 	}
 
-	function procNcartAdminDeleteModInst() 
+	function procNcartAdminDeleteModInst()
 	{
 		$module_srl = Context::get('module_srl');
 
@@ -148,8 +144,8 @@ class ncartAdminController extends ncart
 			return $output;
 		}
 
-		$this->add('module','ncart');
-		$this->add('page',Context::get('page'));
+		$this->add('module', 'ncart');
+		$this->add('page', Context::get('page'));
 		$this->setMessage('success_deleted');
 
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminModInstList');
@@ -157,7 +153,7 @@ class ncartAdminController extends ncart
 	}
 
 
-	function procNcartAdminUpdateStatus() 
+	function procNcartAdminUpdateStatus()
 	{
 		$oNcartController = getController('ncart');
 
@@ -170,7 +166,7 @@ class ncartAdminController extends ncart
 		$express_ids = Context::get('express_id');
 		$invoice_nos = Context::get('invoice_no');
 		$order_status = Context::get('order_status');
-		
+
 
 		/*
 		if(!$carts)  // check box 선택한 주문이 없을때 뒤로가기
@@ -179,7 +175,8 @@ class ncartAdminController extends ncart
 		}
 		 */
 
-		foreach ($order_srls as $key=>$order_srl) {
+		foreach($order_srls as $key => $order_srl)
+		{
 
 			$express_id = $express_ids[$key];
 			$invoice_no = $invoice_nos[$key];
@@ -196,7 +193,7 @@ class ncartAdminController extends ncart
 			}
 
 			// 상태값변경, 배송회사, 운송장번호 데이터가 없으면 업데이트 필요치 않는다.
-			if(!$args->order_status&&!$args->express_id&&!$args->invoice_no)
+			if(!$args->order_status && !$args->express_id && !$args->invoice_no)
 			{
 				continue;
 			}
@@ -211,21 +208,21 @@ class ncartAdminController extends ncart
 
 		$this->setMessage('success_saved');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module',Context::get('module'),'act', 'dispNcartAdminOrderManagement','status',Context::get('status'));
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderManagement', 'status', Context::get('status'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
 	}
 
-	
+
 	function procNcartAdminDeleteOrders()
 	{
 		$order_srls = Context::get('order_srl');
-		$order_srls = explode(',',$order_srls);
+		$order_srls = explode(',', $order_srls);
 
-		foreach ($order_srls as $order_srl)
+		foreach($order_srls as $order_srl)
 		{
 			if(!$order_srl)
 			{
@@ -249,9 +246,9 @@ class ncartAdminController extends ncart
 		}
 
 		$this->setMessage('success_deleted');
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) 
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderManagement','status',Context::get('status'));
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderManagement', 'status', Context::get('status'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
@@ -263,7 +260,10 @@ class ncartAdminController extends ncart
 		$args->module_srl = Context::get('module_srl');
 		$args->fieldset_title = Context::get('fieldset_title');
 		$output = executeQuery('ncart.insertFieldset', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderForm');
 		$this->setRedirectUrl($returnUrl);
@@ -275,10 +275,16 @@ class ncartAdminController extends ncart
 		$args->fieldset_srl = Context::get('fieldset_srl');
 		// deleting fields
 		$output = executeQuery('ncart.deleteFieldsByFieldsetSrl', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		// deleting a fieldset
 		$output = executeQuery('ncart.deleteFieldset', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderForm');
 		$this->setRedirectUrl($returnUrl);
@@ -292,7 +298,10 @@ class ncartAdminController extends ncart
 		$args->proc_modules = implode(',', Context::get('proc_modules'));
 		$output = executeQuery('ncart.updateFieldset', $args);
 
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderForm');
@@ -314,7 +323,10 @@ class ncartAdminController extends ncart
 		{
 			$output = executeQuery('ncart.insertField', $args);
 		}
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$fieldset_list = $oNcartModel->getFieldSetList($args->module_srl);
 
@@ -329,24 +341,31 @@ class ncartAdminController extends ncart
 		$args->field_srl = Context::get('field_srl');
 		// deleting a field
 		$output = executeQuery('ncart.deleteField', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNcartAdminOrderForm');
 		$this->setRedirectUrl($returnUrl);
 	}
 
-	function procNcartAdminUpdateFieldListOrder() 
+	function procNcartAdminUpdateFieldListOrder()
 	{
 		$order = Context::get('order');
 		parse_str($order);
 		$idx = 1;
 		if(is_array($record))
 		{
-			foreach ($record as $field_srl) {
+			foreach($record as $field_srl)
+			{
 				$args->field_srl = $field_srl;
 				$args->list_order = $idx;
 				$output = executeQuery('ncart.updateFieldListOrder', $args);
-				if(!$output->toBool()) return $output;
+				if(!$output->toBool())
+				{
+					return $output;
+				}
 				$idx++;
 			}
 		}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  inipaymobileView
@@ -13,21 +14,30 @@ class inipaymobileView extends inipaymobile
 	function init()
 	{
 		// set template path
-		if ($this->module_info->module != 'inipaymobile') $this->module_info->skin = 'default';
-		if (!$this->module_info->skin) $this->module_info->skin = 'default';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
-		Context::set('module_info',$this->module_info);
+		if($this->module_info->module != 'inipaymobile')
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
+		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		Context::set('module_info', $this->module_info);
 	}
 
 	/**
 	 * @brief epay.getPaymentForm 에서 호출됨, 이니시스 모바일 결제폼 출력
 	 */
-	function dispInipaymobileForm() 
+	function dispInipaymobileForm()
 	{
 		$oEpayController = getController('epay');
 		// get products info using cartnos
 		$reviewOutput = $oEpayController->reviewOrder();
-		if(!$reviewOutput->toBool()) return $reviewOutput;
+		if(!$reviewOutput->toBool())
+		{
+			return $reviewOutput;
+		}
 
 		Context::set('review_form', $reviewOutput->review_form);
 		Context::set('item_name', $reviewOutput->item_name);

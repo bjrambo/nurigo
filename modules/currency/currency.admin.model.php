@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @class currencyAdminModel 
+ * @class currencyAdminModel
  */
-class currencyAdminModel extends currency 
+class currencyAdminModel extends currency
 {
 	var $module_srl = 0;
 	var $list_count = 20;
@@ -14,7 +15,7 @@ class currencyAdminModel extends currency
 	function init()
 	{
 		// Get a template path (page in the administrative template tpl putting together)
-		$this->setTemplatePath($this->module_path.'tpl');
+		$this->setTemplatePath($this->module_path . 'tpl');
 	}
 
 }

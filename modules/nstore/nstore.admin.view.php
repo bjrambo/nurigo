@@ -1,17 +1,18 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstoreAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  nstoreAdminView
- */ 
+ */
 class nstoreAdminView extends nstore
 {
 	/**
 	 * @brief Contructor
 	 **/
 
-	function init() 
+	function init()
 	{
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
@@ -24,43 +25,45 @@ class nstoreAdminView extends nstore
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
-		if($module_info && !in_array($module_info->module, array('nstore','nstore_digital','elearning')))
+		if($module_info && !in_array($module_info->module, array('nstore', 'nstore_digital', 'elearning')))
 		{
 			return $this->stop("msg_invalid_request");
 		}
 
 		// set template file
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		$this->setTemplateFile('index');
 		Context::set('tpl_path', $tpl_path);
 
 		// module이 cympusadmin일때 관리자 레이아웃으로
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if(Context::get('module') == 'cympusadmin')
+		{
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if(file_exists($classfile))
+			{
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 	}
 
-	function dispNstoreAdminDashboard() 
+	function dispNstoreAdminDashboard()
 	{
 		$output = executeQueryArray('nstore.getOrderStat', $args);
 		if(!$output->toBool())
@@ -76,10 +79,12 @@ class nstoreAdminView extends nstore
 		$stat_arr = array();
 		$keys = array_keys($this->order_status);
 
-		foreach ($keys as $key) {
+		foreach($keys as $key)
+		{
 			$stat_arr[$key] = 0;
 		}
-		foreach ($list as $key=>$val) {
+		foreach($list as $key => $val)
+		{
 			$stat_arr[$val->order_status] = $val->count;
 		}
 		Context::set('order_status', $this->getOrderStatus());
@@ -97,7 +102,7 @@ class nstoreAdminView extends nstore
 		{
 			$modinst_list = array();
 		}
-		foreach ($modinst_list as $modinst)
+		foreach($modinst_list as $modinst)
 		{
 			$module_srls[] = $modinst->module_srl;
 		}
@@ -108,12 +113,12 @@ class nstoreAdminView extends nstore
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
 		$comment_list = $oCommentModel->getNewestCommentList($args, $columnList);
-		if(!is_array($comment_list)) 
+		if(!is_array($comment_list))
 		{
 			$comment_list = array();
 		}
 
-		foreach($comment_list AS $key=>$value)
+		foreach($comment_list AS $key => $value)
 		{
 			$value->content = strip_tags($value->content);
 		}
@@ -123,14 +128,14 @@ class nstoreAdminView extends nstore
 
 		// newest review
 		$review_list = array();
-		require_once(_XE_PATH_.'modules/store_review/store_review.item.php');
+		require_once(_XE_PATH_ . 'modules/store_review/store_review.item.php');
 		$args->module_srl = $module_srls;
 		$output = executeQueryArray('nstore.getNewestReviewList', $args);
-		if(!is_array($output->data)) 
+		if(!is_array($output->data))
 		{
 			$output->data = array();
 		}
-		foreach ($output->data as $key=>$val)
+		foreach($output->data as $key => $val)
 		{
 			if(!$val->review_srl)
 			{
@@ -145,23 +150,29 @@ class nstoreAdminView extends nstore
 		$this->getNewsFromAgency();
 	}
 
-	function dispNstoreAdminOrderManagement() 
+	function dispNstoreAdminOrderManagement()
 	{
 		$oNstoreModel = getModel('nstore');
 		$oMemberModel = getModel('member');
 
-		$classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
+		$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
 		if(file_exists($classfile))
 		{
-				require_once($classfile);
-				$output = cympusadmin::init();
-				if(!$output->toBool()) return $output;
+			require_once($classfile);
+			$output = cympusadmin::init();
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
 		$config = $oNstoreModel->getModuleConfig();
 		Context::set('config', $config);
 
-		if(!Context::get('status')) Context::set('status','1');
+		if(!Context::get('status'))
+		{
+			Context::set('status', '1');
+		}
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
@@ -177,28 +188,37 @@ class nstoreAdminView extends nstore
 		}
 		// 년도 미 지정 시 년도에 상광없이 월 검색이 가능하도록 regdate 검색어에 single character wildcard('_') 4자리 지정
 		$args->regdate = '____';
-		if(Context::get('s_year')) $args->regdate = Context::get('s_year');
-	   	if(Context::get('s_month')) $args->regdate = $args->regdate . Context::get('s_month');
+		if(Context::get('s_year'))
+		{
+			$args->regdate = Context::get('s_year');
+		}
+		if(Context::get('s_month'))
+		{
+			$args->regdate = $args->regdate . Context::get('s_month');
+		}
 		$output = executeQueryArray('nstore.getOrderListByStatus', $args);
-		if(!$output->toBool()) 
+		if(!$output->toBool())
 		{
 			return $output;
 		}
 		$order_list = $output->data;
-		if(!is_array($order_list)) 
+		if(!is_array($order_list))
 		{
 			$order_list = array();
 		}
 
 		$member_config = $oMemberModel->getMemberConfig();
-		$memberIdentifiers = array('user_id'=>'user_id', 'user_name'=>'user_name', 'nick_name'=>'nick_name');
-		$usedIdentifiers = array();	
+		$memberIdentifiers = array('user_id' => 'user_id', 'user_name' => 'user_name', 'nick_name' => 'nick_name');
+		$usedIdentifiers = array();
 
 		if(is_array($member_config->signupForm))
 		{
 			foreach($member_config->signupForm as $signupItem)
 			{
-				if(!count($memberIdentifiers)) break;
+				if(!count($memberIdentifiers))
+				{
+					break;
+				}
 				if(in_array($signupItem->name, $memberIdentifiers) && ($signupItem->required || $signupItem->isUse))
 				{
 					unset($memberIdentifiers[$signupItem->name]);
@@ -218,7 +238,7 @@ class nstoreAdminView extends nstore
 		$this->setTemplateFile('ordermanagement');
 	}
 
-	function dispNstoreAdminOrderDetail() 
+	function dispNstoreAdminOrderDetail()
 	{
 		$oNstore_coreModel = getModel('nstore');
 		$oEpayModel = getModel('epay');
@@ -227,7 +247,7 @@ class nstoreAdminView extends nstore
 		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
+		Context::set('payment_info', $payment_info);
 		Context::set('order_info', $order_info);
 		Context::set('order_status', $this->getOrderStatus());
 		Context::set('delivery_companies', $this->delivery_companies);
@@ -236,7 +256,7 @@ class nstoreAdminView extends nstore
 		$this->setTemplateFile('orderdetail');
 	}
 
-	function dispNstoreAdminOrderSheet() 
+	function dispNstoreAdminOrderSheet()
 	{
 		$oNstore_coreModel = getModel('nstore');
 
@@ -249,7 +269,7 @@ class nstoreAdminView extends nstore
 		$this->setLayoutFile('default_layout');
 	}
 
-	function dispNstoreAdminModInstList() 
+	function dispNstoreAdminModInstList()
 	{
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
@@ -266,12 +286,12 @@ class nstoreAdminView extends nstore
 		$this->setTemplateFile('modinstlist');
 	}
 
-	function dispNstoreAdminInsertModInst() 
+	function dispNstoreAdminInsertModInst()
 	{
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
 		Context::set('mskin_list', $mskin_list);
@@ -281,7 +301,7 @@ class nstoreAdminView extends nstore
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		$module_category = $oModuleModel->getModuleCategories();
@@ -290,14 +310,13 @@ class nstoreAdminView extends nstore
 	}
 
 
-
-	function dispNstoreAdminConfig() 
+	function dispNstoreAdminConfig()
 	{
 		$oNstore_coreModel = getModel('nstore');
 		$oModuleModel = getModel('module');
 
 		$config = $oNstore_coreModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		// list of skins for member module
 		$skin_list = $oModuleModel->getSkins($this->module_path);
@@ -311,7 +330,7 @@ class nstoreAdminView extends nstore
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		/*
@@ -349,12 +368,12 @@ class nstoreAdminView extends nstore
 		{
 			$order_info->recipient_postcode = preg_replace('/[\-\(\)]/', '', $postcode_arr[0]);
 		}
-	
-		$plugin = $oEpayModel->getPlugin($payment_info->plugin_srl);
-        $output = $plugin->dispEscrowDelivery($order_info, $payment_info, $escrow_info);
-        Context::set('content', $output);
 
-		$this->setLayoutPath(_XE_PATH_.'common/tpl');
+		$plugin = $oEpayModel->getPlugin($payment_info->plugin_srl);
+		$output = $plugin->dispEscrowDelivery($order_info, $payment_info, $escrow_info);
+		Context::set('content', $output);
+
+		$this->setLayoutPath(_XE_PATH_ . 'common/tpl');
 		$this->setLayoutFile('default_layout');
 		$this->setTemplateFile('extra');
 	}
@@ -376,12 +395,12 @@ class nstoreAdminView extends nstore
 		{
 			$order_info->recipient_postcode = preg_replace('/[\-\(\)]/', '', $postcode_arr[0]);
 		}
-	
-		$plugin = $oEpayModel->getPlugin($payment_info->plugin_srl);
-        $output = $plugin->dispEscrowDenyConfirm($order_info, $payment_info, $escrow_info);
-        Context::set('content', $output);
 
-		$this->setLayoutPath(_XE_PATH_.'common/tpl');
+		$plugin = $oEpayModel->getPlugin($payment_info->plugin_srl);
+		$output = $plugin->dispEscrowDenyConfirm($order_info, $payment_info, $escrow_info);
+		Context::set('content', $output);
+
+		$this->setLayoutPath(_XE_PATH_ . 'common/tpl');
 		$this->setLayoutFile('default_layout');
 		$this->setTemplateFile('extra');
 	}
@@ -424,13 +443,14 @@ class nstoreAdminView extends nstore
 		Context::set('order_list', $order_list);
 		Context::set('order_status', $this->getOrderStatus());
 		Context::set('delivery_inquiry_urls', $this->delivery_inquiry_urls);
-	
+
 		$this->setTemplateFile('purchaser_info');
 	}
+
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNstoreAdminSkinInfo() 
+	function dispNstoreAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -442,7 +462,7 @@ class nstoreAdminView extends nstore
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNstoreAdminMobileSkinInfo() 
+	function dispNstoreAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -456,28 +476,29 @@ class nstoreAdminView extends nstore
 		//Retrieve recent news and set them into context
 		$newest_news_url = sprintf("http://www.xeshoppingmall.com/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", _XE_LOCATION_);
 		$cache_file = sprintf("%sfiles/cache/nstore_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time())
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 		{
 			// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing textmessageistration page
 			// Ensure to access the textmessageistration page even though news cannot be displayed
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 
-		if(file_exists($cache_file)) 
+		if(file_exists($cache_file))
 		{
 			$oXml = new XmlParser();
 			$buff = $oXml->parse(FileHandler::readFile($cache_file));
 
 			$item = $buff->zbxe_news->item;
-			if($item) 
+			if($item)
 			{
-				if(!is_array($item)) 
+				if(!is_array($item))
 				{
 					$item = array($item);
 				}
 
-				foreach($item as $key => $val) {
+				foreach($item as $key => $val)
+				{
 					$obj = null;
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
@@ -491,18 +512,18 @@ class nstoreAdminView extends nstore
 		}
 	}
 
-    /**
-     * @brief display the grant information
-     **/
-    function dispNstoreAdminGrantInfo()
+	/**
+	 * @brief display the grant information
+	 **/
+	function dispNstoreAdminGrantInfo()
 	{
-        // get the grant infotmation from admin module
-        $oModuleAdminModel = getAdminModel('module');
-        $grant_content = $oModuleAdminModel->getModuleGrantHTML($this->module_info->module_srl, $this->xml_info->grant);
-        Context::set('grant_content', $grant_content);
+		// get the grant infotmation from admin module
+		$oModuleAdminModel = getAdminModel('module');
+		$grant_content = $oModuleAdminModel->getModuleGrantHTML($this->module_info->module_srl, $this->xml_info->grant);
+		Context::set('grant_content', $grant_content);
 
-        $this->setTemplateFile('grantinfo');
-    }
+		$this->setTemplateFile('grantinfo');
+	}
 }
 
 /* End of file nstore.admin.view.php */

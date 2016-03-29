@@ -1,6 +1,7 @@
 <?php
+
 /**
- * @class currency 
+ * @class currency
  */
 class currency extends ModuleObject
 {
@@ -25,7 +26,7 @@ class currency extends ModuleObject
 	 */
 	function moduleUpdate()
 	{
-		return new Object(0,'success_updated');
+		return new Object(0, 'success_updated');
 	}
 
 	/**

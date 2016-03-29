@@ -1,7 +1,6 @@
 <?php
 
 /**
- * vi:set ts=4 sw=4 noexpandtab fileencoding=utf-8:
  * @class epayAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief epay admin view
@@ -23,9 +22,11 @@ class epayAdminView extends epay
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
-		if (Context::get('module') == 'cympusadmin') {
+		if(Context::get('module') == 'cympusadmin')
+		{
 			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
-			if (file_exists($classfile)) {
+			if(file_exists($classfile))
+			{
 				require_once($classfile);
 				cympusadmin::init();
 			}
@@ -33,7 +34,8 @@ class epayAdminView extends epay
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
-		if (!$module_srl && $this->module_srl) {
+		if(!$module_srl && $this->module_srl)
+		{
 			$module_srl = $this->module_srl;
 			Context::set('module_srl', $module_srl);
 		}
@@ -41,12 +43,16 @@ class epayAdminView extends epay
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if ($module_srl) {
+		if($module_srl)
+		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if (!$module_info) {
+			if(!$module_info)
+			{
 				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
 				Context::set('module_info', $module_info);
@@ -89,17 +95,17 @@ class epayAdminView extends epay
 		$oEpayModel = getModel('epay');
 
 		$module_srl = Context::get('module_srl');
-		if (!$module_srl && $this->module_srl)
+		if(!$module_srl && $this->module_srl)
 		{
 			$module_srl = $this->module_srl;
 			Context::set('module_srl', $module_srl);
 		}
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if ($module_srl)
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if (!$module_info)
+			if(!$module_info)
 			{
 				return new Object(-1, 'msg_invalid_request');
 			}
@@ -131,7 +137,10 @@ class epayAdminView extends epay
 
 		$pg_modules = array();
 		$output = ModuleHandler::triggerCall('epay.getPgModules', 'before', $pg_modules);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		Context::set('pg_modules', $pg_modules);
 
 		$this->setTemplateFile('insertepay');
@@ -144,7 +153,10 @@ class epayAdminView extends epay
 	{
 		$args->page = Context::get('page');
 		$output = executeQueryArray('epay.getPluginList', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		Context::set('plugins', $output->data);
 		Context::set('total_count', $output->total_count);
@@ -190,24 +202,30 @@ class epayAdminView extends epay
 	function dispEpayAdminTransactions()
 	{
 		$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
-		if (file_exists($classfile))
+		if(file_exists($classfile))
 		{
 			require_once($classfile);
 			$output = cympusadmin::init();
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
 		// transactions
 		$args = new stdClass();
 		$args->page = Context::get('page');
-		if (Context::get('search_key'))
+		if(Context::get('search_key'))
 		{
 			$search_key = Context::get('search_key');
 			$search_value = Context::get('search_value');
 			$args->{$search_key} = $search_value;
 		}
 		$output = executeQueryArray('epay.getTransactionList', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
 		ModuleHandler::triggerCall('epay.getTransactionList', 'after', $list);
 		Context::set('list', $list);
@@ -220,8 +238,11 @@ class epayAdminView extends epay
 		$output = executeQueryArray('epay.getAllModInstList');
 		$modinst_list = array();
 		$list = $output->data;
-		if (!is_array($list)) $list = array();
-		foreach ($list as $key => $modinfo)
+		if(!is_array($list))
+		{
+			$list = array();
+		}
+		foreach($list as $key => $modinfo)
 		{
 			$modinst_list[$modinfo->module_srl] = $modinfo;
 		}

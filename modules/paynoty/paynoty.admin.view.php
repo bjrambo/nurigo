@@ -1,15 +1,15 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  paynotyAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  paynotyAdminView
- */ 
-class paynotyAdminView extends paynoty 
+ */
+class paynotyAdminView extends paynoty
 {
 	var $group_list;
 
-	function init() 
+	function init()
 	{
 		$oMemberModel = getModel('member');
 
@@ -18,20 +18,20 @@ class paynotyAdminView extends paynoty
 		Context::set('group_list', $this->group_list);
 
 		// 템플릿 설정
-		$this->setTemplatePath($this->module_path.'tpl');
+		$this->setTemplatePath($this->module_path . 'tpl');
 	}
 
 	/**
 	 * @brief paynoty configuration list.
 	 **/
-	function dispPaynotyAdminList() 
+	function dispPaynotyAdminList()
 	{
 		$config_list = array();
 		$args->page = Context::get('page');
 		$output = executeQueryArray('paynoty.getConfigList', $args);
-		if ($output->toBool() && $output->data) 
+		if($output->toBool() && $output->data)
 		{
-			foreach ($output->data as $no => $val) 
+			foreach($output->data as $no => $val)
 			{
 				$val->no = $no;
 				$val->module_info = array();
@@ -45,7 +45,7 @@ class paynotyAdminView extends paynoty
 
 
 		// module infos
-		if (count($config_list) > 0) 
+		if(count($config_list) > 0)
 		{
 			$config_srls = array_keys($config_list);
 			$config_srls = join(',', $config_srls);
@@ -53,9 +53,9 @@ class paynotyAdminView extends paynoty
 			$query_id = "paynoty.getModuleInfoByConfigSrl";
 			$args->config_srls = $config_srls;
 			$output = executeQueryArray($query_id, $args);
-			if ($output->data) 
+			if($output->data)
 			{
-				foreach ($output->data as $no => $val) 
+				foreach($output->data as $no => $val)
 				{
 					$config_list[$val->config_srl]->module_info[] = $val;
 				}
@@ -66,7 +66,7 @@ class paynotyAdminView extends paynoty
 
 		$oPaynotyModel = getModel('paynoty');
 		$config = $oPaynotyModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$this->setTemplateFile('list');
 	}
@@ -74,7 +74,7 @@ class paynotyAdminView extends paynoty
 	/**
 	 * @brief insert paynoty configuration info.
 	 **/
-	function dispPaynotyAdminInsert() 
+	function dispPaynotyAdminInsert()
 	{
 		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
@@ -106,7 +106,7 @@ class paynotyAdminView extends paynoty
 	/**
 	 * @brief modify paynoty configuration.
 	 **/
-	function dispPaynotyAdminModify() 
+	function dispPaynotyAdminModify()
 	{
 		$config_srl = Context::get('config_srl');
 		// load paynoty info
@@ -114,9 +114,9 @@ class paynotyAdminView extends paynoty
 		$output = executeQuery("paynoty.getConfig", $args);
 		$config = $output->data;
 		$extra_vars = unserialize($config->extra_vars);
-		if ($extra_vars) 
+		if($extra_vars)
 		{
-			foreach ($extra_vars as $key => $val) 
+			foreach($extra_vars as $key => $val)
 			{
 				$config->{$key} = $val;
 			}
@@ -125,11 +125,14 @@ class paynotyAdminView extends paynoty
 		// load module srls
 		$args->config_srl = $config_srl;
 		$output = executeQueryArray("paynoty.getModuleSrls", $args);
-		if (!$output->toBool()) return $output;
-		$module_srls = array();
-		if ($output->toBool() && $output->data) 
+		if(!$output->toBool())
 		{
-			foreach ($output->data as $no => $val) 
+			return $output;
+		}
+		$module_srls = array();
+		if($output->toBool() && $output->data)
+		{
+			foreach($output->data as $no => $val)
 			{
 				$module_srls[] = $val->module_srl;
 			}
@@ -160,4 +163,3 @@ class paynotyAdminView extends paynoty
 		$this->setTemplateFile('insert');
 	}
 }
-?>

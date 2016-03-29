@@ -1,38 +1,66 @@
 <?php
+
 /**
-* @author NURIGO (contact@nurigo.net)
-**/
+ * @author NURIGO (contact@nurigo.net)
+ **/
 class frontdisplay extends WidgetHandler
 {
 	function proc($widget_info)
 	{
 		$oModuleModel = getModel('module');
-		$widget_info->option_view_arr = explode(',',$widget_info->option_view);
+		$widget_info->option_view_arr = explode(',', $widget_info->option_view);
 
 		// default
-		if (!$widget_info->thumbnail_type) $widget_info->thumbnail_type = 'crop';
-		if (!$widget_info->thumbnail_width) $widget_info->thumbnail_width = 150;
-		if (!$widget_info->thumbnail_height) $widget_info->thumbnail_height = 0;
-		if (!$widget_info->num_columns) $widget_info->num_columns = 5;
-		if (!$widget_info->num_rows) $widget_info->num_rows = 2;
+		if(!$widget_info->thumbnail_type)
+		{
+			$widget_info->thumbnail_type = 'crop';
+		}
+		if(!$widget_info->thumbnail_width)
+		{
+			$widget_info->thumbnail_width = 150;
+		}
+		if(!$widget_info->thumbnail_height)
+		{
+			$widget_info->thumbnail_height = 0;
+		}
+		if(!$widget_info->num_columns)
+		{
+			$widget_info->num_columns = 5;
+		}
+		if(!$widget_info->num_rows)
+		{
+			$widget_info->num_rows = 2;
+		}
 
 		// change into an array
-		$module_srls = explode(',',$widget_info->module_srls);
+		$module_srls = explode(',', $widget_info->module_srls);
 
 		$display_categories = array();
 		foreach($module_srls as $module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info || $module_info->module != 'nproduct') continue;
-			$oStoreModel = getModel($module_info->module);
-			if(!$oStoreModel) continue;
-			if ($widget_info->category_type=='M')
+			if(!$module_info || $module_info->module != 'nproduct')
 			{
-				if(method_exists($oStoreModel,'getFrontDisplayItems')) $data = $oStoreModel->getFrontDisplayItems($module_info->module_srl, $widget_info->category_srl, $widget_info->num_columns*$widget_info->num_rows);
+				continue;
+			}
+			$oStoreModel = getModel($module_info->module);
+			if(!$oStoreModel)
+			{
+				continue;
+			}
+			if($widget_info->category_type == 'M')
+			{
+				if(method_exists($oStoreModel, 'getFrontDisplayItems'))
+				{
+					$data = $oStoreModel->getFrontDisplayItems($module_info->module_srl, $widget_info->category_srl, $widget_info->num_columns * $widget_info->num_rows);
+				}
 			}
 			else
 			{
-				if(method_exists($oStoreModel,'getDisplayItems')) $data = $oStoreModel->getDisplayItems($module_info->module_srl, $widget_info->category_srl, $widget_info->num_columns*$widget_info->num_rows);
+				if(method_exists($oStoreModel, 'getDisplayItems'))
+				{
+					$data = $oStoreModel->getDisplayItems($module_info->module_srl, $widget_info->category_srl, $widget_info->num_columns * $widget_info->num_rows);
+				}
 			}
 			$display_categories = array_merge($display_categories, $data);
 		}

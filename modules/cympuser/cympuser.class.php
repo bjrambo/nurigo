@@ -1,11 +1,11 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
- * @class cympuser 
+ * @class cympuser
  * @author billy(contact@nurigo.net)
- * @brief cympuser 
+ * @brief cympuser
  */
-class cympuser extends ModuleObject 
+class cympuser extends ModuleObject
 {
 
 	/**

@@ -1,6 +1,6 @@
 <?php
+
 /**
- * vi:set ts=4 sw=4 noexpandtab fileencoding=utf-8:
  * @class  Epay System Controller
  * @author NURIGO(contact@nurgio.net)
  * @brief  Epay Page Controller
@@ -26,15 +26,27 @@ class epayController extends epay
 		$review_args->order_srl = $order_srl;
 
 		// gerRequestVars에 plugin_srl 안넘어오는 불상사가 있음
-		if(!$review_args->plugin_srl) $review_args->plugin_srl = Context::get('plugin_srl');
+		if(!$review_args->plugin_srl)
+		{
+			$review_args->plugin_srl = Context::get('plugin_srl');
+		}
 
-		if (!$review_args->module_srl) return new Object(-1, 'no module_srl');
-		if (!$review_args->epay_module_srl) return new Object(-1, 'no epay_module_srl');
+		if(!$review_args->module_srl)
+		{
+			return new Object(-1, 'no module_srl');
+		}
+		if(!$review_args->epay_module_srl)
+		{
+			return new Object(-1, 'no epay_module_srl');
+		}
 
 		// before trigger
 		// returns review_args->price, review_args->item_name
 		$output = ModuleHandler::triggerCall('epay.processReview', 'before', $review_args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// save transaction info.
 		$args = new stdClass();
@@ -80,12 +92,18 @@ class epayController extends epay
 		$extra_vars = new stdClass();
 		$args->extra_vars = serialize($extra_vars);
 
-		$output = executeQuery('epay.insertTransaction',$args);
-		if (!$output->toBool()) return $output;
+		$output = executeQuery('epay.insertTransaction', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// after
 		$afterOutput = ModuleHandler::triggerCall('epay.processReview', 'after', $review_args);
-		if(!$afterOutput->toBool())	return $afterOutput;
+		if(!$afterOutput->toBool())
+		{
+			return $afterOutput;
+		}
 
 		$returnOutput = new Object();
 		$returnOutput->review_form = $review_args->review_form;
@@ -114,7 +132,10 @@ class epayController extends epay
 
 		// get transaction info by transaction_srl
 		$transaction_info = $oEpayModel->getTransactionInfo($params->transaction_srl);
-		if(!$transaction_info) return new Object(-1, 'could not find transaction info');
+		if(!$transaction_info)
+		{
+			return new Object(-1, 'could not find transaction info');
+		}
 
 		// before trigger
 		$args = new stdClass();
@@ -123,7 +144,10 @@ class epayController extends epay
 		$args->order_srl = $transaction_info->order_srl;
 		$args->target_module = $transaction_info->target_module;
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'before', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		return new Object();
 	}
@@ -152,7 +176,10 @@ class epayController extends epay
 
 		// get transaction info by transaction_srl
 		$transaction_info = $oEpayModel->getTransactionInfo($params->get('transaction_srl'));
-		if(!$transaction_info) return new Object(-1, 'could not find transaction info');
+		if(!$transaction_info)
+		{
+			return new Object(-1, 'could not find transaction info');
+		}
 
 		// update transaction info
 		$args = new stdClass();
@@ -163,13 +190,16 @@ class epayController extends epay
 		$args->state = $params->get('state');
 		$extra_vars = unserialize($transaction_info->extra_vars);
 		$variables = $params->getVariables();
-		foreach($variables as $key=>$val)
+		foreach($variables as $key => $val)
 		{
 			$extra_vars->{$key} = $val;
 		}
 		$args->extra_vars = serialize($extra_vars);
 		$output = executeQuery('epay.updateTransaction', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		unset($args);
 
 
@@ -194,17 +224,23 @@ class epayController extends epay
 		$args->vact_time = $params->get('vact_time');
 		$args->pg_tid = $params->get('pg_tid');
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// check state
-		if ($args->state=='3') // failure
+		if($args->state == '3') // failure
 		{
 			$this->setError(-1);
 			$this->setMessage($args->result_message);
 		}
 
 		$return_url = $args->return_url;
-		if (!$return_url) $return_url = Context::get('return_url');
+		if(!$return_url)
+		{
+			$return_url = Context::get('return_url');
+		}
 		$output = new Object();
 		$output->add('return_url', $return_url);
 		return $output;
@@ -219,11 +255,20 @@ class epayController extends epay
 		$oModuleModel = getModel('module');
 
 		$module_srl = Context::get('module_srl');
-		if (!$module_srl) return new Object(-1, 'no module_srl');
+		if(!$module_srl)
+		{
+			return new Object(-1, 'no module_srl');
+		}
 		$epay_module_srl = Context::get('epay_module_srl');
-		if (!$epay_module_srl) return new Object(-1, 'no epay_module_srl');
+		if(!$epay_module_srl)
+		{
+			return new Object(-1, 'no epay_module_srl');
+		}
 		$plugin_srl = Context::get('plugin_srl');
-		if (!$plugin_srl) return new Object(-1, 'no plugin_srl');
+		if(!$plugin_srl)
+		{
+			return new Object(-1, 'no plugin_srl');
+		}
 
 		$order_srl = getNextSequence();
 
@@ -240,7 +285,10 @@ class epayController extends epay
 
 		// before
 		$output = ModuleHandler::triggerCall('epay.processReview', 'before', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$_SESSION['module_srl'] = $module_srl;
 		$_SESSION['epay_module_srl'] = $epay_module_srl;
@@ -249,16 +297,31 @@ class epayController extends epay
 		$_SESSION['xe_mid'] = Context::get('xe_mid');
 
 		$review_output = $plugin->processReview($args);
-		if (!$review_output->toBool()) return $review_output;
+		if(!$review_output->toBool())
+		{
+			return $review_output;
+		}
 
-		if ($review_output->get('return_url')) $this->add('return_url', $review_output->get('return_url'));
+		if($review_output->get('return_url'))
+		{
+			$this->add('return_url', $review_output->get('return_url'));
+		}
 
-		if ($review_output->get('return_url')) $this->setRedirectUrl($review_output->get('return_url'));
-		if ($review_output->get('tpl_data')) $this->add('tpl', $review_output->get('tpl_data'));
+		if($review_output->get('return_url'))
+		{
+			$this->setRedirectUrl($review_output->get('return_url'));
+		}
+		if($review_output->get('tpl_data'))
+		{
+			$this->add('tpl', $review_output->get('tpl_data'));
+		}
 
 		// after
 		$output = ModuleHandler::triggerCall('epay.processReview', 'after', $args);
-		if(!$output->toBool())	return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$this->add('order_srl', $order_srl);
 	}
@@ -279,13 +342,31 @@ class epayController extends epay
 		$order_srl = $_SESSION['order_srl'];
 		$target_module = $_SESSION['epay_target_module'];
 
-		if(!$module_srl) $module_srl = Context::get('module_srl');
-		if(!$epay_module_srl) $epay_module_srl = Context::get('epay_module_srl');
-		if(!$order_srl) $order_srl = Context::get('order_srl');
-		if(!$target_module) $target_module = Context::get('epay_target_module');
+		if(!$module_srl)
+		{
+			$module_srl = Context::get('module_srl');
+		}
+		if(!$epay_module_srl)
+		{
+			$epay_module_srl = Context::get('epay_module_srl');
+		}
+		if(!$order_srl)
+		{
+			$order_srl = Context::get('order_srl');
+		}
+		if(!$target_module)
+		{
+			$target_module = Context::get('epay_target_module');
+		}
 
-		if (!$epay_module_srl) return new Object(-1, 'msg_invalid_request');
-		if (!$order_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$epay_module_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
+		if(!$order_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 		$plugin_srl = Context::get('plugin_srl');
 
 		$mid = $_SESSION['xe_mid'];
@@ -298,7 +379,10 @@ class epayController extends epay
 
 		$obj = Context::getRequestVars();
 
-		if($obj->manorder_pid) $manorder_pid = $obj->manorder_pid; // 결제대행 유저 아이디.
+		if($obj->manorder_pid)
+		{
+			$manorder_pid = $obj->manorder_pid;
+		} // 결제대행 유저 아이디.
 
 		$obj->module_srl = $module_srl;
 		$obj->epay_module_srl = $epay_module_srl;
@@ -313,7 +397,10 @@ class epayController extends epay
 
 		// before
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'before', $obj);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// call
 		$pp_ret = $plugin->processPayment($obj);
@@ -322,7 +409,7 @@ class epayController extends epay
 			Context::set('content', $pp_ret->data);
 			$this->setTemplatePath($this->module_path . 'tpl');
 			$this->setTemplateFile('error');
-			if(in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+			if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 			{
 				return $pp_ret;
 			}
@@ -378,27 +465,36 @@ class epayController extends epay
 		unset($extra_vars['payment_amount']);
 		$args->extra_vars = serialize($extra_vars);
 
-		$output = executeQuery('epay.insertTransaction',$args);
-		if (!$output->toBool()) return $output;
+		$output = executeQuery('epay.insertTransaction', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// after
 		$args->extra_vars = $extra_vars;
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// check state
-		if ($args->state=='3') // failure
+		if($args->state == '3') // failure
 		{
 			$this->setError(-1);
 			$this->setMessage($args->result_message);
 		}
 
 		$return_url = $args->return_url;
-		if (!$return_url) $return_url = Context::get('return_url');
-
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) 
+		if(!$return_url)
 		{
-			$returnUrl = $return_url ? $return_url : getNotEncodedUrl('','mid',$mid,'act','dispStoreOrderComplete','order_srl',$order_srl);
+			$return_url = Context::get('return_url');
+		}
+
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
+		{
+			$returnUrl = $return_url ? $return_url : getNotEncodedUrl('', 'mid', $mid, 'act', 'dispStoreOrderComplete', 'order_srl', $order_srl);
 			$this->setRedirectUrl($returnUrl);
 		}
 
@@ -424,11 +520,17 @@ class epayController extends epay
 		$transaction = $oEpayModel->getTransactionByOrderSrl($report->order_srl);
 		$pr_ret = $plugin->processReport($transaction);
 		$transaction->state = $pr_ret->state;
-		$output = executeQuery('epay.updateTransaction',$transaction);
-		if (!$output->toBool()) return $output;
+		$output = executeQuery('epay.updateTransaction', $transaction);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $transaction);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		exit(0);
 	}
@@ -436,13 +538,16 @@ class epayController extends epay
 	/**
 	 * @brief not used for now
 	 */
-	function sendTaxinvoice($module_srl, $history_srl, $member_srl=false)
+	function sendTaxinvoice($module_srl, $history_srl, $member_srl = false)
 	{
 		$oModuleModel = getModel('module');
 		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if($module_info->module_srl != $module_srl) unset($module_srl);
+			if($module_info->module_srl != $module_srl)
+			{
+				unset($module_srl);
+			}
 		}
 
 		// get history info
@@ -456,18 +561,21 @@ class epayController extends epay
 		// check valid member_srl
 		if($member_srl)
 		{
-			if ($taxinvoice->member_srl != $member_srl) return new Object(-1,'msg_invliad_request');
+			if($taxinvoice->member_srl != $member_srl)
+			{
+				return new Object(-1, 'msg_invliad_request');
+			}
 		}
 
 		// compare date
 		$prevmonth = $this->get_previous_month();
 		$thismonth = date('Ym');
-		if(!in_array(zdate($taxinvoice->regdate, 'Ym'), array($prevmonth,$thismonth)))
+		if(!in_array(zdate($taxinvoice->regdate, 'Ym'), array($prevmonth, $thismonth)))
 		{
 			return new Object(-1, 'msg_tax_expired');
 		}
 		// if previous month, it must be within 10
-		if(zdate($taxinvoice->regdate, 'Ym')==$prevmonth && intval(date('d')) > 5)
+		if(zdate($taxinvoice->regdate, 'Ym') == $prevmonth && intval(date('d')) > 5)
 		{
 			return new Object(-1, 'msg_tax_expired');
 		}
@@ -497,24 +605,24 @@ class epayController extends epay
 		/* **************************************** */
 		/* define 정의                                */
 		/* **************************************** */
-		define( HB_DOCUMENTTYPE_TAX , 'A' );    // 세금계산서
-		define( HB_DOCUMENTTYPE_BILL , 'B' );   // 계산서
-		define( HB_DOCUMENTTYPE_DETAIL , 'D' ); // 거래명세서
+		define(HB_DOCUMENTTYPE_TAX, 'A');    // 세금계산서
+		define(HB_DOCUMENTTYPE_BILL, 'B');   // 계산서
+		define(HB_DOCUMENTTYPE_DETAIL, 'D'); // 거래명세서
 
-		define( HB_TAXTYPE_TAX, 'A' );		// 과세
-		define( HB_TAXTYPE_NOTAX, 'B' );	// 영세
-		define( HB_TAXTYPE_MANUAL, 'D' );	// 수동
+		define(HB_TAXTYPE_TAX, 'A');        // 과세
+		define(HB_TAXTYPE_NOTAX, 'B');    // 영세
+		define(HB_TAXTYPE_MANUAL, 'D');    // 수동
 
-		define( HB_SENDTYPE_SEND, 'S' );	// 매출
-		define( HB_SENDTYPE_RECV, 'R' );	// 매입
+		define(HB_SENDTYPE_SEND, 'S');    // 매출
+		define(HB_SENDTYPE_RECV, 'R');    // 매입
 
-		define( HB_PTYPE_RECEIPT, 'R' );	// 영수
-		define( HB_PTYPE_CALL, 'C' );		// 청구
+		define(HB_PTYPE_RECEIPT, 'R');    // 영수
+		define(HB_PTYPE_CALL, 'C');        // 청구
 
-		define( HB_COMPANYPREFIX_SUPPLIER, 's' );	// 매출처 접두어
-		define( HB_COMPANYPREFIX_CONSUMER, 'r' );	// 매입처 접두어
+		define(HB_COMPANYPREFIX_SUPPLIER, 's');    // 매출처 접두어
+		define(HB_COMPANYPREFIX_CONSUMER, 'r');    // 매입처 접두어
 
-		define( HB_SOAPSERVER_URL, 'http://billapi.hiworks.co.kr/server.php?wsdl' );  // SOAP Server URL
+		define(HB_SOAPSERVER_URL, 'http://billapi.hiworks.co.kr/server.php?wsdl');  // SOAP Server URL
 
 		/* **************************************** */
 		/* 타입 정의                                */
@@ -530,7 +638,7 @@ class epayController extends epay
 
 
 		//  hiworks bill 객체 생성
-		$HB = new Hiworks_Bill_V2( $cfg['domain'], $cfg['license_id'], $cfg['license_no'], $cfg['partner_id'] );
+		$HB = new Hiworks_Bill_V2($cfg['domain'], $cfg['license_id'], $cfg['license_no'], $cfg['partner_id']);
 
 		// 기본정보 입력
 		$HB->set_basic_info('d_type', HB_DOCUMENTTYPE_TAX); // d_type : 세금계산서(HB_DOCUMENTTYPE_TAX), 계산서(HB_DOCUMENTTYPE_BILL), 거래명세서(HB_DOCUMENTTYPE_DETAIL)
@@ -587,17 +695,21 @@ class epayController extends epay
 
 		// 계산정보입력
 		// 세금계산서, 계산서는 최대 4개, 거래명세서는 최대 20개까지 입력가능함
-		$HB->set_work_info(zdate($taxinvoice->regdate, 'm'), zdate($taxinvoice->regdate, 'd'), '모바일메시징서비스', 'EA', '1', $taxinvoice->amount, $taxinvoice->amount, $taxinvoice->tax, '', $taxinvoice->payamount );
+		$HB->set_work_info(zdate($taxinvoice->regdate, 'm'), zdate($taxinvoice->regdate, 'd'), '모바일메시징서비스', 'EA', '1', $taxinvoice->amount, $taxinvoice->amount, $taxinvoice->tax, '', $taxinvoice->payamount);
 
-		$rs = $HB->send_document( HB_SOAPSERVER_URL );
+		$rs = $HB->send_document(HB_SOAPSERVER_URL);
 
-		if (!$rs) {
+		if(!$rs)
+		{
 			$message = "";
 			$line = $HB->_getError();
-			if(strpos($line, '|') !== false) {
+			if(strpos($line, '|') !== false)
+			{
 				list($code, $msg) = explode('|', $line);
-				$message = 'Error Code : ' . $code . ', Error Msg : '.$msg;
-			} else {
+				$message = 'Error Code : ' . $code . ', Error Msg : ' . $msg;
+			}
+			else
+			{
 				$message = 'Error :' . $line;
 			}
 			return new Object(-1, $message);
@@ -607,7 +719,10 @@ class epayController extends epay
 		$args->history_srl = $history_srl;
 		$args->taxinvoice_id = $HB->get_document_id();
 		$output = executeQuery('recharge.updateTaxinvoiceId', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		unset($HB, $rs);
 
@@ -653,7 +768,10 @@ class epayController extends epay
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowDelivery();
 		$output = ModuleHandler::triggerCall('epay.escrowDelivery', 'after', $escrow_output);
-		if(!$escrow_output->toBool()) return $escrow_output;
+		if(!$escrow_output->toBool())
+		{
+			return $escrow_output;
+		}
 		return $output;
 	}
 
@@ -666,7 +784,10 @@ class epayController extends epay
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowConfirm();
 		$output = ModuleHandler::triggerCall('epay.escrowConfirm', 'after', $escrow_output);
-		if(!$escrow_output->toBool()) return $escrow_output;
+		if(!$escrow_output->toBool())
+		{
+			return $escrow_output;
+		}
 		return $output;
 	}
 
@@ -679,7 +800,10 @@ class epayController extends epay
 		$plugin = $oEpayModel->getPlugin(Context::get('plugin_srl'));
 		$escrow_output = $plugin->procEscrowDenyConfirm();
 		$output = ModuleHandler::triggerCall('epay.escrowDenyConfirm', 'after', $escrow_output);
-		if(!$escrow_output->toBool()) return $escrow_output;
+		if(!$escrow_output->toBool())
+		{
+			return $escrow_output;
+		}
 		return $output;
 	}
 
@@ -692,7 +816,10 @@ class epayController extends epay
 		$args->extra_vars = $extra_vars;
 
 		$output = executeQuery('epay.updateTransaction', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 }
 /* End of file epay.controller.php */

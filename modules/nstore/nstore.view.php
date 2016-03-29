@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstoreView
@@ -9,9 +10,12 @@ class nstoreView extends nstore
 {
 	function init()
 	{
-		if ($this->module_info->module == 'nstore')
+		if($this->module_info->module == 'nstore')
 		{
-			if (!$this->module_info->skin) $this->module_info->skin = 'default';
+			if(!$this->module_info->skin)
+			{
+				$this->module_info->skin = 'default';
+			}
 			$skin = $this->module_info->skin;
 		}
 		else
@@ -26,44 +30,47 @@ class nstoreView extends nstore
 
 		$logged_info = Context::get('logged_info');
 
-		if($logged_info) 
+		if($logged_info)
 		{
-			Context::set('login_chk','Y');
+			Context::set('login_chk', 'Y');
 		}
 		else if(!$logged_info)
 		{
-			Context::set('login_chk','N');
+			Context::set('login_chk', 'N');
 		}
 	}
 
 	// 주문내역 보기 (날짜별)
-	function dispNstoreOrderList() 
+	function dispNstoreOrderList()
 	{
 		$oFileModel = getModel('file');
 		$oNstoreModel = getModel('nstore');
 
 		$config = $oNstoreModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$logged_info = Context::get('logged_info');
 
 		// 비회원 구매가 활성화되어 있지 않고 로그인 되있지 않다면
-		if(!$logged_info && $config->guest_buy=='N') return new Object(-1, 'msg_login_required');
+		if(!$logged_info && $config->guest_buy == 'N')
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		// 로그인되어 있지 않다면 비회원 주문상품 조회 페이지로
-		if(!$logged_info) 	
+		if(!$logged_info)
 		{
 			$this->dispNstoreNonLoginOrder();
-			return; 
+			return;
 		}
 
 		$startdate = Context::get('startdate');
 		$enddate = Context::get('enddate');
-		if (!$startdate)
+		if(!$startdate)
 		{
-			$startdate = date('Ymd', time() - (60*60*24*30));
+			$startdate = date('Ymd', time() - (60 * 60 * 24 * 30));
 		}
-		if (!$enddate)
+		if(!$enddate)
 		{
 			$enddate = date('Ymd');
 		}
@@ -77,16 +84,21 @@ class nstoreView extends nstore
 		$output = executeQueryArray('nstore.getOrderItems', $args);
 		$item_list = $output->data;
 		$order_list = array();
-		if ($item_list) {
-			foreach ($item_list as $key=>$val) {
+		if($item_list)
+		{
+			foreach($item_list as $key => $val)
+			{
 				$item = new nproductItem($val, $config->currency, $config->as_sign, $config->decimals);
-				if ($item->option_srl)
+				if($item->option_srl)
 				{
 					$item->price += ($item->option_price);
 				}
 				$item_list[$key] = $item;
 
-				if (!isset($order_list[$val->order_srl])) $order_list[$val->order_srl] = array();
+				if(!isset($order_list[$val->order_srl]))
+				{
+					$order_list[$val->order_srl] = array();
+				}
 
 				$order_list[$val->order_srl][] = $item;
 
@@ -101,7 +113,7 @@ class nstoreView extends nstore
 		$this->setTemplateFile('orderlist');
 	}
 
-	function dispNstoreOrderDetail() 
+	function dispNstoreOrderDetail()
 	{
 		$oFileModel = getModel('file');
 		$oEpayModel = getModel('epay');
@@ -111,18 +123,27 @@ class nstoreView extends nstore
 		$order_srl = Context::get('order_srl');
 
 		// 주문번호가 없다면
-		if(!$order_srl) return new Object(-1, 'msg_invalid_order_number');
+		if(!$order_srl)
+		{
+			return new Object(-1, 'msg_invalid_order_number');
+		}
 
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 
 		// 주문정보가 없다면
-		if(!$order_info) return new Object(-1, 'msg_invalid_order_number');
+		if(!$order_info)
+		{
+			return new Object(-1, 'msg_invalid_order_number');
+		}
 
 		// 권한 체크
-		if($logged_info) 
+		if($logged_info)
 		{
 			// 로그인되어 있다면 member_srl 과 order_srl을 비교
-			if($order_info->member_srl != $logged_info->member_srl) return new Object(-1, 'msg_not_permitted');
+			if($order_info->member_srl != $logged_info->member_srl)
+			{
+				return new Object(-1, 'msg_not_permitted');
+			}
 		}
 		else  // 로그인 되어있지 않다면
 		{
@@ -130,14 +151,20 @@ class nstoreView extends nstore
 			$config = $oNcartModel->getModuleConfig();
 
 			// 설정에서 비회원 구매를 N으로 해놨다면 return
-			if($config->guest_buy != 'Y') return new Object(-1, 'msg_not_permitted');
+			if($config->guest_buy != 'Y')
+			{
+				return new Object(-1, 'msg_not_permitted');
+			}
 
 			// 설정에서 비회원 구매를 Y로 해놨다면 PermissionCheck
 			$oNstoreController = getController('nstore');
 			$non_password = Context::get("non_password");
 			$compare_password = $order_info->non_password;
 			$output = $oNstoreController->checkOrderPermission($compare_password, $non_password);
-			if(!is_null($output) && !$output->toBool()) return $output;
+			if(!is_null($output) && !$output->toBool())
+			{
+				return $output;
+			}
 			unset($vars);
 		}
 
@@ -145,8 +172,8 @@ class nstoreView extends nstore
 		Context::set('order_status', $this->getOrderStatus());
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
-		Context::set('payment_method',$this->getPaymentMethods());
+		Context::set('payment_info', $payment_info);
+		Context::set('payment_method', $this->getPaymentMethods());
 
 		Context::set('delivery_inquiry_urls', $this->delivery_inquiry_urls);
 		Context::set('delivery_companies', $oNstoreModel->getDeliveryCompanies());
@@ -155,24 +182,36 @@ class nstoreView extends nstore
 		$this->setTemplateFile('orderdetail');
 	}
 
-	function dispNstoreReplyComment() 
+	function dispNstoreReplyComment()
 	{
 		// 권한 체크
-		if(!$this->grant->write_comment) return new Object(-1,'msg_not_permitted');
+		if(!$this->grant->write_comment)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
 		$parent_srl = Context::get('comment_srl');
 
 		// 지정된 원 댓글이 없다면 오류
-		if(!$parent_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$parent_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		// 해당 댓글를 찾아본다
 		$oCommentModel = getModel('comment');
 		$oSourceComment = $oCommentModel->getComment($parent_srl, $this->grant->manager);
 
 		// 댓글이 없다면 오류
-		if(!$oSourceComment->isExists()) return new Object(-1, 'msg_invalid_request');
-		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl')) return new Object(-1, 'msg_invalid_request');
+		if(!$oSourceComment->isExists())
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
+		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		// 대상 댓글을 생성
 		$oComment = $oCommentModel->getComment();
@@ -180,11 +219,11 @@ class nstoreView extends nstore
 		$oComment->add('document_srl', $oSourceComment->get('document_srl'));
 
 		// 필요한 정보들 세팅
-		Context::set('oSourceComment',$oSourceComment);
-		Context::set('oComment',$oComment);
-		Context::set('module_srl',$this->module_info->module_srl);
+		Context::set('oSourceComment', $oSourceComment);
+		Context::set('oComment', $oComment);
+		Context::set('module_srl', $this->module_info->module_srl);
 
-		/** 
+		/**
 		 * 사용되는 javascript 필터 추가
 		 **/
 		//Context::addJsFilter($this->module_path.'tpl/filter', 'insert_comment.xml');
@@ -192,12 +231,12 @@ class nstoreView extends nstore
 		$this->setTemplateFile('commentform');
 	}
 
-	function dispNstoreLogin() 
+	function dispNstoreLogin()
 	{
 		$oNstoreModel = getModel('nstore');
 		// get module config
 		$config = $oNstoreModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$this->setTemplateFile('login_form');
 	}
@@ -230,7 +269,10 @@ class nstoreView extends nstore
 			$args->order_srl = $order_srl;
 			$args->deny_order = $deny_order;
 			$output = executeQuery('nstore.updateEscrow', $args);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$plugin = $oEpayModel->getPlugin($payment_info->plugin_srl);
 			$output = $plugin->dispEscrowConfirm($order_info, $payment_info, $escrow_info);
 			Context::set('content', $output);

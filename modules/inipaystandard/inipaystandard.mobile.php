@@ -1,18 +1,18 @@
 <?php
-	require_once(_XE_PATH_ . 'modules/inipaystandard/inipaystandard.view.php');
-	
+require_once(_XE_PATH_ . 'modules/inipaystandard/inipaystandard.view.php');
+
+/**
+ * @class  inipaystandardMobile
+ * @author CONORY (http://www.conory.com)
+ * Mobile class of inipaystandard module
+ */
+class inipaystandardMobile extends inipaystandardView
+{
 	/**
-	 * @class  inipaystandardMobile
-	 * @author CONORY (http://www.conory.com)
-	 * Mobile class of inipaystandard module
+	 * @brief Initialization
 	 */
-	class inipaystandardMobile extends inipaystandardView
+	function init()
 	{
-		/**
-		 * @brief Initialization
-		 */
-		function init()
-		{
-			
-		}
+
 	}
+}

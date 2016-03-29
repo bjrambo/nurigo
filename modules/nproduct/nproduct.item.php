@@ -1,11 +1,12 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nproductItem
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproductItem class
  */
-class nproductItem extends Object 
+class nproductItem extends Object
 {
 	var $ExtMod = NULL;
 	var $mid = NULL;
@@ -37,14 +38,20 @@ class nproductItem extends Object
 	 * @brief constructor
 	 *
 	 */
-	function nproductItem($info, $currency="KRW", $as_sign="N", $decimals=0) 
+	function nproductItem($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
 	{
-		if(is_object($info)) $this->setAttributes($info);
-		if(is_numeric($info)) 
+		if(is_object($info))
+		{
+			$this->setAttributes($info);
+		}
+		if(is_numeric($info))
 		{
 			$oStoreModel = getModel('nproduct');
 			$item_info = $oStoreModel->getItemInfo($info);
-			if ($item_info) $this->setAttributes($item_info);
+			if($item_info)
+			{
+				$this->setAttributes($item_info);
+			}
 		}
 		$this->currency = $currency;
 		$this->as_sign = $as_sign;
@@ -59,14 +66,14 @@ class nproductItem extends Object
 			if(is_object($extra_vars) || is_array($extra_vars))
 			{
 				$this->extra_var_objs = new stdClass();
-				foreach ($extra_vars as $key => $val)
+				foreach($extra_vars as $key => $val)
 				{
 					$this->extra_var_objs->{$val->column_name} = $val;
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * @brief print price
 	 *
@@ -75,7 +82,10 @@ class nproductItem extends Object
 	{
 		$oCurrencyModel = getModel('currency');
 
-		if(!$price) $price = $this->price;
+		if(!$price)
+		{
+			$price = $this->price;
+		}
 		return $oCurrencyModel->printPrice($price);
 	}
 
@@ -101,7 +111,7 @@ class nproductItem extends Object
 	}
 
 	/**
-	 * @brief print formatted price 
+	 * @brief print formatted price
 	 *
 	 */
 	function formatMoney($number)
@@ -117,8 +127,11 @@ class nproductItem extends Object
 	function getPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
-		if ($price===NULL) $price = $this->price;
-		
+		if($price === NULL)
+		{
+			$price = $this->price;
+		}
+
 		return $oCurrencyModel->getPrice($price);
 	}
 
@@ -128,7 +141,10 @@ class nproductItem extends Object
 	 */
 	function getDiscountedPrice()
 	{
-		if($this->discounted_price) return $this->discounted_price;
+		if($this->discounted_price)
+		{
+			return $this->discounted_price;
+		}
 		return $this->price;
 	}
 
@@ -139,7 +155,9 @@ class nproductItem extends Object
 	function printDiscountedPrice($price = null)
 	{
 		if($price !== null)
+		{
 			$price = $this->printPrice($price);
+		}
 
 		return $this->printPrice($this->discounted_price);
 	}
@@ -148,9 +166,9 @@ class nproductItem extends Object
 	 * @brief set attributes
 	 *
 	 */
-	function setAttributes($info) 
+	function setAttributes($info)
 	{
-		foreach ($info as $key=>$val) 
+		foreach($info as $key => $val)
 		{
 			$this->{$key} = $val;
 		}
@@ -160,13 +178,13 @@ class nproductItem extends Object
 	 * @brief get item name
 	 *
 	 */
-	function getItemName($cut_size=0)
+	function getItemName($cut_size = 0)
 	{
 		return cut_str($this->item_name, $cut_size, '..');
 	}
 
 	/**
-	 * @brief 
+	 * @brief
 	 *
 	 */
 	function getFileSrl()
@@ -176,36 +194,47 @@ class nproductItem extends Object
 	}
 
 	/**
-	 * @brief 
+	 * @brief
 	 *
 	 */
 	function getExtraVarTitle($key)
 	{
 		if(isset($this->extra_var_objs->{$key}->column_title))
+		{
 			return $this->extra_var_objs->{$key}->column_title;
+		}
 
 		return NULL;
 	}
 
 	/**
-	 * @brief 
+	 * @brief
 	 *
 	 */
 	function getExtraVarValue($key)
 	{
 		$value = NULL;
-		if(isset($this->extra_var_objs->{$key}->value)) $value = $this->extra_var_objs->{$key}->value;
-		if(is_array($value)) $value = implode(',',$value);
+		if(isset($this->extra_var_objs->{$key}->value))
+		{
+			$value = $this->extra_var_objs->{$key}->value;
+		}
+		if(is_array($value))
+		{
+			$value = implode(',', $value);
+		}
 		return $value;
 	}
 
 	/**
-	 * @brief 
+	 * @brief
 	 *
 	 */
-	function thumbnailExists($width = 80, $height = 0, $type = 'crop') 
+	function thumbnailExists($width = 80, $height = 0, $type = 'crop')
 	{
-		if(!$this->getThumbnail($width, $height, $type)) return false;
+		if(!$this->getThumbnail($width, $height, $type))
+		{
+			return false;
+		}
 		return true;
 	}
 
@@ -213,38 +242,58 @@ class nproductItem extends Object
 	 * @brief get thumbnail
 	 *
 	 */
-	function getThumbnail($width = 80, $height = 0, $thumbnail_type = 'crop') 
+	function getThumbnail($width = 80, $height = 0, $thumbnail_type = 'crop')
 	{
 		$oFileModel = getModel('file');
 
 		$file_srl = $this->getFileSrl();
-		if(!$file_srl) return NULL;
-		if(!$height) $height = $width;
+		if(!$file_srl)
+		{
+			return NULL;
+		}
+		if(!$height)
+		{
+			$height = $width;
+		}
 
 		// Define thumbnail information
-		$thumbnail_path = sprintf('files/cache/thumbnails/%s',getNumberingPath($file_srl, 3));
+		$thumbnail_path = sprintf('files/cache/thumbnails/%s', getNumberingPath($file_srl, 3));
 		$thumbnail_file = sprintf('%s%dx%d.%s.jpg', $thumbnail_path, $width, $height, $thumbnail_type);
-		$thumbnail_url  = Context::getRequestUri().$thumbnail_file;
+		$thumbnail_url = Context::getRequestUri() . $thumbnail_file;
 		// Return false if thumbnail file exists and its size is 0. Otherwise, return its path
-		if(file_exists($thumbnail_file)) 
+		if(file_exists($thumbnail_file))
 		{
-			if(filesize($thumbnail_file)<1)
+			if(filesize($thumbnail_file) < 1)
 			{
 				return NULL;
 			}
-			else return $thumbnail_url;
+			else
+			{
+				return $thumbnail_url;
+			}
 		}
 		// Target File
 		$source_file = NULL;
 		$file = $oFileModel->getFile($file_srl);
-		if($file) $source_file = $file->uploaded_filename;
+		if($file)
+		{
+			$source_file = $file->uploaded_filename;
+		}
 
 		if($source_file)
+		{
 			$output = FileHandler::createImageFile($source_file, $thumbnail_file, $width, $height, 'jpg', $thumbnail_type);
+		}
 		// Return its path if a thumbnail is successfully genetated
-		if($output) return $thumbnail_url;
+		if($output)
+		{
+			return $thumbnail_url;
+		}
 		// Create an empty file not to re-generate the thumbnail
-		else FileHandler::writeFile($thumbnail_file, '','w');
+		else
+		{
+			FileHandler::writeFile($thumbnail_file, '', 'w');
+		}
 
 		return NULL;
 	}

@@ -19,13 +19,17 @@ use PayPal\Api\FundingInstrument;
  * // determining return/cancel urls
  * @return string
  */
-function getBaseUrl() {
+function getBaseUrl()
+{
 
 	$protocol = 'http';
-	if ($_SERVER['SERVER_PORT'] == 443 || (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on')) {
+	if ($_SERVER['SERVER_PORT'] == 443 || (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on'))
+	{
 		$protocol .= 's';
 		$protocol_port = $_SERVER['SERVER_PORT'];
-	} else {
+	}
+	else
+	{
 		$protocol_port = 80;
 	}
 
@@ -41,7 +45,8 @@ function getBaseUrl() {
  * @param PayPal\Api\ApiContext apiContext
  * @return PayPal\Api\Authorization
  */
-function createAuthorization($apiContext) {
+function createAuthorization($apiContext)
+{
 	$addr = new Address();
 	$addr->setLine1("3909 Witmer Road")
 		->setLine2("Niagara Falls")
@@ -50,7 +55,7 @@ function createAuthorization($apiContext) {
 		->setPostalCode("14305")
 		->setCountryCode("US")
 		->setPhone("716-298-1822");
-	
+
 	$card = new CreditCard();
 	$card->setType("visa")
 		->setNumber("4417119669820331")
@@ -60,22 +65,22 @@ function createAuthorization($apiContext) {
 		->setFirstName("Joe")
 		->setLastName("Shopper")
 		->setBillingAddress($addr);
-	
+
 	$fi = new FundingInstrument();
 	$fi->setCreditCard($card);
-	
+
 	$payer = new Payer();
 	$payer->setPaymentMethod("credit_card")
 		->setFundingInstruments(array($fi));
-	
+
 	$amount = new Amount();
 	$amount->setCurrency("USD")
 		->setTotal("1.00");
-	
+
 	$transaction = new Transaction();
 	$transaction->setAmount($amount)
 		->setDescription("Payment description.");
-	
+
 	$payment = new Payment();
 
 	// Setting intent to authorize creates a payment
@@ -83,9 +88,9 @@ function createAuthorization($apiContext) {
 	$payment->setIntent("authorize")
 		->setPayer($payer)
 		->setTransactions(array($transaction));
-	
+
 	$paymnt = $payment->create($apiContext);
 	$resArray = $paymnt->toArray();
-	
+
 	return $authId = $resArray['transactions'][0]['related_resources'][0]['authorization']['id'];
 }

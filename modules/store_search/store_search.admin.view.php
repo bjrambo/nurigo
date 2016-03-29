@@ -1,4 +1,5 @@
 <?php
+
 class store_searchAdminView extends store_search
 {
 
@@ -19,9 +20,9 @@ class store_searchAdminView extends store_search
 		// Get configurations (using module model object)
 		$oModuleModel = getModel('module');
 		$this->config = $oModuleModel->getModuleConfig('integration_search');
-		Context::set('config',$this->config);
+		Context::set('config', $this->config);
 
-		$this->setTemplatePath($this->module_path."/tpl/");
+		$this->setTemplatePath($this->module_path . "/tpl/");
 	}
 
 	/**
@@ -34,7 +35,7 @@ class store_searchAdminView extends store_search
 		// Get a list of skins(themes)
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 		// Get a list of module categories
 		$module_categories = $oModuleModel->getModuleCategories();
 		// Generated mid Wanted list
@@ -57,19 +58,19 @@ class store_searchAdminView extends store_search
 		$oModuleModel = getModel('module');
 		$module_srl = Context::get('module_srl');
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
 			}
 			else
 			{
 				$oModuleModel->syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 
@@ -79,9 +80,9 @@ class store_searchAdminView extends store_search
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
 	}
-	
+
 	function dispStore_searchAdminView()
-	{ 
+	{
 		$this->setTemplateFile('store_search');
-	}	
+	}
 }

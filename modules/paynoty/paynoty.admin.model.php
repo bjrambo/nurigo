@@ -1,13 +1,13 @@
 <?php
+
 /**
- * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  paynotyAdminModel
  * @author NURIGO(contact@nurigo.net)
  * @brief  paynotyAdminModel
  */
-class paynotyAdminModel extends paynoty 
+class paynotyAdminModel extends paynoty
 {
-	function getPaynotyAdminDelete() 
+	function getPaynotyAdminDelete()
 	{
 		// get configs.
 		$args->config_srl = Context::get('config_srl');
@@ -19,9 +19,9 @@ class paynotyAdminModel extends paynoty
 		$args->config_srls = Context::get('config_srls');
 		$output = executeQueryArray("paynoty.getModuleInfoByConfigSrl", $args);
 		$mid_list = array();
-		if ($output->data) 
+		if($output->data)
 		{
-			foreach ($output->data as $no => $val) 
+			foreach($output->data as $no => $val)
 			{
 				$mid_list[] = $val->mid;
 			}
@@ -31,8 +31,7 @@ class paynotyAdminModel extends paynoty
 		Context::set('config', $config);
 
 		$oTemplate = &TemplateHandler::getInstance();
-		$tpl = $oTemplate->compile($this->module_path.'tpl', 'delete');
-		$this->add('tpl', str_replace("\n"," ",$tpl));
+		$tpl = $oTemplate->compile($this->module_path . 'tpl', 'delete');
+		$this->add('tpl', str_replace("\n", " ", $tpl));
 	}
 }
-?>

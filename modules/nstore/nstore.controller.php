@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstoreController
@@ -22,33 +23,33 @@ class nstoreController extends nstore
 
 		$args->non_password = base64_encode($args->non_password);
 
-		$obj->return_url = getNotEncodedUrl('','act','dispNstoreOrderDetail','order_srl',$args->order_srl,'mid',Context::get('mid'),'non_password',$args->non_password,'module',Context::get('module'));
+		$obj->return_url = getNotEncodedUrl('', 'act', 'dispNstoreOrderDetail', 'order_srl', $args->order_srl, 'mid', Context::get('mid'), 'non_password', $args->non_password, 'module', Context::get('module'));
 		$this->setRedirectUrl($obj->return_url);
 	}
 
-	function updateSalesCount($item_srl, $quantity) 
+	function updateSalesCount($item_srl, $quantity)
 	{
 		$oNproductController = getController('nproduct');
 		$oNproductController->updateSalesCount($item_srl, $quantity);
 	}
 
-	function updateOrderStatus($order_srl, $in_args) 
+	function updateOrderStatus($order_srl, $in_args)
 	{
 		$oNstoreModel = getModel('nstore');
 
 		// if the order is completed, give mileage to the member.
-		if ($in_args->order_status==nstore::ORDER_STATE_COMPLETE)
+		if($in_args->order_status == nstore::ORDER_STATE_COMPLETE)
 		{
 			$order_info = $oNstoreModel->getOrderInfo($order_srl);
-			if ($order_info->member_srl && $order_info->mileage && $order_info->mileage_save=='N')
+			if($order_info->member_srl && $order_info->mileage && $order_info->mileage_save == 'N')
 			{
 				$oNmileageController = getController('nmileage');
 				$oNmileageController->plusMileage($order_info->member_srl, $order_info->mileage, $order_info->title, $order_srl);
 				$args->mileage_save = 'Y';
 			}
-			if ($order_info->item_list)
+			if($order_info->item_list)
 			{
-				foreach ($order_info->item_list as $key=>$item)
+				foreach($order_info->item_list as $key => $item)
 				{
 					$item_srl = $item->item_srl;
 					$quantity = $item->quantity;
@@ -67,7 +68,10 @@ class nstoreController extends nstore
 		$args->purdate = "YmdHiS";
 		$args->payment_method = $in_args->payment_method;
 		$output = executeQuery('nstore.updateOrderStatus', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// for cart table
 		$args->order_srl = $order_srl;
@@ -76,7 +80,10 @@ class nstoreController extends nstore
 		$args->invoice_no = $in_args->invoice_no;
 		$args->purdate = "YmdHiS";
 		$output = executeQuery('nstore.updateCartOrderStatus', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		return new Object();
 	}
@@ -108,10 +115,16 @@ class nstoreController extends nstore
 		$args->result_message = $in_args->get('result_message');
 
 		$output = executeQuery('nstore.deleteEscrowDelivery', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$output = executeQuery('nstore.insertEscrowDelivery', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 
 	function triggerEscrowConfirm($in_args)
@@ -121,7 +134,10 @@ class nstoreController extends nstore
 		$args->confirm_message = $in_args->get('confirm_message');
 		$args->confirm_date = $in_args->get('confirm_date');
 		$output = executeQuery('nstore.updateEscrow', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 
 	function triggerEscrowDenyConfirm($in_args)
@@ -131,17 +147,26 @@ class nstoreController extends nstore
 		$args->denyconfirm_message = $in_args->get('denyconfirm_message');
 		$args->denyconfirm_date = $in_args->get('denyconfirm_date');
 		$output = executeQuery('nstore.updateEscrow', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 	}
 
 
-	function insertOrder($in_args, &$cart) 
+	function insertOrder($in_args, &$cart)
 	{
 		$oNstoreModel = getModel('nstore');
 
 		$args = $in_args;
-		if (is_array($args->purchaser_cellphone)) $args->purchaser_cellphone = implode('-',$in_args->purchaser_cellphone);
-		if (is_array($args->purchaser_telnum)) $args->purchaser_telnum = implode('-',$in_args->purchaser_telnum);
+		if(is_array($args->purchaser_cellphone))
+		{
+			$args->purchaser_cellphone = implode('-', $in_args->purchaser_cellphone);
+		}
+		if(is_array($args->purchaser_telnum))
+		{
+			$args->purchaser_telnum = implode('-', $in_args->purchaser_telnum);
+		}
 		$args->purchaser_address = serialize($in_args->purchaser_address);
 		$args->recipient_name = $in_args->recipient_name;
 		$args->recipient_cellphone = $in_args->recipient_cellphone;
@@ -149,7 +174,10 @@ class nstoreController extends nstore
 		$args->recipient_address = serialize($in_args->recipient_address);
 		$args->non_password = $in_args->non_password;
 		$output = executeQuery('nstore.insertOrder', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		unset($args);
 
 		// update cart items.
@@ -157,14 +185,21 @@ class nstoreController extends nstore
 		$args->order_srl = $in_args->order_srl;
 		$args->member_srl = $in_args->member_srl;
 		$args->module_srl = $in_args->module_srl;
-		foreach ($cart->item_list as $key=>$val) {
-			if($val->module != 'nstore') continue;
+		foreach($cart->item_list as $key => $val)
+		{
+			if($val->module != 'nstore')
+			{
+				continue;
+			}
 			$args->cart_srl = $val->cart_srl;
 			$args->discount_amount = $val->discount_amount;
 			$args->discount_info = $val->discount_info;
 			$args->discounted_price = $val->discounted_price;
 			$output = executeQuery('nstore.updateCartItem', $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 		}
 
@@ -195,35 +230,47 @@ class nstoreController extends nstore
 			$non_password1 = trim($non_password1);
 			$non_password2 = trim($non_password2);
 
-			if(!$non_password1 || !$non_password2) return new Object(-1, '비밀번호를 입력해주세요.');
+			if(!$non_password1 || !$non_password2)
+			{
+				return new Object(-1, '비밀번호를 입력해주세요.');
+			}
 
 			if($non_password1 == $non_password2)
-			{	
+			{
 				$non_password = $non_password1;
-				
+
 				$non_password = crypt($non_password);
 
 				$args->non_password = $non_password;
 			}
-			else return new Object(-1, '비밀번호가 다릅니다.');
+			else
+			{
+				return new Object(-1, '비밀번호가 다릅니다.');
+			}
 		}
 
 		$cart = $args->cart;
 
 		// from ncart db-table
 		$item_list = $cart->item_list;
-		
+
 		// check number of items
 		$item_count = count($cart->item_list);
-		if (!$item_count) return new Object(-1, 'No items to order');
+		if(!$item_count)
+		{
+			return new Object(-1, 'No items to order');
+		}
 
 		// get title
 		$title = $oNstoreModel->getOrderTitle($cart->item_list);
 
 		// cart 테이블에 insert
-		foreach ($cart->item_list as $key=>$val)
+		foreach($cart->item_list as $key => $val)
 		{
-			if($val->module != 'nstore') continue;
+			if($val->module != 'nstore')
+			{
+				continue;
+			}
 
 			/**
 			 * 현재 상품정보와 장보구니에 담긴 정보를 비교하여 수정된 사항이 있으면 결제가 진행되지 않도록 한다.
@@ -231,14 +278,26 @@ class nstoreController extends nstore
 			// 상품정보 읽어오기
 			$item_info = $oNproductModel->getItemInfo($val->item_srl);
 			// 체크1) 해당 상품이 삭제되었는지 확인
-			if(!$item_info) return new Object(-1, sprintf(Context::getLang('msg_item_not_found'), $item_info->item_name));
+			if(!$item_info)
+			{
+				return new Object(-1, sprintf(Context::getLang('msg_item_not_found'), $item_info->item_name));
+			}
 			// 체크2) 진열상태 체크
-			if($item_info->display == 'N') return new Object(-1, sprintf(Context::getLang('msg_not_displayed_item'), $item_info->item_name));
+			if($item_info->display == 'N')
+			{
+				return new Object(-1, sprintf(Context::getLang('msg_not_displayed_item'), $item_info->item_name));
+			}
 			$group_list = NULL;
-			if($args->member_srl) $group_list = $oMemberModel->getMemberGroups($args->member_srl);
+			if($args->member_srl)
+			{
+				$group_list = $oMemberModel->getMemberGroups($args->member_srl);
+			}
 			$output = $oNproductModel->discountItem($item_info, $group_list);
 			// 체크3) 가격 변동 체크
-			if($val->discounted_price != $output->discounted_price) return new Object(-1, sprintf(Context::getLang('msg_price_changed'), $item_info->item_name));
+			if($val->discounted_price != $output->discounted_price)
+			{
+				return new Object(-1, sprintf(Context::getLang('msg_price_changed'), $item_info->item_name));
+			}
 
 			/**
 			 * 상품정보 카트에 담기
@@ -254,9 +313,15 @@ class nstoreController extends nstore
 			$cartitem_args->option_price = $val->option_price;
 			$cartitem_args->option_title = $val->option_title;
 			$output = executeQuery('nstore.deleteCartItem', $cartitem_args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$output = executeQuery('nstore.insertCartItem', $cartitem_args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			unset($cartitem_args);
 		}
 
@@ -270,8 +335,14 @@ class nstoreController extends nstore
 			$args->member_srl = $logged_info->member_srl;
 			$args->purchaser_email = $logged_info->email_address;
 			$args->purchaser_name = $logged_info->nick_name;
-			if (isset($logged_info->{$config->purchaser_cellphone})) $args->purchaser_cellphone = $logged_info->{$config->purchaser_cellphone};
-			if (isset($logged_info->{$config->purchaser_telnum})) $args->purchaser_telnum = $logged_info->{$config->purchaser_telnum};
+			if(isset($logged_info->{$config->purchaser_cellphone}))
+			{
+				$args->purchaser_cellphone = $logged_info->{$config->purchaser_cellphone};
+			}
+			if(isset($logged_info->{$config->purchaser_telnum}))
+			{
+				$args->purchaser_telnum = $logged_info->{$config->purchaser_telnum};
+			}
 		}
 		else
 		{
@@ -298,29 +369,46 @@ class nstoreController extends nstore
 		$args->taxfree_amount = $cart->taxfree_amount;
 		$args->vat = $cart->vat;
 		$args->extra_vars = NULL;
-		if($args->delivdest_info) $args->extra_vars = serialize($args->delivdest_info);
+		if($args->delivdest_info)
+		{
+			$args->extra_vars = serialize($args->delivdest_info);
+		}
 		// delivery fee
-		if ($args->delivfee_inadvance=='N') {
+		if($args->delivfee_inadvance == 'N')
+		{
 			$cart->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
 		}
-		if($cart->delivery_fee) $total_price += $cart->delivery_fee;
+		if($cart->delivery_fee)
+		{
+			$total_price += $cart->delivery_fee;
+		}
 
 		// delete exist order info.
 		$output = executeQuery('nstore.deleteOrder', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		// insert order info.
 		$output = $this->insertOrder($args, $cart);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		unset($args);
 	}
 
 	/**
 	 * $obj->return_url 에 URL을 넘겨주면 pay::procEpayDoPayment에서 해당 URL로 Redirect시켜준다.
 	 */
-	function processCartPayment(&$obj) {
-		if ($obj->target_module != 'ncart') return;
+	function processCartPayment(&$obj)
+	{
+		if($obj->target_module != 'ncart')
+		{
+			return;
+		}
 
 		$oNstoreModel = getModel('nstore');
 		$oModuleModel = getModel('module');
@@ -331,12 +419,15 @@ class nstoreController extends nstore
 		$args->order_srl = $obj->order_srl;
 		$order_srl = $args->order_srl;
 		$output = executeQuery('nstore.getOrderInfo', $args);
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$order_info = $output->data;
 		unset($args);
 
 		// update order info for success
-		switch ($obj->state) 
+		switch($obj->state)
 		{
 			case '1': // not completed
 				$order_status = '1';
@@ -350,15 +441,21 @@ class nstoreController extends nstore
 		}
 
 
-		if ($order_status)
+		if($order_status)
 		{
 			$args->order_status = $order_status;
 			$args->payment_method = $obj->payment_method;
 			$output = $this->updateOrderStatus($obj->order_srl, $args);
-			if (!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
 			// 결제가 성공일 때 재고 차감, $order_status는 2가 되므로 차감 되야함.
-			if ($obj->state == '2') $output = $this->updateStock($obj->order_srl, $order_status);
+			if($obj->state == '2')
+			{
+				$output = $this->updateStock($obj->order_srl, $order_status);
+			}
 		}
 
 		$orders_info = $oNstoreModel->getOrderInfo($order_srl);
@@ -369,7 +466,10 @@ class nstoreController extends nstore
 		{
 			foreach($orders_info->item_list[$i] as $k => $v)
 			{
-				if($k == 'item_srl') $item_srls[] = $v;
+				if($k == 'item_srl')
+				{
+					$item_srls[] = $v;
+				}
 			}
 		}
 	}
@@ -384,31 +484,49 @@ class nstoreController extends nstore
 		$oNproductController = getController('nproduct');
 
 		// 1(입금대기) ~ 6(거래완료) 상태일 때만 처리, 그외 카트대기, 상품취소, 반품 이런 것들은 처리하면 안됨.
-		if($order_status > 7) return new Object();
-		if($order_status < 1) return new Object();
+		if($order_status > 7)
+		{
+			return new Object();
+		}
+		if($order_status < 1)
+		{
+			return new Object();
+		}
 
 		// 주문정보 읽어오기
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 
 		$nostocklist = array();
 
-		foreach ($order_info->item_list as $k=>$val)
+		foreach($order_info->item_list as $k => $val)
 		{
-			if($val->order_status != '1') continue;
+			if($val->order_status != '1')
+			{
+				continue;
+			}
 
 			$base_stock = $oNproductModel->getItemExtraVarValue($val->item_srl, 'stock');
-			if($base_stock == null) continue;
+			if($base_stock == null)
+			{
+				continue;
+			}
 
 			$stock = $base_stock - $val->quantity;
 			$output = $oNproductController->updateExtraVars($val->item_srl, 'stock', $stock);
 
-			if(!$output->toBool()) return $output; 
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 
-			if($base_stock < $val->quantity) $nostocklist[] = $val->item_name . '(' . $stock . ')';
+			if($base_stock < $val->quantity)
+			{
+				$nostocklist[] = $val->item_name . '(' . $stock . ')';
+			}
 		}
 
 		if(count($nostocklist) > 0)
-		{	
+		{
 			$message = implode($nostocklist, ',');
 			return new Object(2, $message);
 		}
@@ -420,19 +538,28 @@ class nstoreController extends nstore
 	function checkOrderPermission($compare_password, $non_password)
 	{
 		// 주문정보에 비밀번호가 없다면
-		if(!$compare_password) return new Object(-1, 'msg_not_permitted');
+		if(!$compare_password)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
 
 		// 사용자로부터 넘겨받은 비밀번호가 없다면
-		if(!$non_password) return new Object(-1, 'msg_input_password');
+		if(!$non_password)
+		{
+			return new Object(-1, 'msg_input_password');
+		}
 
 		$non_password = base64_decode($non_password);
 
 		// 주문정보에 저장된 암호와 비교를 위해서 사용자로 부터 받은 암호를 crypt
-		$password_salt = substr($compare_password, 0, 12); 
-		$non_password = crypt($non_password, $password_salt); 
+		$password_salt = substr($compare_password, 0, 12);
+		$non_password = crypt($non_password, $password_salt);
 
 		// crypt한 비밀번호와 order_info에 저장된 비밀번호가 같지 않다면
-		if($non_password != $compare_password) return new Object(-1,'msg_invalid_password');
+		if($non_password != $compare_password)
+		{
+			return new Object(-1, 'msg_invalid_password');
+		}
 	}
 
 }

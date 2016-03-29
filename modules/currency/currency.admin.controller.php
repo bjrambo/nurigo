@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @class  currencyAdminController
  */
-class currencyAdminController extends currency 
+class currencyAdminController extends currency
 {
 	/**
 	 * @brief Initialization
@@ -12,14 +13,17 @@ class currencyAdminController extends currency
 	}
 
 	/**
-	 * @save config setting 
+	 * @save config setting
 	 */
 	function procCurrencyAdminConfig()
 	{
 		$args = Context::getRequestVars();
 		$oModuleControll = getController('module');
 		$output = $oModuleControll->insertModuleConfig('currency', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$this->setMessage('success_updated');
 
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCurrencyAdminContent');

@@ -1,16 +1,17 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  cashpayAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  cashpayAdminView
- */ 
+ */
 class cashpayAdminView extends cashpay
 {
 	/**
 	 * @brief initialize view class
 	 */
-	function init() 
+	function init()
 	{
 		$oModuleModel = getModel('module');
 
@@ -23,24 +24,24 @@ class cashpayAdminView extends cashpay
 		}
 
 		// prepare $module_info if the module_srl is passed.
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
 			}
 			else
 			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 
 		// set template path
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		Context::set('tpl_path', $tpl_path);
 	}
@@ -48,7 +49,7 @@ class cashpayAdminView extends cashpay
 	/**
 	 * @brief print account input form
 	 */
-	function dispCashpayAdminInsert() 
+	function dispCashpayAdminInsert()
 	{
 		$this->setTemplateFile('insert');
 	}
@@ -56,7 +57,7 @@ class cashpayAdminView extends cashpay
 	/**
 	 * @brief print module instance list
 	 */
-	function dispCashpayAdminModInstList() 
+	function dispCashpayAdminModInstList()
 	{
 		// get the module instance list
 		$args = new stdClass();
@@ -66,9 +67,15 @@ class cashpayAdminView extends cashpay
 		$args->page_count = 10;
 		$args->s_module_category_srl = Context::get('module_category_srl');
 		$output = executeQueryArray('cashpay.getModInstList', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
+		if(!is_array($list))
+		{
+			$list = array();
+		}
 		Context::set('list', $list);
 
 		// get the module categories
@@ -82,12 +89,12 @@ class cashpayAdminView extends cashpay
 	/**
 	 * @brief print module instance creation form
 	 */
-	function dispCashpayAdminInsertModInst() 
+	function dispCashpayAdminInsertModInst()
 	{
 		// get the skin list
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		// get the mobile skin list
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
@@ -99,7 +106,7 @@ class cashpayAdminView extends cashpay
 		Context::set('layout_list', $layout_list);
 
 		// get the mobile layout list
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// get the module categories
@@ -111,7 +118,7 @@ class cashpayAdminView extends cashpay
 	/**
 	 * @brief print PC skin info
 	 **/
-	function dispCashpayAdminSkinInfo() 
+	function dispCashpayAdminSkinInfo()
 	{
 		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleSkinHTML($this->module_info->module_srl);
@@ -122,7 +129,7 @@ class cashpayAdminView extends cashpay
 	/**
 	 * @brief print mobile skin info
 	 **/
-	function dispCashpayAdminMobileSkinInfo() 
+	function dispCashpayAdminMobileSkinInfo()
 	{
 		$oModuleAdminModel = getAdminModel('module');
 		$skin_content = $oModuleAdminModel->getModuleMobileSkinHTML($this->module_info->module_srl);

@@ -5,22 +5,22 @@
  * @author NURUIGO(contact@nurigo.net)
  * @brief  nstore_digitalView
  */
-if (Context::get('act')=='dispNstore_digitalCertificate')
+if(Context::get('act') == 'dispNstore_digitalCertificate')
 {
 	require_once('tcpdf/config/lang/kor.php');
 	require_once('tcpdf/tcpdf.php');
 
-	class MYPDF extends TCPDF 
+	class MYPDF extends TCPDF
 	{
 		//Page header
-		public function Header() 
+		public function Header()
 		{
 			// full background image
 			// store current auto-page-break status
 			$bMargin = $this->getBreakMargin();
 			$auto_page_break = $this->AutoPageBreak;
 			$this->SetAutoPageBreak(false, 0);
-			$img_file = _XE_PATH_.'modules/nstore_digital/tpl/img/certificate.jpg';
+			$img_file = _XE_PATH_ . 'modules/nstore_digital/tpl/img/certificate.jpg';
 			$this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
 			// restore auto-page-break status
 			$this->SetAutoPageBreak($auto_page_break, $bMargin);
@@ -33,14 +33,23 @@ class nstore_digitalView extends nstore_digital
 	function init()
 	{
 		// 템플릿 경로 설정
-		if($this->module_info->module != 'nstore_digital') $this->module_info->skin = 'default';
-		if(!$this->module_info->skin) $this->module_info->skin = 'default';
-		if(!$this->module_info->display_caution) $this->module_info->display_caution = 'Y';
-		$this->setTemplatePath($this->module_path."skins/{$this->module_info->skin}");
-		Context::set('module_info',$this->module_info);
+		if($this->module_info->module != 'nstore_digital')
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->skin)
+		{
+			$this->module_info->skin = 'default';
+		}
+		if(!$this->module_info->display_caution)
+		{
+			$this->module_info->display_caution = 'Y';
+		}
+		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		Context::set('module_info', $this->module_info);
 	}
 
-	function dispNstore_digitalIndex() 
+	function dispNstore_digitalIndex()
 	{
 		$oFileModel = getModel('file');
 		$oNstore_digital_contentsModel = getModel('nstore_digital_contents');
@@ -48,39 +57,53 @@ class nstore_digitalView extends nstore_digital
 		$oNdcModel = getModel('nstore_digital_contents');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 		$config = $oNstore_digitalModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		$args->member_srl = $logged_info->member_srl;
 		$args->module = 'nstore_digital';
 		$output = executeQueryArray('nstore_digital.getPurchasedItems', $args);
 		$item_list = $output->data;
 		$order_list = array();
-		if ($item_list) {
-			foreach ($item_list as $key=>$val) {
+		if($item_list)
+		{
+			foreach($item_list as $key => $val)
+			{
 				$item = new nproductItem($val, $config->currency, $config->as_sign, $config->decimals);
-				if ($item->option_srl)
+				if($item->option_srl)
 				{
 					$item->price += ($item->option_price);
 				}
 
 				// get content_file
 
-				if($val->file_srl != '0') 
+				if($val->file_srl != '0')
 				{
 					$file = $oFileModel->getFile($val->file_srl);
-					if($file) $item->download_file = $file;
+					if($file)
+					{
+						$item->download_file = $file;
+					}
 				}
 
 				$content_list = $oNstore_digital_contentsModel->getContents($val->item_srl);
-				if($content_list) $item->content_list = $content_list;
+				if($content_list)
+				{
+					$item->content_list = $content_list;
+				}
 
 				// end 
 
 				$item_list[$key] = $item;
 
-				if (!isset($order_list[$val->order_srl])) $order_list[$val->order_srl] = array();
+				if(!isset($order_list[$val->order_srl]))
+				{
+					$order_list[$val->order_srl] = array();
+				}
 
 				$order_list[$val->order_srl][] = $item;
 
@@ -94,11 +117,17 @@ class nstore_digitalView extends nstore_digital
 					$current_date = date("Ymd", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
 
 					// 만기일이 지났으면
-					if($period->data->period < $current_date) $item->exceed_date = 'Y';
+					if($period->data->period < $current_date)
+					{
+						$item->exceed_date = 'Y';
+					}
 
 					// 아이템에 만기일 설정이 되있으면  
 					$period_config = $oNdcModel->getItemConfig($val->item_srl);
-					if($period_config->period) $item->period_config = 'Y';
+					if($period_config->period)
+					{
+						$item->period_config = 'Y';
+					}
 				}
 			}
 		}
@@ -111,7 +140,7 @@ class nstore_digitalView extends nstore_digital
 		$this->setTemplateFile('index');
 	}
 
-	function dispNstore_digitalFrontPage() 
+	function dispNstore_digitalFrontPage()
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 
@@ -124,7 +153,7 @@ class nstore_digitalView extends nstore_digital
 		$this->setTemplateFile('frontpage');
 	}
 
-	function dispNstore_digitalDetail() 
+	function dispNstore_digitalDetail()
 	{
 		$oFileModel = getModel('file');
 		$oEpayModel = getModel('epay');
@@ -141,25 +170,28 @@ class nstore_digitalView extends nstore_digital
 		Context::set('order_status', $this->getOrderStatus());
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
-		Context::set('payment_method',$this->getPaymentMethods());
+		Context::set('payment_info', $payment_info);
+		Context::set('payment_method', $this->getPaymentMethods());
 
 		$this->setTemplateFile('detail');
 	}
 
-	function dispNstore_digitalCertificate() 
+	function dispNstore_digitalCertificate()
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$logged_info = Context::get('logged_info');
 		$cart_srl = Context::get('cart_srl');
-		if(!$logged_info) return new Object(-1, 'msg_login_required');
+		if(!$logged_info)
+		{
+			return new Object(-1, 'msg_login_required');
+		}
 
 		$config = $oNstore_digitalModel->getModuleConfig();
 		$item_info = $oNstore_digitalModel->getPurchasedItem($logged_info->member_srl, $cart_srl);
 		Context::set('item_info', $item_info);
-		if (!in_array($item_info->order_status, array('3'))) 
+		if(!in_array($item_info->order_status, array('3')))
 		{
-			return new Object(-1,'구매완료된 상품이 아닙니다.');
+			return new Object(-1, '구매완료된 상품이 아닙니다.');
 		}
 
 		// create new PDF document
@@ -211,9 +243,9 @@ class nstore_digitalView extends nstore_digital
 		// add a page
 		$pdf->AddPage();
 		// output the HTML content
-		$this->setTemplatePath($this->module_path."tpl");
+		$this->setTemplatePath($this->module_path . "tpl");
 		$oTemplate = &TemplateHandler::getInstance();
-		$output = $oTemplate->compile($this->module_path.'tpl','certificate');
+		$output = $oTemplate->compile($this->module_path . 'tpl', 'certificate');
 		$pdf->writeHTML($output, true, false, true, false, '');
 		// reset pointer to the last page
 		$pdf->lastPage();
@@ -223,7 +255,7 @@ class nstore_digitalView extends nstore_digital
 		exit();
 	}
 
-	function dispNstore_digitalPeriodPayment() 
+	function dispNstore_digitalPeriodPayment()
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$oNdc_model = getModel('nstore_digital_contents');
@@ -238,7 +270,10 @@ class nstore_digitalView extends nstore_digital
 
 		$price = $item_info->price;
 		$extra_vars = unserialize($item_config->extra_vars);
-		if(isset($extra_vars['period_price'])) $price = $extra_vars['period_price'];
+		if(isset($extra_vars['period_price']))
+		{
+			$price = $extra_vars['period_price'];
+		}
 
 		//$cart_info = $oNdc_model->getPeriod(Context::get('cart_srl'));
 
@@ -256,9 +291,15 @@ class nstore_digitalView extends nstore_digital
 
 		switch($period_type)
 		{
-			case 'd' : $d = $period; break;
-			case 'm' : $m = $period; break;
-			case 'y' : $y = $period; break;
+			case 'd' :
+				$d = $period;
+				break;
+			case 'm' :
+				$m = $period;
+				break;
+			case 'y' :
+				$y = $period;
+				break;
 		}
 
 		if($cart_info->period > $current_date)
@@ -269,11 +310,11 @@ class nstore_digitalView extends nstore_digital
 			$year = substr($dead_line, 0, 4);
 			$month = substr($dead_line, 4, 2);
 			$day = substr($dead_line, 6, 2);
-			$period = date("Ymd", mktime(0, 0, 0, $month+$m, $day+$d, $year+$y));
+			$period = date("Ymd", mktime(0, 0, 0, $month + $m, $day + $d, $year + $y));
 		}
 		else
 		{
-			$period = date("Ymd", mktime(0, 0, 0, date("m")+$m, date("d")+$d, date("Y")+$y));
+			$period = date("Ymd", mktime(0, 0, 0, date("m") + $m, date("d") + $d, date("Y") + $y));
 		}
 
 		// pass payment amount, item name, etc.. to epay module.
@@ -290,7 +331,10 @@ class nstore_digitalView extends nstore_digital
 		$oEpayView = getView('epay');
 		$output = $oEpayView->getPaymentForm($args);
 
-		if (!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$epay_form = $output->data;
 
 		Context::set('cart_srl', Context::get('cart_srl'));
@@ -301,7 +345,7 @@ class nstore_digitalView extends nstore_digital
 
 		$this->setTemplateFile('period_payment');
 	}
-	
+
 	function dispNstore_digitalOrderComplete()
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
@@ -309,32 +353,35 @@ class nstore_digitalView extends nstore_digital
 		$logged_info = Context::get('logged_info');
 
 		$order_srl = Context::get('order_srl');
-		if (!$order_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$order_srl)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
+		Context::set('payment_info', $payment_info);
 
 		$period_srl = Context::get('period_srl');
 		$period_info = $oNstore_digitalModel->getPeriodInfo($period_srl);
 		//$item_list = $oNcartModel->getPaidOrderItems($order_srl);
 		Context::set('period_info', $period_info);
 
-/*
-		// fieldset
-		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
-		foreach($fieldset_list as $key=>&$val)
-		{
-			foreach($val->fields as $key2=>&$field)
-			{
-				if(isset($extra_vars->{$field->column_name}))
+		/*
+				// fieldset
+				$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);
+				foreach($fieldset_list as $key=>&$val)
 				{
-					$field->value = $extra_vars->{$field->column_name};
+					foreach($val->fields as $key2=>&$field)
+					{
+						if(isset($extra_vars->{$field->column_name}))
+						{
+							$field->value = $extra_vars->{$field->column_name};
+						}
+					}
 				}
-			}
-		}
 
-		Context::set('fieldset_list', $fieldset_list);
-*/
+				Context::set('fieldset_list', $fieldset_list);
+		*/
 		Context::set('order_status', $this->getOrderStatus());
 
 		$this->setTemplateFile('ordercomplete');

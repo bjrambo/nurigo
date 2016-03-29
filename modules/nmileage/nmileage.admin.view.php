@@ -1,16 +1,17 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nmileageAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  nmileageAdminView
- */ 
+ */
 class nmileageAdminView extends nmileage
 {
 	/**
 	 * @brief Contructor
 	 **/
-	function init() 
+	function init()
 	{
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
@@ -23,17 +24,19 @@ class nmileageAdminView extends nmileage
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
 		if($module_info && !in_array($module_info->module, array('nmileage')))
@@ -42,28 +45,28 @@ class nmileageAdminView extends nmileage
 		}
 
 		// set template file
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		Context::set('tpl_path', $tpl_path);
 
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if(Context::get('module') == 'cympusadmin')
+		{
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if(file_exists($classfile))
+			{
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 	}
 
-	function dispNmileageAdminConfig() 
+	function dispNmileageAdminConfig()
 	{
 		$oNmileageModel = getModel('nmileage');
 		$oModuleModel = getModel('module');
 
 		$config = $oNmileageModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		// list of skins for member module
 		$skin_list = $oModuleModel->getSkins($this->module_path);
@@ -77,14 +80,14 @@ class nmileageAdminView extends nmileage
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		$this->setTemplateFile('config');
 	}
 
 
-	function dispNmileageAdminModInstList() 
+	function dispNmileageAdminModInstList()
 	{
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
@@ -94,7 +97,7 @@ class nmileageAdminView extends nmileage
 		$output = executeQueryArray('nmileage.getModInstList', $args);
 		$list = $output->data;
 
-		if(!is_array($list)) 
+		if(!is_array($list))
 		{
 			$list = array();
 		}
@@ -108,14 +111,14 @@ class nmileageAdminView extends nmileage
 		$this->setTemplateFile('modinstlist');
 	}
 
-	function dispNmileageAdminInsertModInst() 
+	function dispNmileageAdminInsertModInst()
 	{
 		$oNmileageModel = getModel('nmileage');
 
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
 		Context::set('mskin_list', $mskin_list);
@@ -125,7 +128,7 @@ class nmileageAdminView extends nmileage
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		$module_category = $oModuleModel->getModuleCategories();
@@ -134,7 +137,7 @@ class nmileageAdminView extends nmileage
 		$this->setTemplateFile('insertmodinst');
 	}
 
-	function dispNmileageAdminAdditionSetup() 
+	function dispNmileageAdminAdditionSetup()
 	{
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
@@ -149,7 +152,7 @@ class nmileageAdminView extends nmileage
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNmileageAdminSkinInfo() 
+	function dispNmileageAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -161,7 +164,7 @@ class nmileageAdminView extends nmileage
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNmileageAdminMobileSkinInfo() 
+	function dispNmileageAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -170,7 +173,7 @@ class nmileageAdminView extends nmileage
 		$this->setTemplateFile('skininfo');
 	}
 
-	function dispNmileageAdminMileageList() 
+	function dispNmileageAdminMileageList()
 	{
 		$oNmileageModel = getModel('nmileage');
 		$config = $oNmileageModel->getModuleConfig();
@@ -212,7 +215,7 @@ class nmileageAdminView extends nmileage
 		$this->setTemplateFile('mileagelist');
 	}
 
-	function dispNmileageAdminMileageHistory() 
+	function dispNmileageAdminMileageHistory()
 	{
 		$args->page = Context::get('page');
 		$args->member_srl = Context::get('member_srl');
@@ -231,7 +234,7 @@ class nmileageAdminView extends nmileage
 		$this->setTemplateFile('mileagehistory');
 	}
 
-	function dispNmileageAdminAllMileageHistory() 
+	function dispNmileageAdminAllMileageHistory()
 	{
 		$args->page = Context::get('page');
 		$output = executeQueryArray('nmileage.getMileageHistory', $args);

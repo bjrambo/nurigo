@@ -5,14 +5,17 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nstoreModel
  */
-require_once(_XE_PATH_.'modules/nstore/nstore.view.php');
-class nstoreMobile extends nstoreView {
+require_once(_XE_PATH_ . 'modules/nstore/nstore.view.php');
+
+class nstoreMobile extends nstoreView
+{
 	function init()
 	{
-		$template_path = sprintf("%sm.skins/%s/",$this->module_path, $this->module_info->mskin);
-		if(!is_dir($template_path)||!$this->module_info->mskin) {
+		$template_path = sprintf("%sm.skins/%s/", $this->module_path, $this->module_info->mskin);
+		if(!is_dir($template_path) || !$this->module_info->mskin)
+		{
 			$this->module_info->mskin = 'default';
-			$template_path = sprintf("%sm.skins/%s/",$this->module_path, $this->module_info->mskin);
+			$template_path = sprintf("%sm.skins/%s/", $this->module_path, $this->module_info->mskin);
 		}
 		$this->setTemplatePath($template_path);
 

@@ -1,9 +1,9 @@
 <?php
+
 /**
- * vi:set ts=4 sw=4 noexpandtab fileencoding=utf-8:
  * @class  epayAdminModel
  * @author NURIGO(contact@nurigo.net)
- * @brief  epay admin model 
+ * @brief  epay admin model
  **/
 class epayAdminModel extends epay
 {
@@ -22,9 +22,9 @@ class epayAdminModel extends epay
 			Context::set('plugin_info', $output->data);
 		}
 		$oTemplate = &TemplateHandler::getInstance();
-		$tpl = $oTemplate->compile($this->module_path.'tpl', 'form_delete_plugin');
+		$tpl = $oTemplate->compile($this->module_path . 'tpl', 'form_delete_plugin');
 
-		$this->add('tpl', str_replace("\n"," ",$tpl));
+		$this->add('tpl', str_replace("\n", " ", $tpl));
 	}
 
 	function getEpayAdminDeleteModInst()
@@ -36,8 +36,8 @@ class epayAdminModel extends epay
 		Context::set('module_info', $module_info);
 
 		$oTemplate = &TemplateHandler::getInstance();
-		$tpl = $oTemplate->compile($this->module_path.'tpl', 'form_delete_modinst');
-		$this->add('tpl', str_replace("\n"," ",$tpl));
+		$tpl = $oTemplate->compile($this->module_path . 'tpl', 'form_delete_modinst');
+		$this->add('tpl', str_replace("\n", " ", $tpl));
 	}
 }
 /* End of file epay.admin.model.php */

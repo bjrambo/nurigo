@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  inipaymobileAdminController
@@ -10,20 +11,23 @@ class inipaymobileAdminController extends inipaymobile
 	/**
 	 * @brief not used yet
 	 */
-	function procInipaymobileAdminConfig() 
+	function procInipaymobileAdminConfig()
 	{
 		$args = Context::getRequestVars();
-		
+
 		// save module configuration.
 		$oModuleControll = getController('module');
 		$output = $oModuleControll->insertModuleConfig('inipaymobile', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$this->setMessage('success_updated');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) 
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileAdminConfig','module_srl',Context::get('module_srl'));
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileAdminConfig', 'module_srl', Context::get('module_srl'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
@@ -33,7 +37,7 @@ class inipaymobileAdminController extends inipaymobile
 	/**
 	 * @brief writes module instance configuration.
 	 */
-	function procInipaymobileAdminInsertModInst() 
+	function procInipaymobileAdminInsertModInst()
 	{
 		// get the instance of the model and controller of the module.
 		$oModuleController = getController('module');
@@ -46,7 +50,7 @@ class inipaymobileAdminController extends inipaymobile
 		$args->module = 'inipaymobile';
 
 		// check if the module instance already exists
-		if($args->module_srl) 
+		if($args->module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl)
@@ -57,27 +61,36 @@ class inipaymobileAdminController extends inipaymobile
 		}
 
 		// insert or update depending on the module_srl existence
-		if(!$args->module_srl) 
+		if(!$args->module_srl)
 		{
 			$output = $oModuleController->insertModule($args);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$msg_code = 'success_registed';
 		}
 		else
 		{
 			$output = $oModuleController->updateModule($args);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$msg_code = 'success_updated';
 		}
 
-        // make log directory
-        $path = sprintf(_XE_PATH_."files/epay/%s/log",$output->get('module_srl'));
-        if(!FileHandler::makeDir($path)) return new Object(-1, 'could not create a directory');
+		// make log directory
+		$path = sprintf(_XE_PATH_ . "files/epay/%s/log", $output->get('module_srl'));
+		if(!FileHandler::makeDir($path))
+		{
+			return new Object(-1, 'could not create a directory');
+		}
 
-		$this->add('module_srl',$output->get('module_srl'));
+		$this->add('module_srl', $output->get('module_srl'));
 		$this->setMessage($msg_code);
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileAdminInsertModInst','module_srl',$output->get('module_srl'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispInipaymobileAdminInsertModInst', 'module_srl', $output->get('module_srl'));
 		$this->setRedirectUrl($returnUrl);
 	}
 
@@ -92,7 +105,10 @@ class inipaymobileAdminController extends inipaymobile
 		// execute deletion calling the module controller function
 		$oModuleController = getController('module');
 		$output = $oModuleController->deleteModule($module_srl);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$this->add('module', 'inipaymobile');
 		$this->add('page', Context::get('page'));

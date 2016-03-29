@@ -1,4 +1,5 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nmileageAdminController
@@ -8,20 +9,20 @@
 class nmileageAdminController extends nmileage
 {
 
-	function procNmileageAdminConfig() 
+	function procNmileageAdminConfig()
 	{
 
 		$args = Context::getRequestVars();
-		
+
 		// save module configuration.
 		$oModuleControll = getController('module');
 		$output = $oModuleControll->insertModuleConfig('nmileage', $args);
 
 		$this->setMessage('success_updated');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) 
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminConfig','module_srl',Context::get('module_srl'));
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminConfig', 'module_srl', Context::get('module_srl'));
 			$this->setRedirectUrl($returnUrl);
 			return;
 		}
@@ -31,7 +32,7 @@ class nmileageAdminController extends nmileage
 	/**
 	 * @brief 모듈 환경설정값 쓰기
 	 **/
-	function procNmileageAdminInsertModInst() 
+	function procNmileageAdminInsertModInst()
 	{
 		// module 모듈의 model/controller 객체 생성
 		$oModuleController = getController('module');
@@ -44,7 +45,7 @@ class nmileageAdminController extends nmileage
 		debugPrint($args);
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
-		if($args->module_srl) 
+		if($args->module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 			if($module_info->module_srl != $args->module_srl)
@@ -54,7 +55,7 @@ class nmileageAdminController extends nmileage
 		}
 
 		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl) 
+		if(!$args->module_srl)
 		{
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
@@ -65,16 +66,19 @@ class nmileageAdminController extends nmileage
 			$msg_code = 'success_updated';
 		}
 
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
-		$this->add('module_srl',$output->get('module_srl'));
+		$this->add('module_srl', $output->get('module_srl'));
 		$this->setMessage($msg_code);
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminInsertModInst','module_srl',$this->get('module_srl'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminInsertModInst', 'module_srl', $this->get('module_srl'));
 		$this->setRedirectUrl($returnUrl);
 	}
 
-	function procNmileageAdminDeleteModInst() 
+	function procNmileageAdminDeleteModInst()
 	{
 		$module_srl = Context::get('module_srl');
 
@@ -85,8 +89,8 @@ class nmileageAdminController extends nmileage
 			return $output;
 		}
 
-		$this->add('module','nmileage');
-		$this->add('page',Context::get('page'));
+		$this->add('module', 'nmileage');
+		$this->add('page', Context::get('page'));
 		$this->setMessage('success_deleted');
 
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminModInstList');
@@ -94,7 +98,7 @@ class nmileageAdminController extends nmileage
 	}
 
 
-	function insertMileage($member_srl, $amount) 
+	function insertMileage($member_srl, $amount)
 	{
 		$args->member_srl = $member_srl;
 		$args->mileage = $amount;
@@ -108,7 +112,7 @@ class nmileageAdminController extends nmileage
 		$args->title = $title;
 		$args->balance = $balance;
 	*/
-	function insertMileageHistory($args, $order_srl=0) 
+	function insertMileageHistory($args, $order_srl = 0)
 	{
 		$args->history_srl = getNextSequence();
 		$args->order_srl = $order_srl;
@@ -116,7 +120,7 @@ class nmileageAdminController extends nmileage
 	}
 
 
-	function procNmileageAdminPlusMileage() 
+	function procNmileageAdminPlusMileage()
 	{
 		$oMemberModel = getModel('member');
 		$oNmileageController = getController('nmileage');
@@ -124,7 +128,7 @@ class nmileageAdminController extends nmileage
 		$user_id = Context::get('user_id');
 		$amount = (int)Context::get('mileage');
 		$title = Context::get('memo');
-		
+
 		$member_info = $oMemberModel->getMemberInfoByUserID($user_id);
 		if(!$member_info)
 		{
@@ -132,13 +136,16 @@ class nmileageAdminController extends nmileage
 		}
 
 		$output = $oNmileageController->plusMileage($member_info->member_srl, $amount, $title);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminMileageHistory','member_srl',$member_info->member_srl,'page',Context::get('page'),'search_target',Context::get('search_target'), 'search_keyword', Context::get('search_keyword'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminMileageHistory', 'member_srl', $member_info->member_srl, 'page', Context::get('page'), 'search_target', Context::get('search_target'), 'search_keyword', Context::get('search_keyword'));
 		$this->setRedirectUrl($returnUrl);
 	}
 
-	function procNmileageAdminMinusMileage() 
+	function procNmileageAdminMinusMileage()
 	{
 		$oMemberModel = getModel('member');
 		$oNmileageController = getController('nmileage');
@@ -146,7 +153,7 @@ class nmileageAdminController extends nmileage
 		$user_id = Context::get('user_id');
 		$amount = (int)Context::get('mileage');
 		$title = Context::get('memo');
-		
+
 		$member_info = $oMemberModel->getMemberInfoByUserID($user_id);
 		if(!$member_info)
 		{
@@ -154,9 +161,12 @@ class nmileageAdminController extends nmileage
 		}
 
 		$output = $oNmileageController->minusMileage($member_info->member_srl, $amount, $title);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
-		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminMileageHistory','member_srl',$member_info->member_srl,'page',Context::get('page'),'search_target',Context::get('search_target'), 'search_keyword', Context::get('search_keyword'));
+		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispNmileageAdminMileageHistory', 'member_srl', $member_info->member_srl, 'page', Context::get('page'), 'search_target', Context::get('search_target'), 'search_keyword', Context::get('search_keyword'));
 		$this->setRedirectUrl($returnUrl);
 	}
 }

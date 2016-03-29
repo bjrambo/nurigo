@@ -1,13 +1,14 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  nstore_digitalAdminView
  * @author NURIGO(contact@nurigo.net)
  * @brief  nstore_digitalAdminView
- */ 
+ */
 class nstore_digitalAdminView extends nstore_digital
 {
-	function init() 
+	function init()
 	{
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$module_srl = Context::get('module_srl');
@@ -20,20 +21,22 @@ class nstore_digitalAdminView extends nstore_digital
 		$oModuleModel = getModel('module');
 
 		// module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-		if($module_srl) 
+		if($module_srl)
 		{
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			if(!$module_info) 
+			if(!$module_info)
 			{
-				Context::set('module_srl','');
+				Context::set('module_srl', '');
 				$this->act = 'list';
-			} else {
+			}
+			else
+			{
 				ModuleModel::syncModuleToSite($module_info);
 				$this->module_info = $module_info;
-				Context::set('module_info',$module_info);
+				Context::set('module_info', $module_info);
 			}
 		}
-		if($module_info && !in_array($module_info->module, array('nstore','nstore_digital','elearning')))
+		if($module_info && !in_array($module_info->module, array('nstore', 'nstore_digital', 'elearning')))
 		{
 			return $this->stop("msg_invalid_request");
 		}
@@ -44,39 +47,47 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('epay_modules', $modules);
 
 		// set template file
-		$tpl_path = $this->module_path.'tpl';
+		$tpl_path = $this->module_path . 'tpl';
 		$this->setTemplatePath($tpl_path);
 		Context::set('tpl_path', $tpl_path);
 
 		// module이 cympusadmin일때 관리자 레이아웃으로
-        if(Context::get('module')=='cympusadmin')
-        {
-            $classfile = _XE_PATH_.'modules/cympusadmin/cympusadmin.class.php';
-            if(file_exists($classfile))
-            {
-                    require_once($classfile);
-                    cympusadmin::init();
-            }
-        }
+		if(Context::get('module') == 'cympusadmin')
+		{
+			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+			if(file_exists($classfile))
+			{
+				require_once($classfile);
+				cympusadmin::init();
+			}
+		}
 	}
 
 	/**
 	 * @brief Contructor
 	 **/
-	function dispNstore_digitalAdminDashboard() 
+	function dispNstore_digitalAdminDashboard()
 	{
 		$output = executeQueryArray('nstore_digital.getOrderStat', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$list = $output->data;
-		if(!is_array($list)) $list = array();
+		if(!is_array($list))
+		{
+			$list = array();
+		}
 
 		$stat_arr = array();
 		$keys = array_keys($this->order_status);
 
-		foreach ($keys as $key) {
+		foreach($keys as $key)
+		{
 			$stat_arr[$key] = 0;
 		}
-		foreach ($list as $key=>$val) {
+		foreach($list as $key => $val)
+		{
 			$stat_arr[$val->order_status] = $val->count;
 		}
 		Context::set('order_status', $this->getOrderStatus());
@@ -94,7 +105,7 @@ class nstore_digitalAdminView extends nstore_digital
 		{
 			$modinst_list = array();
 		}
-		foreach ($modinst_list as $modinst)
+		foreach($modinst_list as $modinst)
 		{
 			$module_srls[] = $modinst->module_srl;
 		}
@@ -105,12 +116,12 @@ class nstore_digitalAdminView extends nstore_digital
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
 		$comment_list = $oCommentModel->getNewestCommentList($args, $columnList);
-		if(!is_array($comment_list)) 
+		if(!is_array($comment_list))
 		{
 			$comment_list = array();
 		}
 
-		foreach($comment_list AS $key=>$value)
+		foreach($comment_list AS $key => $value)
 		{
 			$value->content = strip_tags($value->content);
 		}
@@ -120,14 +131,14 @@ class nstore_digitalAdminView extends nstore_digital
 
 		// newest review
 		$review_list = array();
-		require_once(_XE_PATH_.'modules/store_review/store_review.item.php');
+		require_once(_XE_PATH_ . 'modules/store_review/store_review.item.php');
 		$args->module_srl = $module_srls;
 		$output = executeQueryArray('nstore_digital.getNewestReviewList', $args);
-		if(!is_array($output->data)) 
+		if(!is_array($output->data))
 		{
 			$output->data = array();
 		}
-		foreach ($output->data as $key=>$val)
+		foreach($output->data as $key => $val)
 		{
 			if(!$val->review_srl)
 			{
@@ -146,13 +157,13 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('dashboard');
 	}
 
-	function dispNstore_digitalAdminOrderManagement() 
+	function dispNstore_digitalAdminOrderManagement()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 
 		if(!Context::get('status'))
 		{
-			Context::set('status','1');
+			Context::set('status', '1');
 		}
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
@@ -168,9 +179,15 @@ class nstore_digitalAdminView extends nstore_digital
 			$args->{$search_key} = $search_value;
 		}
 		$output = executeQueryArray('nstore_digital.getOrderListByStatus', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 		$order_list = $output->data;
-		if(!is_array($order_list)) $order_list = array();
+		if(!is_array($order_list))
+		{
+			$order_list = array();
+		}
 		Context::set('list', $order_list);
 		Context::set('total_count', $output->total_count);
 		Context::set('total_page', $output->total_page);
@@ -182,7 +199,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('ordermanagement');
 	}
 
-	function dispNstore_digitalAdminIndividualOrderManagement() 
+	function dispNstore_digitalAdminIndividualOrderManagement()
 	{
 
 		$oNstore_coreModel = getModel('nstore_digital');
@@ -190,19 +207,19 @@ class nstore_digitalAdminView extends nstore_digital
 
 		$config = $oNstore_coreModel->getModuleConfig();
 
-/*
-		$order_srl = Context::get('order_srl');
+		/*
+				$order_srl = Context::get('order_srl');
 
-		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
+				$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
 
-		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
-		Context::set('order_info', $order_info);
-		*/
+				$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
+				Context::set('payment_info',$payment_info);
+				Context::set('order_info', $order_info);
+				*/
 
 		if(!Context::get('status'))
 		{
-			Context::set('status','1');
+			Context::set('status', '1');
 		}
 
 		if(Context::get('search_key'))
@@ -222,7 +239,10 @@ class nstore_digitalAdminView extends nstore_digital
 
 		$output = executeQueryArray('nstore_digital.getPurchasedItemsByStatus', $args);
 
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		Context::set('total_count', $output->total_count);
 		Context::set('total_page', $output->total_page);
@@ -231,14 +251,20 @@ class nstore_digitalAdminView extends nstore_digital
 
 
 		$order_list = $output->data;
-		if(!is_array($order_list)) $order_list = array();
+		if(!is_array($order_list))
+		{
+			$order_list = array();
+		}
 
 		foreach($order_list as $k => $v)
 		{
-			if(!$v)continue;
+			if(!$v)
+			{
+				continue;
+			}
 
 			$item = new nproductItem($v, $config->currency, $config->as_sign, $config->decimals);
-			if ($item->option_srl)
+			if($item->option_srl)
 			{
 				$item->price += ($item->option_price);
 			}
@@ -246,7 +272,10 @@ class nstore_digitalAdminView extends nstore_digital
 
 			$vars->order_srl = $v->order_srl;
 			$output = executeQuery('nstore_digital.getOrderInfo', $vars);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 			$v->order_info = $output->data;
 			unset($vars);
 		}
@@ -258,14 +287,14 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('individual_ordermanagement');
 	}
 
-	function dispNstore_digitalAdminPeriodManagement() 
+	function dispNstore_digitalAdminPeriodManagement()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 		$oNproduct_Model = getModel('nproduct');
 
 		if(!Context::get('status'))
 		{
-			Context::set('status','1');
+			Context::set('status', '1');
 		}
 
 		$args = new Object();
@@ -284,10 +313,16 @@ class nstore_digitalAdminView extends nstore_digital
 		}
 
 		$output = executeQueryArray('nstore_digital.getPeriodListByStatus', $args);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$order_list = $output->data;
-		if(!is_array($order_list)) $order_list = array();
+		if(!is_array($order_list))
+		{
+			$order_list = array();
+		}
 
 		foreach($order_list as $k => $v)
 		{
@@ -309,7 +344,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('periodmanagement');
 	}
 
-	function dispNstore_digitalAdminOrderDetail() 
+	function dispNstore_digitalAdminOrderDetail()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 		$oEpayModel = getModel('epay');
@@ -321,7 +356,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
-		Context::set('payment_info',$payment_info);
+		Context::set('payment_info', $payment_info);
 		Context::set('order_info', $order_info);
 		Context::set('order_status', $this->getOrderStatus());
 		Context::set('payment_method', $this->getPaymentMethods());
@@ -330,7 +365,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('orderdetail');
 	}
 
-	function dispNstore_digitalAdminOrderExcelDownload() 
+	function dispNstore_digitalAdminOrderExcelDownload()
 	{
 		$args->order_status = Context::get('status');
 		$output = executeQueryArray('nstore_digital.getOrderItemsByStatus', $args);
@@ -346,7 +381,7 @@ class nstore_digitalAdminView extends nstore_digital
 		header("Content-Disposition: attachment; filename=\"ORDERITEMS-" . date('Ymd') . ".xls\"");
 	}
 
-	function dispNstore_digitalAdminItemListExcelDownload() 
+	function dispNstore_digitalAdminItemListExcelDownload()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 		$oStoreView = getView('nstore_digital');
@@ -358,19 +393,19 @@ class nstore_digitalAdminView extends nstore_digital
 		$sort_index = Context::get('sort_index');
 		$order_type = Context::get('order_type');
 
-		if(!$list_count) 
+		if(!$list_count)
 		{
 			$list_count = 30;
 		}
-		if(!$sort_index) 
+		if(!$sort_index)
 		{
 			$sort_index = "item_srl";
 		}
-		if(!$order_type) 
+		if(!$order_type)
 		{
 			$order_type = 'asc';
 		}
-		if($category) 
+		if($category)
 		{
 			$category_info = $oNstore_coreModel->getCategoryInfo($category);
 
@@ -381,7 +416,7 @@ class nstore_digitalAdminView extends nstore_digital
 			$args->sort_index = $sort_index;
 			$args->order_type = $order_type;
 			$output = executeQueryArray('nstore_digital.getItemsByNodeRoute', $args);
-			if(!$output->toBool()) 
+			if(!$output->toBool())
 			{
 				return $output;
 			}
@@ -390,8 +425,8 @@ class nstore_digitalAdminView extends nstore_digital
 			Context::set('total_page', $output->total_page);
 			Context::set('page', $output->page);
 			Context::set('page_navigation', $output->page_navigation);
-		} 
-		else 
+		}
+		else
 		{
 			$args->module_srl = Context::get('module_srl');
 			$args->page = Context::get('page');
@@ -399,7 +434,7 @@ class nstore_digitalAdminView extends nstore_digital
 			$args->sort_index = $sort_index;
 			$args->order_type = $order_type;
 			$output = executeQueryArray('nstore_digital.getItemsByNodeRoute', $args);
-			if(!$output->toBool()) 
+			if(!$output->toBool())
 			{
 				return $output;
 			}
@@ -410,9 +445,10 @@ class nstore_digitalAdminView extends nstore_digital
 			Context::set('page_navigation', $output->page_navigation);
 		}
 
-		if($item_list) 
+		if($item_list)
 		{
-			foreach ($item_list as $key=>$val) {
+			foreach($item_list as $key => $val)
+			{
 				$item_list[$key] = new nproductItem($val);
 			}
 		}
@@ -425,11 +461,11 @@ class nstore_digitalAdminView extends nstore_digital
 		header("Content-Disposition: attachment; filename=\"ITEMLIST-" . date('Ymd') . ".xls\"");
 	}
 
-	function dispNstore_digitalAdminReceipt() 
+	function dispNstore_digitalAdminReceipt()
 	{
 		$args->order_srl = Context::get('order_srl');
 		$output = executeQuery('nstore_digital.getOrderInfo', $args);
-		if(!$output->toBool()) 
+		if(!$output->toBool())
 		{
 			return $output;
 		}
@@ -441,7 +477,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setLayoutFile('default_layout');
 	}
 
-	function dispNstore_digitalAdminOrderSheet() 
+	function dispNstore_digitalAdminOrderSheet()
 	{
 		$oNstore_digitalModel = getModel('nstore_digital');
 
@@ -454,7 +490,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setLayoutFile('default_layout');
 	}
 
-	function dispNstore_digitalAdminModInstList() 
+	function dispNstore_digitalAdminModInstList()
 	{
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
@@ -471,13 +507,13 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('modinstlist');
 	}
 
-	function dispNstore_digitalAdminConfig() 
+	function dispNstore_digitalAdminConfig()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 		$oModuleModel = getModel('module');
 
 		$config = $oNstore_coreModel->getModuleConfig();
-		Context::set('config',$config);
+		Context::set('config', $config);
 
 		// list of skins for member module
 		$skin_list = $oModuleModel->getSkins($this->module_path);
@@ -491,7 +527,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
@@ -509,14 +545,14 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('config');
 	}
 
-	function dispNstore_digitalAdminInsertModInst() 
+	function dispNstore_digitalAdminInsertModInst()
 	{
 		$oNstore_coreModel = getModel('nstore_digital');
 
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
-		Context::set('skin_list',$skin_list);
+		Context::set('skin_list', $skin_list);
 
 		$mskin_list = $oModuleModel->getSkins($this->module_path, "m.skins");
 		Context::set('mskin_list', $mskin_list);
@@ -526,7 +562,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$layout_list = $oLayoutModel->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$mobile_layout_list = $oLayoutModel->getLayoutList(0,"M");
+		$mobile_layout_list = $oLayoutModel->getLayoutList(0, "M");
 		Context::set('mlayout_list', $mobile_layout_list);
 
 		// epay plugin list
@@ -558,7 +594,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$this->setTemplateFile('insertmodinst');
 	}
 
-	function dispNstore_digitalAdminAdditionSetup() 
+	function dispNstore_digitalAdminAdditionSetup()
 	{
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
@@ -568,25 +604,32 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('setup_content', $content);
 	}
 
-	function dispNstore_digitalAdminMailSetup() 
+	function dispNstore_digitalAdminMailSetup()
 	{
 		// content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
 		$content = '';
 		$status = Context::get('status');
-		if(!$status) $status = '1';
+		if(!$status)
+		{
+			$status = '1';
+		}
 
 		$oAutomailModel = getModel('automail');
-		if($oAutomailModel) $oAutomailModel->getSetup('nstore_digital', $status, $content);
+		if($oAutomailModel)
+		{
+			$oAutomailModel->getSetup('nstore_digital', $status, $content);
+		}
 		Context::set('setup_content', $content);
 		$order_status = $this->getOrderStatus();
 		unset($order_status[0]);
 		Context::set('order_status', $order_status);
 		$this->setTemplateFile('additionsetup');
 	}
+
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNstore_digitalAdminSkinInfo() 
+	function dispNstore_digitalAdminSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -598,7 +641,7 @@ class nstore_digitalAdminView extends nstore_digital
 	/**
 	 * @brief 스킨 정보 보여줌
 	 **/
-	function dispNstore_digitalAdminMobileSkinInfo() 
+	function dispNstore_digitalAdminMobileSkinInfo()
 	{
 		// 공통 모듈 권한 설정 페이지 호출
 		$oModuleAdminModel = getAdminModel('module');
@@ -613,28 +656,29 @@ class nstore_digitalAdminView extends nstore_digital
 		//Retrieve recent news and set them into context
 		$newest_news_url = sprintf("http://www.xeshoppingmall.com/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", _XE_LOCATION_);
 		$cache_file = sprintf("%sfiles/cache/nstore_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
-		if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time())
+		if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 		{
 			// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing textmessageistration page
 			// Ensure to access the textmessageistration page even though news cannot be displayed
-			FileHandler::writeFile($cache_file,'');
-			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL'=>getFullUrl('')));
+			FileHandler::writeFile($cache_file, '');
+			FileHandler::getRemoteFile($newest_news_url, $cache_file, null, 1, 'GET', 'text/html', array('REQUESTURL' => getFullUrl('')));
 		}
 
-		if(file_exists($cache_file)) 
+		if(file_exists($cache_file))
 		{
 			$oXml = new XmlParser();
 			$buff = $oXml->parse(FileHandler::readFile($cache_file));
 
 			$item = $buff->zbxe_news->item;
-			if($item) 
+			if($item)
 			{
-				if(!is_array($item)) 
+				if(!is_array($item))
 				{
 					$item = array($item);
 				}
 
-				foreach($item as $key => $val) {
+				foreach($item as $key => $val)
+				{
 					$obj = null;
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;

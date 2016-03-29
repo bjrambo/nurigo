@@ -374,7 +374,10 @@ class ncartView extends ncart
 			{
 				$column_name = $field->column_name;
 				// if column types are tel or kr_zip, add [] in suffix
-				if(in_array($field->column_type, array('tel', 'kr_zip')))
+				if(in_array($field->column_type, array(
+					'tel',
+					'kr_zip'
+				)))
 				{
 					$column_name = $field->column_name . '[]';
 				}
