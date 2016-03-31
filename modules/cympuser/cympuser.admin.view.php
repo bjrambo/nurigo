@@ -16,7 +16,7 @@ class cympuserAdminView extends cympuser
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 

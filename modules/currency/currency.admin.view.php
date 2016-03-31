@@ -18,7 +18,7 @@ class currencyAdminView extends currency
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 	}

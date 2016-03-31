@@ -58,7 +58,7 @@ class nstore_digitalAdminView extends nstore_digital
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 	}

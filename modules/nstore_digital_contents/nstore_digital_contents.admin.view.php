@@ -21,7 +21,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 	}

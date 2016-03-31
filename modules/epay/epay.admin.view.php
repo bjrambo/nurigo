@@ -28,7 +28,7 @@ class epayAdminView extends epay
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 
@@ -205,7 +205,7 @@ class epayAdminView extends epay
 		if(file_exists($classfile))
 		{
 			require_once($classfile);
-			$output = cympusadmin::init();
+			$output = cympusadmin::init($this);
 			if(!$output->toBool())
 			{
 				return $output;

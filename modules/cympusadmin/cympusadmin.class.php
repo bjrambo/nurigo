@@ -12,16 +12,26 @@ require_once(_CYMPUSADMIN_FUNCTION_);
 
 class cympusadmin extends ModuleObject
 {
-	function init()
+	function init($module)
 	{
 		// change into administration layout
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
-		$this->setLayoutPath('./modules/cympusadmin/tpl');
-		$this->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
+		if($module)
+		{
+			$module->setLayoutPath(_XE_PATH_.'/modules/cympusadmin/tpl');
+			$module->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
+		}
+		else
+		{
+			$this->setLayoutPath(_XE_PATH_.'/modules/cympusadmin/tpl');
+			$this->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
+		}
 
 		Context::loadLang(_XE_PATH_ . 'modules/cympusadmin/lang/');
 
-		if($this->grant->is_admin)
+		$logged_info = Context::get('logged_info');
+
+		if($logged_info->is_admin)
 		{
 			// parse admin menu
 			$oXmlParser = new XmlParser();

@@ -55,7 +55,7 @@ class nmileageAdminView extends nmileage
 			if(file_exists($classfile))
 			{
 				require_once($classfile);
-				cympusadmin::init();
+				cympusadmin::init($this);
 			}
 		}
 	}
