@@ -66,7 +66,6 @@
 					<td colspan="3">탈퇴한 회원({$tran->p_user_id})</td>
 				</block>
 				<td>
-					{@debugPrint()}
 					<select class="payment_state x_span1" data-transaction_srl="{$tran->transaction_srl}">
 						<option selected="selected"|cond="$tran->state == '1'" value="1" >{$lang->state_list['1']}</option>
 						<option selected="selected"|cond="$tran->state == '2'" value="2" >{$lang->state_list['2']}</option>
