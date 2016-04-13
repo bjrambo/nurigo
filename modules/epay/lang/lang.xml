@@ -130,6 +130,9 @@
 			<value xml:lang="zh-TW"><![CDATA[實體銀行轉帳支付]]></value>
 		</item>
 	</item>
+	<item name="delete_log">
+		<value xml:lang="ko"><![CDATA[로그삭제]]></value>
+	</item>
 	<item name="no_data">
 		<value xml:lang="ko"><![CDATA[자료없음]]></value>
 		<value xml:lang="en"><![CDATA[No data]]></value>

@@ -43,6 +43,7 @@
 				<th>{$lang->pg_resultcode}</th>
 				<th>{$lang->pg_resultmessage}</th>
 				<th>{$lang->extension}</th>
+				<th>{$lang->delete_log}</th>
 			</tr>
 			<tr loop="$list=>$no,$tran">
 				<td>{$no}</td>
@@ -78,6 +79,15 @@
 				<td>{$tran->result_code}</td>
 				<td>{$tran->result_message}</td>
 				<td class="long_text"><block loop="unserialize($tran->extra_vars)=>$key,$val">{$key} : <ul cond="is_array($val)"><li loop="$val=>$key2,$val2">{$key2} : {$val2}</li></ul><block cond="!is_array($val)">{$val}</block><br /></block></td>
+				<td>
+					<form ruleset="insertConfig" action="./" method="post" class="x_form-horizontal">
+						<input type="hidden" name="module" value="epay" />
+						<input type="hidden" name="act" value="procEpayAdminDeleteLog" />
+						<input type="hidden" name="transaction_srl" value="{$tran->transaction_srl}" />
+
+						<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_delete}</button>
+					</form>
+				</td>
 			</tr>
 		</thead>
 	</table>

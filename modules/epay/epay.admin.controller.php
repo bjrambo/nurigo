@@ -257,6 +257,43 @@ class epayAdminController extends epay
 			}
 		}
 	}
+
+	function procEpayAdminDeleteLog()
+	{
+		$transaction_srl = Context::get('transaction_srl');
+		if(!$transaction_srl)
+		{
+			return new Object(-1, 'Transaction_srl number isn\'t existence');
+		}
+		$output = self::deleteCartLog($transaction_srl);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+
+		$this->setMessage('success_deleted');
+
+		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		{
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispEpayAdminTransactions');
+			header('location: ' . $returnUrl);
+			return;
+		}
+	}
+
+	function procEpayAdminDeleteLogAll()
+	{
+
+	}
+
+	private static function deleteCartLog($cart_srl, $type = null)
+	{
+		$args = new stdClass();
+		$args->transaction_srl = $cart_srl;
+		$output = executeQuery('epay.deleteTransactionList', $args);
+
+		return $output;
+	}
 }
 /* End of file epay.admin.controller.php */
 /* Location: ./modules/epay/epay.admin.controller.php */
