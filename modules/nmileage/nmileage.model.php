@@ -24,6 +24,10 @@ class nmileageModel extends nmileage
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nmileage');
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
 		if(!$config->mileage_method)
 		{
 			$config->mileage_method = 'nmileage';
@@ -56,6 +60,7 @@ class nmileageModel extends nmileage
 
 	function getMileageInfo($member_srl)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$output = executeQuery('nmileage.getMileageInfo', $args);
 		if(!$output->toBool())

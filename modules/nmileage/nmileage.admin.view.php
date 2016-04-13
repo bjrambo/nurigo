@@ -89,6 +89,7 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminModInstList()
 	{
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -113,8 +114,6 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminInsertModInst()
 	{
-		$oNmileageModel = getModel('nmileage');
-
 		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
 		$skin_list = $oModuleModel->getSkins($this->module_path);
@@ -217,6 +216,7 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminMileageHistory()
 	{
+		$args = new stdClass();
 		$args->page = Context::get('page');
 		$args->member_srl = Context::get('member_srl');
 		$output = executeQueryArray('nmileage.getMileageHistory', $args);
@@ -236,6 +236,7 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminAllMileageHistory()
 	{
+		$args = new stdClass();
 		$args->page = Context::get('page');
 		$output = executeQueryArray('nmileage.getMileageHistory', $args);
 		Context::set('list', $output->data);

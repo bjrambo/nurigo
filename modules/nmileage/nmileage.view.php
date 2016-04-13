@@ -41,6 +41,7 @@ class nmileageView extends nmileage
 			return new Object(-1, "msg_login_required");
 		}
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->page = Context::get('page');
 		$args->regdate_more = $start_date;
@@ -67,6 +68,7 @@ class nmileageView extends nmileage
 
 		$logged_info = Context::get('logged_info');
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$output = executeQueryArray('nmileage.getMileageHistory', $args);
 		Context::set('list', $output->data);

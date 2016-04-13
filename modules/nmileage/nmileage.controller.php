@@ -11,6 +11,7 @@ class nmileageController extends nmileage
 
 	function giveMileage($member_srl, $item_srl, $review_srl, $amount)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->item_srl = $item_srl;
 		$item_list = $this->executeQuery('getNonReviewedPurchasedItems', $args);
@@ -32,6 +33,7 @@ class nmileageController extends nmileage
 
 	function insertMileage($member_srl, $amount)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->mileage = $amount;
 		return executeQuery('nmileage.insertMileage', $args);
@@ -91,6 +93,7 @@ class nmileageController extends nmileage
 				break;
 		}
 
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->amount = $amount;
 		$args->action = '1';
@@ -122,6 +125,7 @@ class nmileageController extends nmileage
 				$current_mileage = $output->mileage;
 				$balance = $current_mileage - $amount;
 
+				$args = new stdClass();
 				$args->member_srl = $member_srl;
 				$args->mileage = $balance;
 				$output = executeQuery('nmileage.updateMileage', $args);
@@ -140,7 +144,7 @@ class nmileageController extends nmileage
 				$balance = $point - $amount;
 				break;
 		}
-
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->amount = $amount;
 		$args->action = '2';
