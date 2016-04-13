@@ -1,0 +1,5 @@
+<query id="deleteTransactionAll" action="delete">
+	<tables>
+		<table name="epay_transactions" />
+	</tables>
+</query>

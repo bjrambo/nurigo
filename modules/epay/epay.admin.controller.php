@@ -265,7 +265,10 @@ class epayAdminController extends epay
 		{
 			return new Object(-1, 'Transaction_srl number isn\'t existence');
 		}
-		$output = self::deleteCartLog($transaction_srl);
+		$args = new stdClass();
+
+		$args->transaction_srl = $transaction_srl;
+		$output = executeQuery('epay.deleteTransactionList', $args);
 		if(!$output->toBool())
 		{
 			return $output;
@@ -283,17 +286,25 @@ class epayAdminController extends epay
 
 	function procEpayAdminDeleteLogAll()
 	{
+		$output = executeQuery('epay.deleteTransactionAll');
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+		else
+		{
+			$this->setMessage('success_deleted');
+		}
+
+		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		{
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispEpayAdminTransactions');
+			header('location: ' . $returnUrl);
+			return;
+		}
 
 	}
 
-	private static function deleteCartLog($cart_srl, $type = null)
-	{
-		$args = new stdClass();
-		$args->transaction_srl = $cart_srl;
-		$output = executeQuery('epay.deleteTransactionList', $args);
-
-		return $output;
-	}
 }
 /* End of file epay.admin.controller.php */
 /* Location: ./modules/epay/epay.admin.controller.php */
