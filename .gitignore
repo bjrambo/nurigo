@@ -1,1 +1,6 @@
 .idea/
+*.sublime-workspace
+error_log
+*.sublime-project
+.codeintel
+codeception.yml
