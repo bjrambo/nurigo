@@ -414,7 +414,12 @@ class inipaymobileController extends inipaymobile
 			$output = $oEpayController->afterPayment($args);
 			if(!$output->toBool())
 			{
+				echo "FAIL";
 				return $output;
+			}
+			else
+			{
+				echo 'OK';
 			}
 			$return_url = $output->get('return_url');
 			if($return_url)
