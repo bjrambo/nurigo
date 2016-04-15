@@ -18,6 +18,7 @@ class store_reviewAdminController extends store_review
 
 	function deleteReviewList($item_srl)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQuery('store_review.deleteReviewsByItemSrl', $args);
 		if(!$output->toBool())

@@ -27,6 +27,7 @@ class paynotyAdminView extends paynoty
 	function dispPaynotyAdminList()
 	{
 		$config_list = array();
+		$args = new stdClass();
 		$args->page = Context::get('page');
 		$output = executeQueryArray('paynoty.getConfigList', $args);
 		if($output->toBool() && $output->data)
@@ -79,6 +80,7 @@ class paynotyAdminView extends paynoty
 		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// set editor options.
+		$option = new stdClass();
 		$option->skin = $config->editor_skin;
 		$option->content_style = $config->content_style;
 		$option->content_font = $config->content_font;
@@ -110,6 +112,7 @@ class paynotyAdminView extends paynoty
 	{
 		$config_srl = Context::get('config_srl');
 		// load paynoty info
+		$args = new stdClass();
 		$args->config_srl = $config_srl;
 		$output = executeQuery("paynoty.getConfig", $args);
 		$config = $output->data;
@@ -144,6 +147,7 @@ class paynotyAdminView extends paynoty
 		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// set options.
+		$option = new stdClass();
 		$option->skin = $config->editor_skin;
 		$option->content_style = $config->content_style;
 		$option->content_font = $config->content_font;

@@ -89,7 +89,7 @@ class nmileageAdminView extends nmileage
 
 	function dispNmileageAdminModInstList()
 	{
-		$args = new stdClass();
+		$args = new stdClass(); 
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;

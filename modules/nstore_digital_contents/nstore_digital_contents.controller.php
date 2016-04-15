@@ -18,14 +18,15 @@ class nstore_digital_contentsController extends nstore_digital_contents
 			return new Object(-1, '설정된 만기일이 없습니다.');
 		}
 
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$args->period = date("Ymd", mktime(0, 0, 0, date("m"), date("d") + $nstore_digital_contents_config->period, date("Y")));
 
-		//$output = executeQuery('nstore_digital_contents.insertPeriod', $args):
+		/*$output = executeQuery('nstore_digital_contents.insertPeriod', $args):
 		if(!$output->toBool())
 		{
 			return $output;
-		}
+		}*/
 	}
 
 	function checkPeriod($cart_srl = null)
@@ -37,6 +38,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 
 		$pass = 'Y';
 
+		$args = new stdClass();
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital_contents.getPeriod', $args);
 		if(!$output->toBool())
@@ -71,6 +73,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 			return new Object(-1, 'no cart_srl');
 		}
 
+		$args = new stdClass();
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital_contents.getPeriod', $args);
 		if(!$output->toBool())
@@ -154,6 +157,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 		{
 			return new Object(-1, 'no cart_srl');
 		}
+		$args = new stdClass();
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital_contents.deletePeriod', $args);
 		if(!$output->toBool())

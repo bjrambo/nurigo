@@ -10,6 +10,7 @@ class paynotyAdminModel extends paynoty
 	function getPaynotyAdminDelete()
 	{
 		// get configs.
+		$args = new stdClass();
 		$args->config_srl = Context::get('config_srl');
 		$output = executeQuery("paynoty.getConfig", $args);
 		$id_list = $output->data->id_list;

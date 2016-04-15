@@ -17,6 +17,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 	function triggerGetContentList(&$item_info)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_info->item_srl;
 		$output = executeQueryArray('nstore_digital_contents.getContentList', $args);
 		if(!$output->toBool())
@@ -91,6 +92,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 		$oFileModel = getModel('file');
 
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQueryArray('nstore_digital_contents.getContentList', $args);
 
@@ -114,6 +116,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 	function getPeriod($cart_srl)
 	{
+		$args = new stdClass();
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital_contents.getPeriod', $args);
 		if(!$output->toBool())
@@ -130,6 +133,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 	function getItemConfig($item_srl)
 	{
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQuery('nstore_digital_contents.getConfig', $args);
 		if(!$output->toBool())

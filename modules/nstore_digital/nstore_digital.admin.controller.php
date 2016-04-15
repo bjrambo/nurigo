@@ -199,6 +199,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 			if($before_status == '1' && $order_status == '2')
 			{
+				$q_args = new stdClass();
 				$q_args->cart_srl = $cart_srl;
 				$q_args->member_srl = $member_srl;
 
@@ -225,7 +226,7 @@ class nstore_digitalAdminController extends nstore_digital
 				*/
 
 				//$oNdc_Controller->setPeriod($cart_srl, $end_date);
-
+				$vars = new stdClass();
 				$vars->cart_srl = $cart_srl;
 				$vars->period = $end_date;
 
@@ -237,7 +238,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 				unset($vars);
 			}
-
+			$args = new stdClass();
 			$args->period_srl = $val;
 			$args->order_status = $order_status;
 			$output = executeQuery('nstore_digital.updatePeriod', $args);
@@ -267,6 +268,7 @@ class nstore_digitalAdminController extends nstore_digital
 		if($primary_express_id || $primary_invoice_no)
 		{
 			// order info
+			$args = new stdClass();
 			$args->order_srl = $order_srl;
 			$args->express_id = $primary_express_id;
 			$args->invoice_no = $primary_invoice_no;
@@ -286,7 +288,7 @@ class nstore_digitalAdminController extends nstore_digital
 		{
 			$express_id = $express_ids[$key];
 			$invoice_no = $invoice_nos[$key];
-
+			$args = new stdClass();
 			$args->cart_srl = $cart_srl;
 			$args->express_id = $express_id;
 			$args->invoice_no = $invoice_no;
@@ -326,6 +328,7 @@ class nstore_digitalAdminController extends nstore_digital
 				continue;
 			}
 			// delete cart items.
+			$args = new stdClass();
 			$args->order_srl = $order_srl;
 			$output = executeQuery('nstore_digital.deleteCartItemsByOrderSrl', $args);
 			if(!$output->toBool())
@@ -376,6 +379,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 			if(Context::get('status') == '2' || Context::get('status') == '3')
 			{
+				$args = new stdClass();
 				$args->period_srl = $period_srl;
 				$output = executeQuery('nstore_digital.getPeriod', $args);
 				if(!$output->toBool())
@@ -387,6 +391,7 @@ class nstore_digitalAdminController extends nstore_digital
 				$oNdc_Controller->deletePeriod($cart_srl);
 			}
 			// delete nstore_digital_period.
+			$args = new stdClass();
 			$args->period_srl = $period_srl;
 			$output = executeQuery('nstore_digital.deletePeriod', $args);
 			if(!$output->toBool())
@@ -407,6 +412,7 @@ class nstore_digitalAdminController extends nstore_digital
 	function procNstore_digitalAdminUpdatePeriod()
 	{
 		$state = Context::get('state');
+		$args = new stdClass();
 		$args->cart_srl = Context::get('cart_srl');
 		$args->period = Context::get('period');
 
@@ -451,6 +457,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 		$oNdcModel = getModel('nstore_digital_contents');
 
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQueryArray('nstore_digital.getCartItemsByOrderSrl', $args);
 		if(!$output->toBool())
@@ -501,6 +508,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 			$period = date("Ymd", mktime(0, 0, 0, date("m") + $m, date("d") + $d, date("Y") + $y));
 
+			$vars = new stdClass();
 			$vars->cart_srl = $v->cart_srl;
 			$vars->period = $period;
 			$output = executeQuery('nstore_digital.updateCartItemPeriod', $vars);

@@ -64,6 +64,7 @@ class nstore_digitalView extends nstore_digital
 		$config = $oNstore_digitalModel->getModuleConfig();
 		Context::set('config', $config);
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->module = 'nstore_digital';
 		$output = executeQueryArray('nstore_digital.getPurchasedItems', $args);
@@ -107,6 +108,7 @@ class nstore_digitalView extends nstore_digital
 
 				$order_list[$val->order_srl][] = $item;
 
+				$vars = new stdClass();
 				$vars->cart_srl = $val->cart_srl;
 				$period = executeQuery('nstore_digital.getCartItem', $vars);
 
@@ -318,7 +320,7 @@ class nstore_digitalView extends nstore_digital
 		}
 
 		// pass payment amount, item name, etc.. to epay module.
-
+		$args = new stdClass();
 		$args->module_srl = $module_info->module_srl;
 		$args->epay_module_srl = $module_info->epay_module_srl;
 		$args->price = (int)$price;

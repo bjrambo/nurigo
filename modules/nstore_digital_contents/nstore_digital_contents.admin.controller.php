@@ -18,6 +18,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 
 			$oFileController->deleteFile($file_srl);
 
+			$args = new stdClass();
 			$args->file_srl = $file_srl;
 			$output = executeQuery('nstore_digital_contents.deleteContent', $args);
 			if(!$output->toBool())
@@ -36,6 +37,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 		$oFileController = getController('file');
 
 		$file_srl = Context::get('file_srl');
+		$args = new stdClass();
 		$args->item_srl = Context::get('item_srl');
 		$args->module_srl = Context::get('module_srl');
 
@@ -104,6 +106,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 		{
 			foreach($record as $file_srl)
 			{
+				$args = new stdClass();
 				$args->file_srl = $file_srl;
 				$args->list_order = $idx;
 				$output = executeQuery('nstore_digital_contents.updateContentListOrder', $args);
@@ -138,6 +141,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 			return new Object(-1, 'no item_srl');
 		}
 
+		$args = new stdClass();
 		$args->item_srl = Context::get('item_srl');
 
 		$output = executeQuery('nstore_digital_contents.getConfig', $args);

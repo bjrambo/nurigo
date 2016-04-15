@@ -21,7 +21,9 @@ class paypalAdminController extends paypal
 			if(!$van)
 			{
 				continue;
-			} // check if $van is empty
+			}
+			// check if $van is empty
+			$args = new stdClass();
 			$args->bank = $bank;
 			$args->van = trim($van);
 			$output = executeQuery('paypal.insertAccount', $args);

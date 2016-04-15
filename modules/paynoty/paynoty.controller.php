@@ -15,6 +15,7 @@ class paynotyController extends paynoty
 
 		if(in_array($config->sending_method, array('1', '2')) && $oTextmessageController)
 		{
+			$args = new stdClass();
 			$args->recipient_no = explode(',', $config->admin_phones);
 			//$args->sender_no = $receiver->recipient_no;
 			$args->content = $content;
@@ -79,7 +80,7 @@ class paynotyController extends paynoty
 				$oDocument = $oDocumentModel->getDocument($obj->document_srl);
 				debugPrint('oDocument : ' . serialize($oDocument));
 		 */
-
+		$tmp_obj = new stdClass();
 		$tmp_obj->article_url = getFullUrl('', 'document_srl', $obj->document_srl);
 		$tmp_content = $this->mergeKeywords($mail_content, $tmp_obj);
 		$tmp_message = $this->mergeKeywords($sms_message, $tmp_obj);
@@ -105,6 +106,7 @@ class paynotyController extends paynoty
 		}
 
 		// if module_srl is wrong, just return with success
+		$args = new stdClass();
 		$args->module_srl = $state->module_srl;
 		$output = executeQuery('module.getMidInfo', $state);
 		if(!$output->toBool() || !$output->data)
@@ -119,7 +121,7 @@ class paynotyController extends paynoty
 		}
 
 		// check login.
-		$sender = new StdClass();
+		$sender = new stdClass();
 		$sender->nick_name = $state->buyername;
 		$sender->email_address = $state->buyeremail;
 		$logged_info = Context::get('logged_info');

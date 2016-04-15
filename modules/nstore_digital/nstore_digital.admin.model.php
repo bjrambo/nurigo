@@ -49,6 +49,7 @@ class nstore_digitalAdminModel extends nstore_digital
 
 	function getSalesInfo($date = null)
 	{
+		$args = new stdClass();
 		if($date)
 		{
 			$args->regdate = $date;

@@ -74,6 +74,7 @@ class nstore_digitalModel extends nstore_digital
 
 	function getPurchasedItem($member_srl, $cart_srl)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital.getPurchasedItem', $args);
@@ -89,6 +90,7 @@ class nstore_digitalModel extends nstore_digital
 		$config = $this->getModuleConfig();
 
 		// order info.
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('nstore_digital.getOrderInfo', $args);
 		$order_info = $output->data;
@@ -128,6 +130,7 @@ class nstore_digitalModel extends nstore_digital
 		}
 
 		// order info.
+		$args = new stdClass();
 		$args->period_srl = $period_srl;
 		$output = executeQuery('nstore_digital.getPeriod', $args);
 		$period_info = $output->data;
@@ -187,6 +190,7 @@ class nstore_digitalModel extends nstore_digital
 	function getItemInfo($item_srl)
 	{
 		$config = $this->getModuleConfig();
+		$args = new stdClass();
 		$args->item_srl = $item_srl;
 		$output = executeQuery('nstore_digital.getItemInfo', $args);
 		if(!$output->toBool())
@@ -199,6 +203,7 @@ class nstore_digitalModel extends nstore_digital
 
 	function getPurchaseCount($member_srl, $item_srl)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->item_srl = $item_srl;
 		$args->more_status = 2;

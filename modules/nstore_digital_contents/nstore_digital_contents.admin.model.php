@@ -10,6 +10,7 @@ class nstore_digital_contentsAdminModel extends nstore_digital_contents
 {
 	function getNstore_digital_contentsAdminContentInfo()
 	{
+		$args = new stdClass();
 		$args->file_srl = Context::get('file_srl');
 		$output = executeQuery('nstore_digital_contents.getContent', $args);
 		if(!$output->toBool())

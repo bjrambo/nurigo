@@ -25,6 +25,7 @@ class paynotyAdminController extends paynoty
 		if($params->config_srl)
 		{
 			// delete existences
+			$args = new stdClass();
 			$args->config_srl = $params->config_srl;
 			$output = executeQuery('paynoty.deleteConfig', $args);
 			if(!$output->toBool())
@@ -47,7 +48,7 @@ class paynotyAdminController extends paynoty
 		$module_srls = explode(',', $params->module_srls);
 		foreach($module_srls as $srl)
 		{
-			unset($args);
+			$args = new stdClass();
 			$args->config_srl = $params->config_srl;
 			$args->module_srl = $srl;
 			$output = executeQuery('paynoty.insertModuleSrl', $args);
@@ -83,11 +84,10 @@ class paynotyAdminController extends paynoty
 		if($config_srl)
 		{
 			// delete existences
+			$args = new stdClass();
 			$args->config_srl = $config_srl;
-			$query_id = "paynoty.deleteConfig";
-			executeQuery($query_id, $args);
-			$query_id = "paynoty.deleteModule";
-			executeQuery($query_id, $args);
+			$output_config = executeQuery('paynoty.deleteConfig', $args);
+			$output_module = executeQuery('paynoty.deleteModule', $args);
 		}
 		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispPaynotyAdminList');
 		$this->setRedirectUrl($redirectUrl);

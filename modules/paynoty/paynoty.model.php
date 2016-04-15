@@ -32,6 +32,7 @@ class paynotyModel extends paynoty
 		{
 			return false;
 		}
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQuery("paynoty.getConfigByModuleSrl", $args);
 		if(!$output->toBool() || !$output->data)

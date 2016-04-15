@@ -43,6 +43,7 @@ class nstore_digitalController extends nstore_digital
 		}
 
 		// give mileage
+		$args = new stdClass();
 		if($order_status == nstore_digital::ORDER_STATE_COMPLETE)
 		{
 			//$order_info = $oNstore_digitalModel->getOrderInfo($order_srl);
@@ -205,6 +206,7 @@ class nstore_digitalController extends nstore_digital
 
 		// check whether there is a purchased item.
 		$config = $oNstore_digitalModel->getModuleConfig();
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital.getPurchasedItem', $args);
@@ -238,7 +240,7 @@ class nstore_digitalController extends nstore_digital
 		}
 
 		// 다운로드 기한 체크 (상품에 만기일이 있을 경우에만)
-
+		$vars = new stdClass();
 		$vars->cart_srl = $cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $vars);
 
@@ -342,6 +344,7 @@ class nstore_digitalController extends nstore_digital
 		}
 
 		// update cart items.
+		$args = new stdClass();
 		$args->order_srl = $in_args->order_srl;
 		$args->member_srl = $in_args->member_srl;
 		$args->module_srl = $in_args->module_srl;
@@ -376,6 +379,7 @@ class nstore_digitalController extends nstore_digital
 			}
 			$site_url = $site_urls[$key];
 
+			$args = new stdClass();
 			$args->cart_srl = $cart_srl;
 			$args->site_url = $site_url;
 			if(!$args->cart_srl && !$args->site_url)
@@ -469,7 +473,7 @@ class nstore_digitalController extends nstore_digital
 
 		// insert into store_order
 		//$args->order_srl = $order_srl;
-		$args->order_srl = $args->order_srl;
+		//$args->order_srl = $args->order_srl;
 		$args->title = $title;
 		$args->item_count = $item_count;
 
@@ -480,8 +484,9 @@ class nstore_digitalController extends nstore_digital
 
 		if($args->payment_method == 'MO' && $logged_info->is_admin == 'Y' && $args->manorder_pid)
 		{
-			$args2->user_id = $args->manorder_pid;
-			$output = executeQuery('member.getMemberInfo', $args2);
+			$id_args = new stdClass();
+			$id_args->user_id = $args->manorder_pid;
+			$output = executeQuery('member.getMemberInfo', $id_args);
 			if($output->data)
 			{
 				$args->member_srl = $output->data->member_srl;
@@ -515,6 +520,7 @@ class nstore_digitalController extends nstore_digital
 			/**
 			 * 상품정보 카트에 담기
 			 */
+			$cartitem_args = new stdClass();
 			$cartitem_args->cart_srl = $val->cart_srl;
 			$cartitem_args->item_srl = $val->item_srl;
 			$cartitem_args->member_srl = $args->member_srl;
@@ -563,6 +569,7 @@ class nstore_digitalController extends nstore_digital
 		}
 
 		// get order info by order id
+		$args = new stdClass();
 		$args->order_srl = $obj->order_srl;
 		$output = executeQuery('nstore_digital.getOrderInfo', $args);
 
@@ -611,6 +618,7 @@ class nstore_digitalController extends nstore_digital
 		// 입금완료되면 만기일 추가
 		if($order_status == '2')
 		{
+			$vars = new stdClass();
 			$vars->order_srl = $obj->order_srl;
 			$output = executeQueryArray('nstore_digital.getCartItemsByOrderSrl', $vars);
 			if(!$output->toBool())
@@ -659,6 +667,7 @@ class nstore_digitalController extends nstore_digital
 
 					$period = date("Ymd", mktime(0, 0, 0, date("m") + $m, date("d") + $d, date("Y") + $y));
 
+					$vars = new stdClass();
 					$vars->cart_srl = $v->cart_srl;
 					$vars->period = $period;
 					$output = executeQuery('nstore_digital.updateCartItemPeriod', $vars);
@@ -718,6 +727,7 @@ class nstore_digitalController extends nstore_digital
 				break;
 		}
 
+		$vars = new stdClass();
 		$vars->cart_srl = $args->cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $vars);
 		if(!$output->toBool())
@@ -742,6 +752,7 @@ class nstore_digitalController extends nstore_digital
 
 		// 같은 cart_srl이 state 1로 되있으면 삭제한다.
 
+		$q_args = new stdClass();
 		$q_args->order_status = '1';
 		$q_args->cart_srl = $args->cart_srl;
 		$q_args->member_srl = $logged_info->member_srl;
@@ -813,6 +824,7 @@ class nstore_digitalController extends nstore_digital
 
 		if($obj->state == '2' && $_SESSION['period_srl'])
 		{
+			$args = new stdClass();
 			$args->period_srl = $_SESSION['period_srl'];
 			$output = executeQuery('nstore_digital.getPeriod', $args);
 			if(!$output->toBool())
@@ -833,7 +845,7 @@ class nstore_digitalController extends nstore_digital
 			}
 
 			// nstore_digital_cart에서도 업데이트
-
+			$vars = new stdClass();
 			$vars->cart_srl = $cart_srl;
 			$vars->period = $end_date;
 			$output = executeQuery('nstore_digital.updateCartItemPeriod', $vars);
@@ -861,7 +873,7 @@ class nstore_digitalController extends nstore_digital
 
 
 		// 만기일 확인 
-
+		$args = new stdClass();
 		$args->cart_srl = $purchased_item->cart_srl;
 		$output = executeQuery('nstore_digital.getCartItem', $args);
 		if(!$output->toBool())

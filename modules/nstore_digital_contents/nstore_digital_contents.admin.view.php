@@ -95,6 +95,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 		Context::set('item_info', $item_info);
 
 		// get content list
+		$args = new stdClass();
 		$args->item_srl = Context::get('item_srl');
 		$output = executeQueryArray('nstore_digital_contents.getContentList', $args);
 		$content_list = $output->data;
