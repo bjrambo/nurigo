@@ -271,6 +271,7 @@ class nstore extends ModuleObject
 		$oNstoreAdminModel = getAdminModel('nstore');
 		$oNproductModel = getModel('nproduct');
 
+		$args = new stdClass();
 		$args->module = 'nproduct';
 		$output = $oNstoreAdminModel->getModuleMidList($args); // module_list get
 

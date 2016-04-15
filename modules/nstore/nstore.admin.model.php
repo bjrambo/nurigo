@@ -36,6 +36,7 @@ class nstoreAdminModel extends nstore
 
 	function getNstoreAdminEscrowInfo()
 	{
+		$args = new stdClass();
 		$args->order_srl = Context::get('order_srl');
 		$output = executeQuery('nstore.getEscrowInfo', $args);
 		$this->add('data', $output->data);
@@ -43,6 +44,7 @@ class nstoreAdminModel extends nstore
 
 	function getSalesInfo($date = null)
 	{
+		$args = new stdClass();
 		if($date)
 		{
 			$args->regdate = $date;
@@ -59,6 +61,7 @@ class nstoreAdminModel extends nstore
 	function getTotalStatus()
 	{
 		$this->order_status = $this->getOrderStatus();
+		$args = new stdClass();
 		$output = executeQueryArray('nstore.getOrderStat', $args);
 		if(!$output->toBool())
 		{

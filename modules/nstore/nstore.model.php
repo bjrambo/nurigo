@@ -49,7 +49,7 @@ class nstoreModel extends nstore
 
 	function getDefaultAddress($member_srl)
 	{
-
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->default = 'Y';
 		$output = executeQuery('nstore.getAddressList', $args);
@@ -85,7 +85,7 @@ class nstoreModel extends nstore
 	function getNstoreEscrowInfo()
 	{
 		$logged_info = Context::get('logged_info');
-
+		$args = new stdClass();
 		$args->order_srl = Context::get('order_srl');
 		$args->member_srl = $logged_info->member_srl;
 		$output = executeQuery('nstore.getEscrowInfo', $args);
@@ -132,6 +132,7 @@ class nstoreModel extends nstore
 		$config = $this->getModuleConfig();
 
 		// order info.
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('nstore.getOrderInfo', $args);
 		$order_info = $output->data;
@@ -184,8 +185,14 @@ class nstoreModel extends nstore
 		{
 			$enddate = date('Ymd');
 		}
+		$logged_info = Context::get('logged_info');
+		if(!$member_srl)
+		{
+			$member_srl = $logged_info->member_srl;
+		}
 
-		$args->member_srl = $logged_info->member_srl;
+		$args = new stdClass();
+		$args->member_srl = $member_srl;
 		$args->startdate = $startdate . '000000';
 		$args->enddate = $enddate . '235959';
 		$output = executeQueryArray('nstore.getOrderItems', $args);

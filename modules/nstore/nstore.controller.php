@@ -23,8 +23,8 @@ class nstoreController extends nstore
 
 		$args->non_password = base64_encode($args->non_password);
 
-		$obj->return_url = getNotEncodedUrl('', 'act', 'dispNstoreOrderDetail', 'order_srl', $args->order_srl, 'mid', Context::get('mid'), 'non_password', $args->non_password, 'module', Context::get('module'));
-		$this->setRedirectUrl($obj->return_url);
+		$return_url = getNotEncodedUrl('', 'act', 'dispNstoreOrderDetail', 'order_srl', $args->order_srl, 'mid', Context::get('mid'), 'non_password', $args->non_password, 'module', Context::get('module'));
+		$this->setRedirectUrl($return_url);
 	}
 
 	function updateSalesCount($item_srl, $quantity)
@@ -38,6 +38,7 @@ class nstoreController extends nstore
 		$oNstoreModel = getModel('nstore');
 
 		// if the order is completed, give mileage to the member.
+		$args = new stdClass();
 		if($in_args->order_status == nstore::ORDER_STATE_COMPLETE)
 		{
 			$order_info = $oNstoreModel->getOrderInfo($order_srl);
@@ -90,6 +91,7 @@ class nstoreController extends nstore
 
 	function triggerEscrowDelivery($in_args)
 	{
+		$args = new stdClass();
 		$args->order_srl = $in_args->get('order_srl');
 		$args->pg_tid = $in_args->get('pg_tid');
 		$args->pg_oid = $in_args->get('pg_oid');
@@ -129,6 +131,7 @@ class nstoreController extends nstore
 
 	function triggerEscrowConfirm($in_args)
 	{
+		$args = new stdClass();
 		$args->order_srl = $in_args->get('order_srl');
 		$args->confirm_code = $in_args->get('confirm_code');
 		$args->confirm_message = $in_args->get('confirm_message');
@@ -142,6 +145,7 @@ class nstoreController extends nstore
 
 	function triggerEscrowDenyConfirm($in_args)
 	{
+		$args = new stdClass();
 		$args->order_srl = $in_args->get('order_srl');
 		$args->denyconfirm_code = $in_args->get('denyconfirm_code');
 		$args->denyconfirm_message = $in_args->get('denyconfirm_message');
@@ -158,7 +162,15 @@ class nstoreController extends nstore
 	{
 		$oNstoreModel = getModel('nstore');
 
-		$args = $in_args;
+		if(!$in_args)
+		{
+			$args = new stdClass();
+		}
+		else
+		{
+			$args = $in_args;
+		}
+
 		if(is_array($args->purchaser_cellphone))
 		{
 			$args->purchaser_cellphone = implode('-', $in_args->purchaser_cellphone);
@@ -178,7 +190,6 @@ class nstoreController extends nstore
 		{
 			return $output;
 		}
-		unset($args);
 
 		// update cart items.
 		$args = new stdClass();
@@ -302,6 +313,7 @@ class nstoreController extends nstore
 			/**
 			 * 상품정보 카트에 담기
 			 */
+			$cartitem_args = new stdClass();
 			$cartitem_args->cart_srl = $val->cart_srl;
 			$cartitem_args->item_srl = $val->item_srl;
 			$cartitem_args->member_srl = $val->member_srl;
@@ -416,6 +428,7 @@ class nstoreController extends nstore
 		$logged_info = Context::get('logged_info');
 
 		// get order info by order id
+		$args = new stdClass();
 		$args->order_srl = $obj->order_srl;
 		$order_srl = $args->order_srl;
 		$output = executeQuery('nstore.getOrderInfo', $args);
@@ -424,7 +437,6 @@ class nstoreController extends nstore
 			return $output;
 		}
 		$order_info = $output->data;
-		unset($args);
 
 		// update order info for success
 		switch($obj->state)
@@ -443,6 +455,7 @@ class nstoreController extends nstore
 
 		if($order_status)
 		{
+			$args = new stdClass();
 			$args->order_status = $order_status;
 			$args->payment_method = $obj->payment_method;
 			$output = $this->updateOrderStatus($obj->order_srl, $args);

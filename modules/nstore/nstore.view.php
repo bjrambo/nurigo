@@ -78,6 +78,7 @@ class nstoreView extends nstore
 		Context::set('startdate', $startdate);
 		Context::set('enddate', $enddate);
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->startdate = $startdate . '000000';
 		$args->enddate = $enddate . '235959';
@@ -254,6 +255,7 @@ class nstoreView extends nstore
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('nstore.getEscrowInfo', $args);
 		$escrow_info = $output->data;

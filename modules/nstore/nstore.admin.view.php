@@ -129,6 +129,7 @@ class nstoreAdminView extends nstore
 		// newest review
 		$review_list = array();
 		require_once(_XE_PATH_ . 'modules/store_review/store_review.item.php');
+		$args = new stdClass();
 		$args->module_srl = $module_srls;
 		$output = executeQueryArray('nstore.getNewestReviewList', $args);
 		if(!is_array($output->data))
@@ -173,6 +174,7 @@ class nstoreAdminView extends nstore
 		{
 			Context::set('status', '1');
 		}
+		$args = new stdClass();
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
@@ -271,6 +273,7 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminModInstList()
 	{
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -359,6 +362,7 @@ class nstoreAdminView extends nstore
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('nstore.getEscrowInfo', $args);
 		$escrow_info = $output->data;
@@ -386,6 +390,7 @@ class nstoreAdminView extends nstore
 		$order_srl = Context::get('order_srl');
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('nstore.getEscrowInfo', $args);
 		$escrow_info = $output->data;
@@ -436,6 +441,7 @@ class nstoreAdminView extends nstore
 		Context::set('member_info', $member_info);
 		 */
 
+		$args = new stdClass();
 		$args->member_srl = Context::get('member_srl');
 		$args->order_status = '2';
 		$output = executeQueryArray('nstore.getOrderList', $args);
@@ -499,7 +505,7 @@ class nstoreAdminView extends nstore
 
 				foreach($item as $key => $val)
 				{
-					$obj = null;
+					$obj = new stdClass();
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
 					$obj->url = $val->attrs->url;

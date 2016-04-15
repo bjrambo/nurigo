@@ -68,6 +68,7 @@ class nstore_digitalAdminView extends nstore_digital
 	 **/
 	function dispNstore_digitalAdminDashboard()
 	{
+		$args = new stdClass();
 		$output = executeQueryArray('nstore_digital.getOrderStat', $args);
 		if(!$output->toBool())
 		{
@@ -95,6 +96,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 		// get module srls
 		$module_srls = array();
+		$args = new stdClass();
 		$output = executeQueryArray('nproduct.getModInstList', $args);
 		if(!$output->toBool())
 		{
@@ -113,6 +115,7 @@ class nstore_digitalAdminView extends nstore_digital
 		// newest comment
 		$oCommentModel = getModel('comment');
 		$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
+		$args = new stdClass();
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
 		$comment_list = $oCommentModel->getNewestCommentList($args, $columnList);
@@ -132,6 +135,7 @@ class nstore_digitalAdminView extends nstore_digital
 		// newest review
 		$review_list = array();
 		require_once(_XE_PATH_ . 'modules/store_review/store_review.item.php');
+		$args = new stdClass();
 		$args->module_srl = $module_srls;
 		$output = executeQueryArray('nstore_digital.getNewestReviewList', $args);
 		if(!is_array($output->data))
@@ -147,7 +151,6 @@ class nstore_digitalAdminView extends nstore_digital
 			$oReview = new store_reviewItem();
 			$oReview->setAttribute($val);
 			$oReview->storeItem = new nproductItem($oReview->get('item_srl'));
-			debugprint($oReview->storeItem);
 			$review_list[$key] = $oReview;
 		}
 		Context::set('review_list', $review_list);
@@ -165,6 +168,7 @@ class nstore_digitalAdminView extends nstore_digital
 		{
 			Context::set('status', '1');
 		}
+		$args = new stdClass();
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
@@ -221,7 +225,7 @@ class nstore_digitalAdminView extends nstore_digital
 		{
 			Context::set('status', '1');
 		}
-
+		$args = new stdClass();
 		if(Context::get('search_key'))
 		{
 			$search_key = Context::get('search_key');
@@ -269,7 +273,7 @@ class nstore_digitalAdminView extends nstore_digital
 				$item->price += ($item->option_price);
 			}
 			$v->item = $item;
-
+			$vars = new stdClass();
 			$vars->order_srl = $v->order_srl;
 			$output = executeQuery('nstore_digital.getOrderInfo', $vars);
 			if(!$output->toBool())
@@ -367,6 +371,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminOrderExcelDownload()
 	{
+		$args = new stdClass();
 		$args->order_status = Context::get('status');
 		$output = executeQueryArray('nstore_digital.getOrderItemsByStatus', $args);
 		if(!$output->toBool())
@@ -408,7 +413,7 @@ class nstore_digitalAdminView extends nstore_digital
 		if($category)
 		{
 			$category_info = $oNstore_coreModel->getCategoryInfo($category);
-
+			$args = new stdClass();
 			$args->module_srl = Context::get('module_srl');
 			$args->node_route = $category_info->node_route . $category_info->node_id . '.';
 			$args->page = Context::get('page');
@@ -428,6 +433,7 @@ class nstore_digitalAdminView extends nstore_digital
 		}
 		else
 		{
+			$args = new stdClass();
 			$args->module_srl = Context::get('module_srl');
 			$args->page = Context::get('page');
 			$args->list_count = $list_count;
@@ -463,6 +469,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminReceipt()
 	{
+		$args = new stdClass();
 		$args->order_srl = Context::get('order_srl');
 		$output = executeQuery('nstore_digital.getOrderInfo', $args);
 		if(!$output->toBool())
@@ -492,6 +499,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 	function dispNstore_digitalAdminModInstList()
 	{
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;
@@ -573,6 +581,7 @@ class nstore_digitalAdminView extends nstore_digital
 		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// 에디터 옵션 변수를 미리 설정
+		$option = new stdClass();
 		$option->skin = $config->editor_skin;
 		$option->content_style = $config->content_style;
 		$option->content_font = $config->content_font;
@@ -679,7 +688,7 @@ class nstore_digitalAdminView extends nstore_digital
 
 				foreach($item as $key => $val)
 				{
-					$obj = null;
+					$obj = new stdClass();
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
 					$obj->url = $val->attrs->url;

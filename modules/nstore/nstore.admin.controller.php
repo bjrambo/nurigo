@@ -113,6 +113,7 @@ class nstoreAdminController extends nstore
 		}
 
 		$message = array();
+		$args = new stdClass();
 		foreach($order_srls as $key => $order_srl)
 		{
 			$args->order_srl = $order_srl;
@@ -222,6 +223,7 @@ class nstoreAdminController extends nstore
 		if($primary_express_id || $primary_invoice_no)
 		{
 			// order info
+			$args = new stdClass();
 			$args->order_srl = $order_srl;
 			$args->express_id = $primary_express_id;
 			$args->invoice_no = $primary_invoice_no;
@@ -241,7 +243,7 @@ class nstoreAdminController extends nstore
 		{
 			$express_id = $express_ids[$key];
 			$invoice_no = $invoice_nos[$key];
-
+			$args = new stdClass();
 			$args->cart_srl = $cart_srl;
 			$args->express_id = $express_id;
 			$args->invoice_no = $invoice_no;
@@ -280,6 +282,7 @@ class nstoreAdminController extends nstore
 				continue;
 			}
 			// delete cart items.
+			$args = new stdClass();
 			$args->order_srl = $order_srl;
 			$output = executeQuery('nstore.deleteCartItemsByOrderSrl', $args);
 			if(!$output->toBool())
@@ -310,6 +313,7 @@ class nstoreAdminController extends nstore
 		{
 			Context::set('status', '1');
 		}
+		$args = new stdClass();
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
@@ -367,6 +371,7 @@ class nstoreAdminController extends nstore
 		{
 			Context::set('status', '1');
 		}
+		$args = new stdClass();
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))
