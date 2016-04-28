@@ -1532,10 +1532,21 @@ class nproductModel extends nproduct
 				$obj->attr = new stdClass();
 				$obj->attr->id = $val->node_id;
 				$obj->attr->node_id = $val->node_id;
-				$obj->attr->node_name = $val->category_name;
+				if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $val->category_name))
+				{
+					$obj->attr->lang = 'Y';
+					$category_name = getController('module')->replaceDefinedLangCode($val->category_name);
+				}
+				else
+				{
+					$obj->attr->lang = 'N';
+					$category_name = htmlspecialchars($val->category_name);
+				}
+				$obj->attr->node_name = $category_name;
 				$obj->attr->node_route = $val->node_route;
 				$obj->attr->subfolder = '';
 				$obj->attr->subnode = '';
+
 				$obj->attr->rel = 'folder';
 				$obj->state = 'closed';
 				$obj->data = $val->category_name;
@@ -1578,7 +1589,6 @@ class nproductModel extends nproduct
 				getController('module')->replaceDefinedLangCode($output->data->category_name);
 				$output->data->category_name = htmlspecialchars($output->data->category_name, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
 			}
-			debugPrint($output->data);
 			if(!$output->toBool())
 			{
 				return $output;
