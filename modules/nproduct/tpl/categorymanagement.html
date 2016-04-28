@@ -20,19 +20,19 @@
 		<section class="section">
 			<h2>{$lang->cmd_modify_category}</h2>
 			<div class="x_control-group">
-				<label class="x_control-label" for="category_name">{$lang->category_name}</label>
+				<label class="x_control-label" for="category_name_s">{$lang->category_name}</label>
 				<div class="x_controls">
-					<input type="text" name="category_name" class="inputTypeText w300" value="" />
+					<input type="text" name="category_name" class="inputTypeText w300 lang_code" value="" id="category_name_s"  />
 				</div>
 			</div>
 			<div class="x_control-group">
-				<label class="x_control-label" for="category_id">Category ID</label>
+				<label class="x_control-label">Category ID</label>
 				<div class="x_controls">
 					<td><span class="category_id"></span></td>
 				</div>
 			</div>
 			<div class="x_control-group">
-				<label class="x_control-label" for="category_path">{$lang->category_path}</label>
+				<label class="x_control-label">{$lang->category_path}</label>
 				<div class="x_controls">
 					<td><span class="route"></span></td>
 				</div>
@@ -51,11 +51,11 @@
 			<div class="x_control-group">
 				<label class="x_control-label" for="category_name">{$lang->category_name}</label>
 				<div class="x_controls">
-					<input type="text" name="category_name" value="" />
+					<input type="text" id="category_name" name="category_name" value="" class="lang_code" />
 				</div>
 			</div>
 			<div class="x_control-group">
-				<label class="x_control-label" for="category_path">{$lang->category_path}</label>
+				<label class="x_control-label">{$lang->category_path}</label>
 				<div class="x_controls">
 					<td><span class="route"></span></td>
 				</div>

@@ -1476,8 +1476,8 @@ class nproductModel extends nproduct
 		$data = array();
 		if($node_id == 'root')
 		{
-			$obj = new StdClass();
-			$obj->attr = new StdClass();
+			$obj = new stdClass();
+			$obj->attr = new stdClass();
 			$obj->attr->id = 'f.';
 			$obj->attr->node_id = 'f.';
 			$obj->attr->node_name = Context::getLang('category');
@@ -1503,7 +1503,7 @@ class nproductModel extends nproduct
 			default:
 				if($node_id)
 				{
-					//$args->user_id = $logged_info->user_id;
+					$args = new stdClass();
 					$args->node_id = $node_id;
 					$output = executeQuery('nproduct.getCategoryInfo', $args);
 					if(!$output->toBool())
@@ -1520,7 +1520,7 @@ class nproductModel extends nproduct
 				break;
 		}
 
-		unset($args);
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$args->node_route = $node_route;
 		$output = executeQueryArray('nproduct.getCategoryList', $args);
@@ -1528,8 +1528,8 @@ class nproductModel extends nproduct
 		{
 			foreach($output->data as $no => $val)
 			{
-				$obj = new StdClass();
-				$obj->attr = new StdClass();
+				$obj = new stdClass();
+				$obj->attr = new stdClass();
 				$obj->attr->id = $val->node_id;
 				$obj->attr->node_id = $val->node_id;
 				$obj->attr->node_name = $val->category_name;
@@ -1558,6 +1558,7 @@ class nproductModel extends nproduct
 
 		$node_id = Context::get('node_id');
 
+		$category_info = new stdClass();
 		if($node_id == 'f.')
 		{
 			$category_info->node_id = 'f.';
@@ -1568,8 +1569,16 @@ class nproductModel extends nproduct
 		}
 		else
 		{
+
+			$args = new stdClass();
 			$args->node_id = $node_id;
 			$output = executeQuery('nproduct.getCategoryInfo', $args);
+			if(is_object($output))
+			{
+				getController('module')->replaceDefinedLangCode($output->data->category_name);
+				$output->data->category_name = htmlspecialchars($output->data->category_name, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+			}
+			debugPrint($output->data);
 			if(!$output->toBool())
 			{
 				return $output;

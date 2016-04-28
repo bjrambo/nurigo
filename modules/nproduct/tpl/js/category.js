@@ -22,7 +22,8 @@ function pop_update_category(data) {
 	jQuery('#fo_update').show();
 	jQuery('#fo_insert').hide();
 	$f = jQuery('#fo_update');
-	jQuery('input[name=category_name]', $f).val(data.category_name);
+	$(this).find('.lang_code').trigger('reload-multilingual');
+	jQuery('#lang_category_name_s', $f).val(data.category_name);
 	jQuery('.category_id', $f).text(data.node_id);
 	jQuery('.route', $f).text(data.node_route_text);
 }
@@ -104,6 +105,7 @@ function pb_load_list(node) {
 				alert(data.message);
 				return -1;
 			}
+
 			pop_update_category(data.data);
 			p_hide_waiting_message();
 		}
