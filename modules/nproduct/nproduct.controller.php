@@ -114,7 +114,7 @@ class nproductController extends nproduct
 	function moveNode($node_id, $parent_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -195,7 +195,7 @@ class nproductController extends nproduct
 	function moveNodeToNext($node_id, $parent_id, $next_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -236,7 +236,7 @@ class nproductController extends nproduct
 	function moveNodeToPrev($node_id, $parent_id, $prev_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -319,7 +319,7 @@ class nproductController extends nproduct
 		$oModuleModel = getModel('module');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -418,7 +418,7 @@ class nproductController extends nproduct
 	function procNproductInsertCategory()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -494,7 +494,7 @@ class nproductController extends nproduct
 	function procNproductUpdateCategory()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -525,7 +525,7 @@ class nproductController extends nproduct
 	function procNproductMoveCategory()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_log_required');
 		}
@@ -880,7 +880,7 @@ class nproductController extends nproduct
 		$oNcartController = getController('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -921,7 +921,7 @@ class nproductController extends nproduct
 		$oNproductModel = getModel('nproduct');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_not_permitted');
 		}
@@ -980,7 +980,7 @@ class nproductController extends nproduct
 		$oNproductModel = getModel('nproduct');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

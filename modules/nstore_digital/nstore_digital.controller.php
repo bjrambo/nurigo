@@ -278,7 +278,7 @@ class nstore_digitalController extends nstore_digital
 		// initialize variables.
 		$downloadable = FALSE;
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, '로그인 후 다운로드 하세요.');
 		}
@@ -417,7 +417,7 @@ class nstore_digitalController extends nstore_digital
 		}
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

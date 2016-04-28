@@ -28,7 +28,7 @@ class ncartMobile extends ncartView
 		{
 			Context::set('login_chk', 'Y');
 		}
-		else if(!$logged_info)
+		else if(!Context::get('is_logged'))
 		{
 			Context::set('login_chk', 'N');
 		}

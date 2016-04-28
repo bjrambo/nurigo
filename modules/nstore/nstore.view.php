@@ -34,7 +34,7 @@ class nstoreView extends nstore
 		{
 			Context::set('login_chk', 'Y');
 		}
-		else if(!$logged_info)
+		else if(!Context::get('is_logged'))
 		{
 			Context::set('login_chk', 'N');
 		}
@@ -52,13 +52,13 @@ class nstoreView extends nstore
 		$logged_info = Context::get('logged_info');
 
 		// 비회원 구매가 활성화되어 있지 않고 로그인 되있지 않다면
-		if(!$logged_info && $config->guest_buy == 'N')
+		if(!Context::get('is_logged') && $config->guest_buy == 'N')
 		{
 			return new Object(-1, 'msg_login_required');
 		}
 
 		// 로그인되어 있지 않다면 비회원 주문상품 조회 페이지로
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			$this->dispNstoreNonLoginOrder();
 			return;

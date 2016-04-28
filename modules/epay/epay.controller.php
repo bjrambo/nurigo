@@ -77,7 +77,7 @@ class epayController extends epay
 			$args->p_name = $member_info->nick_name;
 			$args->p_email_address = $member_info->email_address;
 		}
-		if(!$manorder_pid && !$logged_info)
+		if(!$manorder_pid && !Context::get('is_logged'))
 		{
 			$args->p_member_srl = 0;
 			$args->p_user_id = $p_user_id;
@@ -447,7 +447,7 @@ class epayController extends epay
 			$args->p_name = $output->data->nick_name;
 			$args->p_email_address = $output->data->email_address;
 		}
-		if(!$manorder_pid && !$logged_info)
+		if(!$manorder_pid && !Context::get('is_logged'))
 		{
 			$args->p_member_srl = 0;
 			$args->p_user_id = $p_user_id;

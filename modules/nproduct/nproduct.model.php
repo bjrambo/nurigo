@@ -949,7 +949,7 @@ class nproductModel extends nproduct
 	 */
 	function getQuantityDiscount(&$item_info, $logged_info)
 	{
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object();
 		}
@@ -1011,7 +1011,7 @@ class nproductModel extends nproduct
 	 */
 	function getMemberDiscount(&$item_info, $logged_info)
 	{
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object();
 		}
@@ -1468,7 +1468,7 @@ class nproductModel extends nproduct
 		$node_id = Context::get('node_id');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -1562,7 +1562,7 @@ class nproductModel extends nproduct
 	function getNproductCategoryInfo()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -1905,7 +1905,7 @@ class nproductModel extends nproduct
 		$category_id = 0;
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

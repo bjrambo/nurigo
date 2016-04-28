@@ -25,7 +25,7 @@ class ncartView extends ncart
 		{
 			Context::set('login_chk', 'Y');
 		}
-		else if(!$logged_info)
+		else if(!Context::get('is_logged'))
 		{
 			Context::set('login_chk', 'N');
 		}
@@ -150,7 +150,7 @@ class ncartView extends ncart
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -246,7 +246,7 @@ class ncartView extends ncart
 		$config = $oNcartModel->getModuleConfig();
 		Context::set('config', $config);
 
-		if($config->guest_buy != 'Y' && !$logged_info)
+		if($config->guest_buy != 'Y' && !Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_no_guest_buy');
 		}
@@ -329,7 +329,7 @@ class ncartView extends ncart
 			$args->purchaser_email = $logged_info->email_address;
 			$args->purchaser_telnum = "$lang->msg_phone_input" . "ex)010-0000-0000";
 		}
-		else if(!$logged_info)
+		else if(!Context::get('is_logged'))
 		{
 			$args->purchaser_name = $lang->non_member;
 			$args->purchaser_email = $lang->msg_email_input;
@@ -437,7 +437,7 @@ class ncartView extends ncart
 		}
 
 		// 로그인 안했을 때 권한 확인 : triggerProcessPayment 에서 설정된다.
-		if(!$logged_info && $_SESSION['ORDER_COMPLETE_VIEW_PERMISSION'] != $order_srl)
+		if(!Context::get('is_logged') && $_SESSION['ORDER_COMPLETE_VIEW_PERMISSION'] != $order_srl)
 		{
 			return new Object(-1, 'msg_not_permitted');
 		}
@@ -490,7 +490,7 @@ class ncartView extends ncart
 		}
 
 		// 로그인이 되어 있지 않다면
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_not_permitted');
 		}
@@ -570,7 +570,7 @@ class ncartView extends ncart
 		$oNcartModel->checkBrowser(); // iphone check
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -597,7 +597,7 @@ class ncartView extends ncart
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -626,7 +626,7 @@ class ncartView extends ncart
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

@@ -35,7 +35,7 @@ class ncartController extends ncart
 	function moveNodeToNext($node_id, $parent_id, $next_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -74,7 +74,7 @@ class ncartController extends ncart
 	function moveNodeToPrev($node_id, $parent_id, $prev_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -104,7 +104,7 @@ class ncartController extends ncart
 	function procNcartMoveCategory()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_log_required');
 		}
@@ -196,7 +196,7 @@ class ncartController extends ncart
 		$args->discount_amount = $in_args->discount_amount;
 		$args->discount_info = $in_args->discount_info;
 		$args->discounted_price = $in_args->discounted_price;
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			if(!$_COOKIE['non_key'])
 			{
@@ -328,7 +328,7 @@ class ncartController extends ncart
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -482,7 +482,7 @@ class ncartController extends ncart
 	function moveNode($node_id, $parent_id)
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return;
 		}
@@ -799,7 +799,7 @@ class ncartController extends ncart
 			$args->purchaser_name = $output->data->nick_name;
 			$args->purchaser_email = $output->data->email_address;
 		}
-		if(!$manorder_pid && !$logged_info)
+		if(!$manorder_pid && !Context::get('is_logged'))
 		{
 			$args->purchaser_name = "비회원_" . $in_args->purchaser_name;
 			$args->purchaser_cellphone = $in_args->cellphone;

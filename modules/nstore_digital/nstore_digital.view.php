@@ -57,7 +57,7 @@ class nstore_digitalView extends nstore_digital
 		$oNdcModel = getModel('nstore_digital_contents');
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}
@@ -183,7 +183,7 @@ class nstore_digitalView extends nstore_digital
 		$oNstore_digitalModel = getModel('nstore_digital');
 		$logged_info = Context::get('logged_info');
 		$cart_srl = Context::get('cart_srl');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

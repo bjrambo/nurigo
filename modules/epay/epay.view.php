@@ -76,7 +76,7 @@ class epayView extends epay
 				$in_args->purchaser_telnum = "010-0000-0000";
 			}
 		}
-		else if(!$logged_info)
+		else if(!Context::get('is_logged'))
 		{
 			if(!$in_args->purchaser_name)
 			{
@@ -484,7 +484,7 @@ class epayView extends epay
 		}
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
 		}

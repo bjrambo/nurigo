@@ -230,7 +230,7 @@ class ncartModel extends ncart
 		$non_key = $_COOKIE['non_key'];
 		$cart_info = null;
 
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			// 로그인 안되어 있을 때 비회원카트 정보를 가져옴
 			$cart_info = $this->getGuestCartInfo($non_key, $cartnos, $width, $height);
@@ -586,7 +586,7 @@ class ncartModel extends ncart
 		}
 
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_invalid_request');
 		}
@@ -654,7 +654,7 @@ class ncartModel extends ncart
 	function getNcartAddressInfo()
 	{
 		$logged_info = Context::get('logged_info');
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_invalid_request');
 		}

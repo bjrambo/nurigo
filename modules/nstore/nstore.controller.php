@@ -233,7 +233,7 @@ class nstoreController extends nstore
 		$logged_info = Context::get('logged_info');
 
 		//비회원일경우
-		if(!$logged_info)
+		if(!Context::get('is_logged'))
 		{
 			$non_password1 = Context::get('non_password1');
 			$non_password2 = Context::get('non_password2');
