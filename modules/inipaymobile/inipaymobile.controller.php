@@ -33,7 +33,7 @@ class inipaymobileController extends inipaymobile
 				}
 		*/
 		// ISP, 가상계좌 입금처리, 실시간계좌이체시 inicis 서버에서 호출
-		if(in_array(Context::get('P_TYPE'), array('ISP', 'BANK', 'VBANK')))
+		if(in_array(Context::get('P_TYPE'), array('ISP','BANK','VBANK','CARD')))
 		{
 			return $this->processNotiUrl();
 		}
@@ -376,7 +376,7 @@ class inipaymobileController extends inipaymobile
 		//(APP 방식의 경우 해당 내용을 삭제 또는 주석 처리 하시기 바랍니다.)
 
 		// ISP, 실시간계좌이체 일 때 성공 00, 가상계좌일 때 입금통보 02
-		if(in_array($P_TYPE, array('ISP', 'BANK')))
+		if(in_array($P_TYPE, array('ISP','BANK','CARD')))
 		{
 
 			if($P_STATUS == '00')
