@@ -96,7 +96,7 @@ class inipaymobileController extends inipaymobile
 
 		$output = new Object();
 		$output->add('transaction_srl', $transaction_srl);
-		if($post_output->P_STATUS == '00')
+		if($post_output['P_STATUS'] == '00')
 		{
 			if($transaction_info->payment_method == 'CC')
 			{
