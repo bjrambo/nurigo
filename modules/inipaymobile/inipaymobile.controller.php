@@ -15,8 +15,6 @@ class inipaymobileController extends inipaymobile
 	function procInipaymobile()
 	{
 		$vars = Context::getRequestVars();
-		debugPrint('procInipaymobile');
-		debugPrint($vars);
 		// 가상계좌 번호 발급, 안심클릭 처리
 		if(Context::get('n_page'))
 		{
@@ -52,8 +50,7 @@ class inipaymobileController extends inipaymobile
 
 
 		$vars = Context::getRequestVars();
-		debugPrint('processNextUrl');
-		debugPrint($vars);
+
 		// P_NOTI에 plugin_srl, epay_module_srl 등을 담고 있음
 		parse_str($vars->P_NOTI, $output);
 		foreach($output as $key => $val)
@@ -82,12 +79,12 @@ class inipaymobileController extends inipaymobile
 
 		$post_data = array('P_TID' => $vars->P_TID, 'P_MID' => $this->module_info->inicis_id);
 		$response = $this->getRemoteResource($vars->P_REQ_URL, null, 3, 'POST', 'application/x-www-form-urlencoded', array(), array(), $post_data);
-		parse_str($response, $output);
-		foreach($output as $key => $val)
+		parse_str($response, $post_output);
+		foreach($post_output as $key=>$val)
 		{
 			Context::set($key, $val);
 		}
-		$P_RMESG1 = iconv('EUC-KR', 'UTF-8', $output['P_RMESG1']);
+		$P_RMESG1 = iconv('EUC-KR','UTF-8',$post_output['P_RMESG1']);
 		$P_VACT_NUM = Context::get('P_VACT_NUM');
 		$P_VACT_DATE = Context::get('P_VACT_DATE');
 		$P_VACT_TIME = Context::get('P_VACT_TIME');
@@ -99,7 +96,7 @@ class inipaymobileController extends inipaymobile
 
 		$output = new Object();
 		$output->add('transaction_srl', $transaction_srl);
-		if($vars->P_STATUS == '00')
+		if($post_output->P_STATUS == '00')
 		{
 			if($transaction_info->payment_method == 'CC')
 			{
@@ -116,15 +113,13 @@ class inipaymobileController extends inipaymobile
 		}
 		$output->add('payment_method', $transaction_info->payment_method);
 		$output->add('payment_amount', $transaction_info->payment_amount);
-		$output->add('result_code', '0');
+		$output->add('result_code', $post_output->P_STATUS);
 		$output->add('result_message', $P_RMESG1);
-		$output->add('pg_tid', $vars->P_TID);
+		$output->add('pg_tid', $post_output->P_TID);
 		$output->add('vact_bankname', $this->getBankName($P_VACT_BANK_CODE));
 		$output->add('vact_num', $P_VACT_NUM);
 		$output->add('vact_name', $P_VACT_NAME);
 		$output->add('vact_inputname', '');
-		debugPrint('afterPayment args');
-		debugPrint($output);
 
 		// afterPayment will call an after trigger
 		$output = $oEpayController->afterPayment($output);
@@ -278,7 +273,6 @@ class inipaymobileController extends inipaymobile
 	 */
 	function processNotiUrl()
 	{
-		debugPrint('processNotiUrl');
 		$oEpayController = getController('epay');
 		$vars = Context::getRequestVars();
 
@@ -290,17 +284,17 @@ class inipaymobileController extends inipaymobile
 
 		// P_NOTI에 transaction_srl, order_srl, epay_module_srl 등을 담고 있음
 		parse_str($vars->P_NOTI, $output);
-		debugPrint($output);
+
 		foreach($output as $key => $val)
 		{
 			Context::set($key, $val);
 		}
 
 		$inipaymobile_home = sprintf(_XE_PATH_ . "files/epay/%s", Context::get('transaction_srl'));
-		debugPrint($inipaymobile_home);
+
 		$logfile = fopen($inipaymobile_home . "/log/vbank_" . date("Ymd") . ".log", "a+");
 		$vars = Context::getRequestVars();
-		debugPrint($vars);
+
 		foreach($vars as $key => $val)
 		{
 			fwrite($logfile, $key . " : " . $val . "\n");
@@ -313,7 +307,7 @@ class inipaymobileController extends inipaymobile
 		$transaction_srl = Context::get('transaction_srl');
 		$vars->transaction_srl = $transaction_srl;
 		$output = $oEpayController->beforePayment($vars);
-		debugPrint($output);
+
 		if(!$output->toBool())
 		{
 			return $output;
@@ -321,8 +315,7 @@ class inipaymobileController extends inipaymobile
 
 		//PG에서 보냈는지 IP로 체크
 		$PGIP = $_SERVER['REMOTE_ADDR'];
-		debugPrint('$PGIP');
-		debugPrint($PGIP);
+
 		if(($PGIP != "211.219.96.165" && $PGIP != "118.129.210.25") && !$_SESSION['inipaymobile_pass'])
 		{
 			$obj = new Object(-1, 'msg_invalid_request');
@@ -408,7 +401,6 @@ class inipaymobileController extends inipaymobile
 			$args->add('vact_date', $P_VACT_DATE); // 입금마감 일자
 			$args->add('vact_time', $P_VACT_TIME); // 입금마감 시간
 			$args->add('pg_tid', $P_TID);
-			debugPrint($args);
 
 			// afterPayment will call an after trigger
 			$output = $oEpayController->afterPayment($args);
