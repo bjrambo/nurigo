@@ -12,7 +12,7 @@
 		<tbody>
 			{@$count=0}
 			<tr loop="$options=>$key,$val">
-				<td><input type="hidden" name="option_srls[]" value="{$val->option_srl}" /><input type="text" name="options_title[]" value="{$val->title}" /></td>
+				<td><input type="hidden" name="option_srls[]" value="{$val->option_srl}" class="lang_code" /><input type="text" name="options_title[]" value="{$val->title}" /></td>
 				<td><input type="text" name="options_price[]" value="{$val->price}" /></td>
 				<td>
 					<select name="type[]">
@@ -23,7 +23,7 @@
 				{@$count++}
 			</tr>
 			<tr loop="$i=$count;$i<20;$i++">
-				<td><input type="hidden" name="option_srls[]" value="0" /><input type="text" name="options_title[]" placeholder="TITLE" value="" /></td>
+				<td><input type="hidden" name="option_srls[]" class="lang_code" value="0" /><input type="text" name="options_title[]" placeholder="TITLE" value="" /></td>
 				<td><input type="text" name="options_price[]" placeholder="PRICE" value="" /></td>
 				<td>
 					<select name="type[]">
