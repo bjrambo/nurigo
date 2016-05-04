@@ -60,6 +60,7 @@ class eposAdminView extends epos
 	function dispEposAdminModInstList()
 	{
 		// get the module instance list
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 20;

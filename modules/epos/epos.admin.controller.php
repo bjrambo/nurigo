@@ -22,6 +22,7 @@ class eposAdminController extends epos
 			{
 				continue;
 			} // check if $van is empty
+			$args = new stdClass();
 			$args->bank = $bank;
 			$args->van = trim($van);
 			$output = executeQuery('epos.insertAccount', $args);
