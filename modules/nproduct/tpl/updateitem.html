@@ -70,10 +70,11 @@ xe.lang.cmd_append = '{$lang->cmd_append}';
 				</select>
 			</div>
 		</div>
+
 		<div class="x_control-group">
 			<label class="x_control-label" for="item_name">{$lang->product_name} <em style="color:red">*</em></label>
 			<div class="x_controls">
-				<input name="item_name" type="text" class="x_span6" value="{$item_info->item_name}" />
+				<input name="item_name" type="text" class="x_span6 lang_code" value="{htmlspecialchars($item_info->item_name)}" />
 				<a href="#item_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="item_name_help" class="x_help-block" hidden>{$lang->about_product_name}</p>
 			</div>

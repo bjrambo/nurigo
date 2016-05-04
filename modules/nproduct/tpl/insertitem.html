@@ -6,7 +6,6 @@
 	.x_control-group .x_controls select.category { min-width:140px; }
 </style>
 
-
 <form method="post" action="./" class="x_form-horizontal" ruleset="@nproduct_insertItem" enctype="multipart/form-data">
 	<input name="module" type="hidden" value="{$module}" />
 	<input name="act" type="hidden" value="procNproductAdminInsertItem" />
@@ -37,10 +36,11 @@
 			</select>
 		</div>
 	</div>
+
 	<div class="x_control-group">
 		<label class="x_control-label" for="item_name">{$lang->product_name} <em style="color:red">*</em></label>
 		<div class="x_controls">
-			<input name="item_name" type="text" value="" />
+			<input name="item_name" class="lang_code" type="text" value="" id="item_name" />
 			<a href="#item_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			<p id="item_name_help" class="x_help-block" hidden>{$lang->about_product_name}</p>
 		</div>
@@ -106,6 +106,7 @@
 			{$editor}
 		</div>
 	</div>
+  
 	<block loop="$extra_vars=>$key,$val">
 		<div class="x_control-group">
 			<label class="x_control-label">{$val->getTitle(TRUE)}</label>
