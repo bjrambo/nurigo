@@ -282,6 +282,7 @@ class epayController extends epay
 		$args->plugin_srl = $plugin_srl;
 		$args->plugin_name = $module_info->plugin_name;
 		$args->order_srl = $order_srl;
+		$args->review_order = true;
 
 		// before
 		$output = ModuleHandler::triggerCall('epay.processReview', 'before', $args);
@@ -394,6 +395,7 @@ class epayController extends epay
 		$obj->plugin_name = $plugin->plugin_info->plugin_title;
 		$obj->order_srl = $order_srl;
 		$obj->xe_mid = $mid;
+		$obj->review_order = false;
 
 		// before
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'before', $obj);
