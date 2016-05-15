@@ -165,7 +165,7 @@ class nproductAdminView extends nproduct
 				unset($args);
 				$category_data->list[] = $output->data;
 			}
-			eval("\$category_data->depth{$count} = $node_id;");
+			$category_data->{'depth' . $count} = $node_id;
 			$count += 1;
 		}
 		Context::set('category_data', $category_data);
