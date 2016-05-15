@@ -3411,24 +3411,9 @@ class XML
 			// Check whether more than one argument was given.
 			if ( func_num_args() > 1 )
 			{
-				// Read all arguments.
 				$arguments = func_get_args();
-				
-				// Create a new string for the inserting command.
-				$command = "\$message = sprintf(\$message, ";
-				
-				// Run through the array of arguments.
-				for ( $i = 1; $i < sizeof($arguments); $i++ )
-				{
-					// Add the number of the argument to the command.
-					$command .= "\$arguments[".$i."], ";
-				}
-				
-				// Replace the last separator.
-				$command = eregi_replace(", $", ");", $command);
-				
-				// Execute the command.
-				eval($command);
+				array_shift($arguments);
+				$message = vsprintf($message, $arguments);
 			}
 		
       // Display the error message.

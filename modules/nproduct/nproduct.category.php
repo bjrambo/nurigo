@@ -50,8 +50,16 @@ class nproductCategory
 			{
 				$node_route = $cate->node_route . $cate->node_id;
 				$stages = explode('.', $node_route);
-				$code_str = '$category_tree["' . implode('"]["', $stages) . '"] = array();';
-				eval($code_str);
+				$reference_tree = &$category_tree;
+				foreach($stages as $stage)
+				{
+				    if(!isset($reference_tree[$stage]))
+				    {
+				        $reference_tree[$stage] = array();
+				    }
+				    $reference_tree = &$reference_tree[$stage];
+				}
+				unset($reference_tree);
 				$category_index[$cate->node_id] = $cate;
 			}
 		}
