@@ -46,6 +46,7 @@ function get_category_location() {
 
 	jQuery.ajax({
 		type : "POST"
+		, contentType: "application/json; charset=utf-8"
 		, url : "./"
 		, data : {
 			module : "nproduct"
@@ -90,6 +91,7 @@ function pb_load_list(node) {
 
 	jQuery.ajax({
 		type : "POST"
+		, contentType: "application/json; charset=utf-8"
 		, url : "./"
 		, data : {
 			    module : "nproduct"
