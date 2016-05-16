@@ -46,9 +46,8 @@ function get_category_location() {
 
 	jQuery.ajax({
 		type : "POST"
-		, contentType: "application/json; charset=utf-8"
 		, url : "./"
-		, data : { 
+		, data : {
 			module : "nproduct"
 			, act : "getNproductCategoryInfo"
 			, node_id : req_node_id
@@ -63,9 +62,9 @@ function get_category_location() {
 			jQuery('#fo_insert .route').text(node_route_text);
 			p_hide_waiting_message();
 		}
-		, error : function (xhttp, textStatus, errorThrown) { 
+		, error : function (xhttp, textStatus, errorThrown) {
 			p_hide_waiting_message();
-			alert(errorThrown + " " + textStatus); 
+			alert(errorThrown + " " + textStatus);
 		}
 	});
 }
@@ -91,9 +90,8 @@ function pb_load_list(node) {
 
 	jQuery.ajax({
 		type : "POST"
-		, contentType: "application/json; charset=utf-8"
 		, url : "./"
-		, data : { 
+		, data : {
 			    module : "nproduct"
 			    , act : "getNproductCategoryInfo"
 			    , node_id : req_node_id
@@ -108,9 +106,9 @@ function pb_load_list(node) {
 			pop_update_category(data.data);
 			p_hide_waiting_message();
 		}
-		, error : function (xhttp, textStatus, errorThrown) { 
+		, error : function (xhttp, textStatus, errorThrown) {
 			p_hide_waiting_message();
-			alert(errorThrown + " " + textStatus); 
+			alert(errorThrown + " " + textStatus);
 		}
 	});
 }
@@ -125,7 +123,7 @@ function init_tree(module_srl, tree_id, img_base) {
         // Plugin configuration
 
         // I usually configure the plugin that handles the data first - in this case JSON as it is most common
-        "json_data" : { 
+        "json_data" : {
             // I chose an ajax enabled tree - again - as this is most common, and maybe a bit more complex
             // All the options are the same as jQuery's except for `data` which CAN (not should) be a function
             "ajax" : {
@@ -134,7 +132,7 @@ function init_tree(module_srl, tree_id, img_base) {
                 "url" : "./",
                 // this function is executed in the instance's scope (this refers to the tree instance)
                 // the parameter is the node being loaded (may be -1, 0, or undefined when loading the root nodes)
-                "data" : function (n) { 
+                "data" : function (n) {
                     p_show_waiting_message();
                     if (typeof(init_tree.initial)=='undefined') {
                         init_tree.initial = 1;
@@ -144,15 +142,15 @@ function init_tree(module_srl, tree_id, img_base) {
                         node_id = n.attr('node_id');
                     }
                     // the result is fed to the AJAX request `data` option
-                    return { 
+                    return {
                         module : "nproduct"
                         , act : "getNproductCategoryList"
                         , node_id : node_id
                         , node_type : "1"
                         , module_srl : init_tree.module_srl
-                    }; 
+                    };
                 },
-                "success" : function(d) { 
+                "success" : function(d) {
                     p_hide_waiting_message();
                     if (d.error == -1) {
                         jQuery(tree_id).html(d.message);
@@ -166,7 +164,7 @@ function init_tree(module_srl, tree_id, img_base) {
                             d.data[i].data = "[" + d.data[i].attr.shared + "]" + d.data[i].data;
                         }
                     }
-                    return d.data; 
+                    return d.data;
                 }
             }
         },
@@ -176,13 +174,13 @@ function init_tree(module_srl, tree_id, img_base) {
                 contentType: "application/json; charset=utf-8",
                 "url" : "./",
                 "data" : function (str) {
-                    return { 
+                    return {
                         module : "nproduct"
                         , act : "getNproductPurplebookSearchFolder"
                         , search : str
-                    }; 
+                    };
                 },
-                "success" : function(d) { 
+                "success" : function(d) {
                     for(i = 0; i < d.data.length; i++) {
                         d.data[i] = '#node_'+d.data[i];
                     }
@@ -197,7 +195,7 @@ function init_tree(module_srl, tree_id, img_base) {
             // Those two checks may slow jstree a lot, so use only when needed
             "max_depth" : 4,
             "max_children" : -2,
-            // I want only `drive` nodes to be root nodes 
+            // I want only `drive` nodes to be root nodes
             // This will prevent moving or creating any other type as a root node
             "valid_children" : [ "root","shared","trashcan" ],
             "types" : {
@@ -263,10 +261,10 @@ function init_tree(module_srl, tree_id, img_base) {
             "initially_select" : [ "f." ]
         },
         // the core plugin - not many options here
-        "core" : { 
+        "core" : {
             "html_titles" : "html"
             ,"strings" : { loading : "로딩중 ...", new_node : "새폴더" }
-			,"initially_open" : [ "f." ] 
+			,"initially_open" : [ "f." ]
         },
         "dnd" : {
             "drag_check" : function() {
@@ -350,12 +348,12 @@ function init_tree(module_srl, tree_id, img_base) {
                 contentType: "application/json; charset=utf-8",
                 async : false,
                 url: "./",
-                data : { 
+                data : {
                     module : "nproduct"
                     , act : "procCourseMoveNode"
                     , node_id : this.id.replace("node_","")
                     , parent_id : 't.'
-                }, 
+                },
                 success : function (r) {
                     if (r.error == -1) {
                         alert(r.message);
@@ -374,13 +372,13 @@ function init_tree(module_srl, tree_id, img_base) {
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url : "./", 
-            data : { 
+            url : "./",
+            data : {
                 module : "nproduct"
                 , act : "procNproductPurplebookRenameNode"
                 , node_id : node_id
                 , node_name : node_name
-            }, 
+            },
             success : function(r) {
                 if(r.error == -1) {
                     jQuery.jstree.rollback(data.rlbk);
@@ -406,7 +404,7 @@ function init_tree(module_srl, tree_id, img_base) {
                 contentType: "application/json; charset=utf-8",
                 async : false,
                 url: "./",
-                data : { 
+                data : {
                     module : "nproduct"
                     , act : "procNproductMoveCategory"
                     , node_id : node_id
