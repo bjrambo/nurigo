@@ -475,11 +475,8 @@ class epayController extends epay
 
 		// after
 		$args->extra_vars = $extra_vars;
-		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
-		if(!$output->toBool())
-		{
-			return $output;
-		}
+
+		ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
 
 		// check state
 		if($args->state == '3') // failure
