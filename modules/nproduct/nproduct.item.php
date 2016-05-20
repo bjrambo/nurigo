@@ -78,10 +78,14 @@ class nproductItem extends Object
 	 * @brief print price
 	 *
 	 */
-	function printPrice($price)
+	function printPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
 
+		if(!$price && $this->price)
+		{
+			$price = $this->price;
+		}
 		return $oCurrencyModel->printPrice($price);
 	}
 
