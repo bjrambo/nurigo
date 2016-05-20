@@ -447,6 +447,7 @@ class ncartModel extends ncart
 		$config = $this->getModuleConfig();
 
 		// order info.
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$args->module = $module;
 		$output = executeQuery('ncart.getOrderInfo', $args);
@@ -921,6 +922,7 @@ class ncartModel extends ncart
 	 */
 	function getFieldSetList($module_srl)
 	{
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQueryArray('ncart.getFieldsetList', $args);
 		if(!$output->toBool())
@@ -1105,6 +1107,7 @@ class ncartModel extends ncart
 		global $lang;
 
 		$inputTag = '';
+		$formTag = new stdClass();
 		$formTag->title = $formInfo->column_title;
 		if($formInfo->required == 'Y')
 		{

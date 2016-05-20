@@ -271,6 +271,7 @@ class epayModel extends epay
 
 	function getTransactionByOrderSrl($order_srl)
 	{
+		$args = new stdClass();
 		$args->order_srl = $order_srl;
 		$output = executeQuery('epay.getTransactionByOrderSrl', $args);
 		$payment_info = $output->data;
@@ -290,6 +291,7 @@ class epayModel extends epay
 
 	function getTransactionCountByMemberSrl($member_srl)
 	{
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->state = '2';
 		$output = executeQuery('epay.getTransactionCountByMemberSrl', $args);
