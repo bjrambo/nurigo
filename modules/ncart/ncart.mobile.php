@@ -5,7 +5,7 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  ncartController
  */
-require_once(_XE_PATH_ . 'mo    dules/ncart/ncart.view.php');
+require_once(_XE_PATH_ . 'modules/ncart/ncart.view.php');
 
 class ncartMobile extends ncartView
 {
