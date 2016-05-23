@@ -12,7 +12,7 @@ require_once(_CYMPUSADMIN_FUNCTION_);
 
 class cympusadmin extends ModuleObject
 {
-	function init($module)
+	function init($module = null)
 	{
 		// change into administration layout
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');

@@ -13,7 +13,7 @@ class cympusadminAdminView extends cympusadmin
 	/**
 	 * @brief initialize
 	 **/
-	function init()
+	function init($module = null)
 	{
 		if(Context::get('module') != 'admin')
 		{
