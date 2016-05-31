@@ -1,0 +1,116 @@
+<include target="header.html" />
+<form method="get" action="./" id="mobilemessage_fo" class="form">
+    <div class="table even easyList">
+        <table class="<!--@if($current_version_int > $version_115)-->rowTable<!--@else-->adminTable<!--@end-->">
+			
+        <caption style="text-align:right; margin-bottom:10px;">
+			<span style="float: left;">
+				<select name="search_code" id="search_code" onchange="refresh()" style="width:140px; margin-top : 10px;">
+					<option value="all" selected|cond="$search_code=='all'">전송결과 코드 </option>
+					<option value="00" selected|cond="$search_code=='00'">00:정상</option>
+					<option value="30" selected|cond="$search_code=='30'">30:가능전송잔량없음</option>
+					<option value="32" selected|cond="$search_code=='32'">32:가입자없음</option>
+					<option value="47" selected|cond="$search_code=='47'">47:착신거절</option>
+					<option value="49" selected|cond="$search_code=='49'">49:Format Error</option>
+					<option value="58" selected|cond="$search_code=='58'">58:전송경로없음</option>
+					<option value="60" selected|cond="$search_code=='60'">60:취소</option>
+					<option value="99" selected|cond="$search_code=='99'">99:대기상태<option>
+				</select>
+				<select name="msg_type" id="msg_type" onchange="refresh()" style="width: 80px; margin-top: 10px;">
+					<option value="all" selected|cond="$msg_type=='all'">문자 종류 </option>
+					<option value="sms" selected|cond="$msg_type=='sms'">SMS </option>
+					<option value="lms" selected|cond="$msg_type=='lms'">LMS </option>
+					<option value="mms" selected|cond="$msg_type=='mms'">MMS </option>
+				</select>
+				<input type="text" value="{$rcpt_no}"|cond="$rcpt_no" name="rcpt_no" id="rcpt_no" placeholder="수신번호" style="width: 120px;" />
+				<input type="button" onclick="refresh()" value="검색" class="x_btn" />
+			</span>
+			<span style="float: right;">
+				Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}
+				{$page_no}
+				<select name="page_count" id="page_count" onchange="refresh()" style="width:100px; margin-top : 10px;">
+					<option value="20" selected|cond="$page_no!=50||$page_no!=100">20 개씩 보기</option>
+					<option value="50" selected|cond="$page_no==50">50 개씩 보기</option>
+					<option value="100" selected|cond="$page_no==100">100 개씩 보기</option>
+				</select>
+			</span>
+		</caption>
+        <thead style="clear:both;">
+            <tr>
+                <th scope="col"><div>{$lang->no}</div></th>
+                <th scope="col"><div><input type="checkbox" name="" value="" /></div></th>
+                <th scope="col" class=""><div>{$lang->mtype}</div></th>
+				<th scope="col" class="quarter_wide"><div>{$lang->recipient_no}</div></th>
+				<th scope="col" class=""><div>{$lang->reservation}</div></th>
+                <th scope="col" class="quarter_wide"><div>{$lang->content}</div></th>
+				<th scope="col" class=""><div>{$lang->status}</div></th>
+				<th scope="col" class="quarter_wide"><div>{$lang->sent_time}</div></th>
+				<th scope="col" class="quarter_wide"><div>{$lang->result_code}</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--@foreach($message_list as $no => $val)-->
+			<tr class="row{$cycle_idx}">
+				<td>{$csutil->dispIndex($no, $page, $list_count)}</td>
+				<td><input type="checkbox" checked|cond="$check_reserve=='true'&&$val->result_code=='99'" name="cart[]" value="{$val->message_id}" onclick="checkResultCode(this, {$val->result_code})"/></td>
+                <td>{$val->type}</td>
+                <td>{htmlspecialchars($val->recipient_number)}</td>
+				<td><span cond="$val->reservflag=='Y'" class="reservdate">{zdate($val->reservdate, "Y-m-d H:i")}</span><span cond="$val->reservflag=='N'">-</span></td>
+				<td title="{htmlspecialchars($val->text)}">{htmlspecialchars($csutil->dispContent($val->text))}</td>
+				<td>{$csutil->dispStatus($val->status)}</td>
+				<td>{zdate($val->sent_time, "Y-m-d H:i:s")}</td>
+				<td <!--@if($val->result_code != '00')-->style="color: #ee7989;"<!--@end-->>{$val->result_code}:{htmlspecialchars($csutil->dispResultCode($val->result_code))}</td>
+            </tr>
+            <!--@end-->
+        </tbody>
+        </table>
+    </div>
+		<div class="controls x_pull-right">
+			<!--a href="#delete" class="modalAnchor deleteMessages x_btn">{$lang->cmd_delete}</a-->
+			<input type="hidden" name="module" value="{$module}" />
+			<input type="hidden" name="act" value="procTextmessageAdminCancelReserv" />
+			<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_cancel_reserv}"> 
+		</div>
+   </form>
+   <a href="?module={$module}&act={$act}" class="button black"><span>{$lang->up_list}</span></a>
+
+   <!-- 페이지 네비게이션 -->
+    <div class="x_clearfix">
+		<include target="_page_navigation.html" />
+		
+	</div>
+
+<div class="x_modal" id="cancelation">
+	<form action="./" class="fg form" method="post">
+		<input type="hidden" name="module" value="textmessage" />
+		<input type="hidden" name="act" value="procTextmessageAdminCancelReserv" />
+		<input type="hidden" name="group_id" value="{$group_id}" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act', $act,'group_id',$group_id)}" />
+		<div id="cancelForm"></div>
+	</form>
+</div>
+
+<script>
+function checkResultCode(select, code)
+{
+	if(code != '99')
+	{
+		alert("이 문자는 예약전송 상태가 아닙니다");
+		select.checked = false;
+	}
+}
+
+function refresh()
+{
+	page_count = document.getElementById('page_count').value;
+	search_code = document.getElementById('search_code').value;
+	msg_type = document.getElementById('msg_type').value;
+	rcpt_no = document.getElementById("rcpt_no").value;
+	if(!page_count) page_count = 20;
+	if(!search_code) search_code = 'all';
+	if(!msg_type) msg_type = 'all';
+	if(!rcpt_no) rcpt_no = '';
+
+	window.location = 'index.php?module=admin&act=dispTextmessageAdminUsageStatement&page=1&page_no=' + page_count + "&search_code=" +search_code+ "&msg_type=" + msg_type+ "&rcpt_no="+ rcpt_no;
+}
+</script>

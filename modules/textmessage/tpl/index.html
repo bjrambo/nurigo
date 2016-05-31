@@ -1,0 +1,33 @@
+<include target="header.html" />
+
+	<div class="content dashboard" id="content">
+			<div cond="!$isSetupCompleted" class="message update">
+				<p>{$lang->msg_config_required}</p>
+				<p><a href="{getUrl('act','dispTextmessageAdminConfig')}">{$lang->cmd_goto_config}</a></p>
+			</div>
+	</div>
+		<div class="x_control-group">
+			<div cond="$isSetupCompleted" class="portlet">
+				<h3>{$lang->recharging_state}</h3>
+				<ul class="lined">
+					<li>{$lang->service_api_key} : {$config->api_key} <span class="side"><a href="{getUrl('act','dispTextmessageAdminConfig')}">{$lang->cmd_configure}</a></span></li>
+					<li>{$lang->balance} : <b title="{$lang->sms} : {(int)($config->cs_cash / $config->sms_price)}, {$lang->lms} : {(int)($config->cs_cash / $config->lms_price)}, {$lang->mms} : {(int)($config->cs_cash / $config->mms_price)}">{number_format($config->cs_cash)}</b> {$lang->won} <span class="side"><a href="http://www.coolsms.co.kr/chg/" target="_blank">{$lang->recharge}</a></span></li>
+					<li>{$lang->point} : <b title="{$lang->sms} : {(int)($config->cs_point / $config->sms_price)}, {$lang->lms} : {(int)($config->cs_point / $config->lms_price)}, {$lang->mms} : {(int)($config->cs_point / $config->mms_price)}">{number_format($config->cs_point)}</b> {sprintf($lang->point_guide,$config->sms_price)}</li>
+					<li cond="$config->cs_mdrop">{$lang->mdrop} : <b>{number_format($config->cs_mdrop)}</b> 개 (SMS 1개, 장문 3개, 포토 10개 차감)</li>
+					<li>{$lang->sms} : <b style="color:red"|cond="$config->sms_volume < 100">{number_format($config->sms_volume)}</b> {sprintf($lang->volume_guide,$config->sms_price)}</li>
+					<li>{$lang->lms} : <b>{number_format($config->lms_volume)}</b> {sprintf($lang->volume_guide,$config->lms_price)}</li>
+					<li>{$lang->mms} : <b>{number_format($config->mms_volume)}</b> {sprintf($lang->volume_guide,$config->mms_price)}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<div class="notice_area">
+				<h3>{$lang->notice}</h3>
+				<ul class="lined">
+					<!--@foreach($news AS $key=>$value)-->
+					<li><a href="{$value->url}" target="_blank">{$value->title}</a> <span class="side">{zdate($value->date, 'Y-m-d')}</span></li>
+					<!--@end-->
+					<li cond="!is_array($news) || count($news) < 1">{$lang->no_data}</li>
+				</ul>
+			</div>
+		</div>

@@ -1,0 +1,37 @@
+<include target="header.html" />
+
+<form action="./" method="post" class="form" ruleset="insert_config">
+	<input type="hidden" name="module" value="textmessage" />
+	<input type="hidden" name="act" value="procTextmessageAdminInsertConfig" />
+	<fieldset class="section">
+		<h2 class="h2">{$lang->configuration}</h2>
+		<ul>
+			<li>
+				<p class="q">{$lang->service_api_key}</p>
+				<p class="a">
+					<input id="api_key" type="text" name="api_key" value="{$config->api_key}" />
+					<p>{$lang->about_api_key}</p>
+				</p>
+			</li>
+			<li>
+				<p class="q">{$lang->service_api_secret}</p>
+				<p class="a">
+					<input id="api_secret" type="text" name="api_secret" value="{$config->api_secret}" />
+					<p>{$lang->about_api_secret}</p>
+				</p>
+			</li>
+			<li cond="0">
+				<p class="q">{$lang->callback_url}</th>
+				<p class="a">
+					<input id="callback_url" type="text" {$callback_url_style} name="callback_url" value="{$callback_url}" />
+					<p>{$lang->about_callback_url}</p>
+				</p>
+			</li>
+		</tr>
+		</ul>
+	</fieldset>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+	</div>
+</form>
+

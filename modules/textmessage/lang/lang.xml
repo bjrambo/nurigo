@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="service_id">
+		<value xml:lang="ko"><![CDATA[서비스ID]]></value>
+		<value xml:lang="en"><![CDATA[Service ID]]></value>
+	</item>
+	<item name="service_api_key">
+		<value xml:lang="ko"><![CDATA[서비스 API Key]]></value>
+		<value xml:lang="en"><![CDATA[Service API Key]]></value>
+	</item>
+	<item name="service_api_secret">
+		<value xml:lang="ko"><![CDATA[서비스 API Secret]]></value>
+		<value xml:lang="en"><![CDATA[Service API Secret]]></value>
+	</item>
+	<item name="service_password">
+		<value xml:lang="ko"><![CDATA[비밀번호]]></value>
+		<value xml:lang="en"><![CDATA[Password]]></value>
+	</item>
+	<item name="callback_url">
+		<value xml:lang="ko"><![CDATA[콜백 URL]]></value>
+		<value xml:lang="en"><![CDATA[Callback URL]]></value>
+	</item>
+	<item name="balance">
+		<value xml:lang="ko"><![CDATA[잔액]]></value>
+		<value xml:lang="en"><![CDATA[Balance]]></value>
+	</item>
+	<item name="sms">
+		<value xml:lang="ko"><![CDATA[일반]]></value>
+		<value xml:lang="en"><![CDATA[SMS]]></value>
+	</item>
+	<item name="lms">
+		<value xml:lang="ko"><![CDATA[장문]]></value>
+		<value xml:lang="en"><![CDATA[Long]]></value>
+	</item>
+	<item name="mms">
+		<value xml:lang="ko"><![CDATA[포토]]></value>
+		<value xml:lang="en"><![CDATA[Photo]]></value>
+	</item>
+	<item name="won">
+		<value xml:lang="ko"><![CDATA[원]]></value>
+		<value xml:lang="en"><![CDATA[KRW]]></value>
+	</item>
+	<item name="usage_statement">
+		<value xml:lang="ko"><![CDATA[발송내역]]></value>
+		<value xml:lang="en"><![CDATA[Usage Statement]]></value>
+	</item>
+	<item name="dashboard">
+		<value xml:lang="ko"><![CDATA[대시보드]]></value>
+		<value xml:lang="en"><![CDATA[Dashboard]]></value>
+	</item>
+	<item name="statistics">
+		<value xml:lang="ko"><![CDATA[사용통계]]></value>
+		<value xml:lang="en"><![CDATA[Statistics]]></value>
+	</item>
+	<item name="reservation_time">
+		<value xml:lang="ko"><![CDATA[예약일시]]></value>
+		<value xml:lang="en"><![CDATA[Reserv. Time]]></value>
+	</item>
+	<item name="reservation_status">
+		<value xml:lang="ko"><![CDATA[예약상태]]></value>
+		<value xml:lang="en"><![CDATA[Reserv. Status]]></value>
+	</item>
+	<item name="recipient_no">
+		<value xml:lang="ko"><![CDATA[수신번호]]></value>
+		<value xml:lang="en"><![CDATA[Recipient No.]]></value>
+	</item>
+	<item name="status">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+		<value xml:lang="en"><![CDATA[Status]]></value>
+	</item>
+	<item name="result_code">
+		<value xml:lang="ko"><![CDATA[결과코드]]></value>
+		<value xml:lang="en"><![CDATA[Result Code]]></value>
+	</item>
+	<item name="sent_time">
+		<value xml:lang="ko"><![CDATA[전송(취소)일시]]></value>
+		<value xml:lang="en"><![CDATA[Sent(Cancelled) Time]]></value>
+	</item>
+	<item name="sender">
+		<value xml:lang="ko"><![CDATA[발송자]]></value>
+		<value xml:lang="en"><![CDATA[Sender]]></value>
+	</item>
+	<item name="sender_no">
+		<value xml:lang="ko"><![CDATA[발신번호]]></value>
+		<value xml:lang="en"><![CDATA[Sender No.]]></value>
+	</item>
+	<item name="up_list">
+		<value xml:lang="ko"><![CDATA[상위목록]]></value>
+		<value xml:lang="en"><![CDATA[Up]]></value>
+	</item>
+	<item name="total_count">
+		<value xml:lang="ko"><![CDATA[발송수]]></value>
+		<value xml:lang="en"><![CDATA[Total Count]]></value>
+	</item>
+	<item name="waiting_count">
+		<value xml:lang="ko"><![CDATA[대기]]></value>
+		<value xml:lang="en"><![CDATA[Waiting]]></value>
+	</item>
+	<item name="sending_count">
+		<value xml:lang="ko"><![CDATA[전송중]]></value>
+		<value xml:lang="en"><![CDATA[Sending]]></value>
+	</item>
+	<item name="success_count">
+		<value xml:lang="ko"><![CDATA[성공]]></value>
+		<value xml:lang="en"><![CDATA[Success]]></value>
+	</item>
+	<item name="failure_count">
+		<value xml:lang="ko"><![CDATA[실패]]></value>
+		<value xml:lang="en"><![CDATA[Failure]]></value>
+	</item>
+	<item name="cancel_count">
+		<value xml:lang="ko"><![CDATA[취소]]></value>
+		<value xml:lang="en"><![CDATA[Cancel]]></value>
+	</item>
+	<item name="configuration">
+		<value xml:lang="ko"><![CDATA[설정]]></value>
+		<value xml:lang="en"><![CDATA[Configuration]]></value>
+	</item>
+
+	<item name="recharge">
+		<value xml:lang="ko"><![CDATA[충전하기]]></value>
+		<value xml:lang="en"><![CDATA[Recharge]]></value>
+	</item>
+	<item name="recharging_state">
+		<value xml:lang="ko"><![CDATA[충전현황]]></value>
+		<value xml:lang="en"><![CDATA[Recharing State]]></value>
+	</item>
+	<item name="point">
+		<value xml:lang="ko"><![CDATA[포인트]]></value>
+		<value xml:lang="en"><![CDATA[Point]]></value>
+	</item>
+	<item name="point_guide">
+		<value xml:lang="ko"><![CDATA[점 (잔액 소진 후 건당 %s 포인트씩 자동차감)]]></value>
+		<value xml:lang="en"><![CDATA[Point (After balance empty, %s points will be reduced per one.]]></value>
+	</item>
+	<item name="mdrop">
+		<value xml:lang="ko"><![CDATA[문자방울]]></value>
+		<value xml:lang="en"><![CDATA[Mdrops]]></value>
+	</item>
+	<item name="volume_guide">
+		<value xml:lang="ko"><![CDATA[개 발송가능 (건당 %s원 차감)]]></value>
+		<value xml:lang="en"><![CDATA[Available (%sKRW per 1)]]></value>
+	</item>
+	<item name="oversea">
+		<value xml:lang="ko"><![CDATA[해외문자]]></value>
+		<value xml:lang="en"><![CDATA[Oversea]]></value>
+	</item>
+	<item name="sum">
+		<value xml:lang="ko"><![CDATA[합계]]></value>
+		<value xml:lang="en"><![CDATA[Sum]]></value>
+	</item>
+	<item name="total">
+		<value xml:lang="ko"><![CDATA[총계]]></value>
+		<value xml:lang="en"><![CDATA[Total]]></value>
+	</item>
+	<item name="cmd_cancel_reserv">
+		<value xml:lang="ko"><![CDATA[예약취소]]></value>
+		<value xml:lang="en"><![CDATA[Cancel Reservations]]></value>
+	</item>
+	<item name="cmd_goto_config">
+		<value xml:lang="ko"><![CDATA[설정하러 가기]]></value>
+		<value xml:lang="en"><![CDATA[Go to configure]]></value>
+	</item>
+	<item name="cmd_configure">
+		<value xml:lang="ko"><![CDATA[설정변경]]></value>
+		<value xml:lang="en"><![CDATA[Configure]]></value>
+	</item>
+	<item name="cmd_delete">
+		<value xml:lang="ko"><![CDATA[삭제]]></value>
+		<value xml:lang="en"><![CDATA[Delete]]></value>
+	</item>
+	<item name="msg_config_required">
+		<value xml:lang="ko"><![CDATA[설정이 완료되지 않았습니다]]></value>
+		<value xml:lang="en"><![CDATA[Configuration is required]]></value>
+	</item>
+
+	<item name="success_requested">
+		<value xml:lang="ko"><![CDATA[요청하였습니다]]></value>
+		<value xml:lang="en"><![CDATA[Requested]]></value>
+	</item>
+
+	<item name="about_api_key">
+		<value xml:lang="ko"><![CDATA[<a href="http://www.coolsms.co.kr/index.php?mid=service_setup&act=dispSmsconfigCredentials" target="_blank">www.coolsms.co.kr/</a>에서 확인하실수 있습니다. ]]></value>
+		<value xml:lang="en"><![CDATA[You can check your api_key at <a href="http://www.coolsms.co.kr/index.php?mid=service_setup&act=dispSmsconfigCredentials" target="_blank">www.coolsms.co.kr/</a>]]></value>
+	</item>
+	<item name="about_api_secret">
+		<value xml:lang="ko"><![CDATA[<a href="http://www.coolsms.co.kr/index.php?mid=service_setup&act=dispSmsconfigCredentials" target="_blank">www.coolsms.co.kr/</a> 에서 확인하실수 있습니다. ]]></value>
+		<value xml:lang="en"><![CDATA[You can check your api_secret at <a href="http://www.coolsms.co.kr/index.php?mid=service_setup&act=dispSmsconfigcredentials" target="_blank">www.coolsms.co.kr/</a>]]></value>
+	</item>
+	<item name="about_callback_url">
+		<value xml:lang="ko"><![CDATA[<i>http://도메인/설치경로</i> 형태로 입력하세요. 예) http://www.example.org/xe/<br />잘못된 URL을 설정하시면 [전송결과 자동갱신] 및 [엑셀다운로드 기능]이 오작동 할 수 있습니다.<br />]]></value>
+		<value xml:lang="en"><![CDATA[Input the password you registered on <a href="http://www.coolsms.co.kr/acct/signup.php" target="_blank">www.coolsms.co.kr</a>]]></value>
+	</item>
+	<item name="about_utf16">
+		<value xml:lang="ko"><![CDATA[영어 이외의 텍스트도 손실없이 전송할 수 있습니다. 단, 알파벳 포함 모든 캐릭터(character)는 2바이트로 전송되며 건당 70개의 캐릭터(140바이트)를 전송하실 수 있습니다. (한국 제외)]]></value>
+		<value xml:lang="en"><![CDATA[Input the password you registered on <a href="http://www.coolsms.co.kr/acct/signup.php" target="_blank">www.coolsms.co.kr</a>]]></value>
+	</item>
+</lang>

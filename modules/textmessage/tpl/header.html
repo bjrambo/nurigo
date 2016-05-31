@@ -1,0 +1,18 @@
+<div class="x_page-header">
+	<h1> 문자메시지
+		<a href="#aboutModule" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="aboutModule" hidden>SMS, LMS, MMS 등의 문자메시지 발송 API를 제공하여 모듈, 애드온, 위젯에서 연동할 수 있도록 합니다.</p>
+    <ul class="x_nav x_nav-tabs">
+		<li class="x_active"|cond="$act=='dispTextmessageAdminIndex'"><a href="{getUrl('act','dispTextmessageAdminIndex')}">{$lang->dashboard}</a></li>
+		<li class="x_active"|cond="$act=='dispTextmessageAdminUsageStatement'"><a href="{getUrl('act','dispTextmessageAdminUsageStatement')}">{$lang->usage_statement}</a></li>
+		<li cond="$act=='dispTextmessageAdminCancelReserv'" class="x_active"|cond="$act=='dispTextmessageAdminCancelReserv'"><a href="{getUrl('act', 'dispTextmessageAdminCancelReserv')}">{$lang->cmd_cancel_reserv}</a></li>
+    </ul>
+
+<block cond="$cs_error_message">
+	{@$XE_VALIDATOR_MESSAGE=$cs_error_message}
+</block>
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>

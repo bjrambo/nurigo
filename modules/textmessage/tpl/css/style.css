@@ -1,0 +1,25 @@
+#service_id { width:220px; }
+#password { width:220px; }
+#callback_url { width:460px; }
+
+/* tab */
+.menuTab { border-bottom:1px solid #a6a6a6; *zoom:1; margin:0 0 20px 0px; padding:0; list-style:none; }
+.menuTab:after {content:""; display:block; clear:both;}
+.menuTab li { float:left; position:relative; text-decoration:none; font:8pt 돋움,Dotum; color:#999; letter-spacing:-1px; }
+.menuTab li a{ float:left; margin-bottom:-1px; padding:10px 10px 0 10px; width:88px; height:19px; background:url(../img/tabOff.gif) repeat-x; color:#999; text-decoration:none;}
+.menuTab li a:hover { background:url(../img/tabOn.gif) repeat-x; }
+.menuTab li.active a { font-weight:bold; background:url(../img/tabOn.gif) repeat-x;}
+
+.tbl_type,.tbl_type th,.tbl_type td{border:0}
+.tbl_type{width:100%;border-bottom:2px solid #dcdcdc;font-family:'돋움',dotum;font-size:12px;text-align:center;border-collapse:collapse}
+.tbl_type caption{display:none}
+.tbl_type tfoot{background-color:#f5f7f9;font-weight:bold}
+.tbl_type th{padding:7px 0 4px;border-top:2px solid #dcdcdc;border-right:1px solid #dcdcdc;border-left:1px solid #dcdcdc;background-color:#f5f7f9;color:#666;font-family:'돋움',dotum;font-size:12px;font-weight:bold}
+.tbl_type td{padding:6px 0 4px;border:1px solid #e5e5e5;color:#4c4c4c}
+.tbl_type td.ranking{font-weight:bold}
+
+
+/* jgrowl theme */
+.jGrowl .black { background-color:#000000; }
+
+.refresh { display:inline-block; background:url(../img/refresh.gif); width:12px; height:12px; cursor:pointer; }

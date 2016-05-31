@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants />
+    <permissions />
+	<menus>
+		<menu name="textmessageIndex">
+			<title xml:lang="ko">문자메시지 대시보드</title>
+			<title xml:lang="en">Textmessage Dashboard</title>
+		</menu>
+		<menu name="textmessageUsageStatement">
+			<title xml:lang="ko">문자메시지 발송내역</title>
+			<title xml:lang="en">Textmessage Statement</title>
+		</menu>
+		<menu name="textmessageStatistics">
+			<title xml:lang="ko">문자메시지 사용통계</title>
+			<title xml:lang="en">Textmessage Statistics</title>
+		</menu>
+	</menus>
+    <actions>
+        <action name="dispTextmessageAdminIndex" type="view" admin_index="true" menu_name="textmessageIndex" menu_index="true" />
+        <action name="dispTextmessageAdminConfig" type="view" menu_name="textmessageUsageStatement" />
+        <action name="dispTextmessageAdminUsageStatement" type="view" menu_name="textmessageUsageStatement" menu_index="true" />
+        <action name="dispTextmessageAdminStatisticsDaily" type="view" menu_name="textmessageStatistics" menu_index="true" />
+        <action name="dispTextmessageAdminStatisticsMonthly" type="view" menu_name="textmessageStatistics" />
+        <action name="dispTextmessageAdminCancelGroup" type="view" />
+        <action name="dispTextmessageAdminCancelReserv" type="view" />
+
+        <action name="getTextmessageAdminCancelReserv" type="model" />
+        <action name="getTextmessageAdminCancelGroup" type="model" />
+        <action name="getTextmessageAdminDeleteMessages" type="model" />
+        <action name="getTextmessageAdminDeleteGroup" type="model" />
+        <action name="getTextmessageAdminUnfinishedMessages" type="model" />
+        <action name="getTextmessageAdminStatistics" type="model" />
+        <action name="getTextmessageAdminStatisticsMonthly" type="model" />
+
+        <action name="procTextmessageAdminInsertConfig" type="controller" ruleset="insert_config" />
+        <action name="procTextmessageAdminStatistics" type="controller" />
+        <action name="procTextmessageAdminCancelReserv" type="controller" />
+        <action name="procTextmessageAdminCancelGroup" type="controller" />
+        <action name="procTextmessageAdminDeleteMessages" type="controller" />
+        <action name="procTextmessageAdminDeleteGroup" type="controller" />
+        <action name="procTextmessageAdminUpdateStatus" type="controller" />
+        <action name="procTextmessageAdminDeleteStatisticsMonth" type="controller" />
+        <action name="procTextmessageAdminDeleteStatistics" type="controller" />
+    </actions>
+</module>

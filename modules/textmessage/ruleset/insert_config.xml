@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+		<field name="api_key" required="true" length="1:20" rule="userid" />
+		<field name="api_secret" required="true" length="1:40" />
+    </fields>
+</ruleset>
