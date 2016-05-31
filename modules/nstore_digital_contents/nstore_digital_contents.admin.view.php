@@ -28,7 +28,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 
 	function dispNstore_digital_contentsAdminItemList()
 	{
-		$output = executeQueryArray('module.getMidList', $args);
+		$output = executeQueryArray('module.getMidList');
 		foreach($output->data as $k => $v)
 		{
 			if($v->module == 'nproduct')
@@ -48,6 +48,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 			Context::set('item_name', Context::get('item_name'));
 		}
 
+		$args = new stdClass();
 		$args->module_srl = Context::get('nproduct_srl');
 		$args->item_name = Context::get('item_name');
 		$args->page = Context::get('page');
