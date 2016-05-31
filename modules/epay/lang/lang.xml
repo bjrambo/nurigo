@@ -261,12 +261,6 @@
 		<value xml:lang="jp"><![CDATA[結果]]></value>
 		<value xml:lang="zh-TW"><![CDATA[結果]]></value>
 	</item>
-	<item name="payment_method">
-		<value xml:lang="ko"><![CDATA[결제수단)]]></value>
-		<value xml:lang="en"><![CDATA[Payment method]]></value>
-		<value xml:lang="jp"><![CDATA[Payment method]]></value>
-		<value xml:lang="zh-TW"><![CDATA[付款]]></value>
-	</item>
 	<item name="payment_management">
 		<value xml:lang="ko"><![CDATA[결제관리]]></value>
 		<value xml:lang="en"><![CDATA[Payment]]></value>
