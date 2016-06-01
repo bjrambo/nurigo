@@ -439,9 +439,12 @@ class ncartView extends ncart
 		$extra_vars = unserialize($order_info->extra_vars);
 
 		// 주문한 사람이 아니라면
-		if($order_info->member_srl != $logged_info->member_srl)
+		if(Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_not_permitted');
+			if($order_info->member_srl != $logged_info->member_srl)
+			{
+				return new Object(-1, 'msg_not_permitted');
+			}
 		}
 
 		// 로그인 안했을 때 권한 확인 : triggerProcessPayment 에서 설정된다.
