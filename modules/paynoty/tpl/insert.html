@@ -49,13 +49,21 @@
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label" for="mid">휴대전화 번호</label>
+			<label class="x_control-label" for="mid">보내는 휴대전화 번호</label>
+			<div class="x_controls">
+				<input type="text" name="sender_no" style="width:300px;" value="{$config->sender_no}" />
+				<a href="#admin_phones_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">받는 휴대전화 번호</label>
 			<div class="x_controls">
 				<input type="text" name="admin_phones" style="width:300px;" value="{$config->admin_phones}" />
 				<a href="#admin_phones_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="admin_phones_help" class="x_help-block" hidden>콤마(,)로 구분 여러 개 입력가능</p>
 			</div>
 		</div>
+
 		<div class="x_control-group">
 			<label class="x_control-label" for="mid">{$lang->content}</label>
 			<div class="x_controls">

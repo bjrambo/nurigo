@@ -104,6 +104,11 @@ class paynoty extends ModuleObject
 		{
 			return true;
 		}
+
+		if(!$oDB->isColumnExists('paynoty_config', 'sender_no'))
+		{
+			return TRUE;
+		}
 		return false;
 	}
 
@@ -120,6 +125,11 @@ class paynoty extends ModuleObject
 		if(!$oModuleModel->getTrigger('epay.processPayment', 'paynoty', 'controller', 'triggerCompletePayment', 'after'))
 		{
 			$oModuleController->insertTrigger('epay.processPayment', 'paynoty', 'controller', 'triggerCompletePayment', 'after');
+		}
+
+		if(!$oDB->isColumnExists('paynoty_config', 'sender_no'))
+		{
+			$oDB->addColumn('paynoty_config', 'sender_no', 'varchar', 250);
 		}
 	}
 

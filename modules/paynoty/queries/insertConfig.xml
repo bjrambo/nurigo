@@ -5,6 +5,7 @@
 	<columns>
 		<column name="config_srl" var="config_srl" filter="number" notnull="notnull" />
 		<column name="admin_phones" var="admin_phones" />
+		<column name="sender_no" var="sender_no" />
 		<column name="content" var="content" />
 		<column name="msgtype" var="msgtype" default="SMS" />
 		<column name="admin_emails" var="admin_emails" />

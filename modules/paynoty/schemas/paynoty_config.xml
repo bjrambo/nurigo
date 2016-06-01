@@ -1,6 +1,7 @@
 <table name="paynoty_config">
 	<column name="config_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
 	<column name="admin_phones" type="varchar" size="250" notnull="notnull" />
+	<column name="sender_no" type="varchar" size="250" notnull="notnull" />
 	<column name="content" type="varchar" size="4000" notnull="notnull" />
 	<column name="msgtype" type="varchar" size="5" default="SMS" notnull="notnull" />
 	<column name="admin_emails" type="varchar" size="250" notnull="notnull" />

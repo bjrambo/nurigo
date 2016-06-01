@@ -17,7 +17,7 @@ class paynotyController extends paynoty
 		{
 			$args = new stdClass();
 			$args->recipient_no = explode(',', $config->admin_phones);
-			//$args->sender_no = $receiver->recipient_no;
+			$args->sender_no = $config->sender_no;
 			$args->content = $content;
 			$output = $oTextmessageController->sendMessage($args);
 			if(!$output->toBool())
