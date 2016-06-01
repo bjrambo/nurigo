@@ -25,7 +25,7 @@ class textmessageAdminView extends textmessage
 	 **/
 	function dispTextmessageAdminIndex() 
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$config = $oTextmessageModel->getConfig();
 		if (!$config) Context::set('isSetupCompleted', false);
 		else Context::set('isSetupCompleted', true);
@@ -54,7 +54,7 @@ class textmessageAdminView extends textmessage
 
 				foreach($item as $key => $val) 
 				{
-					$obj = null;
+					$obj = new stdClass();
 					$obj->title = $val->body;
 					$obj->date = $val->attrs->date;
 					$obj->url = $val->attrs->url;
@@ -74,7 +74,7 @@ class textmessageAdminView extends textmessage
 	 */
 	function dispTextmessageAdminConfig() 
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$config = $oTextmessageModel->getConfig();
 
 		$callback_url = Context::getDefaultUrl();
@@ -93,7 +93,7 @@ class textmessageAdminView extends textmessage
 	//발송내역 페이지 
 	function dispTextmessageAdminUsageStatement() 
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$config = $oTextmessageModel->getModuleConfig();
 		$sms = $oTextmessageModel->getCoolSMS();
 
@@ -102,6 +102,7 @@ class textmessageAdminView extends textmessage
 		$msg_type = Context::get('msg_type');
 		$rcpt_no = Context::get('rcpt_no');
 		if(!$count) $count = 20;
+		$options = new stdClass();
 		if($msg_type != 'all') $options->type = $msg_type;
 		if(is_numeric($search_code))
 			$options->s_resultcode = $search_code;

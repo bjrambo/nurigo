@@ -17,11 +17,11 @@ class textmessageModel extends textmessage
 	{
 		if (!$GLOBALS['__textmessage_config__']) 
 		{
-			$oModuleModel = &getModel('module');
+			$oModuleModel = getModel('module');
 			$config = $oModuleModel->getModuleConfig('textmessage');
 
 			// get logged_info
-			$oMemberModel = &getModel('member');
+			$oMemberModel = getModel('member');
 			$logged_info = Context::get('logged_info');
 			// 회원정보 보기 페이지에서 $logged_info->password를 unset시키기 때문에 새로 가져와야 한다
 			if(!$logged_info->password) $logged_info = $oMemberModel->getMemberInfoByMemberSrl($logged_info->member_srl);

@@ -283,7 +283,6 @@ class epayController extends epay
 		$args->plugin_name = $module_info->plugin_name;
 		$args->order_srl = $order_srl;
 		$args->review_order = true;
-
 		// before
 		$output = ModuleHandler::triggerCall('epay.processReview', 'before', $args);
 		if(!$output->toBool())

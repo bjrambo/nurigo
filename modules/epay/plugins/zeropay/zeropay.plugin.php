@@ -57,8 +57,6 @@ class zeropay extends EpayPlugin
 
 	function processReview($args)
 	{
-		debugPrint('processReview');
-		debugPrint($args);
 		Context::set('price', $args->price);
 		Context::set('order_title', $args->epay_order_title);
 
@@ -74,8 +72,6 @@ class zeropay extends EpayPlugin
 
 	function processPayment($args)
 	{
-		debugPrint('processPayment');
-		debugPrint($args);
 		$output = new Object();
 		$output->add('state', '2'); // not completed
 		$output->add('payment_method', 'ZP');

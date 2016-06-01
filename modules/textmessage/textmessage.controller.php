@@ -27,7 +27,7 @@ class textmessageController extends textmessage
 	 **/
 	function sendMessage($args, $basecamp=FALSE) 
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$sms = &$oTextmessageModel->getCoolSMS($basecamp);
 		$options = new stdClass();
 		if($oTextmessageModel->getSlnRegKey() && !$args->srk)
@@ -89,7 +89,7 @@ class textmessageController extends textmessage
 	 */
 	function cancelMessage($msgid, $basecamp=FALSE)
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$sms = &$oTextmessageModel->getCoolSMS($basecamp);
 		$options = new stdClass();
 		$options->mid = $msgid;
@@ -105,7 +105,7 @@ class textmessageController extends textmessage
 	 **/
 	function cancelGroupMessages($grpid, $basecamp=FALSE)
 	{
-		$oTextmessageModel = &getModel('textmessage');
+		$oTextmessageModel = getModel('textmessage');
 		$sms = &$oTextmessageModel->getCoolSMS($basecamp);
 		$options = new stdClass();
 		$options->gid = $grpid;

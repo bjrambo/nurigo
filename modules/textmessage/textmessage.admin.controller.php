@@ -18,7 +18,6 @@ class textmessageAdminController extends textmessage
 	 **/
 	function procTextmessageAdminInsertConfig() 
 	{
-		$oTextmessageModel = &getModel('textmessage');
 		$args = Context::gets('api_key', 'api_secret', 'callback_url', 'encode_utf16');
 
 		// save module configuration.
@@ -38,7 +37,7 @@ class textmessageAdminController extends textmessage
 		$target_message_ids = Context::get('cart');
 		if(!$target_message_ids) return new Object(-1, 'msg_invalid_request');
 
-		$oTextmessageController = &getController('textmessage');
+		$oTextmessageController = getController('textmessage');
 		foreach($target_message_ids as $id => $val)
 		{
 			$output = $oTextmessageController->cancelMessage($val);
@@ -59,7 +58,7 @@ class textmessageAdminController extends textmessage
 		if(!$target_group_ids) return new Object(-1, 'msg_invalid_request');
 
 		$group_ids = explode(',', $target_group_ids);
-		$oTextmessageController = &getController('textmessage');
+		$oTextmessageController = getController('textmessage');
 
 		$output = $oTextmessageController->cancelGroupMessages($group_ids);
 		if(!$output->toBool()) return $output;

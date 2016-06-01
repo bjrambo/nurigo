@@ -19,7 +19,7 @@ class paynotyAdminController extends paynoty
 	 **/
 	function procPaynotyAdminInsert()
 	{
-		$params = Context::gets('admin_phones', 'admin_emails', 'sender_name', 'sender_email', 'content', 'mail_content', 'module_srls', 'msgtype', 'sending_method');
+		$params = Context::gets('admin_phones', 'sender_no', 'admin_emails', 'sender_name', 'sender_email', 'content', 'mail_content', 'module_srls', 'msgtype', 'sending_method');
 		$params->config_srl = Context::get('config_srl');
 
 		if($params->config_srl)
@@ -59,11 +59,9 @@ class paynotyAdminController extends paynoty
 		}
 
 		//$params->extra_vars = serialize($extra_vars);
-
-		debugPrint('params : ' . serialize($params));
+		
 		// insert paynoty
 		$output = executeQuery('paynoty.insertConfig', $params);
-		debugPrint('insertConfig : ' . serialize($output));
 		if(!$output->toBool())
 		{
 			return $output;
