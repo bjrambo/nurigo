@@ -501,6 +501,7 @@ class epayView extends epay
 				}
 			}
 
+			$args = new stdClass();
 			$args->member_srl = $logged_info->member_srl;
 			$args->page = Context::get('page');
 			$args->regdate_more = $start_date;
