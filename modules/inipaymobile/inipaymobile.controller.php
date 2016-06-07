@@ -249,7 +249,7 @@ class inipaymobileController extends inipaymobile
 		$output->add('transaction_srl', $transaction_info->transaction_srl);
 		$output->add('payment_method', 'VA');
 		$output->add('payment_amount', $transaction_info->payment_amount);
-		$output->add('pg_tid', $transaction_ifno->pg_tid);
+		$output->add('pg_tid', $transaction_info->pg_tid);
 		$output->add('vact_bankname', $transaction_info->vact_bankname);
 		$output->add('vact_num', $transaction_info->vact_num);
 		$output->add('vact_name', $transaction_info->vact_name);
