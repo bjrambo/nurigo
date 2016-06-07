@@ -324,7 +324,7 @@ class epayView extends epay
 		{
 			requirePear();
 			require_once('HTTP/Request.php');
-
+			$host = parse_url($url, PHP_URL_HOST);
 			$parsed_url = parse_url(__PROXY_SERVER__);
 			if($parsed_url["host"])
 			{
