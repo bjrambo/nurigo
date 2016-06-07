@@ -880,11 +880,6 @@ class nproductAdminController extends nproduct
 		$item_srl = $output->get('item_srl');
 		$this->add('item_srl', $item_srl);
 
-		if($item_stock > 0)
-		{
-			$args->item_stock = $iem_stock;
-		}
-
 		/*
 		 *  save file
 		 */
@@ -932,6 +927,7 @@ class nproductAdminController extends nproduct
 
 		foreach($extra_vars as $k => $v)
 		{
+			$ex_args = new stdClass();
 			$ex_args->item_srl = $item_srl;
 			$ex_args->name = $k;
 			$ex_args->value = $v->getValuePlain();
@@ -1064,6 +1060,7 @@ class nproductAdminController extends nproduct
 		 */
 		foreach($extra_vars as $key => $val)
 		{
+			$ex_args = new stdClass();
 			$ex_args->item_srl = $item_srl;
 			$ex_args->name = $key;
 			$ex_args->value = $val->getValuePlain();
