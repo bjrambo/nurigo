@@ -397,6 +397,7 @@ class ncartView extends ncart
 
 		if($logged_info)
 		{
+			$args = new stdClass();
 			$args->member_srl = $logged_info->member_srl;
 			$args->opt = '1';
 			$output = executeQueryArray('ncart.getAddressList', $args);
