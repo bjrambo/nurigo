@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">기본관리자스킨</title>
+	<description xml:lang="ko">누리고 상품관련 기본 스킨.</description>
+	<version>1.0</version>
+	<date>2016-06-12</date>
+	<author email_address="qw5414@naver.com" link="http://www.swhite523.com/">
+		<name xml:lang="ko">BJRambo</name>
+	</author>
+	<license>GPL v2</license>
+</skin>
+

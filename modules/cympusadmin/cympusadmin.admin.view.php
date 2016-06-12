@@ -128,4 +128,19 @@ class cympusadminAdminView extends cympusadmin
 		$this->setTemplateFile('grantinfo');
 	}
 
+	function dispCympusadminAdminConfig()
+	{
+		// get the skins list
+		$oModuleModel = getModel('module');
+		$adminpath = _XE_PATH_.'/modules/cympusadmin/tpl';
+		debugPrint($adminpath);
+		$skin_list = $oModuleModel->getSkins($adminpath);
+		Context::set('skin_list',$skin_list);
+
+		$config = cympusadminModel::getConfig();
+		Context::set('config', $config);
+		debugPrint($config);
+
+		$this->setTemplateFile('config');
+	}
 }

@@ -8,6 +8,29 @@
  */
 class cympusadminModel extends cympusadmin
 {
+	private static $config = NULL;
+
+	function getConfig()
+	{
+		if(self::$config === NULL)
+		{
+			$oModuleModel = getModel('module');
+			$config = $oModuleModel->getModuleConfig('cympusadmin');
+
+			if(!$config)
+			{
+				$config = new stdClass();
+			}
+			if(!$config->admin_skins)
+			{
+				$config->admin_skins = 'default';
+			}
+
+			self::$config = $config;
+		}
+
+		return self::$config;
+	}
 
 	function triggerGetManagerMenu(&$manager_menu)
 	{
@@ -49,4 +72,3 @@ class cympusadminModel extends cympusadmin
 		}
 	}
 }
-

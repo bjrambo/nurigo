@@ -74,4 +74,24 @@ class cympusadminAdminController extends cympusadmin
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCympusadminAdminModInstList');
 		$this->setRedirectUrl($returnUrl);
 	}
+
+	function procCympusadminAdminConfig()
+	{
+		$oModuleController = getController('module');
+		$obj = Context::getRequestVars();
+		$output = $oModuleController->updateModuleConfig('cympusadmin', $obj);
+		if(!$output->toBool())
+		{
+			return new Object(-1, 'ncenterlite_msg_setting_error');
+		}
+
+		$this->setMessage('success_updated');
+
+		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		{
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCympusadminAdminConfig');
+			header('location: ' . $returnUrl);
+			return;
+		}
+	}
 }

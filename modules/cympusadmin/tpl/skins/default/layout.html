@@ -1,0 +1,75 @@
+<load target="css/style.css" />
+<load target="css/default.css" />
+<load target="js/toggle.js" />
+<load target="js/updatenews.js" />
+{@$oElearningClass = getClass('elearning')}
+
+<div id="admin_wrap">
+	<div class="left_panel">
+		<h1><a href="{getUrl('','module','cympusadmin')}">{$lang->title_admin}</a></h1>
+		<div class="date">
+			{date("Y-m-d",time())}
+			{@$numofweekday = date("w",time())}
+			{@$weekdays = array('0'=>$lang->sunday,'1'=>$lang->monday,'2'=>$lang->tuesday,'3'=>$lang->wednesday,'4'=>$lang->thursday,'5'=>$lang->friday,'6'=>$lang->saturday)}
+			{$weekdays[$numofweekday]}
+		</div>
+		<div cond="0" class="capacity">
+			<p class="capacity_box">
+				<span>總計 20.0G / 16.5G 剩餘</span>
+				<span class="graph"><span class="graph_inset"></span></span>
+				<span>3% 使用</span>
+			</p>
+		</div>
+		<!-- Menu -->
+		<div class="sub_navi">
+			<ul>
+				{@$idxno=1}
+				<li loop="$cympusadmin_menu=>$key,$val">
+				<a href="{getUrl('','module','cympusadmin','act',$val->action[0])}"|cond="0" onClick="toggleset('opqrst_sub_{$idxno}')"  class="active"|cond="$val->selected" title="{strip_tags($val->description)}"><img src="img/menu_{$val->icon}.png" class="menu_img" cond="!$val->selected"/><img src="img/menuover_{$val->icon}.png" class="menuover_img" cond="$val->selected">{$val->title}</a>
+					{@$idxno++}
+					<block cond="$val->selected">{@$selected_submenu=$val}</block>
+					<ul cond="$val->submenu" id="opqrst_sub" class="opqrst_sub_{$idxno - 1}">
+						<li loop="$val->submenu=>$key2,$val2">
+							<block cond="!$val2->mid">{@$url = getUrl('','module','cympusadmin','act',$val2->action[0])}</block>
+							<block cond="$val2->mid">{@$url = getUrl('','mid',$val2->mid,'act',$val2->action[0])}</block>
+							<a href="{$url}" class="active"|cond="$val2->selected" title="{strip_tags($val2->description)}">{$val2->title}</a>
+							<block cond="$val2->selected">{@$selected_submenu=$val2}</block>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- Menu -->
+	</div><!-- left_panel -->
+
+	<div class="right_panel">
+		<div class="right_top">
+			<div cond="!$oElearningClass" class="updatenews">
+				<div class="updatenews_obj">
+					<div class="updatenews_box">
+						<div loop="$news=>$key,$val">
+							 <a class="updatenews_title" href="{$val->url}">{$val->title}</a>
+						 </div>
+   					</div>
+ 		 		</div>
+			</div>
+		</div>
+	</div>
+	<div class="right_navi">
+		<span>Home</span><span cond="$cympusadmin_selected_menu"> &gt {$cympusadmin_selected_menu->title}</span><span cond="$selected_submenu"> &gt {$selected_submenu->title}</span>
+	</div>
+	
+	<!-- Content -->
+	<div class="cympusadmin_content">
+	{$content}
+	</div><!-- Content -->
+
+	<div id="admin_footer">
+		<div class="footer_left">
+			CYMPUS ADMIN v{$cympus_modinfo->version} - {$cympus_modinfo->date}
+		</div>
+		<div class="footer_right">
+			<a href="?module=admin" target="_blank" title="{$lang->about_dashboard}">{$lang->dashboard}</a>
+			<span class="footer_copy">Copyright  © <strong><a href="http://www.xeshoppingmall.com"|cond="!$oElearningClass" href="{$lang->link_url}"|cond="$oElearningClass" title="visiting NURIGO" target="_blank">{$lang->link_text}</a></strong> all rights reserved.</span>
+		</div>
+	</div><!-- admin_footer -->
+</div><!-- admin_wrap -->

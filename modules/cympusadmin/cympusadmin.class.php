@@ -16,16 +16,27 @@ class cympusadmin extends ModuleObject
 	{
 		// change into administration layout
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
+		$config = cympusadminModel::getConfig();
+
+		$admin_path = _XE_PATH_.'/modules/cympusadmin/tpl/';
+		$template_path = sprintf("%sskins/%s/",$admin_path, $config->admin_skins);
+		if(!is_dir($template_path) || !$config->admin_skins)
+		{
+			$config->admin_skins = 'default';
+			$template_path = sprintf("%sskins/%s/",$admin_path, $config->admin_skins);
+		}
+
 		if($module)
 		{
-			$module->setLayoutPath(_XE_PATH_.'/modules/cympusadmin/tpl');
+			$module->setLayoutPath($template_path);
 			$module->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
 		}
 		else
 		{
-			$this->setLayoutPath(_XE_PATH_.'/modules/cympusadmin/tpl');
+			$this->setLayoutPath($template_path);
 			$this->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
 		}
+
 
 		Context::loadLang(_XE_PATH_ . 'modules/cympusadmin/lang/');
 

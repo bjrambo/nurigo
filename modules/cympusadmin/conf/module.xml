@@ -13,9 +13,10 @@
 		<action name="dispCympusadminAdminModInstList" type="view" standalone="true" admin_index="true" />
 		<action name="dispCympusadminAdminInsertModInst" type="view" standalone="true" />
 		<action name="dispCympusadminAdminGrantInfo" type="view" standalone="true" />
+		<action name="dispCympusadminAdminConfig" type="view" standalone="true" />
 
 		<action name="procCympusadminAdminInsertModInst" type="controller" standalone="true" />
-
+		<action name="procCympusadminAdminConfig" type="controller" standalone="true" />
 		<!-- user -->
 		<action name="dispCympusadminAdminIndex" type="view" standalone="true" index="true" />
 	</actions>

@@ -9,6 +9,7 @@
 	<li class="x_active"|cond="$act=='dispCympusadminAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminModInstList')}">{$lang->page_list}</a></li>
 	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminItemList','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
 	<li class="x_active"|cond="$act=='dispCympusadminAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminInsertModInst')}">{$lang->page_creation}</a></li>
+	<li class="x_active"|cond="$act=='dispCympusadminAdminConfig' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispCympusadminAdminConfig')}">모듈설정</a></li>
 </ul>
 <ul cond="$module_srl" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispCympusadminAdminInsertModInst'"><a href="{getUrl('act','dispCympusadminAdminInsertModInst')}">{$lang->page_configuration}</a></li>

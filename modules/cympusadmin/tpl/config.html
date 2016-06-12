@@ -1,0 +1,22 @@
+<include target="_header.html" />
+
+<form ruleset="insertConfig" action="./" method="post" class="x_form-horizontal" id="fo_ncenterlite">
+	<input type="hidden" name="module" value="ncenterlite" />
+	<input type="hidden" name="act" value="procCympusadminAdminConfig" />
+
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label" for="skin">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" id="skin" style="width:auto">
+					<option loop="$skin_list=> $key, $val" value="{$key}" selected="selected"|cond="$config->skin== $key || (!$config->skin && $key=='default')">{$val->title}</option>
+				</select>
+			</div>
+		</div>
+	</section>
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>
