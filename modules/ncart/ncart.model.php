@@ -25,6 +25,12 @@ class ncartModel extends ncart
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('ncart');
+
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
+
 		if(!$config->cart_thumbnail_width)
 		{
 			$config->cart_thumbnail_width = 100;
