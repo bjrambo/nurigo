@@ -128,6 +128,7 @@ class ncartModel extends ncart
 	function getCartItem($cart_srl)
 	{
 		$config = $this->getModuleConfig();
+		$args = new stdClass();
 		$args->cart_srl = $cart_srl;
 		$output = executeQuery('ncart.getCartItem', $args);
 		if(!$output->toBool())
@@ -163,6 +164,7 @@ class ncartModel extends ncart
 		}
 
 		// cart items
+		$args = new stdClass();
 		$args->non_key = $non_key;
 		$args->cartnos = $cartnos;
 		$output = executeQueryArray('ncart.getNonCartItems', $args);
