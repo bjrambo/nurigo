@@ -1305,5 +1305,11 @@
 			<value xml:lang="jp"><![CDATA[₱]]></value>
 			<value xml:lang="zh-TW"><![CDATA[₱]]></value>
 		</item>
+		<item name="THB">
+			<value xml:lang="ko"><![CDATA[฿]]></value>
+			<value xml:lang="en"><![CDATA[฿]]></value>
+			<value xml:lang="jp"><![CDATA[฿]]></value>
+			<value xml:lang="zh-TW"><![CDATA[฿]]></value>
+		</item>
 	</item>
 </lang>
