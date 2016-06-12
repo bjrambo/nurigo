@@ -1228,6 +1228,12 @@
 			<value xml:lang="jp"><![CDATA[フィリピンペソ]]></value>
 			<value xml:lang="zh-TW"><![CDATA[菲律賓幣]]></value>					
 		</item>
+		<item name="THB">
+			<value xml:lang="ko"><![CDATA[바트(태국)]]></value>
+			<value xml:lang="en"><![CDATA[THB]]></value>
+			<value xml:lang="jp"><![CDATA[THB]]></value>
+			<value xml:lang="zh-TW"><![CDATA[THB]]></value>
+		</item>
 	</item>
 	<item name="currency_code" type="array">
 		<item name="KRW">
@@ -1259,6 +1265,12 @@
 			<value xml:lang="en"><![CDATA[PHP]]></value>
 			<value xml:lang="jp"><![CDATA[PHP]]></value>
 			<value xml:lang="zh-TW"><![CDATA[PHP]]></value>
+		</item>
+		<item name="THB">
+			<value xml:lang="ko"><![CDATA[바트]]></value>
+			<value xml:lang="en"><![CDATA[THB]]></value>
+			<value xml:lang="jp"><![CDATA[THB]]></value>
+			<value xml:lang="zh-TW"><![CDATA[THB]]></value>
 		</item>
 	</item>
 
