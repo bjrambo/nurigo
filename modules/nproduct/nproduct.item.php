@@ -159,7 +159,8 @@ class nproductItem extends Object
 			$price = $this->printPrice($price);
 		}
 
-		return $this->printPrice($this->discounted_price);
+
+		return $this->printPrice($price->discounted_price);
 	}
 
 	/**

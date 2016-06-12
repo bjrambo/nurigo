@@ -409,6 +409,7 @@ class nproductView extends nproduct
 				$item_info->related_items = $this->convertCsvToJson($item_info->related_items);
 			}
 			$relatedItems = json_decode($item_info->related_items);
+
 			$relatedItemSrls = array();
 			foreach($relatedItems as $key => $val)
 			{
