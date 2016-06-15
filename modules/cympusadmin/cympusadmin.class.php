@@ -18,7 +18,7 @@ class cympusadmin extends ModuleObject
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
 		$config = cympusadminModel::getConfig();
 
-		$admin_path = _XE_PATH_.'/modules/cympusadmin/tpl/';
+		$admin_path = './modules/cympusadmin/tpl/';
 		$template_path = sprintf("%sskins/%s/",$admin_path, $config->admin_skins);
 		if(!is_dir($template_path) || !$config->admin_skins)
 		{
