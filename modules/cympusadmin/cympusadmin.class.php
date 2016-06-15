@@ -42,7 +42,7 @@ class cympusadmin extends ModuleObject
 
 		$logged_info = Context::get('logged_info');
 
-		if($logged_info->is_admin)
+		if($logged_info->is_admin == 'Y')
 		{
 			// parse admin menu
 			$oXmlParser = new XmlParser();
