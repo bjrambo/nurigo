@@ -16,14 +16,14 @@ class cympusadmin extends ModuleObject
 	{
 		// change into administration layout
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
-		$config = cympusadminModel::getConfig();
+		$config = getModel('cympusadmin')->getConfig();
 
-		$admin_path = './modules/cympusadmin/tpl/';
-		$template_path = sprintf("%sskins/%s/",$admin_path, $config->admin_skins);
+		$module_path = './modules/cympusadmin/';
+		$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
 		if(!is_dir($template_path) || !$config->admin_skins)
 		{
 			$config->admin_skins = 'default';
-			$template_path = sprintf("%sskins/%s/",$admin_path, $config->admin_skins);
+			$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
 		}
 
 		if($module)

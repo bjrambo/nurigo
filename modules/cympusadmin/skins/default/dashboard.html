@@ -1,0 +1,95 @@
+<load target="css/index.css" />
+
+<block loop="$cympusadmin_menu=>$key,$val">
+	<block cond="$val->submenu" loop="$val->submenu=>$key2,$val2">
+		<block cond="$status->elearning && $val2->module == 'elearning'">{@$status->elearning->mid = $val2->mid}</block>
+		<block cond="$status->nstore && $val2->module == 'nstore'">{@$status->nstore->mid = $val2->mid}</block>
+		<block cond="$status->freepass && $val2->module == 'freepass'">{@$status->freepass->mid = $val2->mid}</block>
+	</block>
+</block>
+
+
+<div id="admin_index">
+	<block cond="$status->member">
+		<h5 class="a_tit">{$lang->site_status}</h5>
+		<ul>
+			<li class="join"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispMemberAdminList')}" target="_blank" class="link_area"><span class="todayc">{$lang->new_members}</span><span class="todaycount">{$status->member->todayCount}</span><br />total<span class="totalcount">{$status->member->totalCount}</span></a></p></li>
+			<li class="new_doc"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispDocumentAdminList')}" target="_blank"  class="link_area"><span class="todayc">{$lang->latest_documents}</span><span class="todaycount">{$status->document->todayCount}</span><br />total<span class="totalcount">{$status->document->totalCount}</span></a></p></li>
+			<li class="new_commen"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispCommentAdminList')}" target="_blank" class="link_area"><span class="todayc">{$lang->latest_comments}</span><span class="todaycount">{$status->comment->todayCount}</span><br />total<span class="totalcount">{$status->comment->totalCount}</span></a></p></li>
+		</ul>
+	</block>
+
+	<block cond="$status->elearning">
+		<h5 class="a_tit">{$lang->elearning_status}</h5>
+		<ul>
+			<li style="width:85%;">
+				<table cellspacing=0>
+					<tr style="background:#eee;">
+						<th loop="$status->elearning->lessonStatus=>$key,$val" cond="$key!='0'">{$val->title}</th>
+					</tr>
+					<tr>
+						<td loop="$status->elearning->lessonStatus=>$key,$val" cond="$key!='0'" style="text-align:center;"><a href="{getUrl('','module','cympusadmin','mid',$status->elearning->mid,'act','dispElearningAdminManageEnrollment','status',$key)}">{$val->count}</a></td>
+					</tr>
+				</table>
+			</li>
+			<li class="order"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->elearning->mid,'act','dispElearningAdminManageEnrollment')}" class="link_area"><span class="todayc">{$lang->registrations}</span><span class="todaycount">{$status->elearning->todayCount}</span><br />total<span class="totalcount">{$status->elearning->totalCount}</span></a></p></li>
+			<li class="class_in"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->elearning->mid,'act','dispElearningAdminManageEnrollment')}" class="link_area"><span class="todayc">{$lang->elearning_sales}</span><span class="todaycount">{$status->elearning->todayAmount}</span><br />total<span class="totalcount">{$status->elearning->totalAmount}</span></a></p></li>
+			<li cond="$status->player" class="class_play"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispScmsAdminConnecting')}" class="link_area"><span class="todayc">{$lang->current_play}</span><span class="todaycount">{$status->player->currentPlayCount}</span></a></p></li>
+			
+		</ul>
+	</block>
+
+	<block cond="$status->freepass">
+		<h5 class="a_tit">{$lang->freepass_status}</h5>
+		<ul>
+			<li style="width:85%;">
+				<table cellspacing=0>
+					<tr style="background:#eee;">
+						<th loop="$status->freepass->lessonStatus=>$key,$val" cond="$key!='0'">{$val->title}</th>
+					</tr>
+					<tr>
+						<td loop="$status->freepass->lessonStatus=>$key,$val" cond="$key!='0'" style="text-align:center;"><a href="{getUrl('','module','cympusadmin','mid',$status->freepass->mid,'act','dispFreepassAdminManageEnrollment','status',$key)}">{$val->count}</a></td>
+					</tr>
+				</table>
+			</li>
+			<li class="order"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->freepass->mid,'act','dispFreepassAdminManageEnrollment')}" class="link_area"><span class="todayc">{$lang->registrations}</span><span class="todaycount">{$status->freepass->todayCount}</span><br />total<span class="totalcount">{$status->freepass->totalCount}</span></a></p></li>
+			<li class="class_in"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->freepass->mid,'act','dispFreepassAdminManageEnrollment')}" class="link_area"><span class="todayc">{$lang->freepass_sales}</span><span class="todaycount">{$status->freepass->todayAmount}</span><br />total<span class="totalcount">{$status->freepass->totalAmount}</span></a></p></li>
+		</ul>
+	</block>
+
+	<block cond="$status->nstore">
+		<h5 class="a_tit">{$lang->nstore_status}</h5>
+		<ul>
+			<li style="width:96%;">
+				<table cellspacing=0>
+					<tr style="background:#eee;">
+						<th loop="$status->nstore->orderStatus=>$key,$val" cond="$key!='0'">{$val->title}</th>
+					</tr>
+					<tr>
+						<td loop="$status->nstore->orderStatus=>$key,$val" cond="$key!='0'" style="text-align:center;"><a href="{getUrl('','module','cympusadmin','mid',$status->nstore->mid,'act','dispNstoreAdminOrderManagement','status',$key)}">{$val->count}</a></td>
+					</tr>
+				</table>
+			</li>
+			<li class="pro_out"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->nstore->mid,'act','dispNstoreAdminOrderManagement')}" class="link_area"><span class="todayc">{$lang->product_sell}</span><span class="todaycount">{$status->nstore->todayCount}</span><br />total<span class="totalcount">{$status->nstore->totalCount}</span></a></p></li>
+			<li class="pro_in"><p class="area_group"><a href="{getUrl('','module','cympusadmin','mid',$status->nstore->mid,'act','dispNstoreAdminOrderManagement')}" class="link_area"><span class="todayc">{$lang->product_sales}</span><span class="todaycount">{$status->nstore->todayAmount}</span><br />total<span class="totalcount">{$status->nstore->totalAmount}</span></a></p></li>
+		</ul>
+	</block>
+
+	<block cond="$status->nstore_digital">
+	<h5 class="a_tit">{$lang->nstore_digital_status}</h5>
+		<ul>
+			<li style="width:96%;">
+				<table cellspacing=0>
+					<tr style="background:#eee;">
+						<th loop="$status->nstore_digital->orderStatus=>$key,$val" cond="$key!='0'">{$val->title}</th>
+					</tr>
+					<tr>
+						<td loop="$status->nstore_digital->orderStatus=>$key,$val" cond="$key!='0'" style="text-align:center;"><a href="{getUrl('act','dispNstore_digitalAdminOrderManagement','status',$key)}">{$val->count}</a></td>
+					</tr>
+				</table>
+			</li>
+			<li class="pro_out"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispNstore_digitalAdminOrderManagement')}" class="link_area"><span class="todayc">{$lang->product_sell}</span><span class="todaycount">{$status->nstore_digital->todayCount}</span><br />total<span class="totalcount">{$status->nstore_digital->totalCount}</span></a></p></li>
+			<li class="pro_in"><p class="area_group"><a href="{getUrl('','module','cympusadmin','act','dispNstore_digitalAdminOrderManagement')}" class="link_area"><span class="todayc">{$lang->product_sales}</span><span class="todaycount">{$status->nstore_digital->todayAmount}</span><br />total<span class="totalcount">{$status->nstore_digital->totalAmount}</span></a></p></li>
+		</ul>
+	</block>
+</div><!-- admin_index -->

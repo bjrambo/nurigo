@@ -57,7 +57,16 @@ class cympusadminAdminView extends cympusadmin
 
 	function dispCympusadminAdminIndex()
 	{
-		$this->setTemplatePath($this->module_path . 'tpl');
+		$config = getModel('cympusadmin')->getConfig();
+		$module_path = './modules/cympusadmin/';
+		$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
+		if(!is_dir($template_path) || !$config->admin_skins)
+		{
+			$config->admin_skins = 'default';
+			$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
+		}
+
+		$this->setTemplatePath($template_path);
 		$this->setTemplateFile(_CYMPUSADMIN_INDEX_);
 
 		$status = getCympusStatus();
@@ -132,14 +141,12 @@ class cympusadminAdminView extends cympusadmin
 	{
 		// get the skins list
 		$oModuleModel = getModel('module');
-		$adminpath = _XE_PATH_.'/modules/cympusadmin/tpl';
-		debugPrint($adminpath);
-		$skin_list = $oModuleModel->getSkins($adminpath);
+		$module_path = _XE_PATH_ . 'modules/cympusadmin/';
+		$skin_list = $oModuleModel->getSkins($module_path);
 		Context::set('skin_list',$skin_list);
 
-		$config = cympusadminModel::getConfig();
+		$config = getModel('cympusadmin')->getConfig();
 		Context::set('config', $config);
-		debugPrint($config);
 
 		$this->setTemplateFile('config');
 	}
