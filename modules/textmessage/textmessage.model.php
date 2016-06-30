@@ -8,6 +8,8 @@
  */
 class textmessageModel extends textmessage
 {
+	private static $config = NULL;
+	private static $global_config = NULL;
 
 	function init()
 	{
@@ -18,56 +20,65 @@ class textmessageModel extends textmessage
 	 */
 	function getModuleConfig()
 	{
-		if(!$GLOBALS['__textmessage_config__'])
+		if(self::$global_config)
 		{
-			$oModuleModel = getModel('module');
-			$config = $oModuleModel->getModuleConfig('textmessage');
-
-			// get logged_info
-			$oMemberModel = getModel('member');
-			$logged_info = Context::get('logged_info');
-			// 회원정보 보기 페이지에서 $logged_info->password를 unset시키기 때문에 새로 가져와야 한다
-			if(!$logged_info->password)
-			{
-				$logged_info = $oMemberModel->getMemberInfoByMemberSrl($logged_info->member_srl);
-			}
-
-			if($logged_info)
-			{
-				$config->cs_user_id = $logged_info->user_id;
-				$config->cs_password = $logged_info->password;
-			}
-
-			// country code
-			if(!$config->default_country)
-			{
-				$config->default_country = '82';
-			}
-			if($config->default_country == '82')
-			{
-				$config->limit_bytes = 80;
-			}
-			else
-			{
-				$config->limit_bytes = 160;
-			}
-
-			// callback
-			$callback = explode("|@|", $config->callback); // source
-			$config->a_callback = $callback;        // array
-			$config->s_callback = join($callback);  // string
-
-			// admin_phone
-			if(!is_array($config->admin_phones))
-			{
-				$config->admin_phones = explode("|@|", $config->admin_phones);
-			}
-
-			$config->crypt = 'MD5';
-
-			$GLOBALS['__textmessage_config__'] = $config;
+			return self::$global_config;
 		}
-		return $GLOBALS['__textmessage_config__'];
+		
+
+		$oModuleModel = getModel('module');
+		$config = $oModuleModel->getModuleConfig('textmessage');
+
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
+
+		// get logged_info
+		$oMemberModel = getModel('member');
+		$logged_info = Context::get('logged_info');
+		// 회원정보 보기 페이지에서 $logged_info->password를 unset시키기 때문에 새로 가져와야 한다
+		if(!$logged_info->password)
+		{
+			$logged_info = $oMemberModel->getMemberInfoByMemberSrl($logged_info->member_srl);
+		}
+
+		if($logged_info)
+		{
+			$config->cs_user_id = $logged_info->user_id;
+			$config->cs_password = $logged_info->password;
+		}
+
+		// country code
+		if(!$config->default_country)
+		{
+			$config->default_country = '82';
+		}
+		if($config->default_country == '82')
+		{
+			$config->limit_bytes = 80;
+		}
+		else
+		{
+			$config->limit_bytes = 160;
+		}
+
+		// callback
+		$callback = explode("|@|", $config->callback); // source
+		$config->a_callback = $callback;        // array
+		$config->s_callback = join($callback);  // string
+
+		// admin_phone
+		if(!is_array($config->admin_phones))
+		{
+			$config->admin_phones = explode("|@|", $config->admin_phones);
+		}
+
+		$config->crypt = 'MD5';
+
+		self::$global_config = $config;
+	
+		return self::$global_config;
 	}
 
 	/**
@@ -111,6 +122,10 @@ class textmessageModel extends textmessage
 	 */
 	function getConfig()
 	{
+		if(self::$config)
+		{
+			return self::$config;
+		}
 		$config = $this->getModuleConfig('textmessage');
 		if(!$config->api_key || !$config->api_secret)
 		{
@@ -167,8 +182,9 @@ class textmessageModel extends textmessage
 		Context::set('lms_price', $config->lms_price);
 		Context::set('mms_price', $config->mms_price);
 		Context::set('sms_volume', $config->sms_volume);
+		self::$config = $config;
 
-		return $config;
+		return self::$config;
 	}
 
 	/**
