@@ -2,10 +2,10 @@
 <module version="0.2">
 	<title xml:lang="ko">문자메시지</title>
 	<title xml:lang="en">Text Messages</title>
-	<description xml:lang="ko">SMS, LMS, MMS 등의 문자메시지 발송 API를 제공하여 모듈, 애드온, 위젯에서 연동할 수 있도록 합니다.</description>
-	<description xml:lang="en">This module provides for SMS, LMS, MMS, AlimTalk connections.</description>
+	<description xml:lang="ko">SMS, LMS, MMS, 알림톡 등의 문자메시지 발송 API를 제공하여 모듈, 애드온, 위젯에서 연동할 수 있도록 합니다.</description>
+	<description xml:lang="en">This module provides for SMS, LMS, MMS, Alimtalk connections.</description>
 	<version>3.1</version>
-	<date>2016-03-18</date>
+	<date>2016-06-16</date>
 	<category>service</category>
 	<author email_address="contact@nurigo.net" link="http://www.nurigo.net/">
 		<name xml:lang="ko">NURIGO</name>

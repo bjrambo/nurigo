@@ -110,7 +110,7 @@ class textmessageController extends textmessage
 		$options = new stdClass();
 		$options->gid = $grpid;
 		$result = $sms->cancel($options);
-		if($ressult->code)
+		if($result->code)
 			return new Object(-1, $result->code);
 		return new Object();
 	}
