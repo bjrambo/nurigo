@@ -1,22 +1,25 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
  * @class  textmessageAdminController
  * @author wiley (wiley@xnurigo.net)
  * @brief  textmessage controller class of textmessage module
  **/
-class textmessageAdminController extends textmessage 
+class textmessageAdminController extends textmessage
 {
 	/**
 	 * @brief initialization
 	 * @return none
 	 **/
-	function init() { }
+	function init()
+	{
+	}
 
 	/**
 	 * @brief 기본설정 module config 에 저장
 	 **/
-	function procTextmessageAdminInsertConfig() 
+	function procTextmessageAdminInsertConfig()
 	{
 		$args = Context::gets('api_key', 'api_secret', 'callback_url', 'encode_utf16');
 
@@ -30,41 +33,53 @@ class textmessageAdminController extends textmessage
 	}
 
 	/**
-	 * @brief 예약취소 
+	 * @brief 예약취소
 	 **/
-	function procTextmessageAdminCancelReserv() 
+	function procTextmessageAdminCancelReserv()
 	{
 		$target_message_ids = Context::get('cart');
-		if(!$target_message_ids) return new Object(-1, 'msg_invalid_request');
+		if(!$target_message_ids)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		$oTextmessageController = getController('textmessage');
 		foreach($target_message_ids as $id => $val)
 		{
 			$output = $oTextmessageController->cancelMessage($val);
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool())
+			{
+				return $output;
+			}
 		}
 
 		$this->setMessage('success_requested');
-		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispTextmessageAdminUsageStatement','group_id',Context::get('group_id'),'stats_date',Context::get('stats_date'));
+		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispTextmessageAdminUsageStatement', 'group_id', Context::get('group_id'), 'stats_date', Context::get('stats_date'));
 		$this->setRedirectUrl($redirectUrl);
 	}
 
 	/**
 	 * @brif 예약 단체 취소
 	 **/
-	function procTextmessageAdminCancelGroup() 
+	function procTextmessageAdminCancelGroup()
 	{
 		$target_group_ids = Context::get('target_group_ids');
-		if(!$target_group_ids) return new Object(-1, 'msg_invalid_request');
+		if(!$target_group_ids)
+		{
+			return new Object(-1, 'msg_invalid_request');
+		}
 
 		$group_ids = explode(',', $target_group_ids);
 		$oTextmessageController = getController('textmessage');
 
 		$output = $oTextmessageController->cancelGroupMessages($group_ids);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool())
+		{
+			return $output;
+		}
 
 		$this->setMessage('success_requested');
-		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispTextmessageAdminUsageStatement','stats_date',Context::get('stats_date'));
+		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispTextmessageAdminUsageStatement', 'stats_date', Context::get('stats_date'));
 		$this->setRedirectUrl($redirectUrl);
 	}
 }

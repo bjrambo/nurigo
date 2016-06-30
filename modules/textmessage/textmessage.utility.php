@@ -1,17 +1,20 @@
 <?php
+
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  CSUtility
  * @author contact@nurigo.net
  * @brief  CSUtility
  */
-class CSUtility 
+class CSUtility
 {
-	function CSUtility() { }
-
-	function dispStatus($mstat) 
+	function CSUtility()
 	{
-		switch ($mstat) 
+	}
+
+	function dispStatus($mstat)
+	{
+		switch($mstat)
 		{
 			case "9":
 				return "대기중";
@@ -57,8 +60,10 @@ class CSUtility
 			, "99" => "대기상태"
 		);
 
-		if (isset($statset[$rcode]))
+		if(isset($statset[$rcode]))
+		{
 			return $statset[$rcode];
+		}
 
 		return "Unkown Code";
 	}
@@ -67,10 +72,10 @@ class CSUtility
 	 * @brief 긴내용 잘라서 출력
 	 * @history 2009/11/05 mb_strcut이 오동작해서 abbreviate로 교체(iconv 변환으로 비효율적).
 	 */
-	function dispContent($content) 
+	function dispContent($content)
 	{
 		$content = iconv("utf-8", "euc-kr//TRANSLIT", $content);
-		if (strlen($content) > 20) 
+		if(strlen($content) > 20)
 		{
 			$content = $this->abbreviate($content, 20);
 		}
@@ -80,26 +85,33 @@ class CSUtility
 
 	function dispIndex($no, $page, $count)
 	{
-			if($page == 1)
-				return $no;
-			else
-				return ($page-1)*$count+$no;
+		if($page == 1)
+		{
+			return $no;
+		}
+		else
+		{
+			return ($page - 1) * $count + $no;
+		}
 
 	}
 
-	function dispFullnumber($country, $phonenum) 
+	function dispFullnumber($country, $phonenum)
 	{
-		if (strlen($phonenum) > 0 && substr($phonenum, 0, 1) == '0') $phonenum = substr($phonenum, 1);
+		if(strlen($phonenum) > 0 && substr($phonenum, 0, 1) == '0')
+		{
+			$phonenum = substr($phonenum, 1);
+		}
 		return $country . $phonenum;
 	}
 
 	/**
 	 * @brief - 기호 붙여서 돌려줌.
 	 **/
-	function getDashTel($phonenum) 
+	function getDashTel($phonenum)
 	{
 		$phonenum = str_replace('-', '', $phonenum);
-		switch (strlen($phonenum)) 
+		switch(strlen($phonenum))
 		{
 			case 10:
 				$initial = substr($phonenum, 0, 3);
@@ -120,15 +132,21 @@ class CSUtility
 	/**
 	 * @brief 한글 깨짐없이 자르기(완성형 한글만 가능)
 	 **/
-	function cutout($msg, $limit) 
+	function cutout($msg, $limit)
 	{
 		$msg = substr($msg, 0, $limit);
-			if (strlen($msg) < $limit)
+		if(strlen($msg) < $limit)
+		{
 			$limit = strlen($msg);
+		}
 
 		$countdown = 0;
-		for ($i = $limit - 1; $i >= 0; $i--) {	
-			if (ord(substr($msg,$i,1)) < 128) break;
+		for($i = $limit - 1; $i >= 0; $i--)
+		{
+			if(ord(substr($msg, $i, 1)) < 128)
+			{
+				break;
+			}
 			$countdown++;
 		}
 
@@ -142,15 +160,19 @@ class CSUtility
 	 * @param[in] msg 문자열
 	 * @param[in] limit 자를 바이트 수
 	 **/
-	function abbreviate($msg, $limit) 
+	function abbreviate($msg, $limit)
 	{
-		if ($limit >= strlen($msg))
+		if($limit >= strlen($msg))
+		{
 			return $msg;
+		}
 		else
+		{
 			return $this->cutout($msg, $limit) . "..";
+		}
 	}
 
-	function strcut_utf8($str, $len, $checkmb=false, $tail='') 
+	function strcut_utf8($str, $len, $checkmb = false, $tail = '')
 	{
 		/**
 		 * UTF-8 Format
@@ -165,32 +187,45 @@ class CSUtility
 		$tlen = strlen($tail); // length of tail string
 		$mlen = count($m); // length of matched characters
 
-		if ($slen <= $len) return $str;
-		if (!$checkmb && $mlen <= $len) return $str;
+		if($slen <= $len)
+		{
+			return $str;
+		}
+		if(!$checkmb && $mlen <= $len)
+		{
+			return $str;
+		}
 
 		$ret = array();
 		$count = 0;
-		for ($i=0; $i < $len; $i++) {
-			$count += ($checkmb && strlen($m[$i]) > 1)?2:1;
-			if ($count + $tlen > $len) break;
+		for($i = 0; $i < $len; $i++)
+		{
+			$count += ($checkmb && strlen($m[$i]) > 1) ? 2 : 1;
+			if($count + $tlen > $len)
+			{
+				break;
+			}
 			$ret[] = $m[$i];
 		}
 
-		return join('', $ret).$tail;
+		return join('', $ret) . $tail;
 	}
 
-	function strlen_utf8($str, $checkmb = false) 
+	function strlen_utf8($str, $checkmb = false)
 	{
 		preg_match_all('/[\xE0-\xFF][\x80-\xFF]{2}|./', $str, $match); // BMP 대상
 		$m = $match[0];
 		$mlen = count($m); // length of matched characters
 
-		if (!$checkmb) return $mlen;
-
-		$count=0;
-		for ($i=0; $i < $mlen; $i++) 
+		if(!$checkmb)
 		{
-			$count += ($checkmb && strlen($m[$i]) > 1)?2:1;
+			return $mlen;
+		}
+
+		$count = 0;
+		for($i = 0; $i < $mlen; $i++)
+		{
+			$count += ($checkmb && strlen($m[$i]) > 1) ? 2 : 1;
 		}
 		return $count;
 	}
