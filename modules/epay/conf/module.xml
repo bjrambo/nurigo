@@ -41,7 +41,7 @@
 		<action name="procEpayExtra3" type="controller" />
 		<action name="procEpayExtra4" type="controller" />
 		<action name="procEpayDoPayment" type="controller" method="GET|POST" />
-		<action name="procEpayReport" type="controller" />
+		<action name="procEpayReport" type="controller" method="GET|POST" />
 		<action name="procEpayEscrowDelivery" type="controller" />
 		<action name="procEpayEscrowConfirm" type="controller" />
 
