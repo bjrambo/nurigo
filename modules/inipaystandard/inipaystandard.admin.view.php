@@ -2,7 +2,7 @@
 
 /**
  * @class  inipaystandardAdminView
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief The admin view class of the inipaystandard module
  */
 class inipaystandardAdminView extends inipaystandard

@@ -2,7 +2,7 @@
 
 /**
  * @class  inipaystandardController
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief Controller class of inipaystandard modules
  */
 class inipaystandardController extends inipaystandard

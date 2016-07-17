@@ -2,7 +2,7 @@
 
 /**
  * @class  inipaystandard
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief The parent class of the inipaystandard module
  */
 class inipaystandard extends ModuleObject

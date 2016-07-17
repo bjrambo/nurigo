@@ -1,6 +1,6 @@
 /**
  * @file   tpl/js/inipaystandard_admin.js
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief  inipaystandard 모듈의 관리자용 javascript
  **/
 

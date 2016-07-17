@@ -2,7 +2,7 @@
 
 /**
  * @class  inipaystandardView
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief The view class of the inipaystandard module
  */
 class inipaystandardView extends inipaystandard
@@ -93,7 +93,11 @@ class inipaystandardView extends inipaystandard
 		$mKey = $SignatureUtil->makeHash($inipay_signkey, "sha256");
 		Context::set('mKey', $mKey);
 
-		$params = array("oid" => $reviewOutput->order_srl, "price" => $reviewOutput->price, "timestamp" => $timestamp);
+		$params = array(
+			"oid" => $reviewOutput->order_srl,
+			"price" => $reviewOutput->price,
+			"timestamp" => $timestamp
+		);
 		$sign = $SignatureUtil->makeSignature($params, "sha256");
 		Context::set('sign', $sign);
 

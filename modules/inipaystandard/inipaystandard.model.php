@@ -2,7 +2,7 @@
 
 /**
  * @class  inipaystandardModel
- * @author CONORY (http://www.conory.com)
+ * @author CONORY (https://www.conory.com)
  * @brief The model class fo the inipaystandard module
  */
 class inipaystandardModel extends inipaystandard
@@ -41,64 +41,50 @@ class inipaystandardModel extends inipaystandard
 		{
 			return array();
 		}
-
+		
 		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-
+		
 		$list = array();
-
+		
+		$modinfo = new stdClass;
+		$modinfo->mid = $module_info->mid;
+		$modinfo->module = 'inipaystandard';
+		$modinfo->act = 'dispInipaystandardForm';
+		$modinfo->mode = 'submit';
+		
 		if($module_info->method_creditcard == 'Y')
 		{
-			$modinfo = new stdClass;
-			$modinfo->mid = $module_info->mid;
-			$modinfo->module = 'inipaystandard';
-			$modinfo->act = 'dispInipaystandardForm';
-			$modinfo->mode = 'submit';
 			$modinfo->title = '신용카드결제';
 			$modinfo->payment_method = 'CC';
 			$modinfo->guide = $module_info->guide_creditcard;
-			$list['inipaystandard_creditcard'] = $modinfo;
+			$list['inipaystandard_creditcard'] = clone $modinfo;
 		}
-
+		
 		if($module_info->method_directbank == 'Y')
 		{
-			$modinfo = new stdClass;
-			$modinfo->mid = $module_info->mid;
-			$modinfo->module = 'inipaystandard';
-			$modinfo->mode = 'submit';
-			$modinfo->act = 'dispInipaystandardForm';
 			$modinfo->title = '실시간계좌이체';
 			$modinfo->payment_method = 'IB';
 			$modinfo->guide = $module_info->guide_directbank;
-			$list['inipaystandard_banktransfer'] = $modinfo;
+			$list['inipaystandard_banktransfer'] = clone $modinfo;
 		}
-
+		
 		if($module_info->method_virtualaccount == 'Y')
 		{
-			$modinfo = new stdClass;
-			$modinfo->mid = $module_info->mid;
-			$modinfo->module = 'inipaystandard';
-			$modinfo->mode = 'submit';
-			$modinfo->act = 'dispInipaystandardForm';
 			$modinfo->title = '가상계좌';
 			$modinfo->payment_method = 'VA';
 			$modinfo->guide = $module_info->guide_virtualaccount;
-			$list['inipaystandard_virtualaccount'] = $modinfo;
+			$list['inipaystandard_virtualaccount'] = clone $modinfo;
 		}
-
+		
 		if($module_info->method_mobilephone != 'N')
 		{
-			$modinfo = new stdClass;
-			$modinfo->mid = $module_info->mid;
-			$modinfo->module = 'dispInipaystandardForm';
-			$modinfo->mode = 'submit';
-			$modinfo->act = 'dispInipayForm';
 			$modinfo->title = '휴대폰';
 			$modinfo->payment_method = 'MP';
 			$modinfo->guide = $module_info->guide_mobilephone;
-			$list['inipaystandard_mobilephone'] = $modinfo;
+			$list['inipaystandard_mobilephone'] = clone $modinfo;
 		}
-
+		
 		return $list;
 	}
 }
