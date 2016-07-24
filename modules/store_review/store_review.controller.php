@@ -171,7 +171,7 @@ class store_reviewController extends store_review
 		$obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
 		if(Mobile::isFromMobilePhone())
 		{
-			$obj->content = nl2br(htmlspecialchars($obj->content));
+			$obj->content = nl2br($obj->content);
 		}
 		if(!$obj->regdate)
 		{

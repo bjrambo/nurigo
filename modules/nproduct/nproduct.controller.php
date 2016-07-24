@@ -1013,7 +1013,7 @@ class nproductController extends nproduct
 		$args->document_srl = $item_info->document_srl;
 		$args->comment_srl = getNextSequence();
 		$args->parent_srl = $reqvars->parent_srl;
-		$args->content = nl2br($reqvars->content);
+		$args->content = $reqvars->content;
 		$output = $oCommentController->insertComment($args);
 		if(!$output->toBool())
 		{
