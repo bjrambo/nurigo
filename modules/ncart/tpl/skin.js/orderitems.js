@@ -211,6 +211,7 @@ function calculate_payamount(mileage, deliv) {
 			//$('#order_amount').text(number_format(orderamount));
 			//$('#order_amount2').text(number_format(orderamount));
 			$('#payment_amount').text(number_format(payamount));
+			$('#order_amount').text(number_format(payamount));
 		});
 	});
 }) (jQuery);

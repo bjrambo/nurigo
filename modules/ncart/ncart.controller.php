@@ -741,19 +741,18 @@ class ncartController extends ncart
 
 		// get title
 		$title = $oNcartModel->getOrderTitle($cart->item_list);
-
-		// set item name
-		$in_args->item_name = $title;
-		$in_args->order_title = $title; // for compatibility
-		// set price which is transformed by currency module setting.
-		$in_args->price = nproductItem::price($cart->total_price);
-
 		// delivery fee
 		if($in_args->delivfee_inadvance == 'N')
 		{
 			$cart->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
 		}
+
+		// set item name
+		$in_args->item_name = $title;
+		$in_args->order_title = $title; // for compatibility
+		// set price which is transformed by currency module setting.
+		$in_args->price = nproductItem::price($cart->total_price);
 
 		$args = $in_args;
 

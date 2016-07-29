@@ -196,6 +196,10 @@
 					<th></th>
 					<th>{$lang->use_mileage}</th>
 					<th></th>
+					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
+						<th>{$lang->delivery_fee}</th>
+						<th></th>
+					</block>
 					<th class="total_price">{$lang->payment_amount}</th>
 				</tr>
 			</thead>
@@ -204,6 +208,10 @@
 					<td><span id="order_amount2">{nproductItem::formatMoney($total_price)}<span></td>
 					<td>-</td>
 					<td><span id="mileage_amount">0</span></td>
+					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
+						<td>+</td>
+						<td><span id="delivery_fee">{nproductItem::formatMoney($delivery_fee)}</span></td>
+					</block>
 					<td>=</td>
 					<td class="total_price" id="payment_amount">{nproductItem::formatMoney($total_price)}</td>
 				</tr>

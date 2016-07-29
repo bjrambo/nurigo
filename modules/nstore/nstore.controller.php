@@ -260,7 +260,15 @@ class nstoreController extends nstore
 			}
 		}
 
-		$cart = $args->cart;
+		// nstore상품의 cart_srl만 추출하여 다시 카트정보를 가져온다.
+		$origin_cart = $args->cart;
+		$cartnos = array();
+		foreach ($origin_cart->item_list as $key=>$val)
+		{
+			if($val->module != 'nstore') continue;
+			$cartnos[] = $val->cart_srl;
+		}
+		$cart = $oNcartModel->getCartInfo($cartnos);
 
 		// from ncart db-table
 		$item_list = $cart->item_list;
@@ -339,7 +347,6 @@ class nstoreController extends nstore
 
 		// insert into store_order
 		//$args->order_srl = $order_srl;
-		$args->order_srl = $args->order_srl;
 		$args->title = $title;
 		$args->item_count = $item_count;
 		if($logged_info)
@@ -385,10 +392,12 @@ class nstoreController extends nstore
 		{
 			$args->extra_vars = serialize($args->delivdest_info);
 		}
+		debugPrint($cart);
 		// delivery fee
 		if($args->delivfee_inadvance == 'N')
 		{
 			$cart->total_price -= $cart->delivery_fee;
+
 			$cart->delivery_fee = 0;
 		}
 		if($cart->delivery_fee)
