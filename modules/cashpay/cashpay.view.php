@@ -43,7 +43,7 @@ class cashpayView extends cashpay
 		$reviewOutput = $oEpayController->reviewOrder();
 		if(!$reviewOutput->toBool())
 		{
-			return $output;
+			return $reviewOutput;
 		}
 		Context::set('transaction_srl', $reviewOutput->transaction_srl);
 		Context::set('order_srl', $reviewOutput->order_srl);
