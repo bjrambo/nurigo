@@ -392,7 +392,6 @@ class nstoreController extends nstore
 		{
 			$args->extra_vars = serialize($args->delivdest_info);
 		}
-		debugPrint($cart);
 		// delivery fee
 		if($args->delivfee_inadvance == 'N')
 		{
