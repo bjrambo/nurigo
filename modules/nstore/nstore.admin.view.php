@@ -242,11 +242,11 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminOrderDetail()
 	{
-		$oNstore_coreModel = getModel('nstore');
+		$oNstoreModel = getModel('nstore');
 		$oEpayModel = getModel('epay');
 
 		$order_srl = Context::get('order_srl');
-		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
+		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
 		Context::set('payment_info', $payment_info);

@@ -396,8 +396,9 @@ class nstoreController extends nstore
 		if($args->delivfee_inadvance == 'N')
 		{
 			$cart->total_price -= $cart->delivery_fee;
-
+			$args->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
+			$args->delivery_fee = 0;
 		}
 		if($cart->delivery_fee)
 		{

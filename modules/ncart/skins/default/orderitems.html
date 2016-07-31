@@ -68,36 +68,7 @@
 			</block>
 		</tbody>
 	</table>
-	<div class="total">
-		<table class="total-table">
-			<thead>
-				<tr>
-					<th>{$lang->total_amount}</th>
-					<th></th>
-					<th>{$lang->total_discount}</th>
-					<th></th>
-					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
-					<th>{$lang->delivery_fee}</th>
-					<th></th>
-					</block>
-					<th class="total_price">{$lang->total_order_amount}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>{nproductItem::formatMoney($sum_price)}</td>
-					<td>-</td>
-					<td>{nproductItem::formatMoney($total_discount_amount)}</td>
-					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
-					<td>+</td>
-					<td><span id="delivery_fee">{nproductItem::formatMoney($delivery_fee)}</span></td>
-					</block>
-					<td>=</td>
-					<td class="total_price" id="order_amount">{nproductItem::formatMoney($total_price)}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
 
 	<h3 class="title_benefits" cond="$logged_info" >{$lang->purchase_benefit}</h3>
 	<table class="order-table" cond="$logged_info">
@@ -192,33 +163,32 @@
 		<table class="total-table">
 			<thead>
 				<tr>
-					<th>{$lang->total_order_amount}</th>
+					<th>{$lang->total_amount}</th>
 					<th></th>
-					<th>{$lang->use_mileage}</th>
+					<th>{$lang->total_discount}</th>
 					<th></th>
 					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
 						<th>{$lang->delivery_fee}</th>
 						<th></th>
 					</block>
-					<th class="total_price">{$lang->payment_amount}</th>
+					<th class="total_price">{$lang->total_order_amount}</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><span id="order_amount2">{nproductItem::formatMoney($total_price)}<span></td>
+					<td>{nproductItem::formatMoney($sum_price)}</td>
 					<td>-</td>
-					<td><span id="mileage_amount">0</span></td>
+					<td>{nproductItem::formatMoney($total_discount_amount)}</td>
 					<block cond="$module_info->display_delivfee=='Y' || $delivery_fee">
 						<td>+</td>
 						<td><span id="delivery_fee">{nproductItem::formatMoney($delivery_fee)}</span></td>
 					</block>
 					<td>=</td>
-					<td class="total_price" id="payment_amount">{nproductItem::formatMoney($total_price)}</td>
+					<td class="total_price" id="order_amount">{nproductItem::formatMoney($total_price)}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-
 
 	<h3 class="title_paymentInfo">{$lang->input_payment_info}</h3>
 	<div class="payment-table">
