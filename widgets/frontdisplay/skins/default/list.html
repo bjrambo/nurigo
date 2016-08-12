@@ -13,9 +13,9 @@
 					</a><!-- thumbnail -->
 					<div cond="$v=='title'" class="item_name">{cut_str($val->item_name,$widget_info->title_length)}</div>
 					<div cond="$v=='price'" class="item_price" >
-						<span style="text-decoration:line-through;"|cond="$val->sum_discount_amount > 0" style="font-weight: bold"|cond="$val->sum_discount_amount <= 0">{$val->printDiscountedPrice()}</span>
+						<span style="text-decoration:line-through;"|cond="$val->discount_amount > 0" style="font-weight: bold"|cond="$val->discount_amount <= 0">{$val->printDiscountedPrice()}</span>
 					</div>
-					<div cond="$val->sum_discount_amount > 0 && $v=='price'">
+					<div cond="$val->discount_amount > 0 && $v=='price'">
 						<span>할인금액 : {$val->currency_discounted_price}</span>
 					</div>
 					</block>

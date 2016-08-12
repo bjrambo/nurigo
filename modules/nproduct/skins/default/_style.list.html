@@ -26,7 +26,7 @@
 				</div>
 			</td>
 			<td cond="!$val->discount_amount && $k == 'amount'"><span class="item_price">{$val->printPrice()}</span></td>
-			<td cond="$val->discount_amount && $k == 'amount'"><span style="text-decoration:line-through;">{$val->printPrice()}</span><br /><span class="font_size12"><strong>{$val->printDiscountedPrice()}</strong></span></td>
+			<td cond="$val->discount_amount && $k == 'amount'"><span style="text-decoration:line-through;">{$val->printPrice()}</span><br /><span class="font_size12"><strong>{$val->printDiscountedPrice($val)}</strong></span></td>
 			<td cond="$k == 'cart_buttons'">
 				<a href="#" class="small {$btn_color} nuribtn" onclick="addItemsToCart({$val->item_srl}); return false;">{$lang->cmd_cart}</a>
 				<a href="#" class="small light nuribtn" onclick="addItemsToFavorites({$val->item_srl}); return false;">{$lang->cmd_favorites}</a>
