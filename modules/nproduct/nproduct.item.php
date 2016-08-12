@@ -157,12 +157,10 @@ class nproductItem extends Object
 	 */
 	function printDiscountedPrice($price = null)
 	{
-		if($price !== null)
+		if($price)
 		{
 			$price = $this->printPrice($price);
 		}
-
-
 		return $this->printPrice($price->discounted_price);
 	}
 
