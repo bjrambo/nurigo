@@ -140,11 +140,7 @@ class paynotyController extends paynoty
 
 		foreach($config_list as $key => $val)
 		{
-			$output = $this->processPaynoty($val, $state, $sender, $module_info);
-			if(!$output->toBool())
-			{
-				debugPrint('processPaynoty : ' . $output->getMessage());
-			}
+			$this->processPaynoty($val, $state, $sender, $module_info);
 		}
 	}
 }

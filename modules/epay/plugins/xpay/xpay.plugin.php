@@ -150,7 +150,6 @@
 			$xpay->Set("LGD_PAYKEY", $LGD_PAYKEY);
 
 			$vars = Context::getRequestVars();
-			debugPrint($vars);
 
 			/*
 			 * 2. 최종결제 요청 결과처리

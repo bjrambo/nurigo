@@ -356,8 +356,6 @@ class nstoreAdminController extends nstore
 		echo Context::getLang('csv_header') . "\r\n";
 		foreach($data as $no => $rec)
 		{
-			debugPrint('$rec');
-			debugPrint($rec);
 			echo sprintf("%s,%s,%s,%s,%s\r\n", zdate($rec->regdate, 'Y-m-d'), $rec->item_name, $rec->quantity, $rec->price, $rec->purchaser_name);
 		}
 		exit(0);
@@ -423,8 +421,6 @@ class nstoreAdminController extends nstore
 		echo "\r\n";
 		foreach($data as $no => $rec)
 		{
-			debugPrint('$rec');
-			debugPrint($rec);
 			echo sprintf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", zdate($rec->regdate, 'Y-m-d'), $rec->order_srl, $rec->title, $rec->item_count, $rec->user_id, $rec->nick_name, Context::getLang($this->payment_method[$rec->payment_method]), $rec->mileage, $rec->mileage_save, $rec->use_mileage, $rec->total_price, $rec->sum_price, $rec->delivery_fee, $rec->total_discounted_price, $rec->total_discount_amount, $rec->taxation_amount, $rec->supply_amount, $rec->vat, $rec->taxfree_amount, $rec->invoice_no, $this->delivery_companies[$rec->express_id], $rec->delivfee_inadvance);
 			$extra_vars = unserialize($rec->extra_vars);
 			if($extra_vars)

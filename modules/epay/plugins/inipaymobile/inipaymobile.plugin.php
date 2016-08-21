@@ -118,8 +118,6 @@ class inipaymobile extends EpayPlugin
 */
 		//PG에서 보냈는지 IP로 체크
 		$PGIP = $_SERVER['REMOTE_ADDR'];
-		debugPrint('$PGIP');
-		debugPrint($PGIP);
 		if(($PGIP != "211.219.96.165" && $PGIP != "118.129.210.25") && !$_SESSION['inipaymobile_pass'])
 		{
 			$obj = new Object(-1, 'msg_invalid_request');
@@ -195,8 +193,7 @@ class inipaymobile extends EpayPlugin
 			"P_VACT_NAME" => $P_VACT_NAME,
 			"P_VACT_BANK_CODE" => $P_VACT_BANK_CODE
 		);
-		debugPrint('$value');
-		debugPrint($value);
+
 
 
 		// 결제처리에 관한 로그 기록

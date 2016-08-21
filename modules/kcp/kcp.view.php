@@ -47,8 +47,6 @@ class kcpView extends kcp
 		{
 			return $reviewOutput;
 		}
-		debugPrint('$reviewOutput');
-		debugPrint($reviewOutput);
 		Context::set('review_form', $reviewOutput->review_form);
 		Context::set('item_name', $reviewOutput->item_name);
 		Context::set('price', $reviewOutput->price);

@@ -41,8 +41,6 @@ class nmileageAdminController extends nmileage
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
 		$args->module = 'nmileage';
-		debugPrint('procNmileageADminInsertModInst');
-		debugPrint($args);
 
 		// module_srl이 넘어오면 원 모듈이 있는지 확인
 		if($args->module_srl)

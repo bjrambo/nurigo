@@ -12,7 +12,6 @@ class eposController extends epos
 	{
 		$oEpayModel = getModel('epay');
 
-		debugPrint('processOrderInfo');
 		$xmlObj = simplexml_load_string($strOrderInfo);
 
 		if(!isset($xmlObj->CAVALUE))
@@ -32,7 +31,6 @@ class eposController extends epos
 			$this->stop('ORDERNUMBER is null');
 		}
 		$orderNumber = $orderInfo->ORDERNUMBER->__toString();
-		debugPrint('order_srl : ' . $orderNumber);
 
 		// get transaction information
 		$transactionInfo = $oEpayModel->getTransactionByOrderSrl($orderNumber);
@@ -47,9 +45,6 @@ class eposController extends epos
 
 	function processResult($strRsXML)
 	{
-		debugPrint('processResult');
-		debugPrint($strRsXML);
-
 		$oEpayController = getController('epay');
 		$oEpayModel = getModel('epay');
 
@@ -121,17 +116,14 @@ class eposController extends epos
 
 		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($transactionInfo->plugin_srl);
-		debugPrint($module_info);
 
 		// check amount
 		if($amount != $transactionInfo->payment_amount)
 		{
 			$this->stop('AMOUNT dismatch');
 		}
-		debugPrint($transactionInfo);
 
 		$output = $oEpayController->beforePayment($transactionInfo);
-		debugPrint($output);
 		if(!$output->toBool())
 		{
 			return $output;
