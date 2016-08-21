@@ -31,8 +31,6 @@ class inipaystandardView extends inipaystandard
 			$reviewOutput->review_form = preg_replace('/<td class="total_price" id="order_amount">(.*)<\/td>/', '<td class="total_price" id="order_amount">'.$reviewOutput->price.'</td>', $reviewOutput->review_form);
 		}
 
-		debugPrint($reviewOutput->review_from);
-
 		$payment_method = Context::get('payment_method');
 		$_SESSION['inipaystandard']['payment_method'] = $payment_method;
 		$_SESSION['inipaystandard']['transaction_srl'] = $reviewOutput->transaction_srl;
