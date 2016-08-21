@@ -227,8 +227,26 @@ class epayAdminView extends epay
 			return $output;
 		}
 		$list = $output->data;
+		$nick_name = array();
+		foreach($list as $key => $val)
+		{
+			if(!$val->user_id && !$val->nick_name)
+			{
+				$order_info = getModel('nstore')->getOrderInfo($val->order_srl);
+				$order_extra = unserialize($order_info->extra_vars);
+				foreach($order_extra as $keys => $value)
+				{
+					if($keys == '수취인 이름')
+					{
+						$nick_name[$key] = $order_extra['수취인 이름'];
+						break;
+					}
+				}
+			}
+		}
 		ModuleHandler::triggerCall('epay.getTransactionList', 'after', $list);
 		Context::set('list', $list);
+		Context::set('nick_name', $nick_name);
 		Context::set('total_count', $output->total_count);
 		Context::set('total_page', $output->total_page);
 		Context::set('page', $output->page);
