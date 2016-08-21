@@ -23,6 +23,16 @@ class inipaystandardView extends inipaystandard
 			return $reviewOutput;
 		}
 
+		preg_match('/<td class="total_price" id="order_amount">(.*)<\/td>/', $reviewOutput->review_form, $total);
+		$total_price = preg_replace('/[^0-9]/', '', $total[1]);
+		if($total_price != $reviewOutput->price)
+		{
+			$reviewOutput->review_form = preg_replace('/<td><span id="delivery_fee">(.*)<\/span><\/td>/', '<td><span id="delivery_fee">0</span></td>', $reviewOutput->review_form);
+			$reviewOutput->review_form = preg_replace('/<td class="total_price" id="order_amount">(.*)<\/td>/', '<td class="total_price" id="order_amount">'.$reviewOutput->price.'</td>', $reviewOutput->review_form);
+		}
+
+		debugPrint($reviewOutput->review_from);
+
 		$payment_method = Context::get('payment_method');
 		$_SESSION['inipaystandard']['payment_method'] = $payment_method;
 		$_SESSION['inipaystandard']['transaction_srl'] = $reviewOutput->transaction_srl;
