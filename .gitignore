@@ -4,3 +4,4 @@ error_log
 *.sublime-project
 .codeintel
 codeception.yml
+rhymix/
