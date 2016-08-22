@@ -26,4 +26,15 @@ class paynotyModel extends paynoty
 
 		return self::$config;
 	}
+
+	function getNotifyMessage($args)
+	{
+		switch($args->template_code)
+		{
+			case 'C001':
+				$str = sprintf('%s님! %s 상품구매가 완료되었습니다! 감사합니다!', $args->nick_name, $args->product_name);
+				return $str;
+				break;
+		}
+	}
 }

@@ -954,6 +954,7 @@ class ncartController extends ncart
 				break;
 		}
 
+		$args = new stdClass();
 		$args->order_status = $order_status;
 		$args->payment_method = $obj->payment_method;
 		$output = $this->updateOrderStatus($obj->order_srl, $args);

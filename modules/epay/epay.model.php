@@ -252,6 +252,7 @@ class epayModel extends epay
 	 */
 	function getTransactionInfo($transaction_srl)
 	{
+		$args = new stdClass();
 		$args->transaction_srl = $transaction_srl;
 		$output = executeQuery('epay.getTransactionInfo', $args);
 		$payment_info = $output->data;

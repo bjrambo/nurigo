@@ -224,6 +224,10 @@ class epayController extends epay
 		$args->vact_time = $params->get('vact_time');
 		$args->pg_tid = $params->get('pg_tid');
 		$args->epay_module_srl = $params->get('epay_module_srl');
+		if(Context::get('is_logged'))
+		{
+			$args->member_srl = Context::get('logged_info')->member_srl;
+		}
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
 		if(!$output->toBool())
 		{
