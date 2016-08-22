@@ -21,6 +21,10 @@ class paynotyModel extends paynoty
 		{
 			$oModuleModel = getModel('module');
 			$config = $oModuleModel->getModuleConfig('paynoty');
+			if(!$config->use)
+			{
+				$config->use = 'N';
+			}
 			self::$config = $config;
 		}
 

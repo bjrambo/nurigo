@@ -17,8 +17,11 @@ class paynotyController extends paynoty
 		$oPaynotyModel = getModel('paynoty');
 		$oTextmessageController = getController('textmessage');
 		$config = $oPaynotyModel->getConfig();
-		debugPrint($config);
-/*
+		if($config->use != 'Y')
+		{
+			return new Object();
+		}
+
 		$order_info = getModel('ncart')->getOrderInfo($obj->order_srl);
 		$extra_vars = unserialize($order_info->extra_vars);
 		$product_name = $order_info->title;
@@ -39,6 +42,5 @@ class paynotyController extends paynoty
 		{
 			return $output;
 		}
-*/
 	}
 }

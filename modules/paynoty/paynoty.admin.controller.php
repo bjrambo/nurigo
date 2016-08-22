@@ -24,6 +24,7 @@ class paynotyAdminController extends paynoty
 		$obj = Context::getRequestVars();
 		$config = new stdClass();
 		$config_vars = array(
+			'use',
 			'mail_content',
 			'sending_method',
 			'sender_no',
