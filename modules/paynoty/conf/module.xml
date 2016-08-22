@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
-    <grants />
-    <permissions />
+	<grants/>
+	<permissions/>
 	<menus>
 		<menu name="paynotyConfig">
 			<title xml:lang="ko">상품주문 알림설정</title>
 			<title xml:lang="en">Paynoty Configuration</title>
 		</menu>
 	</menus>
-    <actions>
-        <action name="dispPaynotyAdminList" type="view" admin_index="true" menu_name="paynotyConfig" menu_index="true" />
-        <action name="dispPaynotyAdminInsert" type="view"  menu_name="paynotyConfig" />
-        <action name="dispPaynotyAdminModify" type="view"  menu_name="paynotyConfig" />
+	<actions>
+		<!-- admin view -->
+		<action name="dispPaynotyAdminConfig" type="view" admin_index="true" menu_name="paynotyConfig" menu_index="true"/>
 
-        <action name="getPaynotyAdminDelete" type="model" />
-
-        <action name="procPaynotyAdminInsert" type="controller"  />
-        <action name="procPaynotyAdminDelete" type="controller"  />
-    </actions>
+		<!-- admin controller -->
+		<action name="procPaynotyAdminConfig" type="controller"/>
+	</actions>
 </module>

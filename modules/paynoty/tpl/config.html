@@ -5,34 +5,13 @@
 
 <form action="./" method="post" class="x_form-horizontal">
 	<input type="hidden" name="module" value="paynoty" />
-	<input type="hidden" name="act" value="procPaynotyAdminInsert" />
+	<input type="hidden" name="act" value="procPaynotyAdminConfig" />
     <input type="hidden" name="config_srl" value="{$config->config_srl}" />
     <input type="hidden" name="mail_content" value="{htmlspecialchars($config->mail_content)}" />
 	<section class="section">
-		<div class="x_control-group">
-			<label class="x_control-label" for="mid">{$lang->target_module}</label>
-			<div class="x_controls">
-				{@$id="module_srls"}
-				<input type="hidden" name="{$id}" id="{$id}" value="{$config->module_srls}" />
-				<select name="_{$id}" id="_{$id}" size="8" style="vertical-align:top; margin-bottom:5px;" class="w200 fl"></select>
-				<p class="x_help-inline">{$lang->about_target_module}</p>
-				<br />
-				<div class="x_btn-group">
-					<a class="x_btn" href="{getUrl('','module','module','act','dispModuleSelectList','id',$id)}" onclick="popopen(this.href, 'ModuleSelect');return false;" class="button blue"><span>{$lang->cmd_insert}</span></a>
-					<a class="x_btn" href="#" onclick="midMoveUp('{$id}');return false;" class="button black"><span>{$lang->cmd_move_up}</span></a>
-					<a class="x_btn" href="#" onclick="midMoveDown('{$id}');return false;" class="button black"><span>{$lang->cmd_move_down}</span></a>
-					<a class="x_btn" href="#" onclick="midRemove('{$id}');return false;" class="button red"><span>{$lang->cmd_delete}</span></a>
-				</div>
-				<script type="text/javascript">
-					if(typeof(getModuleSrlList)!=='undefined') {
-						doAddWindowLoadEventLoader( function() { getModuleSrlList('{$id}'); } );
-					}
-				</script>
 
-			</div>
-		</div>
 		<div class="x_control-group">
-			<label class="x_control-label" for="mid">{$lang->sedning_method}</label>
+			<label class="x_control-label" for="mid">{$lang->sending_method}</label>
 			<div class="x_controls">
 				<label for="sending_method_1" class="x_inline">
 					<input type="radio" name="sending_method" id="sending_method_1" value="1" checked="checked"|cond="$config->sending_method=='1'||!$config->sending_method" />

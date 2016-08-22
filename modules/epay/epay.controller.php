@@ -223,6 +223,7 @@ class epayController extends epay
 		$args->vact_date = $params->get('vact_date');
 		$args->vact_time = $params->get('vact_time');
 		$args->pg_tid = $params->get('pg_tid');
+		$args->epay_module_srl = $params->get('epay_module_srl');
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
 		if(!$output->toBool())
 		{

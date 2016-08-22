@@ -17,77 +17,41 @@ class paynotyAdminController extends paynoty
 	/**
 	 * @brief saving config values.
 	 **/
-	function procPaynotyAdminInsert()
+	function procPaynotyAdminConfig()
 	{
-		$params = Context::gets('admin_phones', 'sender_no', 'admin_emails', 'sender_name', 'sender_email', 'content', 'mail_content', 'module_srls', 'msgtype', 'sending_method');
-		$params->config_srl = Context::get('config_srl');
+		$oModuleController = getController('module');
 
-		if($params->config_srl)
+		$obj = Context::getRequestVars();
+		$config = new stdClass();
+		$config_vars = array(
+			'mail_content',
+			'sending_method',
+			'sender_no',
+			'admin_phones',
+			'content',
+			'admin_emails',
+			'sender_name',
+			'sender_email'
+		);
+
+		foreach($config_vars as $val)
 		{
-			// delete existences
-			$args = new stdClass();
-			$args->config_srl = $params->config_srl;
-			$output = executeQuery('paynoty.deleteConfig', $args);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
-			$output = executeQuery('paynoty.deleteModule', $args);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
-		}
-		else
-		{
-			// new sequence
-			$params->config_srl = getNextSequence();
+			$config->{$val} = $obj->{$val};
 		}
 
-		// insert module srls
-		$module_srls = explode(',', $params->module_srls);
-		foreach($module_srls as $srl)
-		{
-			$args = new stdClass();
-			$args->config_srl = $params->config_srl;
-			$args->module_srl = $srl;
-			$output = executeQuery('paynoty.insertModuleSrl', $args);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
-		}
-
-		//$params->extra_vars = serialize($extra_vars);
-		
-		// insert paynoty
-		$output = executeQuery('paynoty.insertConfig', $params);
+		$output = $oModuleController->insertModuleConfig('paynoty', $config);
 		if(!$output->toBool())
 		{
-			return $output;
+			return new Object(-1, '설정에 오류가 있었습니다.');
 		}
 
-		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispPaynotyAdminModify', 'config_srl', $params->config_srl);
-		$this->setRedirectUrl($redirectUrl);
-	}
+		$this->setMessage('success_updated');
 
-	function procPaynotyAdminDelete()
-	{
-		$config_srl = Context::get('config_srl');
-		if(!$config_srl)
+		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispPaynotyAdminConfig');
+			header('location: ' . $returnUrl);
+			return;
 		}
-
-		if($config_srl)
-		{
-			// delete existences
-			$args = new stdClass();
-			$args->config_srl = $config_srl;
-			$output_config = executeQuery('paynoty.deleteConfig', $args);
-			$output_module = executeQuery('paynoty.deleteModule', $args);
-		}
-		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispPaynotyAdminList');
-		$this->setRedirectUrl($redirectUrl);
 	}
 }
