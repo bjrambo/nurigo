@@ -1124,7 +1124,7 @@ class nproductModel extends nproduct
 	/**
 	 * @brief discount items
 	 */
-	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance)
+	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
 	{
 		$oNcartModel = getModel('ncart');
 
@@ -1380,8 +1380,11 @@ class nproductModel extends nproduct
 			}
 		}
 		$retobj = $this->discountItems($items);
+		if(!$category_info)
+		{
+			$category_info = new stdClass();
+		}
 		$category_info->items = $items;
-
 		$display_categories[] = $category_info;
 		return $display_categories;
 	}
