@@ -51,7 +51,6 @@ class paynotyAdminView extends paynoty
 		Context::set('editor', $editor);
 
 		$config = getModel('paynoty')->getConfig();
-		debugPrint($config);
 		if(!$config)
 		{
 			$config->content = Context::getLang('default_content');
