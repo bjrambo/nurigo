@@ -142,13 +142,13 @@ class ncartModel extends ncart
 	/**
 	 * @brief 그룹할인이 있으면 그룹할인으로 적용하고 그룹할인이 없을 때는 상품별 할인 적용.
 	 */
-	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50)
+	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance)
 	{
 		$oNproductModel = getModel('nproduct');
-		return $oNproductModel->discountItems($item_list, $group_list, $width, $height);
+		return $oNproductModel->discountItems($item_list, $group_list, $width, $height, $delivfee_inadvance);
 	}
 
-	function getGuestCartInfo($non_key, $cartnos = null, $width = null, $height = null)
+	function getGuestCartInfo($non_key, $cartnos = null, $width = null, $height = null, $delivfee_inadvance)
 	{
 		// non group list
 		$group_list = array();
@@ -179,10 +179,10 @@ class ncartModel extends ncart
 			$item_list = array();
 		}
 
-		return $this->discountItems($item_list, $group_list, $width, $height);
+		return $this->discountItems($item_list, $group_list, $width, $height, $delivfee_inadvance);
 	}
 
-	function getMemberCartInfo($member_srl, $cartnos = null, $width = null, $height = null)
+	function getMemberCartInfo($member_srl, $cartnos = null, $width = null, $height = null, $delivfee_inadvance = 'Y')
 	{
 		$oMemberModel = getModel('member');
 
@@ -224,13 +224,13 @@ class ncartModel extends ncart
 		}
 		 */
 
-		return $this->discountItems($item_list, $group_list, $width, $height);
+		return $this->discountItems($item_list, $group_list, $width, $height, $delivfee_inadvance);
 	}
 
 	/**
 	 * @brief 회원 혹은 비회원 카트정보를 알아서 구해서 돌려준다. 로그인 했을 때 비회원 카트에 남아 있던 상품을 회원 카트로 옮겨 담아준다.
 	 */
-	function getCartInfo($cartnos = null, $width = null, $height = null)
+	function getCartInfo($cartnos = null, $width = null, $height = null, $delivfee_inadvance = 'Y')
 	{
 		$oNcartController = getController('ncart');
 
@@ -241,7 +241,7 @@ class ncartModel extends ncart
 		if(!Context::get('is_logged'))
 		{
 			// 로그인 안되어 있을 때 비회원카트 정보를 가져옴
-			$cart_info = $this->getGuestCartInfo($non_key, $cartnos, $width, $height);
+			$cart_info = $this->getGuestCartInfo($non_key, $cartnos, $width, $height, $delivfee_inadvance);
 		}
 		else
 		{
@@ -252,7 +252,7 @@ class ncartModel extends ncart
 			}
 
 			// 로그인 되어 있을 때 회원 카트정보 가져옴
-			$cart_info = $this->getMemberCartInfo($logged_info->member_srl, $cartnos, $width, $height);
+			$cart_info = $this->getMemberCartInfo($logged_info->member_srl, $cartnos, $width, $height, $delivfee_inadvance);
 
 		}
 
@@ -668,6 +668,7 @@ class ncartModel extends ncart
 			return new Object(-1, 'msg_invalid_request');
 		}
 
+		$args = new stdClass();
 		$args->member_srl = $logged_info->member_srl;
 		$args->address_srl = Context::get('address_srl');
 		$output = executeQuery('ncart.getAddressInfo', $args);

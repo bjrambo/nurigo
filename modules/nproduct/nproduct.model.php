@@ -1124,7 +1124,7 @@ class nproductModel extends nproduct
 	/**
 	 * @brief discount items
 	 */
-	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50)
+	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance)
 	{
 		$oNcartModel = getModel('ncart');
 
@@ -1236,7 +1236,10 @@ class nproductModel extends nproduct
 		{
 			$ret_obj->delivery_fee = 0;
 		}
-
+		if($delivfee_inadvance !== 'Y')
+		{
+			$ret_obj->delivery_fee = 0;
+		}
 		$ret_obj->total_price = $ret_obj->total_discounted_price + $ret_obj->delivery_fee;
 		$ret_obj->supply_amount = round($ret_obj->taxation_amount / 1.1);
 		$ret_obj->vat = $ret_obj->taxation_amount - $ret_obj->supply_amount;

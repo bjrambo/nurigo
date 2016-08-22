@@ -116,7 +116,7 @@ class ncartView extends ncart
 
 		// load cart info.
 		$oNcartModel = getModel('ncart');
-		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos);
+		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos, null, null, $in_args->delivfee_inadvance);
 		Context::set('cart_info', $cart_info);
 
 		// compile template file
