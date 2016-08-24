@@ -44,10 +44,7 @@ class paynoty extends ModuleObject
 				return TRUE;
 			}
 		}
-		if(!$oDB->isColumnExists('paynoty_config', 'sender_no'))
-		{
-			return TRUE;
-		}
+
 		return false;
 	}
 
@@ -66,11 +63,6 @@ class paynoty extends ModuleObject
 			{
 				$oModuleController->insertTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
 			}
-		}
-
-		if(!$oDB->isColumnExists('paynoty_config', 'sender_no'))
-		{
-			$oDB->addColumn('paynoty_config', 'sender_no', 'varchar', 250);
 		}
 	}
 
