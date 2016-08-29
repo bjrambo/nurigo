@@ -17,6 +17,7 @@ class paynotyController extends paynoty
 		$oPaynotyModel = getModel('paynoty');
 		$oTextmessageController = getController('textmessage');
 		$config = $oPaynotyModel->getConfig();
+
 		if($config->use != 'Y')
 		{
 			return new Object();
@@ -26,21 +27,123 @@ class paynotyController extends paynoty
 		$extra_vars = unserialize($order_info->extra_vars);
 		$product_name = $order_info->title;
 
-		$args = new stdClass();
-		$args->template_code = 'C001';
-		$args->nick_name = $obj->vact_name;
-		$args->product_name = $product_name;
-		$args->content = $oPaynotyModel->getNotifyMessage($args);
-		if($args->content == 'ERROR001')
+		if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $product_name))
 		{
-			return new Object();
+			$product_name = preg_replace_callback('!\$user_lang->([a-z0-9\_]+)!is', array($this,'_replaceLangCode'), $product_name);
 		}
-		$args->recipient_no = $extra_vars->tel1[0].$extra_vars->tel1[1].$extra_vars->tel1[2];
-		$args->sender_no = $config->sender_no;
-		$output = $oTextmessageController->sendmessage($args);
-		if(!$output->toBool())
+
+		$args = new stdClass();
+		$args->module_srl = $obj->module_srl;
+		$output = executeQuery('module.getMidInfo', $args);
+
+		$module_info = $output->data;
+		$logged_info = Context::get('logged_info');
+		if(Context::get('is_logged'))
 		{
-			return $output;
+			$obj->p_name = $logged_info->nick_name;
+			$obj->email_address = $logged_info->email_address;
+		}
+		else
+		{
+			$obj->p_name = $obj->vact_name;
+		}
+		$obj->order_title = $product_name;
+
+		$sms_message = paynoty::mergeKeywords($config->content, $obj);
+		$sms_message = paynoty::mergeKeywords($sms_message, $module_info);
+		$sms_message = str_replace("&nbsp;", "", strip_tags($sms_message));
+
+		$mail_content = paynoty::mergeKeywords($config->mail_content, $obj);
+		$mail_content = paynoty::mergeKeywords($mail_content, $module_info);
+
+		$tmp_obj = new stdClass();
+		$tmp_obj->article_url = getFullUrl('', 'document_srl', $obj->document_srl);
+		$mail_content = $this->mergeKeywords($mail_content, $tmp_obj);
+		$sms_message = $this->mergeKeywords($sms_message, $tmp_obj);
+
+		if(in_array($config->sending_method, array('1', '2')) && $oTextmessageController)
+		{
+			$args = new stdClass();
+			$args->template_code = 'C001';
+			$args->product_name = $product_name;
+			$args->content = $sms_message;
+			$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
+			$args->sender_no = $config->sender_no;
+			$output = $oTextmessageController->sendmessage($args);
+			if(!$output->toBool())
+			{
+				return $output;
+			}
+		}
+
+		if(in_array($config->sending_method, array('1', '3')))
+		{
+			if($config->sender_email)
+			{
+				$sender_email_address = $config->sender_email;
+			}
+
+			if($config->sender_name)
+			{
+				$sender_name = $config->sender_name;
+			}
+
+			$oMail = new Mail();
+			$oMail->setTitle($product_name);
+			$oMail->setContent($mail_content);
+			$oMail->setSender($sender_name, $sender_email_address);
+			$target_email = explode(',', $config->admin_emails);
+			$oMail->setReceiptor($obj->email_address, $obj->email_address);
+			$oMail->send();
+			foreach($target_email as $email_address)
+			{
+				$email_address = trim($email_address);
+				if(!$email_address)
+				{
+					continue;
+				}
+				$oMail->setReceiptor($email_address, $email_address);
+				$oMail->send();
+			}
 		}
 	}
+
+	function _replaceLangCode($matches)
+	{
+		static $lang = null;
+
+		if(is_null($lang))
+		{
+			$site_module_info = Context::get('site_module_info');
+			if(!$site_module_info)
+			{
+				$oModuleModel = getModel('module');
+				$site_module_info = $oModuleModel->getDefaultMid();
+				Context::set('site_module_info', $site_module_info);
+			}
+			$cache_file = sprintf('%sfiles/cache/lang_defined/%d.%s.php', _XE_PATH_, $site_module_info->site_srl, Context::getLangType());
+			if(!file_exists($cache_file))
+			{
+				$oModuleAdminController = getAdminController('module');
+				$oModuleAdminController->makeCacheDefinedLangCode($site_module_info->site_srl);
+			}
+
+			if(file_exists($cache_file))
+			{
+				$moduleAdminControllerMtime = filemtime(_XE_PATH_ . 'modules/module/module.admin.controller.php');
+				$cacheFileMtime = filemtime($cache_file);
+				if($cacheFileMtime < $moduleAdminControllerMtime)
+				{
+					$oModuleAdminController = getAdminController('module');
+					$oModuleAdminController->makeCacheDefinedLangCode($site_module_info->site_srl);
+				}
+
+				require_once($cache_file);
+			}
+		}
+		if(!Context::get($matches[1]) && $lang[$matches[1]]) return $lang[$matches[1]];
+
+		return str_replace('$user_lang->','',$matches[0]);
+	}
+
 }
