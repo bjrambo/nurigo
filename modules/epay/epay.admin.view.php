@@ -22,14 +22,11 @@ class epayAdminView extends epay
 		$module_category = $oModuleModel->getModuleCategories();
 		Context::set('module_category', $module_category);
 
-		if(Context::get('module') == 'cympusadmin')
+		$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
+		if(file_exists($classfile))
 		{
-			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
-			if(file_exists($classfile))
-			{
-				require_once($classfile);
-				cympusadmin::init($this);
-			}
+			require_once($classfile);
+			cympusadmin::init($this);
 		}
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
@@ -201,17 +198,6 @@ class epayAdminView extends epay
 	 */
 	function dispEpayAdminTransactions()
 	{
-		$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
-		if(file_exists($classfile))
-		{
-			require_once($classfile);
-			$output = cympusadmin::init($this);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
-		}
-
 		// transactions
 		$args = new stdClass();
 		$args->page = Context::get('page');
