@@ -134,12 +134,8 @@ class store_searchMobile extends integration_searchMobile
 					$this->setTemplateFile("file", $page);
 					break;
 				default :
-					$output['product'] = $oIS->getProducts('include', $product_module_srl_list, 'title_content', $is_keyword, $page, 6);
 					$output['document'] = $oIS->getDocuments($target, $module_srl_list, $product_module_srl_list, 'title_content', $is_keyword, $page, 5);
-					$output['comment'] = $oIS->getComments($target, $module_srl_list, $is_keyword, $page, 5);
-					$output['trackback'] = $oIS->getTrackbacks($target, $module_srl_list, 'title', $is_keyword, $page, 5);
-					$output['multimedia'] = $oIS->getImages($target, $module_srl_list, $is_keyword, $page, 5);
-					$output['file'] = $oIS->getFiles($target, $module_srl_list, $is_keyword, $page, 5);
+					$output['product'] = $oIS->getProducts('include', $product_module_srl_list, 'title_content', $is_keyword, $page, 6);
 					Context::set('search_result', $output);
 					$this->setTemplateFile("index", $page);
 					break;

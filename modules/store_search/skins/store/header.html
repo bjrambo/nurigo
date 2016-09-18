@@ -1,10 +1,10 @@
 <!--@if(!$_loaded)-->
     {@ $_loaded = true; }
 
-    <!--// 컬러셋 체크 -->
-    <!--@if($module_info->colorset != "white")-->
-        {@$module_info->colorset = "white"}
-    <!--@end-->
+    {@
+		$module_info = new stdClass();
+		$module_info->colorset = "white"
+	}
 
     <!--// CSS 파일 로드 (컬러셋에 따라서) -->
     <!--@if($module_info->colorset == "white")-->

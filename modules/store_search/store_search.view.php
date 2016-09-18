@@ -8,8 +8,6 @@
  *
  **/
 
-require_once(_XE_PATH_ . 'modules/integration_search/integration_search.view.php');
-
 class store_searchView extends integration_searchView
 {
 
@@ -33,9 +31,13 @@ class store_searchView extends integration_searchView
 		}
 
 		$config = $oModuleModel->getModuleConfig('store_search');
-		if(!$config->skin)
+		if(!$config)
 		{
-			$config->skin = 'store';
+			$config = new stdClass();
+			if(!$config->skin)
+			{
+				$config->skin = 'store';
+			}
 		}
 		Context::set('module_info', unserialize($config->skin_vars));
 		$this->setTemplatePath($this->module_path . "/skins/" . $config->skin . "/");
@@ -137,12 +139,8 @@ class store_searchView extends integration_searchView
 					$this->setTemplateFile("file", $page);
 					break;
 				default :
-					$output['product'] = $oIS->getProducts('include', $product_module_srl_list, 'title_content', $is_keyword, $page, 5);
 					$output['document'] = $oIS->getDocuments($target, $module_srl_list, $product_module_srl_list, 'title_content', $is_keyword, $page, 5);
-					$output['comment'] = $oIS->getComments($target, $module_srl_list, $is_keyword, $page, 5);
-					$output['trackback'] = $oIS->getTrackbacks($target, $module_srl_list, 'title', $is_keyword, $page, 5);
-					$output['multimedia'] = $oIS->getImages($target, $module_srl_list, $is_keyword, $page, 5);
-					$output['file'] = $oIS->getFiles($target, $module_srl_list, $is_keyword, $page, 5);
+					$output['product'] = $oIS->getProducts('include', $product_module_srl_list, 'title_content', $is_keyword, $page, 5);
 					Context::set('search_result', $output);
 					$this->setTemplateFile("index", $page);
 					break;

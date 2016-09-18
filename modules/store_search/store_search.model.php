@@ -11,7 +11,7 @@ if(file_exists(_XE_PATH_ . 'modules/nproduct/nproduct.item.php'))
 	require_once(_XE_PATH_ . 'modules/nproduct/nproduct.item.php');
 }
 
-class store_searchModel extends integration_searchModel
+class store_searchModel extends store_search
 {
 	/**
 	 * @brief Initialization
