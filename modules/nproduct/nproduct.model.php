@@ -1541,7 +1541,8 @@ class nproductModel extends nproduct
 				if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $val->category_name))
 				{
 					$obj->attr->lang = 'Y';
-					$category_name = getController('module')->replaceDefinedLangCode($val->category_name);
+					getController('module')->replaceDefinedLangCode($val->category_name);
+					$category_name = htmlspecialchars($val->category_name);
 				}
 				else
 				{
@@ -1567,7 +1568,6 @@ class nproductModel extends nproduct
 	 **/
 	function getNproductCategoryInfo()
 	{
-		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
 			return new Object(-1, 'msg_login_required');
@@ -1594,6 +1594,12 @@ class nproductModel extends nproduct
 			{
 				getController('module')->replaceDefinedLangCode($output->data->category_name);
 				$output->data->category_name = htmlspecialchars($output->data->category_name, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+				preg_match('/()\$user_lang->[a-zA-Z0-9]+$/', $output->data->node_route_text, $match);
+				if(is_array($match))
+				{
+					getController('module')->replaceDefinedLangCode($match[0]);
+				}
+				$output->data->node_route_text = preg_replace('/()\$user_lang->[a-zA-Z0-9]+$/', $match[0], $output->data->node_route_text);
 			}
 			if(!$output->toBool())
 			{
@@ -1610,6 +1616,7 @@ class nproductModel extends nproduct
 	function getNproductDisplayItems()
 	{
 		$category_srl = Context::get('category_srl');
+		$args = new stdClass();
 		$args->category_srl = $category_srl;
 		$output = executeQueryArray('nproduct.getDisplayItems', $args);
 		$this->add('data', $output->data);
@@ -1892,6 +1899,10 @@ class nproductModel extends nproduct
 		{
 			$obj = new stdClass();
 			$obj->item_srl = $val->item_srl;
+			if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $val->item_name))
+			{
+				getController('module')->replaceDefinedLangCode($val->item_name);
+			}
 			$obj->item_name = $val->item_name;
 			$data[] = $obj;
 		}
@@ -1920,12 +1931,13 @@ class nproductModel extends nproduct
 		if($node_id == 'root')
 		{
 			// get module instance list
+			$args = new stdClass();
 			$args->list_count = 1000;
 			$output = executeQueryArray('nproduct.getModInstList', $args);
 			$list = $output->data;
 			foreach($list as $element)
 			{
-				$obj = new StdClass();
+				$obj = new stdClass();
 				$obj->id = $element->module_srl;
 				$obj->text = $element->browser_title;
 				$obj->state = new stdClass();
@@ -1964,8 +1976,12 @@ class nproductModel extends nproduct
 		{
 			foreach($output->data as $no => $val)
 			{
-				$obj = new StdClass();
+				$obj = new stdClass();
 				$obj->id = $val->node_id;
+				if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $val->category_name))
+				{
+					getController('module')->replaceDefinedLangCode($val->category_name);
+				}
 				$obj->text = $val->category_name;
 				$obj->state = new stdClass();
 				$obj->state->closed = TRUE;
@@ -1981,6 +1997,10 @@ class nproductModel extends nproduct
 		{
 			$obj = new stdClass();
 			$obj->id = $val->item_srl;
+			if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $val->item_name))
+			{
+				getController('module')->replaceDefinedLangCode($val->item_name);
+			}
 			$obj->text = $val->item_name;
 			$obj->state = $val->closed;
 			$obj->icon = 'jstree-file';
