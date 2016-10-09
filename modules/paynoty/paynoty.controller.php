@@ -61,14 +61,31 @@ class paynotyController extends paynoty
 		$mail_content = $this->mergeKeywords($mail_content, $tmp_obj);
 		$sms_message = $this->mergeKeywords($sms_message, $tmp_obj);
 
-		if(in_array($config->sending_method, array('1', '2')) && $oTextmessageController)
+		if(isset($config->sending_method['cta']) || isset($config->sending_method['sms']) && $oTextmessageController)
 		{
 			$args = new stdClass();
-			$args->template_code = 'C001';
 			$args->product_name = $product_name;
 			$args->content = $sms_message;
 			$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
 			$args->sender_no = $config->sender_no;
+			if(isset($config->sending_method['cta']) || isset($config->sending_method['sms']) && isset($config->sending_method['cta']))
+			{
+				$args->type = 'cta';
+				if($config->sender_key)
+				{
+					$args->sender_key = $config->sender_key;
+				}
+				$json_args = new stdClass();
+				$json_args->type = 'cta';
+				$json_args->to = $args->recipient_no;
+				$json_args->text = $args->content;
+				$extension = array($json_args);
+				$args->extension = json_encode($extension);
+			}
+			elseif(isset($config->sending_method['sms']))
+			{
+				$args->type = 'sms';
+			}
 			$output = $oTextmessageController->sendmessage($args);
 			if(!$output->toBool())
 			{
@@ -76,7 +93,7 @@ class paynotyController extends paynoty
 			}
 		}
 
-		if(in_array($config->sending_method, array('1', '3')))
+		if(isset($config->sending_method['email']))
 		{
 			if($config->sender_email)
 			{
@@ -145,5 +162,4 @@ class paynotyController extends paynoty
 
 		return str_replace('$user_lang->','',$matches[0]);
 	}
-
 }

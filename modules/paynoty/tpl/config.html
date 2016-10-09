@@ -24,38 +24,38 @@
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label" for="mid">{$lang->sending_method}</label>
+			<label class="x_control-label">{$lang->sending_method}</label>
 			<div class="x_controls">
-				<label for="sending_method_1" class="x_inline">
-					<input type="radio" name="sending_method" id="sending_method_1" value="1" checked="checked"|cond="$config->sending_method=='1'||!$config->sending_method" />
-					{$lang->textmessage_plus_email}
-				</label>
-				<label for="sending_method_2" class="x_inline">
-					<input type="radio" name="sending_method" id="sending_method_2" value="2" checked="checked"|cond="$config->sending_method=='2'" />
-					{$lang->textmessage}
-				</label>
-				<label for="sending_method_3" class="x_inline">				
-					<input type="radio" name="sending_method" id="sending_method_3" value="3" checked="checked"|cond="$config->sending_method=='3'" />
-					{$lang->email}
-				</label>
+				<label for="sending_method_cta" class="x_inline"><input type="checkbox" name="sending_method[cta]" id="sending_method_cta" value="1" checked="checked"|cond="isset($config->sending_method['cta'])" /> 친구톡</label>
+				<label for="sending_method_sms" class="x_inline"><input type="checkbox" name="sending_method[sms]" id="sending_method_sms" value="1" checked="checked"|cond="isset($config->sending_method['sms'])" /> {$lang->textmessage}</label>
+				<label for="sending_method_email" class="x_inline"><input type="checkbox" name="sending_method[email]" id="sending_method_email" value="1" checked="checked"|cond="isset($config->sending_method['email'])" /> {$lang->email}</label>
+
+
+				<p class="x_help-block">알림타입을 결정합니다. 선택한 항목에 따라 사용이 결정됩니다. 친구톡 사용시, 친구톡실패할 경우 해당 번호로 문자메세지를 전송합니다.</p>
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label" for="mid">보내는 휴대전화 번호</label>
+			<label class="x_control-label">보내는 휴대전화 번호</label>
 			<div class="x_controls">
 				<input type="text" name="sender_no" style="width:300px;" value="{$config->sender_no}" />
 				<a href="#admin_phones_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label" for="mid">받는 휴대전화 번호</label>
+			<label class="x_control-label">받는 휴대전화 번호</label>
 			<div class="x_controls">
 				<input type="text" name="admin_phones" style="width:300px;" value="{$config->admin_phones}" />
 				<a href="#admin_phones_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="admin_phones_help" class="x_help-block" hidden>콤마(,)로 구분 여러 개 입력가능</p>
 			</div>
 		</div>
-
+		<div class="x_control-group">
+			<label class="x_control-label">센더키</label>
+			<div class="x_controls">
+				<input type="text" name="sender_key" style="width:300px;" value="{$config->sender_key}" />
+			</div>
+			<p>coolsms 에서 알림톡을 신청한다음 받은 센더키를 입력하세요. 입력된 센더키를 베이스로 친구톡으로 전송합니다.</p>
+		</div>
 		<div class="x_control-group">
 			<label class="x_control-label" for="mid">{$lang->content}</label>
 			<div class="x_controls">
