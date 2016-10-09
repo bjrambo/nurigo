@@ -1,12 +1,11 @@
 <?php
-
 /**
  * vi:set sw=4 ts=4 noexpandtab fileencoding=utf-8:
  * @class  CSUtility
  * @author contact@nurigo.net
  * @brief  CSUtility
  */
-class CSUtility
+class CSUtility 
 {
 	function CSUtility()
 	{
@@ -24,6 +23,7 @@ class CSUtility
 				return "전송완료";
 		}
 	}
+
 	function dispResultCode($rcode) 
 	{
 		$statset = array("00" => "정상"
@@ -229,7 +229,6 @@ class CSUtility
 		}
 		return $count;
 	}
-
 }
 /* End of file textmessage.utility.php */
 /* Location: ./modules/textmessage.utility.php */

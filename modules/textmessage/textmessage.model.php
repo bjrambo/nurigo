@@ -8,8 +8,8 @@
  */
 class textmessageModel extends textmessage
 {
-	private static $config = NULL;
-	private static $global_config = NULL;
+	protected static $config = NULL;
+	protected static $global_config = NULL;
 
 	function init()
 	{
@@ -20,12 +20,10 @@ class textmessageModel extends textmessage
 	 */
 	function getModuleConfig()
 	{
-		if(self::$global_config)
+		if(self::$global_config !== NULL)
 		{
 			return self::$global_config;
 		}
-		
-
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('textmessage');
 
@@ -56,7 +54,7 @@ class textmessageModel extends textmessage
 		}
 		if($config->default_country == '82')
 		{
-			$config->limit_bytes = 80;
+			$config->limit_bytes = 90;
 		}
 		else
 		{
@@ -75,9 +73,9 @@ class textmessageModel extends textmessage
 		}
 
 		$config->crypt = 'MD5';
-
 		self::$global_config = $config;
-	
+
+
 		return self::$global_config;
 	}
 
@@ -122,11 +120,16 @@ class textmessageModel extends textmessage
 	 */
 	function getConfig()
 	{
-		if(self::$config)
+		if(self::$config !== NULL)
 		{
 			return self::$config;
 		}
 		$config = $this->getModuleConfig('textmessage');
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
+
 		if(!$config->api_key || !$config->api_secret)
 		{
 			return false;
@@ -145,10 +148,14 @@ class textmessageModel extends textmessage
 			$config->sms_price = 20;
 			$config->lms_price = 50;
 			$config->mms_price = 200;
+			$config->ata_price = 15;
+			$config->cta_price = 25;
 
-			$config->sms_volume = ((int)$config->cs_cash / (int)$config->sms_price) + ((int)$config->cs_point / (int)$config->sms_price) + (int)$cs_mdrop;
-			$config->lms_volume = ((int)$config->cs_cash / (int)$config->lms_price) + ((int)$config->cs_point / (int)$config->lms_price) + ((int)$cs_mdrop / 3);
-			$config->mms_volume = ((int)$config->cs_cash / (int)$config->mms_price) + ((int)$config->cs_point / (int)$config->mms_price) + ((int)$cs_mdrop / 10);
+			$config->sms_volume = ((int)$config->cs_cash / (int)$config->sms_price) + ((int)$config->cs_point / (int)$config->sms_price);
+			$config->lms_volume = ((int)$config->cs_cash / (int)$config->lms_price) + ((int)$config->cs_point / (int)$config->lms_price);
+			$config->mms_volume = ((int)$config->cs_cash / (int)$config->mms_price) + ((int)$config->cs_point / (int)$config->mms_price);
+			$config->ata_volume = ((int)$config->cs_cash / (int)$config->ata_price) + ((int)$config->cs_point / (int)$config->ata_price);
+			$config->cta_volume = ((int)$config->cs_cash / (int)$config->cta_price) + ((int)$config->cs_point / (int)$config->cta_price);
 
 			if($remain->code)
 			{

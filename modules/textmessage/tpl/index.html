@@ -17,6 +17,8 @@
 					<li>{$lang->sms} : <b style="color:red"|cond="$config->sms_volume < 100">{number_format($config->sms_volume)}</b> {sprintf($lang->volume_guide,$config->sms_price)}</li>
 					<li>{$lang->lms} : <b>{number_format($config->lms_volume)}</b> {sprintf($lang->volume_guide,$config->lms_price)}</li>
 					<li>{$lang->mms} : <b>{number_format($config->mms_volume)}</b> {sprintf($lang->volume_guide,$config->mms_price)}</li>
+					<li>{$lang->ata} : <b>{number_format($config->ata_volume)}</b> {sprintf($lang->volume_guide,$config->ata_price)}</li>
+					<li>{$lang->cta} : <b>{number_format($config->cta_volume)}</b> {sprintf($lang->volume_guide,$config->cta_price)}</li>
 				</ul>
 			</div>
 		</div>

@@ -21,7 +21,7 @@ class coolsms
 	private $result;
 	private $basecamp;
 	private $user_agent;
-	private $error_flag = false;
+	public $error_flag = false;
 
 	/**
 	 * @brief construct
@@ -69,10 +69,10 @@ class coolsms
 		{
 			$header = array("Content-Type:multipart/form-data");
 
-			// route가 있으면 header에 붙여준다. substr 해준 이유는 앞에 @^가 붙기 때문에 자르기 위해서.
+			// route가 있으면 header에 붙여준다.
 			if($this->content['route'])
 			{
-				$header[] = "User-Agent:" . substr($this->content['route'], 1);
+				$header[] = "User-Agent:" . $this->content['route'];
 			}
 
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -83,9 +83,17 @@ class coolsms
 
 		$this->result = json_decode(curl_exec($ch));
 
+		// unless http status code is 200. throw exception.
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if($http_code != 200)
+		{
+			$this->error_flag = true;
+		}
+
 		// Check connect errors
 		if(curl_errno($ch))
 		{
+			$this->error_flag = true;
 			$this->result = curl_error($ch);
 		}
 
@@ -165,7 +173,7 @@ class coolsms
 		}
 		$options->signature = $this->getSignature();
 
-		if($options->type == 'ata' && isset($options->messages))
+		if(in_array($options->type, array('ata', 'cta')) && isset($options->messages))
 		{
 			$this->sendATA($options);
 		}
@@ -178,7 +186,7 @@ class coolsms
 
 	/**
 	 * $resource
-	 * 'sms', 'senderid'
+	 * 'sms', 'senderid', 'alimtalk', 'Friendtalk'
 	 * $method
 	 * GET = 0, POST, 1
 	 * $path
@@ -208,7 +216,7 @@ class coolsms
 	 */
 	public function send($options)
 	{
-		if($options->type == 'ata' && isset($options->extension))
+		if(in_array($options->type, array('ata', 'cta')) && isset($options->extension))
 		{
 			$this->setMethod('sms', 'send', 1, "2");
 			$options = $this->setATAData($options);
@@ -266,7 +274,7 @@ class coolsms
 	 * @GET status method
 	 * @options must contain api_key, salt, signature
 	 * @return an object(registdate, sms_average, sms_sk_average, sms_kt_average, sms_lg_average, mms_average, mms_sk_average, mms_kt_average, mms_lg_average)
-	 *    this method is made for Coolsms inc. internal use
+	 *   this method is made for Coolsms inc. internal use
 	 */
 	public function status($options)
 	{
@@ -348,13 +356,61 @@ class coolsms
 	}
 
 	/**
+	 * POST register alimtalk
+	 * options must contain api_key, salt, signature, yellow_id, templates
+	 * return json array(request template list)
+	 */
+	public function register_alimtalk($options)
+	{
+		$this->setMethod('alimtalk', 'register', 1, '1');
+		$this->addInfos($options);
+		return $this->result;
+	}
+
+	/**
+	 * POST get alimtalk templates
+	 * options must contain api_key, salt, signature, yellow_id
+	 * return json array(request template list)
+	 */
+	public function get_alimtalk_templates($options)
+	{
+		$this->setMethod('alimtalk', "templates/{$options->yellow_id}", 0, '1');
+		$this->addInfos($options);
+		return $this->result;
+	}
+
+	/**
 	 * return user's current OS
 	 */
 	function getOS()
 	{
 		$user_agent = $this->user_agent;
 		$os_platform = "Unknown OS Platform";
-		$os_array = array('/windows nt 10/i' => 'Windows 10', '/windows nt 6.3/i' => 'Windows 8.1', '/windows nt 6.2/i' => 'Windows 8', '/windows nt 6.1/i' => 'Windows 7', '/windows nt 6.0/i' => 'Windows Vista', '/windows nt 5.2/i' => 'Windows Server 2003/XP x64', '/windows nt 5.1/i' => 'Windows XP', '/windows xp/i' => 'Windows XP', '/windows nt 5.0/i' => 'Windows 2000', '/windows me/i' => 'Windows ME', '/win98/i' => 'Windows 98', '/win95/i' => 'Windows 95', '/win16/i' => 'Windows 3.11', '/macintosh|mac os x/i' => 'Mac OS X', '/mac_powerpc/i' => 'Mac OS 9', '/linux/i' => 'Linux', '/ubuntu/i' => 'Ubuntu', '/iphone/i' => 'iPhone', '/ipod/i' => 'iPod', '/ipad/i' => 'iPad', '/android/i' => 'Android', '/blackberry/i' => 'BlackBerry', '/webos/i' => 'Mobile');
+		$os_array = array(
+			'/windows nt 10/i' => 'Windows 10',
+			'/windows nt 6.3/i' => 'Windows 8.1',
+			'/windows nt 6.2/i' => 'Windows 8',
+			'/windows nt 6.1/i' => 'Windows 7',
+			'/windows nt 6.0/i' => 'Windows Vista',
+			'/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+			'/windows nt 5.1/i' => 'Windows XP',
+			'/windows xp/i' => 'Windows XP',
+			'/windows nt 5.0/i' => 'Windows 2000',
+			'/windows me/i' => 'Windows ME',
+			'/win98/i' => 'Windows 98',
+			'/win95/i' => 'Windows 95',
+			'/win16/i' => 'Windows 3.11',
+			'/macintosh|mac os x/i' => 'Mac OS X',
+			'/mac_powerpc/i' => 'Mac OS 9',
+			'/linux/i' => 'Linux',
+			'/ubuntu/i' => 'Ubuntu',
+			'/iphone/i' => 'iPhone',
+			'/ipod/i' => 'iPod',
+			'/ipad/i' => 'iPad',
+			'/android/i' => 'Android',
+			'/blackberry/i' => 'BlackBerry',
+			'/webos/i' => 'Mobile'
+		);
 
 		foreach($os_array as $regex => $value)
 		{
@@ -373,7 +429,18 @@ class coolsms
 	{
 		$user_agent = $this->user_agent;
 		$browser = "Unknown Browser";
-		$browser_array = array('/msie/i' => 'Internet Explorer', '/firefox/i' => 'Firefox', '/safari/i' => 'Safari', '/chrome/i' => 'Chrome', '/opera/i' => 'Opera', '/netscape/i' => 'Netscape', '/maxthon/i' => 'Maxthon', '/konqueror/i' => 'Konqueror', '/mobile/i' => 'Handheld Browser');
+		$browser_array = array(
+			'/msie/i' => 'Internet Explorer',
+			'/firefox/i' => 'Firefox',
+			'/safari/i' => 'Safari',
+			'/chrome/i' => 'Chrome',
+			'/opera/i' => 'Opera',
+			'/netscape/i' => 'Netscape',
+			'/maxthon/i' => 'Maxthon',
+			'/konqueror/i' => 'Konqueror',
+			'/mobile/i' => 'Handheld Browser'
+		);
+
 		foreach($browser_array as $regex => $value)
 		{
 			if(preg_match($regex, $user_agent))
@@ -394,12 +461,19 @@ class coolsms
 		$json_data = array();
 		foreach($options->extension as $k => $v)
 		{
-			$obj = new StdClass();
-			$obj->type = 'ata';
+			if(!$v->to)
+			{
+				continue;
+			}
+			$obj = new stdClass();
+			$obj->type = $options->type;
 			$obj->to = $v->to;
 			$obj->text = $v->text;
 			$obj->from = $options->from;
-			$obj->template_code = $options->template_code;
+			if($options->type = 'ata')
+			{
+				$obj->template_code = $options->template_code;
+			}
 			$obj->sender_key = $options->sender_key;
 			if($options->datetime)
 			{
@@ -430,10 +504,17 @@ class coolsms
 	 */
 	public function sendATA($options)
 	{
-		$this->method = 0;
-		$this->setContent($options);
+		// 인증정보만 가진 Object를 따로 생성
+		$authentication_obj = new stdClass();
+		$authentication_obj->api_key = $options->api_key;
+		$authentication_obj->coolsms_user = $options->coolsms_user;
+		$authentication_obj->timestamp = $options->timestamp;
+		$authentication_obj->salt = $options->salt;
+		$authentication_obj->signature = $options->signature;
 
 		// create group
+		$this->method = 0;
+		$this->setContent($authentication_obj);
 		$host = sprintf("%s%s/%s/%s?%s", $this->host, $this->resource, $this->version, "new_group", $this->content);
 		$result = $this->requestGet($host);
 		if($this->error_flag == true)
@@ -466,6 +547,8 @@ class coolsms
 		$this->result->error_count = $error_count;
 
 		// send messages
+		$this->method = 1;
+		$this->setContent($authentication_obj);
 		$host = sprintf("%s%s/%s/groups/%s/%s", $this->host, $this->resource, $this->version, $group_id, "send");
 		$result = $this->requestPOST($host);
 		if($this->error_flag == true)
@@ -511,13 +594,12 @@ class coolsms
 		curl_setopt($ch, CURLOPT_POST, $this->method); // Post Get 접속 여부
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10); // TimeOut 값
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 결과값을 받을것인지
-
 		$header = array("Content-Type:multipart/form-data");
 
-		// route가 있으면 header에 붙여준다. substr 해준 이유는 앞에 @^가 붙기 때문에 자르기 위해서.
+		// route가 있으면 header에 붙여준다.
 		if($this->content['route'])
 		{
-			$header[] = "User-Agent:" . substr($this->content['route'], 1);
+			$header[] = "User-Agent:" . $this->content['route'];
 		}
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);

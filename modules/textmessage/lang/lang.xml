@@ -36,6 +36,14 @@
 		<value xml:lang="ko"><![CDATA[포토]]></value>
 		<value xml:lang="en"><![CDATA[Photo]]></value>
 	</item>
+	<item name="ata">
+		<value xml:lang="ko"><![CDATA[알림톡]]></value>
+		<value xml:lang="en"><![CDATA[Alim Talk]]></value>
+	</item>
+	<item name="cta">
+		<value xml:lang="ko"><![CDATA[친구톡]]></value>
+		<value xml:lang="en"><![CDATA[Friend Talk]]></value>
+	</item>
 	<item name="won">
 		<value xml:lang="ko"><![CDATA[원]]></value>
 		<value xml:lang="en"><![CDATA[KRW]]></value>

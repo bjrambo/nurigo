@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
+ * @class  textmessage
+ * @author wiley (wiley@nurigo.net)
+ * @brief  base class of textmessage module
+ **/
 class textmessage extends ModuleObject
 {
 

@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * vi:set sw=4 ts=4 noexpandtab fileencoding=utf8:
+ * @class  textmessageController
+ * @author diver(diver@coolsms.co.kr)
+ * @brief  textmessageController
+ */
 class textmessageController extends textmessage
 {
 	function init()
