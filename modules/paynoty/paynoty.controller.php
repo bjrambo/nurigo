@@ -66,7 +66,14 @@ class paynotyController extends paynoty
 			$args = new stdClass();
 			$args->product_name = $product_name;
 			$args->content = $sms_message;
-			$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
+			if(!Context::get('is_logged') || !$config->variable_name)
+			{
+				$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
+			}
+			else
+			{
+				$args->recipient_no = $logged_info->{$config->variable_name}[0].$logged_info->{$config->variable_name}[1].$logged_info->{$config->variable_name}[2];
+			}
 			$args->sender_no = $config->sender_no;
 			if(isset($config->sending_method['cta']) || isset($config->sending_method['sms']) && isset($config->sending_method['cta']))
 			{
