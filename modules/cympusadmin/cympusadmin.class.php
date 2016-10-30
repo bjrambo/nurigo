@@ -18,12 +18,23 @@ class cympusadmin extends ModuleObject
 		//$this->setTemplatePath('./modules/cympusadmin/tpl');
 		$config = getModel('cympusadmin')->getConfig();
 
+
+		$args = new stdClass();
+		$args->module = 'cympusadmin';
+		$module_list = getModel('module')->getModuleSrlList($args);
+		if(!empty($module_list))
+		{
+			foreach($module_list as $module_info)
+			{
+				$cympus_module_info = $module_info;
+			}
+		}
 		$module_path = './modules/cympusadmin/';
-		$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
-		if(!is_dir($template_path) || !$config->admin_skins)
+		$template_path = sprintf("%sskins/%s/",$module_path, $cympus_module_info->skin);
+		if(!is_dir($template_path) || !$cympus_module_info->skin)
 		{
 			$config->admin_skins = 'default';
-			$template_path = sprintf("%sskins/%s/",$module_path, $config->admin_skins);
+			$template_path = sprintf("%sskins/%s/",$module_path, $cympus_module_info->skin);
 		}
 
 		if($module)
@@ -36,7 +47,6 @@ class cympusadmin extends ModuleObject
 			$this->setLayoutPath($template_path);
 			$this->setLayoutFile(_CYMPUSADMIN_LAYOUT_);
 		}
-
 
 		Context::loadLang(_XE_PATH_ . 'modules/cympusadmin/lang/');
 

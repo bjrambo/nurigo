@@ -219,4 +219,7 @@
 		<value xml:lang="tr"><![CDATA[Sadece yöneticilerin bağlanması mümkündür.]]></value>
 		<value xml:lang="vi"><![CDATA[Dành riêng Administrator]]></value>
 	</item>
+	<item name="msg_dont_insert_module_inst">
+		<value xml:lang="ko"><![CDATA[이 모듈의 모듈인스턴스는 1개만 생성이 가능합니다.]]></value>
+	</item>
 </lang>

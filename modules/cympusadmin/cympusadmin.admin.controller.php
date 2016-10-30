@@ -17,6 +17,14 @@ class cympusadminAdminController extends cympusadmin
 		$oModuleController = getController('module');
 		$oModuleModel = getModel('module');
 
+		$args = new stdClass();
+		$args->module = 'cympusadmin';
+		$module_list = getModel('module')->getModuleSrlList($args);
+		if(count($module_list) > 0)
+		{
+			return new Object(-1, 'msg_dont_insert_module_inst');
+		}
+
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
 		$args->module = 'cympusadmin';
