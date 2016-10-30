@@ -124,7 +124,7 @@ class textmessageModel extends textmessage
 		{
 			return self::$config;
 		}
-		$config = $this->getModuleConfig('textmessage');
+		$config = $this->getModuleConfig();
 		if(!$config)
 		{
 			$config = new stdClass();
