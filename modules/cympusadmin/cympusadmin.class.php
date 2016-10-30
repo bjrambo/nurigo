@@ -15,10 +15,7 @@ class cympusadmin extends ModuleObject
 	function init($module = null)
 	{
 		// change into administration layout
-		//$this->setTemplatePath('./modules/cympusadmin/tpl');
 		$config = getModel('cympusadmin')->getConfig();
-
-
 		$args = new stdClass();
 		$args->module = 'cympusadmin';
 		$module_list = getModel('module')->getModuleSrlList($args);
