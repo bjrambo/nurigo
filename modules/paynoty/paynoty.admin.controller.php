@@ -34,7 +34,8 @@ class paynotyAdminController extends paynoty
 			'sender_name',
 			'sender_email',
 			'sender_key',
-			'variable_name'
+			'variable_name',
+			'phone_number_type'
 		);
 
 		foreach($config_vars as $val)

@@ -29,8 +29,6 @@
 				<label for="sending_method_cta" class="x_inline"><input type="checkbox" name="sending_method[cta]" id="sending_method_cta" value="1" checked="checked"|cond="isset($config->sending_method['cta'])" /> 친구톡</label>
 				<label for="sending_method_sms" class="x_inline"><input type="checkbox" name="sending_method[sms]" id="sending_method_sms" value="1" checked="checked"|cond="isset($config->sending_method['sms'])" /> {$lang->textmessage}</label>
 				<label for="sending_method_email" class="x_inline"><input type="checkbox" name="sending_method[email]" id="sending_method_email" value="1" checked="checked"|cond="isset($config->sending_method['email'])" /> {$lang->email}</label>
-
-
 				<p class="x_help-block">알림타입을 결정합니다. 선택한 항목에 따라 사용이 결정됩니다. 친구톡 사용시, 친구톡실패할 경우 해당 번호로 문자메세지를 전송합니다.</p>
 			</div>
 		</div>
@@ -42,6 +40,20 @@
 					<option loop="$variable_name => $val" value="{$val}" selected="selected"|cond="$config->variable_name == $val">{$val}</option>
 				</select>
 				<p class="x_help-block">회원전화번호 변수를 선택합니다. 회원전화번호 변수가 1개일 경우 설치시 자동으로 설정이 저장됩니다. 이 경우 설정할 필요가 없습니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">회원전화번호 우선발송설정</label>
+			<div class="x_controls">
+				<label for="phone_number_type_y" class="x_inline">
+					<input type="radio" name="phone_number_type" id="phone_number_type_y" value="logged" checked="checked"|cond="$config->phone_number_type=='logged'" />
+					회원정보
+				</label>
+				<label for="phone_number_type_n" class="x_inline">
+					<input type="radio" name="phone_number_type" id="phone_number_type_n" value="payinfo" checked="checked"|cond="$config->phone_number_type=='payinfo'" />
+					결제시 입력정보
+				</label>
+				<p>회원전화번호 변수를 사용할경우 회원전화번호 우선순위를 설정할 수 있습니다. 결제시 입력정보를 설정하면 기존과 동일하게 결제시 입력한 전화번호로 발송합니다.(기본값은 '결제시 입력정보')</p>
 			</div>
 		</div>
 		<div class="x_control-group">

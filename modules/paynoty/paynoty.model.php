@@ -25,6 +25,10 @@ class paynotyModel extends paynoty
 			{
 				$config->use = 'N';
 			}
+			if(!$config->phone_number_type)
+			{
+				$config->phone_number_type = 'payinfo';
+			}
 			self::$config = $config;
 		}
 
