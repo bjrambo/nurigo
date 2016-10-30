@@ -470,7 +470,7 @@ class coolsms
 			$obj->to = $v->to;
 			$obj->text = $v->text;
 			$obj->from = $options->from;
-			if($options->type = 'ata')
+			if($options->type == 'ata')
 			{
 				$obj->template_code = $options->template_code;
 			}

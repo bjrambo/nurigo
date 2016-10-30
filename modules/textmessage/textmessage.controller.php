@@ -15,11 +15,11 @@ class textmessageController extends textmessage
 	/**
 	 * @brief 메시지 전송
 	 * @param[in] $args
-	 *  $args->type = 'SMS' or 'LMS' or 'MMS' // default = 'SMS'
+	 *  $args->type = 'SMS' or 'LMS' or 'MMS' or 'CTA' or 'ATA' // default = 'SMS'
 	 *  $args->recipient_no = '수신번호'
 	 *  $args->sender_no = '발신번호'
 	 *  $args->content = '메시지 내용'
-	 *  $args->reservdate = 'YYYYMMDDHHMISS'
+	 *  $args->reservdate = '예약발송일자(YYYYMMDDHHMISS)' 예약발송일자
 	 *  $args->subject = 'LMS제목'
 	 *  $args->country_code = '국가번호'
 	 *  $args->country_iso_code = '국가ISO코드'
