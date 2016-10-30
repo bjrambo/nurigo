@@ -7,7 +7,7 @@
  */
 class paynotyModel extends paynoty
 {
-	private static $config = NULL;
+	protected static $config = NULL;
 	/**
 	 * @brief constructor
 	 */

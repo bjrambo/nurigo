@@ -85,9 +85,10 @@ Price : %payment_amount%]]>
 		<value xml:lang="en"><![CDATA[Select target modules.]]></value>
 	</item>
 	<item name="help_content">
-
 		<value xml:lang="ko"><![CDATA[원하는 항목을 넣거나 빼주세요.<br />상품명 : %order_title%<br />닉네임 : %p_name%<br />가격 : %payment_amount% <br />결제종류 : %payment_method% <br />  결제단계 : %state%]]></value>
 		<value xml:lang="en"><![CDATA[Were putting the item you want, please. <br />Content : %order_title%<br /> Nick-name: %p_name%<br /> Price : %payment_amount% <br />Kinds of payment : %payment_method% <br /> Step payment : %state%]]></value>
 	</item>
-
+	<item name="msg_not_save_module_setting">
+		<value xml:lang="ko"><![CDATA[모듈 설정을 저장하지 못했습니다.]]></value>
+	</item>
 </lang>

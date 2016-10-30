@@ -35,6 +35,16 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label" for="variable_name">회원전화번호 변수</label>
+			<div class="x_controls">
+				<select name="variable_name" id="variable_name">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$variable_name => $val" value="{$val}" selected="selected"|cond="$config->variable_name == $val">{$val}</option>
+				</select>
+				<p class="x_help-block">회원전화번호 변수를 선택합니다. 회원전화번호 변수가 1개일 경우 설치시 자동으로 설정이 저장됩니다. 이 경우 설정할 필요가 없습니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label">보내는 휴대전화 번호</label>
 			<div class="x_controls">
 				<input type="text" name="sender_no" style="width:300px;" value="{$config->sender_no}" />

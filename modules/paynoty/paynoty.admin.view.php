@@ -50,6 +50,17 @@ class paynotyAdminView extends paynoty
 		$editor = $oEditorModel->getEditor(0, $option);
 		Context::set('editor', $editor);
 
+		$member_config = getModel('member')->getMemberConfig();
+		$variable_name = array();
+		foreach($member_config->signupForm as $item)
+		{
+			if($item->type == 'tel')
+			{
+				$variable_name[] = $item->name;
+			}
+		}
+		debugPrint($variable_name);
+
 		$config = getModel('paynoty')->getConfig();
 		if(!$config)
 		{
@@ -58,6 +69,7 @@ class paynotyAdminView extends paynoty
 		}
 
 		Context::set('config', $config);
+		Context::set('variable_name', $variable_name);
 	}
 
 }
