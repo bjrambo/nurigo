@@ -8,20 +8,22 @@
  **/
 class coolsms
 {
-	private $api_key;
-	private $api_secret;
-	private $host = "http://api.coolsms.co.kr/";
-	private $resource;
-	private $version = "1.6";
-	private $sdk_version = "1.1";
-	private $path;
-	private $method;
-	private $timestamp;
-	private $salt;
-	private $result;
-	private $basecamp;
-	private $user_agent;
-	public $error_flag = false;
+	private static $api_key;
+	private static $api_secret;
+	private static $coolsms_user;
+	private static $host = "http://api.coolsms.co.kr/";
+	private static $resource;
+	private static $version = "1.6";
+	private static $sdk_version = "1.1";
+	private static $path;
+	private static $method;
+	private static $timestamp;
+	private static $salt;
+	private static $result;
+	private static $basecamp;
+	private static $user_agent;
+	private static $content;
+	public static $error_flag = false;
 
 	/**
 	 * @brief construct
@@ -30,71 +32,71 @@ class coolsms
 	{
 		if($basecamp)
 		{
-			$this->coolsms_user = $api_key;
-			$this->basecamp = true;
+			self::$coolsms_user = $api_key;
+			self::$basecamp = true;
 		}
 		else
 		{
-			$this->api_key = $api_key;
+			self::$api_key = $api_key;
 		}
 
-		$this->api_secret = $api_secret;
-		$this->user_agent = $_SERVER['HTTP_USER_AGENT'];
+		self::$api_secret = $api_secret;
+		self::$user_agent = $_SERVER['HTTP_USER_AGENT'];
 	}
 
 	/**
 	 * @brief process curl
 	 */
-	public function curlProcess()
+	public static function curlProcess()
 	{
 		$ch = curl_init();
 		// Set host. 1 = POST , 0 = GET
-		if($this->method == 1)
+		if(self::$method == 1)
 		{
-			$host = sprintf("%s%s/%s/%s", $this->host, $this->resource, $this->version, $this->path);
+			$host = sprintf("%s%s/%s/%s", self::$host, self::$resource, self::$version, self::$path);
 		}
-		else if($this->method == 0)
+		else
 		{
-			$host = sprintf("%s%s/%s/%s?%s", $this->host, $this->resource, $this->version, $this->path, $this->content);
+			$host = sprintf("%s%s/%s/%s?%s", self::$host, self::$resource, self::$version, self::$path, self::$content);
 		}
 
 		curl_setopt($ch, CURLOPT_URL, $host);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSLVERSION, 3); // SSL 버젼 (https 접속시에 필요)
 		curl_setopt($ch, CURLOPT_HEADER, 0); // 헤더 출력 여부
-		curl_setopt($ch, CURLOPT_POST, $this->method); // Post Get 접속 여부
+		curl_setopt($ch, CURLOPT_POST, self::$method); // Post Get 접속 여부
 
 		// Set POST DATA
-		if($this->method)
+		if(self::$method)
 		{
 			$header = array("Content-Type:multipart/form-data");
 
 			// route가 있으면 header에 붙여준다.
-			if($this->content['route'])
+			if(self::$content['route'])
 			{
-				$header[] = "User-Agent:" . $this->content['route'];
+				$header[] = "User-Agent:" . self::$content['route'];
 			}
 
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->content);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, self::$content);
 		}
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10); // TimeOut 값
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 결과값을 받을것인지
 
-		$this->result = json_decode(curl_exec($ch));
+		self::$result = json_decode(curl_exec($ch));
 
 		// unless http status code is 200. throw exception.
 		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if($http_code != 200)
 		{
-			$this->error_flag = true;
+			self::$error_flag = true;
 		}
 
 		// Check connect errors
 		if(curl_errno($ch))
 		{
-			$this->error_flag = true;
-			$this->result = curl_error($ch);
+			self::$error_flag = true;
+			self::$result = curl_error($ch);
 		}
 
 		curl_close($ch);
@@ -103,20 +105,20 @@ class coolsms
 	/**
 	 * set http body content
 	 */
-	private function setContent($options)
+	private static function setContent($options)
 	{
-		if($this->method)
+		if(self::$method)
 		{
-			$this->content = array();
+			self::$content = array();
 			foreach($options as $key => $val)
 			{
 				if($key != "image")
 				{
-					$this->content[$key] = sprintf("%s", $val);
+					self::$content[$key] = sprintf("%s", $val);
 				}
 				else
 				{
-					$this->content[$key] = "@" . realpath("./$val");
+					self::$content[$key] = "@" . realpath("./$val");
 				}
 			}
 		}
@@ -124,7 +126,7 @@ class coolsms
 		{
 			foreach($options as $key => $val)
 			{
-				$this->content .= $key . "=" . urlencode($val) . "&";
+				self::$content .= $key . "=" . urlencode($val) . "&";
 			}
 		}
 	}
@@ -132,25 +134,25 @@ class coolsms
 	/**
 	 * make a signature with hash_hamac then return the signature
 	 */
-	private function getSignature()
+	private static function getSignature()
 	{
-		return hash_hmac('md5', (string)$this->timestamp . $this->salt, $this->api_secret);
+		return hash_hmac('md5', (string)self::$timestamp . self::$salt, self::$api_secret);
 	}
 
 	/**
 	 * set authenticate information
 	 */
-	private function addInfos($options)
+	private static function addInfos($options)
 	{
-		$this->salt = uniqid();
-		$this->timestamp = (string)time();
+		self::$salt = uniqid();
+		self::$timestamp = (string)time();
 		if(!$options->User_Agent)
 		{
-			$options->User_Agent = sprintf("PHP REST API %s", $this > version);
+			$options->User_Agent = sprintf("PHP REST API %s", self::$version);
 		}
 		if(!$options->os_platform)
 		{
-			$options->os_platform = $this->getOS();
+			$options->os_platform = self::getOS();
 		}
 		if(!$options->dev_lang)
 		{
@@ -158,92 +160,95 @@ class coolsms
 		}
 		if(!$options->sdk_version)
 		{
-			$options->sdk_version = sprintf("PHP SDK %s", $this->sdk_version);
+			$options->sdk_version = sprintf("PHP SDK %s", self::$sdk_version);
 		}
 
-		$options->salt = $this->salt;
-		$options->timestamp = $this->timestamp;
-		if($this->basecamp)
+		$options->salt = self::$salt;
+		$options->timestamp = self::$timestamp;
+		if(self::$basecamp)
 		{
-			$options->coolsms_user = $this->coolsms_user;
+			$options->coolsms_user = self::$coolsms_user;
 		}
 		else
 		{
-			$options->api_key = $this->api_key;
+			$options->api_key = self::$api_key;
 		}
-		$options->signature = $this->getSignature();
+		$options->signature = self::getSignature();
 
 		if(in_array($options->type, array('ata', 'cta')) && isset($options->messages))
 		{
-			$this->sendATA($options);
+			self::sendATA($options);
 		}
 		else
 		{
-			$this->setContent($options);
-			$this->curlProcess();
+			self::setContent($options);
+			self::curlProcess();
 		}
 	}
 
 	/**
 	 * $resource
-	 * 'sms', 'senderid', 'alimtalk', 'Friendtalk'
+	 * 'sms', 'senderid', 'alimtalk'
 	 * $method
 	 * GET = 0, POST, 1
 	 * $path
 	 * 'send' 'sent' 'cancel' 'balance'
 	 */
-	private function setMethod($resource, $path, $method, $version = "1.6")
+	private static function setMethod($resource, $path, $method, $version = "1.6")
 	{
-		$this->resource = $resource;
-		$this->path = $path;
-		$this->method = $method;
-		$this->version = $version;
+		self::$resource = $resource;
+		self::$path = $path;
+		self::$method = $method;
+		self::$version = $version;
 	}
 
 	/**
 	 * @brief return result
 	 */
-	public function getResult()
+	public static function getResult()
 	{
-		return $this->result;
+		return self::$result;
 	}
 
 	/**
 	 * @POST send method
 	 * @param $options (options must contain api_key, salt, signature, to, from, text)
 	 * @type, image, refname, country, datetime, mid, gid, subject, charset (optional)
-	 * @returns an object(recipient_number, group_id, message_id, result_code, result_message)
+	 * @returns object(recipient_number, group_id, message_id, result_code, result_message)
 	 */
-	public function send($options)
+	public static function send($options)
 	{
-		if(in_array($options->type, array('ata', 'cta')) && isset($options->extension))
+		if(in_array($options->type, array('ata', 'cta')))
 		{
-			$this->setMethod('sms', 'send', 1, "2");
-			$options = $this->setATAData($options);
+			self::setMethod('sms', 'send', 1, '2');
+			if(isset($options->extension))
+			{
+				$options = self::setATAData($options);
+			}
 		}
 		else
 		{
-			$this->setMethod('sms', 'send', 1);
+			self::setMethod('sms', 'send', 1);
 		}
-		$this->addInfos($options);
-		return $this->result;
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
 	 * @GET sent method
 	 * @param $options (options can be optional)
 	 * @count,  page, s_rcpt, s_start, s_end, mid, gid (optional)
-	 * @returns an object(total count, list_count, page, data['type', 'accepted_time', 'recipient_number', 'group_id', 'message_id', 'status', 'result_code', 'result_message', 'sent_time', 'text'])
+	 * @returns object(total count, list_count, page, data['type', 'accepted_time', 'recipient_number', 'group_id', 'message_id', 'status', 'result_code', 'result_message', 'sent_time', 'text'])
 	 */
-	public function sent($options = null)
+	public static function sent($options = null)
 	{
 		if(!$options)
 		{
 			$options = new stdClass();
 		}
-		$this->setMethod('sms', 'sent', 0);
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('sms', 'sent', 0);
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -251,48 +256,48 @@ class coolsms
 	 * @options must contain api_key, salt, signature
 	 * @mid, gid (either one must be entered.)
 	 */
-	public function cancel($options)
+	public static function cancel($options)
 	{
-		$this->setMethod('sms', 'cancel', 1);
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('sms', 'cancel', 1);
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
 	 * @GET balance method
 	 * @options must contain api_key, salt, signature
-	 * @return an object(cash, point)
+	 * @return object(cash, point)
 	 */
-	public function balance()
+	public static function balance()
 	{
-		$this->setMethod('sms', 'balance', 0);
-		$this->addInfos($options = new stdClass());
-		return $this->result;
+		self::setMethod('sms', 'balance', 0);
+		self::addInfos($options = new stdClass());
+		return self::$result;
 	}
 
 	/**
 	 * @GET status method
 	 * @options must contain api_key, salt, signature
-	 * @return an object(registdate, sms_average, sms_sk_average, sms_kt_average, sms_lg_average, mms_average, mms_sk_average, mms_kt_average, mms_lg_average)
+	 * @return object(registdate, sms_average, sms_sk_average, sms_kt_average, sms_lg_average, mms_average, mms_sk_average, mms_kt_average, mms_lg_average)
 	 *   this method is made for Coolsms inc. internal use
 	 */
-	public function status($options)
+	public static function status($options)
 	{
-		$this->setMethod('sms', 'status', 0);
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('sms', 'status', 0);
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
 	 * @POST register method
 	 * @options must contains api_key, salt, signature, phone, site_user(optional)
-	 * @return json object(handle_key, ars_number)
+	 * @return object(handle_key, ars_number)
 	 */
-	public function register($options)
+	public static function register($options)
 	{
-		$this->setMethod('senderid', 'register', 1, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'register', 1, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -300,11 +305,11 @@ class coolsms
 	 * @options must contains api_key, salt, signature, handle_key
 	 * return nothing
 	 */
-	public function verify($options)
+	public static function verify($options)
 	{
-		$this->setMethod('senderid', 'verify', 1, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'verify', 1, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -312,11 +317,11 @@ class coolsms
 	 * $options must contains api_key, salt, signature, handle_key
 	 * return nothing
 	 */
-	public function delete($options)
+	public static function delete($options)
 	{
-		$this->setMethod('senderid', 'delete', 1, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'delete', 1, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -324,11 +329,11 @@ class coolsms
 	 * $options must conatins api_key, salt, signature, site_user(optional)
 	 * return json object(idno, phone_number, flag_default, updatetime, regdate)
 	 */
-	public function get_senderid_list($options)
+	public static function get_senderid_list($options = null)
 	{
-		$this->setMethod('senderid', 'list', 0, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'list', 0, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -336,11 +341,11 @@ class coolsms
 	 * $options must contains api_key, salt, signature, handle_key, site_user(optional)
 	 * return nothing
 	 */
-	public function set_default($options)
+	public static function set_default($options)
 	{
-		$this->setMethod('senderid', 'set_default', 1, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'set_default', 1, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -348,11 +353,11 @@ class coolsms
 	 * $options must conatins api_key, salt, signature, site_user(optional)
 	 * return json object(handle_key, phone_number)
 	 */
-	public function get_default($options)
+	public static function get_default($options)
 	{
-		$this->setMethod('senderid', 'get_default', 0, "1.1");
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('senderid', 'get_default', 0, "1.1");
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -360,11 +365,11 @@ class coolsms
 	 * options must contain api_key, salt, signature, yellow_id, templates
 	 * return json array(request template list)
 	 */
-	public function register_alimtalk($options)
+	public static function register_alimtalk($options)
 	{
-		$this->setMethod('alimtalk', 'register', 1, '1');
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('alimtalk', 'register', 1, '1');
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
@@ -372,19 +377,19 @@ class coolsms
 	 * options must contain api_key, salt, signature, yellow_id
 	 * return json array(request template list)
 	 */
-	public function get_alimtalk_templates($options)
+	public static function get_alimtalk_templates($options)
 	{
-		$this->setMethod('alimtalk', "templates/{$options->yellow_id}", 0, '1');
-		$this->addInfos($options);
-		return $this->result;
+		self::setMethod('alimtalk', "templates/{$options->yellow_id}", 0, '1');
+		self::addInfos($options);
+		return self::$result;
 	}
 
 	/**
 	 * return user's current OS
 	 */
-	function getOS()
+	public static function getOS()
 	{
-		$user_agent = $this->user_agent;
+		$user_agent = self::$user_agent;
 		$os_platform = "Unknown OS Platform";
 		$os_array = array(
 			'/windows nt 10/i' => 'Windows 10',
@@ -425,9 +430,9 @@ class coolsms
 	/**
 	 * return user's current browser
 	 */
-	function getBrowser()
+	public static function getBrowser()
 	{
-		$user_agent = $this->user_agent;
+		$user_agent = self::$user_agent;
 		$browser = "Unknown Browser";
 		$browser_array = array(
 			'/msie/i' => 'Internet Explorer',
@@ -454,10 +459,9 @@ class coolsms
 	/**
 	 * 알림톡의 경우 SMS_API v2 로 보내기 위해 새로 데이터를 정렬 해준다. (임시)
 	 */
-	function setATAData($options)
+	public static function setATAData($options)
 	{
 		$options->extension = json_decode($options->extension);
-
 		$json_data = array();
 		foreach($options->extension as $k => $v)
 		{
@@ -470,7 +474,7 @@ class coolsms
 			$obj->to = $v->to;
 			$obj->text = $v->text;
 			$obj->from = $options->from;
-			if($options->type == 'ata')
+			if($options->type === 'ata')
 			{
 				$obj->template_code = $options->template_code;
 			}
@@ -502,7 +506,7 @@ class coolsms
 	/**
 	 * 알림톡 발송
 	 */
-	public function sendATA($options)
+	public static function sendATA($options)
 	{
 		// 인증정보만 가진 Object를 따로 생성
 		$authentication_obj = new stdClass();
@@ -513,25 +517,25 @@ class coolsms
 		$authentication_obj->signature = $options->signature;
 
 		// create group
-		$this->method = 0;
-		$this->setContent($authentication_obj);
-		$host = sprintf("%s%s/%s/%s?%s", $this->host, $this->resource, $this->version, "new_group", $this->content);
-		$result = $this->requestGet($host);
-		if($this->error_flag == true)
+		self::$method = 0;
+		self::setContent($authentication_obj);
+		$host = sprintf("%s%s/%s/%s?%s", self::$host, self::$resource, self::$version, "new_group", self::$content);
+		$result = self::requestGet($host);
+		if(self::$error_flag == true)
 		{
-			$this->result->code = $result;
+			self::$result->code = $result;
 			return;
 		}
 		$group_id = $result->group_id;
 
 		// add messages
-		$this->method = 1;
-		$this->setContent($options);
-		$host = sprintf("%s%s/%s/groups/%s/%s", $this->host, $this->resource, $this->version, $group_id, "add_messages.json");
-		$result = $this->requestPOST($host);
-		if($this->error_flag == true)
+		self::$method = 1;
+		self::setContent($options);
+		$host = sprintf("%s%s/%s/groups/%s/%s", self::$host, self::$resource, self::$version, $group_id, "add_messages.json");
+		$result = self::requestPOST($host);
+		if(self::$error_flag == true)
 		{
-			$this->result->code = $result;
+			self::$result->code = $result;
 			return;
 		}
 
@@ -543,30 +547,30 @@ class coolsms
 			$success_count = $success_count + $v->success_count;
 			$error_count = $error_count + $v->error_count;
 		}
-		$this->result->success_count = $success_count;
-		$this->result->error_count = $error_count;
+		self::$result->success_count = $success_count;
+		self::$result->error_count = $error_count;
 
 		// send messages
-		$this->method = 1;
-		$this->setContent($authentication_obj);
-		$host = sprintf("%s%s/%s/groups/%s/%s", $this->host, $this->resource, $this->version, $group_id, "send");
-		$result = $this->requestPOST($host);
-		if($this->error_flag == true)
+		self::$method = 1;
+		self::setContent($authentication_obj);
+		$host = sprintf("%s%s/%s/groups/%s/%s", self::$host, self::$resource, self::$version, $group_id, "send");
+		$result = self::requestPOST($host);
+		if(self::$error_flag == true)
 		{
-			$this->result->code = $result;
+			self::$result->code = $result;
 			return;
 		}
 	}
 
 	// http request GET
-	function requestGet($host)
+	protected static function requestGet($host)
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $host);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSLVERSION, 3); // SSL 버젼 (https 접속시에 필요)
 		curl_setopt($ch, CURLOPT_HEADER, 0); // 헤더 출력 여부
-		curl_setopt($ch, CURLOPT_POST, $this->method); // Post Get 접속 여부
+		curl_setopt($ch, CURLOPT_POST, self::$method); // Post Get 접속 여부
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10); // TimeOut 값
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 결과값을 받을것인지
 
@@ -575,7 +579,7 @@ class coolsms
 		// Check connect errors
 		if(curl_errno($ch))
 		{
-			$this->error_flag = true;
+			self::$error_flag = true;
 			$result = curl_error($ch);
 		}
 
@@ -584,33 +588,33 @@ class coolsms
 	}
 
 	// http request POST
-	function requestPOST($host)
+	protected static function requestPOST($host)
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $host);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSLVERSION, 3); // SSL 버젼 (https 접속시에 필요)
 		curl_setopt($ch, CURLOPT_HEADER, 0); // 헤더 출력 여부
-		curl_setopt($ch, CURLOPT_POST, $this->method); // Post Get 접속 여부
+		curl_setopt($ch, CURLOPT_POST, self::$method); // Post Get 접속 여부
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10); // TimeOut 값
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 결과값을 받을것인지
 		$header = array("Content-Type:multipart/form-data");
 
 		// route가 있으면 header에 붙여준다.
-		if($this->content['route'])
+		if(self::$content['route'])
 		{
-			$header[] = "User-Agent:" . $this->content['route'];
+			$header[] = "User-Agent:" . self::$content['route'];
 		}
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $this->content);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, self::$content);
 
 		$result = json_decode(curl_exec($ch));
 
 		// Check connect errors
 		if(curl_errno($ch))
 		{
-			$this->error_flag = true;
+			self::$error_flag = true;
 			$result = curl_error($ch);
 		}
 

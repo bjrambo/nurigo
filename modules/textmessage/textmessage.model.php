@@ -10,6 +10,7 @@ class textmessageModel extends textmessage
 {
 	protected static $config = NULL;
 	protected static $global_config = NULL;
+	const solution_registration_key = 'K0000238682';
 
 	function init()
 	{
@@ -18,7 +19,7 @@ class textmessageModel extends textmessage
 	/**
 	 * @brief 모듈 환경설정값 가져오기
 	 */
-	function getModuleConfig()
+	public static function getModuleConfig()
 	{
 		if(self::$global_config !== NULL)
 		{
@@ -84,20 +85,15 @@ class textmessageModel extends textmessage
 	 */
 	function getSlnRegKey()
 	{
-		if(!file_exists($this->module_path . 'resale.info.php'))
-		{
-			return false;
-		}
-		require_once($this->module_path . 'resale.info.php');
-		return __SOLUTION_REGISTRATION_KEY__;
+		return self::solution_registration_key;
 	}
 
 	/**
 	 * @brief CoolSMS class 객체 가져오기
 	 */
-	function &getCoolSMS($basecamp = false)
+	public static function getCoolSMS($basecamp = false)
 	{
-		$config = $this->getModuleConfig();
+		$config = self::getModuleConfig();
 		if(!class_exists('coolsms'))
 		{
 			require_once('coolsms.php');
@@ -118,13 +114,13 @@ class textmessageModel extends textmessage
 	/**
 	 * @brief 환경값 읽어오기
 	 */
-	function getConfig()
+	public static function getConfig()
 	{
 		if(self::$config !== NULL)
 		{
 			return self::$config;
 		}
-		$config = $this->getModuleConfig();
+		$config = self::getModuleConfig();
 		if(!$config)
 		{
 			$config = new stdClass();
@@ -139,10 +135,10 @@ class textmessageModel extends textmessage
 		$config->cs_point = 0;
 		$config->cs_mdrop = 0;
 
-		$sms = &$this->getCoolSMS();
-		if($sms->balance())
+		$sms = self::getCoolSMS();
+		if($sms::balance())
 		{
-			$remain = $sms->balance();
+			$remain = $sms::balance();
 			$config->cs_cash = $remain->cash;
 			$config->cs_point = $remain->point;
 			$config->sms_price = 20;
@@ -200,7 +196,7 @@ class textmessageModel extends textmessage
 	function getConfigValue(&$obj, $key, $type = null)
 	{
 		$return_value = null;
-		$config = $this->getModuleConfig();
+		$config = self::getModuleConfig();
 		$fieldname = $config->{$key};
 		if(!$fieldname)
 		{
@@ -235,11 +231,10 @@ class textmessageModel extends textmessage
 	 **/
 	function getCashInfo($basecamp = false)
 	{
-		$config = $this->getModuleConfig();
-		$sms = &$this->getCoolSMS($basecamp);
+		$sms = self::getCoolSMS($basecamp);
 
 		// get cash info
-		$result = $sms->balance();
+		$result = $sms::balance();
 
 		$obj = new Object();
 		$obj->add('cash', $result->cash);
@@ -256,7 +251,7 @@ class textmessageModel extends textmessage
 	 */
 	function getResult($args = null)
 	{
-		$sms = &$this->getCoolSMS();
+		$sms = self::getCoolSMS();
 		$result = $sms->sent($args);
 		return $result;
 	}
@@ -266,7 +261,7 @@ class textmessageModel extends textmessage
 	 */
 	function getSenderNumbers()
 	{
-		$sms = &$this->getCoolSMS();
+		$sms = self::getCoolSMS();
 		$result = $sms->get_senderid_list();
 		return $result;
 	}

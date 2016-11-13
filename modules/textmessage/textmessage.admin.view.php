@@ -10,7 +10,6 @@ class textmessageAdminView extends textmessage
 {
 	/**
 	 * @brief Initilization
-	 * @return none
 	 **/
 	function init()
 	{
@@ -21,7 +20,6 @@ class textmessageAdminView extends textmessage
 
 	/**
 	 * @brief Display Super Admin Dashboard
-	 * @return none
 	 **/
 	function dispTextmessageAdminIndex()
 	{
@@ -83,8 +81,7 @@ class textmessageAdminView extends textmessage
 	 */
 	function dispTextmessageAdminConfig()
 	{
-		$oTextmessageModel = getModel('textmessage');
-		$config = $oTextmessageModel->getConfig();
+		$config = textmessageModel::getConfig();
 
 		$callback_url = Context::getDefaultUrl();
 		$callback_url_style = "";
@@ -108,18 +105,19 @@ class textmessageAdminView extends textmessage
 	//발송내역 페이지 
 	function dispTextmessageAdminUsageStatement()
 	{
-		$oTextmessageModel = getModel('textmessage');
-		$config = $oTextmessageModel->getModuleConfig();
-		$sms = $oTextmessageModel->getCoolSMS();
+		$config = textmessageModel::getModuleConfig();
+		$sms = textmessageModel::getCoolSMS();
 
 		$count = Context::get('page_no');
 		$search_code = Context::get('search_code');
 		$msg_type = Context::get('msg_type');
 		$rcpt_no = Context::get('rcpt_no');
+
 		if(!$count)
 		{
 			$count = 20;
 		}
+
 		$options = new stdClass();
 		if($msg_type != 'all')
 		{
@@ -136,7 +134,8 @@ class textmessageAdminView extends textmessage
 
 		$options->count = $count;
 		$options->page = Context::get('page');
-		$output = $sms->sent($options);
+
+		$output = $sms::sent($options);
 
 		$output->total_page = ceil($output->total_count / $count);
 		$page = new PageHandler($output->total_count, $output->total_page, 1, $count);

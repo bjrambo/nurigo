@@ -11,7 +11,7 @@ class textmessage extends ModuleObject
 
 	/**
 	 * @brief install textmessage module
-	 * @return new Object
+	 * @return Object
 	 **/
 	function moduleInstall()
 	{
@@ -28,7 +28,7 @@ class textmessage extends ModuleObject
 
 	/**
 	 * @brief update module
-	 * @return new Object
+	 * @return Object
 	 **/
 	function moduleUpdate()
 	{
@@ -37,7 +37,6 @@ class textmessage extends ModuleObject
 
 	/**
 	 * @brief regenerate cache file
-	 * @return none
 	 **/
 	function recompileCache()
 	{
