@@ -38,7 +38,7 @@ class nproductItem extends Object
 	 * @brief constructor
 	 *
 	 */
-	function nproductItem($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
+	function init($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
 	{
 		if(is_object($info))
 		{
