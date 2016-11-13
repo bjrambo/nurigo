@@ -19,7 +19,7 @@ class nproduct extends ModuleObject
 	/**
 	 * @brief constructor
 	 */
-	function init()
+	function nproduct()
 	{
 		$this->ORDER_STATE_COMPLETE = nproduct::ORDER_STATE_COMPLETE;
 		$this->ORDER_STATE_PAID = nproduct::ORDER_STATE_PAID;
