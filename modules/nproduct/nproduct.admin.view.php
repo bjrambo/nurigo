@@ -141,7 +141,7 @@ class nproductAdminView extends nproduct
 		$node_route_arr = preg_split('/\./', $item_info->node_route);
 		$avoid_last = array_pop($node_route_arr);
 		$node_route_arr[] = $item_info->category_id;
-		$category_data = new StdClass();
+		$category_data = new stdClass();
 		$category_data->list = array();
 		$count = 0;
 		$node_route = '';

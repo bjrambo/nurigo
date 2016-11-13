@@ -10,7 +10,7 @@
  */
 class NExtraItemList
 {
-	function getList(&$item_info)
+	public static function getList(&$item_info)
 	{
 		$oNstoreModel = getModel('nproduct');
 
