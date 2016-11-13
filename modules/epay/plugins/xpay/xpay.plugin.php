@@ -85,7 +85,7 @@
 			$config = $this->getConfig();
 
 			require_once(_XE_PATH_."modules/epay/plugins/xpay/libs/XPayClient.php");
-			$xpay = &new XPayClient($configPath, $config, $this->plugin_info->cst_platform);
+			$xpay = new XPayClient($configPath, $config, $this->plugin_info->cst_platform);
 			$xpay->config[$LGD_MID] = $LGD_PAYKEY;
 			$xpay->config['log_dir'] = $xpay_home . '/log';
 			$xpay->Init_TX($LGD_MID);
@@ -142,7 +142,7 @@
 			$config = $this->getConfig();
 
 			require_once(_XE_PATH_."modules/epay/plugins/xpay/libs/XPayClient.php");
-			$xpay = &new XPayClient($configPath, $config, $CST_PLATFORM);
+			$xpay = new XPayClient($configPath, $config, $CST_PLATFORM);
 			$xpay->config[$this->plugin_info->mert_id] = $this->plugin_info->mert_key;
 			$xpay->Init_TX($LGD_MID);    
 			
