@@ -75,6 +75,7 @@ function completeDeleteItem(ret_obj, response_tags, callback_func_args, fo_obj) 
 
 		$('a.modalAnchor.modifyOptions').bind('before-open.mw', function(event){
 			var item_srl = $(event.target).parent().attr('data-item-srl');
+
 			//var checked = $(event.target).closest('tr').find('input:radio:checked').val();
 
 			exec_xml(

@@ -3,3 +3,8 @@
 .list_header li.check { width:70px; }
 .list_header li.delete { width:70px; }
 .header_wrap { padding-top:5px; }
+.x_modal-content {
+	height:370px;
+	position: relative;
+	overflow: auto;
+}
