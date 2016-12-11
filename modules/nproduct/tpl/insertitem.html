@@ -48,7 +48,7 @@
 	<div class="x_control-group">
 		<label class="x_control-label" for="item_code">{$lang->item_code}</label>
 		<div class="x_controls">
-			<input name="item_code" type="text" value="" />
+			<input name="item_code" type="text" value="" id="item_code" />
 			<a href="#item_code_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			<p id="item_code_help" class="x_help-block" hidden>{$lang->about_product_code}</p>
 		</div>
@@ -58,7 +58,7 @@
 	<div class="x_control-group">
 		<label class="x_control-label" for="thumbnail_image">{$lang->thumbnail}</label>
 		<div class="x_controls">
-			<input type="file" name="thumbnail_image" />
+			<input type="file" name="thumbnail_image" id="thumbnail_image" />
 			<a href="#thumbnail_image_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			<p id="thumbnail_image_help" class="x_help-block" hidden>{$lang->about_thumbnail_image}</p>
 		</div>
@@ -67,7 +67,7 @@
 	<div cond="0" id="contents_file_select" class="x_control-group">
 		<label class="x_control-label" for="contents_file">{$lang->contents_file}</label>
 		<div class="x_controls">
-			<input type="file" name="contents_file" />
+			<input type="file" name="contents_file" id="contents_file" />
 			<a href="#contents_file_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			<p id="contents_file_help" class="x_help-block" hidden>{$lang->about_contents_file}</p>
 		</div>
