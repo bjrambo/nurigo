@@ -57,9 +57,62 @@ class nstoreController extends nstore
 					$this->updateSalesCount($item_srl, $quantity);
 				}
 			}
-		}
 
-		$order_info = $oNstoreModel->getOrderInfo($order_srl);
+			$member_info = getModel('member')->getMemberInfoByMemberSrl($order_info->member_srl);
+			if($member_info->is_admin != 'Y')
+			{
+				if(count($order_info->item_list) > 1)
+				{
+					$order_srls = array();
+					foreach($order_info->item_list as $item)
+					{
+						$item_srls = $item->item_srl;
+					}
+
+					foreach($item_srls as $item_srl)
+					{
+						$item_info = getModel('nproduct')->getItemInfo($item_srl);
+						$group_srl_list = unserialize($item_info->group_srl_list);
+
+						foreach($group_srl_list as $group_srl)
+						{
+							if(!in_array($group_srl, $member_info->group_list))
+							{
+								$new_group_args = new stdClass;
+								$new_group_args->member_srl = $member_info->member_srl;
+								$new_group_args->group_srl = $group_srl;
+								$output = getController('member')->addMemberToGroup($member_info->member_srl, $group_srl);
+								if(!$output->toBool())
+								{
+									return $output;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					$item_srl = $order_info->item_list[0]->item_srl;
+					$item_info = getModel('nproduct')->getItemInfo($item_srl);
+					$group_srl_list = unserialize($item_info->group_srl_list);
+
+					foreach($group_srl_list as $group_srl)
+					{
+						if(!in_array($group_srl, $member_info->group_list))
+						{
+							$new_group_args = new stdClass;
+							$new_group_args->member_srl = $member_info->member_srl;
+							$new_group_args->group_srl = $group_srl;
+							$output = getController('member')->addMemberToGroup($member_info->member_srl, $group_srl);
+							if(!$output->toBool())
+							{
+								return $output;
+							}
+						}
+					}
+				}
+			}
+		}
 
 		// for order table
 		$args->order_srl = $order_srl;
