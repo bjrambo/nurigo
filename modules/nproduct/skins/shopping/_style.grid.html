@@ -24,7 +24,7 @@
 		</div>
 		<div cond="$k == 'amount' && $val->discount_amount"><span style="text-decoration:line-through;">{$val->printPrice()}</span></div>
 		<div cond="$k == 'amount' && !$val->discount_amount"><span>&nbsp;</span></div>
-		<div cond="$k == 'amount'" class="item_price">{$val->printDiscountedPrice()}</div>
+		<div cond="$k == 'amount'" class="item_price">{$val->printDiscountedPrice($val)}</div>
 		<div cond="$k == 'cart_buttons'" class="item_choice">
 			<a href="#" class="small {$btn_color} nuribtn" onclick="addItemsToCart({$val->item_srl}); return false;">{$lang->cmd_cart}</a>
 			<a href="#" class="small light nuribtn" onclick="addItemsToFavorites({$val->item_srl}); return false;">{$lang->cmd_favorites}</a> 
