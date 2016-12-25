@@ -62,12 +62,59 @@ class nstore_digitalController extends nstore_digital
 					$this->updateSalesCount($item_srl, $quantity);
 				}
 			}
-			if($order_info->group_srl_list)
+
+			$member_info = getModel('member')->getMemberInfoByMemberSrl($order_info->member_srl);
+			if($member_info->is_admin != 'Y')
 			{
-				$group_srl_list = unserialize($order_info->group_srl_list);
-				if(is_array($group_srl_list))
+				if(count($order_info->item_list) > 1)
 				{
-					$this->addGroups($order_info->member_srl, $group_srl_list);
+					$order_srls = array();
+					foreach($order_info->item_list as $item)
+					{
+						$item_srls = $item->item_srl;
+					}
+
+					foreach($item_srls as $item_srl)
+					{
+						$item_info = getModel('nproduct')->getItemInfo($item_srl);
+						$group_srl_list = unserialize($item_info->group_srl_list);
+
+						foreach($group_srl_list as $group_srl)
+						{
+							if(!in_array($group_srl, $member_info->group_list))
+							{
+								$new_group_args = new stdClass;
+								$new_group_args->member_srl = $member_info->member_srl;
+								$new_group_args->group_srl = $group_srl;
+								$output = getController('member')->addMemberToGroup($member_info->member_srl, $group_srl);
+								if(!$output->toBool())
+								{
+									return $output;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					$item_srl = $order_info->item_list[0]->item_srl;
+					$item_info = getModel('nproduct')->getItemInfo($item_srl);
+					$group_srl_list = unserialize($item_info->group_srl_list);
+
+					foreach($group_srl_list as $group_srl)
+					{
+						if(!in_array($group_srl, $member_info->group_list))
+						{
+							$new_group_args = new stdClass;
+							$new_group_args->member_srl = $member_info->member_srl;
+							$new_group_args->group_srl = $group_srl;
+							$output = getController('member')->addMemberToGroup($member_info->member_srl, $group_srl);
+							if(!$output->toBool())
+							{
+								return $output;
+							}
+						}
+					}
 				}
 			}
 		}
