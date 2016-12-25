@@ -7,8 +7,28 @@
  */
 class cympuserAdminView extends cympuser
 {
+	var $memberConfig = NULL;
+
 	function init()
 	{
+		$oMemberModel = getModel('member');
+		$this->memberConfig = $oMemberModel->getMemberConfig();
+
+		// if member_srl exists, set memberInfo
+		$member_srl = Context::get('member_srl');
+		if($member_srl)
+		{
+			$this->memberInfo = $oMemberModel->getMemberInfoByMemberSrl($member_srl);
+			if(!$this->memberInfo)
+			{
+				Context::set('member_srl','');
+			}
+			else
+			{
+				Context::set('member_info',$this->memberInfo);
+			}
+		}
+
 		// module이 cympusadmin일때 관리자 레이아웃으로
 		if(Context::get('module') == 'cympusadmin')
 		{
@@ -183,9 +203,7 @@ class cympuserAdminView extends cympuser
 		$memberInfo = Context::get('member_info');
 		if(isset($memberInfo))
 		{
-			$member_srl = $this->memberInfo->member_srl;
-			$signature = $oMemberModel->getSignature($member_srl);
-			$memberInfo->signature = $signature;
+			$memberInfo->signature = $oMemberModel->getSignature($this->memberInfo->member_srl);
 		}
 		Context::set('member_info', $memberInfo);
 
@@ -194,6 +212,7 @@ class cympuserAdminView extends cympuser
 		{
 			$oEditorModel = getModel('editor');
 			$option = new stdClass();
+			$option->skin = $oEditorModel->getEditorConfig()->editor_skin;
 			$option->primary_key_name = 'member_srl';
 			$option->content_key_name = 'signature';
 			$option->allow_fileupload = false;
@@ -202,11 +221,11 @@ class cympuserAdminView extends cympuser
 			$option->enable_component = false;
 			$option->resizable = false;
 			$option->height = 200;
-			$editor = $oEditorModel->getEditor($member_srl, $option);
+			$editor = $oEditorModel->getEditor($this->memberInfo->member_srl, $option);
 			Context::set('editor', $editor);
 		}
 
-		$formTags = $this->_getMemberInputTag($memberInfo, true);
+		$formTags = getAdminView('member')->_getMemberInputTag($memberInfo, true);
 		Context::set('formTags', $formTags);
 		$member_config = $this->memberConfig;
 
