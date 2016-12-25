@@ -6,7 +6,7 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproductItem class
  */
-class nproductItem extends Object
+class nproductItem
 {
 	var $ExtMod = NULL;
 	var $mid = NULL;
@@ -38,7 +38,7 @@ class nproductItem extends Object
 	 * @brief constructor
 	 *
 	 */
-	function nproductItem($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
+	function __construct($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
 	{
 		if(is_object($info))
 		{
@@ -81,13 +81,10 @@ class nproductItem extends Object
 	function printPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
-		if($this)
+
+		if(!$price && $this->price)
 		{
-			$obj = $this;
-		}
-		if(!$price && $obj->price)
-		{
-			$price = $obj->price;
+			$price = $this->price;
 		}
 		return $oCurrencyModel->printPrice($price);
 	}
@@ -110,7 +107,6 @@ class nproductItem extends Object
 	{
 		$oCurrencyModel = getModel('currency');
 		return $oCurrencyModel->price($price);
-
 	}
 
 	/**

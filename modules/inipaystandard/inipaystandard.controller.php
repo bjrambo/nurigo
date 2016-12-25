@@ -49,8 +49,9 @@ class inipaystandardController extends inipaystandard
 			return new Object(-1, 'msg_invalid_request');
 		}
 
-		$vars = Context::getRequestVars();
 		$oEpayController = getController('epay');
+
+		$vars = Context::getRequestVars();
 		$vars->transaction_srl = $_SESSION['inipaystandard']['transaction_srl'];
 		//결제 실패시
 		if(strcmp("0000", $vars->resultCode) !== 0)
