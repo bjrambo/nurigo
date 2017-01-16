@@ -53,6 +53,7 @@ class inipaystandardController extends inipaystandard
 
 		$vars = Context::getRequestVars();
 		$vars->transaction_srl = $_SESSION['inipaystandard']['transaction_srl'];
+		debugPrint($vars);
 		//결제 실패시
 		if(strcmp("0000", $vars->resultCode) !== 0)
 		{
@@ -94,7 +95,14 @@ class inipaystandardController extends inipaystandard
 		$signature = $util->makeSignature($signParam);
 
 		$authMap = array();
-		$authMap["mid"] = $this->module_info->inipay_mid;
+		if($this->module_info->ini_payment_test_mode == 'Y')
+		{
+			$authMap["mid"] = 'INIpayTest';
+		}
+		else
+		{
+			$authMap["mid"] = $this->module_info->inipay_mid;
+		}
 		$authMap["authToken"] = $vars->authToken;
 		$authMap["signature"] = $signature;
 		$authMap["timestamp"] = $timestamp;
