@@ -53,7 +53,7 @@ class inipaystandardController extends inipaystandard
 
 		$vars = Context::getRequestVars();
 		$vars->transaction_srl = $_SESSION['inipaystandard']['transaction_srl'];
-		debugPrint($vars);
+
 		//결제 실패시
 		if(strcmp("0000", $vars->resultCode) !== 0)
 		{
@@ -225,7 +225,6 @@ class inipaystandardController extends inipaystandard
 			$payArgs->add('result_code', '1');
 			$payArgs->add('result_message', '입금액이 일치하지않습니다.');
 		}
-
 		$payArgs->add('transaction_srl', $transaction_info->transaction_srl);
 		$payArgs->add('payment_method', 'VA');
 		$payArgs->add('payment_amount', $transaction_info->payment_amount);
