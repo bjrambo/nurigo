@@ -10,7 +10,7 @@ class textmessageModel extends textmessage
 {
 	protected static $config = NULL;
 	protected static $global_config = NULL;
-	const solution_registration_key = 'K0000238682';
+	const solution_registration_key = 'K0009875078';
 
 	function init()
 	{
