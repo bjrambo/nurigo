@@ -30,7 +30,7 @@ class cympusadmin extends ModuleObject
 		$template_path = sprintf("%sskins/%s/",$module_path, $cympus_module_info->skin);
 		if(!is_dir($template_path) || !$cympus_module_info->skin)
 		{
-			$config->admin_skins = 'default';
+			$cympus_module_info->skin = 'default';
 			$template_path = sprintf("%sskins/%s/",$module_path, $cympus_module_info->skin);
 		}
 
