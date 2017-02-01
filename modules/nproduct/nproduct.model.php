@@ -1124,7 +1124,7 @@ class nproductModel extends nproduct
 	/**
 	 * @brief discount items
 	 */
-	function discountItems($item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
+	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
 	{
 		$oNcartModel = getModel('ncart');
 
