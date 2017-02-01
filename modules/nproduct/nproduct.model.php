@@ -1124,7 +1124,7 @@ class nproductModel extends nproduct
 	/**
 	 * @brief discount items
 	 */
-	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
+	function discountItems($item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
 	{
 		$oNcartModel = getModel('ncart');
 
@@ -1155,6 +1155,7 @@ class nproductModel extends nproduct
 				$proc_modules[] = $val->module;
 			}
 			$item = new nproductItem($val, $config->currency, $config->as_sign, $config->decimals);
+
 			$item->thumbnail_url = $item->getThumbnail($width, $height);
 			$item_list[$key] = $item;
 

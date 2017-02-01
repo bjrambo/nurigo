@@ -142,7 +142,7 @@ class ncartModel extends ncart
 	/**
 	 * @brief 그룹할인이 있으면 그룹할인으로 적용하고 그룹할인이 없을 때는 상품별 할인 적용.
 	 */
-	function discountItems(&$item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance)
+	function discountItems($item_list, $group_list = array(), $width = 50, $height = 50, $delivfee_inadvance = null)
 	{
 		$oNproductModel = getModel('nproduct');
 		return $oNproductModel->discountItems($item_list, $group_list, $width, $height, $delivfee_inadvance);
@@ -513,6 +513,7 @@ class ncartModel extends ncart
 
 
 		// favorite items
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$output = executeQueryArray('ncart.getFavoriteItems', $args);
 		if(!$output->toBool())
@@ -525,6 +526,11 @@ class ncartModel extends ncart
 			$favorite_items = array();
 		}
 		$retobj = $this->discountItems($favorite_items, $group_list, $width, $height);
+
+		foreach($favorite_items as $key => $val)
+		{
+			$favorite_items[$key]->thumbnali = $retobj->item_list[$key]->thumbnail_url;
+		}
 
 		return $favorite_items;
 	}
