@@ -6,7 +6,7 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproductItem class
  */
-class nproductItem
+class nproductItem extends Object
 {
 	var $ExtMod = NULL;
 	var $mid = NULL;
@@ -33,11 +33,14 @@ class nproductItem
 	var $as_sign = "N";
 	var $decimals = 0;
 	var $thumb_file_srl = 0;
+	public static $price_cart = 0;
 
 	/**
 	 * @brief constructor
 	 *
 	 */
+	// HACK : This method is restored to its original state.
+	// HACK : And to prevent this class from running if there are no items in the shopping cart.
 	function __construct($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
 	{
 		if(is_object($info))
@@ -85,6 +88,22 @@ class nproductItem
 		if(!$price && $this->price)
 		{
 			$price = $this->price;
+		}
+		return $oCurrencyModel->printPrice($price);
+	}
+
+	/**
+	 * @param null $price
+	 * @return mixed
+	 * @HACK : Fixed to use this method exclusively for shopping carts.
+	 */
+	function cartPrintPrice($price = null)
+	{
+		$oCurrencyModel = getModel('currency');
+
+		if(!$price && self::$price_cart)
+		{
+			$price = self::$price_cart;
 		}
 		return $oCurrencyModel->printPrice($price);
 	}
@@ -165,6 +184,10 @@ class nproductItem
 		foreach($info as $key => $val)
 		{
 			$this->{$key} = $val;
+			if($key == 'price')
+			{
+				self::$price_cart = $val;
+			}
 		}
 	}
 

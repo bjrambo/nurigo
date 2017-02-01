@@ -253,7 +253,6 @@ class ncartModel extends ncart
 
 			// 로그인 되어 있을 때 회원 카트정보 가져옴
 			$cart_info = $this->getMemberCartInfo($logged_info->member_srl, $cartnos, $width, $height, $delivfee_inadvance);
-
 		}
 
 		return $cart_info;
