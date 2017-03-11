@@ -31,7 +31,6 @@ function calculate_sum() {
 	});
 	$ = jQuery;
 	$.exec_json('currency.getPriceByJquery', {'price': related_sum}, function(ret_obj){
-		console.log(ret_obj.price);
 		jQuery('#related_sum').html(number_format(ret_obj.price));
 	});
 }
