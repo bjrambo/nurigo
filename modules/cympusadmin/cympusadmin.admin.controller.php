@@ -19,11 +19,6 @@ class cympusadminAdminController extends cympusadmin
 
 		$args = new stdClass();
 		$args->module = 'cympusadmin';
-		$module_list = getModel('module')->getModuleSrlList($args);
-		if(count($module_list) > 0)
-		{
-			return new Object(-1, 'msg_dont_insert_module_inst');
-		}
 
 		// 게시판 모듈의 정보 설정
 		$args = Context::getRequestVars();
@@ -42,6 +37,11 @@ class cympusadminAdminController extends cympusadmin
 		// module_srl의 값에 따라 insert/update
 		if(!$args->module_srl)
 		{
+			$module_list = getModel('module')->getModuleSrlList($args);
+			if(count($module_list) > 0)
+			{
+				return new Object(-1, 'msg_dont_insert_module_inst');
+			}
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
 		}
