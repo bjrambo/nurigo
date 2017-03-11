@@ -85,9 +85,9 @@ class nproductItem extends Object
 	{
 		$oCurrencyModel = getModel('currency');
 
-		if(!$price && $this->price)
+		if(!$price && self::$price_cart)
 		{
-			$price = $this->price;
+			$price = self::$price_cart;
 		}
 		return $oCurrencyModel->printPrice($price);
 	}
