@@ -330,7 +330,8 @@ class nproductView extends nproduct
 		$oDocumentModel = getModel('document');
 		$oFileModel = getModel('file');
 		$oNproductModel = getModel('nproduct');
-		$oStoreReviewModel = getModel('store_review');
+		$oCurrencyModel = getModel('currency');
+		$currencyConfig = $oCurrencyModel->getModuleConfig();
 
 		$item_srl = Context::get('item_srl');
 		$document_srl = Context::get('document_srl');
@@ -392,7 +393,7 @@ class nproductView extends nproduct
 		Context::set('discounted_price', $output->discounted_price);
 		Context::set('discount_amount', $output->discount_amount);
 		Context::set('discount_info', $output->discount_info);
-
+		Context::set('currency_lang', $currencyConfig->currency);
 		// get options
 		$args->item_srl = $item_info->item_srl;
 		$output = executeQueryArray('nproduct.getOptions', $args);

@@ -16,6 +16,7 @@ function getTotalPrice() {
 
 function printTotalPrice() {
 	var total_price = getTotalPrice();
+
 	jQuery('#total_amount').html('<span>총 상품금액: <span class="red">'+ number_format(total_price) +'</span></span>');
 }
 

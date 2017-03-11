@@ -6,6 +6,8 @@
 	<actions>
 		<action name="dispCurrencyAdminContent" type="view" admin_index="true" />
 		<action name="procCurrencyAdminConfig" type="controller" />
+		<action name="getPriceByJquery" type="model" />
+		<action name="getTotalPriceByJquery" type="model" />
 	</actions>
 	<menus>
 		<menu name="page" type="all">

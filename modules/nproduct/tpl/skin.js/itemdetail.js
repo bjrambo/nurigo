@@ -16,9 +16,8 @@ function getTotalPrice() {
 
 function printTotalPrice() {
 	var total_price = getTotalPrice();
-	jQuery('#total_amount')
-		.html('<span>' + xe.lang.total_amount + ': <span class="red">'+ number_format(total_price) +'</span></span>')
-		.attr('data-amount', total_price);
+
+	jQuery('#total_amount').html('<span>' + xe.lang.total_amount + ': <span class="red">'+ number_format(total_price) +'</span></span>').attr('data-amount', total_price);
 	calculate_sum();
 }
 
@@ -30,7 +29,11 @@ function calculate_sum() {
 		var price = parseInt(jQuery(elm).attr('data-price'));
 		related_sum += price;
 	});
-	jQuery('#related_sum').html(number_format(related_sum));
+	$ = jQuery;
+	$.exec_json('currency.getPriceByJquery', {'price': related_sum}, function(ret_obj){
+		console.log(ret_obj.price);
+		jQuery('#related_sum').html(number_format(ret_obj.price));
+	});
 }
 
 

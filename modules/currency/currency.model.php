@@ -50,11 +50,27 @@ class currencyModel extends currency
 	{
 		$config = $this->getModuleConfig();
 		$division = pow(10, $config->decimals);
+
 		if(!$division)
 		{
 			return $price;
 		}
 		return $price / $division;
+	}
+
+	function getPriceByJquery()
+	{
+		$config = $this->getModuleConfig();
+		$division = pow(10, $config->decimals);
+		$price = Context::get('price');
+
+		if(!$division)
+		{
+			return $this->add('price', 0);
+		}
+		$printPrice = $this->printPrice($price);
+		$this->add('price', $printPrice);
+		$this->add('division', $division);
 	}
 
 	function formatMoney($number)
