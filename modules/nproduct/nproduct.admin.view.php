@@ -89,14 +89,21 @@ class nproductAdminView extends nproduct
 		$oEditorModel = getModel('editor');
 		$oNproductAdminController = getAdminController('nproduct');
 		$oNproductModel = getModel('nproduct');
+		$module_srl = $this->module_info->module_srl;
 
 		//dynamic ruleset 재생성
-		$extra_vars = $oNproductModel->getItemExtraFormList($this->module_info->module_srl);
+		$extra_vars = $oNproductModel->getItemExtraFormList($module_srl);
 		$oNproductAdminController->_createInsertItemRuleset($extra_vars);
 
 		$document_srl = getNextSequence();
+		$module_info = getModel('module')->getModuleInfoByModuleSrl($module_srl);
+		$mid = $module_info->mid;
+		$editor = $oEditorModel->getModuleEditor('document', $module_srl, $document_srl, 'document_srl', 'description');
+
+		Context::set('mid', $mid);
+		Context::set('editor', $editor);
 		Context::set('document_srl', $document_srl);
-		Context::set('editor', $oEditorModel->getModuleEditor('document', $this->module_info->module_srl, $document_srl, 'document_srl', 'description'));
+
 		//Context::set('editor2', $oEditorModel->getModuleEditor('document', $this->module_info->module_srl, 0, 0, 'delivery_info'));
 
 		// extra vars
@@ -201,12 +208,16 @@ class nproductAdminView extends nproduct
 		{
 			$item_info->related_items = $this->convertCsvToJson($item_info->related_items);
 		}
+		$module_info = getModel('module')->getModuleInfoByModuleSrl(Context::get('module_srl'));
+		$mid = $module_info->mid;
+
 
 		// pass variables to html
 		Context::set('oDocument', $oDocumentModel->getDocument($item_info->document_srl));
 		Context::set('editor', $oEditorModel->getModuleEditor('document', $this->module_info->module_srl, $item_info->document_srl, 'document_srl', 'description'));
 		Context::set('item_info', $item_info);
 		Context::set('extra_vars', NExtraItemList::getList($item_info));
+		Context::set('mid', $mid);
 
 		// get groups
 		$oMemberModel = getModel('member');
