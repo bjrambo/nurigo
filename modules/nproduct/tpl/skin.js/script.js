@@ -334,6 +334,21 @@ function change_period(days, month) {
 			if (ival < 1) ival = 1;
 			$('#'+target).val(ival);
 		});
+		$('.iconUps').live('click', function() {
+			var target = $(this).attr('data-for');
+			var ival = parseInt($('#'+target).val());
+			ival++;
+			$('#'+target).val(ival);
+			printTotalPrice();
+		});
+		$('.iconDowns').live('click', function() {
+			var target = $(this).attr('data-for');
+			var ival = parseInt($('#'+target).val());
+			ival--;
+			if (ival < 1) ival = 1;
+			$('#'+target).val(ival);
+			printTotalPrice();
+		});
 		$('.updateQuantity').live('click', function() {
 			var target = $(this).attr('data-for');
 			var ival = parseInt($('#'+target).val());
