@@ -77,7 +77,7 @@ class nmileageModel extends nmileage
 
 	function getModInstList()
 	{
-		$output = executeQueryArray('nmileage.getModInstList', $args);
+		$output = executeQueryArray('nmileage.getModInstList', new stdClass());
 		return $output->data;
 	}
 
@@ -87,6 +87,17 @@ class nmileageModel extends nmileage
 	function triggerModuleListInSitemap(&$obj)
 	{
 		array_push($obj, 'nmileage');
+	}
+
+	function getMileageByProduct()
+	{
+		$price = Context::get('price');
+
+		$oNcartModel = getModel('ncart');
+		$config = $oNcartModel->getModuleConfig();
+		$mileage = round($price * ((float)$config->mileage_percent / 100));
+		$this->add('price', $price);
+		$this->add('mileage', $mileage);
 	}
 }
 /* End of file nmileage.model.php */

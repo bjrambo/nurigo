@@ -33,6 +33,9 @@ function calculate_sum() {
 	$.exec_json('currency.getPriceByJquery', {'price': related_sum}, function(ret_obj){
 		jQuery('#related_sum').html(number_format(ret_obj.price));
 	});
+	$.exec_json('nmileage.getMileageByProduct', {'price': related_sum}, function(obj){
+		jQuery('#view_mileage').html(number_format(obj.mileage));
+	});
 }
 
 

@@ -27,6 +27,7 @@
 		<action name="getNmileageAdminCheckUserId" type="model" />
 
 		<action name="getMileage" type="model" />
+		<action name="getMileageByProduct" type="model" />
 
 		<action name="dispNmileageMileageHistory" type="view" index="true" />
 		<action name="dispNmileageMyMileage" type="view" />
