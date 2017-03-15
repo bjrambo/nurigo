@@ -3,7 +3,7 @@ function getTotalPrice() {
 	jQuery('#selected_options tr').each(function() {
 		if(jQuery('.quantity', this).val() < 1)
 		{
-			alert(xe.lang.msg_input_more_than_one); 
+			alert(xe.lang.msg_input_more_than_one);
 			jQuery('.quantity').val('1');
 			var quantity = 1;
 		}
@@ -24,16 +24,20 @@ function printTotalPrice() {
 function calculate_sum() {
 	var related_sum = g_discounted_price;
 	var total_amount = parseInt(jQuery('#total_amount').attr('data-amount'));
-	if(total_amount > 0) related_sum = total_amount;
+
+	var checknum = jQuery('.quantity').val();
+	var related_price = related_sum * checknum;
+
+	if(total_amount > 0) related_price = total_amount;
 	jQuery('input[name=related_item]:checked').each(function(idx, elm) {
 		var price = parseInt(jQuery(elm).attr('data-price'));
-		related_sum += price;
+		related_price += price;
 	});
 	$ = jQuery;
-	$.exec_json('currency.getPriceByJquery', {'price': related_sum}, function(ret_obj){
+	$.exec_json('currency.getPriceByJquery', {'price': related_price}, function(ret_obj){
 		jQuery('#related_sum').html(number_format(ret_obj.price));
 	});
-	$.exec_json('nmileage.getMileageByProduct', {'price': related_sum}, function(obj){
+	$.exec_json('nmileage.getMileageByProduct', {'price': related_price}, function(obj){
 		jQuery('#view_mileage').html(number_format(obj.mileage));
 	});
 }

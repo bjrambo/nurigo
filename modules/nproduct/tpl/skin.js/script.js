@@ -326,6 +326,7 @@ function change_period(days, month) {
 			var ival = parseInt($('#'+target).val());
 			ival++;
 			$('#'+target).val(ival);
+			printTotalPrice();
 		});
 		$('.iconDown').live('click', function() {
 			var target = $(this).attr('data-for');
@@ -333,6 +334,7 @@ function change_period(days, month) {
 			ival--;
 			if (ival < 1) ival = 1;
 			$('#'+target).val(ival);
+			printTotalPrice();
 		});
 		$('.iconUps').live('click', function() {
 			var target = $(this).attr('data-for');
