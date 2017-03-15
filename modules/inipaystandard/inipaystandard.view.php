@@ -18,6 +18,7 @@ class inipaystandardView extends inipaystandard
 	{
 		$oEpayController = getController('epay');
 		$reviewOutput = $oEpayController->reviewOrder();
+
 		if(!$reviewOutput->toBool())
 		{
 			return $reviewOutput;
@@ -37,7 +38,6 @@ class inipaystandardView extends inipaystandard
 		Context::set('purchaser_email', $reviewOutput->purchaser_email);
 		Context::set('purchaser_telnum', '010-0000-0000');
 
-		//payment method
 		switch($payment_method)
 		{
 			case "CC":
@@ -57,22 +57,27 @@ class inipaystandardView extends inipaystandard
 		}
 		Context::set('payment_method', $payment_method);
 
-		if($this->module_info->method_mobilephone == 'Y')
-		{
-			$HPP = '1';
-		}
+		// 휴대폰 소액 결제 타입 (1 - 콘텐츠, 2 - 실물)
 		if($this->module_info->method_mobilephone == 'M')
 		{
 			$HPP = '2';
 		}
-		$acceptmethod = sprintf("HPP(%s):Card(0):OCB:receipt:cardpoint", $HPP);
+		else
+		{
+			$HPP = '1';
+		}
+
+		$acceptmethod = sprintf('HPP(%s):Card(0):OCB:receipt:cardpoint', $HPP);
+
 		if(!$this->module_info->va_receipt || $this->module_info->va_receipt == 'Y')
 		{
 			$acceptmethod .= ':va_receipt';
 		}
+
 		Context::set('acceptmethod', $acceptmethod);
 
 		require_once('libs/INIStdPayUtil.php');
+
 		$SignatureUtil = new INIStdPayUtil();
 
 		if($this->module_info->ini_payment_test_mode == 'Y')
@@ -90,16 +95,11 @@ class inipaystandardView extends inipaystandard
 		Context::set('timestamp', $timestamp);
 		Context::set('pay_mid', $inipay_mid);
 
-		$mKey = $SignatureUtil->makeHash($inipay_signkey, "sha256");
-		Context::set('mKey', $mKey);
+		Context::set('mKey', $SignatureUtil->makeHash($inipay_signkey, "sha256"));
 
-		$params = array(
-			"oid" => $reviewOutput->order_srl,
-			"price" => $reviewOutput->price,
-			"timestamp" => $timestamp
-		);
-		$sign = $SignatureUtil->makeSignature($params, "sha256");
-		Context::set('sign', $sign);
+		$params = array('oid' => $reviewOutput->order_srl, 'price' => $reviewOutput->price, 'timestamp' => $timestamp,);
+
+		Context::set('sign', $SignatureUtil->makeSignature($params, "sha256"));
 
 		//template
 		$template_path = sprintf("%sskins/%s/", $this->module_path, $this->module_info->skin);
