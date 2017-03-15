@@ -116,9 +116,15 @@ class ncartView extends ncart
 
 		// load cart info.
 		$oNcartModel = getModel('ncart');
-		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos, null, null, $in_args->delivfee_inadvance);
-		Context::set('cart_info', $cart_info);
 
+		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos, null, null, $in_args->delivfee_inadvance);
+		if($in_args->use_mileage)
+		{
+			$cart_info->total_price -= $in_args->use_mileage;
+			$cart_info->use_mileage = $in_args->use_mileage;
+			$cart_info->price -= $in_args->use_mileage;
+		}
+		Context::set('cart_info', $cart_info);
 		// compile template file
 		if(Mobile::isMobileCheckByAgent())
 		{

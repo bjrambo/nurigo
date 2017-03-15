@@ -105,6 +105,11 @@ class epayController extends epay
 			return $afterOutput;
 		}
 
+		// HECK : 마일리지 차감
+		if($review_args->use_mileage)
+		{
+			$review_args->price -= $review_args->use_mileage;
+		}
 		$returnOutput = new Object();
 		$returnOutput->review_form = $review_args->review_form;
 		$returnOutput->order_srl = $order_srl;
@@ -114,8 +119,8 @@ class epayController extends epay
 		$returnOutput->module_srl = $review_args->module_srl;
 		$returnOutput->order_srl = $review_args->order_srl;
 		$returnOutput->item_name = $review_args->item_name;
-		$returnOutput->payment_method = $review_args->payment_method;
 		$returnOutput->price = $review_args->price;
+		$returnOutput->payment_method = $review_args->payment_method;
 		$returnOutput->purchaser_name = $review_args->purchaser_name;
 		$returnOutput->purchaser_email = $review_args->purchaser_email;
 		$returnOutput->purchaser_telnum = $review_args->purchaser_telnum;

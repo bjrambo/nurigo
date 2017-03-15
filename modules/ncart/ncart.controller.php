@@ -757,8 +757,10 @@ class ncartController extends ncart
 		$args = $in_args;
 
 		// use mileage
+
 		if($args->use_mileage)
 		{
+
 			$cart->total_price = $cart->total_price - (int)$args->use_mileage;
 		}
 		// calculate mileage
