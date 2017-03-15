@@ -24,7 +24,7 @@
 		<tbody>
 			<tr cond="count($favorite_items)" loop="$favorite_items=>$no,$val">
 				<td><input type="checkbox" name="favorite_cart" value="{$val->item_srl}" /></td>
-				<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->thumbnail}" /></a></td>
+				<td><a href="{getUrl('','document_srl',$val->document_srl)}"><img src="{$val->getThumbnail($module_info->thumbnail_width,$module_info->thumbnail_height,$module_info->thumbnail_type)}" /></a></td>
 				<td><div class="item_name"><a href="{getUrl('','document_srl',$val->document_srl)}">{$val->item_name}</a></div></td>
 				<td>{nproductItem::formatMoney($val->price)}</td>
 				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
