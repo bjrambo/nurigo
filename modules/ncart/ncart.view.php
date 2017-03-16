@@ -369,12 +369,9 @@ class ncartView extends ncart
 		Context::set('mileage_flag', $mileage_config->use_flag);
 
 		// mileage info
-		$my_mileage = $oNcartModel->getMileage($logged_info->member_srl);
-		if(!$my_mileage)
-		{
-			$my_mileage = 0;
-		}
+		$my_mileage = $oNmileageModel->getMileage($logged_info->member_srl);
 		Context::set('my_mileage', $my_mileage);
+
 
 		// fieldset
 		$fieldset_list = $oNcartModel->getFieldSetList($this->module_info->module_srl);

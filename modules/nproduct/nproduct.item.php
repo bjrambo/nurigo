@@ -92,6 +92,13 @@ class nproductItem extends Object
 		return $oCurrencyModel->printPrice($price);
 	}
 
+	function printMileage($mileage)
+	{
+		$oCurrencyModel = getModel('currency');
+
+		return $oCurrencyModel->printPrice($mileage);
+	}
+
 	/**
 	 * @param null $price
 	 * @return mixed
