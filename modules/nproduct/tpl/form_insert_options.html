@@ -19,7 +19,7 @@
 				<td><input type="text" name="options_price[]" value="{$val->price}" /></td>
 				<td>
 					<select name="type[]">
-						<option value="">없음</option>
+						<option value="N" selected="selected"|cond="$val->type!='Y'">없음</option>
 						<option value="Y" selected="selected"|cond="$val->type=='Y'">고정</option>
 					</select>
 				</td>
@@ -36,14 +36,14 @@
 				<td><input type="text" name="options_price[]" placeholder="PRICE" value="" /></td>
 				<td>
 					<select name="type[]">
-						<option value="">없음</option>
+						<option value="N">없음</option>
 						<option value="Y">고정</option>
 					</select>
 				</td>
 				<td>
 					<select name="basically[]">
-						<option value="N" selected="selected"|cond="$val->basically!='Y'">안함</option>
-						<option value="Y" selected="selected"|cond="$val->basically=='Y'">구입</option>
+						<option value="N">안함</option>
+						<option value="Y">구입</option>
 					</select>
 				</td>
 			</tr>
