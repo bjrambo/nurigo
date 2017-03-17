@@ -9,6 +9,7 @@
 		<column name="price" var="price" notnull="notnull" />
 		<column name="list_order" var="list_order" />
 		<column name="type" var="type" />
+		<column name="basically" var="basically" />
 		<column name="regdate" var="regdate" default="curdate()" />
 	</columns>
 </query>

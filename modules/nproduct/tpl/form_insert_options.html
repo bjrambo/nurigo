@@ -6,7 +6,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th>{$lang->option_title}</th><th>{$lang->extra_price}</th><th>type</th>
+				<th>{$lang->option_title}</th>
+				<th>{$lang->extra_price}</th>
+				<th>type</th>
+				<th>기본구입</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,6 +23,12 @@
 						<option value="Y" selected="selected"|cond="$val->type=='Y'">고정</option>
 					</select>
 				</td>
+				<td>
+					<select name="basically[]">
+						<option value="N" selected="selected"|cond="$val->basically!='Y'">안함</option>
+						<option value="Y" selected="selected"|cond="$val->basically=='Y'">구입</option>
+					</select>
+				</td>
 				{@$count++}
 			</tr>
 			<tr loop="$i=$count;$i<20;$i++">
@@ -29,6 +38,12 @@
 					<select name="type[]">
 						<option value="">없음</option>
 						<option value="Y">고정</option>
+					</select>
+				</td>
+				<td>
+					<select name="basically[]">
+						<option value="N" selected="selected"|cond="$val->basically!='Y'">안함</option>
+						<option value="Y" selected="selected"|cond="$val->basically=='Y'">구입</option>
 					</select>
 				</td>
 			</tr>

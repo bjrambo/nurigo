@@ -608,7 +608,17 @@ class nproductController extends nproduct
 			// 구매옵션이 있는 상품이면 구매옵션 선택 여부를 체크해야 한다.
 			if(count($options) && !count($option_srls))
 			{
-				return new Object(-1, 'msg_select_option');
+				foreach($options as $option)
+				{
+					if($option->basically == 'Y')
+					{
+						$option_srls[] = $option->option_srl;
+					}
+				}
+				if(count($option_srls) <= 0)
+				{
+					return new Object(-1, 'msg_select_option');
+				}
 			}
 
 			// 기본 배송회사ID 가져오기 위해 모듈정보 읽기
@@ -1168,6 +1178,7 @@ class nproductController extends nproduct
 		$options_title = Context::get('options_title');
 		$options_price = Context::get('options_price');
 		$options_type = Context::get('type');
+		$options_basically = Context::get('basically');
 
 		$existing_options = $oNproductModel->getOptions($item_srl);
 
@@ -1187,6 +1198,7 @@ class nproductController extends nproduct
 				$args->title = $val;
 				$args->price = $options_price[$key];
 				$args->type = $options_type[$key];
+				$args->basically = $options_basically[$key];
 				$output = executeQuery('nproduct.insertOption', $args);
 				if(!$output->toBool())
 				{
@@ -1200,6 +1212,7 @@ class nproductController extends nproduct
 				$args->title = $val;
 				$args->price = $options_price[$key];
 				$args->type = $options_type[$key];
+				$args->basically = $options_basically[$key];
 				$output = executeQuery('nproduct.updateOption', $args);
 				if(!$output->toBool())
 				{

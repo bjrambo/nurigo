@@ -4,6 +4,7 @@
     <column name="title" type="varchar" size="250" />
 	<column name="price" type="number" size="11" notnull="notnull" default="0" />
 	<column name="type" type="varchar" size="11" default="0" />
+	<column name="basically" type="varchar" size="1" default="N" />
     <column name="list_order" type="number" size="11" notnull="notnull" />
 	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
 </table>

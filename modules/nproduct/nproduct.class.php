@@ -106,6 +106,11 @@ class nproduct extends ModuleObject
 			return true;
 		}
 
+		if(!$oDB->isColumnExists('nproduct_options', 'basically'))
+		{
+			return true;
+		}
+
 		return false;
 	}
 
@@ -261,6 +266,11 @@ class nproduct extends ModuleObject
 		if(!$oDB->isColumnExists('nproduct_options', 'type'))
 		{
 			$oDB->addColumn('nproduct_options', 'type', 'varchar', '11');
+		}
+
+		if(!$oDB->isColumnExists('nproduct_options', 'basically'))
+		{
+			$oDB->addColumn('nproduct_options', 'basically', 'varchar', '1');
 		}
 
 		return new Object(0, 'success_updated');
