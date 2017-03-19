@@ -91,7 +91,7 @@ class nmileageModel extends nmileage
 
 	function getMileageByProduct()
 	{
-		$price = Context::get('price');
+		$price = (int)Context::get('price');
 
 		$oNcartModel = getModel('ncart');
 		$config = $oNcartModel->getModuleConfig();
