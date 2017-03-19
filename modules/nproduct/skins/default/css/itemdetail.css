@@ -28,8 +28,26 @@
 #itemdetail .info-tab ul.related_items { overflow:hidden; list-style:none; margin:0; padding:0; } 
 #itemdetail .info-tab ul.related_items li { float:left; padding:2px 0; } 
 #itemdetail .info-tab ul.related_items li input { margin:0; margin-right:5px; } 
-#itemdetail .info-tab ul.related_items li.p_orange { color:#4f97c6; font:bold 12px 'NanumGothic'; margin-left:5px; } 
+#itemdetail .info-tab ul.related_items li.p_orange { color:#4f97c6; font:bold 12px 'NanumGothic'; margin-left:5px; }
+.iconUps {
+	position: absolute;
+	margin-left: 26px;
+	margin-top: -21px;
+	width: 17px;
+	height: 10px;
+	background: url(../img/icon_up.gif) no-repeat;
+	cursor: pointer;
+}
 
+.iconDowns {
+	position: absolute;
+	margin-left: 26px;
+	margin-top: -11px;
+	width: 17px;
+	height: 10px;
+	background: url(../img/icon_down.gif) no-repeat;
+	cursor: pointer;
+}
 #itemdetail .info-add { padding:0; width:200px; }
 #itemdetail .info-add .add_area { overflow:hidden;}
 #itemdetail .info-add .add_area { padding:0; margin-bottom:10px; border:1px solid #dcdcdc;} 

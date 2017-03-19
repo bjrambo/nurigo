@@ -24,8 +24,27 @@
 #itemdetail .info-tab ul.related_items { overflow:hidden; list-style:none; margin:0; padding:0; } 
 #itemdetail .info-tab ul.related_items li { float:left; padding:2px 0; } 
 #itemdetail .info-tab ul.related_items li input { margin:0; margin-right:5px; } 
-#itemdetail .info-tab ul.related_items li.p_orange { color:#4f97c6; font:bold 12px 'NanumGothic'; margin-left:5px; } 
+#itemdetail .info-tab ul.related_items li.p_orange { color:#4f97c6; font:bold 12px 'NanumGothic'; margin-left:5px; }
 
+.iconUps {
+	position: absolute;
+	margin-left: 26px;
+	margin-top: -21px;
+	width: 17px;
+	height: 10px;
+	background: url(../img/icon_up.gif) no-repeat;
+	cursor: pointer;
+}
+
+.iconDowns {
+	position: absolute;
+	margin-left: 26px;
+	margin-top: -11px;
+	width: 17px;
+	height: 10px;
+	background: url(../img/icon_down.gif) no-repeat;
+	cursor: pointer;
+}
 
 #itemdetail .info-add { padding:0; width:200px; }
 #itemdetail .info-add .ad_area { overflow:hidden;}
@@ -66,7 +85,10 @@
 #itemdetail .light_bx_wrp .commentArea { padding:5px;}
 
 #itemdetail #selected_options .deleteItem { display:inline-block; width:11px; height:11px; background:url(../img/delitem.gif) no-repeat; text-indent:-9999em; }
-#itemdetail #selected_options input { width:20px; }
+
+#itemdetail #selected_options input {
+	width: 40px;
+}
 #selected_options td { padding-left:5px;}
 #selected_options { display:inline-block; background:#efefef; padding:3px;}
 #selected_options span { font-size:11px; font-weight:bold; color:#555; padding:0 3px 0 5px;} 
