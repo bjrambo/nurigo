@@ -4,8 +4,8 @@
 	<title xml:lang="en">Member Management</title>
     <description xml:lang="ko">누리고 쇼핑몰 멤버 관리 모듈입니다.</description>
 	<description xml:lang="en">You can manage members here.</description>
-    <version>1.0</version>
-    <date>2015-06-18</date>
+	<version>2.5</version>
+	<date>2017-03-19</date>
     <category>service</category>
     <author email_address="contact@nurigo.net" link="http://www.coolsms.co.kr">
         <name xml:lang="ko">NURIGO</name>

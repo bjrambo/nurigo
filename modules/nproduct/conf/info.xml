@@ -7,9 +7,9 @@
 	<description xml:lang="ko">상품을 등록하고 관리하는 모듈입니다.</description>
 	<description xml:lang="en">You can register and manage product here.</description>
 	<description xml:lang="jp">商品の登録、管理するためのモジュールです。</description>
-	<description xml:lang="zh-TW">商品登録與管理</description>	
-	<version>1.7</version>
-	<date>2015-04-18</date>
+	<description xml:lang="zh-TW">商品登録與管理</description>
+	<version>2.5</version>
+	<date>2017-03-19</date>
 	<category>service</category>
 	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
 		<name xml:lang="ko">NURIGO</name>

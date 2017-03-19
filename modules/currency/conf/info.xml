@@ -6,8 +6,8 @@
     <description xml:lang="ko">쇼핑몰, 콘텐츠몰의 통화를 설정 할 수 있습니다. </description>
     <description xml:lang="en">This module is for setting currency</description>
 	<description xml:lang="zh-TW">該模組是用於設置幣別</description>
-    <version>1.0</version>
-    <date>2014-06-23</date>
+	<version>2.5</version>
+	<date>2017-03-19</date>
     <category>service</category>
     <author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
         <name xml:lang="ko">누리고</name>

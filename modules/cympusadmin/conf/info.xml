@@ -7,9 +7,9 @@
 	<description xml:lang="ko">CYMPUS 관리자 모듈입니다.</description>
 	<description xml:lang="en">CYMPUS Manager module</description>
 	<description xml:lang="jp">CYMPUSマネージャーモジュール</description>
-	<description xml:lang="zh-TW">CYMPUS管理模組</description>	
-	<version>1.4</version>
-	<date>2015-04-26</date>
+	<description xml:lang="zh-TW">CYMPUS管理模組</description>
+	<version>2.5</version>
+	<date>2017-03-19</date>
 	<category>system</category>
 	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
 		<name xml:lang="ko">NURIGO</name>

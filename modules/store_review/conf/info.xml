@@ -4,8 +4,8 @@
 	<title xml:lang="zh-TW">評論</title>
     <description xml:lang="ko">상품평을 관리하는 모듈입니다.</description>
 	<description xml:lang="zh-TW">管理評論模組</description>
-    <version>0.2</version>
-    <date>2014-02-07</date>
+	<version>2.5</version>
+	<date>2017-03-19</date>
     <category>content</category>
 
     <author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
