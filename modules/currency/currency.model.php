@@ -83,7 +83,7 @@ class currencyModel extends currency
 	function getPrice($price)
 	{
 		$division = pow(10, $this->decimals);
-		return $price / $division;
+		return (int)$price / $division;
 	}
 
 	function printPrice($price)
