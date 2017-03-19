@@ -149,12 +149,12 @@ class nproductItem extends Object
 	 * @brief get price
 	 *
 	 */
-	public static function getPrice($price = null)
+	function getPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
 		if($price === NULL)
 		{
-			$price = self::$price_cart;
+			$price = $this->price;
 		}
 
 		return $oCurrencyModel->getPrice($price);
