@@ -111,7 +111,45 @@ class epayView extends epay
 		Context::set('epay_module_info', $module_info);
 
 		$form_data = '';
-		if($_COOKIE['mobile'] != "true")
+		if(Mobile::isMobileCheckByAgent())
+		{
+			if($module_info->plugin_srl_mobile1)
+			{
+				$plugin = $oEpayModel->getPlugin($module_info->plugin_srl_mobile1);
+				$output = $plugin->getFormData($in_args);
+				if(!$output->toBool())
+				{
+					return $output;
+				}
+				$form_data .= $output->data;
+			}
+			if($module_info->plugin_srl_mobile2)
+			{
+				$plugin = $oEpayModel->getPlugin($module_info->plugin_srl_mobile2);
+				$output = $plugin->getFormData($in_args);
+				if(!$output->toBool())
+				{
+					return $output;
+				}
+				$form_data .= $output->data;
+			}
+			$payment_methods = array();
+			if($module_info->m_pg1_module_srl)
+			{
+				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg1_module_srl));
+			}
+			if($module_info->m_pg2_module_srl)
+			{
+				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg2_module_srl));
+			}
+			if($module_info->m_pg3_module_srl)
+			{
+				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg3_module_srl));
+			}
+
+			Context::set('payment_methods', $payment_methods);
+		}
+		else
 		{
 			if($module_info->plugin_srl)
 			{
@@ -188,45 +226,6 @@ class epayView extends epay
 			Context::set('payment_methods', $payment_methods);
 		}
 
-		if($_COOKIE['mobile'] == "true")
-		{
-			if($module_info->plugin_srl_mobile1)
-			{
-				$plugin = $oEpayModel->getPlugin($module_info->plugin_srl_mobile1);
-				$output = $plugin->getFormData($in_args);
-				if(!$output->toBool())
-				{
-					return $output;
-				}
-				$form_data .= $output->data;
-			}
-			if($module_info->plugin_srl_mobile2)
-			{
-				$plugin = $oEpayModel->getPlugin($module_info->plugin_srl_mobile2);
-				$output = $plugin->getFormData($in_args);
-				if(!$output->toBool())
-				{
-					return $output;
-				}
-				$form_data .= $output->data;
-			}
-			$payment_methods = array();
-			if($module_info->m_pg1_module_srl)
-			{
-				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg1_module_srl));
-			}
-			if($module_info->m_pg2_module_srl)
-			{
-				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg2_module_srl));
-			}
-			if($module_info->m_pg3_module_srl)
-			{
-				$payment_methods = array_merge($payment_methods, $oEpayModel->getPaymentMethods($module_info->m_pg3_module_srl));
-			}
-
-			Context::set('payment_methods', $payment_methods);
-		}
-
 
 		/*
 		// before
@@ -243,7 +242,7 @@ class epayView extends epay
 		Context::set('form_data', $form_data);
 		Context::set('order_srl', $in_args->order_srl);
 
-		if($_COOKIE['mobile'] == "true")
+		if(Mobile::isMobileCheckByAgent())
 		{
 			$template_path = sprintf("%sm.skins/%s/", $this->module_path, $module_info->mskin);
 			if(!is_dir($template_path) || !$module_info->mskin)
