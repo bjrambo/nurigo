@@ -7,9 +7,9 @@
     <description xml:lang="ko">쇼핑몰, 콘텐츠몰의 마일리지 기능을 제공합니다. 포인트모듈과도 연동됩니다.</description>
     <description xml:lang="en">You can use mileage and point feature and module for shopping mall and contents mall.</description>
     <description xml:lang="jp">ショッピングモール、コンテンツモールのマイレージ機能を提供します。ポイントモジュールとも連動します。</description>
-    <description xml:lang="zh-TW">使用購買點數方式來進行課程內容購買</description>	
-    <version>1.5.4</version>
-    <date>2014-06-25</date>
+    <description xml:lang="zh-TW">使用購買點數方式來進行課程內容購買</description>
+	<version>2.5</version>
+	<date>2017-03-19</date>
     <category>service</category>
     <author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com/">
         <name xml:lang="ko">NURIGO</name>

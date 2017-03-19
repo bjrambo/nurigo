@@ -4,8 +4,8 @@
 	<title xml:lang="jp">商品陳列ウィジェット</title>
 	<description xml:lang="ko">상품목록을 출력하는 위젯입니다.</description>
 	<description xml:lang="jp">商品リストを出力するウィジェットです。</description>
-	<version>1.0</version>
-	<date>2014-02-07</date>
+	<version>2.5</version>
+	<date>2017-03-19</date>
 
 	<author email_address="wiley@nurigo.net" link="http://www.nurigo.net">
 		<name xml:lang="ko">wiley</name>
