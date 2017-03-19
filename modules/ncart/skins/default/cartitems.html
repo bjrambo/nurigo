@@ -50,8 +50,8 @@
 					</div>
 					<div style="float:left;"><a class="nuribtn wihte"><span class="updateQuantity" data-for="{$val->cart_srl}">{$lang->cmd_change}</span></a></div>
 				</td>
-				<td>{nproductItem::printPrice($val->sum_discount_amount)}<br />{$val->discount_info}</td>
-				<td class="item_price">{nproductItem::printPrice($val->sum_discounted_price)}</td>
+				<td>{nproductItem::cartPrintPrice($val->sum_discount_amount)}<br />{$val->discount_info}</td>
+				<td class="item_price">{nproductItem::cartPrintPrice($val->sum_discounted_price)}</td>
 				<td>
 					<a href="#" class="nuribtn grass" onclick="progressOrderIndividual({$val->cart_srl},'{$login_chk}');"><span>{$lang->cmd_order}</span></a><br /><br />
 					<a href="#" class="nuribtn white" href="#" onclick="deleteCartItem({$val->cart_srl}); return false;"><span>{$lang->cmd_remove}</span></a>
@@ -82,14 +82,14 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{nproductItem::printPrice($sum_price)}</td>
+					<td>{nproductItem::cartPrintPrice($sum_price)}</td>
 					<td>-</td>
-					<td><span>{nproductItem::printPrice($total_discount_amount)}</span></td>
+					<td><span>{nproductItem::cartPrintPrice($total_discount_amount)}</span></td>
 					<td>+</td>
-					<td cond="$val"><span>{nproductItem::printPrice($delivery_fee)}</span></td>
+					<td cond="$val"><span>{nproductItem::cartPrintPrice($delivery_fee)}</span></td>
 					<td cond="!$val"><span>0</span></td>
 					<td>=</td>
-					<td cond="$val" class="total_price">{nproductItem::printPrice($total_price)}</td>
+					<td cond="$val" class="total_price">{nproductItem::cartPrintPrice($total_price)}</td>
 					<td cond="!$val" class="total_price">0</td>
 				</tr>
 			</tbody>
