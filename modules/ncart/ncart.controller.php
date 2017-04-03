@@ -684,11 +684,34 @@ class ncartController extends ncart
 			}
 			foreach($fieldset->fields as $key2 => $field)
 			{
+				if($field->column_type == 'tel')
+				{
+					if($field->required == 'Y')
+					{
+						if(empty($in_args->{$field->column_name}[0]) || empty($in_args->{$field->column_name}[1]) || empty($in_args->{$field->column_name}[2]))
+						{
+							return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
+						}
+					}
+				}
+
+				if($field->column_type = 'kr_zip')
+				{
+					if($field->required == 'Y')
+					{
+						if(empty($in_args->{$field->column_name}[0]) || empty($in_args->{$field->column_name}[1]) || empty($in_args->{$field->column_name}[2]) || empty($in_args->{$field->column_name}[3]) || empty($in_args->{$field->column_name}[4]))
+						{
+							return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
+						}
+					}
+				}
+
 				// check whether the field is required.
 				if($field->required == 'Y' && !isset($in_args->{$field->column_name}))
 				{
 					return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
 				}
+
 				if($field->is_head == 'Y' && isset($in_args->{$field->column_name}))
 				{
 					$title = $in_args->{$field->column_name};
