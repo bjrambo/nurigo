@@ -22,13 +22,11 @@ class ncartMobile extends ncartView
 		Context::addJsFile('common/js/jquery.min.js');
 		Context::addJsFile('common/js/xe.min.js');
 
-		$logged_info = Context::get('logged_info');
-
-		if($logged_info)
+		if(Context::get('is_logged'))
 		{
 			Context::set('login_chk', 'Y');
 		}
-		else if(!Context::get('is_logged'))
+		else
 		{
 			Context::set('login_chk', 'N');
 		}

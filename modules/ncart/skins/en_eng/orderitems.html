@@ -232,7 +232,7 @@
 </block>
 <script>
 
-<block cond="$logged_info" >
+<block cond="$is_logged" >
 	var purchaser_name = '{$purchaser->name}';
 	<block cond="$config->address_input=='krzip'">
 		var purchaser_address = '{$purchaser->address[0]}';
@@ -247,9 +247,11 @@
 	var purchaser_cellphone = '{$purchaser->cellphone}';
 	var purchaser_telnum = '{$purchaser->telnum}';
 	var purchaser_chk = 'Y';
-</block>	
-<block cond="!$logged_info" >
+	var my_mileage = {$my_mileage};
+</block>
+<block cond="!$is_logged" >
 	var purchaser_chk= 'N';
+	var my_mileage = 0;
 </block>
 
 var default_recipient = '{$default_address->recipient}';
@@ -259,7 +261,6 @@ var default_postcode = '{$default_address->postcode}';
 var default_address = '{$address1}';
 var default_address2 = '{$address2}';
 var total_price = {$total_price};
-var my_mileage = {$my_mileage};
 var delivery_fee = {$delivery_fee};
 
 (function($) {

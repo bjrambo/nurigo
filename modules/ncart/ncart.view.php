@@ -15,17 +15,14 @@ class ncartView extends ncart
 			$this->module_info->skin = 'default';
 		}
 		$skin = $this->module_info->skin;
-		$oModuleModel = getModel('module');
 		// 템플릿 경로 설정
 		$this->setTemplatePath(sprintf('%sskins/%s', $this->module_path, $skin));
 
-		$logged_info = Context::get('logged_info');
-
-		if($logged_info)
+		if(Context::get('is_logged'))
 		{
 			Context::set('login_chk', 'Y');
 		}
-		else if(!Context::get('is_logged'))
+		else
 		{
 			Context::set('login_chk', 'N');
 		}

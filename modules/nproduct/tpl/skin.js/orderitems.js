@@ -39,7 +39,7 @@
 				if (use_mileage < 0) use_mileage = 0;
 
 				raw_mileage = getRawPrice(use_mileage);
-
+Z
 				if (total_price < raw_mileage && total_price <= my_mileage)
 				{
 					raw_mileage = total_price;
