@@ -101,7 +101,7 @@ class nmileageController extends nmileage
 		$args->balance = $balance;
 		$this->insertMileageHistory($args, $order_srl);
 
-		return new Object();
+		return $output;
 	}
 
 	function minusMileage($member_srl, $amount, $title, $order_srl = 0)
@@ -184,18 +184,55 @@ class nmileageController extends nmileage
 			}
 		}
 
+		if($member_srl)
+		{
+			if($obj->member_srl === $member_srl && !in_array($config->member_mothod, array('all', 'voteuser')))
+			{
+				return new Object();
+			}
+		}
+
 		$point = $config->vote_point;
 		$vote_text = $config->vote_text;
 
-		if(!$vote_text)
+		// 모두에게
+		if($config->member_mothod == 'all')
 		{
-			$output = $this->plusMileage($member_srl, $point, 'vote member');
+			if(!$vote_text)
+			{
+				$output = $this->plusMileage($member_srl, $point, 'vote member');
+				$output = $this->plusMileage($obj->member_srl, $point, 'vote member');
+			}
+			else
+			{
+				$output = $this->plusMileage($member_srl, $point, $vote_text);
+				$output = $this->plusMileage($obj->member_srl, $point, $vote_text);
+			}
 		}
+		//추천 한 사람
+		else if($config->member_mothod == 'voteuser')
+		{
+			if(!$vote_text)
+			{
+				$output = $this->plusMileage($obj->member_srl, $point, 'vote member');
+			}
+			else
+			{
+				$output = $this->plusMileage($obj->member_srl, $point, $vote_text);
+			}
+		}
+		//추천 받은 사람만
 		else
 		{
-			$output = $this->plusMileage($member_srl, $point, $vote_text);
+			if(!$vote_text)
+			{
+				$output = $this->plusMileage($member_srl, $point, 'vote member');
+			}
+			else
+			{
+				$output = $this->plusMileage($member_srl, $point, $vote_text);
+			}
 		}
-
 		return new Object();
 	}
 }
