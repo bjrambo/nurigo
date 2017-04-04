@@ -11,7 +11,6 @@ class nmileageAdminController extends nmileage
 
 	function procNmileageAdminConfig()
 	{
-
 		$args = Context::getRequestVars();
 
 		// save module configuration.

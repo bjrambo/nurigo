@@ -8,6 +8,12 @@
  */
 class nmileage extends ModuleObject
 {
+	protected static $insert_triggers = array(
+		array('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after'),
+		array('member.insertMember', 'nmileage', 'controller', 'triggerMemberInsertAfter', 'after')
+	);
+
+	private static $delete_trigger = array();
 	/**
 	 * @brief 모듈 설치 실행
 	 **/
@@ -20,13 +26,13 @@ class nmileage extends ModuleObject
 	 **/
 	function checkUpdate()
 	{
-		$oDB = &DB::getInstance();
 		$oModuleModel = getModel('module');
-
-		// 2013. 09. 25 when add new menu in sitemap, custom menu add
-		if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after'))
+		foreach (self::$insert_triggers as $trigger)
 		{
-			return true;
+			if (!$oModuleModel->getTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]))
+			{
+				return true;
+			}
 		}
 
 		return FALSE;
@@ -37,16 +43,16 @@ class nmileage extends ModuleObject
 	 **/
 	function moduleUpdate()
 	{
-		$oDB = &DB::getInstance();
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
 
-		// 2013. 09. 25 when add new menu in sitemap, custom menu add
-		if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after'))
+		foreach (self::$insert_triggers as $trigger)
 		{
-			$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'nmileage', 'model', 'triggerModuleListInSitemap', 'after');
+			if (!$oModuleModel->getTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]))
+			{
+				$oModuleController->insertTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
+			}
 		}
-
 
 		return new Object(0, 'success_updated');
 	}

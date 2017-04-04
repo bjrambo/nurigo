@@ -240,4 +240,7 @@
 		<value xml:lang="jp"><![CDATA[ログインしてから使用できます。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[登錄後您即可使用]]></value>		
 	</item>
+	<item name="msg_not_save_module_setting">
+		<value xml:lang="ko"><![CDATA[모듈 설정을 저장하지 못했습니다.]]></value>
+	</item>
 </lang>

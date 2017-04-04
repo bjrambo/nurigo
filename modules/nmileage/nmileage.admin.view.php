@@ -65,8 +65,17 @@ class nmileageAdminView extends nmileage
 		$oNmileageModel = getModel('nmileage');
 		$oModuleModel = getModel('module');
 
+		$member_config = getModel('member')->getMemberConfig();
+		foreach($member_config->signupForm as $val)
+		{
+			if($val->type)
+			{
+				$variable_name[$val->title] = $val->name;
+			}
+		}
 		$config = $oNmileageModel->getModuleConfig();
 		Context::set('config', $config);
+		Context::set('variable_name', $variable_name);
 
 		// list of skins for member module
 		$skin_list = $oModuleModel->getSkins($this->module_path);

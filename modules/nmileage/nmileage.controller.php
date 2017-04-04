@@ -154,6 +154,46 @@ class nmileageController extends nmileage
 
 		return new Object();
 	}
+
+	function triggerMemberInsertAfter($obj)
+	{
+		$oNmileageModel = getModel('nmileage');
+		$config = $oNmileageModel->getModuleConfig();
+
+		if(!$config->variable_name)
+		{
+			return new Object();
+		}
+
+		$extra_obj = unserialize($obj->extra_vars);
+		$vote_id = $extra_obj->{$config->variable_name};
+
+		if(!$vote_id)
+		{
+			return new Object();
+		}
+
+		$member_srl = getModel('member')->getMemberSrlByUserID($vote_id);
+
+		if(!$member_srl)
+		{
+			return new Object();
+		}
+
+		$point = $config->vote_point;
+		$vote_text = $config->vote_text;
+
+		if(!$vote_text)
+		{
+			$output = $this->plusMileage($member_srl, $point, 'vote member');
+		}
+		else
+		{
+			$output = $this->plusMileage($member_srl, $point, $vote_text);
+		}
+
+		return new Object();
+	}
 }
 /* End of file nmileage.controller.php */
 /* Location: ./modules/nmileage/nmileage.controller.php */
