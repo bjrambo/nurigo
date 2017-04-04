@@ -177,7 +177,11 @@ class nmileageController extends nmileage
 
 		if(!$member_srl)
 		{
-			return new Object();
+			$member_srl = getModel('member')->getMemberSrlByEmailAddress($vote_id);
+			if(!$member_srl)
+			{
+				return new Object();
+			}
 		}
 
 		$point = $config->vote_point;
