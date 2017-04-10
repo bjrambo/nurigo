@@ -1,0 +1,74 @@
+<include target="./_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/couponsms/tpl/couponinsert/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+
+<form ruleset="insertList" class="x_form-horizontal" action="{Context::getRequestUri()}" method="post" >
+	<input type="hidden" name="module" value="couponsms" />
+	<input type="hidden" name="act" value="procCouponsmsAdminCouponInsert" />
+	<input type="hidden" name="couponsms_srl" value="{$couponsms_config->couponsms_srl}" cond="$couponsms_config->couponsms_srl" />
+	<input type="hidden" name="xe_validator_id" value="modules/couponsms/tpl/couponinsert/1" />
+
+	<section class="section">
+		<h1>리스트 만들기</h1>
+
+		<div class="x_control-group">
+			<label class="x_control-label">항목이름</label>
+			<div class="x_controls">
+				<input type="text" name="title" value="{$couponsms_config->title}"/>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">유효기간</label>
+			<div class="x_controls">
+				<input type="text" name="term_regdate" value="{$couponsms_config->term_regdate}" style="width:50px" />일
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">사용처</label>
+			<div class="x_controls">
+				<input type="text" name="use" value="{$couponsms_config->use}"  />
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">회신전화번호</label>
+			<div class="x_controls">
+				<input type="text" name="phone_number" value="{$couponsms_config->phone_number}"  />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">쿠폰혜택</label>
+			<div class="x_controls">
+				<input type="text" name="use_boon" value="{$couponsms_config->use_boon}" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<p class="x_control-label">사용가능한 그룹</p>
+			<div class="x_controls">
+				<block loop="$group_list=>$group_srl,$group">
+					<label for="group_srl{$group_srl}" class="x_inline">
+						<input type="checkbox" id="group_srl{$group_srl}" name="group_srl[]" value="{$group_srl}" checked="checked"|cond="in_array($group_srl, $couponsms_config_group)" /> {$group->title}
+					</label>
+				</block>
+				<p>이 쿠폰을 이용할 수 있는 그룹을 선택해주세요. 선택된 그룹만 이 쿠폰이 사용이 가능합니다. (조회는 가능)</p>
+			</div>
+		</div>
+		<div class="x_control-group" cond="$couponsms_srl">
+			<label class="x_control-label">쿠폰 하이퍼링크</label>
+			<div class="x_controls">
+				{$default_url}index.php?act=dispCouponsmsSendMessageView&couponsms_srl={$couponsms_srl}
+				<p>이 주소를 복사해서 유저에게 링크를 만들어서 제공해주시면 됩니다.</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="btnArea x_clearfix">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>

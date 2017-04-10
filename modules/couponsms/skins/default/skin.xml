@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">기본쿠폰모듈</title>
+	<version>1.0</version>
+	<date>2016-10-28</date>
+	<author email_address="contact@nurigo.net" link="http://nurigo.net">
+		<name xml:lang="ko">누리고</name>
+	</author>
+	<license>GPL v2</license>
+	<extra_vars>
+	</extra_vars>
+</skin>

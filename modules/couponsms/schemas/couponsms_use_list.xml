@@ -1,0 +1,10 @@
+<table name="couponsms_use_list">
+	<column name="couponuser_srl" type="varchar" size="11" notnull="notnill" primary_key="primary_key" />
+	<column name="couponsms_srl" type="number" size="11" notnull="notnull" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" />
+	<column name="term_regdate" type="date" />
+	<column name="regdate" type="date" />
+	<column name="title" type="varchar" size="250" />
+	<column name="success" type="char" size="1" />
+	<column name="w_false" type="varchar" size="250" />
+</table>

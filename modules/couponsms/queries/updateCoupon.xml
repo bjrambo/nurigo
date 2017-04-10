@@ -1,0 +1,16 @@
+<query id="updateCoupon" action="update">
+	<tables>
+		<table name="couponsms_list" />
+	</tables>
+	<columns>
+		<column name="term_regdate" var="term_regdate" />
+		<column name="title" var="title" />
+		<column name="use" var="use" />
+		<column name="use_boon" var="use_boon" />
+		<column name="phone_number" var="phone_number" />
+		<column name="group_srl" var="group_srl" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="couponsms_srl" var="couponsms_srl"  />
+	</conditions>
+</query>

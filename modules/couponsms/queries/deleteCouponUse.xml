@@ -1,0 +1,8 @@
+<query id="deleteCouponUse" action="delete">
+	<tables>
+		<table name="couponsms_use_list" />
+	</tables>
+	<conditions>
+		<condition operation="below" column="regdate" var="old_date" />
+	</conditions>
+</query>

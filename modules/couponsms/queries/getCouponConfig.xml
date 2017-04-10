@@ -1,0 +1,11 @@
+<query id="getCouponConfig" action="select">
+	<tables>
+		<table name="couponsms_list" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="couponsms_srl" var="couponsms_srl" />
+	</conditions>
+</query>

@@ -1,0 +1,15 @@
+<query id="insertCoupon" action="insert">
+	<tables>
+		<table name="couponsms_use_list" />
+	</tables>
+	<columns>
+		<column name="couponsms_srl" var="couponsms_srl" filter="number" notnull="notnull" />
+		<column name="couponuser_srl" var="couponuser_srl" />
+		<column name="member_srl" var="member_srl" />
+		<column name="title" var="title" />
+		<column name="term_regdate" var="term_regdate" />
+		<column name="regdate" var="regdate" />
+		<column name="success" var="success" />
+		<column name="w_false" var="w_false" />
+	</columns>
+</query>

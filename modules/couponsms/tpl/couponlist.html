@@ -1,0 +1,96 @@
+<include target="./_header.html" />
+
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<div class="x_clearfix">
+	<form ruleset="cleanLogs" action="{Context::getRequestUri()}" method="post">
+		<fieldset>
+			<input type="hidden" name="module" value="couponsms" />
+			<input type="hidden" name="act" value="procCouponsmsAdminCouponDelete" />
+			<button type="submit" name="old_date" value="{date('Ymd', strtotime('-1 month'))}" class="x_btn">한 달 이전의 쿠폰삭제</button>
+			<p class="x_help-block"><span class="x_label x_label-important">주의!</span> 발송이 실패하여 확인을 하지 못한 쿠폰정보도 같이 삭제됩니다.</p>
+		</fieldset>
+	</form>
+</div>
+<table id="CouponList" class="x_table x_table-striped x_table-hover">
+	<caption>
+		<strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong>
+	</caption>
+	<thead>
+	<tr>
+		<th scope="col">{$lang->no}</th>
+		<th scope="col">유저닉네임</th>
+		<th scope="col">쿠폰이름</th>
+		<th scope="col">유효기간</th>
+		<th scope="col">쿠폰번호</th>
+		<th scope="col">발송</th>
+		<th scope="col">발급날짜</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr loop="$coupon_user=>$no,$val">
+		<td>{$no}</td>
+		<td>
+			{@
+				$oMemberModel = getModel('member');
+				$member_info = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl);
+				$oCouponsmsModel = getModel('couponsms');
+				$couponsms_s = $oCouponsmsModel->getCouponConfig($val->couponsms_srl);
+			}
+			{$member_info->nick_name}
+		</td>
+		<td>{$couponsms_s->data->title}</td>
+		<td>{zdate($val->term_regdate, 'Y년m월d일')}까지</td>
+		<td>{$val->couponuser_srl}</td>
+		<td>
+			<block cond="$val->success == 'Y'"><span style="color: rgb(56, 71, 255); font-weight: bold">성공</span></block>
+			<block cond="$val->success != 'Y'"><span style="color: rgb(255, 67, 67); font-weight: bold">실패</span></block>
+		</td>
+		<td>{zdate($val->regdate, 'Y-m-d H:i:s')}</td>
+	</tr>
+	<tr cond="!$coupon_user">
+		<td>데이터가 없습니다.</td>
+	</tr>
+	</tbody>
+</table>
+
+<div class="x_clearfix">
+	<form cond="$page_navigation" action="{getUrl('')}" class="x_pagination x_pull-left" no-error-return-url="true" style="margin-top:0">
+		{@
+		$urlInfo = parse_url(getRequestUriByServerEnviroment());
+		parse_str($urlInfo['query'], $param);
+		}
+		<input loop="$param=>$key,$val" cond="!in_array($key, array('mid', 'vid', 'act'))" type="hidden" name="{$key}" value="{$val}" />
+		<ul>
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+				{@$is_go_to = true}
+				<li>
+					<a href="#go_to" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$is_go_to" id="go_to" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+				</li>
+			</block>
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+				{@$is_go_to = true}
+				<li>
+					<a href="#go_to" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$is_go_to" id="go_to" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+				</li>
+			</block>
+			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
+	</form>
+</div>
+

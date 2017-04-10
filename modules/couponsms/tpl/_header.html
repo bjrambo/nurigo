@@ -1,0 +1,22 @@
+<div class="x_page-header">
+	<h1>
+		쿠폰 문자 발송
+	</h1>
+</div>
+
+<p id="descModule" class="x_alert x_alert-info" hidden="hidden">발급받은 쿠폰을 문자로 발송하는 모듈입니다.</p>
+
+<ul class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act == 'dispCouponsmsAdminIndex'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminIndex')}">시작</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispCouponsmsAdminCouponInsert'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponInsert')}"><block cond="!$couponsms_srl">쿠폰 추가</block><block cond="$couponsms_srl">쿠폰 수정</block></block> </a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispCouponsmsAdminSetting'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminSetting')}">세팅</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispCouponsmsAdminCouponList'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponList')}">로그기록</a>
+	</li>
+</ul>

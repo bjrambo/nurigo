@@ -1,0 +1,37 @@
+<include target="./_header.html" />
+{@ debugPrint($val);}
+<table class="x_table x_table-striped x_table-hover">
+	<thead>
+	<th scope="col">쿠폰번호</th>
+	<th scope="col">쿠폰이름</th>
+	<th scope="col">유효기간</th>
+	<th scope="col">사용처</th>
+	<th scope="col">쿠폰혜택</th>
+	<th scope="col">이용가능한사람</th>
+	<th scope="col">{$lang->cmd_edit}</th>
+	</thead>
+	<tbody>
+	<tr loop="$coupon_list => $val">
+		{@
+			$oMemberModel = getModel('member');
+			$group_srl = unserialize($val->group_srl);
+		}
+		<td>{$val->couponsms_srl}</td>
+		<td>{$val->title}</td>
+		<td>{$val->term_regdate}일</td>
+		<td>{$val->use}</td>
+		<td>{$val->use_boon}</td>
+		<td>
+			<block loop="$group_srl=>$val2">
+				{@ $group = $oMemberModel->getGroup($val2); }
+				{$group->title}
+			</block>
+		</td>
+		<td>
+			<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponInsert', 'couponsms_srl', $val->couponsms_srl)}" class="x_icon-cog" title="{$lang->cmd_setup}">{$lang->cmd_setup}</a>
+			<a href="{getUrl('', 'module', 'admin', 'act', 'dispMyscheduleAdminDeleteList', 'set_srl', $val->set_srl)}" class="x_icon-remove" title="{$lang->cmd_delete}">{$lang->cmd_delete}</a>
+		</td>
+	</tr>
+	</tbody>
+</table>
+

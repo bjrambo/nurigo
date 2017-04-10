@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+	<permissions>
+		<permission action="dispCouponsmsAdminIndex" target="manager" />
+	</permissions>
+
+	<actions>
+		<!-- admin view -->
+		<action name="dispCouponsmsAdminIndex" type="view" admin_index="true" />
+		<action name="dispCouponsmsAdminCouponList" type="view" />
+		<action name="dispCouponsmsAdminCouponInsert" type="view" />
+		<action name="dispCouponsmsAdminSetting" type="view" />
+		<!-- admin Controller-->
+		<action name="procCouponsmsAdminStart" type="controller" />
+		<action name="procCouponsmsAdminCouponInsert" type="controller" />
+		<action name="procCouponsmsAdminSetting" type="controller" />
+		<action name="procCouponsmsAdminCouponDelete" type="controller" />
+
+		<!-- user view -->
+		<action name="dispCouponsmsSendMessageView" type="view" />
+
+		<!-- user Controller -->
+		<action name="procCouponsmsSendMessage" type="controller" />
+	</actions>
+</module>

@@ -1,0 +1,9 @@
+<table name="couponsms_list">
+	<column name="couponsms_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="term_regdate" type="varchar" size="250" />
+	<column name="phone_number" type="varchar" size="250" />
+	<column name="title" type="varchar" size="250" />
+	<column name="use" type="varchar" size="250" />
+	<column name="use_boon" type="varchar" size="250" />
+	<column name="group_srl" type="varchar" size="250" />
+</table>

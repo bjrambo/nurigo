@@ -1,0 +1,62 @@
+<include target="./_header.html" />
+
+<form ruleset="insertConfig" action="./" method="post" class="x_form-horizontal" id="fo_couponsms">
+	<input type="hidden" name="module" value="couponsms" />
+	<input type="hidden" name="act" value="procCouponsmsAdminSetting" />
+
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label">문자타입</label>
+			<div class="x_controls">
+				<label for="sending_method_cta" class="x_inline"><input type="checkbox" name="sending_method[cta]" id="sending_method_cta" value="1" checked="checked"|cond="isset($config->sending_method['cta'])" /> 친구톡</label>
+				<label for="sending_method_sms" class="x_inline"><input type="checkbox" name="sending_method[sms]" id="sending_method_sms" value="1" checked="checked"|cond="isset($config->sending_method['sms'])" /> 문자</label>
+				<p class="x_help-block">알림타입을 결정합니다. 선택한 항목에 따라 사용이 결정됩니다. 친구톡 사용시, 친구톡실패할 경우 해당 번호로 문자메세지를 전송합니다. 친구톡의 경우 coolsms 에서 발급받은 sender_key가 있어야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="variable_name">회원전화번호 변수</label>
+			<div class="x_controls">
+				<select name="variable_name" id="variable_name">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$variable_name => $val" value="{$val}" selected="selected"|cond="$config->variable_name == $val">{$val}</option>
+				</select>
+				<p class="x_help-block">회원전화번호 변수를 선택합니다. 회원전화번호 변수가 1개일 경우 설치시 자동으로 설정이 저장됩니다. 이 경우 설정할 필요가 없습니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="sender_key">sender_key</label>
+			<div class="x_controls">
+				<label class="x_inline">
+					<input type="text" name="sender_key" id="sender_key" value="{$config->sender_key}" />
+				</label>
+				<p class="x_help-block">알림톡신청시 발급받은 센더키를 입력하세요. 샌더키 적용시 알림톡 모듈이 없어도 정상적인 작동을 하게 도와줍니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$config->layout_srl==$val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#aboutLayout" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+				<p class="x_help-block" id="aboutLayout" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" onchange="doDisplaySkinColorset(this); return false;">
+					<option loop="$skin_list => $key, $val" value="{$key}" selected="selected"|cond="$config->skin == $key">
+						{$val->title} ({htmlspecialchars($key)})
+					</option>
+				</select>
+			</div>
+		</div>
+	</section>
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+		</div>
+	</div>
+</form>
