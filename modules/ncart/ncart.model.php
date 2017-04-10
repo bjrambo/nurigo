@@ -521,6 +521,7 @@ class ncartModel extends ncart
 			return $output;
 		}
 		$favorite_items = $output->data;
+		debugPrint($favorite_items);
 		if(!is_array($favorite_items))
 		{
 			$favorite_items = array();
@@ -532,7 +533,7 @@ class ncartModel extends ncart
 			$favorite_items[$key]->thumbnail = $retobj->item_list[$key]->thumbnail_url;
 		}
 
-		return $favorite_items;
+		return $retobj;
 	}
 
 
