@@ -532,7 +532,7 @@ class ncartModel extends ncart
 			$favorite_items[$key]->thumbnail = $retobj->item_list[$key]->thumbnail_url;
 		}
 
-		return $favorite_items;
+		return $retobj;
 	}
 
 

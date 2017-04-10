@@ -168,7 +168,7 @@ class ncartView extends ncart
 
 		// favorite items
 		$favorite_items = $oNcartModel->getFavoriteItems($logged_info->member_srl);
-		Context::set('favorite_items', $favorite_items);
+		Context::set('favorite_items', $favorite_items->item_list);
 
 		// get module config
 		$config = $oNcartModel->getModuleConfig();

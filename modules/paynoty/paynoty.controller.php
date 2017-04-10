@@ -66,9 +66,10 @@ class paynotyController extends paynoty
 			$args = new stdClass();
 			$args->product_name = $product_name;
 			$args->content = $sms_message;
+			// HECK : 바빠서 일딴 발리어블 구하는 방법 추가안할 예정.
 			if($config->phone_number_type == 'logged')
 			{
-				if(!Context::get('is_logged') || !$config->variable_name)
+				if(!Context::get('is_logged') && !$config->variable_name || !Context::get('is_logged'))
 				{
 					$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
 				}
