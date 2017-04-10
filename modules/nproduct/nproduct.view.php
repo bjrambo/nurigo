@@ -322,7 +322,7 @@ class nproductView extends nproduct
 	 */
 	function dispNproductItemDetail()
 	{
-		if($_COOKIE['mobile'] == "true")
+		if(Mobile::isMobileCheckByAgent())
 		{
 			Context::set('is_mobile', 'true');
 		}
