@@ -71,7 +71,7 @@ class paynotyController extends paynoty
 			{
 				if(!Context::get('is_logged') && !$config->variable_name || !Context::get('is_logged'))
 				{
-					$args->recipient_no = $extra_vars->phone[0] . $extra_vars->phone[1] . $extra_vars->phone[2];
+					$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
 				}
 				else
 				{
@@ -80,7 +80,7 @@ class paynotyController extends paynoty
 			}
 			else
 			{
-				$args->recipient_no = $extra_vars->phone[0] . $extra_vars->phone[1] . $extra_vars->phone[2];
+				$args->recipient_no = $extra_vars->tel1[0] . $extra_vars->tel1[1] . $extra_vars->tel1[2];
 			}
 			$args->sender_no = $config->sender_no;
 			if(isset($config->sending_method['cta']) || isset($config->sending_method['sms']) && isset($config->sending_method['cta']))
