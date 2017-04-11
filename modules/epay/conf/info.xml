@@ -8,7 +8,7 @@
     <description xml:lang="en">This module supports online payment such as paypal.</description>
     <description xml:lang="jp">Edy、PayPalなどのオンライン決済をサポートするモジュールです。</description>
     <description xml:lang="zh-TW">支援第三方支付工具電子商務,如: PayPal、歐付寶...等</description>
-	<version>2.5</version>
+	<version>2.5.2</version>
 	<date>2017-03-19</date>
     <category>service</category>
 	<author email_address="contact@nurigo.net" link="http://www.nurigo.net">
