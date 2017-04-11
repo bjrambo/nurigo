@@ -47,6 +47,38 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label">쿠폰타입</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="discount_type" value="percent" checked="checked"|cond="$couponsms_config->discount_type == 'percent'" /> 퍼센트할인</label>
+				<label class="x_inline"><input type="radio" name="discount_type" value="price" checked="checked"|cond="$couponsms_config->discount_type == 'price'" /> 가격할인</label>
+				<label class="x_inline"><input type="radio" name="discount_type" value="" checked="checked"|cond="!$couponsms_config->discount_type" /> 사용안함</label>
+				<p class="x_help-block">쿠폰의 타입을 설정합니다 각 선택에 따라 할인가의 단위가 바뀌게 됩니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">할인가</label>
+			<div class="x_controls">
+				<input type="number" name="discount" value="{$couponsms_config->discount}" />
+				<p class="x_help-block">쿠폰의 타입설정에 따라 퍼센트, 원으로 바뀝니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">무료배송</label>
+			<div class="x_controls">
+				<label class="x_inline"><input type="radio" name="free_delivery" value="Y" checked="checked"|cond="$couponsms_config->free_delivery == 'Y'" /> 무료배송</label>
+				<label class="x_inline"><input type="radio" name="free_delivery" value="N" checked="checked"|cond="$couponsms_config->free_delivery != 'Y'" /> 사용안함</label>
+				<p class="x_help-block">사용할경우 무료배송을 지원해줍니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">유저당 최대갯수</label>
+			<div class="x_controls">
+				<input type="number" name="maximum_count" value="{$couponsms_config->maximum_count}" />
+				<p class="x_help-block">쿠폰의 타입설정에 따라 퍼센트, 원으로 바뀝니다.</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
 			<p class="x_control-label">사용가능한 그룹</p>
 			<div class="x_controls">
 				<block loop="$group_list=>$group_srl,$group">

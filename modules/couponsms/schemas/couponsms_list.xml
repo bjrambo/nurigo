@@ -5,5 +5,9 @@
 	<column name="title" type="varchar" size="250" />
 	<column name="use" type="varchar" size="250" />
 	<column name="use_boon" type="varchar" size="250" />
+	<column name="discount_type" type="varchar" size="20" />
+	<column name="discount" type="number" size="50" />
+	<column name="free_delivery" type="varchar" size="10" />
+	<column name="maximum_count" type="number" size="10" />
 	<column name="group_srl" type="varchar" size="250" />
 </table>

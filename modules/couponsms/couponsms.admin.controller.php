@@ -21,6 +21,11 @@ class couponsmsAdminController extends couponsms
 		$args->phone_number = $obj->phone_number;
 		$args->use = $obj->use;
 		$args->use_boon = $obj->use_boon;
+		$args->discount_type = $obj->discount_type;
+		$args->discount = $obj->discount;
+		$args->free_delivery = $obj->free_delivery;
+		$args->maximum_count = $obj->maximum_count;
+		debugPrint($args);
 		if($obj->group_srl)
 		{
 			$args->group_srl = serialize($obj->group_srl);

@@ -9,6 +9,10 @@
 		<column name="title" var="title" />
 		<column name="use" var="use" />
 		<column name="use_boon" var="use_boon" />
+		<column name="discount_type" var="discount_type" />
+		<column name="discount" var="discount" />
+		<column name="free_delivery" var="free_delivery" />
+		<column name="maximum_count" var="maximum_count" />
 		<column name="group_srl" var="group_srl" />
 	</columns>
 </query>

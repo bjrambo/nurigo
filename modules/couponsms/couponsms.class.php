@@ -9,6 +9,9 @@ class couponsms extends ModuleObject
 
 	function checkUpdate()
 	{
+		$oDB = DB::getInstance();
+		$oModuleModel = getModel('module');
+
 		$config = getModel('couponsms')->getConfig();
 
 		$member_config = getModel('member')->getMemberConfig();
@@ -24,11 +27,48 @@ class couponsms extends ModuleObject
 		{
 			return true;
 		}
+
+		if(!$oDB->isColumnExists("couponsms_list", "discount_type"))
+		{
+			return true;
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "discount"))
+		{
+			return true;
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "free_delivery"))
+		{
+			return true;
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "maximum_count"))
+		{
+			return true;
+		}
+
 		return false;
 	}
 
 	function moduleUpdate()
 	{
+		$oDB = DB::getInstance();
+
+		if(!$oDB->isColumnExists("couponsms_list", "discount_type"))
+		{
+			$oDB->addColumn("couponsms_list", "discount_type", "varchar", "20");
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "discount"))
+		{
+			$oDB->addColumn("couponsms_list", "discount", "number", "50");
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "free_delivery"))
+		{
+			$oDB->addColumn("couponsms_list", "free_delivery", "varchar", "10");
+		}
+		if(!$oDB->isColumnExists("couponsms_list", "maximum_count"))
+		{
+			$oDB->addColumn("couponsms_list", "maximum_count", "number", "10");
+		}
+
 		$oModuleController = getController('module');
 
 		$config = getModel('couponsms')->getConfig();
