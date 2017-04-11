@@ -34,6 +34,7 @@ class cympusadminAdminController extends cympusadmin
 		// module_srl의 값에 따라 insert/update
 		if(!$args->module_srl)
 		{
+			// 모듈 인스턴스 가져오는 과정에서 문제 생겨서 따로 오브잭트에서 쿼리함
 			$obj = new stdClass();
 			$obj->module = 'cympusadmin';
 			$module_list = getModel('module')->getModuleSrlList($obj);
