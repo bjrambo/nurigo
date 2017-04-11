@@ -2,7 +2,7 @@
 <module version="0.2">
 	<title xml:lang="ko">디지털 콘텐츠 관리</title>
 	<description xml:lang="ko">콘텐츠 파일 업로드 관리 모듈입니다.</description>
-	<version>2.5</version>
+	<version>2.5.2</version>
 	<date>2017-03-19</date>
 	<category>service</category>
 	<author email_address="contact@nurigo.net" link="http://www.xeshoppingmall.com">
