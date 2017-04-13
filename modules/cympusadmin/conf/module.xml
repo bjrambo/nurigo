@@ -17,7 +17,11 @@
 
 		<action name="procCympusadminAdminInsertModInst" type="controller" standalone="true" />
 		<action name="procCympusadminAdminConfig" type="controller" standalone="true" />
+		<action name="procCympusadminAdminDeleteModInst" type="controller" />
 		<!-- user -->
 		<action name="dispCympusadminAdminIndex" type="view" standalone="true" index="true" />
+
+		<!-- get -->
+		<action name="getCympusadminAdminDeleteModInst" type="model" />
 	</actions>
 </module>
