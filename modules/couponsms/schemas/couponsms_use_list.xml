@@ -5,6 +5,7 @@
 	<column name="term_regdate" type="date" />
 	<column name="regdate" type="date" />
 	<column name="title" type="varchar" size="250" />
-	<column name="success" type="char" size="1" />
+	<column name="sms_success" type="varchar" size="10" />
+	<column name="use_success" type="varchar" size="10" />
 	<column name="w_false" type="varchar" size="250" />
 </table>

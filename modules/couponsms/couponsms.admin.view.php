@@ -17,6 +17,22 @@ class couponsmsAdminView extends couponsms
 		Context::set('coupon_list', $couponsms_list);
 	}
 
+	function dispCouponsmsAdminCouponUser()
+	{
+		$couponsms_srl = Context::get('couponsms_srl');
+		$coupon_config = getModel('couponsms')->getCouponConfig($couponsms_srl);
+
+		Context::set('coupon_config', $coupon_config->data);
+	}
+
+	function dispCouponsmsAdminCouponDelete()
+	{
+		$couponsms_srl = Context::get('couponsms_srl');
+		$coupon_config = getModel('couponsms')->getCouponConfig($couponsms_srl);
+
+		Context::set('coupon_config', $coupon_config->data);
+	}
+
 	function dispCouponsmsAdminCouponInsert()
 	{
 		$couponsms_srl = Context::get('couponsms_srl');

@@ -1,0 +1,27 @@
+<include target="./_header.html" />
+
+<form class="x_form-horizontal" action="{Context::getRequestUri()}" method="post">
+	<input type="hidden" name="module" value="couponsms" />
+	<input type="hidden" name="couponsms_srl" value="{$coupon_config->couponsms_srl}" />
+	<input type="hidden" name="act" value="procCouponsmsAdminCouponDelete" />
+
+	<section class="section">
+		<h1>{$lang->confirm_delete}</h1>
+
+		<div class="x_control-group">
+			<label class="x_control-label">이름</label>
+			<div class="x_controls">
+				<label class="x_inline">{$coupon_config->title}</label>
+			</div>
+		</div>
+	</section>
+
+	<div class="btnArea x_clearfix">
+		<div class="x_pull-left">
+			<a href="{getUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminIndex')}" type="button" class="x_btn">{$lang->cmd_back}</a>
+		</div>
+		<div class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_delete}</button>
+		</div>
+	</div>
+</form>

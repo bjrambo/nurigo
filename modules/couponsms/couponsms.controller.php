@@ -31,10 +31,9 @@ class couponsmsController extends couponsms
 		$output = $oCouponsmsModel->getCouponConfig($couponsms_srl);
 		$couponsms = $output->data;
 		$c_group_srl = unserialize($couponsms->group_srl);
-
+		$isGroup = FALSE;
 		if(is_array($c_group_srl) && count($c_group_srl) > 0)
 		{
-			$isGroup = FALSE;
 			$group_list = $oMemberModel->getMemberGroups($logged_info->member_srl);
 
 			foreach($group_list as $group_srl => &$group_title)
@@ -53,7 +52,7 @@ class couponsmsController extends couponsms
 			return new Object(-1, '로그인하지 않은 사용자는 사용할 수 없습니다.');
 		}
 
-		if(!$logged_info->phone[1] || !$logged_info->phone[2])
+		if(!$logged_info->{$config->variable_name}[1] || !$logged_info->{$config->variable_name}[2])
 		{
 			return new Object(-1, '회원정보에 휴대폰번호를 입력하지 않아 쿠폰을 발급할 수 없습니다.');
 		}

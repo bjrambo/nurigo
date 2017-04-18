@@ -45,6 +45,19 @@ class couponsms extends ModuleObject
 			return true;
 		}
 
+		if(!$oDB->isColumnExists('couponsms_use_list', 'sms_success'))
+		{
+			return true;
+		}
+		if(!$oDB->isColumnExists('couponsms_use_list', 'use_success'))
+		{
+			return true;
+		}
+		if($oDB->isColumnExists('couponsms_use_list', 'success'))
+		{
+			return true;
+		}
+
 		return false;
 	}
 

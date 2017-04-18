@@ -11,11 +11,15 @@
 		<action name="dispCouponsmsAdminCouponList" type="view" />
 		<action name="dispCouponsmsAdminCouponInsert" type="view" />
 		<action name="dispCouponsmsAdminSetting" type="view" />
+		<action name="dispCouponsmsAdminCouponDelete" type="view" />
+		<action name="dispCouponsmsAdminCouponUser" type="view" />
 		<!-- admin Controller-->
 		<action name="procCouponsmsAdminStart" type="controller" />
 		<action name="procCouponsmsAdminCouponInsert" type="controller" />
 		<action name="procCouponsmsAdminSetting" type="controller" />
+		<action name="procCouponsmsAdminCouponRecall" type="controller" />
 		<action name="procCouponsmsAdminCouponDelete" type="controller" />
+		<action name="procCouponsmsAdminCouponUser" type="controller" />
 
 		<!-- user view -->
 		<action name="dispCouponsmsSendMessageView" type="view" />
