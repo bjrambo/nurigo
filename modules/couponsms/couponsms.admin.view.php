@@ -93,4 +93,19 @@ class couponsmsAdminView extends couponsms
 		Context::set('coupon_user', $coupon_user);
 		Context::set('page_navigation', $output->page_navigation);
 	}
+
+	function dispCouponsmsAdminHistory()
+	{
+		$args = new stdClass();
+		$args->page = Context::get('page');
+		$args->list_count = '20';
+		$args->page_count = '10';
+		$output = executeQueryArray('couponsms.getHistory', $args);
+
+		Context::set('history_data', $output->data);
+		Context::set('total_count', $output->total_count);
+		Context::set('total_page', $output->total_page);
+		Context::set('page', $output->page);
+		Context::set('page_navigation', $output->page_navigation);
+	}
 }

@@ -13,6 +13,8 @@
 		<action name="dispCouponsmsAdminSetting" type="view" />
 		<action name="dispCouponsmsAdminCouponDelete" type="view" />
 		<action name="dispCouponsmsAdminCouponUser" type="view" />
+		<action name="dispCouponsmsAdminHistory" type="view" />
+
 		<!-- admin Controller-->
 		<action name="procCouponsmsAdminStart" type="controller" />
 		<action name="procCouponsmsAdminCouponInsert" type="controller" />

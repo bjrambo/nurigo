@@ -204,6 +204,7 @@ class couponsmsAdminController extends couponsms
 		}
 
 		$is_return = false;
+		$count = 0;
 		for($i=1; $i <= $couponsms->maximum_count; $i++)
 		{
 			$couponuser_srl = getNextSequence();
@@ -215,7 +216,7 @@ class couponsmsAdminController extends couponsms
 				$is_return = true;
 				break;
 			}
-
+			$count++;
 			$output = executeQuery('couponsms.insertCouponUser', $args);
 			if(!$output->toBool())
 			{
@@ -280,22 +281,18 @@ class couponsmsAdminController extends couponsms
 			$history_args = new stdClass();
 			$history_args->couponuser_srl = $args->couponuser_srl;
 			$history_args->member_srl = $member_info->member_srl;
-			$history_args->log_text = '관리자가 회원에게 쿠폰 '.$i.'장을 발급';
+			$history_args->log_text = '관리자가 회원에게 쿠폰 '.$count.'장을 발급';
 			$history_args->sms_success = $setting_args->success;
 			$history_args->use_success = 'N';
 			$history_output = getController('couponsms')->insertHistory($history_args);
-			if($history_output->toBool())
-			{
-				return $history_output;
-			}
 		}
 		else
 		{
-			if($is_return == true)
-			{
-				return new Object(-1, '쿠폰을 지급하는 과정에서 갯수 초과로 인해 쿠폰지급이 중지되었었습니다. 유저회원에서 갯수를 확인해보시기 바랍니다.');
-			}
 			return $output;
+		}
+		if($is_return == true)
+		{
+			return new Object(-1, '쿠폰을 지급하는 과정에서 갯수 초과로 인해 쿠폰지급이 중지되었었습니다. 유저회원에서 갯수를 확인해보시기 바랍니다.');
 		}
 
 		$this->setMessage('success_registed');
