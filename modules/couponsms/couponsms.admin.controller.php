@@ -292,11 +292,13 @@ class couponsmsAdminController extends couponsms
 
 		$this->setMessage('success_registed');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if (Context::get('success_return_url'))
 		{
-			$returnUrl = Context::get('success_return_url') ?  Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl);
-			header('location: ' .$returnUrl);
-			return;
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
