@@ -82,6 +82,20 @@ class couponsms extends ModuleObject
 			$oDB->addColumn("couponsms_list", "maximum_count", "number", "10");
 		}
 
+		if(!$oDB->isColumnExists("couponsms_use_list", "sms_success"))
+		{
+			$oDB->addColumn("couponsms_use_list", "sms_success", "varchar", "10");
+		}
+		if(!$oDB->isColumnExists("couponsms_use_list", "use_success"))
+		{
+			$oDB->addColumn("couponsms_use_list", "use_success", "varchar", "10");
+		}
+		if($oDB->isColumnExists("couponsms_use_list", "success"))
+		{
+			$oDB->dropColumn("couponsms_use_list", "success");
+		}
+
+
 		$oModuleController = getController('module');
 
 		$config = getModel('couponsms')->getConfig();
