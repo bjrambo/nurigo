@@ -1,0 +1,6 @@
+<table name="nstore_member_total">
+	<column name="member_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="total_price" type="number" size="11" notnull="notnull" />
+	<column name="last_price" type="number" size="11" notnull="notnull" />
+	<column name="last_regdate" type="date" notnull="notnull" />
+</table>

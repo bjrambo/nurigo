@@ -437,6 +437,7 @@ class ncartView extends ncart
 			return new Object(-1, 'msg_invalid_order_number');
 		}
 		Context::set('order_info', $order_info);
+		debugPrint($order_info);
 		$extra_vars = unserialize($order_info->extra_vars);
 
 		// 주문한 사람이 아니라면

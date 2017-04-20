@@ -44,7 +44,7 @@
 				<td>{number_format($val->quantity)}</td>
 				<td>{nproductItem::printPrice($val->price)}</td>
 				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
-				<td class="item_price">{nproductItem::printPrice($val->price  * $val->quantity)}</td>
+				<td class="item_price">{nproductItem::printPrice($val->discounted_price  * $val->quantity)}</td>
 				<td cond="!$logged_info"><font color=red><h2>{$val->order_srl}</h2></font></td>
 				{@$total_price+=$item_sum}
 			</tr>

@@ -213,8 +213,6 @@ class nstoreController extends nstore
 
 	function insertOrder($in_args, &$cart)
 	{
-		$oNstoreModel = getModel('nstore');
-
 		if(!$in_args)
 		{
 			$args = new stdClass();
