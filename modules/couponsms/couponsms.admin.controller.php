@@ -74,6 +74,7 @@ class couponsmsAdminController extends couponsms
 		$config->sending_method = $obj->sending_method;
 		$config->sender_key = $obj->sender_key;
 		$config->variable_name = $obj->variable_name;
+		$config->use_shop_coupon = $obj->use_shop_coupon;
 		$this->setMessage('success_updated');
 
 		$oModuleController->updateModuleConfig('couponsms', $config);
@@ -194,6 +195,7 @@ class couponsmsAdminController extends couponsms
 			return $couponsms_data;
 		}
 
+		$is_return = false;
 		for($i=1; $i <= $couponsms->maximum_count; $i++)
 		{
 			$couponuser_srl = getNextSequence();
@@ -202,11 +204,11 @@ class couponsmsAdminController extends couponsms
 
 			if(count($couponsms_data->data) >= $couponsms->maximum_count)
 			{
-				return new Object(-1, $couponsms->term_regdate.'일 이내 쿠폰을 더 이상 발급할 수 없습니다. 다만 부족한 갯수가 남아 있을경우 해당 회원에게 좀 더 쿠폰이 채워져있으니 걱정하지마세요.');
+				$is_return = true;
+				break;
 			}
 
 			$output = executeQuery('couponsms.insertCouponUser', $args);
-			debugPrint($output);
 			if(!$output->toBool())
 			{
 				return $output;
@@ -229,7 +231,8 @@ class couponsmsAdminController extends couponsms
 				{
 					$setting_args = new stdClass();
 					$setting_args->couponuser_srl = $args->couponuser_srl;
-					$setting_args->success = 'Y';
+					$setting_args->sms_success = 'Y';
+					$setting_args->use_success = 'N';
 					$setting_args->w_false = null;
 					$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
 					if(!$setting_output->toBool())
@@ -242,7 +245,8 @@ class couponsmsAdminController extends couponsms
 				{
 					$setting_args = new stdClass();
 					$setting_args->couponuser_srl = $args->couponuser_srl;
-					$setting_args->success = 'N';
+					$setting_args->sms_success = 'N';
+					$setting_args->use_success = 'N';
 					$setting_args->w_false = $send_massage;
 					$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
 					if(!$setting_output->toBool())
@@ -256,7 +260,8 @@ class couponsmsAdminController extends couponsms
 			{
 				$setting_args = new stdClass();
 				$setting_args->couponuser_srl = $args->couponuser_srl;
-				$setting_args->success = 'N';
+				$setting_args->sms_success = 'N';
+				$setting_args->use_success = 'N';
 				$setting_args->w_false = '문자 전송을 사용하지않고 발급';
 				$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
 				if(!$setting_output->toBool())
@@ -264,11 +269,28 @@ class couponsmsAdminController extends couponsms
 					return $setting_output;
 				}
 			}
+			$history_args = new stdClass();
+			$history_args->couponuser_srl = $args->couponuser_srl;
+			$history_args->member_srl = $member_info->member_srl;
+			$history_args->log_text = '관리자가 회원에게 쿠폰 '.$i.'장을 발급';
+			$history_args->sms_success = $setting_args->success;
+			$history_args->use_success = 'N';
+			$history_output = getController('couponsms')->insertHistory($history_args);
+			if($history_output->toBool())
+			{
+				return $history_output;
+			}
 		}
 		else
 		{
+			if($is_return == true)
+			{
+				return new Object(-1, '쿠폰을 지급하는 과정에서 갯수 초과로 인해 쿠폰지급이 중지되었었습니다. 유저회원에서 갯수를 확인해보시기 바랍니다.');
+			}
 			return $output;
 		}
+
+		$this->setMessage('success_registed');
 
 		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
 		{

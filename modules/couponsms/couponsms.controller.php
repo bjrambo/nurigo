@@ -153,4 +153,36 @@ class couponsmsController extends couponsms
 		}
 		return true;
 	}
+
+	/**
+	 * coupon user History
+	 * @param $obj
+	 * @return bool|object
+	 */
+	function insertHistory($obj)
+	{
+		$args = new stdClass();
+		$args->history_srl = getNextSequence();
+		$args->couponsms_srl = $obj->couponsms_srl;
+		$args->member_srl = $obj->member_srl;
+		$args->log_text = $obj->log_text;
+		$args->regdate = date('YmdHis');
+		if(!$obj->sms_success)
+		{
+			$args->sms_success = 'N';
+		}
+		else
+		{
+			$args->sms_success = $obj->sms_success;
+		}
+		$args->use_success = $obj->use_success;
+
+		$output = executeQuery('couponsms.insertHistory', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+
+		return true;
+	}
 }

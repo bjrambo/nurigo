@@ -115,6 +115,20 @@
 			</table>
 		</block>
 
+		<h3 class="title_benefits" cond="$is_logged">쿠폰선택</h3>
+		<table class="order-table" cond="$is_logged">
+			<tbody>
+			<tr>
+				<th>쿠폰을 선택하세요</th>
+				<td colspan="3">
+					<select name="use_shop_coupon" id="use_shop_coupon">
+						<option value="no">{$lang->notuse}</option>
+						<option value="{$val->couponuser_srl}" loop="$coupon_list=>$no,$val">{$val->title}</option>
+					</select>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
 		<!--// fieldset -->
 		<div loop="$fieldset_list=>$key,$val" class="fieldset">

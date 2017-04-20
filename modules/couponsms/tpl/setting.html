@@ -6,6 +6,17 @@
 
 	<section class="section">
 		<div class="x_control-group">
+			<label class="x_control-label" for="use_shop_coupon">쇼핑몰 쿠폰 사용여부</label>
+			<div class="x_controls">
+				<select name="use_shop_coupon" id="use_shop_coupon">
+					<option value="no" selected="selected"|cond="$config->use_shop_coupon != 'yes'">{$lang->notuse}</option>
+					<option value="yes" selected="selected"|cond="$config->use_shop_coupon == 'yes'">{$lang->use}</option>
+				</select>
+				<p class="x_help-block">쿠폰모듈을 쇼핑몰에서 사용할지 안할지 결정하게 됩니다.</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
 			<label class="x_control-label">문자타입</label>
 			<div class="x_controls">
 				<label for="sending_method_cta" class="x_inline"><input type="checkbox" name="sending_method[cta]" id="sending_method_cta" value="1" checked="checked"|cond="isset($config->sending_method['cta'])" /> 친구톡</label>

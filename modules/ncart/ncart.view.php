@@ -244,11 +244,10 @@ class ncartView extends ncart
 
 	function dispNcartOrderItems()
 	{
+		// for XE
 		global $lang;
 
-		$oFileModel = getModel('file');
 		$oEpayView = getView('epay');
-		$oStoreController = getController('ncart');
 		$oNcartModel = getModel('ncart');
 
 		$logged_info = Context::get('logged_info');
@@ -270,10 +269,19 @@ class ncartView extends ncart
 			return new Object(-1, $lang->msg_no_items);
 		}
 
+		$oCouponsmsModel = getModel('couponsms');
+
+		$coupon_config = $oCouponsmsModel->getConfig();
+
+		if($coupon_config->use_shop_coupon == 'yes')
+		{
+			$couponUserList = $oCouponsmsModel->getCouponUserListByMemberSrl($logged_info->member_srl);
+			Context::set('coupon_list', $couponUserList);
+		}
+
 		/*
 		 * stock check
 		 */
-
 		$oNproductModel = getModel('nproduct');
 
 		//quantity
@@ -437,7 +445,6 @@ class ncartView extends ncart
 			return new Object(-1, 'msg_invalid_order_number');
 		}
 		Context::set('order_info', $order_info);
-		debugPrint($order_info);
 		$extra_vars = unserialize($order_info->extra_vars);
 
 		// 주문한 사람이 아니라면

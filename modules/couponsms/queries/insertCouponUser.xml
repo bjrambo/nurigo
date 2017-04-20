@@ -9,7 +9,8 @@
 		<column name="title" var="title" />
 		<column name="term_regdate" var="term_regdate" />
 		<column name="regdate" var="regdate" />
-		<column name="success" var="success" />
+		<column name="sms_success" var="sms_success" />
+		<column name="use_success" var="use_success" />
 		<column name="w_false" var="w_false" />
 	</columns>
 </query>

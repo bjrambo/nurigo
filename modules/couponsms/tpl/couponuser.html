@@ -1,11 +1,14 @@
+<include target="./_header.html" />
+
 <form action="{Context::getUrl('')}" method="post" no-error-return-url="true">
 	<input type="hidden" name="module" value="couponsms" />
 	<input type="hidden" name="couponsms_srl" value="{$coupon_config->couponsms_srl}" />
 	<input type="hidden" name="act" value="procCouponsmsAdminCouponUser" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+
 	<div class="message">
 		<p>쿠폰을 지급하기전에 회원들의 쿠폰은 모두 회수하셨나요?</p>
 		<p>쿠폰을 지급하기전에 꼭 모든회원의 쿠폰을 회수하셔야 1달의 정상적인 쿠폰이 지급할 수 있습니다.</p>
-
 	</div>
 	<section class="section">
 		<h2>이 쿠폰의 추가</h2>

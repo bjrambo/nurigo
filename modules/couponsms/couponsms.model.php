@@ -11,6 +11,11 @@ class couponsmsModel extends couponsms
 			$oModuleModel = getModel('module');
 			$config = $oModuleModel->getModuleConfig('couponsms');
 
+			if(!$config->use_shop_coupon)
+			{
+				$config->use_shop_coupon = 'no';
+			}
+
 			self::$config = $config;
 		}
 		return self::$config;
@@ -95,5 +100,32 @@ class couponsmsModel extends couponsms
 		$output = executeQueryArray('couponsms.getTodayCouponByMemberSrl', $args);
 
 		return $output;
+	}
+
+	function getCouponUserListByMemberSrl($member_srl = null)
+	{
+		if($member_srl === null && !Context::get('is_logged'))
+		{
+			return false;
+		}
+
+		if($member_srl === null && Context::get('is_logged'))
+		{
+			$member_srl = Context::get('logged_info')->member_srl;
+		}
+
+		$args = new stdClass();
+		$args->member_srl = $member_srl;
+		$output = executeQueryArray('couponsms.getCouponUserListByMemberSrl', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+
+		if(!$output->data)
+		{
+			return false;
+		}
+		return $output->data;
 	}
 }
