@@ -4,6 +4,7 @@
 	<input type="hidden" name="module" value="couponsms" />
 	<input type="hidden" name="couponsms_srl" value="{$coupon_config->couponsms_srl}" />
 	<input type="hidden" name="act" value="procCouponsmsAdminCouponDelete" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
 
 	<section class="section">
 		<h1>{$lang->confirm_delete}</h1>

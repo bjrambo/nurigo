@@ -55,11 +55,13 @@ class couponsmsAdminController extends couponsms
 
 		$this->setMessage('success_saved');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if (Context::get('success_return_url'))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponInsert', 'couponsms_srl', $args->couponsms_srl);
-			header('location: ' . $returnUrl);
-			return;
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
@@ -78,11 +80,13 @@ class couponsmsAdminController extends couponsms
 		$this->setMessage('success_updated');
 
 		$oModuleController->updateModuleConfig('couponsms', $config);
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if (Context::get('success_return_url'))
 		{
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminSetting');
-			header('location: ' . $returnUrl);
-			return;
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
@@ -96,11 +100,13 @@ class couponsmsAdminController extends couponsms
 
 		$this->setMessage('1달 이전의 쿠폰을 회수하였습니다.');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if (Context::get('success_return_url'))
 		{
-			$returnUrl = Context::get('success_return_url') ?  Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponList');
-			header('location: ' .$returnUrl);
-			return;
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
@@ -122,11 +128,13 @@ class couponsmsAdminController extends couponsms
 
 		$this->setMessage('쿠폰을 삭제하였습니다.');
 
-		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))
+		if (Context::get('success_return_url'))
 		{
-			$returnUrl = Context::get('success_return_url') ?  Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminIndex');
-			header('location: ' .$returnUrl);
-			return;
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
