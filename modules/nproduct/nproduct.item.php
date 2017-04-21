@@ -107,6 +107,10 @@ class nproductItem extends Object
 	public static function cartPrintPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
+		if($price == 0)
+		{
+			return $oCurrencyModel->printPrice(0);
+		}
 
 		if(!$price && self::$price_cart)
 		{
