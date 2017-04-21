@@ -96,7 +96,6 @@ class couponsmsModel extends couponsms
 		$args->today_regdate = date('Ymd');
 		$args->term_regdate = date('Ymd', strtotime($args->today_regdate . '+' . $days . ' day'));
 
-
 		$output = executeQueryArray('couponsms.getTodayCouponByMemberSrl', $args);
 
 		return $output;
@@ -116,6 +115,7 @@ class couponsmsModel extends couponsms
 
 		$args = new stdClass();
 		$args->member_srl = $member_srl;
+		$args->use_success = 'N';
 		$output = executeQueryArray('couponsms.getCouponUserListByMemberSrl', $args);
 		if(!$output->toBool())
 		{

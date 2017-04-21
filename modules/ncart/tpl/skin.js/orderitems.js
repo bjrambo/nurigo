@@ -216,5 +216,9 @@ function calculate_payamount(mileage, deliv) {
 				jQuery('#order_amount').html(number_format(ret_obj.price));
 			});
 		});
+
+		$('select[name=use_shop_coupon]').click(function () {
+
+		})
 	});
 }) (jQuery);

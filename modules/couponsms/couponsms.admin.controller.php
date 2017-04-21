@@ -218,37 +218,46 @@ class couponsmsAdminController extends couponsms
 			}
 			$count++;
 			$output = executeQuery('couponsms.insertCouponUser', $args);
-			if(!$output->toBool())
+			if ($output->toBool())
 			{
-				return $output;
-			}
-		}
-
-		if ($output->toBool())
-		{
-			$content = $member_info->nick_name.'님이 발급받으신 쿠폰정보입니다.
+				$content = $member_info->nick_name.'님이 발급받으신 쿠폰정보입니다.
 쿠번번호 : '.$randomnum.'
 사용처 : '.$couponsms->use.'
 혜택 : '.$couponsms->use_boon.'
 유효기간 : '.zdate($term_regdate, 'Y년m월d일 ').'까지';
-			$title = Context::getSiteTitle().'에서 보낸 쿠폰입니다.';
+				$title = Context::getSiteTitle().'에서 보낸 쿠폰입니다.';
 
-			if(isset($config->sending_method))
-			{
-				$send_massage = self::sendMessage($phone_number, $couponsms->phone_number, $content, $title);
-				if($send_massage == true)
+				if(isset($config->sending_method))
 				{
-					$setting_args = new stdClass();
-					$setting_args->couponuser_srl = $args->couponuser_srl;
-					$setting_args->sms_success = 'Y';
-					$setting_args->use_success = 'N';
-					$setting_args->w_false = null;
-					$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
-					if(!$setting_output->toBool())
+					$send_massage = self::sendMessage($phone_number, $couponsms->phone_number, $content, $title);
+					if($send_massage == true)
 					{
-						return $setting_output;
+						$setting_args = new stdClass();
+						$setting_args->couponuser_srl = $args->couponuser_srl;
+						$setting_args->sms_success = 'Y';
+						$setting_args->use_success = 'N';
+						$setting_args->w_false = null;
+						$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
+						if(!$setting_output->toBool())
+						{
+							return $setting_output;
+						}
+						$this->setMessage('쿠폰이 발급되었습니다. 문자메세지를 확인하세요.');
 					}
-					$this->setMessage('쿠폰이 발급되었습니다. 문자메세지를 확인하세요.');
+					else
+					{
+						$setting_args = new stdClass();
+						$setting_args->couponuser_srl = $args->couponuser_srl;
+						$setting_args->sms_success = 'N';
+						$setting_args->use_success = 'N';
+						$setting_args->w_false = $send_massage;
+						$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
+						if(!$setting_output->toBool())
+						{
+							return $setting_output;
+						}
+						return new Object(-1, '문자 발송에 실패하였습니다.');
+					}
 				}
 				else
 				{
@@ -256,40 +265,23 @@ class couponsmsAdminController extends couponsms
 					$setting_args->couponuser_srl = $args->couponuser_srl;
 					$setting_args->sms_success = 'N';
 					$setting_args->use_success = 'N';
-					$setting_args->w_false = $send_massage;
+					$setting_args->w_false = '문자 전송을 사용하지않고 발급';
 					$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
 					if(!$setting_output->toBool())
 					{
 						return $setting_output;
 					}
-					return new Object(-1, '문자 발송에 실패하였습니다.');
 				}
 			}
-			else
-			{
-				$setting_args = new stdClass();
-				$setting_args->couponuser_srl = $args->couponuser_srl;
-				$setting_args->sms_success = 'N';
-				$setting_args->use_success = 'N';
-				$setting_args->w_false = '문자 전송을 사용하지않고 발급';
-				$setting_output = executeQuery('couponsms.updateCouponUser', $setting_args);
-				if(!$setting_output->toBool())
-				{
-					return $setting_output;
-				}
-			}
-			$history_args = new stdClass();
-			$history_args->couponuser_srl = $args->couponuser_srl;
-			$history_args->member_srl = $member_info->member_srl;
-			$history_args->log_text = '관리자가 회원에게 쿠폰 '.$count.'장을 발급';
-			$history_args->sms_success = $setting_args->success;
-			$history_args->use_success = 'N';
-			$history_output = getController('couponsms')->insertHistory($history_args);
 		}
-		else
-		{
-			return $output;
-		}
+		$history_args = new stdClass();
+		$history_args->couponuser_srl = $args->couponuser_srl;
+		$history_args->member_srl = $member_info->member_srl;
+		$history_args->log_text = '관리자가 회원에게 쿠폰 '.$count.'장을 발급';
+		$history_args->sms_success = $setting_args->success;
+		$history_args->use_success = 'N';
+		$history_output = getController('couponsms')->insertHistory($history_args);
+
 		if($is_return == true)
 		{
 			return new Object(-1, '쿠폰을 지급하는 과정에서 갯수 초과로 인해 쿠폰지급이 중지되었었습니다. 유저회원에서 갯수를 확인해보시기 바랍니다.');

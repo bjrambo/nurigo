@@ -123,7 +123,7 @@
 				<td colspan="3">
 					<select name="use_shop_coupon" id="use_shop_coupon">
 						<option value="no">{$lang->notuse}</option>
-						<option value="{$val->couponuser_srl}" loop="$coupon_list=>$no,$val">{$val->title}</option>
+						<option value="{$val->couponuser_srl}" loop="$coupon_list=>$no,$val" data-cupon-price="{$val->discount}" data-coupon-type="{$val->discount_type}" data-free-delivery="{$val->free_delivery}">{$val->title}</option>
 					</select>
 				</td>
 			</tr>

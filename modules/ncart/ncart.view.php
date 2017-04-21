@@ -276,6 +276,7 @@ class ncartView extends ncart
 		if($coupon_config->use_shop_coupon == 'yes')
 		{
 			$couponUserList = $oCouponsmsModel->getCouponUserListByMemberSrl($logged_info->member_srl);
+			debugPrint($couponUserList);
 			Context::set('coupon_list', $couponUserList);
 		}
 
