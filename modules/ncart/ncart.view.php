@@ -121,6 +121,28 @@ class ncartView extends ncart
 			$cart_info->use_mileage = $in_args->use_mileage;
 			$cart_info->price -= $in_args->use_mileage;
 		}
+		$oCouponsmsModel = getModel('couponsms');
+		$coupon_config = $oCouponsmsModel->getConfig();
+		if($coupon_config->use_shop_coupon === 'yes')
+		{
+			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
+			if($coupon_info->free_delivery == 'Y')
+			{
+				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
+				$in_args->delivfee_inadvance = 'N';
+			}
+
+			$in_args->coupon_info = $coupon_info;
+			$cart_info->total_price -= $cart_info->delivery_fee;
+			if($coupon_info->discount_type == 'percent')
+			{
+				$cart_info->total_price = $cart_info->total_price * (1 - $coupon_info->discount / 100);
+				$cart_info->total_price +=  $cart_info->delivery_fee;
+				$cart_info->total_price = (int)$cart_info->total_price;
+			}
+		}
+
+
 		Context::set('cart_info', $cart_info);
 		// compile template file
 		if(Mobile::isMobileCheckByAgent())

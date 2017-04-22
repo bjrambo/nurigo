@@ -776,13 +776,10 @@ class ncartController extends ncart
 
 		// get title
 		$title = $oNcartModel->getOrderTitle($cart->item_list);
+
 		// delivery fee
-
-
 		$oCouponsmsModel = getModel('couponsms');
-
 		$coupon_config = $oCouponsmsModel->getConfig();
-
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
@@ -793,18 +790,26 @@ class ncartController extends ncart
 			}
 
 			$in_args->coupon_info = $coupon_info;
+			$cart->total_price -= $cart->delivery_fee;
+			if($coupon_info->discount_type == 'percent')
+			{
+				$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
+				$cart->total_price +=  $cart->delivery_fee;
+				$cart->total_price = (int)$cart->total_price;
+			}
 		}
+
 		if($in_args->delivfee_inadvance == 'N')
 		{
 			$cart->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
 		}
-
 		// set item name
 		$in_args->item_name = $title;
 		$in_args->order_title = $title; // for compatibility
 		// set price which is transformed by currency module setting.
 		$in_args->price = nproductItem::price($cart->total_price);
+		$in_args->total_price = $cart->total_price;
 
 		// TODO(BJRambo): check again
 		$args = $in_args;
@@ -871,7 +876,6 @@ class ncartController extends ncart
 		$args->supply_amount = $cart->supply_amount;
 		$args->taxfree_amount = $cart->taxfree_amount;
 		$args->vat = $cart->vat;
-
 		$args->cart = &$cart;
 		$args->extra_vars = serialize($in_args);
 

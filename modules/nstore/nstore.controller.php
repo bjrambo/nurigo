@@ -396,6 +396,27 @@ class nstoreController extends nstore
 			unset($cartitem_args);
 		}
 
+		$oCouponsmsModel = getModel('couponsms');
+		$coupon_config = $oCouponsmsModel->getConfig();
+		if($coupon_config->use_shop_coupon === 'yes')
+		{
+			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($args->use_shop_coupon);
+			if($coupon_info->free_delivery == 'Y')
+			{
+				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
+				$args->delivfee_inadvance = 'N';
+			}
+
+			$args->coupon_info = $coupon_info;
+			$cart->total_price -= $cart->delivery_fee;
+			if($coupon_info->discount_type == 'percent')
+			{
+				$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
+				$cart->total_price +=  $cart->delivery_fee;
+				$cart->total_price = (int)$cart->total_price;
+			}
+		}
+
 		// insert into store_order
 		//$args->order_srl = $order_srl;
 		$args->title = $title;
