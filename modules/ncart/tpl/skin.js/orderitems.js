@@ -123,8 +123,7 @@ function coupon_payamount(deliv, price, type) {
 		if (deliv !== 'Y') {
 			payment_amount += delivery_fee;
 		}
-	}
-	 else if (type == 'price') {
+	} else if (type == 'price') {
 		if (deliv !== 'Y') {
 			payment_amount -= delivery_fee;
 		}
