@@ -126,7 +126,7 @@ class ncartView extends ncart
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
-			if($coupon_info->free_delivery == 'Y')
+			if($coupon_info->free_delivery == 'Y' && in_array($coupon_info->discount_type, array('percent', 'price')))
 			{
 				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
 				$in_args->delivfee_inadvance = 'N';
@@ -140,8 +140,12 @@ class ncartView extends ncart
 				$cart_info->total_price +=  $cart_info->delivery_fee;
 				$cart_info->total_price = (int)$cart_info->total_price;
 			}
+			elseif($coupon_info->discount_type == 'price')
+			{
+				$cart_info->total_price -= $coupon_info->discount;
+				$cart_info->total_price +=  $cart_info->delivery_fee;
+			}
 		}
-
 
 		Context::set('cart_info', $cart_info);
 		// compile template file

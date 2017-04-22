@@ -750,7 +750,7 @@ class ncartController extends ncart
 			}
 		}
 
-		// insert the address
+		// insert the address TODO(BJRambo): 여기에서 주소를 입력하는경우를 다시한번 검사
 		if($logged_info && $fieldcount)
 		{
 			$args->member_srl = $logged_info->member_srl;
@@ -796,6 +796,11 @@ class ncartController extends ncart
 				$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
 				$cart->total_price +=  $cart->delivery_fee;
 				$cart->total_price = (int)$cart->total_price;
+			}
+			elseif($coupon_info->discount_type == 'price')
+			{
+				$cart->total_price -= $coupon_info->discount;
+				$cart->total_price +=  $cart->delivery_fee;
 			}
 		}
 

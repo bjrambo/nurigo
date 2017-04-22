@@ -415,6 +415,11 @@ class nstoreController extends nstore
 				$cart->total_price +=  $cart->delivery_fee;
 				$cart->total_price = (int)$cart->total_price;
 			}
+			elseif($coupon_info->discount_type == 'price')
+			{
+				$cart->total_price -= $coupon_info->discount;
+				$cart->total_price +=  $cart->delivery_fee;
+			}
 		}
 
 		// insert into store_order
