@@ -128,4 +128,28 @@ class couponsmsModel extends couponsms
 		}
 		return $output->data;
 	}
+
+	function getCouponInfoByCouponuserSrl($couponuser_srl, $use_success = 'N')
+	{
+		if(!$couponuser_srl)
+		{
+			return false;
+		}
+
+		$args = new stdClass();
+		$args->couponuser_srl = $couponuser_srl;
+		$args->use_success = $use_success;
+		$output = executeQuery('couponsms.getCouponInfoByCouponSrl', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+
+		if(!$output->data)
+		{
+			return false;
+		}
+
+		return $output->data;
+	}
 }

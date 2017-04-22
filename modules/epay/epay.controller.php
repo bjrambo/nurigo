@@ -61,7 +61,8 @@ class epayController extends epay
 		$args->payment_amount = $review_args->price;
 
 		$logged_info = Context::get('logged_info');
-		if($logged_info)
+		// 라이믹스 호환성을 위해서 is_logged을 사용
+		if(Context::get('is_logged'))
 		{
 			$args->p_member_srl = $logged_info->member_srl;
 			$args->p_user_id = $logged_info->user_id;

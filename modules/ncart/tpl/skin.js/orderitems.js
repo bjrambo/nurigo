@@ -110,7 +110,11 @@ function calculate_payamount(mileage, deliv) {
 	if (deliv=='N') payment_amount -= delivery_fee;
 	return payment_amount;
 }
-
+function coupon_payamount(deliv) {
+	var payment_amount = total_price;
+	if (deliv=='Y') payment_amount -= delivery_fee;
+	return payment_amount;
+}
 (function($) {
 	jQuery(function($) {
 		$('#popAddressBook').click(function() {
@@ -201,7 +205,7 @@ function calculate_payamount(mileage, deliv) {
 			var use_mileage = $('input[name=use_mileage]').val();
 			if (use_mileage > my_mileage) use_mileage = my_mileage;
 			var delivfee_inadvance = $(this).val();
-			if (delivfee_inadvance=='Y') {
+			if (delivfee_inadvance == 'Y') {
 				$('#delivery_fee').text(number_format(delivery_fee));
 			} else {
 				$('#delivery_fee').text("0");
@@ -217,8 +221,25 @@ function calculate_payamount(mileage, deliv) {
 			});
 		});
 
-		$('select[name=use_shop_coupon]').click(function () {
+		$('#use_shop_coupon').change(function() {
+			var $opt = $('option:selected',this);
+			var cupon_price = $opt.attr('data-cupon-price');
+			var coupon_type = $opt.attr('data-coupon-type');
+			var free_delivery = $opt.attr('data-free-delivery');
+			console.log(free_delivery);
 
-		})
+			if(free_delivery != 'Y') {
+				$('#delivery_fee').text(number_format(delivery_fee));
+			} else {
+				$('#delivery_fee').text("0");
+			}
+
+			var payamount = coupon_payamount(free_delivery);
+			console.log(payamount);
+			$('#payment_amount').text(number_format(payamount));
+			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
+				jQuery('#order_amount').html(number_format(ret_obj.price));
+			});
+		});
 	});
 }) (jQuery);

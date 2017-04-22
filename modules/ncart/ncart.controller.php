@@ -777,6 +777,24 @@ class ncartController extends ncart
 		// get title
 		$title = $oNcartModel->getOrderTitle($cart->item_list);
 		// delivery fee
+
+
+		$oCouponsmsModel = getModel('couponsms');
+
+		$coupon_config = $oCouponsmsModel->getConfig();
+
+		if($coupon_config->use_shop_coupon === 'yes')
+		{
+			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
+			debugPrint($coupon_info);
+			if($coupon_info->free_delivery == 'Y')
+			{
+				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
+				$in_args->delivfee_inadvance = 'N';
+			}
+
+			$in_args->coupon_info = $coupon_info;
+		}
 		if($in_args->delivfee_inadvance == 'N')
 		{
 			$cart->total_price -= $cart->delivery_fee;
@@ -789,6 +807,7 @@ class ncartController extends ncart
 		// set price which is transformed by currency module setting.
 		$in_args->price = nproductItem::price($cart->total_price);
 
+		// TODO(BJRambo): check again
 		$args = $in_args;
 
 		// use mileage
@@ -880,14 +899,6 @@ class ncartController extends ncart
 						return $output;
 					}
 				}
-				else
-				{
-
-				}
-			}
-			else
-			{
-
 			}
 		}
 	}
