@@ -110,9 +110,31 @@ function calculate_payamount(mileage, deliv) {
 	if (deliv=='N') payment_amount -= delivery_fee;
 	return payment_amount;
 }
-function coupon_payamount(deliv) {
+function coupon_payamount(deliv, price, type) {
 	var payment_amount = total_price;
 	if (deliv=='Y') payment_amount -= delivery_fee;
+	if (type == 'percent') {
+		if (deliv !== 'Y') {
+			payment_amount -= delivery_fee;
+		}
+
+		payment_amount = payment_amount * (1 - price / 100);
+
+		if (deliv !== 'Y') {
+			payment_amount += delivery_fee;
+		}
+	}
+	 else if (type == 'price') {
+		if (deliv !== 'Y') {
+			payment_amount -= delivery_fee;
+		}
+
+		payment_amount = payment_amount - price;
+
+		if (deliv !== 'Y') {
+			payment_amount += delivery_fee;
+		}
+	}
 	return payment_amount;
 }
 (function($) {
@@ -234,7 +256,7 @@ function coupon_payamount(deliv) {
 				$('#delivery_fee').text("0");
 			}
 
-			var payamount = coupon_payamount(free_delivery);
+			var payamount = coupon_payamount(free_delivery, cupon_price, coupon_type);
 			console.log(payamount);
 			$('#payment_amount').text(number_format(payamount));
 			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
