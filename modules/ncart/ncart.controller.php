@@ -786,7 +786,6 @@ class ncartController extends ncart
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
-			debugPrint($coupon_info);
 			if($coupon_info->free_delivery == 'Y')
 			{
 				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
@@ -814,7 +813,6 @@ class ncartController extends ncart
 
 		if($args->use_mileage)
 		{
-
 			$cart->total_price = $cart->total_price - (int)$args->use_mileage;
 		}
 		// calculate mileage
