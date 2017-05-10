@@ -398,11 +398,7 @@ class ncartController extends ncart
 			}
 		}
 
-		if(!in_array(Context::getRequestMethod(), array(
-			'XMLRPC',
-			'JSON'
-		))
-		)
+		if(!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{
 			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'act', 'dispNcartAddressList');
 			$this->setRedirectUrl($returnUrl);
