@@ -398,27 +398,31 @@ class nstoreController extends nstore
 
 		$oCouponsmsModel = getModel('couponsms');
 		$coupon_config = $oCouponsmsModel->getConfig();
+
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($args->use_shop_coupon);
-			if($coupon_info->free_delivery == 'Y')
+			if($coupon_info !== false)
 			{
-				// delivfee_inadvance는 N일경우 가격이 빠지는 것.
-				$args->delivfee_inadvance = 'N';
-			}
+				if($coupon_info->free_delivery == 'Y')
+				{
+					// delivfee_inadvance는 N일경우 가격이 빠지는 것.
+					$args->delivfee_inadvance = 'N';
+				}
 
-			$args->coupon_info = $coupon_info;
-			$cart->total_price -= $cart->delivery_fee;
-			if($coupon_info->discount_type == 'percent')
-			{
-				$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
-				$cart->total_price +=  $cart->delivery_fee;
-				$cart->total_price = (int)$cart->total_price;
-			}
-			elseif($coupon_info->discount_type == 'price')
-			{
-				$cart->total_price -= $coupon_info->discount;
-				$cart->total_price +=  $cart->delivery_fee;
+				$args->coupon_info = $coupon_info;
+				$cart->total_price -= $cart->delivery_fee;
+				if($coupon_info->discount_type == 'percent')
+				{
+					$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
+					$cart->total_price +=  $cart->delivery_fee;
+					$cart->total_price = (int)$cart->total_price;
+				}
+				elseif($coupon_info->discount_type == 'price')
+				{
+					$cart->total_price -= $coupon_info->discount;
+					$cart->total_price +=  $cart->delivery_fee;
+				}
 			}
 		}
 

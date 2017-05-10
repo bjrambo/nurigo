@@ -776,6 +776,7 @@ class ncartController extends ncart
 		// delivery fee
 		$oCouponsmsModel = getModel('couponsms');
 		$coupon_config = $oCouponsmsModel->getConfig();
+
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
@@ -814,7 +815,6 @@ class ncartController extends ncart
 		// set price which is transformed by currency module setting.
 		$in_args->price = nproductItem::price($cart->total_price);
 		$in_args->total_price = $cart->total_price;
-
 		// TODO(BJRambo): check again
 		$args = $in_args;
 
@@ -907,6 +907,7 @@ class ncartController extends ncart
 				}
 			}
 		}
+		debugPRint($args->total_price);
 	}
 
 	/**
