@@ -59,7 +59,6 @@ class paynotyAdminView extends paynoty
 				$variable_name[] = $item->name;
 			}
 		}
-		debugPrint($variable_name);
 
 		$config = getModel('paynoty')->getConfig();
 		if(!$config)

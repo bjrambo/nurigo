@@ -326,7 +326,6 @@
 		function getReport() 
 		{
 			$vars = Context::getRequestVars();
-			debugPrint($vars);
 
 			$output = new Object();
 			$output->order_srl = Context::get('LGD_OID');

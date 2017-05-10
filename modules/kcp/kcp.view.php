@@ -73,7 +73,6 @@ class kcpView extends kcp
 				$payment_method = "100000000000";
 		}
 		Context::set('payment_method', $payment_method);
-		debugPrint($payment_method);
 		$this->setTemplateFile('formdata');
 	}
 }

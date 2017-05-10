@@ -34,7 +34,6 @@ class eposController extends epos
 
 		// get transaction information
 		$transactionInfo = $oEpayModel->getTransactionByOrderSrl($orderNumber);
-		debugPrint($transactionInfo);
 		if(!$transactionInfo)
 		{
 			$this->stop('cannot find transaction information');
@@ -103,9 +102,6 @@ class eposController extends epos
 			$this->stop('AUTHTIME is null');
 		}
 		$authTime = $authInfo->AUTHTIME->__toString();
-
-
-		debugPrint('order number : ' . $orderNumber . ' , status : ' . $authStatus);
 
 		// get transaction information
 		$transactionInfo = $oEpayModel->getTransactionByOrderSrl($orderNumber);

@@ -13,6 +13,7 @@ require_once(_XE_PATH_ . 'modules/nproduct/nproduct.item.php');
 class nstore extends ModuleObject
 {
 	const ORDER_STATE_COMPLETE = '6';
+	const ORDER_STATE_REFUNDS = 'D';
 	var $order_status = array(
 		'0' => 'cart_keep',
 		'1' => 'wait_deposit',
