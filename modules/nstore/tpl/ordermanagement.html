@@ -95,7 +95,10 @@
 					<td cond="$representative">
 						{@$extra_vars = unserialize($order->extra_vars)}
 						<block cond="$extra_vars">
-						{@$val = array_shift($extra_vars)}
+						{@
+							$val = array_shift($extra_vars);
+							if(is_array($val)) $val = $val[0];
+						}
 						{cut_str($val, 6)}
 						</block>
 					</td>
@@ -125,6 +128,7 @@
 			<div class="x_controls x_pull-left">
 				<label class="x_control-label x_inline" for="order_status">{$lang->cmd_selected_order}</label>
 				<select name="order_status" id="order_status">
+					<option value="1">{$lang->wait_deposit}</option>
 					<option value="2" selected="selected"|cond="$status=='1'">{$lang->deposit_done}</option>
 					<option value="3" selected="selected"|cond="$status=='2'">{$lang->prepare_delivery}</option>
 					<option value="4" selected="selected"|cond="$status=='3'">{$lang->on_delivery}</option>
