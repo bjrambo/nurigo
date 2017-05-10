@@ -154,7 +154,7 @@ class nproduct extends ModuleObject
 				{
 					if($condition == 'install')
 					{
-						$this->updateExtraVars($v->module_srl);
+						$this->classUpdateExtraVars($v->module_srl);
 					}
 					else
 					{
@@ -169,7 +169,7 @@ class nproduct extends ModuleObject
 						{
 							if($condition == 'install')
 							{
-								$this->updateExtraVars($v->module_srl, $val->column_name);
+								$this->classUpdateExtraVars($v->module_srl, $val->column_name);
 							}
 							else
 							{
@@ -182,7 +182,7 @@ class nproduct extends ModuleObject
 		}
 	}
 
-	function updateExtraVars($module_srl, $condition = null)
+	function classUpdateExtraVars($module_srl, $condition = null)
 	{
 		$oModuleModel = getModel('module');
 		$oNproductModel = getModel('nproduct');
