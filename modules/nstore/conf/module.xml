@@ -19,6 +19,7 @@
 		<action name="dispNstoreAdminEscrowDenyConfirm" type="view" />
 		<action name="dispNstoreAdminPurchaserInfo" type="view" />
 		<action name="dispNstoreAdminGrantInfo" type="view" />
+		<action name="dispNstoreAdminTotalPriceList" type="view" />
 
 		<action name="procNstoreAdminConfig" type="controller" />
 		<action name="procNstoreAdminInsertModInst" type="controller" />

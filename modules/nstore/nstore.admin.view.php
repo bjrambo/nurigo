@@ -65,7 +65,7 @@ class nstoreAdminView extends nstore
 
 	function dispNstoreAdminDashboard()
 	{
-		$output = executeQueryArray('nstore.getOrderStat', $args);
+		$output = executeQueryArray('nstore.getOrderStat', new stdClass());
 		if(!$output->toBool())
 		{
 			return $output;
@@ -92,7 +92,7 @@ class nstoreAdminView extends nstore
 
 		// get module srls
 		$module_srls = array();
-		$output = executeQueryArray('nproduct.getModInstList', $args);
+		$output = executeQueryArray('nproduct.getModInstList', new stdClass());
 		if(!$output->toBool())
 		{
 			return $output;
@@ -110,6 +110,7 @@ class nstoreAdminView extends nstore
 		// newest comment
 		$oCommentModel = getModel('comment');
 		$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
+		$args = new stdClass();
 		$args->module_srl = $module_srls;
 		$args->list_count = 20;
 		$comment_list = $oCommentModel->getNewestCommentList($args, $columnList);
@@ -529,6 +530,37 @@ class nstoreAdminView extends nstore
 		Context::set('grant_content', $grant_content);
 
 		$this->setTemplateFile('grantinfo');
+	}
+
+	function dispNstoreAdminTotalPriceList()
+	{
+		$oMemberModel = getModel('member');
+		$args = new stdClass();
+		$args->sort_index = 'last_regdate';
+		$args->page = Context::get('page');
+		$args->list_count = 20;
+		$args->page_count = 10;
+
+		$output = executeQueryArray('nstore.getMemberTotalPriceList', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+
+		if($output->data)
+		{
+			foreach($output->data as $key => $val)
+			{
+				$output->data[$key]->member_info = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl);
+			}
+		}
+
+		Context::set('priceList', $output->data);
+		Context::set('total_count', $output->total_count);
+		Context::set('total_page', $output->total_page);
+		Context::set('page', $output->page);
+		Context::set('page_navigation', $output->page_navigation);
+		$this->setTemplateFile('pricelist');
 	}
 }
 

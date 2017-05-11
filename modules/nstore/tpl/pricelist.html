@@ -1,0 +1,69 @@
+<include target="./_header.html" />
+<!--TODO-->
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<table id="boardList" class="x_table x_table-striped x_table-hover">
+	<caption>
+		<strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong>
+	</caption>
+	<thead>
+	<tr>
+		<th scope="col">회원번호</th>
+		<th scope="col">닉네임</th>
+		<th scope="col">전체구입금액</th>
+		<th scope="col">마지막구입금액</th>
+		<th scope="col">{$lang->regdate}</th>
+		<th scope="col">삭제</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr loop="$priceList => $no,$val">
+		<td>{$val->member_srl}</td>
+		<td>
+			{$val->member_info->nick_name}
+		</td>
+		<td>{$val->total_price}</td>
+		<td>{$val->last_price}</td>
+		<td>{zdate($val->last_regdate,"Y-m-d")}</td>
+		<td>삭제</td>
+	</tr>
+	<tr cond="!$priceList">
+		<td>리스트가 존재하지 않습니다.</td>
+	</tr>
+	</tbody>
+</table>
+
+<div class="x_clearfix">
+	<form cond="$page_navigation" action="./" class="x_pagination x_pull-left" no-error-return-url="true" style="margin-top:0">
+		<ul>
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+				{@$isGoTo = true}
+				<li>
+					<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+					<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+				</li>
+			</block>
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+				{@$isGoTo = true}
+				<li>
+					<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+					<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+				</li>
+			</block>
+			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
+	</form>
+</div>

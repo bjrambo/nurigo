@@ -122,7 +122,6 @@ class nstoreController extends nstore
 				$priceArgs->total_price = $memberPriceInfo->total_price + $order_info->total_price;
 				$priceArgs->last_price = $order_info->total_price;
 				$priceArgs->last_regdate = date('YmdHis');
-				debugPrint($priceArgs);
 				$price_output = executeQuery('nstore.updateMemberTotalPrice', $priceArgs);
 				if($price_output->toBool())
 				{
@@ -136,7 +135,6 @@ class nstoreController extends nstore
 				$priceArgs->total_price = $order_info->total_price;
 				$priceArgs->last_price = $order_info->total_price;
 				$priceArgs->last_regdate = date('YmdHis');
-				debugPrint($priceArgs);
 				$price_output = executeQuery('nstore.insertMemberTotalPrice', $priceArgs);
 				if($price_output->toBool())
 				{
