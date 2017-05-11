@@ -15,6 +15,9 @@
 	<li cond="!$mid && $module_srl" class="x_active"><a href="{getUrl('act','dispNstoreAdminItemList')}">{$module_info->mid} {$lang->page_management}</a></li>
 	<li cond="!$mid" lass="x_active"|cond="$act=='dispNstoreAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispNstoreAdminInsertModInst')}">{$lang->page_creation}</a></li>
 	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminConfig'"><a href="{getUrl('','module',$module,'act','dispNstoreAdminConfig')}">{$lang->basic_setting}</a></li>
+	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminTotalPriceList'">
+		<a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminTotalPriceList')}">회원전체 가격목록</a>
+	</li>
 </ul>
 <ul cond="!$mid && $module_srl" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNstoreAdminInsertModInst'"><a href="{getUrl('act','dispNstoreAdminInsertModInst')}">{$lang->page_configuration}</a></li>
