@@ -112,6 +112,37 @@ class nstoreController extends nstore
 					}
 				}
 			}
+
+			$memberPriceInfo = getModel('nstore')->getMemberTotalPriceByMemberSrl($order_info->member_srl);
+
+			if($memberPriceInfo !== false)
+			{
+				$priceArgs = new stdClass();
+				$priceArgs->member_srl = $order_info->member_srl;
+				$priceArgs->total_price = $memberPriceInfo->total_price + $order_info->total_price;
+				$priceArgs->last_price = $order_info->total_price;
+				$priceArgs->last_regdate = date('YmdHis');
+				debugPrint($priceArgs);
+				$price_output = executeQuery('nstore.updateMemberTotalPrice', $priceArgs);
+				if($price_output->toBool())
+				{
+					return $price_output;
+				}
+			}
+			else
+			{
+				$priceArgs = new stdClass();
+				$priceArgs->member_srl = $order_info->member_srl;
+				$priceArgs->total_price = $order_info->total_price;
+				$priceArgs->last_price = $order_info->total_price;
+				$priceArgs->last_regdate = date('YmdHis');
+				debugPrint($priceArgs);
+				$price_output = executeQuery('nstore.insertMemberTotalPrice', $priceArgs);
+				if($price_output->toBool())
+				{
+					return $price_output;
+				}
+			}
 		}
 
 		// for order table

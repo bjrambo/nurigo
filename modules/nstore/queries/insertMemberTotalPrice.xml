@@ -1,0 +1,11 @@
+<query id="insertMemberTotalPrice" action="insert">
+	<tables>
+		<table name="nstore_member_total" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+		<column name="total_price" var="total_price" />
+		<column name="last_price" var="last_price" notnull="notnull" />
+		<column name="last_regdate" var="last_regdate" notnull="notnull" />
+	</columns>
+</query>

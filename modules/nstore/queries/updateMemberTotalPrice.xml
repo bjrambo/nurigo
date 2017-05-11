@@ -1,0 +1,13 @@
+<query id="updateMemberTotalPrice" action="update">
+	<tables>
+		<table name="nstore_member_total" />
+	</tables>
+	<columns>
+		<column name="total_price" var="total_price" />
+		<column name="last_price" var="last_price" />
+		<column name="last_regdate" var="last_regdate" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+	</conditions>
+</query>

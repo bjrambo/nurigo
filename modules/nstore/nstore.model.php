@@ -347,6 +347,27 @@ class nstoreModel extends nstore
 			$manager_menu['nstore'] = $menu;
 		}
 	}
+
+	function getMemberTotalPriceByMemberSrl($member_srl = null)
+	{
+		if(!$member_srl === null)
+		{
+			return false;
+		}
+		$args = new stdClass();
+		$args->member_srl = $member_srl;
+		$output = executeQuery('nstore.getMemberTotalPriceByMemberSrl', $args);
+		if(!$output->toBool())
+		{
+			return false;
+		}
+		elseif(empty($output->data))
+		{
+			return false;
+		}
+
+		return $output->data;
+	}
 }
 /* End of file nstore.model.php */
 /* Location: ./modules/nstore/nstore.model.php */
