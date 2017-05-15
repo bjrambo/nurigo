@@ -113,7 +113,10 @@ class nstoreController extends nstore
 				}
 			}
 
-			$memberPriceInfo = getModel('nstore')->getMemberTotalPriceByMemberSrl($order_info->member_srl);
+			if($order_info == null)
+			{
+				$memberPriceInfo = getModel('nstore')->getMemberTotalPriceByMemberSrl($order_info->member_srl);
+			}
 
 			if($memberPriceInfo !== false)
 			{
