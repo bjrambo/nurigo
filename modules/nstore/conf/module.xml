@@ -44,6 +44,7 @@
 		<action name="dispNstoreNonLoginOrder" type="view" />
 
 		<action name="procNstoreGuestLogin" type="controller" />
+		<action name="procNstoreUpdateOrderStatus" type="controller" />
 
 		<action name="getNstoreEscrowInfo" type="model" />
 	</actions>

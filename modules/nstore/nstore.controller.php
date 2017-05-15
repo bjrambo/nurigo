@@ -33,15 +33,57 @@ class nstoreController extends nstore
 		$oNproductController->updateSalesCount($item_srl, $quantity);
 	}
 
+	function procNstoreUpdateOrderStatus()
+	{
+		$order_srl = Context::get('order_srl');
+
+		$order_info = getModel('nstore')->getOrderInfo($order_srl);
+
+		$logged_info = Context::get('logged_info');
+		if($logged_info->is_admin !== 'Y')
+		{
+			if($logged_info->member_srl !== $order_info->member_srl)
+			{
+				return new Object(-1, 'msg_not_permitted');
+			}
+		}
+
+		$order_status = (int)Context::get('order_status');
+
+		// 입금대기 상태일 경우이라면
+		if($order_info->order_status == 1)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
+		if($order_info->order_status == 6)
+		{
+			return new Object(-1, 'msg_not_permitted');
+		}
+
+		$args = new stdClass();
+		$args->order_status = $order_status;
+
+		$output = $this->updateOrderStatus($order_srl, $args);
+
+		$this->setMessage('success_updated');
+
+		$this->setRedirectUrl(getNotEncodedUrl('', 'mid', Context::get('mid')));
+	}
+
+	/**
+	 * @param $order_srl
+	 * @param $in_args
+	 * @return bool|object
+	 */
 	function updateOrderStatus($order_srl, $in_args)
 	{
 		$oNstoreModel = getModel('nstore');
 
 		// if the order is completed, give mileage to the member.
 		$args = new stdClass();
+		$order_info = $oNstoreModel->getOrderInfo($order_srl);
 		if($in_args->order_status == nstore::ORDER_STATE_COMPLETE)
 		{
-			$order_info = $oNstoreModel->getOrderInfo($order_srl);
 			if($order_info->member_srl && $order_info->mileage && $order_info->mileage_save == 'N')
 			{
 				$oNmileageController = getController('nmileage');
@@ -57,7 +99,6 @@ class nstoreController extends nstore
 					$this->updateSalesCount($item_srl, $quantity);
 				}
 			}
-
 			$member_info = getModel('member')->getMemberInfoByMemberSrl($order_info->member_srl);
 			if($member_info->is_admin != 'Y')
 			{
@@ -113,7 +154,7 @@ class nstoreController extends nstore
 				}
 			}
 
-			if($order_info == null)
+			if($order_info->member_srl)
 			{
 				$memberPriceInfo = getModel('nstore')->getMemberTotalPriceByMemberSrl($order_info->member_srl);
 				if($memberPriceInfo !== false)
@@ -145,6 +186,28 @@ class nstoreController extends nstore
 			}
 		}
 
+		if($in_args->order_status == nstore::ORDER_STATE_REFUNDS)
+		{
+			$memberPriceInfo = getModel('nstore')->getMemberTotalPriceByMemberSrl($order_info->member_srl);
+			if($memberPriceInfo !== false)
+			{
+				$priceArgs = new stdClass();
+				$priceArgs->member_srl = $order_info->member_srl;
+				$priceArgs->total_price = $memberPriceInfo->total_price - $order_info->total_price;
+				if($priceArgs->total_price <= 0)
+				{
+					$priceArgs->total_price = 0;
+				}
+				$priceArgs->last_price = $order_info->total_price;
+				$priceArgs->last_regdate = date('YmdHis');
+				$price_output = executeQuery('nstore.updateMemberTotalPrice', $priceArgs);
+				if($price_output->toBool())
+				{
+					return $price_output;
+				}
+			}
+		}
+
 		// for order table
 		$args->order_srl = $order_srl;
 		$args->order_status = $in_args->order_status;
@@ -170,6 +233,7 @@ class nstoreController extends nstore
 			return $output;
 		}
 
+		//TODO(BJRambo):check again
 		return new Object();
 	}
 
