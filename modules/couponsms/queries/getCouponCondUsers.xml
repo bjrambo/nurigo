@@ -1,0 +1,11 @@
+<query id="getCouponCondUsers" action="select">
+	<tables>
+		<table name="nstore_member_total" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="more" column="total_price" var="min_price" />
+	</conditions>
+</query>

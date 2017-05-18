@@ -1,4 +1,4 @@
-<query id="getCouponConfig" action="select">
+<query id="getCouponList" action="select">
 	<tables>
 		<table name="couponsms_list" />
 	</tables>

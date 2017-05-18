@@ -45,6 +45,17 @@ class couponsms extends ModuleObject
 			return true;
 		}
 
+		if(!$oDB->isColumnExists("couponsms_list", "condition_type"))
+		{
+			return true;
+		}
+
+		if(!$oDB->isColumnExists("couponsms_list", "price_condition"))
+		{
+			return true;
+		}
+
+
 		if(!$oDB->isColumnExists('couponsms_use_list', 'sms_success'))
 		{
 			return true;
@@ -80,6 +91,16 @@ class couponsms extends ModuleObject
 		if(!$oDB->isColumnExists("couponsms_list", "maximum_count"))
 		{
 			$oDB->addColumn("couponsms_list", "maximum_count", "number", "10");
+		}
+
+		if(!$oDB->isColumnExists("couponsms_list", "condition_type"))
+		{
+			$oDB->addColumn("couponsms_list", "condition_type", "varchar", "20");
+		}
+
+		if(!$oDB->isColumnExists("couponsms_list", "price_condition"))
+		{
+			$oDB->addColumn("couponsms_list", "price_condition", "varchar", "20");
 		}
 
 		if(!$oDB->isColumnExists("couponsms_use_list", "sms_success"))

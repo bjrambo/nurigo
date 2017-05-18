@@ -8,6 +8,7 @@ class couponsmsController extends couponsms
 
 	function procCouponsmsSendMessage()
 	{
+		/*
 		$oMemberModel = getModel('member');
 		$oCouponsmsModel = getModel('couponsms');
 		$logged_info = Context::get('logged_info');
@@ -134,6 +135,7 @@ class couponsmsController extends couponsms
 			header('location: ' . $returnUrl);
 			return;
 		}
+		*/
 	}
 
 	public static function sendMessage($phone_number, $r_number, $content, $title)

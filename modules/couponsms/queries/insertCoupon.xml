@@ -13,6 +13,8 @@
 		<column name="discount" var="discount" />
 		<column name="free_delivery" var="free_delivery" />
 		<column name="maximum_count" var="maximum_count" />
+		<column name="condition_type" var="condition_type" />
+		<column name="price_condition" var="price_condition" />
 		<column name="group_srl" var="group_srl" />
 	</columns>
 </query>

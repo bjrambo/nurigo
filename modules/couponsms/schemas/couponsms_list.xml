@@ -10,4 +10,6 @@
 	<column name="free_delivery" type="varchar" size="10" />
 	<column name="maximum_count" type="number" size="10" />
 	<column name="group_srl" type="varchar" size="250" />
+	<column name="condition_type" type="varchar" size="20" />
+	<column name="price_condition" type="varchar" size="20" />
 </table>

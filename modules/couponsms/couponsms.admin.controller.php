@@ -25,6 +25,8 @@ class couponsmsAdminController extends couponsms
 		$args->discount = $obj->discount;
 		$args->free_delivery = $obj->free_delivery;
 		$args->maximum_count = $obj->maximum_count;
+		$args->condition_type = $obj->condition_type;
+		$args->price_condition = $obj->price_condition;
 		if($obj->group_srl)
 		{
 			$args->group_srl = serialize($obj->group_srl);
@@ -183,12 +185,38 @@ class couponsmsAdminController extends couponsms
 			}
 		}
 
+		$is_return = self::insertCouponsmsUser($couponsms_srl, $couponsms, $member_info, $phone_number);
+
 		if(!$isGroup)
 		{
 			return new Object(-1, '이 회원은 요청하신 서비스에 권한이 없습니다.');
 		}
-		$args = new stdClass();
 
+		$this->setMessage('success_registed');
+
+		if (Context::get('success_return_url'))
+		{
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
+		}
+	}
+
+	/**
+	 * @param $couponsms_srl
+	 * @param $couponsms
+	 * @param $member_info
+	 * @param null $phone_number
+	 * @return bool|object
+	 */
+	public static function insertCouponsmsUser($couponsms_srl, $couponsms, $member_info, $phone_number = null)
+	{
+		$oCouponsmsModel = getModel('couponsms');
+		$config = $oCouponsmsModel->getConfig();
+
+		$args = new stdClass();
 		$args->couponsms_srl = $couponsms_srl;
 		$args->member_srl = $member_info->member_srl;
 		$selected_date = date('Ymd');
@@ -197,20 +225,21 @@ class couponsmsAdminController extends couponsms
 		$args->regdate = date('YmdHis');
 		$args->title = $couponsms->title;
 
-		$couponsms_data = $oCouponsmsModel->getTodayCouponByMemberSrl($member_info->member_srl, $couponsms_srl, $couponsms->term_regdate);
-		if(!$couponsms_data->toBool())
-		{
-			return $couponsms_data;
-		}
-
 		$is_return = false;
 		$count = 0;
+		debugPrint($couponsms->maximum_count);
 		for($i=1; $i <= $couponsms->maximum_count; $i++)
 		{
 			$couponuser_srl = getNextSequence();
 			$randomnum = substr(md5($couponuser_srl . $member_info->member_srl), 0, 11);
 			$args->couponuser_srl = $randomnum;
-
+			$couponsms_data = $oCouponsmsModel->getTodayCouponByMemberSrl($member_info->member_srl, $couponsms_srl, $couponsms->term_regdate);
+			debugPrint($couponsms_srl);
+			debugPrint($couponsms_data);
+			if(!$couponsms_data->toBool())
+			{
+				return $couponsms_data;
+			}
 			if(count($couponsms_data->data) >= $couponsms->maximum_count)
 			{
 				$is_return = true;
@@ -218,6 +247,7 @@ class couponsmsAdminController extends couponsms
 			}
 			$count++;
 			$output = executeQuery('couponsms.insertCouponUser', $args);
+			debugPrint($output);
 			if ($output->toBool())
 			{
 				$content = $member_info->nick_name.'님이 발급받으신 쿠폰정보입니다.
@@ -227,7 +257,7 @@ class couponsmsAdminController extends couponsms
 유효기간 : '.zdate($term_regdate, 'Y년m월d일 ').'까지';
 				$title = Context::getSiteTitle().'에서 보낸 쿠폰입니다.';
 
-				if(isset($config->sending_method))
+				if(isset($config->sending_method) && $phone_number != null)
 				{
 					$send_massage = self::sendMessage($phone_number, $couponsms->phone_number, $content, $title);
 					if($send_massage == true)
@@ -242,7 +272,7 @@ class couponsmsAdminController extends couponsms
 						{
 							return $setting_output;
 						}
-						$this->setMessage('쿠폰이 발급되었습니다. 문자메세지를 확인하세요.');
+						self::setMessage('쿠폰이 발급되었습니다. 문자메세지를 확인하세요.');
 					}
 					else
 					{
@@ -256,7 +286,6 @@ class couponsmsAdminController extends couponsms
 						{
 							return $setting_output;
 						}
-						return new Object(-1, '문자 발송에 실패하였습니다.');
 					}
 				}
 				else
@@ -281,22 +310,7 @@ class couponsmsAdminController extends couponsms
 		$history_args->sms_success = $setting_args->success;
 		$history_args->use_success = 'N';
 		$history_output = getController('couponsms')->insertHistory($history_args);
-
-		if($is_return == true)
-		{
-			return new Object(-1, '쿠폰을 지급하는 과정에서 갯수 초과로 인해 쿠폰지급이 중지되었었습니다. 유저회원에서 갯수를 확인해보시기 바랍니다.');
-		}
-
-		$this->setMessage('success_registed');
-
-		if (Context::get('success_return_url'))
-		{
-			$this->setRedirectUrl(Context::get('success_return_url'));
-		}
-		else
-		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
-		}
+		return $is_return;
 	}
 
 	public static function sendMessage($phone_number, $r_number, $content, $title)
@@ -315,6 +329,53 @@ class couponsmsAdminController extends couponsms
 			return false;
 		}
 		return true;
+	}
+
+	function procCouponsmsAdminCouponUserAll()
+	{
+		$oCouponsmsModel = getModel('couponsms');
+		$args = new stdClass();
+		$output = executeQueryArray('couponsms.getCouponListAll', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+		if(!empty($output->data))
+		{
+			foreach($output->data as $val)
+			{
+
+				if($val->condition_type == 'price')
+				{
+					$price_args = new stdClass();
+					$price_args->min_price = $val->price_condition;
+					$price_output = executeQueryArray('couponsms.getCouponCondUsers', $price_args);
+					if(!$price_output->toBool())
+					{
+						return $price_output;
+					}
+
+					if(!empty($price_output->data))
+					{
+						foreach($price_output->data as $price_val)
+						{
+							$output = $oCouponsmsModel->getCouponConfig($val->couponsms_srl);
+							$couponsms = $output->data;
+							$member_info = getModel('member')->getMemberInfoByMemberSrl($price_val->member_srl);
+							$output = self::insertCouponsmsUser($val->couponsms_srl, $couponsms, $member_info);
+						}
+					}
+				}
+			}
+		}
+		if(Context::get('success_return_url'))
+		{
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponList'));
+		}
 	}
 }
 /* End of file */

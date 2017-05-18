@@ -1,0 +1,8 @@
+<query id="getCouponListAll" action="select">
+	<tables>
+		<table name="couponsms_list" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+</query>

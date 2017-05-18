@@ -22,6 +22,7 @@
 		<action name="procCouponsmsAdminCouponRecall" type="controller" />
 		<action name="procCouponsmsAdminCouponDelete" type="controller" />
 		<action name="procCouponsmsAdminCouponUser" type="controller" />
+		<action name="procCouponsmsAdminCouponUserAll" type="controller" />
 
 		<!-- user view -->
 		<action name="dispCouponsmsSendMessageView" type="view" />
