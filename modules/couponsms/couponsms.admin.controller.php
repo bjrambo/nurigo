@@ -227,15 +227,12 @@ class couponsmsAdminController extends couponsms
 
 		$is_return = false;
 		$count = 0;
-		debugPrint($couponsms->maximum_count);
 		for($i=1; $i <= $couponsms->maximum_count; $i++)
 		{
 			$couponuser_srl = getNextSequence();
 			$randomnum = substr(md5($couponuser_srl . $member_info->member_srl), 0, 11);
 			$args->couponuser_srl = $randomnum;
 			$couponsms_data = $oCouponsmsModel->getTodayCouponByMemberSrl($member_info->member_srl, $couponsms_srl, $couponsms->term_regdate);
-			debugPrint($couponsms_srl);
-			debugPrint($couponsms_data);
 			if(!$couponsms_data->toBool())
 			{
 				return $couponsms_data;
@@ -247,7 +244,6 @@ class couponsmsAdminController extends couponsms
 			}
 			$count++;
 			$output = executeQuery('couponsms.insertCouponUser', $args);
-			debugPrint($output);
 			if ($output->toBool())
 			{
 				$content = $member_info->nick_name.'님이 발급받으신 쿠폰정보입니다.
