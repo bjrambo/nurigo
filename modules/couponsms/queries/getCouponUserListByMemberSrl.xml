@@ -8,7 +8,7 @@
 	</columns>
 	<conditions>
 		<condition operation="equal" column="use.member_srl" var="member_srl" notnull="notnull" />
-		<condition operation="equal" column="use.use_success" var="use_success" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="use.use_success" var="use_success" pipe="and" />
 		<condition operation="equal" column="list.couponsms_srl" default="use.couponsms_srl" pipe="and" />
 	</conditions>
 </query>

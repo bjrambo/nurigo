@@ -101,7 +101,7 @@ class couponsmsModel extends couponsms
 		return $output;
 	}
 
-	function getCouponUserListByMemberSrl($member_srl = null)
+	function getCouponUserListByMemberSrl($member_srl = null, $use_success = null)
 	{
 		if($member_srl === null && !Context::get('is_logged'))
 		{
@@ -115,7 +115,7 @@ class couponsmsModel extends couponsms
 
 		$args = new stdClass();
 		$args->member_srl = $member_srl;
-		$args->use_success = 'N';
+		$args->use_success = $use_success;
 		$output = executeQueryArray('couponsms.getCouponUserListByMemberSrl', $args);
 		if(!$output->toBool())
 		{

@@ -350,13 +350,39 @@ class nstoreModel extends nstore
 
 	function getMemberTotalPriceByMemberSrl($member_srl = null)
 	{
-		if(!$member_srl === null)
+		if($member_srl === null)
 		{
 			return false;
 		}
 		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$output = executeQuery('nstore.getMemberTotalPriceByMemberSrl', $args);
+		if(!$output->toBool())
+		{
+			return false;
+		}
+		elseif(empty($output->data))
+		{
+			return false;
+		}
+		$output->data->total_info = $this->getMemberTotalInfo($member_srl);
+		$output->data->total_count = count($output->data->total_info);
+
+		return $output->data;
+	}
+
+	function getMemberTotalInfo($member_srl = null, $startRegdate = null, $endRegdate = null)
+	{
+		if($member_srl === null)
+		{
+			return false;
+		}
+		$args = new stdClass();
+		$args->member_srl = $member_srl;
+		$args->order_status = '6';
+		$args->start_regdate = $startRegdate;
+		$args->end_regdate = $endRegdate;
+		$output = executeQuery('nstore.getMemberTotalInfo', $args);
 		if(!$output->toBool())
 		{
 			return false;

@@ -1,0 +1,14 @@
+<query id="getMemberTotalInfo" action="select">
+	<tables>
+		<table name="nstore_cart" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="order_status" var="order_status" pipe="and" />
+		<condition operation="more" column="regdate" var="start_regdate" pipe="and" />
+		<condition operation="less" column="regdate" var="end_regdate" pipe="and" />
+	</conditions>
+</query>
