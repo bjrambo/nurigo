@@ -1,0 +1,21 @@
+<query id="getCouponUserListByMemberSrlInPage" action="select">
+	<tables>
+		<table name="couponsms_use_list" alias="use" />
+		<table name="couponsms_list" alias="list" />
+	</tables>
+	<columns>
+		<column name="list.*" />
+		<column name="use.*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="use.member_srl" var="member_srl" notnull="notnull" />
+		<condition operation="equal" column="use.use_success" var="use_success" pipe="and" />
+		<condition operation="equal" column="list.couponsms_srl" default="use.couponsms_srl" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="regdate" order="desc" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

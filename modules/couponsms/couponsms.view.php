@@ -86,8 +86,12 @@ class couponsmsView extends couponsms
 		}
 
 		$total_info = $oNstoreModel->getMemberTotalPriceByMemberSrl($member_info->member_srl);
+		Context::set('total_info', $total_info);
 
 		$coupons = getModel('couponsms')->getCouponUserListByMemberSrl($member_srl, 'N');
+
+		Context::set('coupon_list', $coupons);
+		debugPrint($coupons);
 
 		$thisMonth = $oNstoreModel->getMemberTotalInfo($member_info->member_srl, date('Ym01000000'), date('Ymt235959'));
 		$thisMonthTotalPrice = 0;
@@ -95,6 +99,8 @@ class couponsmsView extends couponsms
 		{
 			$thisMonthTotalPrice = $thisMonthTotalPrice + $val->discounted_price;
 		}
+
+		Context::set('thisMonthTotalPrice', $thisMonthTotalPrice);
 
 		$today = mktime(0,0,0, date("m"), 15, date("Y"));;
 		$prev_month = strtotime('-1 month', $today);
@@ -107,6 +113,7 @@ class couponsmsView extends couponsms
 			$lastMonthTotalPrice = $lastMonthTotalPrice + $val->discounted_price;
 		}
 
+		Context::set('lastMonthTotalPrice', $lastMonthTotalPrice);
 
 		$startday = date('YmdHis', strtotime('-30 day', time()));
 		$endDay = date('YmdHis', time());
@@ -116,6 +123,8 @@ class couponsmsView extends couponsms
 		{
 			$lastDayTotalPrice = $lastDayTotalPrice + $val->discounted_price;
 		}
+
+		Context::set('lastDayTotalPrice', $lastDayTotalPrice);
 
 		Context::set('memberInfo', get_object_vars($member_info));
 
@@ -129,5 +138,34 @@ class couponsmsView extends couponsms
 		getView('member')->_getDisplayedMemberInfo($member_info, $extendForm, $memberConfig);
 
 		$this->setTemplateFile('member_info');
+	}
+
+	function dispCouponsmsList()
+	{
+		if(!Context::get('member_srl') && Context::get('is_logged'))
+		{
+			$member_srl = Context::get('logged_info')->member_srl;
+		}
+		else
+		{
+			return new Object(-1, '로그인사용자만 조회가능합니다.');
+		}
+
+		$args = new stdClass();
+		$args->page = Context::get('page');
+		$args->member_srl = $member_srl;
+		$args->sort_index = 'regdate';
+		$args->page = Context::get('page');
+		$args->list_count = 20;
+		$args->page_count = 10;
+		$output = executeQuery('couponsms.getCouponUserListByMemberSrlInPage', $args);
+
+		Context::set('coupon_list', $output->data);
+		Context::set('total_count', $output->total_count);
+		Context::set('total_page', $output->total_page);
+		Context::set('page', $output->page);
+		Context::set('page_navigation', $output->page_navigation);
+
+		$this->setTemplateFile('coupon_list');
 	}
 }

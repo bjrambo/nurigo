@@ -75,6 +75,7 @@ class couponsmsAdminController extends couponsms
 		$config = new stdClass();
 		$config->layout_srl = $obj->layout_srl;
 		$config->skin = $obj->skin;
+		$config->mskin = $obj->mskin;
 		$config->sending_method = $obj->sending_method;
 		$config->sender_key = $obj->sender_key;
 		$config->variable_name = $obj->variable_name;

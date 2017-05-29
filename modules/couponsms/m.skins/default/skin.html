@@ -1,0 +1,72 @@
+<load target="css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=0, user-scalable=no, target-densitydpi=medium-dpi" />
+<div class="coupon-body">
+	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/couponsms/skins/default/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<form ruleset="userCoupon" action="./" method="post" class="form-horizontal" id="fo_ncenterlite">
+		<input type="hidden" name="module" value="couponsms" />
+		<input type="hidden" name="act" value="procCouponsmsSendMessage" />
+		<input type="hidden" name="xe_validator_id" value="modules/couponsms/skins/default/1" />
+		<input type="hidden" name="member_srl" value="{$member_srl}" />
+		<input type="hidden" name="couponsms_srl" value="{$couponsms_srl}" />
+
+		<div style="font-family: 'Lucida Grande', 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Lucida Sans Unicode', Helvetica, Arial, sans-serif; font-size: 0.9em; overflow-x: hidden; overflow-y: auto; margin: 0px !important; padding: 5px 20px 26px !important; background-color: rgb(255, 255, 255);font-family: 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; padding: 20px;padding: 20px; color: rgb(34, 34, 34); font-size: 15px; font-family: 'Roboto Condensed', Tauri, 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; background: rgb(255, 255, 255);">
+			<h2 id="쿠폰-지급." style="clear: both;font-size: 1.8em; font-weight: bold; margin: 1.275em 0px 0.85em;margin-top: 0px;border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(230, 230, 230);">
+				<a name="쿠폰-지급." href="#쿠폰-지급." style="text-decoration: none; vertical-align: baseline;color: rgb(50, 105, 160);"></a>쿠폰 지급
+			</h2>
+			<table style="padding: 0px; border-collapse: collapse; border-spacing: 0px; margin-bottom: 16px;background-color: rgb(250, 250, 250);">
+				<thead>
+				<tr>
+					<th style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;font-weight: bold;border: 1px solid rgb(230, 230, 230);">
+						보기
+					</th>
+					<th style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;font-weight: bold;border: 1px solid rgb(230, 230, 230);">
+						내용
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						쿠폰이름
+					</td>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						{$couponsms->title}
+					</td>
+				</tr>
+				<tr style="background-color: rgb(242, 242, 242);">
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						유효기간
+					</td>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						{date('Y년m월d일', strtotime($selected_date . '+' . $couponsms->term_regdate . ' day'))} 까지
+					</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						사용처
+					</td>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						{$couponsms->use}
+					</td>
+				</tr>
+				<tr style="background-color: rgb(242, 242, 242);">
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						혜택
+					</td>
+					<td style="border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px;border: 1px solid rgb(230, 230, 230);">
+						{$couponsms->use_boon}
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="s-body">
+			<div class="s-body-sub">
+				<input type="submit" value="쿠폰신청" class="myButton" onclick="return beCheckWrite(this)"/>
+			</div>
+		</div>
+	</form>
+</div>

@@ -65,6 +65,17 @@
 				</select>
 			</div>
 		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">모바일 {$lang->skin}</label>
+			<div class="x_controls">
+				<select name="mskin" onchange="doDisplaySkinColorset(this); return false;">
+					<option loop="$mskin_list => $key, $val" value="{$key}" selected="selected"|cond="$config->mskin == $key">
+						{$val->title} ({htmlspecialchars($key)})
+					</option>
+				</select>
+			</div>
+		</div>
+
 	</section>
 	<div class="x_clearfix btnArea">
 		<div class="x_pull-right">
