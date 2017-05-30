@@ -19,6 +19,14 @@ class epayController extends epay
 	 */
 	function reviewOrder()
 	{
+
+		$coupon_info = Context::get('coupon_info');
+
+		if($coupon_info->use_success === 'Y')
+		{
+			return new Object(-1, '이미 사용된 쿠폰입니다. 결제를 진행할 수 없습니다.');
+		}
+
 		$order_srl = getNextSequence();
 		$transaction_srl = $order_srl;
 		$review_args = Context::getRequestVars();
@@ -125,6 +133,8 @@ class epayController extends epay
 		$returnOutput->purchaser_name = $review_args->purchaser_name;
 		$returnOutput->purchaser_email = $review_args->purchaser_email;
 		$returnOutput->purchaser_telnum = $review_args->purchaser_telnum;
+
+		$_SESSION['epay']['couponuser_srl'] = Context::get('coupon_info')->couponuser_srl;
 
 		return $returnOutput;
 	}
@@ -234,17 +244,53 @@ class epayController extends epay
 		{
 			$args->member_srl = Context::get('logged_info')->member_srl;
 		}
+		else
+		{
+			$args->member_srl = 0;
+		}
 		$output = ModuleHandler::triggerCall('epay.processPayment', 'after', $args);
 		if(!$output->toBool())
 		{
 			return $output;
 		}
-
 		// check state
 		if($args->state == '3') // failure
 		{
 			$this->setError(-1);
 			$this->setMessage($args->result_message);
+		}
+		elseif($args->state == '1')
+		{
+			if($_SESSION['epay']['couponuser_srl'])
+			{
+				$coupon_info = getModel('couponsms')->getCouponInfoByCouponuserSrl($_SESSION['epay']['couponuser_srl']);
+				if($coupon_info !== false)
+				{
+					if($coupon_info->use_success == 'Y')
+					{
+						return new Object(-1, '이미 사용된 쿠폰입니다.');
+					}
+					$payArgs = new stdClass();
+					$payArgs->couponuser_srl = $_SESSION['epay']['couponuser_srl'];
+					$payArgs->use_success = 'Y';
+					$payOutput = executeQuery('couponsms.updateCouponUser', $payArgs);
+					if(!$payOutput->toBool())
+					{
+						return $payOutput;
+					}
+					else
+					{
+						$historyArgs = new stdClass();
+						$historyArgs->couponsms_srl = $coupon_info->couponsms_srl;
+						$historyArgs->member_srl = $args->member_srl;
+						$historyArgs->log_text = '쿠폰을 사용하였습니다.';
+						$historyArgs->use_success = 'Y';
+						getController('couponsms')->insertHistory($historyArgs);
+
+
+					}
+				}
+			}
 		}
 
 		$return_url = $args->return_url;

@@ -8,6 +8,6 @@
 		<column name="w_false" var="w_false" />
 	</columns>
 	<conditions>
-		<condition operation="equal" column="couponuser_srl" var="couponuser_srl"  />
+		<condition operation="equal" column="couponuser_srl" var="couponuser_srl" notnull="notnull" />
 	</conditions>
 </query>

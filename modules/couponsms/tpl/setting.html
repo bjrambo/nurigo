@@ -56,6 +56,17 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label" for="layout_srl">모바일 {$lang->layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$config->mlayout_srl==$val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#aboutLayout" data-toggle class="x_icon-question-sign">{$lang->help}</a>
+				<p class="x_help-block" id="aboutLayout" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label">{$lang->skin}</label>
 			<div class="x_controls">
 				<select name="skin" onchange="doDisplaySkinColorset(this); return false;">

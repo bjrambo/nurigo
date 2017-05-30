@@ -780,6 +780,7 @@ class ncartController extends ncart
 		if($coupon_config->use_shop_coupon === 'yes')
 		{
 			$coupon_info = $oCouponsmsModel->getCouponInfoByCouponuserSrl($in_args->use_shop_coupon);
+			Context::set('coupon_info', $coupon_info);
 			if($coupon_info !== false)
 			{
 				if($coupon_info->free_delivery == 'Y')
@@ -907,7 +908,6 @@ class ncartController extends ncart
 				}
 			}
 		}
-		debugPRint($args->total_price);
 	}
 
 	/**
