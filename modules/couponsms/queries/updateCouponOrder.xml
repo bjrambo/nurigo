@@ -1,0 +1,11 @@
+<query id="updateCouponOrder" action="update">
+	<tables>
+		<table name="couponsms_order_list" />
+	</tables>
+	<columns>
+		<column name="use_success" var="use_success" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="couponuser_srl" var="couponuser_srl" notnull="notnull" />
+	</conditions>
+</query>

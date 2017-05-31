@@ -1,0 +1,13 @@
+<query id="insertCouponOrderList" action="insert">
+	<tables>
+		<table name="couponsms_order_list" />
+	</tables>
+	<columns>
+		<column name="couponuser_srl" var="couponuser_srl" notnull="notnull" />
+		<column name="couponsms_srl" var="couponsms_srl" />
+		<column name="member_srl" var="member_srl" />
+		<column name="order_srl" var="order_srl" />
+		<column name="regdate" var="regdate" />
+		<column name="use_success" var="use_success" />
+	</columns>
+</query>

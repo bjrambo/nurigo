@@ -110,27 +110,38 @@ function calculate_payamount(mileage, deliv) {
 	if (deliv=='N') payment_amount -= delivery_fee;
 	return payment_amount;
 }
-function coupon_payamount(deliv, price, type) {
-	var payment_amount = total_price;
-	if (deliv=='Y') payment_amount -= delivery_fee;
+
+function coupon_payamount(deliv, cdeliv, price, type, mileage) {
+	console.log(deliv);
+	console.log(cdeliv);
+	console.log(price);
+	console.log(type);
+	console.log(mileage);
+	var payment_amount = total_price - mileage;
+	if (deliv == 'N')
+	{
+		payment_amount -= delivery_fee;
+	}
+
+	if (cdeliv == 'Y' && deliv != 'N') payment_amount -= delivery_fee;
 	if (type == 'percent') {
-		if (deliv !== 'Y') {
+		if (cdeliv !== 'Y') {
 			payment_amount -= delivery_fee;
 		}
 
 		payment_amount = payment_amount * (1 - price / 100);
 
-		if (deliv !== 'Y') {
+		if (cdeliv !== 'Y') {
 			payment_amount += delivery_fee;
 		}
 	} else if (type == 'price') {
-		if (deliv !== 'Y') {
+		if (cdeliv !== 'Y') {
 			payment_amount -= delivery_fee;
 		}
 
 		payment_amount = payment_amount - price;
 
-		if (deliv !== 'Y') {
+		if (cdeliv !== 'Y') {
 			payment_amount += delivery_fee;
 		}
 	}
@@ -175,6 +186,10 @@ function coupon_payamount(deliv, price, type) {
 					break;
 			}
 		});
+		var $opt = $('select[name=use_shop_coupon]');
+		var cupon_price = $opt.attr('data-cupon-price');
+		var coupon_type = $opt.attr('data-coupon-type');
+		var free_delivery = $opt.attr('data-free-delivery');
 
 		$('input[name=input_mileage]').keyup(function() {
 			var use_mileage = $(this).val();
@@ -207,7 +222,7 @@ function coupon_payamount(deliv, price, type) {
 			$('input[name=use_mileage]').val(raw_mileage);
 
 			var delivfee_inadvance = $('input[name=delivfee_inadvance]:checked').val();
-			var payment_amount = calculate_payamount(raw_mileage, delivfee_inadvance);
+			var payment_amount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, raw_mileage);
 			
 			$('#mileage_amount').text(getPrice(raw_mileage));
 			$('#payment_amount').text(getPrice(payment_amount));
@@ -225,6 +240,7 @@ function coupon_payamount(deliv, price, type) {
 		$('input[name=delivfee_inadvance]').click(function() {
 			var use_mileage = $('input[name=use_mileage]').val();
 			if (use_mileage > my_mileage) use_mileage = my_mileage;
+
 			var delivfee_inadvance = $(this).val();
 			if (delivfee_inadvance == 'Y') {
 				$('#delivery_fee').text(number_format(delivery_fee));
@@ -233,7 +249,7 @@ function coupon_payamount(deliv, price, type) {
 			}
 			var orderamount = calculate_totalprice(delivfee_inadvance);
 
-			var payamount = calculate_payamount(use_mileage,delivfee_inadvance);
+			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
 			//$('#order_amount').text(number_format(orderamount));
 			//$('#order_amount2').text(number_format(orderamount));
 			$('#payment_amount').text(number_format(payamount));
@@ -243,19 +259,20 @@ function coupon_payamount(deliv, price, type) {
 		});
 
 		$('#use_shop_coupon').change(function() {
-			var $opt = $('option:selected',this);
-			var cupon_price = $opt.attr('data-cupon-price');
-			var coupon_type = $opt.attr('data-coupon-type');
-			var free_delivery = $opt.attr('data-free-delivery');
-			console.log(free_delivery);
+			var use_mileage = $('input[name=use_mileage]').val();
+			if (use_mileage > my_mileage) use_mileage = my_mileage;
+			var delivfee_inadvance = $('input[name=delivfee_inadvance]:checked').val();
 
 			if(free_delivery != 'Y') {
 				$('#delivery_fee').text(number_format(delivery_fee));
 			} else {
 				$('#delivery_fee').text("0");
 			}
-
-			var payamount = coupon_payamount(free_delivery, cupon_price, coupon_type);
+			$opt = $('option:selected',this);
+			cupon_price = $opt.attr('data-cupon-price');
+			coupon_type = $opt.attr('data-coupon-type');
+			free_delivery = $opt.attr('data-free-delivery');
+			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
 			console.log(payamount);
 			$('#payment_amount').text(number_format(payamount));
 			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){

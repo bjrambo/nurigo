@@ -202,9 +202,29 @@ class nstoreController extends nstore
 				$priceArgs->last_price = $order_info->total_price;
 				$priceArgs->last_regdate = date('YmdHis');
 				$price_output = executeQuery('nstore.updateMemberTotalPrice', $priceArgs);
-				if($price_output->toBool())
+				if(!$price_output->toBool())
 				{
 					return $price_output;
+				}
+			}
+
+			$oCouponsmsModel = getModel('couponsms');
+
+			$couponConfig = $oCouponsmsModel->getConfig();
+			if($couponConfig->use_shop_coupon === 'yes')
+			{
+				$coupon_args = new stdClass();
+				$coupon_args->order_srl = $order_srl;
+				$coupon_data = executeQuery('couponsms.getCouponOrder', $coupon_args);
+
+				if($coupon_data->data->use_success === 'Y')
+				{
+
+					$coupon_args = new stdClass();
+					$coupon_args->couponuser_srl = $coupon_data->data->couponuser_srl;
+					$coupon_args->use_success = 'N';
+					$coupon_output = executeQuery('couponsms.updateCouponUser', $coupon_args);
+					$order_output = executeQuery('couponsms.updateCouponOrder', $coupon_args);
 				}
 			}
 		}
@@ -234,7 +254,6 @@ class nstoreController extends nstore
 			return $output;
 		}
 
-		//TODO(BJRambo):check again
 		return new Object();
 	}
 

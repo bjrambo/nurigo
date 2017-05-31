@@ -91,7 +91,6 @@ class couponsmsView extends couponsms
 		$coupons = getModel('couponsms')->getCouponUserListByMemberSrl($member_srl, 'N');
 
 		Context::set('coupon_list', $coupons);
-		debugPrint($coupons);
 
 		$thisMonth = $oNstoreModel->getMemberTotalInfo($member_info->member_srl, date('Ym01000000'), date('Ymt235959'));
 		$thisMonthTotalPrice = 0;

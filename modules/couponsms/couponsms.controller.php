@@ -187,4 +187,18 @@ class couponsmsController extends couponsms
 
 		return true;
 	}
+
+	function insertCouponOrderList($obj)
+	{
+		$args = new stdClass();
+		$args->couponuser_srl = $obj->couponuser_srl;
+		$args->couponsms_srl = $obj->couponsms_srl;
+		$args->member_srl = $obj->member_srl;
+		$args->order_srl = $obj->order_srl;
+		$args->regdate = date('YmdHis');
+		$args->use_success = $obj->use_success;
+		$output = executeQuery('couponsms.insertCouponOrderList', $args);
+
+		return $output;
+	}
 }

@@ -266,6 +266,7 @@ class epayController extends epay
 				$coupon_info = getModel('couponsms')->getCouponInfoByCouponuserSrl($_SESSION['epay']['couponuser_srl']);
 				if($coupon_info !== false)
 				{
+					$oCouponsmsController = getController('couponsms');
 					if($coupon_info->use_success == 'Y')
 					{
 						return new Object(-1, '이미 사용된 쿠폰입니다.');
@@ -285,9 +286,19 @@ class epayController extends epay
 						$historyArgs->member_srl = $args->member_srl;
 						$historyArgs->log_text = '쿠폰을 사용하였습니다.';
 						$historyArgs->use_success = 'Y';
-						getController('couponsms')->insertHistory($historyArgs);
+						$oCouponsmsController->insertHistory($historyArgs);
 
-
+						$order_args = new stdClass();
+						$order_args->couponuser_srl = $coupon_info->couponuser_srl;
+						$order_args->couponsms_srl = $coupon_info->couponsms_srl;
+						$order_args->member_srl = $args->member_srl;
+						$order_args->order_srl = $args->order_srl;
+						$order_args->use_success = 'Y';
+						$output = $oCouponsmsController->insertCouponOrderList($order_args);
+						if(!$output->toBool())
+						{
+							return $output;
+						}
 					}
 				}
 			}
