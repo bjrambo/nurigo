@@ -21,11 +21,6 @@ class couponsmsView extends couponsms
 			$this->module_info->layout_srl = $config->layout_srl;
 			$this->setLayoutPath($layout_info->path);
 		}
-		else
-		{
-			$this->module_info->layout_srl = '0';
-			$this->setLayoutPath($layout_info->path);
-		}
 	}
 
 	function dispCouponsmsSendMessageView()
