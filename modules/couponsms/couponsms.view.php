@@ -84,14 +84,25 @@ class couponsmsView extends couponsms
 		Context::set('total_info', $total_info);
 
 		$coupons = getModel('couponsms')->getCouponUserListByMemberSrl($member_srl, 'N');
+		if($coupons === false)
+		{
+			$couponsCount = 0;
+		}
+		else
+		{
+			$couponsCount = count($coupons);
+		}
 
-		Context::set('coupon_list', $coupons);
+		Context::set('couponCount', $couponsCount);
 
 		$thisMonth = $oNstoreModel->getMemberTotalInfo($member_info->member_srl, date('Ym01000000'), date('Ymt235959'));
 		$thisMonthTotalPrice = 0;
-		foreach($thisMonth as $val)
+		if(is_array($thisMonth))
 		{
-			$thisMonthTotalPrice = $thisMonthTotalPrice + $val->discounted_price;
+			foreach($thisMonth as $val)
+			{
+				$thisMonthTotalPrice = $thisMonthTotalPrice + $val->discounted_price;
+			}
 		}
 
 		Context::set('thisMonthTotalPrice', $thisMonthTotalPrice);
@@ -102,9 +113,12 @@ class couponsmsView extends couponsms
 		$endLastDay = date('Ymt235959', $prev_month);
 		$lastMonth = $oNstoreModel->getMemberTotalInfo($member_info->member_srl, $startLastDay, $endLastDay);
 		$lastMonthTotalPrice = 0;
-		foreach($lastMonth as $val)
+		if(is_array($lastMonth))
 		{
-			$lastMonthTotalPrice = $lastMonthTotalPrice + $val->discounted_price;
+			foreach($lastMonth as $val)
+			{
+				$lastMonthTotalPrice = $lastMonthTotalPrice + $val->discounted_price;
+			}
 		}
 
 		Context::set('lastMonthTotalPrice', $lastMonthTotalPrice);
@@ -113,13 +127,15 @@ class couponsmsView extends couponsms
 		$endDay = date('YmdHis', time());
 		$lastDay = $oNstoreModel->getMemberTotalInfo($member_info->member_srl, $startday, $endDay);
 		$lastDayTotalPrice = 0;
-		foreach($lastDay as $val)
+		if(is_array($lastDay))
 		{
-			$lastDayTotalPrice = $lastDayTotalPrice + $val->discounted_price;
+			foreach($lastDay as $val)
+			{
+				$lastDayTotalPrice = $lastDayTotalPrice + $val->discounted_price;
+			}
 		}
 
 		Context::set('lastDayTotalPrice', $lastDayTotalPrice);
-
 		Context::set('memberInfo', get_object_vars($member_info));
 
 		$extendForm = $oMemberModel->getCombineJoinForm($member_info);
