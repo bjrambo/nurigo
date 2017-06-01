@@ -31,6 +31,7 @@
 		<action name="procNstoreAdminUpdateDeliveryInfo" type="controller" />
 		<action name="procNstoreAdminOrderExcelDownload" method="GET|POST" type="controller" />
 		<action name="procNstoreAdminCSVDownloadByOrder" method="GET|POST" type="controller" />
+		<action name="procNstoreAdminDeleteAllTotalPrice" type="controller" />
 
 		<action name="getNstoreAdminDeleteModInst" type="model" />
 		<action name="getNstoreAdminDeleteOrders" type="model" />

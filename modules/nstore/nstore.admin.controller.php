@@ -441,6 +441,25 @@ class nstoreAdminController extends nstore
 		}
 		exit(0);
 	}
+
+	function procNstoreAdminDeleteAllTotalPrice()
+	{
+		$args = new stdClass();
+		$output = executeQuery('nstore.deleteAllTotalPrice', $args);
+		if(!$output->toBool())
+		{
+			return $output;
+		}
+		$this->setMessage('success_deleted');
+		if (Context::get('success_return_url'))
+		{
+			$this->setRedirectUrl(Context::get('success_return_url'));
+		}
+		else
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispNstoreAdminTotalPriceList'));
+		}
+	}
 }
 
 /* End of file nstore.admin.controller.php */

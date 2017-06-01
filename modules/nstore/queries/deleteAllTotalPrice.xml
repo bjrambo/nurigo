@@ -1,0 +1,5 @@
+<query id="deleteAllTotalPrice" action="delete">
+	<tables>
+		<table name="nstore_member_total" />
+	</tables>
+</query>

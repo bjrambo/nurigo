@@ -4,6 +4,18 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
+<div class="x_clearfix">
+	<form action="{Context::getRequestUri()}" method="post">
+		<fieldset>
+			<input type="hidden" name="module" value="nstore" />
+			<input type="hidden" name="act" value="procNstoreAdminDeleteAllTotalPrice" />
+			<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+			<button type="submit" class="x_btn">모든 총금액 정보 초기화</button>
+			<p class="x_help-block"><span class="x_label x_label-important">주의!</span> 아래의 모든 총금액정보가 삭제가 됩니다..</p>
+		</fieldset>
+	</form>
+</div>
+
 <table id="boardList" class="x_table x_table-striped x_table-hover">
 	<caption>
 		<strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong>
