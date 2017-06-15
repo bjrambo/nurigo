@@ -2020,6 +2020,14 @@ class nproductModel extends nproduct
 	{
 		array_push($obj, 'nproduct');
 	}
+
+	function getPriceNumber()
+	{
+		$price = Context::get('price');
+		$oCurrencyModel = getModel('currency');
+		$price = $oCurrencyModel->formatMoney($price);
+		$this->add('price', $price);
+	}
 }
 /* End of file nproduct.model.php */
 /* Location: ./modules/nproduct/nproduct.model.php */

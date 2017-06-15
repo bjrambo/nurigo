@@ -100,5 +100,6 @@
 		<action name="getNproductItemInfos" type="model" />
 		<action name="getNproductExtraVars" type="model" />
 		<action name="getNproductItems" type="model" />
+		<action name="getPriceNumber" type="model" />
 	</actions>
 </module>

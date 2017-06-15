@@ -17,7 +17,10 @@ function getTotalPrice() {
 function printTotalPrice() {
 	var total_price = getTotalPrice();
 
-	jQuery('#total_amount').html('<span>' + xe.lang.total_amount + ': <span class="red">'+ number_format(total_price) +'</span></span>').attr('data-amount', total_price);
+	jQuery('#total_amount').html('<span>' + xe.lang.total_amount + ': <span class="red total-price-amount">'+ number_format(total_price) +'</span></span>').attr('data-amount', total_price);
+	$.exec_json('nproduct.getPriceNumber', {'price': total_price}, function(ret_obj){
+		jQuery('span.total-price-amount').html(number_format(ret_obj.price));
+	});
 	calculate_sum();
 }
 
@@ -57,11 +60,18 @@ jQuery(function($) {
 
 		if (!$('#option_' + option_srl).length) {
 			if (type == 'Y') {
-				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (price) + '"><td>' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span>' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (price) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
 			} else {
-				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (g_discounted_price + (price)) + '"><td>' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span>' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (g_discounted_price + (price)) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
 			}
 		}
+
+		$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
+			jQuery('span.number_format' + option_srl).html(number_format(ret_obj.price));
+		});
+		$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
+			jQuery('td.title' + option_srl).html(title + '(' + '+' + number_format(ret_obj.price) + ')');
+		});
 
 		printTotalPrice();
 	});

@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			
-			<div cond="$k == 'amount'" class="item_price"><span class="v_title">{$lang->class_price}</span><span cond="$k == 'amount' && $val->discount_amount"><span style="text-decoration:line-through; padding-right:10px; color:#999;">{$val->printPrice()}</span></span><span class="red">{$val->printDiscountedPrice()}</span></div>
+			<div cond="$k == 'amount'" class="item_price"><span class="v_title">{$lang->class_price}</span><span cond="$k == 'amount' && $val->discount_amount"><span style="text-decoration:line-through; padding-right:10px; color:#999;">{$val->printPrice()}</span></span><span class="red ">{$val->printDiscountedPrice()}</span></div>
 			<div cond="$k == 'cart_buttons'" class="item_choice">
 				<a href="#" class="orange_btn" onclick="addItemsToCart({$val->item_srl}); return false;">{$lang->cmd_cart}</a>
 				<a href="#" class="gray_btn" onclick="addItemsToFavorites({$val->item_srl}); return false;">{$lang->cmd_favorites}</a> 
