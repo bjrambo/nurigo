@@ -180,12 +180,8 @@ class couponsmsController extends couponsms
 		$args->use_success = $obj->use_success;
 
 		$output = executeQuery('couponsms.insertHistory', $args);
-		if(!$output->toBool())
-		{
-			return $output;
-		}
 
-		return true;
+		return $output;
 	}
 
 	function insertCouponOrderList($obj)

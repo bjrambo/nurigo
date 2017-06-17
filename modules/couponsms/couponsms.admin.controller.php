@@ -70,7 +70,7 @@ class couponsmsAdminController extends couponsms
 		}
 		else
 		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminSetting'));
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
 		}
 	}
 
@@ -97,7 +97,7 @@ class couponsmsAdminController extends couponsms
 		}
 		else
 		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminSetting'));
 		}
 	}
 
@@ -117,7 +117,7 @@ class couponsmsAdminController extends couponsms
 		}
 		else
 		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponList'));
 		}
 	}
 
@@ -145,7 +145,7 @@ class couponsmsAdminController extends couponsms
 		}
 		else
 		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminIndex'));
 		}
 	}
 
@@ -315,6 +315,10 @@ class couponsmsAdminController extends couponsms
 		$history_args->sms_success = $setting_args->success;
 		$history_args->use_success = 'N';
 		$history_output = getController('couponsms')->insertHistory($history_args);
+		if(!$history_output->toBool())
+		{
+			return $history_output;
+		}
 		return $is_return;
 	}
 
