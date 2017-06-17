@@ -50,6 +50,73 @@
 	display:none;
 	width:350px;
 }
-.coupon-body{
-	width:350px;
+.coupon-body {
+	width: 350px;
+
+}
+
+
+table.coupon-list {
+	border-collapse: collapse;
+
+	line-height: 1.5;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin: 20px 10px;
+	text-align:center;
+}
+table.coupon-list thead th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #e7708d;
+	margin: 20px 10px;
+}
+table.coupon-list tbody th {
+	width: 150px;
+	padding: 10px;
+}
+table.coupon-list td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+}
+table.coupon-list .even {
+	background: #fdf3f5;
+}
+
+.pagination {
+	display: inline-block;
+}
+
+.pagination ul{
+	list-style:none;
+}
+.pagination li {
+	float:left;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.back-btn {
+	background-color: #e7708d;
+	padding:10px 35px;
+	color:#fff;
 }

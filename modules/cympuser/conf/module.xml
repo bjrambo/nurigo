@@ -16,6 +16,7 @@
 		<action name="getCympuserAdminModDelete" type="model" />
 
 		<action name="dispCympuserIndex" type="view" index="true" />
+		<action name="dispCympuserMemberInfo" type="view" standalone="true" />
 
     </actions>
 </module>

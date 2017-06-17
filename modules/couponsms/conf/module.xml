@@ -26,7 +26,6 @@
 
 		<!-- user view -->
 		<action name="dispCouponsmsSendMessageView" type="view" />
-		<action name="dispCouponsmsMemberInfo" type="view" />
 		<action name="dispCouponsmsList" type="view" />
 
 		<!-- user Controller -->

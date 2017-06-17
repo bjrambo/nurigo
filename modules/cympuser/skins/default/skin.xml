@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">기본 쇼핑몰 회원정보스킨</title>
+	<version>1.0</version>
+	<date>2017-06-17</date>
+	<author email_address="qw5414@naver.com" link="http://famesms.com">
+		<name xml:lang="ko">BJRambo</name>
+	</author>
+	<license>GPL v2</license>
+	<extra_vars>
+	</extra_vars>
+</skin>

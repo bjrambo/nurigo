@@ -1,0 +1,44 @@
+<load target="css.css" />
+<a class="back-btn" href="{getUrl('act', 'dispCympuserMemberInfo')}">←돌아가기</a>
+
+<table class="coupon-list">
+	<caption>
+		Total: {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}
+	</caption>
+	<thead>
+	<tr>
+		<th>{$lang->no}</th>
+		<th class="title">쿠폰명</th>
+		<th>사용혜택</th>
+		<th>유효기간</th>
+		<th>쿠폰사용여부</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr loop="$coupon_list => $no,$val">
+			<td>{$no}</td>
+			<td class="title">
+				{$val->title}
+			</td>
+			<td>{$val->use_boon}</td>
+			<td>{zdate($val->term_regdate, 'Y-m-d')}</td>
+			<td>
+				<!--@if($val->use_success == 'Y')-->
+				<span style="color:#ff4200">사용함</span>
+				<!--@else-->
+				<span style="color:#0759ff">사용하지 않음</span>
+				<!--@end-->
+			</td>
+		</tr>
+		<tr cond="!$coupon_list"><td colspan="5">등록된 쿠폰이 없습니다.</td></tr>
+	</tbody>
+</table>
+<div class="pagination pagination-centered">
+	<ul>
+		<li><a href="{getUrl('page','','module_srl','')}" class="direction">&laquo; {$lang->first_page}</a></li>
+		<!--@while($page_no = $page_navigation->getNextPage())-->
+		<li class="active"|cond="$page == $page_no"><a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a></li>
+		<!--@end-->
+		<li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &raquo;</a></li>
+	</ul>
+</div>

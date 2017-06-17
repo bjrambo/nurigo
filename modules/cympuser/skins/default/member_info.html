@@ -1,0 +1,45 @@
+<include target="../../../member/skins/default/common_header.html" />
+<h1>{$lang->member_info}</h1>
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/member/skins/default/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<dl class="dl-horizontal">
+	<block loop="$displayDatas => $item">
+		<dt><em cond="$item->required || $item->mustRequired">*</em> {$item->title}</dt>
+		<dd cond="$item->value">{$item->value}</dd>
+		<dd cond="!$item->value" style="color:#ccc">&hellip;</dd>
+	</block>
+	<dt>{$lang->member_group}</dt>
+	<dd>{implode(', ', $memberInfo['group_list'])}</dd>
+	<dt>{$lang->signup_date}</dt>
+	<dd>{zdate($memberInfo[regdate],"Y-m-d")}</dd>
+	<block cond="$memberInfo[member_srl] == $logged_info->member_srl || $logged_info->is_admin == 'Y'">
+		<dt>{$lang->last_login}</dt>
+		<dd>{zdate($memberInfo[last_login],"Y-m-d")}</dd>
+	</block>
+	<dt>총 주문금액</dt>
+	<dd>
+		<block cond="!$total_info">0 원</block>
+		<block cond="$total_info">{$total_info->total_price} 원</block> (관리자가 초기화 이후의 금액부터 집계되는 금액입니다.)
+	</dd>
+	<dt>총 주문</dt>
+	<dd>
+		<block cond="!$total_info">0 회</block>
+		<block cond="$total_info">{$total_info->total_count} 회</block>
+	</dd>
+	<dt>사용가능한 쿠폰</dt>
+	<dd>{$couponCount} 개 <a href="{getUrl('act', 'dispCouponsmsList')}">조회하기</a></dd>
+	<dt>최근 30일 누적 결제금액</dt>
+	<dd>{$lastDayTotalPrice} 원</dd>
+	<dt>이번달 실결제금액</dt>
+	<dd>{$thisMonthTotalPrice} 원</dd>
+	<dt>저번달 실결제금액</dt>
+	<dd>{$lastMonthTotalPrice} 원</dd>
+</dl>
+<div class="btnArea btn-group" cond="$memberInfo['member_srl'] == $logged_info->member_srl">
+	<a href="{getUrl('act', 'dispMemberModifyEmailAddress')}" class="btn" cond="$member_config->identifier == 'email_address'">{$lang->cmd_modify_member_email_address}</a>
+	<a href="{getUrl('act','dispMemberModifyInfo','member_srl','')}" class="btn">{$lang->cmd_modify_member_info}</a>
+	<a href="{getUrl('act','dispMemberModifyPassword','member_srl','')}" class="btn">{$lang->cmd_modify_member_password}</a>
+	<a href="{getUrl('act','dispMemberLeave','member_srl','')}" class="btn">{$lang->cmd_leave}</a>
+</div>
+<include target="../../../member/skins/default/common_footer.html" />
