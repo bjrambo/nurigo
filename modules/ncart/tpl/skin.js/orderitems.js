@@ -112,11 +112,6 @@ function calculate_payamount(mileage, deliv) {
 }
 
 function coupon_payamount(deliv, cdeliv, price, type, mileage) {
-	console.log(deliv);
-	console.log(cdeliv);
-	console.log(price);
-	console.log(type);
-	console.log(mileage);
 	var payment_amount = total_price - mileage;
 	if (deliv == 'N')
 	{
@@ -244,6 +239,9 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			var delivfee_inadvance = $(this).val();
 			if (delivfee_inadvance == 'Y') {
 				$('#delivery_fee').text(number_format(delivery_fee));
+				$.exec_json('nproduct.getPriceNumber', {'price': delivery_fee}, function (obj) {
+					$('#delivery_fee').text(obj.price);
+				});
 			} else {
 				$('#delivery_fee').text("0");
 			}
@@ -252,9 +250,11 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
 			//$('#order_amount').text(number_format(orderamount));
 			//$('#order_amount2').text(number_format(orderamount));
-			$('#payment_amount').text(number_format(payamount));
 			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
-				jQuery('#order_amount').html(number_format(ret_obj.price));
+				$.exec_json('nproduct.getPriceNumber', {'price': ret_obj.price}, function (obj) {
+					$('#order_amount').html(obj.price);
+					$('#payment_amount').html(ret_obj.price);
+				});
 			});
 		});
 
@@ -273,10 +273,11 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			coupon_type = $opt.attr('data-coupon-type');
 			free_delivery = $opt.attr('data-free-delivery');
 			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
-			console.log(payamount);
 			$('#payment_amount').text(number_format(payamount));
 			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
-				jQuery('#order_amount').html(number_format(ret_obj.price));
+				$.exec_json('nproduct.getPriceNumber', {'price': number_format(ret_obj.price)}, function (obj) {
+					$('#order_amount').html(obj.price);
+				});
 			});
 		});
 	});
