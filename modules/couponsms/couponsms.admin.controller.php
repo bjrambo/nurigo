@@ -63,7 +63,7 @@ class couponsmsAdminController extends couponsms
 		}
 		else
 		{
-			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminCouponUser', 'couponsms_srl', $couponsms_srl));
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCouponsmsAdminSetting'));
 		}
 	}
 
