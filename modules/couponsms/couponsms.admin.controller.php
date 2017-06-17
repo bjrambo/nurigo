@@ -26,7 +26,14 @@ class couponsmsAdminController extends couponsms
 		$args->free_delivery = $obj->free_delivery;
 		$args->maximum_count = $obj->maximum_count;
 		$args->condition_type = $obj->condition_type;
-		$args->price_condition = $obj->price_condition;
+		if($obj->price_condition)
+		{
+			$args->price_condition = $obj->price_condition;
+		}
+		else
+		{
+			$args->price_condition = 0;
+		}
 		if($obj->group_srl)
 		{
 			$args->group_srl = serialize($obj->group_srl);
