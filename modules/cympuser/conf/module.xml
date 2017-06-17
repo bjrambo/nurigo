@@ -5,13 +5,11 @@
 	<menus>
 	</menus>
     <actions>
-        <action name="dispCympuserAdminModList" type="view" />
-		<action name="dispCympuserAdminModInsert" type="view" />
+		<action name="dispCympuserAdminConfig" type="view" />
         <action name="dispCympuserAdminMemberList" type="view" admin_index="true" />
 		<action name="dispCympuserAdminMemberInsert" type="view" />
 
-		<action name="procCympuserAdminModInsert" type="controller" />
-		<action name="procCympuserAdminModDelete" type="controller" />
+		<action name="procCympuserAdminConfig" type="controller" standalone="true" />
 
 		<action name="getCympuserAdminModDelete" type="model" />
 

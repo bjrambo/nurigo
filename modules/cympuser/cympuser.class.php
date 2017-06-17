@@ -13,7 +13,7 @@ class cympuser extends ModuleObject
 	{
 		if(self::$config === NULL)
 		{
-			$config = getModel('module')->getModuleConfig('cympuer');
+			$config = getModel('module')->getModuleConfig('cympuser');
 			if(!$config)
 			{
 				$config = new stdClass();
@@ -21,6 +21,18 @@ class cympuser extends ModuleObject
 			self::$config = $config;
 		}
 		return self::$config;
+	}
+
+	protected static function setConfig($config)
+	{
+		$oModuleController = getController('module');
+		$output = $oModuleController->insertModuleConfig('cympuser', $config);
+
+		if($output->toBool())
+		{
+			self::$config = $config;
+		}
+		return $output;
 	}
 
 	/**

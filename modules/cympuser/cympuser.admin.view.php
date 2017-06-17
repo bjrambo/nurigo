@@ -30,7 +30,7 @@ class cympuserAdminView extends cympuser
 		}
 
 		// module이 cympusadmin일때 관리자 레이아웃으로
-		if(Context::get('module') == 'cympusadmin')
+		if(Context::get('module') == 'cympusadmin' || Context::get('module') == 'admin')
 		{
 			$classfile = _XE_PATH_ . 'modules/cympusadmin/cympusadmin.class.php';
 			if(file_exists($classfile))
@@ -78,56 +78,30 @@ class cympuserAdminView extends cympuser
 		Context::set('tpl_path', $tpl_path);
 	}
 
-	function dispCympuserAdminModList()
+
+	function dispCympuserAdminConfig()
 	{
-		$args = new stdClass();
-		$args->sort_index = "module_srl";
-		$args->page = Context::get('page');
-		$args->list_count = 20;
-		$args->page_count = 10;
-		$output = executeQueryArray('cympuser.getModuleList', $args);
-		if(!$output->toBool())
-		{
-			return $output;
-		}
-
-
-		// 템플릿에 쓰기 위해서 context::set
-		Context::set('total_count', $output->total_count);
-		Context::set('total_page', $output->total_page);
-		Context::set('page', $output->page);
-		Context::set('list', $output->data);
-		Context::set('page_navigation', $output->page_navigation);
-
-		// 템플릿 파일 지정
-		$this->setTemplateFile('mod_list');
-	}
-
-	function dispCympuserAdminModInsert()
-	{
-		// 스킨 목록을 구해옴
 		$oModuleModel = getModel('module');
+		$oLayoutMode = getModel('layout');
+
+		// 스킨 목록을 구해옴
 		$skin_list = $oModuleModel->getSkins($this->module_path);
 		Context::set('skin_list', $skin_list);
 
+		$mskin_list = $oModuleModel->getSkins($this->module_path, 'm.skins');
+		Context::set('mskin_list', $mskin_list);
+
 		// 레이아웃 목록을 구해옴
-		$oLayoutMode = getModel('layout');
 		$layout_list = $oLayoutMode->getLayoutList();
 		Context::set('layout_list', $layout_list);
 
-		$module_srl = Context::get('module_srl');
-		$args = new stdClass();
-		if($module_srl)
-		{
-			$args->module_srl = $module_srl;
-			$output = executeQuery('cympuser.getModuleInfo', $args);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
-			Context::set('module_info', $output->data);
-		}
-		$this->setTemplateFile('mod_insert');
+		$mlayout_list = $oLayoutMode->getLayoutList(0, 'M');
+		Context::set('mlayout_list', $mlayout_list);
+
+		$config = self::getConfig();
+		Context::set('config', $config);
+
+		$this->setTemplateFile('config');
 	}
 
 	function dispCympuserAdminMemberList()

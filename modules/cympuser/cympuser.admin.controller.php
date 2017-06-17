@@ -14,62 +14,35 @@ class cympuserAdminController extends cympuser
 	{
 	}
 
-	function procCympuserAdminModInsert()
+	function procCympuserAdminConfig()
 	{
-		$oModuleController = getController('module');
-		$oModuleModel = getModel('module');
+		$config = self::getConfig();
+		$obj = Context::getRequestVars();
 
-		$args = Context::getRequestVars();
-		$args->module = 'cympuser';
-
-		// 모듈 정보 가져오기
-		if($args->module_srl)
+		if(!$config)
 		{
-			$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
-			if($module_info->module_srl != $args->module_srl)
-			{
-				unset($args->module_srl);
-			}
+			$config = new stdClass();
+		}
+		$config->layout_srl = $obj->layout_srl;
+		$config->mlayout_srl = $obj->mlayout_srl;
+		$config->skin = $obj->skin;
+		$config->mskin = $obj->mskin;
+
+		$output = self::setConfig($config);
+		if(!$output->toBool())
+		{
+			return $output;
 		}
 
-		// module_srl의 값에 따라 insert/update
-		if(!$args->module_srl)
+		$this->setMessage('success_updated');
+
+		if (Context::get('success_return_url'))
 		{
-			$output = $oModuleController->insertModule($args);
-			$msg_code = 'success_registed';
+			$this->setRedirectUrl(Context::get('success_return_url'));
 		}
 		else
 		{
-			$output = $oModuleController->updateModule($args);
-			$msg_code = 'success_updated';
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCympuserAdminConfig'));
 		}
-		if(!$output->toBool())
-		{
-			return $output;
-		}
-
-		$this->add('module_srl', $output->get('module_srl'));
-		$this->setMessage($msg_code);
-
-	}
-
-	function procCympuserAdminModDelete()
-	{
-		$oModuleController = getController('module');
-
-		$module_srl = Context::get('module_srl');
-		if(!$module_srl)
-		{
-			return new Object(-1, 'module_srl 이 비었습니다.');
-		}
-
-		$output = $oModuleController->deleteModule($module_srl);
-		if(!$output->toBool())
-		{
-			return $output;
-		}
-
-		$redirectUrl = getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCympuserAdminList');
-		$this->setRedirectUrl($redirectUrl);
 	}
 }
