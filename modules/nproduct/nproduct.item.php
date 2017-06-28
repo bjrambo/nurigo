@@ -33,6 +33,7 @@ class nproductItem extends Object
 	var $as_sign = "N";
 	var $decimals = 0;
 	var $thumb_file_srl = 0;
+	var $uploadedFiles = array();
 	public static $price_cart = 0;
 
 	/**
@@ -107,6 +108,7 @@ class nproductItem extends Object
 	public static function cartPrintPrice($price = null)
 	{
 		$oCurrencyModel = getModel('currency');
+
 		if($price == 0)
 		{
 			return $oCurrencyModel->printPrice(0);
@@ -324,6 +326,194 @@ class nproductItem extends Object
 		}
 
 		return NULL;
+	}
+
+	/**
+	 * @brief get cover image
+	 *
+	 */
+	function getCoverImage($width = 80, $height = 0, $thumbnail_type = 'crop')
+	{
+		// Return false if the document doesn't exist
+		if(!$this->document_srl) return;
+
+		if(!in_array($thumbnail_type, array('crop', 'ratio', 'none')))
+		{
+			$thumbnail_type = $config->thumbnail_type ?: 'crop';
+		}
+
+		// If not specify its height, create a square
+		if(!$height) $height = $width;
+		if($this->get('content'))
+		{
+			$content = $this->get('content');
+		}
+		else
+		{
+			$args = new stdClass();
+			$args->document_srl = $this->document_srl;
+			$output = executeQuery('document.getDocument', $args);
+			$content = $output->data->content;
+		}
+
+		$oFileModel = getModel('file');
+		$fileCount = $oFileModel->getFilesCount($this->document_srl);
+		// Return false if neither attachement nor image files in the document
+		if(!$fileCount && !preg_match("!<img!is", $content)) return;
+
+		// Define thumbnail information
+		$thumbnail_path = sprintf('files/thumbnails/%s',getNumberingPath($this->document_srl, 3));
+		$thumbnail_file = sprintf('%s%dx%d.%s.jpg', $thumbnail_path, $width, $height, $thumbnail_type);
+		$thumbnail_lockfile = sprintf('%s%dx%d.%s.lock', $thumbnail_path, $width, $height, $thumbnail_type);
+		$thumbnail_url  = Context::getRequestUri().$thumbnail_file;
+
+		// Return false if thumbnail file exists and its size is 0. Otherwise, return its path
+		if(file_exists($thumbnail_file) || file_exists($thumbnail_lockfile))
+		{
+			if(filesize($thumbnail_file) >= 1)
+			{
+				return $thumbnail_url . '?' . date('YmdHis', filemtime($thumbnail_file));
+			}
+		}
+
+		// Create lockfile to prevent race condition
+		FileHandler::writeFile($thumbnail_lockfile, '', 'w');
+
+		// Target File
+		$source_file = null;
+		$is_tmp_file = false;
+
+		// Find an image file among attached files if exists
+		if($this->hasUploadedFiles())
+		{
+			$file_list = $this->getUploadedFiles();
+			$first_image = null;
+			foreach($file_list as $file)
+			{
+				if($file->direct_download !== 'Y') continue;
+
+				if($file->cover_image === 'Y' && file_exists($file->uploaded_filename))
+				{
+					$source_file = $file->uploaded_filename;
+					break;
+				}
+
+				if($first_image) continue;
+
+				if(preg_match("/\.(jpe?g|png|gif|bmp)$/i", $file->source_filename))
+				{
+					if(file_exists($file->uploaded_filename))
+					{
+						$first_image = $file->uploaded_filename;
+					}
+				}
+			}
+
+			if(!$source_file && $first_image)
+			{
+				$source_file = $first_image;
+			}
+		}
+
+		// If not exists, file an image file from the content
+		if(!$source_file)
+		{
+			preg_match_all("!<img\s[^>]*?src=(\"|')([^\"' ]*?)(\"|')!is", $content, $matches, PREG_SET_ORDER);
+			foreach($matches as $match)
+			{
+				$target_src = htmlspecialchars_decode(trim($match[2]));
+				if(preg_match('/\/(common|modules|widgets|addons|layouts)\//i', $target_src))
+				{
+					continue;
+				}
+				else
+				{
+					if(!preg_match('/^https?:\/\//i',$target_src))
+					{
+						$target_src = Context::getRequestUri().$target_src;
+					}
+
+					$tmp_file = sprintf('./files/cache/tmp/%d', md5(rand(111111,999999).$this->document_srl));
+					if(!is_dir('./files/cache/tmp'))
+					{
+						FileHandler::makeDir('./files/cache/tmp');
+					}
+					FileHandler::getRemoteFile($target_src, $tmp_file);
+					if(!file_exists($tmp_file))
+					{
+						continue;
+					}
+					else
+					{
+						if($is_img = @getimagesize($tmp_file))
+						{
+							list($_w, $_h, $_t, $_a) = $is_img;
+							if($_w < ($width * 0.3) && $_h < ($height * 0.3))
+							{
+								continue;
+							}
+						}
+						else
+						{
+							continue;
+						}
+						$source_file = $tmp_file;
+						$is_tmp_file = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if($source_file)
+		{
+			$output_file = FileHandler::createImageFile($source_file, $thumbnail_file, $width, $height, 'jpg', $thumbnail_type);
+		}
+
+		// Remove source file if it was temporary
+		if($is_tmp_file)
+		{
+			FileHandler::removeFile($source_file);
+		}
+
+		// Remove lockfile
+		FileHandler::removeFile($thumbnail_lockfile);
+
+		// Return the thumbnail path if it was successfully generated
+		if($output_file)
+		{
+			return $thumbnail_url . '?' . date('YmdHis');
+		}
+		// Create an empty file if thumbnail generation failed
+		else
+		{
+			FileHandler::writeFile($thumbnail_file, '','w');
+		}
+
+		return;
+	}
+
+	function hasUploadedFiles()
+	{
+		if(!$this->document_srl) return;
+
+		$oFileModel = getModel('file');
+		$fileCount = $oFileModel->getFilesCount($this->document_srl);
+
+		return $fileCount ? true : false;
+	}
+
+	function getUploadedFiles($sortIndex = 'file_srl')
+	{
+		if(!$this->document_srl) return;
+
+		if(!$this->uploadedFiles[$sortIndex])
+		{
+			$oFileModel = getModel('file');
+			$this->uploadedFiles[$sortIndex] = $oFileModel->getFiles($this->document_srl, array(), $sortIndex, true);
+		}
+
+		return $this->uploadedFiles[$sortIndex];
 	}
 
 	/**
