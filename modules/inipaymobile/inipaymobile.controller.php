@@ -316,7 +316,7 @@ class inipaymobileController extends inipaymobile
 		//PG에서 보냈는지 IP로 체크
 		$PGIP = $_SERVER['REMOTE_ADDR'];
 
-		if(($PGIP != "211.219.96.165" && $PGIP != "118.129.210.25") && !$_SESSION['inipaymobile_pass'])
+		if(($PGIP != "211.219.96.165" && $PGIP != "118.129.210.25" && $PGIP != "183.109.71.153") && !$_SESSION['inipaymobile_pass'])
 		{
 			$obj = new Object(-1, 'msg_invalid_request');
 			$obj->data = '정상적인 경로로 호출되지 않았습니다.';
