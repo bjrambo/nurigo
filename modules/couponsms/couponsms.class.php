@@ -10,7 +10,6 @@ class couponsms extends ModuleObject
 	function checkUpdate()
 	{
 		$oDB = DB::getInstance();
-		$oModuleModel = getModel('module');
 
 		$config = getModel('couponsms')->getConfig();
 

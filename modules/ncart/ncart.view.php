@@ -348,10 +348,6 @@ class ncartView extends ncart
 			}
 		}
 
-		/*
-		 * end
-		 */
-
 		Context::set('list', $cart->item_list);
 		Context::set('sum_price', $cart->sum_price);
 		Context::set('total_price', $cart->total_price);
@@ -371,7 +367,7 @@ class ncartView extends ncart
 		$args->price = $cart->total_price;
 		//$args->order_srl = $order_srl;
 
-		if($logged_info)
+		if($logged_info->nick_name)
 		{
 			$args->purchaser_name = $logged_info->nick_name;
 			$args->purchaser_email = $logged_info->email_address;
