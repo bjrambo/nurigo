@@ -11,8 +11,12 @@
 #itemdetail .info-tab .btn_item { margin:30px 0;}
 #itemdetail .info-tab .product_name { font:bold 14px NanumGothic, '나눔고딕', Gulim, Dotum, Sans-serif; color:#333; margin:0;}
 
-
-
+#itemdetail #selected_options .deleteItem {display:inline-block; width:11px; height:11px; background:url(../img/delitem.gif) no-repeat; text-indent:-9999em; }
+#itemdetail #selected_options input { width:20px; margin-right:20px; }
+#selected_options td { padding-left:5px;}
+#selected_options { display:inline-block; background:#efefef; padding:3px;}
+#selected_options span { font-size:11px; font-weight:bold; color:#555; padding:0 3px 0 5px;}
+#total_amount span { display:inline-block; padding:3px; font-size:12px; font-weight:bold;}
  
 #itemdetail .info-tab .btn_item a.btn_buynow { display:block; background:#fafafa; padding:9px 16px 10px; color:#ff8a00; font:bold 12px NanumGothic, Dotum, Sans-serif; text-align:center;-moz-box-shadow: inset 0 -5px 5px #fff,0 8px 8px -8px #a2a1a1; -webkit-box-shdow:inset 0 -5px 5px #fff,0 8px 8px -8px #a2a1a1; box-shadow:inset 0 -5px 5px #fff,0 8px 8px -8px #a2a1a1;}
 #itemdetail .info-tab .btn_item a.btn_cart { display:block; background:#eaeaea; padding:9px 16px 10px; color:#585858; font:bold 12px NanumGothic, Dotum, Sans-serif; text-align:center;-moz-box-shadow: inset 0 -5px 5px #f0f0f0,0 8px 8px -8px #a2a1a1; -webkit-box-shdow:inset 0 -5px 5px #f0f0f0,0 8px 8px -8px #a2a1a1; box-shadow:inset 0 -5px 5px #f0f0f0,0 8px 8px -8px #a2a1a1;}
