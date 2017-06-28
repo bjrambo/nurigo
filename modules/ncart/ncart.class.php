@@ -50,7 +50,9 @@ class ncart extends ModuleObject
 		'52' => 'GTX',
 		'54' => 'KG옐로우캡택배',
 		'56' => 'TNT Express',
-		'58' => 'UPS'
+		'58' => 'UPS',
+		'60' => 'KGB택배',
+		'61' => 'KG로지스'
 	);
 	var $delivery_inquiry_urls = array(
 		'16' => 'http://www.kdexp.com/sub4_1.asp?stype=1&p_item=',
@@ -74,7 +76,9 @@ class ncart extends ModuleObject
 		'52' => 'http://www.gtx2010.co.kr/del_inquiry_result.html?s_gbn=1&awblno=',
 		'54' => 'http://www.yellowcap.co.kr/custom/inquiry_result.asp?invoice_no=',
 		'56' => 'http://www.tnt.com/webtracker/tracking.do?respCountry=kr&respLang=ko&searchType=CON&cons=',
-		'58' => 'http://www.ups.com/WebTracking/track?loc=ko_KR&InquiryNumber1='
+		'58' => 'http://www.ups.com/WebTracking/track?loc=ko_KR&InquiryNumber1=',
+		'60' => 'http://www.kgbls.co.kr/sub5/trace.asp?f_slipno=',
+		'61' => 'http://www.kglogis.co.kr/delivery/delivery_result.jsp?item_no='
 	);
 
 	var $payment_method = array(
