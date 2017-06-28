@@ -144,6 +144,22 @@
 			</table>
 		</block>
 
+		<block cond="$is_logged && $coupon_config->use_shop_coupon == 'yes'">
+			<h3 class="title_benefits">쿠폰선택</h3>
+			<table class="order-table">
+				<tbody>
+					<tr>
+						<th>쿠폰을 선택하세요</th>
+						<td colspan="3">
+							<select name="use_shop_coupon" id="use_shop_coupon">
+								<option value="no">{$lang->notuse}</option>
+								<option value="{$val->couponuser_srl}" loop="$coupon_list=>$no,$val" data-cupon-price="{$val->discount}" data-coupon-type="{$val->discount_type}" data-free-delivery="{$val->free_delivery}">{$val->title}</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</block>
 
 		<!--// fieldset -->
 		<div loop="$fieldset_list=>$key,$val" class="fieldset">

@@ -301,6 +301,7 @@ class ncartView extends ncart
 		$oCouponsmsModel = getModel('couponsms');
 
 		$coupon_config = $oCouponsmsModel->getConfig();
+		Context::set('coupon_config', $coupon_config);
 
 		if($coupon_config->use_shop_coupon == 'yes')
 		{
