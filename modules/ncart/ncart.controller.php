@@ -744,7 +744,7 @@ class ncartController extends ncart
 		}
 
 		// insert the address TODO(BJRambo): 여기에서 주소를 입력하는경우를 다시한번 검사
-		if($logged_info && $fieldcount)
+		if(Context::get('is_logged') && $fieldcount)
 		{
 			$args->member_srl = $logged_info->member_srl;
 			if(is_array($title))
