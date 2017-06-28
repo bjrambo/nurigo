@@ -429,7 +429,7 @@ class ncartView extends ncart
 		$script .= "}); }) (jQuery);</script>";
 		Context::addHtmlHeader($script);
 
-		if($logged_info)
+		if(Context::get('is_logged'))
 		{
 			$args = new stdClass();
 			$args->member_srl = $logged_info->member_srl;
@@ -439,7 +439,6 @@ class ncartView extends ncart
 			{
 				return $output;
 			}
-			unset($args);
 			Context::set('address_list', $output->data);
 		}
 

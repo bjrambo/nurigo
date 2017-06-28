@@ -703,12 +703,9 @@ class ncartController extends ncart
 					{
 						if(is_array($in_args->{$field->column_name}))
 						{
-							foreach($in_args->{$field->column_name} as $key => $val)
+							if(empty($in_args->{$field->column_name}))
 							{
-								if(empty($val))
-								{
-									return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
-								}
+								return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
 							}
 						}
 					}
