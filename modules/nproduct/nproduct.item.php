@@ -329,14 +329,26 @@ class nproductItem extends Object
 	}
 
 	/**
-	 * @brief get cover image
-	 *
+	 * get cover image in nproduct list
+	 * @param int $width
+	 * @param int $height
+	 * @param string $thumbnail_type
+	 * @return string|void
 	 */
 	function getCoverImage($width = 80, $height = 0, $thumbnail_type = 'crop')
 	{
 		// Return false if the document doesn't exist
 		if(!$this->document_srl) return;
 
+		$config = $GLOBALS['__document_config__'];
+		if(!$config)
+		{
+			$config = $GLOBALS['__document_config__'] = getModel('document')->getDocumentConfig();
+		}
+		if($config->thumbnail_type === 'none')
+		{
+			return;
+		}
 		if(!in_array($thumbnail_type, array('crop', 'ratio', 'none')))
 		{
 			$thumbnail_type = $config->thumbnail_type ?: 'crop';
@@ -370,12 +382,15 @@ class nproductItem extends Object
 		// Return false if thumbnail file exists and its size is 0. Otherwise, return its path
 		if(file_exists($thumbnail_file) || file_exists($thumbnail_lockfile))
 		{
-			if(filesize($thumbnail_file) >= 1)
+			if(filesize($thumbnail_file) < 1)
+			{
+				return FALSE;
+			}
+			else
 			{
 				return $thumbnail_url . '?' . date('YmdHis', filemtime($thumbnail_file));
 			}
 		}
-
 		// Create lockfile to prevent race condition
 		FileHandler::writeFile($thumbnail_lockfile, '', 'w');
 
