@@ -50,6 +50,38 @@ class paynotyAdminView extends paynoty
 		$editor = $oEditorModel->getEditor(0, $option);
 		Context::set('editor', $editor);
 
+		$args = new stdClass();
+		$args->module = 'ncart';
+		$output = executeQueryArray('module.getMidList', $args);
+
+		$module_list = array();
+		if($output->data)
+		{
+			foreach($output->data as $module)
+			{
+				$fieldset_list = getModel('ncart')->getFieldSetList($module->module_srl);
+				if(is_array($fieldset_list))
+				{
+					foreach($fieldset_list as $val)
+					{
+						$module_list[$module->module_srl] = new stdClass();
+						$module_list[$module->module_srl] = getModel('module')->getModuleInfoByModuleSrl($module->module_srl);
+						$module_list[$module->module_srl]->fields = array();
+						foreach($val->fields as $field)
+						{
+							if($field->column_type == 'tel')
+							{
+								$module_list[$module->module_srl]->fields[] = $field;
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		Context::set('ncart_field', $module_list);
+
 		$member_config = getModel('member')->getMemberConfig();
 		$variable_name = array();
 		foreach($member_config->signupForm as $item)
@@ -70,5 +102,4 @@ class paynotyAdminView extends paynoty
 		Context::set('config', $config);
 		Context::set('variable_name', $variable_name);
 	}
-
 }

@@ -43,6 +43,18 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<block loop="$ncart_field => $key, $val">
+				<label class="x_control-label" for="variable_name">{$val->browser_title}</label>
+				<div class="x_controls">
+					<select name="ncart_field[{$val->module_srl}]" id="ncart_field[{$val->module_srl}]">
+						<option value="0">{$lang->notuse}</option>
+						<option loop="$val->fields => $key, $field" value="{$field->column_name}" selected="selected"|cond="$config->ncart_field[$val->module_srl] == $field->column_name">{$field->column_title}</option>
+					</select>
+					<p class="x_help-block">ncart 모듈의 {$val->browser_title} 모듈에 설정된 전화번호 필드 설정을 합니다.</p>
+				</div>
+			</block>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label">회원전화번호 우선발송설정</label>
 			<div class="x_controls">
 				<label for="phone_number_type_y" class="x_inline">
