@@ -7,6 +7,20 @@
  */
 class inipaystandard extends ModuleObject
 {
+
+	function __construct()
+	{
+		if(Context::getSslStatus() == 'optional')
+		{
+			$ssl_actions = array(
+				'procInipaystandardDoIt',
+				'procInipay',
+				'dispInipaystandardForm'
+			);
+			Context::addSSLActions($ssl_actions);
+		}
+	}
+
 	/**
 	 * @brief install module
 	 */
