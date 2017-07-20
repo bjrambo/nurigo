@@ -92,7 +92,7 @@
 			<label class="x_control-label" for="method_creditcard">신용카드</label>
 			<div class="x_controls">
 				<select name="method_creditcard" id="method_creditcard">
-					<option value="Y" selected="selected"|cond="$module_info->method_creditcard=='N'">사용</option>
+					<option value="Y" selected="selected"|cond="$module_info->method_creditcard=='Y'">사용</option>
 					<option value="N" selected="selected"|cond="$module_info->method_creditcard=='N'">사용안함</option>
 				</select>
 				<a href="#method_creditcard_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -103,7 +103,7 @@
 			<label class="x_control-label" for="method_directbank">계좌이체</label>
 			<div class="x_controls">
 				<select name="method_directbank" id="method_directbank">
-					<option value="Y" selected="selected"|cond="$module_info->method_directbank=='N'">사용</option>
+					<option value="Y" selected="selected"|cond="$module_info->method_directbank=='Y'">사용</option>
 					<option value="N" selected="selected"|cond="$module_info->method_directbank=='N'">사용안함</option>
 				</select>
 				<a href="#method_directbank_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -114,7 +114,7 @@
 			<label class="x_control-label" for="method_virtualaccount">가상계좌</label>
 			<div class="x_controls">
 				<select name="method_virtualaccount" id="method_virtualaccount">
-					<option value="Y" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용</option>
+					<option value="Y" selected="selected"|cond="$module_info->method_virtualaccount=='Y'">사용</option>
 					<option value="N" selected="selected"|cond="$module_info->method_virtualaccount=='N'">사용안함</option>
 				</select>
 				<a href="#method_virtualaccount_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
@@ -126,7 +126,7 @@
 			<div class="x_controls">
 				<select name="method_mobilephone" id="method_mobilephone">
 					<option value="Y" selected="selected"|cond="$module_info->method_mobilephone=='Y'">사용(콘텐츠)</option>
-					<option value="Y" selected="selected"|cond="$module_info->method_mobilephone=='M'">사용(실물)</option>
+					<option value="M" selected="selected"|cond="$module_info->method_mobilephone=='M'">사용(실물)</option>
 					<option value="N" selected="selected"|cond="$module_info->method_mobilephone=='N'">사용안함</option>
 				</select>
 				<a href="#method_mobilephone_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
