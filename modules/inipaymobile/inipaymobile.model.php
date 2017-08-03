@@ -90,7 +90,7 @@ class inipaymobileModel extends inipaymobile
 			$modinfo->guide = $module_info->guide_virtualaccount;
 			$list['inipaymobile_virtualaccount'] = $modinfo;
 		}
-		if($module_Info->method_mobilephone == 'Y')
+		if($module_info->method_mobilephone == 'Y')
 		{
 			$modinfo = new stdClass();
 			$modinfo->mid = $module_info->mid;
