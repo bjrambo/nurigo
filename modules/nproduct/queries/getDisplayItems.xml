@@ -4,6 +4,7 @@
 		<table name="nproduct_items" alias="item" type="left join">
 			<conditions>
 				<condition operation="equal" column="display.item_srl" default="item.item_srl" />
+				<condition operation="equal" column="item.display" default="Y" pipe="and" />
 			</conditions>
 		</table>
 		<table name="modules" alias="module" type="left join">
@@ -17,6 +18,7 @@
 		<column name="display.module_srl" alias="module_srl" />
 		<column name="display.regdate" alias="regdate" />
 		<column name="display.item_srl" alias="item_srl" />
+		<column name="item.display" alias="display" />
 		<column name="item.item_code" alias="item_code" />
 		<column name="item.item_name" alias="item_name" />
 		<column name="item.category_id" alias="category_id" />
@@ -38,6 +40,7 @@
 		<condition operation="in" column="display.module_srl" var="module_srl" />
 		<condition operation="equal" column="display.category_srl" var="category_srl" pipe="and" />
 		<condition operation="like_prefix" column="display.node_route" var="node_route" pipe="and" />
+		<condition operation="equal" column="item.display" default="Y" pipe="and" />
 	</conditions>
 	<navigation>
 		<index var="sort_index" default="display.node_route" order="asc" />
