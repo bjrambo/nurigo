@@ -97,6 +97,17 @@ class ncart extends ModuleObject
 		'R' => '대체상품으로 배송'
 	);
 
+	function __construct()
+	{
+		if(Context::getSslStatus() == 'optional')
+		{
+			$ssl_actions = array(
+				'dispNcartOrderItems'
+			);
+			Context::addSSLActions($ssl_actions);
+		}
+	}
+
 	function getOrderStatus()
 	{
 		static $trans_flag = FALSE;
