@@ -78,7 +78,7 @@ class inipaymobileController extends inipaymobile
 		}
 
 		$post_data = array('P_TID' => $vars->P_TID, 'P_MID' => $this->module_info->inicis_id);
-		$response = $this->getRemoteResource($vars->P_REQ_URL, null, 3, 'POST', 'application/x-www-form-urlencoded', array(), array(), $post_data);
+		$response = FileHandler::getRemoteResource($vars->P_REQ_URL, null, 3, 'POST', 'application/x-www-form-urlencoded', array(), array(), $post_data);
 		parse_str($response, $post_output);
 		foreach($post_output as $key=>$val)
 		{
@@ -585,101 +585,6 @@ class inipaymobileController extends inipaymobile
 			default   :
 				return "";
 				break;
-		}
-	}
-
-	/**
-	 * @brief 이니시스 결제서버에 요청처리
-	 */
-	function getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array())
-	{
-		try
-		{
-			requirePear();
-			require_once('HTTP/Request.php');
-
-			$parsed_url = parse_url(__PROXY_SERVER__);
-			if($parsed_url["host"])
-			{
-				$oRequest = new HTTP_Request(__PROXY_SERVER__);
-				$oRequest->setMethod('POST');
-				$oRequest->_timeout = $timeout;
-				$oRequest->addPostData('arg', serialize(array('Destination' => $url, 'method' => $method, 'body' => $body, 'content_type' => $content_type, "headers" => $headers, "post_data" => $post_data)));
-			}
-			else
-			{
-				$oRequest = new HTTP_Request($url);
-				if(method_exists($oRequest, 'setConfig'))
-				{
-					$oRequest->setConfig(array('ssl_verify_peer' => FALSE, 'ssl_verify_host' => FALSE));
-				}
-
-				if(count($headers))
-				{
-					foreach($headers as $key => $val)
-					{
-						$oRequest->addHeader($key, $val);
-					}
-				}
-				if($cookies[$host])
-				{
-					foreach($cookies[$host] as $key => $val)
-					{
-						$oRequest->addCookie($key, $val);
-					}
-				}
-				if(count($post_data))
-				{
-					foreach($post_data as $key => $val)
-					{
-						$oRequest->addPostData($key, $val);
-					}
-				}
-				if(!$content_type)
-				{
-					$oRequest->addHeader('Content-Type', 'text/html');
-				}
-				else
-				{
-					$oRequest->addHeader('Content-Type', $content_type);
-				}
-				$oRequest->setMethod($method);
-				if($body)
-				{
-					$oRequest->setBody($body);
-				}
-
-				$oRequest->_timeout = $timeout;
-			}
-
-			$oResponse = $oRequest->sendRequest();
-
-			$code = $oRequest->getResponseCode();
-			$header = $oRequest->getResponseHeader();
-			$response = $oRequest->getResponseBody();
-			if($c = $oRequest->getResponseCookies())
-			{
-				foreach($c as $k => $v)
-				{
-					$cookies[$host][$v['name']] = $v['value'];
-				}
-			}
-
-			if($code > 300 && $code < 399 && $header['location'])
-			{
-				return $this->getRemoteResource($header['location'], $body, $timeout, $method, $content_type, $headers, $cookies, $post_data);
-			}
-
-			if($code != 200)
-			{
-				return;
-			}
-
-			return $response;
-		}
-		catch(Exception $e)
-		{
-			return NULL;
 		}
 	}
 }
