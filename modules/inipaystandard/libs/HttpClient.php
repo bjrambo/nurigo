@@ -81,7 +81,7 @@ class HttpClient
 		fwrite($this->sock, $request);
 		
 		/*Read*/
-		stream_set_blocking($this->sock, FALSE ); 
+		stream_set_blocking($this->sock, FALSE );
 		$atStart = true;
 		$IsHeader = true;
 		$timeout = false;
