@@ -207,7 +207,14 @@ class inipaystandardController extends inipaystandard
 		}
 
 		// PG 서버에서 보냈는지 IP 체크 (보안)
-		if(!in_array($_SERVER['REMOTE_ADDR'], array('203.238.37.3', '203.238.37.15', '203.238.37.16', '203.238.37.25', '39.115.212.9')))
+		$pgIpArray = array(
+			'203.238.37.3',
+			'203.238.37.15',
+			'203.238.37.16',
+			'203.238.37.25',
+			'39.115.212.9',
+		);
+		if(!in_array($_SERVER['REMOTE_ADDR'], $pgIpArray))
 		{
 			return new Object(-1, 'msg_invalid_request');
 		}
