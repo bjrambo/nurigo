@@ -200,15 +200,10 @@ class nproductView extends nproduct
 	 */
 	function dispNproductItemList()
 	{
-		$oNproductModel = getModel('nproduct');
 		$oStore_reviewModel = getModel('store_review');
 		$oNproductModel = getModel('nproduct');
-		$oFileModel = getModel('file');
-
-		$config = $oNproductModel->getModuleConfig();
 
 		Context::set('list_config', $oNproductModel->getListConfig($this->module_info->module_srl));
-		Context::set('config', $config);
 
 		// item list
 		$category = Context::get('category');
@@ -287,7 +282,7 @@ class nproductView extends nproduct
 		 */
 
 		$logged_info = Context::get('logged_info');
-		if($logged_info)
+		if(Context::get('is_logged'))
 		{
 			$oNmileageModel = getModel('nmileage');
 			if($this->module_info->store_mileage_mid)
@@ -306,9 +301,6 @@ class nproductView extends nproduct
 			}
 		}
 
-		/*
-		 * end
-		 */
 		// category list
 		$this->getCategoryTree($this->module_info->module_srl);
 		require_once('nproduct.category.php');

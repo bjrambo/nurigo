@@ -1221,6 +1221,10 @@ class nproductModel extends nproduct
 				$free_delivery = 'Y';
 				$freeDeliveryCount++;
 			}
+			else
+			{
+				$item_list[$key]->extra_var_objs->item_delivery_free->value = $config->delivery_fee;
+			}
 		}
 
 		if(in_array('nstore', $proc_modules))
