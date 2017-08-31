@@ -764,7 +764,6 @@ class nproductController extends nproduct
 
 		// prepare variables to use in this function
 		$config = $oNproductModel->getModuleConfig();
-		$all_args = Context::getRequestVars();
 		$data = json_decode(Context::get('data'));
 		$logged_info = Context::get('logged_info');
 
@@ -789,6 +788,7 @@ class nproductController extends nproduct
 		}
 
 		// add items to cart
+		$cart_srl_arr = array();
 		foreach($data as $key => $val)
 		{
 			if(!$val)
@@ -807,6 +807,8 @@ class nproductController extends nproduct
 
 			// check stock
 			$stock = $oNproductModel->getItemExtraVarValue($item_info->item_srl, 'stock');
+
+			// TODO: what is the $args->quantity?
 			if($stock != null && ($stock < $args->quantity || $stock == '0'))
 			{
 				return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
@@ -821,62 +823,125 @@ class nproductController extends nproduct
 			$item_info->discount_info = $output->discount_info;
 			$item_info->discounted_price = $output->discounted_price;
 
-			/**
-			 * 구매옵션 정보 확인
-			 */
 			$options = $oNproductModel->getOptions($val->item_srl);
 
 			// 구매옵션이 있는 상품이면 구매옵션 선택 여부를 체크해야 한다.
+			$option_srls = array();
 			if(count($options) && !$val->option_srl)
 			{
-				return new Object(-1, 'msg_select_option');
+				foreach ($options as $option)
+				{
+					if($option->basically == 'Y')
+					{
+						$option_srls[] = $option->option_srl;
+					}
+				}
+				if(count($option_srls) <= 0)
+				{
+					return new Object(-1, 'msg_select_option');
+				}
 			}
 
 			// 기본 배송회사ID 가져오기 위해 모듈정보 읽기
 			$module_srl = $item_info->module_srl;
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			$args = new stdClass();
-			$args->cart_srl = 0; // will be passed by $oNcartController->addItems
-			$args->item_srl = $item_info->item_srl;
-			$args->item_code = $item_info->item_code;
-			$args->item_name = $item_info->item_name;
-			$args->document_srl = $item_info->document_srl;
-			$args->file_srl = $item_info->file_srl;
-			$args->thumb_file_srl = $item_info->thumb_file_srl;
-			$args->member_srl = 0;
-			if($logged_info)
+
+			if(count($options) > 0)
 			{
-				$args->member_srl = $logged_info->member_srl;
+				$optseq = 0;
+				foreach ($option_srls as $option_key => $option_srl)
+				{
+					$args = new stdClass();
+					// will be passed by $oNcartController->addItems
+					$args->cart_srl = 0;
+					$args->item_srl = $item_info->item_srl;
+					$args->item_code = $item_info->item_code;
+					$args->item_name = $item_info->item_name;
+					$args->document_srl = $item_info->document_srl;
+					$args->file_srl = $item_info->file_srl;
+					$args->thumb_file_srl = $item_info->thumb_file_srl;
+					$args->member_srl = 0;
+					if($logged_info)
+					{
+						$args->member_srl = $logged_info->member_srl;
+					}
+
+					$args->module_srl = $module_srl;
+					$args->quantity = $val->quantity;
+					$args->price = $item_info->price;
+					$args->taxfree = $item_info->taxfree;
+					$args->discount_amount = $item_info->discount_amount;
+					$args->discount_info = $item_info->discount_info;
+					$args->discounted_price = $item_info->discounted_price;
+					$args->express_id = $module_info->express_id;
+					$args->option_srl = $option_srl;
+					$args->option_price = $options[$option_srl]->price;
+					$args->option_title = $options[$option_srl]->title;
+					$args->module = $item_info->proc_module;
+
+					// addItems will return $args->cart_srl
+					$output = $oNcartController->addItems($args);
+					if(!$output->toBool())
+					{
+						return $output;
+					}
+					unset($args);
+
+					$cart_srl_arr[] = $output->get('cart_srl');
+
+					if($config->cart_on == 'N')
+					{
+						$this->setMessage('msg_put_item_in_cart');
+					}
+					$this->add('cart_on', $config->cart_on);
+				}
 			}
-
-			$args->module_srl = $module_srl;
-			$args->quantity = $val->quantity;
-			$args->price = $item_info->price;
-			$args->taxfree = $item_info->taxfree;
-			$args->discount_amount = $item_info->discount_amount;
-			$args->discount_info = $item_info->discount_info;
-			$args->discounted_price = $item_info->discounted_price;
-			$args->express_id = $module_info->express_id;
-			$args->option_srl = $val->option_srl;
-			$args->option_price = $options[$val->option_srl]->price;
-			$args->option_title = $options[$val->option_srl]->title;
-			$args->module = $item_info->proc_module;
-
-			// addItems will return $args->cart_srl
-			$output = $oNcartController->addItems($args);
-			if(!$output->toBool())
+			else
 			{
-				return $output;
-			}
-			unset($args);
+				$args = new stdClass();
+				// will be passed by $oNcartController->addItems
+				$args->cart_srl = 0;
+				$args->item_srl = $item_info->item_srl;
+				$args->item_code = $item_info->item_code;
+				$args->item_name = $item_info->item_name;
+				$args->document_srl = $item_info->document_srl;
+				$args->file_srl = $item_info->file_srl;
+				$args->thumb_file_srl = $item_info->thumb_file_srl;
+				$args->member_srl = 0;
+				if($logged_info)
+				{
+					$args->member_srl = $logged_info->member_srl;
+				}
 
-			$cart_srl_arr[] = $output->get('cart_srl');
+				$args->module_srl = $module_srl;
+				$args->quantity = $val->quantity;
+				$args->price = $item_info->price;
+				$args->taxfree = $item_info->taxfree;
+				$args->discount_amount = $item_info->discount_amount;
+				$args->discount_info = $item_info->discount_info;
+				$args->discounted_price = $item_info->discounted_price;
+				$args->express_id = $module_info->express_id;
+				$args->option_srl = $val->option_srl;
+				$args->option_price = $options[$val->option_srl]->price;
+				$args->option_title = $options[$val->option_srl]->title;
+				$args->module = $item_info->proc_module;
 
-			if($config->cart_on == 'N')
-			{
-				$this->setMessage('msg_put_item_in_cart');
+				// addItems will return $args->cart_srl
+				$output = $oNcartController->addItems($args);
+				if(!$output->toBool())
+				{
+					return $output;
+				}
+				unset($args);
+
+				$cart_srl_arr[] = $output->get('cart_srl');
+
+				if($config->cart_on == 'N')
+				{
+					$this->setMessage('msg_put_item_in_cart');
+				}
+				$this->add('cart_on', $config->cart_on);
 			}
-			$this->add('cart_on', $config->cart_on);
 		}
 		$this->add('cart_srl', implode(',', $cart_srl_arr));
 	}
