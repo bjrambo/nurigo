@@ -1148,6 +1148,7 @@ class nproductModel extends nproduct
 		}
 		$proc_modules = array();
 
+		$freeDeliveryCount = 0;
 		foreach($item_list as $key => $val)
 		{
 			if(!in_array($val->module, $proc_modules))
@@ -1218,6 +1219,7 @@ class nproductModel extends nproduct
 			if($output)
 			{
 				$free_delivery = 'Y';
+				$freeDeliveryCount++;
 			}
 		}
 
@@ -1235,8 +1237,19 @@ class nproductModel extends nproduct
 		}
 		if($free_delivery == 'Y')
 		{
-			$ret_obj->delivery_fee = 0;
+			if($config->delivery_process == 'N')
+			{
+				if(intval($freeDeliveryCount) === intval(count($item_list)))
+				{
+					$ret_obj->delivery_fee = 0;
+				}
+			}
+			else
+			{
+				$ret_obj->delivery_fee = 0;
+			}
 		}
+
 		if($delivfee_inadvance !== 'Y')
 		{
 			$ret_obj->delivery_fee = 0;
@@ -1257,8 +1270,6 @@ class nproductModel extends nproduct
 	 */
 	function getFrontDisplayItems($module_srl, $category_srl = null, $num_columns = null)
 	{
-		$oFileModel = getModel('file');
-
 		// display categories
 		$args = new stdClass();
 		$args->module_srl = $module_srl;

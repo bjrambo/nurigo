@@ -23,7 +23,7 @@
 		</div>
 		<div class="x_control-group">
 			<label class="x_control-label" for="mileage_percent">{$lang->transaction_mileage}</label>
-			<div class="x_controls">
+			<div class="x_controls" id="mileage_percent">
 				<input type="text" name="mileage_percent" value="{$config->mileage_percent}"  class="inputTypeText w400" />
 				<a href="#mileage_percent_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="mileage_percent_help" class="x_help-block" hidden>{$lang->about_transaction_mileage}</p>
@@ -33,12 +33,23 @@
 		<div class="x_control-group">
 			<label class="x_control-label" for="guest_buy">{$lang->guest_buy}</label>
 			<div class="x_controls">
-				<select name="guest_buy">
+				<select name="guest_buy" id="guest_buy">
 					<option value="Y" selected="selected"|cond="$config->guest_buy == 'Y'">{$lang->use}</option>
 					<option value="N" selected="selected"|cond="$config->guest_buy == 'N'">{$lang->notuse}</option>
 			    </select>
 				<a href="#guest_buy_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="guest_buy_help" class="x_help-block" hidden>{$lang->about_guest_buy}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label" for="delivery_process">무료배송 처리</label>
+			<div class="x_controls">
+				<select name="delivery_process" id="delivery_process">
+					<option value="Y" selected="selected"|cond="$config->delivery_process == 'Y'">{$lang->use}</option>
+					<option value="N" selected="selected"|cond="$config->delivery_process == 'N'">{$lang->notuse}</option>
+				</select>
+				<p id="delivery_process_help" class="x_help-block">무료배송 처리를 사용하게되면 장바구니에 하나의 상품이라도 무료배송이 있을 경우 해당 상품배달은 무료배송으로 취급합니다. 사용하지 않을경우 주문상품이 모두 무료배송이 되거나 설정한 무료배송을 위한 가격조건을 맞춘 경우에만 무료배송을 받을 수 있습니다. 기본값은 기존의 방식대로 사용함입니다.</p>
 			</div>
 		</div>
 	</section>
