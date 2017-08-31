@@ -1077,6 +1077,13 @@ class nproductModel extends nproduct
 		}
 
 		// 회원별 할인
+
+		$output = $this->getItemExtraVarValue($item->item_srl, 'item_delivery_free');
+		if($item->extra_var_objs && !$output)
+		{
+			$item->extra_var_objs->item_delivery_free->value = getModel('ncart')->getModuleConfig()->delivery_fee;
+		}
+
 		$output = $this->getMemberDiscount($item, $logged_info);
 		if(!$output->toBool())
 		{
