@@ -32,7 +32,7 @@
 		<action name="dispEpayExtra2" type="view" />
 		<action name="dispEpayExtra3" type="view" />
 		<action name="dispEpayExtra4" type="view" />
-		<action name="dispEpayTransaction" type="view" index="true" />
+		<action name="dispEpayTransaction" type="view" index="true" check_csrf="false" />
 		<action name="dispEpayError" type="view" />
 
 		<action name="procEpayReviewOrder" type="controller" />
