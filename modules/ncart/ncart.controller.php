@@ -752,12 +752,16 @@ class ncartController extends ncart
 				$title = implode(' ', $title);
 			}
 			$args->title = $title;
-			$args->serialized_address = serialize($in_args);
+			$cart_args = $in_args;
+			// get to the data in array. but use the not array
+			$cart_args->memo = $in_args->memo[0];
+			$cart_args->name = $in_args->name[0];
+			$args->serialized_address = serialize($cart_args);
 			$args->opt = '2';
-
 			$args->address_srl = getNextSequence();
 			$args->list_order = $args->address_srl;
 			$output = executeQuery('ncart.insertAddress', $args);
+
 			if(!$output->toBool())
 			{
 				return $output;
