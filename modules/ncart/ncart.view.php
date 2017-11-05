@@ -299,22 +299,20 @@ class ncartView extends ncart
 		}
 
 		$oCouponsmsModel = getModel('couponsms');
-
-		$coupon_config = $oCouponsmsModel->getConfig();
-		Context::set('coupon_config', $coupon_config);
-
-		if($coupon_config->use_shop_coupon == 'yes')
+		if(!$oCouponsmsModel)
 		{
-			$couponUserList = $oCouponsmsModel->getCouponUserListByMemberSrl($logged_info->member_srl, 'N');
-			Context::set('coupon_list', $couponUserList);
+			$coupon_config = $oCouponsmsModel->getConfig();
+			Context::set('coupon_config', $coupon_config);
+
+			if($coupon_config->use_shop_coupon == 'yes')
+			{
+				$couponUserList = $oCouponsmsModel->getCouponUserListByMemberSrl($logged_info->member_srl, 'N');
+				Context::set('coupon_list', $couponUserList);
+			}
 		}
 
-		/*
-		 * stock check
-		 */
 		$oNproductModel = getModel('nproduct');
 
-		//quantity
 		$stock = array();
 		foreach($cart->item_list as $key => $val)
 		{
@@ -361,12 +359,9 @@ class ncartView extends ncart
 		$args = new stdClass();
 		$args->item_name = $order_title;
 
-		// pass payment amount, item name, etc.. to epay module.
-		// Context::set('payment_amount', 10000);
 		$args->epay_module_srl = $this->module_info->epay_module_srl;
 		$args->module_srl = $this->module_info->module_srl;
 		$args->price = $cart->total_price;
-		//$args->order_srl = $order_srl;
 
 		if($logged_info->nick_name)
 		{
