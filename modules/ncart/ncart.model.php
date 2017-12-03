@@ -338,7 +338,7 @@ class ncartModel extends ncart
 			}
 			else
 			{
-				$output = return $this->makeObject();
+				$output = $this->makeObject();
 				$output->data = array();
 			}
 			if (!$output->toBool()) return $output;
@@ -777,7 +777,7 @@ class ncartModel extends ncart
 			$discounted_price = $item_info->price;
 		}
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;
@@ -796,7 +796,7 @@ class ncartModel extends ncart
 
 	function getDiscount(&$item_info)
 	{
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->discount_amount = $item_info->discount_amount;
 		$output->discounted_price = $item_info->price - $item_info->discount_amount;
 		$output->discount_info = $item_info->discount_info;

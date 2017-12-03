@@ -84,7 +84,7 @@ class paypal extends EpayPlugin
 		}
 
 		$html = $oTemplate->compile($tpl_path, $tpl_file);
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->data = $html;
 		return $output;
 	}
@@ -137,7 +137,7 @@ class paypal extends EpayPlugin
 			// Redirect to paypal.com here
 			$token = urldecode($resArray["TOKEN"]);
 			$payPalURL = PAYPAL_URL.$token;
-			$output = return $this->makeObject();
+			$output = $this->makeObject();
 			$output->add('return_url', $payPalURL);
 			return $output;
 		} else {
@@ -149,7 +149,7 @@ class paypal extends EpayPlugin
 			$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 			$tpl_file = 'api_error.html';
 			$html = $oTemplate->compile($tpl_path, $tpl_file);
-			$output = return $this->makeObject(-1);
+			$output = $this->makeObject(-1);
 			$output->data = $html;
 			$output->setMessage($html);
 			return $output;
@@ -159,7 +159,7 @@ class paypal extends EpayPlugin
 
 	function processPayment(&$args)
 	{
-		$pp_ret = return $this->makeObject();
+		$pp_ret = $this->makeObject();
 
 		require_once($this->module_path.'CallerService.php');
 		$cs = new CallerService();
@@ -218,7 +218,7 @@ class paypal extends EpayPlugin
 				$oTemplate = &TemplateHandler::getInstance();
 				$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 				$tpl_file = 'api_error.html';
-				$obj = return $this->makeObject(-1);
+				$obj = $this->makeObject(-1);
 				$obj->add('state', '3');
 				$obj->add('result_code', $ack);
 				$obj->add('result_message', $ack);
@@ -237,7 +237,7 @@ class paypal extends EpayPlugin
 			$oTemplate = &TemplateHandler::getInstance();
 			$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 			$tpl_file = 'api_error.html';
-			$obj = return $this->makeObject(-1, $ack);
+			$obj = $this->makeObject(-1, $ack);
 			$obj->add('state', '3');
 			$obj->add('result_code', $ack);
 			$obj->add('result_message', $ack);

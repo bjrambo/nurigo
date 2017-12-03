@@ -301,7 +301,7 @@ class nstore_digitalAdminView extends nstore_digital
 			Context::set('status', '1');
 		}
 
-		$args = return $this->makeObject();
+		$args = $this->makeObject();
 		$args->order_status = Context::get('status');
 		$args->page = Context::get('page');
 		if(Context::get('search_key'))

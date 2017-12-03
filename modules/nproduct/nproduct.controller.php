@@ -407,7 +407,7 @@ class nproductController extends nproduct
 			return $output;
 		}
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('item_srl', $item_srl);
 		return $output;
 	}

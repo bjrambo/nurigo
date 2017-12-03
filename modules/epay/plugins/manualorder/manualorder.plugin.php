@@ -44,7 +44,7 @@ class manualorder extends EpayPlugin
 		Context::set('join_form', $args->join_form);
 
 		$html = $oTemplate->compile($tpl_path, $tpl_file);
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->data = $html;
 		return $output;
 	}
@@ -60,14 +60,14 @@ class manualorder extends EpayPlugin
 		$tpl_file = 'review.html';
 		$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('tpl_data', $tpl_data);
 		return $output;
 	}
 
 	function processPayment($args)
 	{
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('state', '1'); // not completed
 		$output->add('payment_method', 'MO');
 		$output->add('payment_amount', $args->price);

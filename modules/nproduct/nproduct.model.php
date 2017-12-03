@@ -827,7 +827,7 @@ class nproductModel extends nproduct
 	 */
 	function getDiscount(&$item_info)
 	{
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->discount_amount = $item_info->discount_amount;
 		$output->discounted_price = $item_info->price;
 		if($item_info->discount_amount)
@@ -884,7 +884,7 @@ class nproductModel extends nproduct
 			$discounted_price = $item_info->price;
 		}
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;
@@ -937,7 +937,7 @@ class nproductModel extends nproduct
 			$discounted_price = $item_info->price;
 		}
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;

@@ -94,7 +94,7 @@ class inipaymobileController extends inipaymobile
 		// inipaymobile_pass = TRUE로 해주어서 inipaymobile에서 결제처리되도록 함
 		$_SESSION['inipaymobile_pass'] = TRUE;
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('transaction_srl', $transaction_srl);
 		if($post_output['P_STATUS'] == '00')
 		{
@@ -229,7 +229,7 @@ class inipaymobileController extends inipaymobile
 		//(주의) OK를 리턴하지 않으시면 이니시스 지불 서버는 "OK"를 수신할때까지 계속 재전송을 시도합니다
 		//기타 다른 형태의 PRINT( echo )는 하지 않으시기 바랍니다
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->order_srl = Context::get('no_oid');
 		$output->amount = Context::get('amt_input');
 		if($output->amount == $transaction_info->payment_amount)
@@ -317,7 +317,7 @@ class inipaymobileController extends inipaymobile
 		$PGIP = $_SERVER['REMOTE_ADDR'];
 		if(($PGIP != "211.219.96.165" && $PGIP != "118.129.210.25" && $PGIP != "183.109.71.153") && !$_SESSION['inipaymobile_pass'])
 		{
-			$obj = return $this->makeObject(-1, 'msg_invalid_request');
+			$obj = $this->makeObject(-1, 'msg_invalid_request');
 			$obj->data = '정상적인 경로로 호출되지 않았습니다.';
 			return $obj;
 		}
@@ -370,7 +370,7 @@ class inipaymobileController extends inipaymobile
 		 * ' 기타 다른 형태의 echo "" 는 하지 않으시기 바랍니다
 		 * '***********************************************************************************/
 
-		$args = return $this->makeObject(0, $P_RMESG1 . ' ' . $P_RMESG2);
+		$args = $this->makeObject(0, $P_RMESG1 . ' ' . $P_RMESG2);
 		//WEB 방식의 경우 가상계좌 채번 결과 무시 처리
 		//(APP 방식의 경우 해당 내용을 삭제 또는 주석 처리 하시기 바랍니다.)
 

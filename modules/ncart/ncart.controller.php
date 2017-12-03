@@ -217,7 +217,7 @@ class ncartController extends ncart
 		}
 		unset($args);
 
-		$retobj = return $this->makeObject();
+		$retobj = $this->makeObject();
 		$retobj->add('cart_srl', $cart_srl);
 		return $retobj;
 	}

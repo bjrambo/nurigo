@@ -263,7 +263,7 @@ class epayView extends epay
 
 		$oTemplate = &TemplateHandler::getInstance();
 		$payment_form = $oTemplate->compile($template_path, 'paymentform.html');
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->data = $payment_form;
 		return $output;
 

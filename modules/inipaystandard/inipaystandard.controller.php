@@ -133,7 +133,7 @@ class inipaystandardController extends inipaystandard
 		//성공
 		if(strcmp("0000", $resultMap["resultCode"]) == 0)
 		{
-			$payArgs = return $this->makeObject(0, $resultMap["resultMsg"]);
+			$payArgs = $this->makeObject(0, $resultMap["resultMsg"]);
 
 			//가상계좌
 			if($this->getPaymethod($resultMap["payMethod"]) == 'VA')
@@ -148,7 +148,7 @@ class inipaystandardController extends inipaystandard
 		//실패
 		else
 		{
-			$payArgs = return $this->makeObject(-1, $resultMap["resultMsg"]);
+			$payArgs = $this->makeObject(-1, $resultMap["resultMsg"]);
 			$payArgs->add('state', '3');
 		}
 
@@ -222,14 +222,14 @@ class inipaystandardController extends inipaystandard
 		// 입금액 체크
 		if($transaction_info->payment_amount == $amount)
 		{
-			$payArgs = return $this->makeObject(0, 'success');
+			$payArgs = $this->makeObject(0, 'success');
 			$payArgs->add('state', '2');
 			$payArgs->add('result_code', '0');
 			$payArgs->add('result_message', 'success');
 		}
 		else
 		{
-			$payArgs = return $this->makeObject(-1, '입금액이 일치하지않습니다.');
+			$payArgs = $this->makeObject(-1, '입금액이 일치하지않습니다.');
 			$payArgs->add('state', '3');
 			$payArgs->add('result_code', '1');
 			$payArgs->add('result_message', '입금액이 일치하지않습니다.');

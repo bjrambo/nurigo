@@ -67,7 +67,7 @@ class payplus6 extends EpayPlugin {
 		$tpl_file = 'formdata.html';
 		$form_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->data = $form_data;
 		return $output;
 	}
@@ -101,7 +101,7 @@ class payplus6 extends EpayPlugin {
 		$tpl_file = 'review.html';
 		$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('tpl_data', $tpl_data);
 		return $output;
 	}
@@ -198,12 +198,12 @@ class payplus6 extends EpayPlugin {
 		// error check
 		if ($res_cd != '0000')
 		{
-			$output = return $this->makeObject(-1, $res_msg);
+			$output = $this->makeObject(-1, $res_msg);
 			$output->add('state', constant('STATE_FAILURE')); // failure
 		}
 		else
 		{
-			$output = return $this->makeObject(0, $utf8ResultMsg);
+			$output = $this->makeObject(0, $utf8ResultMsg);
 			if ($this->getPaymethod($use_pay_method)=='VA')
 			{
 				$output->add('state', constant('STATE_NOTCOMPLETED')); // not completed
@@ -247,7 +247,7 @@ class payplus6 extends EpayPlugin {
 		fclose( $logfile );
 
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		if ($output->amount == $transaction->payment_amount)
@@ -276,7 +276,7 @@ class payplus6 extends EpayPlugin {
 
 	// MUST return order_srl
 	function getReport() {
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		return $output;

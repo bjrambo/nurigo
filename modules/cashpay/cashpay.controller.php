@@ -28,7 +28,7 @@ class cashpayController extends cashpay
 		$obj->account_number = $this->module_info->account_number;
 		$obj->account_holder = $this->module_info->account_holder;
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('transaction_srl', Context::get('transaction_srl'));
 		$output->add('state', '1'); // not completed
 		$output->add('payment_method', 'BT');

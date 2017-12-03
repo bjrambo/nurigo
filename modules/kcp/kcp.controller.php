@@ -152,12 +152,12 @@ class kcpController extends kcp
 		// error check
 		if($res_cd != '0000')
 		{
-			$payArgs = return $this->makeObject(-1, $res_msg);
+			$payArgs = $this->makeObject(-1, $res_msg);
 			$payArgs->add('state', constant('STATE_FAILURE')); // failure
 		}
 		else
 		{
-			$payArgs = return $this->makeObject(0, $utf8ResultMsg);
+			$payArgs = $this->makeObject(0, $utf8ResultMsg);
 			if($oKcpModel->getEpayCode($use_pay_method) == 'VA')
 			{
 				$payArgs->add('state', constant('STATE_NOTCOMPLETED')); // not completed
@@ -233,7 +233,7 @@ class kcpController extends kcp
 		fclose($logfile);
 
 
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		if($output->amount == $transaction_info->payment_amount)

@@ -64,7 +64,7 @@ class paypalController extends paypal
 					break;
 			}
 
-			$args = return $this->makeObject();
+			$args = $this->makeObject();
 			$args->add('state', $state);
 			$args->add('payment_amount', $transaction_info->payment_amount);
 			$args->add('result_code', $result->getState());

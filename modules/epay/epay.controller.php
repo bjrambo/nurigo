@@ -119,7 +119,7 @@ class epayController extends epay
 		{
 			$review_args->price -= $review_args->use_mileage;
 		}
-		$returnOutput = return $this->makeObject();
+		$returnOutput = $this->makeObject();
 		$returnOutput->review_form = $review_args->review_form;
 		$returnOutput->order_srl = $order_srl;
 		$returnOutput->transaction_srl = $transaction_srl;
@@ -309,7 +309,7 @@ class epayController extends epay
 		{
 			$return_url = Context::get('return_url');
 		}
-		$output = return $this->makeObject();
+		$output = $this->makeObject();
 		$output->add('return_url', $return_url);
 		return $output;
 	}
