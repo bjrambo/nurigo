@@ -26,6 +26,7 @@
 		<column name="vat" var="vat" notnull="notnull" />
 		<column name="taxfree_amount" var="taxfree_amount" notnull="notnull" />
 		<column name="group_srl_list" var="group_srl_list" />
+		<column name="extra_vars" var="extra_vars" />
 
 		<column name="regdate" var="regdate" default="curdate()" />
 	</columns>

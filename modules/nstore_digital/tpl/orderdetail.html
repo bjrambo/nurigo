@@ -30,6 +30,14 @@
 				</tr>
 			</tbody>
 		</table>
+		<table class="x_table">
+			<tbody>
+			<tr loop="$extra_vars=>$key,$val">
+				<th>{$key}</th>
+				<td colspan="3"><span cond="is_array($val)">{implode(' ', $val)}</span><span cond="!is_array($val)">{$val}</span></td>
+			</tr>
+			</tbody>
+		</table>
 
 		<h4>◈ 결제정보</h4>
 		<table class="x_table">

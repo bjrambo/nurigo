@@ -353,8 +353,6 @@ class nstore_digitalAdminView extends nstore_digital
 		$oNstore_coreModel = getModel('nstore_digital');
 		$oEpayModel = getModel('epay');
 
-		$config = $oNstore_coreModel->getModuleConfig();
-
 		$order_srl = Context::get('order_srl');
 
 		$order_info = $oNstore_coreModel->getOrderInfo($order_srl);
@@ -365,6 +363,7 @@ class nstore_digitalAdminView extends nstore_digital
 		Context::set('order_status', $this->getOrderStatus());
 		Context::set('payment_method', $this->getPaymentMethods());
 		Context::set('delivery_inquiry_urls', $this->delivery_inquiry_urls);
+		Context::set('extra_vars', unserialize($order_info->extra_vars));
 
 		$this->setTemplateFile('orderdetail');
 	}
