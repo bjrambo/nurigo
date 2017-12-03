@@ -21,7 +21,7 @@ class cashpay extends ModuleObject
 			$oModuleController->insertTrigger('epay.getPgModules', 'cashpay', 'model', 'triggerGetPgModules', 'before');
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -67,6 +67,17 @@ class cashpay extends ModuleObject
 	 */
 	function recompileCache()
 	{
+	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }
 /* End of file cashpay.class.php */

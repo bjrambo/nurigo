@@ -47,7 +47,7 @@ class cympusadminAdminView extends cympusadmin
 		}
 		if($module_info && !in_array($module_info->module, array('cympusadmin')))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// set template file

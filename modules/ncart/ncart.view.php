@@ -192,7 +192,7 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		// favorite items
@@ -287,7 +287,7 @@ class ncartView extends ncart
 
 		if($config->guest_buy != 'Y' && !Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_no_guest_buy');
+			return $this->makeObject(-1, 'msg_no_guest_buy');
 		}
 
 		$cartnos = Context::get('cartnos');
@@ -295,7 +295,7 @@ class ncartView extends ncart
 
 		if(!count($cart->item_list))
 		{
-			return new Object(-1, $lang->msg_no_items);
+			return $this->makeObject(-1, $lang->msg_no_items);
 		}
 
 		$oCouponsmsModel = getModel('couponsms');
@@ -326,7 +326,7 @@ class ncartView extends ncart
 				}
 				if($stock[$val->item_srl] == '0')
 				{
-					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+					return $this->makeObject(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
 				}
 			}
 
@@ -334,7 +334,7 @@ class ncartView extends ncart
 			{
 				if($stock[$val->item_srl] < $val->quantity)
 				{
-					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+					return $this->makeObject(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
 				}
 				if($stock[$val->item_srl] === 0 || $stock[$val->item_srl] > 0)
 				{
@@ -342,7 +342,7 @@ class ncartView extends ncart
 				}
 				if($stock[$val->item_srl] < 0)
 				{
-					return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+					return $this->makeObject(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
 				}
 			}
 		}
@@ -455,14 +455,14 @@ class ncartView extends ncart
 		$order_srl = Context::get('order_srl');
 		if(!$order_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 주문정보 읽어오기
 		$order_info = $oNcartModel->getOrderInfo($order_srl);
 		if(!$order_info)
 		{
-			return new Object(-1, 'msg_invalid_order_number');
+			return $this->makeObject(-1, 'msg_invalid_order_number');
 		}
 		Context::set('order_info', $order_info);
 		$extra_vars = unserialize($order_info->extra_vars);
@@ -472,14 +472,14 @@ class ncartView extends ncart
 		{
 			if($order_info->member_srl != $logged_info->member_srl)
 			{
-				return new Object(-1, 'msg_not_permitted');
+				return $this->makeObject(-1, 'msg_not_permitted');
 			}
 		}
 
 		// 로그인 안했을 때 권한 확인 : triggerProcessPayment 에서 설정된다.
 		if(!Context::get('is_logged') && $_SESSION['ORDER_COMPLETE_VIEW_PERMISSION'] != $order_srl)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
@@ -517,7 +517,7 @@ class ncartView extends ncart
 		// 주문번호가 없다면
 		if(!Context::get('order_srl'))
 		{
-			return new Object(-1, 'msg_invalid_order_number');
+			return $this->makeObject(-1, 'msg_invalid_order_number');
 		}
 
 		$order_srl = Context::get('order_srl');
@@ -526,19 +526,19 @@ class ncartView extends ncart
 		// 주문정보가 없다면
 		if(!$order_info)
 		{
-			return new Object(-1, 'msg_invalid_order_number');
+			return $this->makeObject(-1, 'msg_invalid_order_number');
 		}
 
 		// 로그인이 되어 있지 않다면
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 주문한 사람이 아니라면
 		if($order_info->member_srl != $logged_info->member_srl)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		Context::set('order_info', $order_info);
@@ -560,7 +560,7 @@ class ncartView extends ncart
 		// 권한 체크
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
@@ -569,7 +569,7 @@ class ncartView extends ncart
 		// 지정된 원 댓글이 없다면 오류
 		if(!$parent_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 해당 댓글를 찾아본다
@@ -579,11 +579,11 @@ class ncartView extends ncart
 		// 댓글이 없다면 오류
 		if(!$oSourceComment->isExists())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 대상 댓글을 생성
@@ -612,7 +612,7 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$args = new stdClass();
@@ -639,7 +639,7 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$args->member_srl = $logged_info->member_srl;
@@ -668,7 +668,7 @@ class ncartView extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$args = new stdClass();

@@ -236,7 +236,7 @@ class textmessageModel extends textmessage
 		// get cash info
 		$result = $sms::balance();
 
-		$obj = new Object();
+		$obj = $this->makeObject();
 		$obj->add('cash', $result->cash);
 		$obj->add('point', $result->point);
 		$obj->add('deferred_payment', $result->deferred_payment);

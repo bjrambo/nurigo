@@ -27,7 +27,7 @@ class store_searchMobile extends integration_searchMobile
 		// Check permissions
 		if(!$this->grant->access)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		$config = $oModuleModel->getModuleConfig('store_search');

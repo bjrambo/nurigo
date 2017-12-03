@@ -69,7 +69,7 @@ class nmileageModel extends nmileage
 		}
 		if(!$output->data)
 		{
-			return new Object(-2, 'No mileage record');
+			return $this->makeObject(-2, 'No mileage record');
 		}
 		$output->mileage = $output->data->mileage;
 		return $output;

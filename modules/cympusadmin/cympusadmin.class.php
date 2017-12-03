@@ -77,7 +77,7 @@ class cympusadmin extends ModuleObject
 		$module_info = $oModuleModel->getModuleInfoXml('cympusadmin');
 		Context::set('cympus_modinfo', $module_info);
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -86,7 +86,7 @@ class cympusadmin extends ModuleObject
 	 */
 	function moduleInstall()
 	{
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -121,7 +121,7 @@ class cympusadmin extends ModuleObject
 			$oModuleController->insertTrigger('cympusadmin.getManagerMenu', 'cympusadmin', 'model', 'triggerGetManagerMenu', 'before');
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -206,5 +206,16 @@ class cympusadmin extends ModuleObject
 			unset($obj);
 		}
 		return $menus;
+	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }

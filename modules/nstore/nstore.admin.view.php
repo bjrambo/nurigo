@@ -438,7 +438,7 @@ class nstoreAdminView extends nstore
 
 		/*
 		$member_info = $oMemberModel->getMemberInfoByMemberSrl(Context::get('member_srl'));
-		if(!$member_info) return new Object(-1, 'msg_invalid_request');
+		if(!$member_info) return $this->makeObject(-1, 'msg_invalid_request');
 		Context::set('member_info', $member_info);
 		 */
 

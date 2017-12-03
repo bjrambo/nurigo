@@ -20,12 +20,12 @@ class couponsmsController extends couponsms
 			$phone_number = $logged_info->{$config->variable_name}[0] . '-' . $logged_info->{$config->variable_name}[1] . '-' . $logged_info->{$config->variable_name}[2];
 			if(!$phone_number)
 			{
-				return new Object(-1, '회원정보에서 휴대전화번호를 설정하지 않으셨습니다.');
+				return $this->makeObject(-1, '회원정보에서 휴대전화번호를 설정하지 않으셨습니다.');
 			}
 		}
 		else
 		{
-			return new Object(-1, '설정에서 전화번호변수를 설정해야 합니다. 관리자에게 문의해주시기 바랍니다.');
+			return $this->makeObject(-1, '설정에서 전화번호변수를 설정해야 합니다. 관리자에게 문의해주시기 바랍니다.');
 		}
 
 		$output = $oCouponsmsModel->getCouponConfig($couponsms_srl);
@@ -49,17 +49,17 @@ class couponsmsController extends couponsms
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, '로그인하지 않은 사용자는 사용할 수 없습니다.');
+			return $this->makeObject(-1, '로그인하지 않은 사용자는 사용할 수 없습니다.');
 		}
 
 		if(!$logged_info->{$config->variable_name}[1] || !$logged_info->{$config->variable_name}[2])
 		{
-			return new Object(-1, '회원정보에 휴대폰번호를 입력하지 않아 쿠폰을 발급할 수 없습니다.');
+			return $this->makeObject(-1, '회원정보에 휴대폰번호를 입력하지 않아 쿠폰을 발급할 수 없습니다.');
 		}
 
 		if(!$isGroup)
 		{
-			return new Object(-1, '요청하신 서비스에 권한이 없습니다.');
+			return $this->makeObject(-1, '요청하신 서비스에 권한이 없습니다.');
 		}
 
 		$couponuser_srl = mt_rand(11111111111, 99999999999);
@@ -83,7 +83,7 @@ class couponsmsController extends couponsms
 
 		if(count($couponsms_data->data) >= 1)
 		{
-			return new Object(-1, $couponsms->term_regdate.'일 이내 쿠폰을 더 이상 발급할 수 없습니다.');
+			return $this->makeObject(-1, $couponsms->term_regdate.'일 이내 쿠폰을 더 이상 발급할 수 없습니다.');
 		}
 		$output = executeQuery('couponsms.insertCouponUser', $args);
 		if ($output->toBool())
@@ -120,12 +120,12 @@ class couponsmsController extends couponsms
 				{
 					return $setting_output;
 				}
-				return new Object(-1, '문자 발송에 실패하였습니다.');
+				return $this->makeObject(-1, '문자 발송에 실패하였습니다.');
 			}
 		}
 		else
 		{
-			return new Object(-1, '쿠폰생성실패');
+			return $this->makeObject(-1, '쿠폰생성실패');
 		}
 
 		if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON')))

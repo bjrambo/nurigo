@@ -35,7 +35,7 @@ class cashpayView extends cashpay
 		{
 			if(!Context::get('is_logged'))
 			{
-				return new Object(-1, 'msg_login_required');
+				return $this->makeObject(-1, 'msg_login_required');
 			}
 		}
 		$oEpayController = getController('epay');

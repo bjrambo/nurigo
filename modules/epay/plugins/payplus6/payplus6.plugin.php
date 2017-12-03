@@ -46,9 +46,9 @@ class payplus6 extends EpayPlugin {
 	 */
 	function getFormData($args)
 	{
-		if (!$args->price) return new Object(0,'No input of price');
-		if (!$args->epay_module_srl) return new Object(-1,'No input of epay_module_srl');
-		if (!$args->module_srl) return new Object(-1,'No input of module_srl');
+		if (!$args->price) return $this->makeObject(0,'No input of price');
+		if (!$args->epay_module_srl) return $this->makeObject(-1,'No input of epay_module_srl');
+		if (!$args->module_srl) return $this->makeObject(-1,'No input of module_srl');
 
 		Context::set('module_srl', $args->module_srl);
 		Context::set('epay_module_srl', $args->epay_module_srl);
@@ -67,7 +67,7 @@ class payplus6 extends EpayPlugin {
 		$tpl_file = 'formdata.html';
 		$form_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->data = $form_data;
 		return $output;
 	}
@@ -101,7 +101,7 @@ class payplus6 extends EpayPlugin {
 		$tpl_file = 'review.html';
 		$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->add('tpl_data', $tpl_data);
 		return $output;
 	}
@@ -198,12 +198,12 @@ class payplus6 extends EpayPlugin {
 		// error check
 		if ($res_cd != '0000')
 		{
-			$output = new Object(-1, $res_msg);
+			$output = return $this->makeObject(-1, $res_msg);
 			$output->add('state', constant('STATE_FAILURE')); // failure
 		}
 		else
 		{
-			$output = new Object(0, $utf8ResultMsg);
+			$output = return $this->makeObject(0, $utf8ResultMsg);
 			if ($this->getPaymethod($use_pay_method)=='VA')
 			{
 				$output->add('state', constant('STATE_NOTCOMPLETED')); // not completed
@@ -234,7 +234,7 @@ class payplus6 extends EpayPlugin {
 
 		//PG에서 보냈는지 IP로 체크
 		if ($PG_IP != "203.238.36") {
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$logfile = fopen($payplushome."/log/vbank_" . date("Ymd") . ".log", "a+");
@@ -247,7 +247,7 @@ class payplus6 extends EpayPlugin {
 		fclose( $logfile );
 
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		if ($output->amount == $transaction->payment_amount)
@@ -276,7 +276,7 @@ class payplus6 extends EpayPlugin {
 
 	// MUST return order_srl
 	function getReport() {
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		return $output;

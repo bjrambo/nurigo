@@ -69,7 +69,7 @@ class cashpayAdminController extends cashpay
 		$path = sprintf("./files/epay/%s/key/%s/", $args->module_srl, $args->inicis_id);
 		if(!FileHandler::makeDir($path))
 		{
-			return new Object(-1, 'could not create a directory');
+			return $this->makeObject(-1, 'could not create a directory');
 		}
 		$key_files = Context::gets('keypass', 'mcert', 'mpriv');
 		foreach($key_files as $key => $file)
@@ -82,7 +82,7 @@ class cashpayAdminController extends cashpay
 			$args->{$key} = $filename;
 			if(!move_uploaded_file($file['tmp_name'], $filename))
 			{
-				return new Object(-1, 'could not move the file uploaded');
+				return $this->makeObject(-1, 'could not move the file uploaded');
 			}
 		}
 		// pgcert

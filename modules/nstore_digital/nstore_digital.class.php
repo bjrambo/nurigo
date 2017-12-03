@@ -53,7 +53,7 @@ class nstore_digital extends ModuleObject
 			$oModuleController->insertTrigger('nproduct.getProcModules', 'nstore_digital', 'model', 'triggerGetProcModules', 'before');
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -185,7 +185,16 @@ class nstore_digital extends ModuleObject
 		return $this->payment_method;
 	}
 
-
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
+	}
 }
 /* End of file nstore_digital.class.php */
 /* Location: ./modules/nstore_digital/nstore_digital.class.php */

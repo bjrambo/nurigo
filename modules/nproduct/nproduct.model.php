@@ -731,7 +731,7 @@ class nproductModel extends nproduct
 
 		if(!$document_srls)
 		{
-			return new Object(-1, 'no srls');
+			return $this->makeObject(-1, 'no srls');
 		}
 
 		if(Context::get('image_width') && Context::get('image_height'))
@@ -827,7 +827,7 @@ class nproductModel extends nproduct
 	 */
 	function getDiscount(&$item_info)
 	{
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->discount_amount = $item_info->discount_amount;
 		$output->discounted_price = $item_info->price;
 		if($item_info->discount_amount)
@@ -884,7 +884,7 @@ class nproductModel extends nproduct
 			$discounted_price = $item_info->price;
 		}
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;
@@ -937,7 +937,7 @@ class nproductModel extends nproduct
 			$discounted_price = $item_info->price;
 		}
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;
@@ -951,7 +951,7 @@ class nproductModel extends nproduct
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$oNcartModel = getModel($item_info->proc_module);
@@ -974,7 +974,7 @@ class nproductModel extends nproduct
 
 		if(!$output->data)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$quantity_discount_data = $output->data;
@@ -984,7 +984,7 @@ class nproductModel extends nproduct
 
 		if($purchase_count < $quantity)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		// 구매수량이 정해준 수량을 넘으면 
@@ -1013,7 +1013,7 @@ class nproductModel extends nproduct
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$args = new stdClass();
@@ -1027,7 +1027,7 @@ class nproductModel extends nproduct
 		}
 		if(!$output->data)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$member_discount_data = $output->data;
@@ -1047,7 +1047,7 @@ class nproductModel extends nproduct
 
 		if(!$discounted_price)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$output->discount_amount = $item_info->price - $discounted_price;
@@ -1499,7 +1499,7 @@ class nproductModel extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$data = array();
@@ -1593,7 +1593,7 @@ class nproductModel extends nproduct
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$node_id = Context::get('node_id');
@@ -1947,7 +1947,7 @@ class nproductModel extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$data = array();
@@ -1988,7 +1988,7 @@ class nproductModel extends nproduct
 			$categoryInfo = $this->getCategory($node_id);
 			if(!$categoryInfo)
 			{
-				return new Object(-1, 'category not found');
+				return $this->makeObject(-1, 'category not found');
 			}
 			$args->node_route = $categoryInfo->node_route . $node_id . '.';
 			$category_id = $node_id;

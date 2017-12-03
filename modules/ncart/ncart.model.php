@@ -338,7 +338,7 @@ class ncartModel extends ncart
 			}
 			else
 			{
-				$output = new Object();
+				$output = return $this->makeObject();
 				$output->data = array();
 			}
 			if (!$output->toBool()) return $output;
@@ -602,7 +602,7 @@ class ncartModel extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$member_srl = $logged_info->member_srl;
 		$item_list = $this->getFavoriteItems($member_srl, $image_width, $image_height);
@@ -670,7 +670,7 @@ class ncartModel extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$args = new stdClass();
@@ -777,7 +777,7 @@ class ncartModel extends ncart
 			$discounted_price = $item_info->price;
 		}
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->discount_amount = $item_info->price - $discounted_price;
 		$output->discounted_price = $discounted_price;
 		$output->discount_info = $discount_info;
@@ -796,7 +796,7 @@ class ncartModel extends ncart
 
 	function getDiscount(&$item_info)
 	{
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->discount_amount = $item_info->discount_amount;
 		$output->discounted_price = $item_info->price - $item_info->discount_amount;
 		$output->discount_info = $item_info->discount_info;

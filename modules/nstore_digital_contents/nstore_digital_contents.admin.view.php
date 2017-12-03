@@ -91,7 +91,7 @@ class nstore_digital_contentsAdminView extends nstore_digital_contents
 		$item_info = $oNproductModel->getItemInfo(Context::get('item_srl'));
 		if(!$item_info)
 		{
-			return new Object(-1, 'msg_item_not_found');
+			return $this->makeObject(-1, 'msg_item_not_found');
 		}
 		Context::set('item_info', $item_info);
 

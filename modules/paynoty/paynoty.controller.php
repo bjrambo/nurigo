@@ -20,7 +20,7 @@ class paynotyController extends paynoty
 
 		if($config->use != 'Y')
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$order_info = getModel('ncart')->getOrderInfo($obj->order_srl);

@@ -54,7 +54,7 @@ class nstoreView extends nstore
 		// 비회원 구매가 활성화되어 있지 않고 로그인 되있지 않다면
 		if(!Context::get('is_logged') && $config->guest_buy == 'N')
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		// 로그인되어 있지 않다면 비회원 주문상품 조회 페이지로
@@ -126,7 +126,7 @@ class nstoreView extends nstore
 		// 주문번호가 없다면
 		if(!$order_srl)
 		{
-			return new Object(-1, 'msg_invalid_order_number');
+			return $this->makeObject(-1, 'msg_invalid_order_number');
 		}
 
 		$order_info = $oNstoreModel->getOrderInfo($order_srl);
@@ -134,7 +134,7 @@ class nstoreView extends nstore
 		// 주문정보가 없다면
 		if(!$order_info)
 		{
-			return new Object(-1, 'msg_invalid_order_number');
+			return $this->makeObject(-1, 'msg_invalid_order_number');
 		}
 
 		// 권한 체크
@@ -143,7 +143,7 @@ class nstoreView extends nstore
 			// 로그인되어 있다면 member_srl 과 order_srl을 비교
 			if($order_info->member_srl != $logged_info->member_srl)
 			{
-				return new Object(-1, 'msg_not_permitted');
+				return $this->makeObject(-1, 'msg_not_permitted');
 			}
 		}
 		else  // 로그인 되어있지 않다면
@@ -154,7 +154,7 @@ class nstoreView extends nstore
 			// 설정에서 비회원 구매를 N으로 해놨다면 return
 			if($config->guest_buy != 'Y')
 			{
-				return new Object(-1, 'msg_not_permitted');
+				return $this->makeObject(-1, 'msg_not_permitted');
 			}
 
 			// 설정에서 비회원 구매를 Y로 해놨다면 PermissionCheck
@@ -188,7 +188,7 @@ class nstoreView extends nstore
 		// 권한 체크
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
@@ -197,7 +197,7 @@ class nstoreView extends nstore
 		// 지정된 원 댓글이 없다면 오류
 		if(!$parent_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 해당 댓글를 찾아본다
@@ -207,11 +207,11 @@ class nstoreView extends nstore
 		// 댓글이 없다면 오류
 		if(!$oSourceComment->isExists())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 대상 댓글을 생성

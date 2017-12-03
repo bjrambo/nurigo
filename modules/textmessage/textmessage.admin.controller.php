@@ -43,7 +43,7 @@ class textmessageAdminController extends textmessage
 		$target_message_ids = Context::get('cart');
 		if(!$target_message_ids)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$oTextmessageController = getController('textmessage');
@@ -69,7 +69,7 @@ class textmessageAdminController extends textmessage
 		$target_group_ids = Context::get('target_group_ids');
 		if(!$target_group_ids)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$group_ids = explode(',', $target_group_ids);

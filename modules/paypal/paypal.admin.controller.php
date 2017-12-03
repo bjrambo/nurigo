@@ -127,7 +127,7 @@ class paypalAdminController extends paypal
 		$path = sprintf(_XE_PATH_ . "files/epay/%s/log", $output->get('module_srl'));
 		if(!FileHandler::makeDir($path))
 		{
-			return new Object(-1, 'could not create a directory');
+			return $this->makeObject(-1, 'could not create a directory');
 		}
 
 		$this->add('module_srl', $output->get('module_srl'));

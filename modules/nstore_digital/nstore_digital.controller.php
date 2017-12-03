@@ -161,7 +161,7 @@ class nstore_digitalController extends nstore_digital
 			$oAutomailController->sendMail('nstore_digital', $order_status, $order_info->email_address, $order_info);
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/*
@@ -191,7 +191,7 @@ class nstore_digitalController extends nstore_digital
 		$oNproductController = getController('nproduct');
 		$output = $oNproductController->updateDownloadCount($obj->upload_target_srl);
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -229,7 +229,7 @@ class nstore_digitalController extends nstore_digital
 		// procNstore_digitalFileDownload 에서 체크한대로...
 		if($_SESSION['nstore_digital_downloadable'] != TRUE)
 		{
-			return new Object(-1, 'msg_not_permitted_download');
+			return $this->makeObject(-1, 'msg_not_permitted_download');
 		}
 		// FALSE로 바꿔놔야 다른 파일들을 마구 받지 않는다.
 		$_SESSION['nstore_digital_downloadable'] = FALSE;
@@ -327,7 +327,7 @@ class nstore_digitalController extends nstore_digital
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, '로그인 후 다운로드 하세요.');
+			return $this->makeObject(-1, '로그인 후 다운로드 하세요.');
 		}
 
 		// check whether there is a purchased item.
@@ -409,7 +409,7 @@ class nstore_digitalController extends nstore_digital
 
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function procNstore_digitalUpdateOrderDetail()
@@ -466,7 +466,7 @@ class nstore_digitalController extends nstore_digital
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$cart = $args->cart;
@@ -475,7 +475,7 @@ class nstore_digitalController extends nstore_digital
 		$item_count = count($cart->item_list);
 		if(!$item_count)
 		{
-			return new Object(-1, 'No items to order');
+			return $this->makeObject(-1, 'No items to order');
 		}
 
 		// calculate total price
@@ -915,7 +915,7 @@ class nstore_digitalController extends nstore_digital
 
 		if(!$purchased_item->cart_srl)
 		{
-			return new Object(-1, 'cart_srl is not defined');
+			return $this->makeObject(-1, 'cart_srl is not defined');
 		}
 
 

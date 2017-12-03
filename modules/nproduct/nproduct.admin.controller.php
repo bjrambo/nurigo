@@ -262,7 +262,7 @@ class nproductAdminController extends nproduct
 		$category_srl = Context::get('category_srl');
 		if(!$item_srl)
 		{
-			return new Object(-1, 'msg_no_items');
+			return $this->makeObject(-1, 'msg_no_items');
 		}
 
 		$item_srl = explode(',', $item_srl);
@@ -521,7 +521,7 @@ class nproductAdminController extends nproduct
 		// check column_name
 		if(!$args->extra_srl && $this->checkColumnName($args->module_srl, $args->column_name))
 		{
-			return new Object(-1, 'msg_invalid_column_name');
+			return $this->makeObject(-1, 'msg_invalid_column_name');
 		}
 
 		$this->insertItemExtra($args);
@@ -546,7 +546,7 @@ class nproductAdminController extends nproduct
 		// update if item_srl exists, otherwise return error.
 		if(!$args->item_srl)
 		{
-			return new Object(-1, 'msg_invalid_item');
+			return $this->makeObject(-1, 'msg_invalid_item');
 		}
 		else
 		{
@@ -582,7 +582,7 @@ class nproductAdminController extends nproduct
 		$item_info = $oNproductModel->getItemInfo($item_srl);
 		if(!$item_info)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// Call a trigger (before)
@@ -756,7 +756,7 @@ class nproductAdminController extends nproduct
 		$list = explode(',', Context::get('list'));
 		if(!count($list))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$list_arr = array();
@@ -780,7 +780,7 @@ class nproductAdminController extends nproduct
 		{
 			return $output;
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -794,7 +794,7 @@ class nproductAdminController extends nproduct
 		$list = explode(',', Context::get('list'));
 		if(!count($list))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$list_arr = array();
@@ -818,7 +818,7 @@ class nproductAdminController extends nproduct
 		{
 			return $output;
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -1210,13 +1210,13 @@ class nproductAdminController extends nproduct
 
 		if(!$vars->member_id)
 		{
-			return new Object(-1, '아이디를 입력해주세요.');
+			return $this->makeObject(-1, '아이디를 입력해주세요.');
 		}
 		$member_srl = $oMemberMedel->getMemberSrlByUserID($vars->member_id);
 
 		if(!$member_srl)
 		{
-			return new Object(-1, '존재하지 않는 ID입니다.');
+			return $this->makeObject(-1, '존재하지 않는 ID입니다.');
 		}
 
 		$args = new stdClass();
@@ -1242,7 +1242,7 @@ class nproductAdminController extends nproduct
 		// delete member_discount
 		if($output->data)
 		{
-			return new Object(-1, '할인적용중인 ID입니다. 삭제후 등록 해주세요.');
+			return $this->makeObject(-1, '할인적용중인 ID입니다. 삭제후 등록 해주세요.');
 		}
 
 		$args->discount = $vars->discount;
@@ -1268,14 +1268,14 @@ class nproductAdminController extends nproduct
 		$vars = Context::getRequestVars();
 		if(!$vars->item_code || !$vars->quantity || !$vars->discount)
 		{
-			return new Object(-1, '상품코드와 수량 그리고 할인가를 입력해주세요.');
+			return $this->makeObject(-1, '상품코드와 수량 그리고 할인가를 입력해주세요.');
 		}
 
 		$item_info = $oNproductModel->getItemByCode($vars->item_code);
 		$item_srl = $item_info->item_srl;
 		if(!$item_srl)
 		{
-			return new Object(-1, '상품이 없습니다.');
+			return $this->makeObject(-1, '상품이 없습니다.');
 		}
 
 		$args = new stdClass();
@@ -1287,7 +1287,7 @@ class nproductAdminController extends nproduct
 		}
 		if($output->data)
 		{
-			return new Object(-1, '할인적용중인 상품입니다. 삭제후 등록 해주세요.');
+			return $this->makeObject(-1, '할인적용중인 상품입니다. 삭제후 등록 해주세요.');
 		}
 
 		$args->quantity = $vars->quantity;

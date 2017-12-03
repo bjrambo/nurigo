@@ -106,7 +106,7 @@ class ncartController extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_log_required');
+			return $this->makeObject(-1, 'msg_log_required');
 		}
 
 		$parent_id = Context::get('parent_id');
@@ -217,7 +217,7 @@ class ncartController extends ncart
 		}
 		unset($args);
 
-		$retobj = new Object();
+		$retobj = return $this->makeObject();
 		$retobj->add('cart_srl', $cart_srl);
 		return $retobj;
 	}
@@ -231,7 +231,7 @@ class ncartController extends ncart
 		}
 		if($output->data && $output->data->count)
 		{
-			return new Object(-1, 'msg_duplicated_favorite_item');
+			return $this->makeObject(-1, 'msg_duplicated_favorite_item');
 		}
 
 		$output = executeQuery('ncart.insertFavoriteItem', $in_args);
@@ -240,7 +240,7 @@ class ncartController extends ncart
 			return $output;
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 
@@ -330,7 +330,7 @@ class ncartController extends ncart
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$req_args = Context::getRequestVars();
@@ -344,7 +344,7 @@ class ncartController extends ncart
 				// check whether the field is required.
 				if($field->required == 'Y' && !isset($req_args->{$field->column_name}))
 				{
-					return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title . '[' . $filed->column_name . ']'));
+					return $this->makeObject(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title . '[' . $filed->column_name . ']'));
 				}
 				if($field->is_head == 'Y' && isset($req_args->{$field->column_name}))
 				{
@@ -465,14 +465,14 @@ class ncartController extends ncart
 
 			if($item_stock == 0)
 			{
-				return new Object(-1, '재고가 0 입니다.');
+				return $this->makeObject(-1, '재고가 0 입니다.');
 			}
 			else if($item_stock > 0)
 			{
 				$this->executeQuery('updateItemStock', $args);
 			}
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function moveNode($node_id, $parent_id)
@@ -564,7 +564,7 @@ class ncartController extends ncart
 		// check node_id
 		if(!$node_id && $old_route)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// get node_route
@@ -651,7 +651,7 @@ class ncartController extends ncart
 			// check quantity
 			if(!$val->quantity)
 			{
-				return new Object(-1, 'msg_no_quantity_input');
+				return $this->makeObject(-1, 'msg_no_quantity_input');
 			}
 			// add module
 			if(!in_array($val->module, $module_list))
@@ -664,7 +664,7 @@ class ncartController extends ncart
 		$item_count = count($cart->item_list);
 		if(!$item_count)
 		{
-			return new Object(-1, 'No items to order');
+			return $this->makeObject(-1, 'No items to order');
 		}
 
 		// check the gotten values.
@@ -690,7 +690,7 @@ class ncartController extends ncart
 							{
 								if(empty($val))
 								{
-									return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
+									return $this->makeObject(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
 								}
 							}
 						}
@@ -705,7 +705,7 @@ class ncartController extends ncart
 						{
 							if(empty($in_args->{$field->column_name}))
 							{
-								return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
+								return $this->makeObject(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
 							}
 						}
 					}
@@ -714,7 +714,7 @@ class ncartController extends ncart
 				// check whether the field is required.
 				if($field->required == 'Y' && !isset($in_args->{$field->column_name}))
 				{
-					return new Object(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
+					return $this->makeObject(-1, sprintf(Context::getLang('msg_field_input_required'), $field->column_title));
 				}
 
 				if($field->is_head == 'Y' && isset($in_args->{$field->column_name}))
@@ -1067,7 +1067,7 @@ class ncartController extends ncart
 
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function updateOrderStatus($order_srl, $in_args)
@@ -1108,7 +1108,7 @@ class ncartController extends ncart
 			return $output;
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 }
 /* End of file ncart.controller.php */

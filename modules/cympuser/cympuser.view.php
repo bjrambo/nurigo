@@ -35,7 +35,7 @@ class cympuserView extends cympuser
 
 		// Don't display member info to non-logged user
 		$is_logged = Context::get('is_logged');
-		if(!$is_logged) return new Object(-1, 'msg_not_permitted');
+		if(!$is_logged) return $this->makeObject(-1, 'msg_not_permitted');
 
 		$member_srl = Context::get('member_srl');
 		if(!$member_srl && $is_logged)

@@ -16,7 +16,7 @@ class nstore_digital_contents extends ModuleObject
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**

@@ -51,7 +51,7 @@ class epayView extends epay
 
 		if(!$in_args->epay_module_srl)
 		{
-			return new Object(-1, 'msg_invalid_epay_module');
+			return $this->makeObject(-1, 'msg_invalid_epay_module');
 		}
 
 		Context::set('epay_module_srl', $in_args->epay_module_srl);
@@ -102,7 +102,7 @@ class epayView extends epay
 		$oModuleModel->syncSkinInfoToModuleInfo($module_info);
 		if(!$module_info)
 		{
-			return new Object(-1, 'msg_invalid_epay_module');
+			return $this->makeObject(-1, 'msg_invalid_epay_module');
 		}
 		if(!$module_info->skin)
 		{
@@ -263,7 +263,7 @@ class epayView extends epay
 
 		$oTemplate = &TemplateHandler::getInstance();
 		$payment_form = $oTemplate->compile($template_path, 'paymentform.html');
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->data = $payment_form;
 		return $output;
 
@@ -487,7 +487,7 @@ class epayView extends epay
 		$is_logged = Context::get('is_logged');
 		if(!$is_logged)
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 

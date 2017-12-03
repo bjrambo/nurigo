@@ -109,7 +109,7 @@ class nstoreAdminController extends nstore
 
 		if(!$carts)  // check box 선택한 주문이 없을때 뒤로가기
 		{
-			return new Object(-1, '선택한 주문이 없습니다.');
+			return $this->makeObject(-1, '선택한 주문이 없습니다.');
 		}
 
 		$message = array();
@@ -177,7 +177,7 @@ class nstoreAdminController extends nstore
 		/*
 		if(!$carts)  // check box 선택한 주문이 없을때 뒤로가기
 		{
-			return new Object(-1, '선택한 주문이 없습니다.');
+			return $this->makeObject(-1, '선택한 주문이 없습니다.');
 		}
 		 */
 

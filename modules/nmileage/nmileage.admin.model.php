@@ -54,7 +54,7 @@ class nmileageAdminModel extends nmileage
 		$logged_info = Context::get('logged_info');
 		if($logged_info->is_admin != 'Y')
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(!Context::get('user_id'))
 		{

@@ -38,7 +38,7 @@ class nmileageView extends nmileage
 
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, "msg_login_required");
+			return $this->makeObject(-1, "msg_login_required");
 		}
 
 		$args = new stdClass();

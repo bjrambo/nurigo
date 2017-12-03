@@ -213,7 +213,7 @@ class epayAdminController extends epay
 		$plugin_srl = Context::get('plugin_srl');
 		if(!$plugin_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$args = new stdClass();
 		$args->plugin_srl = $plugin_srl;
@@ -263,7 +263,7 @@ class epayAdminController extends epay
 		$transaction_srl = Context::get('transaction_srl');
 		if(!$transaction_srl)
 		{
-			return new Object(-1, 'Transaction_srl number isn\'t existence');
+			return $this->makeObject(-1, 'Transaction_srl number isn\'t existence');
 		}
 		$args = new stdClass();
 

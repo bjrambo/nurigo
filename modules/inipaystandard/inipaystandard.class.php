@@ -29,7 +29,7 @@ class inipaystandard extends ModuleObject
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -71,7 +71,7 @@ class inipaystandard extends ModuleObject
 			$oModuleController->insertTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before');
 		}
 
-		return new Object(0, 'success_updated');
+		return $this->makeObject(0, 'success_updated');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class inipaystandard extends ModuleObject
 	 */
 	function moduleUninstall()
 	{
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -87,6 +87,16 @@ class inipaystandard extends ModuleObject
 	 */
 	function recompileCache()
 	{
+	}
 
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }

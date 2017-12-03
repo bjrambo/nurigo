@@ -126,7 +126,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 		if(!$output->data)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 		return $output->data;
 	}
@@ -143,7 +143,7 @@ class nstore_digital_contentsModel extends nstore_digital_contents
 
 		if(!$output->data)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 		return $output->data;
 	}

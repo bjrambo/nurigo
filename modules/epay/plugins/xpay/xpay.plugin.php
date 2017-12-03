@@ -38,9 +38,9 @@
 		 * purchaser_telnum
 		 */
 		function getFormData($args) {
-			if (!$args->price) return new Object(0,'No input of price');
-			if (!$args->epay_module_srl) return new Object(-1,'No input of epay_module_srl');
-			if (!$args->module_srl) return new Object(-1,'No input of module_srl');
+			if (!$args->price) return $this->makeObject(0,'No input of price');
+			if (!$args->epay_module_srl) return $this->makeObject(-1,'No input of epay_module_srl');
+			if (!$args->module_srl) return $this->makeObject(-1,'No input of module_srl');
 
 			Context::set('module_srl', $args->module_srl);
 			Context::set('epay_module_srl', $args->epay_module_srl);
@@ -67,7 +67,7 @@
 			$tpl_file = 'formdata.html';
 			$form_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-			$output = new Object();
+			$output = return $this->makeObject();
 			$output->data = $form_data;
 			return $output;
 		}
@@ -103,7 +103,7 @@
 			$tpl_file = 'review.html';
 			$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-			$output = new Object();
+			$output = return $this->makeObject();
 			$output->add('tpl_data', $tpl_data);
 			return $output;
 		}
@@ -166,12 +166,12 @@
 				// error check
 				if ($xpay->Response_Code() != '0000') 
 				{
-					$output = new Object(-1, $utf8ResultMsg);
+					$output = return $this->makeObject(-1, $utf8ResultMsg);
 					$output->add('state', '3'); // failure
 				}
 				else
 				{
-					$output = new Object(0, $utf8ResultMsg);
+					$output = return $this->makeObject(0, $utf8ResultMsg);
 					if ($this->getPaymethod($xpay->Response('LGD_PAYTYPE',0))=='VA')
 					{
 						$output->add('state', '1'); // not completed
@@ -238,7 +238,7 @@
 				echo "최종결제요청 결과 실패 DB처리하시기 바랍니다.<br>";            	                        
 				 */
 				$utf8ResultMsg = "결제요청이 실패하였습니다.";
-				$output = new Object(-1, $utf8ResultMsg);
+				$output = return $this->makeObject(-1, $utf8ResultMsg);
 				$output->add('state', '3'); // failure
 			}
 
@@ -272,7 +272,7 @@
 			$tid = Context::get('LGD_TID');
 			$casflag = Context::get('LGD_CASFLAG');
 
-			$output = new Object();
+			$output = return $this->makeObject();
 
 			// check for TID
 			if ($transaction->pg_tid != $tid)
@@ -327,7 +327,7 @@
 		{
 			$vars = Context::getRequestVars();
 
-			$output = new Object();
+			$output = return $this->makeObject();
 			$output->order_srl = Context::get('LGD_OID');
 			$output->amount = Context::get('LGD_CASTAMOUNT');
 			return $output;

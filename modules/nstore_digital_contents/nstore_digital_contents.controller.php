@@ -15,7 +15,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 
 		if(!$nstore_digital_contents_config->period)
 		{
-			return new Object(-1, '설정된 만기일이 없습니다.');
+			return $this->makeObject(-1, '설정된 만기일이 없습니다.');
 		}
 
 		$args = new stdClass();
@@ -33,7 +33,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 	{
 		if(!$cart_srl)
 		{
-			return new Object(-1, 'no cart_srl');
+			return $this->makeObject(-1, 'no cart_srl');
 		}
 
 		$pass = 'Y';
@@ -70,7 +70,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 	{
 		if(!$cart_srl)
 		{
-			return new Object(-1, 'no cart_srl');
+			return $this->makeObject(-1, 'no cart_srl');
 		}
 
 		$args = new stdClass();
@@ -155,7 +155,7 @@ class nstore_digital_contentsController extends nstore_digital_contents
 	{
 		if(!$cart_srl)
 		{
-			return new Object(-1, 'no cart_srl');
+			return $this->makeObject(-1, 'no cart_srl');
 		}
 		$args = new stdClass();
 		$args->cart_srl = $cart_srl;

@@ -141,7 +141,7 @@ class nproductAdminView extends nproduct
 		$item_info = $oNproductModel->getItemInfo($item_srl);
 		if(!$item_info)
 		{
-			return new Object(-1, 'msg_item_not_found');
+			return $this->makeObject(-1, 'msg_item_not_found');
 		}
 
 		// category infos.

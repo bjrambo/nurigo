@@ -152,12 +152,12 @@ class kcpController extends kcp
 		// error check
 		if($res_cd != '0000')
 		{
-			$payArgs = new Object(-1, $res_msg);
+			$payArgs = return $this->makeObject(-1, $res_msg);
 			$payArgs->add('state', constant('STATE_FAILURE')); // failure
 		}
 		else
 		{
-			$payArgs = new Object(0, $utf8ResultMsg);
+			$payArgs = return $this->makeObject(0, $utf8ResultMsg);
 			if($oKcpModel->getEpayCode($use_pay_method) == 'VA')
 			{
 				$payArgs->add('state', constant('STATE_NOTCOMPLETED')); // not completed
@@ -209,7 +209,7 @@ class kcpController extends kcp
 		$transaction_info = $oEpayModel->getTransactionByOrderSrl($order_srl);
 		if(!$transaction_info)
 		{
-			return new Object(-1, 'could not find transaction');
+			return $this->makeObject(-1, 'could not find transaction');
 		}
 
 		$payplushome = sprintf(_XE_PATH_ . "files/epay/kcp");
@@ -219,7 +219,7 @@ class kcpController extends kcp
 		//PG에서 보냈는지 IP로 체크
 		if($PG_IP != "203.238.36")
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$logfile = fopen($payplushome . "/log/vbank_" . date("Ymd") . ".log", "a+");
@@ -233,7 +233,7 @@ class kcpController extends kcp
 		fclose($logfile);
 
 
-		$output = new Object();
+		$output = return $this->makeObject();
 		$output->order_srl = Context::get('ordr_idxx');
 		$output->amount = Context::get('totl_mnyx');
 		if($output->amount == $transaction_info->payment_amount)

@@ -344,7 +344,7 @@ class nproductView extends nproduct
 		}
 		else
 		{
-			return new Object(-1, 'Item Not Found.');
+			return $this->makeObject(-1, 'Item Not Found.');
 		}
 
 		$output = executeQuery('nproduct.getItemInfo', $args);
@@ -440,7 +440,7 @@ class nproductView extends nproduct
 		// 권한 체크
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
@@ -449,7 +449,7 @@ class nproductView extends nproduct
 		// 지정된 원 댓글이 없다면 오류
 		if(!$parent_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 해당 댓글를 찾아본다
@@ -458,11 +458,11 @@ class nproductView extends nproduct
 		// 댓글이 없다면 오류
 		if(!$oSourceComment->isExists())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 대상 댓글을 생성

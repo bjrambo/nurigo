@@ -14,11 +14,11 @@ class nstoreController extends nstore
 		$args = Context::getRequestVars();
 		if(!$args->order_srl)
 		{
-			return new Object(-1, 'msg_input_order_number_password');
+			return $this->makeObject(-1, 'msg_input_order_number_password');
 		}
 		else if(!$args->non_password)
 		{
-			return new Object(-1, 'msg_input_order_number_password');
+			return $this->makeObject(-1, 'msg_input_order_number_password');
 		}
 
 		$args->non_password = base64_encode($args->non_password);
@@ -44,7 +44,7 @@ class nstoreController extends nstore
 		{
 			if($logged_info->member_srl !== $order_info->member_srl)
 			{
-				return new Object(-1, 'msg_not_permitted');
+				return $this->makeObject(-1, 'msg_not_permitted');
 			}
 		}
 
@@ -53,11 +53,11 @@ class nstoreController extends nstore
 		// 입금대기 상태일 경우이라면
 		if($order_info->order_status == 1)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if($order_info->order_status == 6)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		$args = new stdClass();
@@ -254,7 +254,7 @@ class nstoreController extends nstore
 			return $output;
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function triggerEscrowDelivery($in_args)
@@ -380,7 +380,7 @@ class nstoreController extends nstore
 
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -409,7 +409,7 @@ class nstoreController extends nstore
 
 			if(!$non_password1 || !$non_password2)
 			{
-				return new Object(-1, '비밀번호를 입력해주세요.');
+				return $this->makeObject(-1, '비밀번호를 입력해주세요.');
 			}
 
 			if($non_password1 == $non_password2)
@@ -422,7 +422,7 @@ class nstoreController extends nstore
 			}
 			else
 			{
-				return new Object(-1, '비밀번호가 다릅니다.');
+				return $this->makeObject(-1, '비밀번호가 다릅니다.');
 			}
 		}
 
@@ -443,7 +443,7 @@ class nstoreController extends nstore
 		$item_count = count($cart->item_list);
 		if(!$item_count)
 		{
-			return new Object(-1, 'No items to order');
+			return $this->makeObject(-1, 'No items to order');
 		}
 
 		// get title
@@ -465,12 +465,12 @@ class nstoreController extends nstore
 			// 체크1) 해당 상품이 삭제되었는지 확인
 			if(!$item_info)
 			{
-				return new Object(-1, sprintf(Context::getLang('msg_item_not_found'), $item_info->item_name));
+				return $this->makeObject(-1, sprintf(Context::getLang('msg_item_not_found'), $item_info->item_name));
 			}
 			// 체크2) 진열상태 체크
 			if($item_info->display == 'N')
 			{
-				return new Object(-1, sprintf(Context::getLang('msg_not_displayed_item'), $item_info->item_name));
+				return $this->makeObject(-1, sprintf(Context::getLang('msg_not_displayed_item'), $item_info->item_name));
 			}
 			$group_list = NULL;
 			if($args->member_srl)
@@ -481,7 +481,7 @@ class nstoreController extends nstore
 			// 체크3) 가격 변동 체크
 			if($val->discounted_price != $output->discounted_price)
 			{
-				return new Object(-1, sprintf(Context::getLang('msg_price_changed'), $item_info->item_name));
+				return $this->makeObject(-1, sprintf(Context::getLang('msg_price_changed'), $item_info->item_name));
 			}
 
 			/**
@@ -704,11 +704,11 @@ class nstoreController extends nstore
 		// 1(입금대기) ~ 6(거래완료) 상태일 때만 처리, 그외 카트대기, 상품취소, 반품 이런 것들은 처리하면 안됨.
 		if($order_status > 7)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 		if($order_status < 1)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		// 주문정보 읽어오기
@@ -746,10 +746,10 @@ class nstoreController extends nstore
 		if(count($nostocklist) > 0)
 		{
 			$message = implode($nostocklist, ',');
-			return new Object(2, $message);
+			return $this->makeObject(2, $message);
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	// 주문정보 페이지 권한 체크 
@@ -758,13 +758,13 @@ class nstoreController extends nstore
 		// 주문정보에 비밀번호가 없다면
 		if(!$compare_password)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 사용자로부터 넘겨받은 비밀번호가 없다면
 		if(!$non_password)
 		{
-			return new Object(-1, 'msg_input_password');
+			return $this->makeObject(-1, 'msg_input_password');
 		}
 
 		$non_password = base64_decode($non_password);
@@ -776,7 +776,7 @@ class nstoreController extends nstore
 		// crypt한 비밀번호와 order_info에 저장된 비밀번호가 같지 않다면
 		if($non_password != $compare_password)
 		{
-			return new Object(-1, 'msg_invalid_password');
+			return $this->makeObject(-1, 'msg_invalid_password');
 		}
 	}
 

@@ -104,7 +104,7 @@ class epayAdminView extends epay
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
 			if(!$module_info)
 			{
-				return new Object(-1, 'msg_invalid_request');
+				return $this->makeObject(-1, 'msg_invalid_request');
 			}
 			else
 			{

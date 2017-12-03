@@ -126,7 +126,7 @@ class textmessageController extends textmessage
 		// 문자 전송
 		$result = $sms::send($options);
 
-		$output = new Object();
+		$output = $this->makeObject();
 		if($result->code)
 		{
 			$result->error_count = count(explode(',', $options->to));
@@ -154,11 +154,11 @@ class textmessageController extends textmessage
 		$result = $sms::cancel($options);
 		if($result->code)
 		{
-			return new Object(-1, $result->code);
+			return $this->makeObject(-1, $result->code);
 		}
 		else
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 	}
 
@@ -173,9 +173,9 @@ class textmessageController extends textmessage
 		$result = $sms::cancel($options);
 		if($result->code)
 		{
-			return new Object(-1, $result->code);
+			return $this->makeObject(-1, $result->code);
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 }
 /* End of file textmessage.controller.php */

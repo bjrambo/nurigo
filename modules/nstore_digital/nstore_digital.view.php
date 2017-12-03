@@ -59,7 +59,7 @@ class nstore_digitalView extends nstore_digital
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 		$config = $oNstore_digitalModel->getModuleConfig();
 		Context::set('config', $config);
@@ -185,7 +185,7 @@ class nstore_digitalView extends nstore_digital
 		$cart_srl = Context::get('cart_srl');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$config = $oNstore_digitalModel->getModuleConfig();
@@ -193,7 +193,7 @@ class nstore_digitalView extends nstore_digital
 		Context::set('item_info', $item_info);
 		if(!in_array($item_info->order_status, array('3')))
 		{
-			return new Object(-1, '구매완료된 상품이 아닙니다.');
+			return $this->makeObject(-1, '구매완료된 상품이 아닙니다.');
 		}
 
 		// create new PDF document
@@ -357,7 +357,7 @@ class nstore_digitalView extends nstore_digital
 		$order_srl = Context::get('order_srl');
 		if(!$order_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$payment_info = $oEpayModel->getTransactionByOrderSrl($order_srl);

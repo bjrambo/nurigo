@@ -29,7 +29,7 @@ class couponsmsView extends couponsms
 		$couponsms_srl = Context::get('couponsms_srl');
 		if(!$couponsms_srl)
 		{
-			return new Object(-1, '쿠폰번호는 필수입니다.');
+			return $this->makeObject(-1, '쿠폰번호는 필수입니다.');
 		}
 		$oConponsmsModel = getModel('couponsms');
 		$output = $oConponsmsModel->getCouponConfig($couponsms_srl);
@@ -37,7 +37,7 @@ class couponsmsView extends couponsms
 
 		if(!$couponsms)
 		{
-			return new Object(-1, '데이터가 없어 접근이 불가능합니다.');
+			return $this->makeObject(-1, '데이터가 없어 접근이 불가능합니다.');
 		}
 
 		if(!$member_srl)
@@ -57,7 +57,7 @@ class couponsmsView extends couponsms
 		}
 		else
 		{
-			return new Object(-1, '로그인사용자만 조회가능합니다.');
+			return $this->makeObject(-1, '로그인사용자만 조회가능합니다.');
 		}
 
 		$args = new stdClass();

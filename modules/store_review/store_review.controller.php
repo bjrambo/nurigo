@@ -21,13 +21,13 @@ class store_reviewController extends store_review
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$comment_srl = Context::get('target_srl');
 		if(!$comment_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$oCommentModel = getModel('comment');
@@ -35,14 +35,14 @@ class store_reviewController extends store_review
 		$module_srl = $oComment->get('module_srl');
 		if(!$module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$oModuleModel = getModel('module');
 		$comment_config = $oModuleModel->getModulePartConfig('comment', $module_srl);
 		if($comment_config->use_vote_up == 'N')
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$point = 1;
@@ -56,13 +56,13 @@ class store_reviewController extends store_review
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$comment_srl = Context::get('target_srl');
 		if(!$comment_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$oCommentModel = getModel('comment');
@@ -70,14 +70,14 @@ class store_reviewController extends store_review
 		$module_srl = $oComment->get('module_srl');
 		if(!$module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$oModuleModel = getModel('module');
 		$comment_config = $oModuleModel->getModulePartConfig('comment', $module_srl);
 		if($comment_config->use_vote_down == 'N')
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$point = -1;
@@ -91,13 +91,13 @@ class store_reviewController extends store_review
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$comment_srl = Context::get('target_srl');
 		if(!$comment_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		return $this->declaredComment($comment_srl);
@@ -128,7 +128,7 @@ class store_reviewController extends store_review
 		$item_srl = $obj->item_srl;
 		if(!$item_srl)
 		{
-			return new Object(-1, 'msg_invalid_item');
+			return $this->makeObject(-1, 'msg_invalid_item');
 		}
 
 		// even for manual_inserted if password exists, md5 it.
@@ -158,7 +158,7 @@ class store_reviewController extends store_review
 		// error display if neither of log-in info and user name exist.
 		if(!$logged_info->member_srl && !$obj->nick_name)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		if(!$obj->review_srl)
@@ -342,7 +342,7 @@ class store_reviewController extends store_review
 		// check if permission is granted
 		if(!$is_admin && !$source_obj->isGranted())
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		if($obj->password)
@@ -434,7 +434,7 @@ class store_reviewController extends store_review
 		$comment = $oCommentModel->getReview($review_srl);
 		if($comment->review_srl != $review_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$item_srl = $comment->item_srl;
 		// call a trigger (before)
@@ -447,12 +447,12 @@ class store_reviewController extends store_review
 		$child_count = $oCommentModel->getChildCommentCount($review_srl);
 		if($child_count > 0)
 		{
-			return new Object(-1, 'fail_to_delete_have_children');
+			return $this->makeObject(-1, 'fail_to_delete_have_children');
 		}
 		// check if permission is granted
 		if(!$is_admin && !$comment->isGranted())
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// begin transaction
@@ -518,7 +518,7 @@ class store_reviewController extends store_review
 	{
 		$this->_deleteDeclaredComments($args);
 		$this->_deleteVotedComments($args);
-		return new Object(0, 'success');
+		return $this->makeObject(0, 'success');
 	}
 
 	/**
@@ -561,7 +561,7 @@ class store_reviewController extends store_review
 		// invalid vote if vote info exists in the session info.
 		if($_SESSION['voted_comment'][$comment_srl])
 		{
-			return new Object(-1, $failed_voted);
+			return $this->makeObject(-1, $failed_voted);
 		}
 
 		$oCommentModel = getModel('comment');
@@ -570,7 +570,7 @@ class store_reviewController extends store_review
 		if($oComment->get('ipaddress') == $_SERVER['REMOTE_ADDR'])
 		{
 			$_SESSION['voted_comment'][$comment_srl] = true;
-			return new Object(-1, $failed_voted);
+			return $this->makeObject(-1, $failed_voted);
 		}
 		// if the comment author is a member
 		if($oComment->get('member_srl'))
@@ -582,7 +582,7 @@ class store_reviewController extends store_review
 			if($member_srl && $member_srl == $oComment->get('member_srl'))
 			{
 				$_SESSION['voted_comment'][$comment_srl] = true;
-				return new Object(-1, $failed_voted);
+				return $this->makeObject(-1, $failed_voted);
 			}
 		}
 		$args = new stdClass();
@@ -601,7 +601,7 @@ class store_reviewController extends store_review
 		if($output->data->count)
 		{
 			$_SESSION['voted_comment'][$comment_srl] = true;
-			return new Object(-1, $failed_voted);
+			return $this->makeObject(-1, $failed_voted);
 		}
 
 		// update the number of votes
@@ -622,7 +622,7 @@ class store_reviewController extends store_review
 		$_SESSION['voted_comment'][$comment_srl] = true;
 
 		// Return the result
-		return new Object(0, $success_message);
+		return $this->makeObject(0, $success_message);
 	}
 
 	/**
@@ -633,7 +633,7 @@ class store_reviewController extends store_review
 		// Fail if session information already has a reported document
 		if($_SESSION['declared_comment'][$comment_srl])
 		{
-			return new Object(-1, 'failed_declared');
+			return $this->makeObject(-1, 'failed_declared');
 		}
 		// check if already reported
 		$args = new stdClass();
@@ -650,7 +650,7 @@ class store_reviewController extends store_review
 		if($oComment->get('ipaddress') == $_SERVER['REMOTE_ADDR'])
 		{
 			$_SESSION['declared_comment'][$comment_srl] = true;
-			return new Object(-1, 'failed_declared');
+			return $this->makeObject(-1, 'failed_declared');
 		}
 		// if the comment author is a member
 		if($oComment->get('member_srl'))
@@ -662,7 +662,7 @@ class store_reviewController extends store_review
 			if($member_srl && $member_srl == $oComment->get('member_srl'))
 			{
 				$_SESSION['declared_comment'][$comment_srl] = true;
-				return new Object(-1, 'failed_declared');
+				return $this->makeObject(-1, 'failed_declared');
 			}
 		}
 		// If logged-in, use the member_srl. otherwise use the ipaddress.
@@ -680,7 +680,7 @@ class store_reviewController extends store_review
 		if($log_output->data->count)
 		{
 			$_SESSION['declared_comment'][$comment_srl] = true;
-			return new Object(-1, 'failed_declared');
+			return $this->makeObject(-1, 'failed_declared');
 		}
 		// execute insert
 		if($output->data->declared_count > 0)
@@ -782,7 +782,7 @@ class store_reviewController extends store_review
 	{
 		$oModuleController = getController('module');
 		$oModuleController->insertModulePartConfig('comment', $srl, $comment_config);
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -792,7 +792,7 @@ class store_reviewController extends store_review
 	{
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		$commentSrls = Context::get('comment_srls');
 		if($commentSrls)
