@@ -69,3 +69,8 @@
 		</tbody>
 	</table>
 </div>
+<!--@if($module=='kcp')-->
+<button class="go-payment" onclick="payplus_pay(); return false;">{$lang->do_payment}</button>
+<!--@else-->
+<button type="submit" class="go-payment">{$lang->do_payment}</button>
+<!--@endif-->
