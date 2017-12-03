@@ -85,6 +85,17 @@ class EpayPlugin
 	function procEscrowConfirm()
 	{
 	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
+	}
 }
 /* End of file epay.plugin.php */
 /* Location: ./modules/epay/epay.plugin.php */
