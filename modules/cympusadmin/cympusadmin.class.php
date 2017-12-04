@@ -195,6 +195,7 @@ class cympusadmin extends ModuleObject
 			{
 				$code = sprintf('$rtn = %s;', $it->attrs->cond);
 				eval($code);
+				//TODO : Check again.
 				if(!$rtn)
 				{
 					continue;

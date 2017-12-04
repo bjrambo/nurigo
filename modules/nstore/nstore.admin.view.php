@@ -161,11 +161,8 @@ class nstoreAdminView extends nstore
 		if(file_exists($classfile))
 		{
 			require_once($classfile);
-			$output = cympusadmin::init($this);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
+			$cympusadminClass = new cympusadmin();
+			$cympusadminClass->init($this);
 		}
 
 		$config = $oNstoreModel->getModuleConfig();
