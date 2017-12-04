@@ -140,6 +140,31 @@ class cashpayAdminController extends cashpay
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCashpayModInstList');
 		$this->setRedirectUrl($returnUrl);
 	}
+
+	function procCashpayAdminDeleteMid()
+	{
+		$module_srl = Context::get('module_srl');
+
+		if(!$module_srl)
+		{
+			return $this->makeObject(-1, 'Not exits module_srl number');
+		}
+
+		/** @var $oModuleModel moduleModel */
+		$oModuleModel = getModel('module');
+		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+
+		/** @var $oModuleController moduleController */
+		$oModuleController = getController('module');
+		$delete_output = $oModuleController->deleteModule($module_srl);
+		if(!$delete_output)
+		{
+			return $delete_output;
+		}
+
+		$this->setMessage('success_deleted');
+		$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCashpayAdminModInstList'));
+	}
 }
 /* End of file cashpay.admin.controller.php */
 /* Location: ./modules/cashpay/cashpay.admin.controller.php */

@@ -7,8 +7,10 @@
 	<actions>
 		<action name="dispCashpayAdminModInstList" type="view" admin_index="true" />
 		<action name="dispCashpayAdminInsertModInst" type="view" />
+		<action name="dispCashpayAdminDeleteMid" type="view" />
 
 		<action name="procCashpayAdminInsertModInst" type="controller" />
+		<action name="procCashpayAdminDeleteMid" type="controller" />
 
 		<action name="dispCashpayForm" type="view" />
 		<action name="getCashpayForm" type="model" />

@@ -136,6 +136,24 @@ class cashpayAdminView extends cashpay
 		Context::set('skin_content', $skin_content);
 		$this->setTemplateFile('skininfo');
 	}
+
+	/**
+	 *
+	 */
+	function dispCashpayAdminDeleteMid()
+	{
+		$module_srl = Context::get('module_srl');
+		if(!$module_srl)
+		{
+			$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCashpayAdminModInstList'));
+			return;
+		}
+
+		$security = new Security();
+		$security->encodeHTML('module_info..module', 'module_info..mid');
+
+		$this->setTemplateFile('deletemid');
+	}
 }
 /* End of file cashpay.admin.view.php */
 /* Location: ./modules/cashpay/cashpay.admin.view.php */
