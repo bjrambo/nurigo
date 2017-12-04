@@ -76,8 +76,6 @@ class cympusadmin extends ModuleObject
 		$oModuleModel = getModel('module');
 		$module_info = $oModuleModel->getModuleInfoXml('cympusadmin');
 		Context::set('cympus_modinfo', $module_info);
-
-		return $this->makeObject();
 	}
 
 	/**
