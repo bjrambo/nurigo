@@ -32,7 +32,7 @@
 			<div class="x_controls">
 				<input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}" id="browser_title" class="lang_code" />
 				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-		    	<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
+				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
 			</div>
 		</div>
 		<div class="x_control-group">
@@ -53,7 +53,7 @@
 					<option loop="$skin_list=>$key,$val" value="{$key}"  selected="selected"|cond="$module_info->skin==$key">{$val->title}</option>
 				</select>
 				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-		   		<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+				<p id="skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
 			</div>
 		</div>
 	</section>

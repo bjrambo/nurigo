@@ -187,6 +187,8 @@ class nmileageAdminView extends nmileage
 		$config = $oNmileageModel->getModuleConfig();
 		Context::set('config', $config);
 
+		$args = new stdClass();
+
 		if($config->mileage_method == 'nmileage')
 		{
 			$args->page = Context::get('page');

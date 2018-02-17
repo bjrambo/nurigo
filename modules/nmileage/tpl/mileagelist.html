@@ -1,28 +1,26 @@
 <load target="js/mileagelist.js" />
 <include target="_header.html" />
 
-<div class="table even easyList">
-	<table>
-		<thead>
-			<th>{$lang->regdate}</th>
-			<th>{$lang->user_id}</th>
-			<th>{$lang->nick_name}</th>
-			<th>{$lang->mileage}</th>
-		</thead>
-		<tbody>
-			<tr loop="$list=>$key,$val">
-				<td>{zdate($val->regdate)}</td> 
-				<td>{$val->user_id}</td> 
-				<td>{$val->nick_name}</td> 
-				<td><a href="{getUrl('act','dispNmileageAdminMileageHistory','member_srl',$val->member_srl)}"><span cond="$config->mileage_method=='nmileage'">{number_format($val->mileage)}</span><span cond="$config->mileage_method=='point'">{number_format($val->point)}</span></a></td> 
-			</tr>
-		</tbody>
-	</table>
-</div>
+<table class="x_table x_table-striped x_table-hover">
+	<thead>
+		<th>{$lang->regdate}</th>
+		<th>{$lang->user_id}</th>
+		<th>{$lang->nick_name}</th>
+		<th>{$lang->mileage}</th>
+	</thead>
+	<tbody>
+		<tr loop="$list=>$key,$val">
+			<td>{zdate($val->regdate)}</td> 
+			<td>{$val->user_id}</td> 
+			<td>{$val->nick_name}</td> 
+			<td><a href="{getUrl('act','dispNmileageAdminMileageHistory','member_srl',$val->member_srl)}"><span cond="$config->mileage_method=='nmileage'">{number_format($val->mileage)}</span><span cond="$config->mileage_method=='point'">{number_format($val->point)}</span></a></td> 
+		</tr>
+	</tbody>
+</table>
 
 
-<div class="search">
-	<form action="" class="pagination" method="post">
+<div class="search x_clearfix">
+	<form action="" class="x_pagination x_pull-left" method="post" style="margin:0">
 		<input type="hidden" name="error_return_url" value="" />
 		<input type="hidden" name="module" value="{$module}" />
 		<input type="hidden" name="act" value="{$act}" />
@@ -32,33 +30,43 @@
 		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
 		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
 
-		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
-
-		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+		<ul>
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
 			{@$isGoTo = true}
-			<a href="{getUrl('page', '')}">1</a>
-			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-		</block>
-
-		<!--@while($page_no = $page_navigation->getNextPage())-->
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+	
+			<!--@while($page_no = $page_navigation->getNextPage())-->
 			{@$last_page = $page_no}
-			<strong cond="$page_no == $page">{$page_no}</strong>
-			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
-		<!--@end-->
-
-		<block cond="$last_page != $page_navigation->last_page">
+			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+	
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
 			{@$isGoTo = true}
-			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-		</block>
-
-		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
-
-		<span cond="$isGoTo" id="goTo" class="tgContent">
-			<input name="page" title="{$lang->cmd_go_to_page}" />
-			<button type="submit">Go</button>
-		</span>
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
 	</form>
+
+	<div class="x_pull-right x_btn-group">
+		<a href="#plusMileage" class="x_btn modalAnchor plusMileage">{$lang->cmd_plus}</a>
+		<a href="#minusMileage" class="x_btn modalAnchor minusMileage">{$lang->cmd_minus}</a>
+	</div>
+
 	<form cond="0" action="" method="post">
 		<select name="search_target">
 			<option value="">{$lang->search_target}</option>
@@ -71,13 +79,7 @@
 	</form>
 </div>
 
-
-<div class="btnArea">
-	<a href="#plusMileage" class="x_btn modalAnchor plusMileage">{$lang->cmd_plus}</a>
-	<a href="#minusMileage" class="x_btn modalAnchor minusMileage">{$lang->cmd_minus}</a>
-</div>
-
-<form action="./" id="plusMileage" class="x_modal" method="post" ruleset="insertMileage">
+<form action="./" id="plusMileage" class="x_modal" method="post" ruleset="insertMileage" style="width: 50%; margin: 0 0 0 -25%">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="procNmileageAdminPlusMileage" />
 	<input type="hidden" name="page" value="{$page}" />
@@ -86,18 +88,18 @@
 	<div class="x_modal-header">
 		<h1>{$lang->cmd_plus}</h1>
 	</div>
-	<div class="x_modal-content x_form-horizontal">
+	<div class="x_modal-body x_form-horizontal">
 		<div class="x_control-group">
 			<label class="x_control-label" for="plus_user_id">{$lang->user_id}</label>
-		   	<div class="x_controls">
+			<div class="x_controls">
 				<input type="text" id="plus_user_id" name="user_id" class="user_id" value="" />
-				<div class="user_id_help"></div>
+				<div class="user_id_help x_help-block"></div>
 			</div>
 		</div>
 		<div class="x_control-group">
 			<label class="x_control-label" for="plus_mileage">{$lang->mileage}</label>
 			<div class="x_controls">
-				<input type="text" name="mileage" value="" />
+				<input type="number" name="mileage" value="" />
 			</div>
 		</div>
 		<div class="x_control-group">
@@ -112,7 +114,7 @@
 	</div>
 </form>
 
-<form action="./" id="minusMileage" class="x_modal" method="post" ruleset="insertMileage">
+<form action="./" id="minusMileage" class="x_modal" method="post" ruleset="insertMileage" style="width: 50%; margin: 0 0 0 -25%">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="procNmileageAdminMinusMileage" />
 	<input type="hidden" name="page" value="{$page}" />
@@ -120,18 +122,18 @@
 	<div class="x_modal-header">
 		<h1>{$lang->cmd_minus}</h1>
 	</div>
-	<div class="x_modal-content x_form-horizontal">
+	<div class="x_modal-body x_form-horizontal">
 		<div class="x_control-group">
 			<label class="x_control-label" for="plus_user_id">{$lang->user_id}</label>
-		   	<div class="x_controls">
+			<div class="x_controls">
 				<input type="text" id="plus_user_id" name="user_id" class="user_id" value="" />
-				<div class="user_id_help"></div>
+				<div class="user_id_help x_help-block"></div>
 			</div>
 		</div>
 		<div class="x_control-group">
 			<label class="x_control-label" for="plus_mileage">{$lang->mileage}</label>
 			<div class="x_controls">
-				<input type="text" name="mileage" value="" />
+				<input type="number" name="mileage" value="" />
 			</div>
 		</div>
 		<div class="x_control-group">
