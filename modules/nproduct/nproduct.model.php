@@ -1496,7 +1496,6 @@ class nproductModel extends nproduct
 		$module_srl = Context::get('module_srl');
 		$node_id = Context::get('node_id');
 
-		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
 			return $this->makeObject(-1, 'msg_login_required');
@@ -1517,8 +1516,8 @@ class nproductModel extends nproduct
 			$obj->state = 'closed';
 			$obj->data = Context::getLang('category');
 			$data[] = $obj;
-			$this->add('data', $data);
-			return;
+			echo json_encode($data);
+			exit();
 		}
 
 		// get node_route
@@ -1583,7 +1582,8 @@ class nproductModel extends nproduct
 				$data[] = $obj;
 			}
 		}
-		$this->add('data', $data);
+		echo json_encode($data);
+		exit();
 	}
 
 	/**

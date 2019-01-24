@@ -5,7 +5,7 @@
  * @author NHN (developers@xpressengine.com)
  * @brief store_review item Object
  **/
-class store_reviewItem extends Object
+class store_reviewItem extends BaseObject
 {
 
 	var $review_srl = 0;
