@@ -220,11 +220,12 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			var payment_amount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, raw_mileage);
 			
 			$.exec_json('nproduct.getPriceNumber', {'price': raw_mileage}, function (obj) {
-				$("#mileage_amount").html(number_format(obj.price));
+				$("#mileage_amount").html(obj.price);
 			});
 			$.exec_json('nproduct.getPriceNumber', {'price': payment_amount}, function (obj) {
-				$("#payment_amount").html(number_format(obj.price));
+				$("#payment_amount").html(obj.price);
 			});
+
 			if(payment_amount == 0)
 			{	
 				var answer = confirm('마일리지로 결제 하시겠습니까?');
@@ -253,13 +254,8 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			var orderamount = calculate_totalprice(delivfee_inadvance);
 
 			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
-			//$('#order_amount').text(number_format(orderamount));
-			//$('#order_amount2').text(number_format(orderamount));
-			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
-				$.exec_json('nproduct.getPriceNumber', {'price': ret_obj.price}, function (obj) {
-					$('#order_amount').html(obj.price);
-					$('#payment_amount').html(ret_obj.price);
-				});
+			$.exec_json('nproduct.getPriceNumber', {'price': payamount}, function (obj) {
+				$("#payment_amount").html(obj.price);
 			});
 		});
 
@@ -274,25 +270,26 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			free_delivery = $opt.attr('data-free-delivery');
 			if(free_delivery != 'Y') {
 				$.exec_json('nproduct.getPriceNumber', {'price': delivery_fee}, function (obj) {
-					$('#delivery_fee').html(number_format(obj.price));
+					$('#delivery_fee').html(obj.price);
 				});
 			} else {
 				$.exec_json('nproduct.getPriceNumber', {'price': 0}, function (obj) {
-					$('#delivery_fee').html(number_format(obj.price));
+					$('#delivery_fee').html(obj.price);
 				});
 			}
 			if (cupon_price) {
 				$.exec_json('nproduct.getPriceNumber', {'price': cupon_price}, function (obj) {
-					$("#coupon_price").html(number_format(obj.price));
+					$("#coupon_price").html(obj.price);
 				});
 			} else {
 				$.exec_json('nproduct.getPriceNumber', {'price': 0}, function (obj) {
-					$("#coupon_price").html(number_format(obj.price));
+					$("#coupon_price").html(obj.price);
 				});
 			}
+
 			var payamount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, use_mileage);
 			$.exec_json('nproduct.getPriceNumber', {'price': payamount}, function (obj) {
-				$("#payment_amount").html(number_format(obj.price));
+				$("#payment_amount").html(obj.price);
 			});
 			$.exec_json('currency.getPriceByJquery', {'price': payamount}, function(ret_obj){
 				$.exec_json('nproduct.getPriceNumber', {'price': number_format(ret_obj.price)}, function (obj) {
