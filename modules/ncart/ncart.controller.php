@@ -788,9 +788,9 @@ class ncartController extends ncart
 				}
 
 				$in_args->coupon_info = $coupon_info;
-				$cart->total_price -= $cart->delivery_fee;
 				if($coupon_info->discount_type == 'percent')
 				{
+					$cart->total_price -= $cart->delivery_fee;
 					$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
 					$cart->total_price +=  $cart->delivery_fee;
 					$cart->total_price = (int)$cart->total_price;
@@ -803,7 +803,7 @@ class ncartController extends ncart
 			}
 		}
 
-		if($in_args->delivfee_inadvance == 'N')
+		if($in_args->delivfee_inadvance == 'N' || $coupon_info->free_delivery == 'Y')
 		{
 			$cart->total_price -= $cart->delivery_fee;
 			$cart->delivery_fee = 0;
