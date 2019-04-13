@@ -2047,7 +2047,7 @@ class nproductModel extends nproduct
 	{
 		$price = Context::get('price');
 		$oCurrencyModel = getModel('currency');
-		$price = $oCurrencyModel->formatMoney($price);
+		$price = $oCurrencyModel->printPrice($price);
 		$this->add('price', $price);
 	}
 }
