@@ -986,14 +986,16 @@ class nproductAdminController extends nproduct
 		$display = Context::get('display');
 		$delivery_info = Context::get('delivery_info');
 		$group_srl_list = Context::get('group_srl_list');
-
+		$obj = Context::getRequestVars();
 		// update document
 		$doc_args = new stdClass();
 		$doc_args->document_srl = $document_srl;
 		//$doc_args->category_srl = $category_id;
 		$doc_args->module_srl = $module_srl;
-		$doc_args->content = $description;
+		$doc_args->content = htmlspecialchars_decode($obj->description);
 		$doc_args->title = $item_name;
+		$doc_args->use_editor = 'Y';
+		$doc_args->use_html = 'Y';
 		$doc_args->list_order = $doc_args->document_srl * -1;
 		$doc_args->tags = Context::get('tag');
 		$doc_args->allow_comment = 'Y';

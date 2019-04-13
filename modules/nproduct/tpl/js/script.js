@@ -164,7 +164,7 @@ function load_categories(module_srl, node_id, target) {
 			, module_srl : module_srl
 		}, 
 		success : function (r) {
-			if (r.error == -1) {
+			if (r.error === -1) {
 				alert(r.message);
 			} else {
 				for (i = 0; i < r.length; i++) {

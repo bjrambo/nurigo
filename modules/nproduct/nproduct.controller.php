@@ -370,7 +370,7 @@ class nproductController extends nproduct
 		$doc_args->list_order = $doc_args->document_srl * -1;
 		$doc_args->tags = Context::get('tag');
 		$doc_args->allow_comment = 'Y';
-		$output = $oDocumentController->insertDocument($doc_args);
+		$output = $oDocumentController->insertDocument($doc_args, false, false, $doc_args->document_srl ? false : true);
 		if(!$output->toBool())
 		{
 			return $output;
