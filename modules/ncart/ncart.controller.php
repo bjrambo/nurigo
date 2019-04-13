@@ -786,8 +786,8 @@ class ncartController extends ncart
 			{
 				if($coupon_info->free_delivery == 'Y')
 				{
-					// delivfee_inadvance는 N일경우 가격이 빠지는 것.
-					$in_args->delivfee_inadvance = 'N';
+					// 배송비가 선결제되고 쿠폰에서 무룐배송일경우 그 배송비를 제외함
+					$in_args->delivfee_inadvance = 'Y';
 				}
 
 				$in_args->coupon_info = $coupon_info;
