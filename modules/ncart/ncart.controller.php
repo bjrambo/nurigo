@@ -878,7 +878,7 @@ class ncartController extends ncart
 		$args->sum_price = $cart->sum_price;
 		$args->delivery_fee = $cart->delivery_fee;
 		$args->coupon_discount = $coupon_discount;	// 쿠폰으로 할인된 금액 정보 추가
-		$args->coupon_delifree = $coupon_info->coupon_delifree;	// 무배쿠폰여부 정보 추가
+		$args->coupon_delivfree = $coupon_info->coupon_delivfree;	// 무배쿠폰여부 정보 추가
 		$args->total_discounted_price = $cart->total_discounted_price;
 		$args->total_discount_amount = $cart->total_discount_amount;
 		$args->taxation_amount = $cart->taxation_amount;
