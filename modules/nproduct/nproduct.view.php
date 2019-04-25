@@ -200,15 +200,10 @@ class nproductView extends nproduct
 	 */
 	function dispNproductItemList()
 	{
-		$oNproductModel = getModel('nproduct');
 		$oStore_reviewModel = getModel('store_review');
 		$oNproductModel = getModel('nproduct');
-		$oFileModel = getModel('file');
-
-		$config = $oNproductModel->getModuleConfig();
 
 		Context::set('list_config', $oNproductModel->getListConfig($this->module_info->module_srl));
-		Context::set('config', $config);
 
 		// item list
 		$category = Context::get('category');
@@ -287,7 +282,7 @@ class nproductView extends nproduct
 		 */
 
 		$logged_info = Context::get('logged_info');
-		if($logged_info)
+		if(Context::get('is_logged'))
 		{
 			$oNmileageModel = getModel('nmileage');
 			if($this->module_info->store_mileage_mid)
@@ -306,9 +301,6 @@ class nproductView extends nproduct
 			}
 		}
 
-		/*
-		 * end
-		 */
 		// category list
 		$this->getCategoryTree($this->module_info->module_srl);
 		require_once('nproduct.category.php');
@@ -352,7 +344,7 @@ class nproductView extends nproduct
 		}
 		else
 		{
-			return new Object(-1, 'Item Not Found.');
+			return $this->makeObject(-1, 'Item Not Found.');
 		}
 
 		$output = executeQuery('nproduct.getItemInfo', $args);
@@ -448,7 +440,7 @@ class nproductView extends nproduct
 		// 권한 체크
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		// 목록 구현에 필요한 변수들을 가져온다
@@ -457,7 +449,7 @@ class nproductView extends nproduct
 		// 지정된 원 댓글이 없다면 오류
 		if(!$parent_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 해당 댓글를 찾아본다
@@ -466,11 +458,11 @@ class nproductView extends nproduct
 		// 댓글이 없다면 오류
 		if(!$oSourceComment->isExists())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(Context::get('document_srl') && $oSourceComment->get('document_srl') != Context::get('document_srl'))
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// 대상 댓글을 생성

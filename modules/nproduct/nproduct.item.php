@@ -6,7 +6,7 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproductItem class
  */
-class nproductItem extends Object
+class nproductItem extends BaseObject
 {
 	var $ExtMod = NULL;
 	var $mid = NULL;

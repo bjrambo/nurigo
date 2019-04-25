@@ -100,7 +100,7 @@ class eposAdminController extends epos
 		/*
 				// make log directory
 				$path = sprintf(_XE_PATH_."files/epay/%s/log",$output->get('module_srl'));
-				if(!FileHandler::makeDir($path)) return new Object(-1, 'could not create a directory');
+				if(!FileHandler::makeDir($path)) return $this->makeObject(-1, 'could not create a directory');
 		*/
 
 		$this->add('module_srl', $output->get('module_srl'));

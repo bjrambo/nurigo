@@ -28,7 +28,7 @@ class manualorder extends EpayPlugin
 
 	function getFormData($args)
 	{
-		if (!$args->price) return new Object(0,'No input of price');
+		if (!$args->price) return $this->makeObject(0,'No input of price');
 		$oTemplate = &TemplateHandler::getInstance();
 		$tpl_path = _XE_PATH_."modules/epay/plugins/manualorder/tpl";
 		$tpl_file = 'formdata.html';
@@ -44,7 +44,7 @@ class manualorder extends EpayPlugin
 		Context::set('join_form', $args->join_form);
 
 		$html = $oTemplate->compile($tpl_path, $tpl_file);
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->data = $html;
 		return $output;
 	}
@@ -60,14 +60,14 @@ class manualorder extends EpayPlugin
 		$tpl_file = 'review.html';
 		$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('tpl_data', $tpl_data);
 		return $output;
 	}
 
 	function processPayment($args)
 	{
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('state', '1'); // not completed
 		$output->add('payment_method', 'MO');
 		$output->add('payment_amount', $args->price);

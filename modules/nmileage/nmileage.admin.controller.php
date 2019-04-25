@@ -129,7 +129,7 @@ class nmileageAdminController extends nmileage
 		$member_info = $oMemberModel->getMemberInfoByUserID($user_id);
 		if(!$member_info)
 		{
-			return new Object(-1, 'Could not find member.');
+			return $this->makeObject(-1, 'Could not find member.');
 		}
 
 		$output = $oNmileageController->plusMileage($member_info->member_srl, $amount, $title);
@@ -154,7 +154,7 @@ class nmileageAdminController extends nmileage
 		$member_info = $oMemberModel->getMemberInfoByUserID($user_id);
 		if(!$member_info)
 		{
-			return new Object(-1, 'Could not find member.');
+			return $this->makeObject(-1, 'Could not find member.');
 		}
 
 		$output = $oNmileageController->minusMileage($member_info->member_srl, $amount, $title);

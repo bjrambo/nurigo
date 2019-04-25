@@ -70,7 +70,7 @@ jQuery(function($) {
 			jQuery('span.number_format' + option_srl).html(number_format(ret_obj.price));
 		});
 		$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
-			jQuery('td.title' + option_srl).html(title + '(' + '+' + number_format(ret_obj.price) + ')');
+			jQuery('td.title' + option_srl).html(title + ' (' + number_format(ret_obj.price) + ')');
 		});
 
 		printTotalPrice();

@@ -24,7 +24,7 @@ class epayController extends epay
 
 		if($coupon_info->use_success === 'Y')
 		{
-			return new Object(-1, '이미 사용된 쿠폰입니다. 결제를 진행할 수 없습니다.');
+			return $this->makeObject(-1, '이미 사용된 쿠폰입니다. 결제를 진행할 수 없습니다.');
 		}
 
 		$order_srl = getNextSequence();
@@ -41,11 +41,11 @@ class epayController extends epay
 
 		if(!$review_args->module_srl)
 		{
-			return new Object(-1, 'no module_srl');
+			return $this->makeObject(-1, 'no module_srl');
 		}
 		if(!$review_args->epay_module_srl)
 		{
-			return new Object(-1, 'no epay_module_srl');
+			return $this->makeObject(-1, 'no epay_module_srl');
 		}
 
 		// before trigger
@@ -119,7 +119,7 @@ class epayController extends epay
 		{
 			$review_args->price -= $review_args->use_mileage;
 		}
-		$returnOutput = new Object();
+		$returnOutput = $this->makeObject();
 		$returnOutput->review_form = $review_args->review_form;
 		$returnOutput->order_srl = $order_srl;
 		$returnOutput->transaction_srl = $transaction_srl;
@@ -150,7 +150,7 @@ class epayController extends epay
 		$transaction_info = $oEpayModel->getTransactionInfo($params->transaction_srl);
 		if(!$transaction_info)
 		{
-			return new Object(-1, 'could not find transaction info');
+			return $this->makeObject(-1, 'could not find transaction info');
 		}
 
 		// before trigger
@@ -165,7 +165,7 @@ class epayController extends epay
 			return $output;
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -194,7 +194,7 @@ class epayController extends epay
 		$transaction_info = $oEpayModel->getTransactionInfo($params->get('transaction_srl'));
 		if(!$transaction_info)
 		{
-			return new Object(-1, 'could not find transaction info');
+			return $this->makeObject(-1, 'could not find transaction info');
 		}
 
 		// update transaction info
@@ -269,7 +269,7 @@ class epayController extends epay
 					$oCouponsmsController = getController('couponsms');
 					if($coupon_info->use_success == 'Y')
 					{
-						return new Object(-1, '이미 사용된 쿠폰입니다.');
+						return $this->makeObject(-1, '이미 사용된 쿠폰입니다.');
 					}
 					$payArgs = new stdClass();
 					$payArgs->couponuser_srl = $_SESSION['epay']['couponuser_srl'];
@@ -309,7 +309,7 @@ class epayController extends epay
 		{
 			$return_url = Context::get('return_url');
 		}
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('return_url', $return_url);
 		return $output;
 	}
@@ -325,17 +325,17 @@ class epayController extends epay
 		$module_srl = Context::get('module_srl');
 		if(!$module_srl)
 		{
-			return new Object(-1, 'no module_srl');
+			return $this->makeObject(-1, 'no module_srl');
 		}
 		$epay_module_srl = Context::get('epay_module_srl');
 		if(!$epay_module_srl)
 		{
-			return new Object(-1, 'no epay_module_srl');
+			return $this->makeObject(-1, 'no epay_module_srl');
 		}
 		$plugin_srl = Context::get('plugin_srl');
 		if(!$plugin_srl)
 		{
-			return new Object(-1, 'no plugin_srl');
+			return $this->makeObject(-1, 'no plugin_srl');
 		}
 
 		$order_srl = getNextSequence();
@@ -429,11 +429,11 @@ class epayController extends epay
 
 		if(!$epay_module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		if(!$order_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$plugin_srl = Context::get('plugin_srl');
 
@@ -629,7 +629,7 @@ class epayController extends epay
 		{
 			if($taxinvoice->member_srl != $member_srl)
 			{
-				return new Object(-1, 'msg_invliad_request');
+				return $this->makeObject(-1, 'msg_invliad_request');
 			}
 		}
 
@@ -638,12 +638,12 @@ class epayController extends epay
 		$thismonth = date('Ym');
 		if(!in_array(zdate($taxinvoice->regdate, 'Ym'), array($prevmonth, $thismonth)))
 		{
-			return new Object(-1, 'msg_tax_expired');
+			return $this->makeObject(-1, 'msg_tax_expired');
 		}
 		// if previous month, it must be within 10
 		if(zdate($taxinvoice->regdate, 'Ym') == $prevmonth && intval(date('d')) > 5)
 		{
-			return new Object(-1, 'msg_tax_expired');
+			return $this->makeObject(-1, 'msg_tax_expired');
 		}
 
 		// get company info.
@@ -778,7 +778,7 @@ class epayController extends epay
 			{
 				$message = 'Error :' . $line;
 			}
-			return new Object(-1, $message);
+			return $this->makeObject(-1, $message);
 		}
 
 		$args->member_srl = $taxinvoice->member_srl;
@@ -792,7 +792,7 @@ class epayController extends epay
 
 		unset($HB, $rs);
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**

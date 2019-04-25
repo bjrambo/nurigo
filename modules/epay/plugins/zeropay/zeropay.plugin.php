@@ -34,7 +34,7 @@ class zeropay extends EpayPlugin
 
 	function getFormData($args)
 	{
-		if ($args->price) return new Object(0,'price is over zero');
+		if ($args->price) return $this->makeObject(0,'price is over zero');
 		$oTemplate = &TemplateHandler::getInstance();
 		$tpl_path = _XE_PATH_."modules/epay/plugins/zeropay/tpl";
 		$tpl_file = 'formdata.html';
@@ -50,7 +50,7 @@ class zeropay extends EpayPlugin
 		Context::set('join_form', $args->join_form);
 
 		$html = $oTemplate->compile($tpl_path, $tpl_file);
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->data = $html;
 		return $output;
 	}
@@ -65,14 +65,14 @@ class zeropay extends EpayPlugin
 		$tpl_file = 'review.html';
 		$tpl_data = $oTemplate->compile($tpl_path, $tpl_file);
 
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('tpl_data', $tpl_data);
 		return $output;
 	}
 
 	function processPayment($args)
 	{
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('state', '2'); // not completed
 		$output->add('payment_method', 'ZP');
 		$output->add('payment_amount', $args->price);

@@ -69,7 +69,7 @@ class cashpayAdminController extends cashpay
 		$path = sprintf("./files/epay/%s/key/%s/", $args->module_srl, $args->inicis_id);
 		if(!FileHandler::makeDir($path))
 		{
-			return new Object(-1, 'could not create a directory');
+			return $this->makeObject(-1, 'could not create a directory');
 		}
 		$key_files = Context::gets('keypass', 'mcert', 'mpriv');
 		foreach($key_files as $key => $file)
@@ -82,7 +82,7 @@ class cashpayAdminController extends cashpay
 			$args->{$key} = $filename;
 			if(!move_uploaded_file($file['tmp_name'], $filename))
 			{
-				return new Object(-1, 'could not move the file uploaded');
+				return $this->makeObject(-1, 'could not move the file uploaded');
 			}
 		}
 		// pgcert
@@ -139,6 +139,31 @@ class cashpayAdminController extends cashpay
 
 		$returnUrl = getNotEncodedUrl('', 'module', Context::get('module'), 'act', 'dispCashpayModInstList');
 		$this->setRedirectUrl($returnUrl);
+	}
+
+	function procCashpayAdminDeleteMid()
+	{
+		$module_srl = Context::get('module_srl');
+
+		if(!$module_srl)
+		{
+			return $this->makeObject(-1, 'Not exits module_srl number');
+		}
+
+		/** @var $oModuleModel moduleModel */
+		$oModuleModel = getModel('module');
+		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+
+		/** @var $oModuleController moduleController */
+		$oModuleController = getController('module');
+		$delete_output = $oModuleController->deleteModule($module_srl);
+		if(!$delete_output)
+		{
+			return $delete_output;
+		}
+
+		$this->setMessage('success_deleted');
+		$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispCashpayAdminModInstList'));
 	}
 }
 /* End of file cashpay.admin.controller.php */

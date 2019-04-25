@@ -63,9 +63,9 @@ class cashpayModel extends cashpay
 	function getCashpayForm()
 	{
 		/*
-		if (!$args->price) return new Object(0,'No input of price');
-		if (!$args->epay_module_srl) return new Object(-1,'No input of epay_module_srl');
-		if (!$args->module_srl) return new Object(-1,'No input of module_srl');
+		if (!$args->price) return $this->makeObject(0,'No input of price');
+		if (!$args->epay_module_srl) return $this->makeObject(-1,'No input of epay_module_srl');
+		if (!$args->module_srl) return $this->makeObject(-1,'No input of module_srl');
 
 		Context::set('module_srl', $args->module_srl);
 		Context::set('epay_module_srl', $args->epay_module_srl);

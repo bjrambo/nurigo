@@ -62,10 +62,10 @@ function completeGetAddressInfo(ret_obj) {
 
 function apply_address_info(address_srl) {
 	exec_xml('ncart'
-	,'getNcartAddressInfo'
-	, {address_srl : address_srl}
-	, completeGetAddressInfo
-	, ['error','message','data']);
+		,'getNcartAddressInfo'
+		, {address_srl : address_srl}
+		, completeGetAddressInfo
+		, ['error','message','data']);
 }
 
 function set_delivery_address(recipient, cellphone, telnum, address, address2, postcode) {
@@ -158,7 +158,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 
 			$("#modal-dialog").attr("tabindex", -1).focus();
 		});
-		$('input[name=select_address]').click(function() { 
+		$('input[name=select_address]').click(function() {
 			switch ($(this).val()) {
 				case 'default':
 					set_delivery_address(default_recipient, default_cellphone, default_telnum, default_address, default_address2, default_postcode);
@@ -172,7 +172,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 						purchaser_cellphone = $('#cellphone').val();
 						purchaser_telnum = $('#telnum').val();
 					}
-					
+
 					set_delivery_address(purchaser_name, purchaser_cellphone, purchaser_telnum, purchaser_address, purchaser_address2, default_postcode);
 					break;
 				case 'new':
@@ -205,7 +205,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 
 			if (total_price < raw_mileage && total_price <= my_mileage)
 			{
-				raw_mileage = total_price; 
+				raw_mileage = total_price;
 				$(this).val(getPrice(raw_mileage));
 			}
 			if (raw_mileage > my_mileage)
@@ -218,7 +218,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 
 			var delivfee_inadvance = $('input[name=delivfee_inadvance]:checked').val();
 			var payment_amount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, raw_mileage);
-			
+      
 			$.exec_json('nproduct.getPriceNumber', {'price': raw_mileage}, function (obj) {
 				$("#mileage_amount").html(obj.price);
 			});
@@ -227,7 +227,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 			});
 
 			if(payment_amount == 0)
-			{	
+			{
 				var answer = confirm('마일리지로 결제 하시겠습니까?');
 				if(answer)
 				{

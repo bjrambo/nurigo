@@ -120,7 +120,7 @@ class nstore_digitalAdminController extends nstore_digital
 		/*
 		if(!$carts)  // check box 선택한 주문이 없을때 뒤로가기
 		{
-			return new Object(-1, '선택한 주문이 없습니다.');
+			return $this->makeObject(-1, '선택한 주문이 없습니다.');
 		}
 		 */
 		foreach($order_srls as $key => $order_srl)
@@ -163,7 +163,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 		if(!Context::get('cart'))
 		{
-			return new Object(-1, '상품을 체크해주세요');
+			return $this->makeObject(-1, '상품을 체크해주세요');
 		}
 
 		$carts = Context::get('cart');
@@ -418,7 +418,7 @@ class nstore_digitalAdminController extends nstore_digital
 
 		if(!$args->cart_srl || !$args->period || !$state)
 		{
-			return new Object(-1, '빈칸을 채워주세요.');
+			return $this->makeObject(-1, '빈칸을 채워주세요.');
 		}
 
 		$output = executeQuery('nstore_digital.updateCartItemPeriod', $args);

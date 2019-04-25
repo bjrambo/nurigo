@@ -4,7 +4,7 @@ class couponsms extends ModuleObject
 {
 	function moduleInstall()
 	{
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function checkUpdate()
@@ -146,9 +146,20 @@ class couponsms extends ModuleObject
 			$output = $oModuleController->insertModuleConfig('couponsms', $config);
 			if(!$output->toBool())
 			{
-				return new Object();
+				return $this->makeObject();
 			}
 		}
-		return new Object();
+		return $this->makeObject();
+	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }

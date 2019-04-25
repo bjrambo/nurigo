@@ -152,7 +152,7 @@ class nmileageController extends nmileage
 		$args->balance = $balance;
 		$this->insertMileageHistory($args, $order_srl);
 
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function triggerMemberInsertAfter($obj)
@@ -162,7 +162,7 @@ class nmileageController extends nmileage
 
 		if(!$config->variable_name)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$extra_obj = unserialize($obj->extra_vars);
@@ -170,7 +170,7 @@ class nmileageController extends nmileage
 
 		if(!$vote_id)
 		{
-			return new Object();
+			return $this->makeObject();
 		}
 
 		$member_srl = getModel('member')->getMemberSrlByUserID($vote_id);
@@ -180,7 +180,7 @@ class nmileageController extends nmileage
 			$member_srl = getModel('member')->getMemberSrlByEmailAddress($vote_id);
 			if(!$member_srl)
 			{
-				return new Object();
+				return $this->makeObject();
 			}
 		}
 
@@ -188,7 +188,7 @@ class nmileageController extends nmileage
 		{
 			if($obj->member_srl === $member_srl && !in_array($config->member_mothod, array('all', 'voteuser')))
 			{
-				return new Object();
+				return $this->makeObject();
 			}
 		}
 
@@ -233,7 +233,7 @@ class nmileageController extends nmileage
 				$output = $this->plusMileage($member_srl, $point, $vote_text);
 			}
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 }
 /* End of file nmileage.controller.php */

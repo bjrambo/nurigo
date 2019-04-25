@@ -33,7 +33,7 @@ class store_reviewAdminController extends store_review
 			return $output;
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 }
 /* End of file store_review.admin.controller.php */

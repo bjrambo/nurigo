@@ -12,7 +12,6 @@
 	<li class="x_active"|cond="$act=='dispNproductAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispNproductAdminInsertModInst')}">{$lang->page_creation}</a></li>
 	<!--// 현재 상품관리에는 기본설정이 없으므로 잠시 disable -->
 	<li cond="0" class="x_active"|cond="$act=='dispNproductAdminConfig'"><a href="{getUrl('act','dispNproductAdminConfig','module_srl','')}">{$lang->basic_settings}</a></li>
-
 </ul>
 <ul cond="$module_srl" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNproductAdminItemList'"><a href="{getUrl('act','dispNproductAdminItemList')}">{$lang->product_list}</a></li>

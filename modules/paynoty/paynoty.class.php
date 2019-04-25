@@ -171,7 +171,7 @@ class paynoty extends ModuleObject
 			$output = $oModuleController->insertModuleConfig('paynoty', $config);
 			if(!$output->toBool())
 			{
-				return new Object(-1, 'msg_not_save_module_setting');
+				return $this->makeObject(-1, 'msg_not_save_module_setting');
 			}
 		}
 	}
@@ -191,6 +191,17 @@ class paynoty extends ModuleObject
 			$oModuleController->deleteTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
 		}
 
-		return new Object();
+		return $this->makeObject();
+	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }

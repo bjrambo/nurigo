@@ -5,6 +5,12 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  nproduct
  */
+
+
+if(!class_exists('BaseObject'))
+{
+	class_alias('Object', 'BaseObject');
+}
 require_once(_XE_PATH_ . 'modules/nproduct/nproduct.item.php');
 require_once(_XE_PATH_ . 'modules/nproduct/ExtraItem.class.php');
 
@@ -59,7 +65,7 @@ class nproduct extends ModuleObject
 	{
 		$oModuleModel = getModel('module');
 		$oModuleController = getController('module');
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -273,7 +279,7 @@ class nproduct extends ModuleObject
 			$oDB->addColumn('nproduct_options', 'basically', 'varchar', '1');
 		}
 
-		return new Object(0, 'success_updated');
+		return $this->makeObject(0, 'success_updated');
 	}
 
 	function moduleUninstall()
@@ -285,6 +291,17 @@ class nproduct extends ModuleObject
 	 **/
 	function recompileCache()
 	{
+	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
 	}
 }
 /* End of file nproduct.class.php */

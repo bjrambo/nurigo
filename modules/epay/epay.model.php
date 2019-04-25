@@ -424,7 +424,7 @@ class epayModel extends epay
 
 		if($logged_info->is_admin != 'Y')
 		{
-			return new Object(-1, 'msg_invaild_request');
+			return $this->makeObject(-1, 'msg_invaild_request');
 		}
 
 		if(!Context::get('manorder_pid'))

@@ -47,7 +47,7 @@ class paynotyAdminController extends paynoty
 		$output = $oModuleController->insertModuleConfig('paynoty', $config);
 		if(!$output->toBool())
 		{
-			return new Object(-1, '설정에 오류가 있었습니다.');
+			return $this->makeObject(-1, '설정에 오류가 있었습니다.');
 		}
 
 		$this->setMessage('success_updated');

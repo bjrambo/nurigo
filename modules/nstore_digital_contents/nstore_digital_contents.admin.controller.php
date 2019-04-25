@@ -138,7 +138,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 	{
 		if(!Context::get('item_srl'))
 		{
-			return new Object(-1, 'no item_srl');
+			return $this->makeObject(-1, 'no item_srl');
 		}
 
 		$args = new stdClass();
@@ -169,7 +169,7 @@ class nstore_digital_contentsAdminController extends nstore_digital_contents
 
 		if($args->period < 0)
 		{
-			return new Object(-1, '만기일은 0이하로 넣을 수 없습니다.');
+			return $this->makeObject(-1, '만기일은 0이하로 넣을 수 없습니다.');
 		}
 
 		$output = executeQuery('nstore_digital_contents.insertConfig', $args);

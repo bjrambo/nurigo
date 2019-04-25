@@ -40,7 +40,7 @@ class cympusadminAdminController extends cympusadmin
 			$module_list = getModel('module')->getModuleSrlList($obj);
 			if(count($module_list) > 0)
 			{
-				return new Object(-1, 'msg_dont_insert_module_inst');
+				return $this->makeObject(-1, 'msg_dont_insert_module_inst');
 			}
 			$output = $oModuleController->insertModule($args);
 			$msg_code = 'success_registed';
@@ -90,7 +90,7 @@ class cympusadminAdminController extends cympusadmin
 		$output = $oModuleController->updateModuleConfig('cympusadmin', $obj);
 		if(!$output->toBool())
 		{
-			return new Object(-1, 'ncenterlite_msg_setting_error');
+			return $this->makeObject(-1, 'ncenterlite_msg_setting_error');
 		}
 
 		$this->setMessage('success_updated');

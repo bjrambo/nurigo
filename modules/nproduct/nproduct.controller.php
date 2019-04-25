@@ -270,7 +270,7 @@ class nproductController extends nproduct
 		// check node_id
 		if(!$node_id && $old_route)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		// get node_route
@@ -321,7 +321,7 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$module_srl = $in_args->module_srl;
@@ -337,7 +337,7 @@ class nproductController extends nproduct
 
 		if(!$module_srl || !$item_name || !$display)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$category_info = $oNproductModel->getCategoryInfo($category_id);
@@ -370,7 +370,7 @@ class nproductController extends nproduct
 		$doc_args->list_order = $doc_args->document_srl * -1;
 		$doc_args->tags = Context::get('tag');
 		$doc_args->allow_comment = 'Y';
-		$output = $oDocumentController->insertDocument($doc_args);
+		$output = $oDocumentController->insertDocument($doc_args, false, false, $doc_args->document_srl ? false : true);
 		if(!$output->toBool())
 		{
 			return $output;
@@ -407,7 +407,7 @@ class nproductController extends nproduct
 			return $output;
 		}
 
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('item_srl', $item_srl);
 		return $output;
 	}
@@ -420,7 +420,7 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$module_srl = Context::get('module_srl');
@@ -430,7 +430,7 @@ class nproductController extends nproduct
 		// deny adding to trashcan and folder shared
 		if(in_array($parent_node, array('t.', 's.')))
 		{
-			return new Object(-1, 'msg_cannot_create_folder');
+			return $this->makeObject(-1, 'msg_cannot_create_folder');
 		}
 
 		// get node_route
@@ -451,7 +451,7 @@ class nproductController extends nproduct
 			}
 			if(!$output->data)
 			{
-				return new Object(-1, 'msg_parent_node_not_found');
+				return $this->makeObject(-1, 'msg_parent_node_not_found');
 			}
 			$pnode = $output->data;
 			$node_route = $pnode->node_route . $pnode->node_id . '.';
@@ -461,7 +461,7 @@ class nproductController extends nproduct
 
 		if(!preg_match('/^([a-zA-Z0-9]+\.){1,4}$/', $node_route))
 		{
-			return new Object(-1, 'msg_subcategory_limit');
+			return $this->makeObject(-1, 'msg_subcategory_limit');
 		}
 
 		$node_id = getNextSequence();
@@ -496,7 +496,7 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$node_id = Context::get('node_id');
@@ -504,7 +504,7 @@ class nproductController extends nproduct
 
 		if(in_array($node_id, array('f.')))
 		{
-			return new Object(-1, 'msg_cannot_update_root');
+			return $this->makeObject(-1, 'msg_cannot_update_root');
 		}
 		$args = new stdClass();
 		$args->node_id = $node_id;
@@ -527,7 +527,7 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_log_required');
+			return $this->makeObject(-1, 'msg_log_required');
 		}
 
 		$parent_id = Context::get('parent_id');
@@ -588,7 +588,7 @@ class nproductController extends nproduct
 
 			if(!$item_info)
 			{
-				return new Object(-1, 'Item not found.');
+				return $this->makeObject(-1, 'Item not found.');
 			}
 
 			$output = $oNproductModel->discountItem($item_info);
@@ -617,7 +617,7 @@ class nproductController extends nproduct
 				}
 				if(count($option_srls) <= 0)
 				{
-					return new Object(-1, 'msg_select_option');
+					return $this->makeObject(-1, 'msg_select_option');
 				}
 			}
 
@@ -712,7 +712,7 @@ class nproductController extends nproduct
 				{
 					if($stock < $args->quantity || $stock == '0')
 					{
-						return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+						return $this->makeObject(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
 					}
 				}
 
@@ -764,7 +764,6 @@ class nproductController extends nproduct
 
 		// prepare variables to use in this function
 		$config = $oNproductModel->getModuleConfig();
-		$all_args = Context::getRequestVars();
 		$data = json_decode(Context::get('data'));
 		$logged_info = Context::get('logged_info');
 
@@ -777,7 +776,7 @@ class nproductController extends nproduct
 		$omittedItemNames = $oNproductModel->getItemNames($omittedItems);
 		if(count($omittedItems))
 		{
-			return new Object(-1, sprintf(Context::getLang('msg_omitted_item_found'), count($omittedItems), implode(',', $omittedItemNames)));
+			return $this->makeObject(-1, sprintf(Context::getLang('msg_omitted_item_found'), count($omittedItems), implode(',', $omittedItemNames)));
 		}
 
 		// check minimum order quantity
@@ -785,10 +784,11 @@ class nproductController extends nproduct
 		if(count($minimumOrderItems))
 		{
 			$item = array_pop($minimumOrderItems);
-			return new Object(-1, $item->message);
+			return $this->makeObject(-1, $item->message);
 		}
 
 		// add items to cart
+		$cart_srl_arr = array();
 		foreach($data as $key => $val)
 		{
 			if(!$val)
@@ -802,14 +802,16 @@ class nproductController extends nproduct
 			$item_info = $oNproductModel->getItemInfo($val->item_srl);
 			if(!$item_info)
 			{
-				return new Object(-1, 'Item not found.');
+				return $this->makeObject(-1, 'Item not found.');
 			}
 
 			// check stock
 			$stock = $oNproductModel->getItemExtraVarValue($item_info->item_srl, 'stock');
+
+			// TODO: what is the $args->quantity?
 			if($stock != null && ($stock < $args->quantity || $stock == '0'))
 			{
-				return new Object(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
+				return $this->makeObject(-1, sprintf(Context::getLang('msg_not_enough_stock'), $item_info->item_name));
 			}
 
 			$output = $oNproductModel->discountItem($item_info);
@@ -821,62 +823,125 @@ class nproductController extends nproduct
 			$item_info->discount_info = $output->discount_info;
 			$item_info->discounted_price = $output->discounted_price;
 
-			/**
-			 * 구매옵션 정보 확인
-			 */
 			$options = $oNproductModel->getOptions($val->item_srl);
 
 			// 구매옵션이 있는 상품이면 구매옵션 선택 여부를 체크해야 한다.
+			$option_srls = array();
 			if(count($options) && !$val->option_srl)
 			{
-				return new Object(-1, 'msg_select_option');
+				foreach ($options as $option)
+				{
+					if($option->basically == 'Y')
+					{
+						$option_srls[] = $option->option_srl;
+					}
+				}
+				if(count($option_srls) <= 0)
+				{
+					return $this->makeObject(-1, 'msg_select_option');
+				}
 			}
 
 			// 기본 배송회사ID 가져오기 위해 모듈정보 읽기
 			$module_srl = $item_info->module_srl;
 			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-			$args = new stdClass();
-			$args->cart_srl = 0; // will be passed by $oNcartController->addItems
-			$args->item_srl = $item_info->item_srl;
-			$args->item_code = $item_info->item_code;
-			$args->item_name = $item_info->item_name;
-			$args->document_srl = $item_info->document_srl;
-			$args->file_srl = $item_info->file_srl;
-			$args->thumb_file_srl = $item_info->thumb_file_srl;
-			$args->member_srl = 0;
-			if($logged_info)
+
+			if(count($options) > 0)
 			{
-				$args->member_srl = $logged_info->member_srl;
+				$optseq = 0;
+				foreach ($option_srls as $option_key => $option_srl)
+				{
+					$args = new stdClass();
+					// will be passed by $oNcartController->addItems
+					$args->cart_srl = 0;
+					$args->item_srl = $item_info->item_srl;
+					$args->item_code = $item_info->item_code;
+					$args->item_name = $item_info->item_name;
+					$args->document_srl = $item_info->document_srl;
+					$args->file_srl = $item_info->file_srl;
+					$args->thumb_file_srl = $item_info->thumb_file_srl;
+					$args->member_srl = 0;
+					if($logged_info)
+					{
+						$args->member_srl = $logged_info->member_srl;
+					}
+
+					$args->module_srl = $module_srl;
+					$args->quantity = $val->quantity;
+					$args->price = $item_info->price;
+					$args->taxfree = $item_info->taxfree;
+					$args->discount_amount = $item_info->discount_amount;
+					$args->discount_info = $item_info->discount_info;
+					$args->discounted_price = $item_info->discounted_price;
+					$args->express_id = $module_info->express_id;
+					$args->option_srl = $option_srl;
+					$args->option_price = $options[$option_srl]->price;
+					$args->option_title = $options[$option_srl]->title;
+					$args->module = $item_info->proc_module;
+
+					// addItems will return $args->cart_srl
+					$output = $oNcartController->addItems($args);
+					if(!$output->toBool())
+					{
+						return $output;
+					}
+					unset($args);
+
+					$cart_srl_arr[] = $output->get('cart_srl');
+
+					if($config->cart_on == 'N')
+					{
+						$this->setMessage('msg_put_item_in_cart');
+					}
+					$this->add('cart_on', $config->cart_on);
+				}
 			}
-
-			$args->module_srl = $module_srl;
-			$args->quantity = $val->quantity;
-			$args->price = $item_info->price;
-			$args->taxfree = $item_info->taxfree;
-			$args->discount_amount = $item_info->discount_amount;
-			$args->discount_info = $item_info->discount_info;
-			$args->discounted_price = $item_info->discounted_price;
-			$args->express_id = $module_info->express_id;
-			$args->option_srl = $val->option_srl;
-			$args->option_price = $options[$val->option_srl]->price;
-			$args->option_title = $options[$val->option_srl]->title;
-			$args->module = $item_info->proc_module;
-
-			// addItems will return $args->cart_srl
-			$output = $oNcartController->addItems($args);
-			if(!$output->toBool())
+			else
 			{
-				return $output;
-			}
-			unset($args);
+				$args = new stdClass();
+				// will be passed by $oNcartController->addItems
+				$args->cart_srl = 0;
+				$args->item_srl = $item_info->item_srl;
+				$args->item_code = $item_info->item_code;
+				$args->item_name = $item_info->item_name;
+				$args->document_srl = $item_info->document_srl;
+				$args->file_srl = $item_info->file_srl;
+				$args->thumb_file_srl = $item_info->thumb_file_srl;
+				$args->member_srl = 0;
+				if($logged_info)
+				{
+					$args->member_srl = $logged_info->member_srl;
+				}
 
-			$cart_srl_arr[] = $output->get('cart_srl');
+				$args->module_srl = $module_srl;
+				$args->quantity = $val->quantity;
+				$args->price = $item_info->price;
+				$args->taxfree = $item_info->taxfree;
+				$args->discount_amount = $item_info->discount_amount;
+				$args->discount_info = $item_info->discount_info;
+				$args->discounted_price = $item_info->discounted_price;
+				$args->express_id = $module_info->express_id;
+				$args->option_srl = $val->option_srl;
+				$args->option_price = $options[$val->option_srl]->price;
+				$args->option_title = $options[$val->option_srl]->title;
+				$args->module = $item_info->proc_module;
 
-			if($config->cart_on == 'N')
-			{
-				$this->setMessage('msg_put_item_in_cart');
+				// addItems will return $args->cart_srl
+				$output = $oNcartController->addItems($args);
+				if(!$output->toBool())
+				{
+					return $output;
+				}
+				unset($args);
+
+				$cart_srl_arr[] = $output->get('cart_srl');
+
+				if($config->cart_on == 'N')
+				{
+					$this->setMessage('msg_put_item_in_cart');
+				}
+				$this->add('cart_on', $config->cart_on);
 			}
-			$this->add('cart_on', $config->cart_on);
 		}
 		$this->add('cart_srl', implode(',', $cart_srl_arr));
 	}
@@ -892,7 +957,7 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 		$item_srl = $this->getArrCommaSrls('item_srl');
@@ -901,7 +966,7 @@ class nproductController extends nproduct
 			$item_info = $oNproductModel->getItemInfo($val);
 			if(!$item_info)
 			{
-				return new Object(-1, 'Item not found.');
+				return $this->makeObject(-1, 'Item not found.');
 			}
 
 			$output = $oNproductModel->discountItem($item_info);
@@ -933,15 +998,15 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if(!$this->module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$reqvars = Context::gets('item_srl', 'document_srl', 'star_point', 'content');
@@ -992,15 +1057,15 @@ class nproductController extends nproduct
 		$logged_info = Context::get('logged_info');
 		if(!Context::get('is_logged'))
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if(!$this->module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$reqvars = Context::gets('document_srl', 'comment_srl', 'parent_srl', 'content', 'item_srl');
@@ -1016,7 +1081,7 @@ class nproductController extends nproduct
 		}
 		if(!$item_info)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$args = new stdClass();
 		$args->module_srl = $this->module_srl;
@@ -1044,11 +1109,11 @@ class nproductController extends nproduct
 
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if(!$this->module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$args = Context::gets('item_srl', 'review_srl');
@@ -1058,7 +1123,7 @@ class nproductController extends nproduct
 		$oReview = $oReviewModel->getReview($review_srl);
 		if(!$oReview->isExists() || !$oReview->isGranted())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$output = $oReviewController->deleteReview($oReview->review_srl);
@@ -1080,11 +1145,11 @@ class nproductController extends nproduct
 
 		if(!$this->grant->write_comment)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 		if(!$this->module_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$args = Context::gets('item_srl', 'comment_srl');
@@ -1094,7 +1159,7 @@ class nproductController extends nproduct
 		$oComment = $oCommentModel->getComment($comment_srl);
 		if(!$oComment->isExists() || !$oComment->isGranted())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$output = $oCommentController->deleteComment($oComment->comment_srl);
@@ -1116,13 +1181,13 @@ class nproductController extends nproduct
 		$node_id = Context::get('node_id');
 		if(in_array($node_id, array('f.')))
 		{
-			return new Object(-1, 'msg_cannot_delete_root');
+			return $this->makeObject(-1, 'msg_cannot_delete_root');
 		}
 
 		$category_info = $oNproductModel->getCategoryInfo($node_id);
 		if(!$category_info)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 		$args = new stdClass();
 		$args->module_srl = Context::get('module_srl');
@@ -1134,7 +1199,7 @@ class nproductController extends nproduct
 		}
 		if((int)$output->data->count > 0)
 		{
-			return new Object(-1, 'msg_subcategory_exist_in_category');
+			return $this->makeObject(-1, 'msg_subcategory_exist_in_category');
 		}
 
 		unset($args);
@@ -1148,7 +1213,7 @@ class nproductController extends nproduct
 		}
 		if($output->total_count > 0)
 		{
-			return new Object(-1, 'msg_items_exist_in_category');
+			return $this->makeObject(-1, 'msg_items_exist_in_category');
 		}
 
 		$args->node_id = $node_id;
@@ -1171,7 +1236,7 @@ class nproductController extends nproduct
 		$item_srl = Context::get('item_srl');
 		if(!$item_srl)
 		{
-			return new Object(-1, 'msg_invalid_request');
+			return $this->makeObject(-1, 'msg_invalid_request');
 		}
 
 		$option_srls = Context::get('option_srls');
@@ -1267,7 +1332,7 @@ class nproductController extends nproduct
 			}
 		}
 
-		return new Object();
+		return $this->makeObject();
 	}
 }
 /* End of file nproduct.controller.php */

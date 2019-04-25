@@ -161,11 +161,8 @@ class nstoreAdminView extends nstore
 		if(file_exists($classfile))
 		{
 			require_once($classfile);
-			$output = cympusadmin::init($this);
-			if(!$output->toBool())
-			{
-				return $output;
-			}
+			$cympusadminClass = new cympusadmin();
+			$cympusadminClass->init($this);
 		}
 
 		$config = $oNstoreModel->getModuleConfig();
@@ -438,7 +435,7 @@ class nstoreAdminView extends nstore
 
 		/*
 		$member_info = $oMemberModel->getMemberInfoByMemberSrl(Context::get('member_srl'));
-		if(!$member_info) return new Object(-1, 'msg_invalid_request');
+		if(!$member_info) return $this->makeObject(-1, 'msg_invalid_request');
 		Context::set('member_info', $member_info);
 		 */
 

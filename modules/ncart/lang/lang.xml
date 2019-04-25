@@ -1198,4 +1198,12 @@
 		<value xml:lang="jp"><![CDATA[* The password is needed to inquiry your order.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[* 需要密碼才能查詢訂單.]]></value>
 	</item>
+	<item name="do_payment">
+		<value xml:lang="ko"><![CDATA[결제하기]]></value>
+		<value xml:lang="en"><![CDATA[Do payment]]></value>
+		<value xml:lang="jp"><![CDATA[Do payment]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Do payment]]></value>
+	</item>
+
+
 </lang>

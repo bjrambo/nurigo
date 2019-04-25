@@ -63,11 +63,11 @@ class paypal extends EpayPlugin
 			{
 				$oEpayModel = getModel('epay');
 				$transaction_count = $oEpayModel->getTransactionCountByMemberSrl($logged_info->member_srl);
-				if($transaction_count < $this->plugin_info->minimum_transactions) return new Object(0, 'Minimum transactions required');
+				if($transaction_count < $this->plugin_info->minimum_transactions) return $this->makeObject(0, 'Minimum transactions required');
 			}
 		}
 		
-		if (!$args->price) return new Object(0,'No input of price');
+		if (!$args->price) return $this->makeObject(0,'No input of price');
 		$oTemplate = &TemplateHandler::getInstance();
 		$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 		$tpl_file = 'formdata.html';
@@ -84,7 +84,7 @@ class paypal extends EpayPlugin
 		}
 
 		$html = $oTemplate->compile($tpl_path, $tpl_file);
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->data = $html;
 		return $output;
 	}
@@ -137,7 +137,7 @@ class paypal extends EpayPlugin
 			// Redirect to paypal.com here
 			$token = urldecode($resArray["TOKEN"]);
 			$payPalURL = PAYPAL_URL.$token;
-			$output = new Object();
+			$output = $this->makeObject();
 			$output->add('return_url', $payPalURL);
 			return $output;
 		} else {
@@ -149,17 +149,17 @@ class paypal extends EpayPlugin
 			$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 			$tpl_file = 'api_error.html';
 			$html = $oTemplate->compile($tpl_path, $tpl_file);
-			$output = new Object(-1);
+			$output = $this->makeObject(-1);
 			$output->data = $html;
 			$output->setMessage($html);
 			return $output;
 		}
-		return new Object();
+		return $this->makeObject();
 	}
 
 	function processPayment(&$args)
 	{
-		$pp_ret = new Object();
+		$pp_ret = $this->makeObject();
 
 		require_once($this->module_path.'CallerService.php');
 		$cs = new CallerService();
@@ -218,7 +218,7 @@ class paypal extends EpayPlugin
 				$oTemplate = &TemplateHandler::getInstance();
 				$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 				$tpl_file = 'api_error.html';
-				$obj = new Object(-1);
+				$obj = $this->makeObject(-1);
 				$obj->add('state', '3');
 				$obj->add('result_code', $ack);
 				$obj->add('result_message', $ack);
@@ -237,7 +237,7 @@ class paypal extends EpayPlugin
 			$oTemplate = &TemplateHandler::getInstance();
 			$tpl_path = _XE_PATH_."modules/epay/plugins/paypal/tpl";
 			$tpl_file = 'api_error.html';
-			$obj = new Object(-1, $ack);
+			$obj = $this->makeObject(-1, $ack);
 			$obj->add('state', '3');
 			$obj->add('result_code', $ack);
 			$obj->add('result_message', $ack);

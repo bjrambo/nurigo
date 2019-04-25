@@ -19,7 +19,7 @@ class store_search extends ModuleObject
 		$oModuleController->insertModuleExtend('integration_search', 'store_search', 'view', '');
 		$oModuleController->insertModuleExtend('integration_search', 'store_search', 'model', '');
 		$oModuleController->insertModuleExtend('integration_search', 'store_search', 'mobile', '');
-		return new Object();
+		return $this->makeObject();
 	}
 
 	/**
@@ -62,7 +62,7 @@ class store_search extends ModuleObject
 		{
 			$oModuleController->insertModuleExtend('integration_search', 'store_search', 'mobile', '');
 		}
-		return new Object(0, 'success_updated');
+		return $this->makeObject(0, 'success_updated');
 	}
 
 	/**

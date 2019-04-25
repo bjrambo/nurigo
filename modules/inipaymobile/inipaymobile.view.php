@@ -22,7 +22,7 @@ class inipaymobileView extends inipaymobile
 		{
 			$this->module_info->skin = 'default';
 		}
-		$this->setTemplatePath($this->module_path . "skins/{$this->module_info->skin}");
+		$this->setTemplatePath($this->module_path . "m.skins/{$this->module_info->skin}");
 		Context::set('module_info', $this->module_info);
 	}
 

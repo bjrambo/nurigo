@@ -27,7 +27,7 @@ class store_searchView extends integration_searchView
 		// Check permissions
 		if(!$this->grant->access)
 		{
-			return new Object(-1, 'msg_not_permitted');
+			return $this->makeObject(-1, 'msg_not_permitted');
 		}
 
 		$config = $oModuleModel->getModuleConfig('store_search');

@@ -51,7 +51,7 @@ class epayView extends epay
 
 		if(!$in_args->epay_module_srl)
 		{
-			return new Object(-1, 'msg_invalid_epay_module');
+			return $this->makeObject(-1, 'msg_invalid_epay_module');
 		}
 
 		Context::set('epay_module_srl', $in_args->epay_module_srl);
@@ -102,7 +102,7 @@ class epayView extends epay
 		$oModuleModel->syncSkinInfoToModuleInfo($module_info);
 		if(!$module_info)
 		{
-			return new Object(-1, 'msg_invalid_epay_module');
+			return $this->makeObject(-1, 'msg_invalid_epay_module');
 		}
 		if(!$module_info->skin)
 		{
@@ -263,7 +263,7 @@ class epayView extends epay
 
 		$oTemplate = &TemplateHandler::getInstance();
 		$payment_form = $oTemplate->compile($template_path, 'paymentform.html');
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->data = $payment_form;
 		return $output;
 
@@ -444,9 +444,10 @@ class epayView extends epay
 				$this->setRedirectUrl($return_url);
 				return;
 			}
-
-			$post_data = array('P_TID' => $vars->P_TID, 'P_MID' => $vars->P_MID);
-			$response = $this->getRemoteResource($vars->P_REQ_URL, null, 3, 'POST', 'application/x-www-form-urlencoded', array(), array(), $post_data);
+			debugPrint($vars);
+			$post_data = array('P_TID' => $vars->P_TID, 'P_MID' => 'INIpayTest');
+			$response = FileHandler::getRemoteResource($vars->P_REQ_URL, null, 3, 'POST', 'application/x-www-form-urlencoded', array(), array(), $post_data);
+			debugPrint($response);
 			parse_str($response, $output);
 			$P_RMESG1 = iconv('EUC-KR', 'UTF-8', $output['P_RMESG1']);
 
@@ -483,13 +484,14 @@ class epayView extends epay
 		}
 
 		$logged_info = Context::get('logged_info');
-		if(!Context::get('is_logged'))
+		$is_logged = Context::get('is_logged');
+		if(!$is_logged)
 		{
-			return new Object(-1, 'msg_login_required');
+			return $this->makeObject(-1, 'msg_login_required');
 		}
 
 
-		if($logged_info)
+		if($is_logged)
 		{
 			if(Context::get('start_date'))
 			{

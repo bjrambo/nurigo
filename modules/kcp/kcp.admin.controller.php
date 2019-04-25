@@ -117,12 +117,12 @@ class kcpAdminController extends kcp
 		$path = sprintf(_XE_PATH_ . "files/epay/kcp/log");
 		if(!FileHandler::makeDir($path))
 		{
-			return new Object(-1, 'could not create a directory');
+			return $this->makeObject(-1, 'could not create a directory');
 		}
 		$path = sprintf(_XE_PATH_ . "files/epay/kcp/%u", $output->get('module_srl'));
 		if(!FileHandler::makeDir($path))
 		{
-			return new Object(-1, 'could not create a directory');
+			return $this->makeObject(-1, 'could not create a directory');
 		}
 
 		$image_path = sprintf("files/epay/kcp/%u/", $output->get('module_srl'));
@@ -132,7 +132,7 @@ class kcpAdminController extends kcp
 			$filename = $image_path . $image_obj['name'];
 			if(!move_uploaded_file($image_obj['tmp_name'], $filename))
 			{
-				return new Object(-1, 'move_uploaded_file error');
+				return $this->makeObject(-1, 'move_uploaded_file error');
 			}
 			$args->site_logo = $filename;
 			$output = $oModuleController->updateModule($args);

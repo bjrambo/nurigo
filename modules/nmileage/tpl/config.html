@@ -19,10 +19,10 @@
 	<div class="x_control-group">
 		<label class="x_control-label" for="mileage_method">{$lang->mileage_method}</label>
 		<div class="x_controls">
-		    <select name="mileage_method">
+			<select name="mileage_method">
 				<option value="nmileage" selected="selected"|cond="$config->mileage_method=='nmileage'" >{$lang->use_nmileage}</option>
 				<option value="point" selected="selected"|cond="$config->mileage_method=='point'" >{$lang->use_xepoint}</option>
-		    </select>
+			</select>
 			<a href="#mileage_method_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 			<p id="mileage_method_help" class="x_help-block" hidden>{$lang->help_mileage_method}</p>
 		</div>
@@ -70,7 +70,7 @@
 	</div>
 
 	<div class="x_clearfix btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+		<input type="submit" value="{$lang->cmd_registration}" accesskey="s" class="x_btn x_btn-primary" />
 	</div>
 
 </form>

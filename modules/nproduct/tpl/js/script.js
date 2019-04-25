@@ -164,11 +164,11 @@ function load_categories(module_srl, node_id, target) {
 			, module_srl : module_srl
 		}, 
 		success : function (r) {
-			if (r.error == -1) {
+			if (r.error === -1) {
 				alert(r.message);
 			} else {
-				for (i = 0; i < r.data.length; i++) {
-					jQuery('<option value="' + r.data[i].attr.node_id + '">' + r.data[i].attr.node_name + '</option>').appendTo(target);
+				for (i = 0; i < r.length; i++) {
+					jQuery('<option value="' + r[i].attr.node_id + '">' + r[i].attr.node_name + '</option>').appendTo(target);
 				}
 			}
 		}

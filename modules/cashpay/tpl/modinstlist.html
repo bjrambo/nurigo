@@ -21,7 +21,7 @@
 			<td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" onclick="window.open(this.href); return false;">{$val->browser_title}</a></td>
 			<td>{zdate($val->regdate,"Y-m-d")}</td>
 			<td><a href="{getUrl('act','dispCashpayAdminInsertModInst','module_srl',$val->module_srl)}" class="buttonSet buttonSetting"><span>{$lang->cmd_management}</span></a></td>
-			<td><a href="#deleteInstance" class="modalAnchor deleteInstance" data-module-srl="{$val->module_srl}"><span>{$lang->cmd_delete}</span></a></td>
+			<td><a href="{getUrl('act', 'dispCashpayAdminDeleteMid', 'module_srl', $val->module_srl)}" ><span>{$lang->cmd_delete}</span></a></td>
 		</tr>
 	</tbody>
 </table>

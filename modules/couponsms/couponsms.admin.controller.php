@@ -15,7 +15,7 @@ class couponsmsAdminController extends couponsms
 		$args->title = $obj->title;
 		if(is_numeric($obj->term_regdate) != TRUE)
 		{
-			return new Object(-1, '유효기간은 숫자로 표기해야합니다.');
+			return $this->makeObject(-1, '유효기간은 숫자로 표기해야합니다.');
 		}
 		$args->term_regdate = $obj->term_regdate;
 		$args->phone_number = $obj->phone_number;
@@ -126,7 +126,7 @@ class couponsmsAdminController extends couponsms
 		$couponsms_srl = Context::get('couponsms_srl');
 		if(!$couponsms_srl)
 		{
-			return new Object(-1, '쿠폰 정보를 가져올 수 없습니다.');
+			return $this->makeObject(-1, '쿠폰 정보를 가져올 수 없습니다.');
 		}
 
 		$args = new stdClass();
@@ -154,7 +154,7 @@ class couponsmsAdminController extends couponsms
 		$couponsms_srl = Context::get('couponsms_srl');
 		if(!$couponsms_srl)
 		{
-			return new Object(-1, '쿠폰 정보를 가져올 수 없습니다.');
+			return $this->makeObject(-1, '쿠폰 정보를 가져올 수 없습니다.');
 		}
 
 		$email_address = Context::get('email_address');
@@ -165,7 +165,7 @@ class couponsmsAdminController extends couponsms
 
 		if(!$member_info)
 		{
-			return new Object(-1, '회원이 존재하지 않습니다.');
+			return $this->makeObject(-1, '회원이 존재하지 않습니다.');
 		}
 		$couponsms_srl = Context::get('couponsms_srl');
 
@@ -198,7 +198,7 @@ class couponsmsAdminController extends couponsms
 
 		if(!$isGroup)
 		{
-			return new Object(-1, '이 회원은 요청하신 서비스에 권한이 없습니다.');
+			return $this->makeObject(-1, '이 회원은 요청하신 서비스에 권한이 없습니다.');
 		}
 
 		$this->setMessage('success_registed');

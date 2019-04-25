@@ -126,7 +126,7 @@ class nstore_digitalModel extends nstore_digital
 
 		if(!$period_srl)
 		{
-			return new Object(-1, 'no period_srl');
+			return $this->makeObject(-1, 'no period_srl');
 		}
 
 		// order info.

@@ -132,7 +132,7 @@ class eposController extends epos
 			$state = '2';
 		}
 
-		$output = new Object();
+		$output = $this->makeObject();
 		$output->add('transaction_srl', $transactionInfo->transaction_srl);
 		$output->add('state', $state); // not completed
 		$output->add('payment_method', 'CC');
