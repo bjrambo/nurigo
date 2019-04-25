@@ -218,7 +218,7 @@ function coupon_payamount(deliv, cdeliv, price, type, mileage) {
 
 			var delivfee_inadvance = $('input[name=delivfee_inadvance]:checked').val();
 			var payment_amount = coupon_payamount(delivfee_inadvance, free_delivery, cupon_price, coupon_type, raw_mileage);
-
+      
 			$.exec_json('nproduct.getPriceNumber', {'price': raw_mileage}, function (obj) {
 				$("#mileage_amount").html(obj.price);
 			});
