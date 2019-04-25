@@ -786,7 +786,7 @@ class ncartController extends ncart
 			{
 				if($coupon_info->free_delivery == 'Y')
 				{
-					// 배송비가 선결제되고 쿠폰에서 무룐배송일경우 그 배송비를 제외함
+					// 배송비가 선결제되고 쿠폰에서 무료배송일 경우 그 배송비를 제외함
 					$in_args->delivfee_inadvance = 'Y';
 				}
 
@@ -801,7 +801,7 @@ class ncartController extends ncart
 				elseif($coupon_info->discount_type == 'price')
 				{
 					$cart->total_price -= $coupon_info->discount;
-					$cart->total_price +=  $cart->delivery_fee;
+					$coupon_discount = $coupon_info->discount;
 				}
 			}
 		}
@@ -876,6 +876,8 @@ class ncartController extends ncart
 		$args->price = $in_args->price;
 		$args->sum_price = $cart->sum_price;
 		$args->delivery_fee = $cart->delivery_fee;
+		$args->coupon_discount = $coupon_discount;	// 쿠폰으로 할인된 금액 정보 추가
+		$args->coupon_delivfree = $coupon_info->coupon_delivfree;	// 무배쿠폰여부 정보 추가
 		$args->total_discounted_price = $cart->total_discounted_price;
 		$args->total_discount_amount = $cart->total_discount_amount;
 		$args->taxation_amount = $cart->taxation_amount;
