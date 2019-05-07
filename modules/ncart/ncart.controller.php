@@ -797,11 +797,12 @@ class ncartController extends ncart
 					$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
 					$cart->total_price +=  $cart->delivery_fee;
 					$cart->total_price = (int)$cart->total_price;
+					$coupon_discount = $cart_info->total_discounted_price * ($coupon_info->discount / 100);
 				}
 				elseif($coupon_info->discount_type == 'price')
 				{
 					$cart->total_price -= $coupon_info->discount;
-					$cart->total_price +=  $cart->delivery_fee;
+					$coupon_discount = $coupon_info->discount;
 				}
 			}
 		}
@@ -876,6 +877,8 @@ class ncartController extends ncart
 		$args->price = $in_args->price;
 		$args->sum_price = $cart->sum_price;
 		$args->delivery_fee = $cart->delivery_fee;
+		$args->coupon_discount = $coupon_discount;	// 쿠폰으로 할인된 금액 정보 추가
+		$args->coupon_delivfree = $coupon_info->coupon_delivfree;	// 무배쿠폰여부 정보 추가
 		$args->total_discounted_price = $cart->total_discounted_price;
 		$args->total_discount_amount = $cart->total_discount_amount;
 		$args->taxation_amount = $cart->taxation_amount;
