@@ -115,12 +115,7 @@ class ncartView extends ncart
 		$oNcartModel = getModel('ncart');
 
 		$cart_info = $oNcartModel->getCartInfo($in_args->cartnos, null, null, $in_args->delivfee_inadvance);
-		if($in_args->use_mileage)
-		{
-			$cart_info->total_price -= $in_args->use_mileage;
-			$cart_info->use_mileage = $in_args->use_mileage;
-			$cart_info->price -= $in_args->use_mileage;
-		}
+		
 		$oCouponsmsModel = getModel('couponsms');
 		$coupon_config = $oCouponsmsModel->getConfig();
 		if($coupon_config->use_shop_coupon === 'yes')
@@ -135,20 +130,30 @@ class ncartView extends ncart
 				}
 
 				$in_args->coupon_info = $coupon_info;
-				$cart_info->total_price -= $cart_info->delivery_fee;
 				if($coupon_info->discount_type == 'percent')
 				{
+					$cart_info->total_price -= $cart_info->delivery_fee;
 					$cart_info->total_price = $cart_info->total_price * (1 - $coupon_info->discount / 100);
 					$cart_info->total_price +=  $cart_info->delivery_fee;
 					$cart_info->total_price = (int)$cart_info->total_price;
+					$coupon_discount = $cart_info->total_discounted_price * ($coupon_info->discount / 100);
 				}
 				elseif($coupon_info->discount_type == 'price')
 				{
 					$cart_info->total_price -= $coupon_info->discount;
-					$cart_info->total_price +=  $cart_info->delivery_fee;
+					$coupon_discount = $coupon_info->discount;
 				}
 			}
 		}
+		
+		if($in_args->use_mileage)
+		{
+			$cart_info->total_price -= $in_args->use_mileage;
+			$cart_info->use_mileage = $in_args->use_mileage;
+		}
+
+		$cart_info->coupon_discount = $coupon_discount;	// 쿠폰으로 할인된 금액 정보 추가
+		$cart_info->coupon_delivfree = $coupon_info->coupon_delivfree;	// 무배쿠폰여부 정보 추가
 
 		Context::set('cart_info', $cart_info);
 		// compile template file
