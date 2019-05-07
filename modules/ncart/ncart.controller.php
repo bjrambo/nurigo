@@ -797,6 +797,7 @@ class ncartController extends ncart
 					$cart->total_price = $cart->total_price * (1 - $coupon_info->discount / 100);
 					$cart->total_price +=  $cart->delivery_fee;
 					$cart->total_price = (int)$cart->total_price;
+					$coupon_discount = $cart_info->total_discounted_price * ($coupon_info->discount / 100);
 				}
 				elseif($coupon_info->discount_type == 'price')
 				{
