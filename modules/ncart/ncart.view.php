@@ -397,7 +397,11 @@ class ncartView extends ncart
 		Context::set('epay_form', $epay_form);
 		unset($args);
 
-		Context::addJsFile('./modules/krzip/tpl/js/krzip_search.js');
+		if(defined('RX_VERSION')) {
+			Context::addJsFile('./modules/krzip/tpl/js/postcodify.js');
+		} else {
+			Context::addJsFile('./modules/krzip/tpl/js/krzip_search.js');
+		}
 		Context::set('soldout_process', $this->soldout_process);
 
 		$oNmileageModel = getModel('nmileage');
