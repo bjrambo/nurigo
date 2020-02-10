@@ -145,10 +145,11 @@ class ncartView extends ncart
 				}
 			}
 		}
+
 		if($in_args->delivfee_inadvance == 'N' || $coupon_info->free_delivery == 'Y')
 		{
-			$cart->total_price -= $cart->delivery_fee;
-			$cart->delivery_fee = 0;
+			$cart_info->total_price -= $cart_info->delivery_fee;
+			$cart_info->delivery_fee = 0;
 		}
 		
 		if($in_args->use_mileage)
@@ -156,7 +157,7 @@ class ncartView extends ncart
 			$cart_info->total_price -= $in_args->use_mileage;
 			$cart_info->use_mileage = $in_args->use_mileage;
 		}
-		
+
 		$cart_info->coupon_discount = $coupon_discount;	// 쿠폰으로 할인된 금액 정보 추가
 		$cart_info->coupon_delivfree = $coupon_info->coupon_delivfree;	// 무배쿠폰여부 정보 추가
 
