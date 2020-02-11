@@ -9,7 +9,7 @@
 </div>
 <p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
 
-<ul class="x_nav x_nav-tabs" cond="$module_info">
+<ul class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNstore_digitalAdminModInstList'"><a href="{getUrl('act','dispNstore_digitalAdminModInstList')}">다운로드 페이지</a></li>
 	<li cond="!$module_srl && $act=='dispNstore_digitalAdminInsertModInst'" class="x_active"|cond="$act=='dispNstore_digitalAdminInsertModInst'"><a href="{getUrl('act','dispNstore_digitalAdminInsertModInst')}">생성</a></li>
 	<block cond="$module_srl">

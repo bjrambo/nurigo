@@ -6,7 +6,7 @@
 	</h1>
 </div>
 <p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_nproduct} <a href="{getUrl('experimental_mode','Y')}">{$lang->product_copy}</a></p>
-<ul cond="$module_info" class="x_nav x_nav-tabs">
+<ul class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNproductAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispNproductAdminModInstList')}">{$lang->page_list}</a></li>
 	<li cond="$module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispNproductAdminItemList','module_srl',$module_srl)}">{$module_info->mid} {$lang->page_management}</a></li>
 	<li class="x_active"|cond="$act=='dispNproductAdminInsertModInst' && !$module_srl"><a href="{getUrl('','module',$module,'act','dispNproductAdminInsertModInst')}">{$lang->page_creation}</a></li>

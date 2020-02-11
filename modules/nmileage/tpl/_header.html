@@ -14,7 +14,7 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<ul class="x_nav x_nav-tabs" cond="$module_info">
+<ul class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNmileageAdminAllMileageHistory'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminAllMileageHistory')}">{$lang->cmd_mileage_history}</a></li>
 	<li class="x_active"|cond="$act=='dispNmileageAdminMileageList'"><a href="{getUrl('','module',$module,'act','dispNmileageAdminMileageList')}">{$lang->mileage}</a></li>
 	<li cond="$act=='dispNmileageAdminMileageHistory'" class="x_active"><a href="{getUrl('','module',$module,'act','dispNmileageAdminMileageHistory')}">{$lang->mileage_detail}</a></li>

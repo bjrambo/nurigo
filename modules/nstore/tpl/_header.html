@@ -8,7 +8,7 @@
 	</h1>
 </div>
 <p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
-<ul class="x_nav x_nav-tabs" cond="$module_info">
+<ul class="x_nav x_nav-tabs" >
 	<li class="x_active"|cond="$act=='dispNstoreAdminOrderManagement'" ><a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminOrderManagement')}">{$lang->order_management}</a></li>
 	<li cond="$order_srl" class="x_active"|cond="$act=='dispNstoreAdminOrderDetail'" ><a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminOrderDetail','order_srl',$order_srl)}">{$lang->order_details}</a></li>
 	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminModInstList'" ><a href="{getUrl('','module',$module,'act','dispNstoreAdminModInstList')}">{$lang->page_list}</a></li>

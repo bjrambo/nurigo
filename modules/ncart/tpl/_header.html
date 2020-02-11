@@ -8,7 +8,7 @@
 	</h1>
 </div>
 <p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_ncart}</p>
-<ul class="x_nav x_nav-tabs" cond="$module_info">
+<ul class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNcartAdminOrderManagement'"><a href="{getUrl('','module',$module,'act','dispNcartAdminOrderManagement','module_srl','')}">{$lang->cart_list}</a></li>
 	<li class="x_active"|cond="$act=='dispNcartAdminModInstList'"><a href="{getUrl('','module',$module,'act','dispNcartAdminModInstList','module_srl','')}">{$lang->page_list}</a></li>
 	<li cond="$module_srl" class="x_active"><a href="{getUrl('act','dispNcartAdminInsertModInst')}">{$module_info->mid} {$lang->page_management}</a></li>
