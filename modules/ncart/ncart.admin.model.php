@@ -37,6 +37,7 @@ class ncartAdminModel extends ncart
 
 	function getNcartAdminFieldInfo()
 	{
+		$args = new stdClass();
 		$args->field_srl = Context::get('field_srl');
 		$output = executeQuery('ncart.getFieldInfo', $args);
 		if(!$output->toBool())
