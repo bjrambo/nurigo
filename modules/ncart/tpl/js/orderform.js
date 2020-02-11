@@ -66,6 +66,7 @@ $('form.siteMap')
 		} else {
 			multiExample.slideUp(200);
 		}
+		$('.lang_code').xeApplyMultilingualUI();
 	}
 
 	$('a._delete').click(function() {

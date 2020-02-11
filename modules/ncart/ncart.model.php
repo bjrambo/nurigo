@@ -1248,6 +1248,11 @@ class ncartModel extends ncart
 
 		if($extendForm->description)
 		{
+			if(preg_match('/^\\$user_lang->[a-zA-Z0-9]+$/', $extendForm->description))
+			{
+				getController('module')->replaceDefinedLangCode($extendForm->description);
+			}
+			
 			$inputTag .= '<p style="color:#999;">' . htmlspecialchars($extendForm->description) . '</p>';
 		}
 

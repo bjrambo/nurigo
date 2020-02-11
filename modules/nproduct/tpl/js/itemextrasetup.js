@@ -17,6 +17,7 @@ jQuery(function($) {
 			function(ret){
 				var tpl = ret.tpl.replace(/<enter>/g, '\n');
 				$('#extendForm').html(tpl);
+				$('.lang_code').xeApplyMultilingualUI();
 			},
 			['error','message','tpl']
 		);
@@ -31,6 +32,7 @@ jQuery(function($) {
 			function(ret){
 				var tpl = ret.tpl.replace(/<enter>/g, '\n');
 				$('#extendForm').html(tpl);
+				$('.lang_code').xeApplyMultilingualUI();
 			},
 			['error','message','tpl']
 		);
