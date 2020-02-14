@@ -86,20 +86,28 @@ class currencyModel extends currency
 		return (int)$price / $division;
 	}
 
-	function printPrice($price)
+	function printPrice($price, $module_info = null)
 	{
 		global $lang;
 		$price = $this->getPrice($price);
-
+		
+		$currency = $lang->currency_sign[$this->currency];
 		if($this->as_sign == "Y")
 		{
-			$currency = $lang->currency_sign[$this->currency];
-			return sprintf("<span class=\"currency_symbol\">%s</span>%s", $currency, number_format($price, $this->decimals));
+			$returnString = sprintf("<span class=\"currency_symbol\">%s</span>%s", $currency, number_format($price, $this->decimals));
 		}
 		else
 		{
-			$currency = $lang->currency_code[$this->currency];
-			return sprintf("%s<span class=\"currency_code\">%s</span>", number_format($price, $this->decimals), $currency);
+			$returnString = sprintf("%s<span class=\"currency_code\">%s</span>", number_format($price, $this->decimals), $currency);
+		}
+		if(is_object($module_info) && $module_info->dollar_exchange == 'Y')
+		{
+			$priceExchange = $price * 0.001;
+			return $returnString . " ( \${$priceExchange} )";
+		}
+		else
+		{
+			return $returnString;
 		}
 	}
 

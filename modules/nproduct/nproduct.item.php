@@ -14,6 +14,7 @@ class nproductItem extends BaseObject
 	var $item_code = NULL;
 	var $item_name = NULL;
 	var $module_srl = 0;
+	var $module_info = NULL;
 	var $category_id = 0;
 	var $node_route = NULL;
 	var $document_srl = 0;
@@ -90,7 +91,12 @@ class nproductItem extends BaseObject
 		{
 			$price = $this->price;
 		}
-		return $oCurrencyModel->printPrice($price);
+		if(!$this->module_info)
+		{
+			$this->module_info = getModel('module')->getModuleInfoByModuleSrl($this->module_srl);
+		}
+		
+		return $oCurrencyModel->printPrice($price, $this->module_info);
 	}
 
 	function printMileage($mileage)
