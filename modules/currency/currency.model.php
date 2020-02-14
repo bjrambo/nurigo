@@ -102,8 +102,13 @@ class currencyModel extends currency
 		}
 		if(is_object($module_info) && $module_info->dollar_exchange == 'Y')
 		{
-			$priceExchange = $price * 0.001;
-			return $returnString . " ( \${$priceExchange} )";
+			if(Context::get('lang_type') != 'ko')
+			{
+				$priceExchange = $price * 0.001;
+				$returnString = $returnString . " ( \${$priceExchange} )";
+			}
+			
+			return $returnString;
 		}
 		else
 		{
