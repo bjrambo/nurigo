@@ -179,15 +179,15 @@ class ncartView extends ncart
 	function dispNcartCartItems()
 	{
 		$oNcartModel = getModel('ncart');
-		$cart = $oNcartModel->getCartInfo(Context::get('cartnos'));
-
+		$cart = new ncartItem($oNcartModel->getCartInfo(Context::get('cartnos')));
+		
 		Context::set('list', $cart->item_list);
 		Context::set('sum_price', $cart->sum_price);
 		Context::set('total_price', $cart->total_price);
 		Context::set('delivery_fee', $cart->delivery_fee);
 		Context::set('total_discounted_price', $cart->total_discounted_price);
 		Context::set('total_discount_amount', $cart->total_discount_amount);
-
+		Context::set('cart', $cart);
 		// get module config
 		$config = $oNcartModel->getModuleConfig();
 		Context::set('config', $config);

@@ -216,13 +216,12 @@ class ncartModel extends ncart
 			$item_list = array();
 		}
 
-		/*
+		
 		foreach($item_list as $key => $item)
 		{
 			$item = new nproductItem($item);
 			$item_list[$key] = $item;
 		}
-		 */
 
 		return $this->discountItems($item_list, $group_list, $width, $height, $delivfee_inadvance);
 	}

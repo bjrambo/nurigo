@@ -126,6 +126,20 @@
 			</div>
 		</div>
 	</section>
+	<section class="section">
+		<h1>달러 환전</h1>
+		<div class="x_control-group">
+			<label class="x_control-label" for="dollar_exchange">달러 환전표시</label>
+			<div class="x_controls">
+				<select name="dollar_exchange" id="dollar_exchange">
+					<option value="N" selected="selected"|cond="$module_info->dollar_exchange!='Y'">사용 안 함</option>
+					<option value="Y" selected="selected"|cond="$module_info->dollar_exchange=='Y'">사용함</option>
+				</select>
+				<a href="#dollar_exchange_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="dollar_exchange_help" class="x_help-block" hidden>달러 환전을 표시하는 옵션을 추가합니다. 표시를 사용하면 가격오른쪽 환전 금액을 표시합니다.</p>
+			</div>
+		</div>
+	</section>
 
 	<div class="x_clearfix btnArea">
 		<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
