@@ -1,0 +1,22 @@
+<table name="inicis_cancle_log">
+	<column name="idx" type="number" size="11" notnull="notnull" auto_increment="auto_increment" primary_key="primary_key" />
+	<column name="transaction_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="epay_module_srl" type="number" size="11" notnull="notnull" index="idx_epay_module_srl" />
+	<column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" />
+	<column name="plugin_srl" type="number" size="11" notnull="notnull" index="idx_plugin_srl" />
+	<column name="target_module" type="varchar" size="80" />
+	<column name="order_srl" type="number" size="11" notnull="notnull" index="idx_order_srl" />
+	<column name="cancle_amount" type="number" size="11" default="0" notnull="notnull" />
+	<!-- A : all , B : part -->
+	<column name="cancle_type" type="char" size="1" />
+	<column name="cancle_desc" type="varchar" size="250" />
+	<column name="pg_tid" type="varchar" size="250" />
+	<!-- part cancle log-->
+	<column name="ori_tid" type="varchar" size="250" />
+	<column name="part_tid" type="varchar" size="250" />
+	<column name="part_remains_amount" type="number" size="11" />
+	<column name="part_cancle_amount" type="number" size="11" />
+	<column name="part_cancle_type" type="char" size="1" />
+	<column name="part_cancle_cnt" type="number" size="11" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+</table>

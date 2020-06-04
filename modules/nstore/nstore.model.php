@@ -394,6 +394,36 @@ class nstoreModel extends nstore
 
 		return $output->data;
 	}
+
+	function mergeIniCardCancleList($order_list)
+	{
+		if(count($order_list) == 0) return $order_list;
+
+		$oDB = DB::getInstance();
+		foreach ($order_list as $key => $order_info)
+		{
+			$sql = "SELECT * FROM ".$oDB->prefix."inicis_cancle_log WHERE order_srl = ".$order_info->order_srl;
+			$query = $oDB->_query($sql);
+			$result = $oDB->_fetch($query);
+			if(!is_array($result))
+			{
+				$result = array($result);
+			}
+
+			$cancle_type = "A";
+			$cancle_amount = 0;
+			foreach ($result as $key1 => $cancle_info)
+			{
+				$cancle_type = $cancle_info->cancle_type;
+				$cancle_amount = $cancle_amount + $cancle_info->cancle_amount;
+			}
+
+			$order_list[$key]->cancle_type = $cancle_type;
+			$order_list[$key]->cancle_amount = $cancle_amount;
+		}
+
+		return $order_list;
+	}
 }
 /* End of file nstore.model.php */
 /* Location: ./modules/nstore/nstore.model.php */

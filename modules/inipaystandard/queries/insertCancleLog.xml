@@ -1,0 +1,24 @@
+<query id="insertCancleLog" action="insert">
+    <tables>
+        <table name="inicis_cancle_log" />
+    </tables>
+    <columns>
+        <column name="transaction_srl" var="transaction_srl" filter="number" notnull="notnull" />
+        <column name="epay_module_srl" var="epay_module_srl" notnull="notnull" />
+        <column name="module_srl" var="module_srl" />
+        <column name="plugin_srl" var="plugin_srl" />
+        <column name="target_module" var="target_module" notnull="notnull" />
+        <column name="order_srl" var="order_srl" notnull="notnull" />
+        <column name="cancle_type" var="cancle_type" notnull="notnull" />
+        <column name="cancle_amount" var="cancle_amount" notnull="notnull" />
+        <column name="pg_tid" var="pg_tid" />
+		<column name="ori_tid" var="ori_tid" />
+		<column name="part_tid" var="part_tid" />
+		<column name="part_remains_amount" var="part_remains_amount" />
+		<column name="part_cancle_amount" var="part_cancle_amount" />
+		<column name="part_cancle_type" var="part_cancle_type" />
+		<column name="part_cancle_cnt" var="part_cancle_cnt" />
+		<column name="cancle_desc" var="cancle_desc" />
+        <column name="regdate" var="regdate" default="curdate()" />
+    </columns>
+</query>

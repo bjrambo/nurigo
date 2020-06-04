@@ -90,7 +90,12 @@
 					</td>
 					<td><span title="{$order->title}">{cut_str($order->title, 34)}</span></td>
 					<td>{number_format($order->item_count)}</td>
-					<td>{nproductItem::formatMoney($order->total_price)}</td>
+					<td><!--@if($order->cancle_amount > 0)-->
+						<span style="color: red;"><strike>{nproductItem::formatMoney($order->total_price)}</strike></br><!--@if($order->cancle_type == "A")-->전체 취소<!--@else-->부분 취소<!--@end--> (-{number_format($order->cancle_amount)})</span>
+					<!--@else-->
+					{nproductItem::formatMoney($order->total_price)}
+					<!--@end-->
+					</td>
 					<td loop="$usedIdentifiers=>$key,$val"><a href="#popup_menu_area" class="member_{$order->member_srl}" title="{$order_arr[$key]}">{cut_str($order_arr[$key],6)}</a></td>
 					<td cond="$representative">
 						{@$extra_vars = unserialize($order->extra_vars)}

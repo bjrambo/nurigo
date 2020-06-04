@@ -109,4 +109,17 @@ class inipaystandardAdminView extends inipaystandard
 
 		$this->setTemplateFile('insert_module');
 	}
+
+	function dispInipaystandardAdminCardPartCancle()
+	{
+		$args = Context::getRequestVars();
+		$ca_rs = getController('inipaystandard')->doCanclePart($args);
+		if($ca_rs->result == true){
+			$this->add("result","ok");
+		}else{
+			$this->add("result","fail");
+			$this->add("result_code",$ca_rs->result_desc->result_code);
+			$this->add("result_msg",$ca_rs->result_desc->result_message);
+		}
+	}
 }

@@ -206,6 +206,14 @@ class inipaystandardController extends inipaystandard
 			return $this->makeObject(-1, 'could not find transaction');
 		}
 
+		if($transaction_info->state != 1)
+		{
+			//입금 대기 상태가 아니면 커넥션을 종료합니다.
+			echo "OK";
+			Context::close();
+			exit;
+		}
+
 		// PG 서버에서 보냈는지 IP 체크 (보안)
 		$pgIpArray = array(
 			'203.238.37.3',
@@ -379,5 +387,243 @@ class inipaystandardController extends inipaystandard
 				return "";
 				break;
 		}
+	}
+
+	/**
+	 * @brief 이니시스 카드 결제 전체 취소
+	 */
+	function doCancleIt($in_args)
+	{
+		$oModuleModel = getModel('module');
+		$oEpayModel = getModel('epay');
+		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
+
+		if($transaction_info->state == "A") return false;
+
+		$sel_args = new stdClass;
+		$sel_args->sort_index = "module_srl";
+		$sel_args->page = 0;
+		$sel_args->list_count = 1;
+		$sel_args->page_count = 1;
+		$output_sel = executeQueryArray('inipaystandard.getModuleList', $sel_args);
+		foreach($output_sel->data as $n=>$pgval){
+			$def_md_info = $pgval;
+			break;
+		}
+
+		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
+
+		if($ini_pg_info->ini_card_auto_cancle != "Y") return false;
+
+		$reason = "관리자 취소";
+
+		require_once('libs/INIStdPayUtil.php');
+	
+		$util = new INIStdPayUtil();
+	
+		$authMap = array();
+		$iniapi_pay_key = $ini_pg_info->inipay_iniapikey;
+		$authMap["type"] = "Refund";
+		$authMap["mid"] = $ini_pg_info->inipay_mid;
+		$authMap["paymethod"] = "Card";
+		$authMap["timestamp"] = date("YmdHis");
+		$authMap["clientIp"] = $_SERVER['SERVER_ADDR'];
+		$authMap["tid"] = $in_args->pg_tid;
+		$authMap["msg"] = $reason;
+		$authMap["charset"] = 'UTF-8';
+		$has_ori = $iniapi_pay_key.$authMap["type"].$authMap["paymethod"].$authMap["timestamp"].$authMap["clientIp"].$authMap["mid"].$authMap["tid"];
+		$mKey = $util->makeHash($has_ori, "sha512");
+		$authMap["hashData"] = $mKey;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://iniapi.inicis.com/api/v1/refund");
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($authMap));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		$chRs = curl_exec ($ch);
+		$chCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		if($chCode == 200)
+		{
+			$ini_result = json_decode($chRs);
+			if(!$ini_result) return false;
+
+			$u_args = new stdClass();
+			$u_args->transaction_srl = $transaction_info->transaction_srl;
+			$u_args->result_code = $ini_result->resultCode;
+			$u_args->result_message = $ini_result->resultMsg;
+			$u_args->pg_tid = $in_args->pg_tid;
+			if($ini_result->resultCode == "00")
+			{
+				$u_args->state = "A";
+				$this->insertCardCancleLog($transaction_info,"A");
+			}
+			else
+			{
+				$u_args->state = $transaction_info->state;
+			}
+
+			$extra_vars = unserialize($transaction_info->extra_vars);
+			foreach($ini_result as $key => $val)
+			{
+				$extra_vars->{$key} = $val;
+			}
+
+			$u_args->extra_vars = serialize($extra_vars);
+			$output = executeQuery('epay.updateTransaction', $u_args);
+			ModuleHandler::triggerCall('inipaystandard.cancle', 'after', $transaction_info);
+			if(!$output->toBool())
+			{
+				return false;
+			}
+
+			return true;
+
+		}else{
+			return false;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @brief 이니시스 카드 결제 부분 취소
+	 */
+	function doCanclePart($in_args)
+	{
+		$oModuleModel = getModel('module');
+		$oEpayModel = getModel('epay');
+		
+		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
+
+		$total_price = $transaction_info->payment_amount;
+		$ca_output = executeQueryArray("inipaystandard.getCancleListByOrderSrl",$transaction_info);
+		foreach ($ca_output->data as $key => $cancleInfo)
+		{
+			$total_price = $total_price - $cancleInfo->cancle_amount;
+		}
+
+		$re_price = (int)$total_price-(int)$in_args->cancle_part_price;
+
+		$sel_args = new stdClass;
+		$sel_args->sort_index = "module_srl";
+		$sel_args->page = 0;
+		$sel_args->list_count = 1;
+		$sel_args->page_count = 1;
+		$output_sel = executeQueryArray('inipaystandard.getModuleList', $sel_args);
+		foreach($output_sel->data as $n=>$pgval){
+			$def_md_info = $pgval;
+			break;
+		}
+
+		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
+		
+		$reason = "관리자 취소";
+		if(trim($in_args->cancle_desc) != "")
+		{
+			$reason = trim($in_args->cancle_desc);
+		}
+
+		$reason = cut_str($reason,40,"");
+	
+		require_once('libs/INIStdPayUtil.php');
+
+		$util = new INIStdPayUtil();
+	
+		$authMap = array();
+		$iniapi_pay_key = $ini_pg_info->inipay_iniapikey;
+		$authMap["type"] = "PartialRefund";
+		$authMap["mid"] = $ini_pg_info->inipay_mid;
+		$authMap["paymethod"] = "Card";
+		$authMap["timestamp"] = date("YmdHis");
+		$authMap["clientIp"] = $_SERVER['SERVER_ADDR'];
+		$authMap["tid"] = $transaction_info->pg_tid;
+		$authMap["msg"] = $reason;
+		$authMap["charset"] = 'UTF-8';
+		$authMap["price"] = $in_args->cancle_part_price;
+		$authMap["confirmPrice"] = $re_price;
+		$authMap["currency"] = "WON";
+		$has_ori = $iniapi_pay_key.$authMap["type"].$authMap["paymethod"].$authMap["timestamp"].$authMap["clientIp"].$authMap["mid"].$authMap["tid"].$authMap["price"].$authMap["confirmPrice"];
+		$mKey = $util->makeHash($has_ori, "sha512");
+		$authMap["hashData"] = $mKey;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://iniapi.inicis.com/api/v1/refund");
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($authMap));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		$chRs = curl_exec ($ch);
+		$chCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		$part_result = new stdClass();
+		$part_result->result = false;
+		if($chCode == 200)
+		{
+			$ini_result = json_decode($chRs);
+			if(!$ini_result)
+			{
+				return $part_result;
+			}
+			$part_result->result = false;
+			$u_args = new stdClass();
+			$u_args->transaction_srl = $transaction_info->transaction_srl;
+			$u_args->result_code = $ini_result->resultCode;
+			$u_args->result_message = $ini_result->resultMsg;
+			$u_args->pg_tid = $transaction_info->pg_tid;
+
+			if($ini_result->resultCode == "00")
+			{
+				$part_result->result = true;
+				$transaction_info->ori_tid = $ini_result->prtcTid;
+				$transaction_info->part_tid = $ini_result->tid;
+				$transaction_info->part_remains_amount = $ini_result->prtcRemains;
+				$transaction_info->part_cancle_amount = $ini_result->prtcPrice;
+				$transaction_info->part_cancle_type = $ini_result->prtcType;
+				$transaction_info->part_cancle_cnt = $ini_result->prtcCnt;
+				$transaction_info->cancle_desc = $reason;
+				$this->insertCardCancleLog($transaction_info,"P");
+				ModuleHandler::triggerCall('inipaystandard.partCancle', 'after', $transaction_info);
+				return $part_result;
+			}
+			else
+			{
+				$part_result->result = false;
+				$part_result->result_desc = $u_args;
+				return $part_result;
+			}
+			return $ini_result;
+		}else{
+			$part_result->result = false;
+			$rs_end = new stdClass();
+			$rs_end->result_code = $chCode;
+			$rs_end->result_message = "CURL:".$chRs;
+			$part_result->result_desc = $rs_end;
+			return $ini_result;
+		}
+
+	}
+
+	function insertCardCancleLog($log_args,$insert_type="A")
+	{
+		$log_args->cancle_type = $insert_type;
+		unset($log_args->regdate);
+		if($insert_type == "A")
+		{
+			$log_args->cancle_amount = $log_args->payment_amount;
+			$log_args->cancle_desc = "관리자 취소";
+		}
+		else
+		{
+			$log_args->cancle_amount = $log_args->part_cancle_amount;
+		}
+		executeQueryArray("inipaystandard.insertCancleLog",$log_args);
 	}
 }

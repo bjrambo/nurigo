@@ -3,6 +3,7 @@
 	<actions>
 		<action name="dispInipaystandardAdminModuleList" type="view" admin_index="true"/>
 		<action name="dispInipaystandardAdminInsertModule" type="view"/>
+		<action name="dispInipaystandardAdminCardPartCancle" type="view"/>
 
 		<action name="procInipaystandardAdminInsertModule" type="controller"/>
 		<action name="procInipaystandardAdminDeleteModule" type="controller"/>

@@ -1,0 +1,14 @@
+<query id="getCancleListByOrderSrl" action="select">
+    <tables>
+        <table name="inicis_cancle_log" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="order_srl" var="order_srl" notnull="notnull" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="regdate" order="desc" />
+    </navigation>
+</query>

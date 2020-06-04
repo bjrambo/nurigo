@@ -5,7 +5,7 @@
 {@$address2 = $address[1]}
 
 <include target="_header.html" />
-
+<load target="js/inicardpartcancle.js" />
 <div id="orderlist">
 	<form action="./" method="post">
 		<input type="hidden" name="module" value="{$module}" />
@@ -72,7 +72,22 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{$payment_method[$order_info->payment_method]}</td>
+						<td>{$payment_method[$order_info->payment_method]}
+							<!--@if($order_info->payment_method == "CC")-->
+							<div>
+								결제 금액 : {number_format($payment_info->payment_amount)}원<br>
+								취소 가능 금액 : {number_format($cancle_amount_limit)}원<br>
+								<!--@foreach ($cancle_list->data as $key => $cancleInfo)-->
+								<p><span style="color:red">-{number_format($cancleInfo->cancle_amount)}원</span><span style="font-size:11px"> {$cancleInfo->cancle_desc} ({zdate($cancleInfo->regdate,'Y-m-d H:i:s')})</span></p>
+								<!--@end-->
+								<input type="hidden" name="ini_order_srl" id="ini_order_srl" value="{$order_srl}">
+								
+								<input type="hidden" name="ini_cancle_amount_limit" id="ini_cancle_amount_limit" value="{$cancle_amount_limit}">
+
+								<input type="text" id="ini_cancle_price" name="ini_card_part_cancle" value="0" style="width:90px;display: inline;" <!--@if($cancle_amount_limit == 0)-->disabled<!--@end-->>원 <input type="text" id="ini_cancle_desc" name="ini_cancle_desc" value="" style="width:90px;display: inline;" placeholder="취소 사유" maxlength="40" <!--@if($cancle_amount_limit == 0)-->disabled<!--@end-->> <button type="button" class="x_btn x_btn-warning ini-cardpart-cancle" <!--@if($cancle_amount_limit == 0)-->disabled<!--@end-->>카드결제 부분취소</button>
+							</div>
+							<!--@end-->	
+						</td>
 						<td>{$order_info->use_mileage}</td>
 						<block cond="$payment_info->payment_method=='VA' || $payment_info->payment_method=='BT'">
 						<td>{$payment_info->vact_num}</td>

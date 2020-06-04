@@ -91,6 +91,10 @@
 			<value xml:lang="jp"><![CDATA[エラー]]></value>
 			<value xml:lang="zh-TW"><![CDATA[錯誤]]></value>				
 		</item>
+		<item name="A">
+			<value xml:lang="ko"><![CDATA[카드취소]]></value>
+			<value xml:lang="en"><![CDATA[Card cancle]]></value>								
+		</item>
 	</item>
 	<item name="payment_method" type="array">
 		<item name="VA">

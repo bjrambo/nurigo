@@ -54,7 +54,7 @@ class INISocket{
 
 	function DNSLookUP()
 	{
-		$starttime=GetMicroTime();
+		$starttime=GetMicroTimeIni();
 		$ip				= @gethostbyname($this->host);
 		if($ip)
 		{
@@ -66,7 +66,7 @@ class INISocket{
 			return DNS_LOOKUP_ERR;
 		}
 
-		$this->dns_laptime=round(GetMicroTime()-$starttime, 3);
+		$this->dns_laptime=round(GetMicroTimeIni()-$starttime, 3);
 		if( $this->dns_laptime > DNS_LOOKUP_TIMEOUT )
 			return DNS_LOOKUP_TIMEOUT_ERR;
 

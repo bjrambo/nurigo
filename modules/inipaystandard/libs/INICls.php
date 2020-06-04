@@ -77,7 +77,7 @@ function Base64Encode($str) {
     return substr(chunk_split(base64_encode($str), 64, "\n"), 0, -1) . "\n";
 }
 
-function GetMicroTime() {
+function GetMicroTimeIni() {
     list($usec, $sec) = explode(" ", microtime(true));
     return (float) $usec + (float) $sec;
 }
@@ -113,7 +113,7 @@ class INILog {
         $this->log = $request["log"];
         $this->homedir = $request["inipayhome"];
         $this->mid = $request["mid"];
-        $this->starttime = GetMicroTime();
+        $this->starttime = GetMicroTimeIni();
         $this->mergelog = $request["mergelog"];
     }
 
@@ -158,7 +158,7 @@ class INILog {
         if ($this->log == "false")
             return;
 
-        $laptime = GetMicroTime() - $this->starttime;
+        $laptime = GetMicroTimeIni() - $this->starttime;
         $this->WriteLog(INFO, "END " . $this->type . " " . $msg . " Laptime:[" . round($laptime, 3) . "sec]");
         $this->WriteLog(INFO, "===============================================================");
         fclose($this->handle);

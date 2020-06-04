@@ -79,10 +79,11 @@
 					<td colspan="3">{$nick_name[$no]}(비회원)</td>
 				</block>
 				<td>
-					<select class="payment_state x_span1" data-transaction_srl="{$tran->transaction_srl}">
+					<select class="payment_state" data-transaction_srl="{$tran->transaction_srl}" style="width:90px">
 						<option selected="selected"|cond="$tran->state == '1'" value="1" >{$lang->state_list['1']}</option>
 						<option selected="selected"|cond="$tran->state == '2'" value="2" >{$lang->state_list['2']}</option>
 						<option selected="selected"|cond="$tran->state == '3'" value="3" >{$lang->state_list['3']}</option>
+						<option selected="selected"|cond="$tran->state == 'A' && $tran->payment_method == 'CC'" value="A" >{$lang->state_list['A']}</option>
 					</select>
 					<block cond="$tran->regdate < date('YmdHis', strtotime('-10 minutes')) && $tran->state == null">
 						<span>결제진행한 지, 10분이 지났습니다.</span>

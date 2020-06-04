@@ -229,6 +229,18 @@ class nstoreController extends nstore
 			}
 		}
 
+		if($in_args->order_status == nstore::ORDER_STATE_CANCLE)
+		{
+			$pass_status = array(2,3);
+			if(in_array($order_info->order_status,$pass_status) && $order_info->payment_method == "CC")
+			{
+				$output_ci = executeQueryArray("epay.getTransactionByOrderSrl",$order_info);
+				$cancle_info = $output_ci->data[0];
+				$iniPayController = getController('inipaystandard');
+				$cancle_rs = $iniPayController->doCancleIt($cancle_info);
+			}
+		}
+
 		// for order table
 		$args->order_srl = $order_srl;
 		$args->order_status = $in_args->order_status;
