@@ -5,7 +5,7 @@
 	{@$inc=strtolower($act)}
 	{@$inc=preg_replace('/dispnproductadmin/','',$inc)}
 
-	<div cond="$XE_VALIDATOR_MESSAGE && $inc != 'skininfo'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
 
