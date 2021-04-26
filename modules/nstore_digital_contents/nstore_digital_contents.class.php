@@ -51,6 +51,17 @@ class nstore_digital_contents extends ModuleObject
 	function recompileCache()
 	{
 	}
+
+	/**
+	 * Create new Object for php7.2
+	 * @param int $code
+	 * @param string $msg
+	 * @return BaseObject|Object
+	 */
+	public function makeObject($code = 0, $msg = 'success')
+	{
+		return class_exists('BaseObject') ? new BaseObject($code, $msg) : new Object($code, $msg);
+	}
 }
 /* End of file nstore_digital_contents.class.php */
 /* Location: ./modules/nstore_digital_contents/nstore_digital_contents.class.php */
