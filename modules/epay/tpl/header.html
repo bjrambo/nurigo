@@ -9,7 +9,7 @@
 		</h1>
 	</div>
 	<p class="x_alert x_alert-info" id="aboutModule" hidden>{$lang->about_epay}</p>
-	<ul class="x_nav x_nav-tabs" cond="$module_info">
+	<ul class="x_nav x_nav-tabs">
 		<li class="x_active"|cond="$act=='dispEpayAdminTransactions'"><a href="{getUrl('','module',$module,'act','dispEpayAdminTransactions')}">{$lang->payment_details}</a></li>
 		<li cond="!$mid" class="x_active"|cond="$act=='dispEpayAdminEpayList'"><a href="{getUrl('','module',$module,'act','dispEpayAdminEpayList')}">{$lang->page_list}</a></li>
 		<li cond="!$mid && $module_srl" class="x_active"><a href="{getUrl('','module',$module,'act','dispEpayAdminInsertEpay')}">{$module_info->mid} {$lang->page_management}</a></li>
