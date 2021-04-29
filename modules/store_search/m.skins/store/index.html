@@ -1,0 +1,19 @@
+<include target="header.html" />
+
+{@ $output = $search_result['product'] }
+<div class="content-container">
+	<include target="product.html" />
+	<div cond="count($output->data)" class="isMore"><a href="{getUrl('where','product','page',1)}">{$lang->more}</a></div>
+</div>
+
+{@ $output = $search_result['document'] }
+<div class="content-container">
+	<include target="document.html" />
+	<div cond="count($output->data)" class="isMore"><a href="{getUrl('where','document','page',1)}">{$lang->more}</a></div>
+</div>
+
+{@ $output = $search_result['comment'] }
+<div class="content-container">
+	<include target="comment.html" />
+	<div cond="count($output->data)" class="isMore"><a href="{getUrl('where','comment','page',1)}">{$lang->more}</a></div>
+</div>

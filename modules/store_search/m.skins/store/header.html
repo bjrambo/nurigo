@@ -1,0 +1,25 @@
+<!--@if(!$_loaded)-->
+{@ $_loaded = true; }
+{@ if(!is_object($module_info)) $module_info = new stdClass; }
+<load target="css/trendshop_isearch.css" />
+<load target="lang" />
+
+<form action="{getUrl()}" method="get" id="integration-search" no-error-return-url="true">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="act" value="IS" />
+	<input type="hidden" name="where" value="{$where}" />
+	<input type="hidden" name="page" value="1" />
+	<input type="hidden" name="search_target" value="title_content" />
+	<input type="text" name="is_keyword" id="search_input" class="inputText" <!--@if($is_keyword)-->value="{$is_keyword}"<!--@else-->placeholder="{$lang->search_product}"<!--@endif--> required="required" title="{$lang->search_product}" />
+	<button type="submit" class="isearch-submit"><i class="xi-magnifier"></i></button>
+</form>
+
+<div id="content-tab" class="content-tab row">
+	<ul class="col-xs-12 content-tab-list" role="tablist">
+		<li class="col-xs-3<!--@if(!$where)--> active<!--@endif-->"><a href="{getUrl('where','','page','','division','')}#integration-search">{$lang->integration_search}</a></li>
+		<li class="col-xs-3<!--@if($where=='product')--> active<!--@endif-->"><a href="{getUrl('where','product','page',1,'division','')}#integration-search">{$lang->product}</a></li>
+		<li class="col-xs-3<!--@if($where=='document')--> active<!--@endif-->"><a href="{getUrl('where','document','page',1,'division','')}#integration-search">{$lang->document}</a></li>
+		<li class="col-xs-3<!--@if($where=='comment')--> active<!--@endif-->"><a href="{getAutoEncodedUrl('where','comment','page',1,'division','')}#integration-search">{$lang->comment}</a></li>
+	</ul>
+</div>
+<!--@end-->

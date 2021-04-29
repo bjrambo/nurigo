@@ -1,0 +1,58 @@
+<include target="header.html" />
+
+<h3 class="sub-title">{$lang->product} <span>({number_format($output->total_count)})</span></h3>
+
+<ul class="sub-navigation clearfix">
+	<li loop="$lang->is_search_option['product']=>$key,$val" value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','product','search_target',$key,'page',1,'division','')}">{$val}</a></li>
+</ul>
+
+<!--@if(!count($output->data))-->
+<div class="no-result">
+	{$lang->msg_no_result}
+	<block cond="$last_division">
+		<br />{$lang->msg_document_more_search}
+		<br /><span class="btn"><a href="{getUrl('where','document','page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a></span>
+	</block>
+</div>
+<!--@else-->
+<div class="display-grid">
+	<ul class="row">
+		<block loop="$output->data=>$no,$document">
+			{@ $item = $document->item; }
+			<li cond="$item && $item->display=='Y'" id="item_{$item->item_srl}" class="col-xs-4">
+				<a class="item-thumbnail" href="{getUrl('','mid',$item->mid,'item_srl',$item->item_srl)}">
+					<img src="{$item->getThumbnail(240,240,'crop')}" alt="" />
+				</a>
+				<a class="item-name" href="{getUrl('','mid',$item->mid,'item_srl',$item->item_srl)}">{$item->item_name}</a>
+				<div class="item-price number-font">{nproductItem::printPrice($item->price)}</div>
+			</li>
+		</block>
+	</ul>
+</div>
+
+<div cond="$where == 'document' && $output->page_navigation" class="list-pagination">
+	<a href="{getUrl('page','')}" class="direction" title="{$lang->first_page}">&lt;</a> 
+	<!--@while($page_no = $output->page_navigation->getNextPage())-->
+		<!--@if($page == $page_no)-->
+			<span class="page-no page-current">{$page_no}</span>
+		<!--@else-->
+			<a href="{getUrl('page',$page_no)}" class="page-no">{$page_no}</a>
+		<!--@end-->
+	<!--@end-->
+	<a href="{getUrl('page',$output->page_navigation->last_page)}" class="direction <!--@if(!$last_division)--> nextEnd<!--@endif-->" title="{$lang->last_page}">&gt;</a>
+	<a cond="$last_division" href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+</div>
+<!--@endif-->
+
+<div cond="$where == 'product' && $output->page_navigation" class="list-pagination">
+	<a href="{getUrl('page','')}" class="direction" title="{$lang->first_page}">&lt;</a>
+	<!--@while($page_no = $output->page_navigation->getNextPage())-->
+		<!--@if($page == $page_no)-->
+			<span class="page-no page-current">{$page_no}</span>
+		<!--@else-->
+			<a href="{getUrl('page',$page_no)}" class="page-no">{$page_no}</a>
+		<!--@end-->
+	<!--@end-->
+	<a href="{getUrl('page',$output->page_navigation->last_page)}" class="direction <!--@if(!$last_division)--> nextEnd<!--@endif-->" title="{$lang->last_page}">&gt;</a>
+	<a cond="$last_division" href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+</div>
