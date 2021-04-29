@@ -1,5 +1,0 @@
-RewriteEngine On
-
-RewriteRule .pem$ readme.txt
-RewriteRule .enc$ readme.txt
-RewriteRule .log$ readme.txt
