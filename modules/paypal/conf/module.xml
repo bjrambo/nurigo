@@ -13,7 +13,7 @@
 		<action name="dispPaypalForm" type="view" />
 		<action name="dispPaypalError" type="view" />
 		<action name="getPaypalForm" type="model" />
-		<action name="procPaypalDoIt" type="controller" />
+		<action name="procPaypalDoIt" type="controller" method="GET|POST" check_csrf="false" />
 		<action name="procPaypalExecutePayment" type="controller" method="GET|POST" />
 	</actions>
 </module>

@@ -11,14 +11,12 @@ use PayPal\Common\PayPalModel;
  *
  * @package PayPal\Api
  *
- * @property string name
- * @property string purchase_unit_reference_id
- * @property string debug_id
- * @property string message
- * @property string code
- * @property string information_link
+ * @property string                     name
+ * @property string                     message
  * @property \PayPal\Api\ErrorDetails[] details
- * @property \PayPal\Api\Links[] links
+ * @property string                     information_link
+ * @property string                     debug_id
+ * @property \PayPal\Api\Links[]        links
  */
 class Error extends PayPalModel
 {
@@ -26,7 +24,7 @@ class Error extends PayPalModel
      * Human readable, unique name of the error.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -48,8 +46,9 @@ class Error extends PayPalModel
     /**
      * Reference ID of the purchase_unit associated with this error
      *
+     * @deprecated Not publicly available
      * @param string $purchase_unit_reference_id
-     * 
+     *
      * @return $this
      */
     public function setPurchaseUnitReferenceId($purchase_unit_reference_id)
@@ -61,6 +60,7 @@ class Error extends PayPalModel
     /**
      * Reference ID of the purchase_unit associated with this error
      *
+     * @deprecated Not publicly available
      * @return string
      */
     public function getPurchaseUnitReferenceId()
@@ -69,10 +69,35 @@ class Error extends PayPalModel
     }
 
     /**
+     * PayPal internal error code.
+     *
+     * @deprecated Not publicly available
+     * @param string $code
+     *
+     * @return $this
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
+     * PayPal internal error code.
+     *
+     * @deprecated Not publicly available
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
      * PayPal internal identifier used for correlation purposes.
      *
      * @param string $debug_id
-     * 
+     *
      * @return $this
      */
     public function setDebugId($debug_id)
@@ -95,7 +120,7 @@ class Error extends PayPalModel
      * Message describing the error.
      *
      * @param string $message
-     * 
+     *
      * @return $this
      */
     public function setMessage($message)
@@ -115,33 +140,10 @@ class Error extends PayPalModel
     }
 
     /**
-     * PayPal internal error code.
-     *
-     * @param string $code
-     * 
-     * @return $this
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-
-    /**
-     * PayPal internal error code.
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
      * URI for detailed information related to this error for the developer.
      *
      * @param string $information_link
-     * 
+     *
      * @return $this
      */
     public function setInformationLink($information_link)
@@ -164,7 +166,7 @@ class Error extends PayPalModel
      * Additional details of the error
      *
      * @param \PayPal\Api\ErrorDetails[] $details
-     * 
+     *
      * @return $this
      */
     public function setDetails($details)
@@ -214,10 +216,60 @@ class Error extends PayPalModel
     }
 
     /**
+     * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
+     *
+     * @deprecated Not publicly available
+     * @param \PayPal\Api\ProcessorResponse $processor_response
+     *
+     * @return $this
+     */
+    public function setProcessorResponse($processor_response)
+    {
+        $this->processor_response = $processor_response;
+        return $this;
+    }
+
+    /**
+     * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
+     *
+     * @deprecated Not publicly available
+     * @return \PayPal\Api\ProcessorResponse
+     */
+    public function getProcessorResponse()
+    {
+        return $this->processor_response;
+    }
+
+    /**
+     * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
+     *
+     * @deprecated Not publicly available
+     * @param \PayPal\Api\FmfDetails $fmf_details
+     *
+     * @return $this
+     */
+    public function setFmfDetails($fmf_details)
+    {
+        $this->fmf_details = $fmf_details;
+        return $this;
+    }
+
+    /**
+     * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
+     *
+     * @deprecated Not publicly available
+     * @return \PayPal\Api\FmfDetails
+     */
+    public function getFmfDetails()
+    {
+        return $this->fmf_details;
+    }
+
+    /**
      * Sets Links
      *
      * @param \PayPal\Api\Links[] $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)
@@ -265,5 +317,4 @@ class Error extends PayPalModel
             array_diff($this->getLinks(), array($links))
         );
     }
-
 }

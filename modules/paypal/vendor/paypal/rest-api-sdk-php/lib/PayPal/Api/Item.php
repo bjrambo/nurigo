@@ -10,53 +10,46 @@ use PayPal\Validation\UrlValidator;
 /**
  * Class Item
  *
- * An item being paid for.
+ * Item details.
  *
  * @package PayPal\Api
  *
- * @property string quantity
+ * @property string sku
  * @property string name
  * @property string description
+ * @property string quantity
  * @property string price
- * @property string tax
  * @property string currency
- * @property string sku
+ * @property string tax
  * @property string url
- * @property string category
- * @property \PayPal\Api\Measurement weight
- * @property \PayPal\Api\Measurement length
- * @property \PayPal\Api\Measurement height
- * @property \PayPal\Api\Measurement width
- * @property \PayPal\Api\NameValuePair[] supplementary_data
- * @property \PayPal\Api\NameValuePair[] postback_data
  */
 class Item extends PayPalModel
 {
     /**
-     * Number of items.
+     * Stock keeping unit corresponding (SKU) to item.
      *
-     * @param string $quantity
+     * @param string $sku
      * 
      * @return $this
      */
-    public function setQuantity($quantity)
+    public function setSku($sku)
     {
-        $this->quantity = $quantity;
+        $this->sku = $sku;
         return $this;
     }
 
     /**
-     * Number of items.
+     * Stock keeping unit corresponding (SKU) to item.
      *
      * @return string
      */
-    public function getQuantity()
+    public function getSku()
     {
-        return $this->quantity;
+        return $this->sku;
     }
 
     /**
-     * Name of the item.
+     * Item name. 127 characters max.
      *
      * @param string $name
      * 
@@ -69,7 +62,7 @@ class Item extends PayPalModel
     }
 
     /**
-     * Name of the item.
+     * Item name. 127 characters max.
      *
      * @return string
      */
@@ -79,7 +72,7 @@ class Item extends PayPalModel
     }
 
     /**
-     * Description of the item.
+     * Description of the item. Only supported when the `payment_method` is set to `paypal`.
      *
      * @param string $description
      * 
@@ -92,7 +85,7 @@ class Item extends PayPalModel
     }
 
     /**
-     * Description of the item.
+     * Description of the item. Only supported when the `payment_method` is set to `paypal`.
      *
      * @return string
      */
@@ -102,7 +95,30 @@ class Item extends PayPalModel
     }
 
     /**
-     * Cost of the item.
+     * Number of a particular item. 10 characters max.
+     *
+     * @param string $quantity
+     * 
+     * @return $this
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * Number of a particular item. 10 characters max.
+     *
+     * @return string
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Item cost. 10 characters max.
      *
      * @param string|double $price
      * 
@@ -117,7 +133,7 @@ class Item extends PayPalModel
     }
 
     /**
-     * Cost of the item.
+     * Item cost. 10 characters max.
      *
      * @return string
      */
@@ -127,7 +143,30 @@ class Item extends PayPalModel
     }
 
     /**
-     * tax of the item.
+     * 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+     *
+     * @param string $currency
+     * 
+     * @return $this
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    /**
+     * 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Tax of the item. Only supported when the `payment_method` is set to `paypal`.
      *
      * @param string|double $tax
      * 
@@ -142,59 +181,13 @@ class Item extends PayPalModel
     }
 
     /**
-     * tax of the item.
+     * Tax of the item. Only supported when the `payment_method` is set to `paypal`.
      *
      * @return string
      */
     public function getTax()
     {
         return $this->tax;
-    }
-
-    /**
-     * 3-letter Currency Code
-     *
-     * @param string $currency
-     * 
-     * @return $this
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-        return $this;
-    }
-
-    /**
-     * 3-letter Currency Code
-     *
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
-    }
-
-    /**
-     * Number or code to identify the item in your catalog/records.
-     *
-     * @param string $sku
-     * 
-     * @return $this
-     */
-    public function setSku($sku)
-    {
-        $this->sku = $sku;
-        return $this;
-    }
-
-    /**
-     * Number or code to identify the item in your catalog/records.
-     *
-     * @return string
-     */
-    public function getSku()
-    {
-        return $this->sku;
     }
 
     /**
@@ -224,7 +217,7 @@ class Item extends PayPalModel
     /**
      * Category type of the item.
      * Valid Values: ["DIGITAL", "PHYSICAL"]
-     *
+     * @deprecated Not publicly available
      * @param string $category
      * 
      * @return $this
@@ -237,7 +230,7 @@ class Item extends PayPalModel
 
     /**
      * Category type of the item.
-     *
+     * @deprecated Not publicly available
      * @return string
      */
     public function getCategory()
@@ -247,7 +240,7 @@ class Item extends PayPalModel
 
     /**
      * Weight of the item.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\Measurement $weight
      * 
      * @return $this
@@ -260,7 +253,7 @@ class Item extends PayPalModel
 
     /**
      * Weight of the item.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\Measurement
      */
     public function getWeight()
@@ -270,7 +263,7 @@ class Item extends PayPalModel
 
     /**
      * Length of the item.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\Measurement $length
      * 
      * @return $this
@@ -283,7 +276,7 @@ class Item extends PayPalModel
 
     /**
      * Length of the item.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\Measurement
      */
     public function getLength()
@@ -293,7 +286,7 @@ class Item extends PayPalModel
 
     /**
      * Height of the item.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\Measurement $height
      * 
      * @return $this
@@ -306,7 +299,7 @@ class Item extends PayPalModel
 
     /**
      * Height of the item.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\Measurement
      */
     public function getHeight()
@@ -316,7 +309,7 @@ class Item extends PayPalModel
 
     /**
      * Width of the item.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\Measurement $width
      * 
      * @return $this
@@ -329,7 +322,7 @@ class Item extends PayPalModel
 
     /**
      * Width of the item.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\Measurement
      */
     public function getWidth()
@@ -339,7 +332,7 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal risk determination.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair[] $supplementary_data
      * 
      * @return $this
@@ -352,7 +345,7 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal risk determination.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\NameValuePair[]
      */
     public function getSupplementaryData()
@@ -362,7 +355,7 @@ class Item extends PayPalModel
 
     /**
      * Append SupplementaryData to the list.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair $nameValuePair
      * @return $this
      */
@@ -379,7 +372,7 @@ class Item extends PayPalModel
 
     /**
      * Remove SupplementaryData from the list.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair $nameValuePair
      * @return $this
      */
@@ -392,7 +385,7 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal post-transaction notifications.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair[] $postback_data
      * 
      * @return $this
@@ -405,7 +398,7 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal post-transaction notifications.
-     *
+     * @deprecated Not publicly available
      * @return \PayPal\Api\NameValuePair[]
      */
     public function getPostbackData()
@@ -415,7 +408,7 @@ class Item extends PayPalModel
 
     /**
      * Append PostbackData to the list.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair $nameValuePair
      * @return $this
      */
@@ -432,7 +425,7 @@ class Item extends PayPalModel
 
     /**
      * Remove PostbackData from the list.
-     *
+     * @deprecated Not publicly available
      * @param \PayPal\Api\NameValuePair $nameValuePair
      * @return $this
      */

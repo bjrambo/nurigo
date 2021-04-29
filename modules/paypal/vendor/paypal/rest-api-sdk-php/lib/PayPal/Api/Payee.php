@@ -3,24 +3,21 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 /**
  * Class Payee
  *
- * A resource representing a Payee that received the funds and fulfills the order. Only one of the following identifiers need to be supplied.
+ * A resource representing a Payee who receives the funds and fulfills the order.
  *
  * @package PayPal\Api
  *
  * @property string email
  * @property string merchant_id
- * @property \PayPal\Api\Phone phone
  */
 class Payee extends PayPalModel
 {
     /**
-     * Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receiver PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
-     * 
+     * Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receive PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
      *
      * @param string $email
      * 
@@ -33,7 +30,7 @@ class Payee extends PayPalModel
     }
 
     /**
-     * Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receiver PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
+     * Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receive PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
      *
      * @return string
      */
@@ -43,8 +40,7 @@ class Payee extends PayPalModel
     }
 
     /**
-     * Encrypted PayPal Account identifier for the Payee.
-     * 
+     * Encrypted PayPal account identifier for the Payee.
      *
      * @param string $merchant_id
      * 
@@ -57,7 +53,7 @@ class Payee extends PayPalModel
     }
 
     /**
-     * Encrypted PayPal Account identifier for the Payee.
+     * Encrypted PayPal account identifier for the Payee.
      *
      * @return string
      */
@@ -67,9 +63,77 @@ class Payee extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+     * First Name of the Payee.
+     * @deprecated Not publicly available
+     * @param string $first_name
      * 
-     *
+     * @return $this
+     */
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
+        return $this;
+    }
+
+    /**
+     * First Name of the Payee.
+     * @deprecated Not publicly available
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * Last Name of the Payee.
+     * @deprecated Not publicly available
+     * @param string $last_name
+     * 
+     * @return $this
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+        return $this;
+    }
+
+    /**
+     * Last Name of the Payee.
+     * @deprecated Not publicly available
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * Unencrypted PayPal account Number of the Payee
+     * @deprecated Not publicly available
+     * @param string $account_number
+     * 
+     * @return $this
+     */
+    public function setAccountNumber($account_number)
+    {
+        $this->account_number = $account_number;
+        return $this;
+    }
+
+    /**
+     * Unencrypted PayPal account Number of the Payee
+     * @deprecated Not publicly available
+     * @return string
+     */
+    public function getAccountNumber()
+    {
+        return $this->account_number;
+    }
+
+    /**
+     * Information related to the Payee.
+     * @deprecated Not publicly available
      * @param \PayPal\Api\Phone $phone
      * 
      * @return $this
@@ -81,8 +145,8 @@ class Payee extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
-     *
+     * Information related to the Payee.
+     * @deprecated Not publicly available
      * @return \PayPal\Api\Phone
      */
     public function getPhone()

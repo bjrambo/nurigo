@@ -6,10 +6,11 @@
 	</h1>
 </div>
 <p class="x_alert x_alert-info" id="aboutModule" hidden>.... </p>
-<ul class="x_nav x_nav-tabs">
+<ul class="x_nav x_nav-tabs" cond="$module_info">
 	<li class="x_active"|cond="$act=='dispPaypalAdminModInstList'"><a href="{getUrl('act','dispPaypalAdminModInstList','module_srl','')}">{$lang->page_list}</a></li>
 	<li class="x_active"|cond="$act=='dispPaypalAdminInsertModInst' && !$module_srl"><a href="{getUrl('act','dispPaypalAdminInsertModInst','module_srl','')}">{$lang->page_creation}</a></li>
 	<li cond="$act=='dispPaypalAdminInsertModInst' && $module_srl" class="x_active"><a href="{getUrl('act','dispPaypalAdminInsertModInst','module_srl','')}">{$lang->page_management}</a></li>
+
 </ul>
 <ul cond="$module_srl&&0" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispPaypalAdminSkinInfo'"><a href="{getUrl('act','dispPaypalAdminSkinInfo')}">{$lang->skin_settings}</a></li>

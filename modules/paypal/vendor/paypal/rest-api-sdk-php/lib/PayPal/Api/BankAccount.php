@@ -2,19 +2,16 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
+use PayPal\Common\PayPalModel;
 
 /**
  * Class BankAccount
- *
+ * 
  * A resource representing a bank account that can be used to fund a payment.
+ * @deprecated Deprecated. It is for internal use only. It may be removed in next major revision.
  *
  * @package PayPal\Api
  *
- * @property string id
  * @property string account_number
  * @property string account_number_type
  * @property string routing_number
@@ -37,12 +34,13 @@ use PayPal\Transport\PayPalRestCall;
  * @property string create_time
  * @property string update_time
  * @property string valid_until
+ * @property \PayPal\Api\Links[] links
  */
-class BankAccount extends PayPalResourceModel
+class BankAccount extends PayPalModel
 {
     /**
      * ID of the bank account being saved for later use.
-     *
+     * @deprecated Not publicly available
      * @param string $id
      * 
      * @return $this
@@ -55,7 +53,7 @@ class BankAccount extends PayPalResourceModel
 
     /**
      * ID of the bank account being saved for later use.
-     *
+     * @deprecated Not publicly available
      * @return string
      */
     public function getId()
@@ -438,7 +436,7 @@ class BankAccount extends PayPalResourceModel
     }
 
     /**
-     * Deprecated - Use external_customer_id instead.
+     * [DEPRECATED] Use external_customer_id instead.
      *
      * @param string $payer_id
      * 
@@ -451,7 +449,7 @@ class BankAccount extends PayPalResourceModel
     }
 
     /**
-     * Deprecated - Use external_customer_id instead.
+     * @deprecated  [DEPRECATED] Use external_customer_id instead.
      *
      * @return string
      */
@@ -483,9 +481,8 @@ class BankAccount extends PayPalResourceModel
         return $this->external_customer_id;
     }
 
-
     /**
-     * A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
+     * A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchant.
      *
      * @param string $merchant_id
      * 
@@ -498,7 +495,7 @@ class BankAccount extends PayPalResourceModel
     }
 
     /**
-     * A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
+     * A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchant.
      *
      * @return string
      */
@@ -577,97 +574,56 @@ class BankAccount extends PayPalResourceModel
     }
 
     /**
-     * Creates a new Bank Account Resource.
+     * Sets Links
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-     * @return BankAccount
+     * @param \PayPal\Api\Links[] $links
+     * 
+     * @return $this
      */
-    public function create($apiContext = null, $restCall = null)
+    public function setLinks($links)
     {
-        $payLoad = $this->toJSON();
-        $json = self::executeCall(
-            "/v1/vault/bank-accounts",
-            "POST",
-            $payLoad,
-            null,
-            $apiContext,
-            $restCall
-        );
-        $this->fromJson($json);
+        $this->links = $links;
         return $this;
     }
 
     /**
-     * Obtain the Bank Account resource for the given identifier.
+     * Gets Links
      *
-     * @param string $bankAccountId
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-     * @return BankAccount
+     * @return \PayPal\Api\Links[]
      */
-    public static function get($bankAccountId, $apiContext = null, $restCall = null)
+    public function getLinks()
     {
-        ArgumentValidator::validate($bankAccountId, 'bankAccountId');
-        $payLoad = "";
-        $json = self::executeCall(
-            "/v1/vault/bank-accounts/$bankAccountId",
-            "GET",
-            $payLoad,
-            null,
-            $apiContext,
-            $restCall
-        );
-        $ret = new BankAccount();
-        $ret->fromJson($json);
-        return $ret;
+        return $this->links;
     }
 
     /**
-     * Delete the bank account resource for the given identifier.
+     * Append Links to the list.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-     * @return bool
+     * @param \PayPal\Api\Links $links
+     * @return $this
      */
-    public function delete($apiContext = null, $restCall = null)
+    public function addLink($links)
     {
-        ArgumentValidator::validate($this->getId(), "Id");
-        $payLoad = "";
-        self::executeCall(
-            "/v1/vault/bank-accounts/{$this->getId()}",
-            "DELETE",
-            $payLoad,
-            null,
-            $apiContext,
-            $restCall
-        );
-        return true;
+        if (!$this->getLinks()) {
+            return $this->setLinks(array($links));
+        } else {
+            return $this->setLinks(
+                array_merge($this->getLinks(), array($links))
+            );
+        }
     }
 
     /**
-     * Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+     * Remove Links from the list.
      *
-     * @param PatchRequest $patchRequest
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
-     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
-     * @return BankAccount
+     * @param \PayPal\Api\Links $links
+     * @return $this
      */
-    public function update($patchRequest, $apiContext = null, $restCall = null)
+    public function removeLink($links)
     {
-        ArgumentValidator::validate($this->getId(), "Id");
-        ArgumentValidator::validate($patchRequest, 'patchRequest');
-        $payLoad = $patchRequest->toJSON();
-        $json = self::executeCall(
-            "/v1/vault/bank-accounts/{$this->getId()}",
-            "PATCH",
-            $payLoad,
-            null,
-            $apiContext,
-            $restCall
+        return $this->setLinks(
+            array_diff($this->getLinks(), array($links))
         );
-        $this->fromJson($json);
-        return $this;
     }
 
 }

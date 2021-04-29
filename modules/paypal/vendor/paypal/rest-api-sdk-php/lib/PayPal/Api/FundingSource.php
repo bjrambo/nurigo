@@ -15,17 +15,17 @@ use PayPal\Common\PayPalModel;
  * @property string funding_instrument_type
  * @property string soft_descriptor
  * @property \PayPal\Api\Currency amount
+ * @property \PayPal\Api\Currency negative_balance_amount
  * @property string legal_text
  * @property \PayPal\Api\FundingDetail funding_detail
  * @property string additional_text
- * @property \PayPal\Api\FundingInstrument extends
  * @property \PayPal\Api\Links[] links
  */
-class FundingSource extends PayPalModel
+class FundingSource extends FundingInstrument
 {
     /**
      * specifies funding mode of the instrument
-     * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK"]
+     * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK", "PAY_UPON_INVOICE"]
      *
      * @param string $funding_mode
      * 
@@ -49,7 +49,7 @@ class FundingSource extends PayPalModel
 
     /**
      * Instrument type for this funding source
-     * Valid Values: ["BALANCE", "PAYMENT_CARD", "BANK_ACCOUNT", "CREDIT", "INCENTIVE"]
+     * Valid Values: ["BALANCE", "PAYMENT_CARD", "BANK_ACCOUNT", "CREDIT", "INCENTIVE", "EXTERNAL_FUNDING", "TAB"]
      *
      * @param string $funding_instrument_type
      * 
@@ -115,6 +115,29 @@ class FundingSource extends PayPalModel
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * Additional amount to be pulled from the instrument to recover a negative balance on the buyer's account that is owed to PayPal.
+     *
+     * @param \PayPal\Api\Currency $negative_balance_amount
+     * 
+     * @return $this
+     */
+    public function setNegativeBalanceAmount($negative_balance_amount)
+    {
+        $this->negative_balance_amount = $negative_balance_amount;
+        return $this;
+    }
+
+    /**
+     * Additional amount to be pulled from the instrument to recover a negative balance on the buyer's account that is owed to PayPal.
+     *
+     * @return \PayPal\Api\Currency
+     */
+    public function getNegativeBalanceAmount()
+    {
+        return $this->negative_balance_amount;
     }
 
     /**
@@ -190,7 +213,9 @@ class FundingSource extends PayPalModel
      * Sets Extends
      *
      * @param \PayPal\Api\FundingInstrument $extends
-     * 
+     *
+     * @deprecated Unused
+     *
      * @return $this
      */
     public function setExtends($extends)
@@ -201,6 +226,8 @@ class FundingSource extends PayPalModel
 
     /**
      * Gets Extends
+     *
+     * @deprecated Unused
      *
      * @return \PayPal\Api\FundingInstrument
      */

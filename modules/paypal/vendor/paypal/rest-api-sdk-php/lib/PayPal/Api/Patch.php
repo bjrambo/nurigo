@@ -7,7 +7,7 @@ use PayPal\Common\PayPalModel;
 /**
  * Class Patch
  *
- * A JSON Patch object used for doing partial updates to resources.
+ * A JSON patch object that you can use to apply partial updates to resources.
  *
  * @package PayPal\Api
  *
@@ -19,8 +19,8 @@ use PayPal\Common\PayPalModel;
 class Patch extends PayPalModel
 {
     /**
-     * Patch operation to perform.Value required for add & remove operation can be any JSON value.
-     * Valid Values: ["add", "remove", "replace"]
+     * The operation to perform.
+     * Valid Values: ["add", "remove", "replace", "move", "copy", "test"]
      *
      * @param string $op
      * 
@@ -33,7 +33,7 @@ class Patch extends PayPalModel
     }
 
     /**
-     * Patch operation to perform.Value required for add & remove operation can be any JSON value.
+     * The operation to perform.
      *
      * @return string
      */
@@ -43,7 +43,7 @@ class Patch extends PayPalModel
     }
 
     /**
-     * string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
+     * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
      *
      * @param string $path
      * 
@@ -56,7 +56,7 @@ class Patch extends PayPalModel
     }
 
     /**
-     * string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
+     * A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
      *
      * @return string
      */

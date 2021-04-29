@@ -21,7 +21,7 @@ use PayPal\Common\PayPalModel;
 class CreditCardToken extends PayPalModel
 {
     /**
-     * ID of a previously saved Credit Card resource using /vault/credit-card API.
+     * ID of credit card previously stored using `/vault/credit-card`.
      *
      * @param string $credit_card_id
      * 
@@ -34,7 +34,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * ID of a previously saved Credit Card resource using /vault/credit-card API.
+     * ID of credit card previously stored using `/vault/credit-card`.
      *
      * @return string
      */
@@ -44,7 +44,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * The unique identifier of the payer used when saving this credit card using /vault/credit-card API.
+     * A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address.  **Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.**
      *
      * @param string $payer_id
      * 
@@ -57,7 +57,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * The unique identifier of the payer used when saving this credit card using /vault/credit-card API.
+     * A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address.  **Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.**
      *
      * @return string
      */
@@ -67,7 +67,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * Last 4 digits of the card number from the saved card.
+     * Last four digits of the stored credit card number.
      *
      * @param string $last4
      * 
@@ -80,7 +80,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * Last 4 digits of the card number from the saved card.
+     * Last four digits of the stored credit card number.
      *
      * @return string
      */
@@ -90,7 +90,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * Type of the Card (eg. visa, mastercard, etc.) from the saved card. Please note that the values are always in lowercase and not meant to be used directly for display.
+     * Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`. Values are presented in lowercase and not should not be used for display.
      *
      * @param string $type
      * 
@@ -103,7 +103,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * Type of the Card (eg. visa, mastercard, etc.) from the saved card. Please note that the values are always in lowercase and not meant to be used directly for display.
+     * Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`. Values are presented in lowercase and not should not be used for display.
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * card expiry month from the saved card with value 1 - 12
+     * Expiration month with no leading zero. Acceptable values are 1 through 12.
      *
      * @param int $expire_month
      * 
@@ -126,7 +126,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * card expiry month from the saved card with value 1 - 12
+     * Expiration month with no leading zero. Acceptable values are 1 through 12.
      *
      * @return int
      */
@@ -136,7 +136,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * 4 digit card expiry year from the saved card
+     * 4-digit expiration year.
      *
      * @param int $expire_year
      * 
@@ -149,7 +149,7 @@ class CreditCardToken extends PayPalModel
     }
 
     /**
-     * 4 digit card expiry year from the saved card
+     * 4-digit expiration year.
      *
      * @return int
      */

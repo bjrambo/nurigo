@@ -14,17 +14,10 @@ use PayPal\Common\PayPalModel;
  * @property \PayPal\Api\Item[] items
  * @property \PayPal\Api\ShippingAddress shipping_address
  * @property string shipping_method
+ * @property string shipping_phone_number
  */
 class ItemList extends PayPalModel
 {
-    /**
-     * Is this list empty?
-     */
-    public function isEmpty()
-    {
-        return empty($this->items);
-    }
-
     /**
      * List of items.
      *
@@ -34,7 +27,7 @@ class ItemList extends PayPalModel
      */
     public function setItems($items)
     {
-        $this->items = $items;
+        $this->items = array_values($items);
         return $this;
     }
 
@@ -122,6 +115,29 @@ class ItemList extends PayPalModel
     public function getShippingMethod()
     {
         return $this->shipping_method;
+    }
+
+    /**
+     * Allows merchant's to share payer’s contact number with PayPal for the current payment. Final contact number of payer associated with the transaction might be same as shipping_phone_number or different based on Payer’s action on PayPal. The phone number must be represented in its canonical international format, as defined by the E.164 numbering plan
+     *
+     * @param string $shipping_phone_number
+     * 
+     * @return $this
+     */
+    public function setShippingPhoneNumber($shipping_phone_number)
+    {
+        $this->shipping_phone_number = $shipping_phone_number;
+        return $this;
+    }
+
+    /**
+     * Allows merchant's to share payer’s contact number with PayPal for the current payment. Final contact number of payer associated with the transaction might be same as shipping_phone_number or different based on Payer’s action on PayPal. The phone number must be represented in its canonical international format, as defined by the E.164 numbering plan
+     *
+     * @return string
+     */
+    public function getShippingPhoneNumber()
+    {
+        return $this->shipping_phone_number;
     }
 
 }

@@ -4,10 +4,9 @@ namespace PayPal\Api;
 
 use PayPal\Common\PayPalResourceModel;
 use PayPal\Core\PayPalConstants;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\AgreementTransactions;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 
 /**
  * Class Agreement
@@ -347,7 +346,7 @@ class Agreement extends PayPalResourceModel
      */
     public function setAgreementDetails($agreement_details)
     {
-        $this->{"agreement-details"} = $agreement_details;
+        $this->agreement_details = $agreement_details;
         return $this;
     }
 
@@ -358,7 +357,7 @@ class Agreement extends PayPalResourceModel
      */
     public function getAgreementDetails()
     {
-        return $this->{"agreement-details"};
+        return $this->agreement_details;
     }
 
     /**

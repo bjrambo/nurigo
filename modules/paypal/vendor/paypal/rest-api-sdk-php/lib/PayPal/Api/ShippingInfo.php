@@ -20,7 +20,7 @@ use PayPal\Common\PayPalModel;
 class ShippingInfo extends PayPalModel
 {
     /**
-     * First name of the invoice recipient. 30 characters max.
+     * The invoice recipient first name. Maximum length is 30 characters.
      *
      * @param string $first_name
      * 
@@ -33,7 +33,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * First name of the invoice recipient. 30 characters max.
+     * The invoice recipient first name. Maximum length is 30 characters.
      *
      * @return string
      */
@@ -43,7 +43,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * Last name of the invoice recipient. 30 characters max.
+     * The invoice recipient last name. Maximum length is 30 characters.
      *
      * @param string $last_name
      * 
@@ -56,7 +56,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * Last name of the invoice recipient. 30 characters max.
+     * The invoice recipient last name. Maximum length is 30 characters.
      *
      * @return string
      */
@@ -66,7 +66,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * Company business name of the invoice recipient. 100 characters max.
+     * The invoice recipient company business name. Maximum length is 100 characters.
      *
      * @param string $business_name
      * 
@@ -79,7 +79,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * Company business name of the invoice recipient. 100 characters max.
+     * The invoice recipient company business name. Maximum length is 100 characters.
      *
      * @return string
      */
@@ -111,6 +111,28 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
+     * @deprecated Not used anymore
+     *
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @deprecated Not used anymore
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * Address of the invoice recipient.
      *
      * @param \PayPal\Api\InvoiceAddress $address
@@ -124,7 +146,7 @@ class ShippingInfo extends PayPalModel
     }
 
     /**
-     * Address of the invoice recipient.
+     * The invoice recipient address.
      *
      * @return \PayPal\Api\InvoiceAddress
      */

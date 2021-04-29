@@ -2,8 +2,6 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
-
 /**
  * Class InvoiceAddress
  *
@@ -13,7 +11,7 @@ use PayPal\Common\PayPalModel;
  *
  * @property \PayPal\Api\Phone phone
  */
-class InvoiceAddress extends BaseAddress 
+class InvoiceAddress extends BaseAddress
 {
     /**
      * Phone number in E.123 format.
