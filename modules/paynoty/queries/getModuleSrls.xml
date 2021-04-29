@@ -1,0 +1,11 @@
+<query id="getModuleSrls" action="select">
+	<tables>
+		<table name="paynoty_modules" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="config_srl" var="config_srl" notnull="notnull" />
+	</conditions>
+</query>

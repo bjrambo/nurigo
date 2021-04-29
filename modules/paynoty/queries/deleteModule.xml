@@ -1,0 +1,8 @@
+<query id="deleteModule" action="delete">
+	<tables>
+		<table name="paynoty_modules" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="config_srl" var="config_srl" notnull="notnull" />
+	</conditions>
+</query>

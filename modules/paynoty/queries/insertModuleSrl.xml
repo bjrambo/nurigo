@@ -1,0 +1,10 @@
+<query id="insertModuleSrl" action="insert">
+	<tables>
+		<table name="paynoty_modules" />
+	</tables>
+	<columns>
+		<column name="config_srl" var="config_srl" filter="number" notnull="notnull" />
+		<column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<column name="regdate" var="regdate" default="curdate()" />
+	</columns>
+</query>
