@@ -60,18 +60,23 @@ jQuery(function($) {
 
 		if (!$('#option_' + option_srl).length) {
 			if (type == 'Y') {
-				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (price) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (price) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td class="quantid"><div><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</div></td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format((price)) + '</span></td></tr>');
+				$.exec_json('nproduct.getPriceNumber', {'price': (price)}, function(ret_obj){
+					jQuery('span.number_format' + option_srl).html(number_format(ret_obj.price));
+				});
+				$.exec_json('nproduct.getPriceNumber', {'price': (price)}, function(ret_obj){
+					jQuery('td.title' + option_srl).html(title + '(' + '+' + number_format(ret_obj.price) + ')');
+				});
 			} else {
-				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (g_discounted_price + (price)) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+				$('#selected_options').append('<tr id="option_' + option_srl + '" data-price="' + (g_discounted_price + (price)) + '"><td class="title' + option_srl + '">' + title + str_price + '</td><td class="quantid"><input type="hidden" name="option_srls" value="' + option_srl + '" /><input type="text" name="quantities" class="quantity" value="1"' + 'id="quantity_'+ option_srl +'" /><div class="iconUps" data-for="quantity_'+ option_srl +'"></div><div class="iconDowns" data-for="quantity_'+ option_srl +'"></div>' + xe.lang.each + '</td><td><span onclick="jQuery(this).parent().parent().remove(); printTotalPrice();" class="deleteItem">X</span></td><td><span class="number_format' + option_srl + '">' + number_format(g_discounted_price + (price)) + '</span></td></tr>');
+				$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
+					jQuery('span.number_format' + option_srl).html(number_format(ret_obj.price));
+				});
+				$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
+					jQuery('td.title' + option_srl).html(title + '(' + '+' + number_format(ret_obj.price) + ')');
+				});
 			}
 		}
-
-		$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
-			jQuery('span.number_format' + option_srl).html(number_format(ret_obj.price));
-		});
-		$.exec_json('nproduct.getPriceNumber', {'price': g_discounted_price + (price)}, function(ret_obj){
-			jQuery('td.title' + option_srl).html(title + ' (' + number_format(ret_obj.price) + ')');
-		});
 
 		printTotalPrice();
 	});
