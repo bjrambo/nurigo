@@ -325,6 +325,37 @@ class nstoreAdminView extends nstore
 		$this->setTemplateFile('insertmodinst');
 	}
 
+    function dispNstoreAdminAdditionSetup()
+    {
+        // content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
+        $content = '';
+
+        $oEditorView = getView('editor');
+        $oEditorView->triggerDispEditorAdditionSetup($content);
+        Context::set('setup_content', $content);
+    }
+
+    function dispNstoreAdminMailSetup()
+    {
+        // content는 다른 모듈에서 call by reference로 받아오기에 미리 변수 선언만 해 놓음
+        $content = '';
+        $status = Context::get('status');
+        if(!$status)
+        {
+            $status = '1';
+        }
+
+        $oAutomailModel = getModel('automail');
+        if($oAutomailModel)
+        {
+            $oAutomailModel->getSetup('nstore', $status, $content);
+        }
+        Context::set('setup_content', $content);
+        $order_status = $this->getOrderStatus();
+        unset($order_status[0]);
+        Context::set('order_status', $order_status);
+        $this->setTemplateFile('additionsetup');
+    }
 
 	function dispNstoreAdminConfig()
 	{
