@@ -1,0 +1,51 @@
+<load target="filter/insert_cympuser.xml" />
+<include target="_header.html" />
+
+<form class="x_form-horizontal" action="./" method="get" onsubmit="return procFilter(this, insert_cympuser);">
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label">모듈명</label>
+			<div class="x_controls">
+            	<input type="text" name="mid" value="{$module_info->mid}" />
+				<a href="#mid_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+            	<p id="mid_help" class="x_help-block">{$lang->about_mid}</p>
+			</div>
+        </div>
+		<div class="x_control-group">
+			<label class="x_control-label">브라우저명</label>
+			<div class="x_controls">
+            	<input type="text" name="browser_title" value="{$module_info->browser_title}" />
+				<a href="#browser_title_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+            	<p class="browser_title_help" class="x_help-block">{$lang->about_browser_title}</p>
+			</div>
+        </div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list=>$key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl==$val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#layout_srl_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+            	<p id="layout_srl_help">{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin">
+					<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key">{$val->title}</option>
+				</select>
+				<a href="#skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="skin_help" class="x_help-block">{$lang->about_skin}</p>
+			</div>
+		</div>
+    </section>
+
+	<div class="x_clearfix btnArea">
+		<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_registration}</button>
+	</div>
+</form>
+
