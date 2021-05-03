@@ -7,6 +7,8 @@
 	<input type="hidden" name="primary_key" value="{$module_info->module_srl}" />
 	<input type="hidden" name="delivery_info" value="{htmlspecialchars($module_info->delivery_info)}" />
 	<input type="hidden" name="use_mobile" id="use_mobile" value="Y" />
+	<input type="hidden" name="layout_srl" id="layout_srl" value="0" />
+	<input type="hidden" name="skin" id="skin" value="default" />
 
 	<section class="section">
 		<h1>{$lang->basic_settings}</h1>
@@ -37,6 +39,10 @@
 				<p id="browser_title_help" class="x_help-block" hidden>{$lang->about_browser_title}</p>
 			</div>
 		</div>
+	</section>
+
+	<section class="section">
+		<h1>{$lang->mobile_settings}</h1>
 		<div class="x_control-group">
 			<label class="x_control-label" for="mlayout_srl">{$lang->mobile_layout}</label>
 			<div class="x_controls">

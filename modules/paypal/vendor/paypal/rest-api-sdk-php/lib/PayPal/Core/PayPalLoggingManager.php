@@ -2,6 +2,9 @@
 
 namespace PayPal\Core;
 
+use PayPal\Log\PayPalLogFactory;
+use Psr\Log\LoggerInterface;
+
 /**
  * Simple Logging Manager.
  * This does an error_log for now
@@ -9,38 +12,24 @@ namespace PayPal\Core;
  */
 class PayPalLoggingManager
 {
+    /**
+     * @var array of logging manager instances with class name as key
+     */
+    private static $instances = array();
 
     /**
-     * Default Logging Level
+     * The logger to be used for all messages
+     *
+     * @var LoggerInterface
      */
-    const DEFAULT_LOGGING_LEVEL = 0;
+    private $logger;
 
     /**
      * Logger Name
+     *
      * @var string
      */
     private $loggerName;
-
-    /**
-     * Log Enabled
-     *
-     * @var bool
-     */
-    private $isLoggingEnabled;
-
-    /**
-     * Configured Logging Level
-     *
-     * @var int|mixed
-     */
-    private $loggingLevel;
-
-    /**
-     * Configured Logging File
-     *
-     * @var string
-     */
-    private $loggerFile;
 
     /**
      * Returns the singleton object
@@ -50,72 +39,28 @@ class PayPalLoggingManager
      */
     public static function getInstance($loggerName = __CLASS__)
     {
-        $instance = new self();
-        $instance->setLoggerName($loggerName);
+        if (array_key_exists($loggerName, PayPalLoggingManager::$instances)) {
+            return PayPalLoggingManager::$instances[$loggerName];
+        }
+        $instance = new self($loggerName);
+        PayPalLoggingManager::$instances[$loggerName] = $instance;
         return $instance;
     }
 
     /**
-     * Sets Logger Name. Generally defaulted to Logging Class
-     *
-     * @param string $loggerName
-     */
-    public function setLoggerName($loggerName = __CLASS__)
-    {
-        $this->loggerName = $loggerName;
-    }
-
-    /**
      * Default Constructor
-     */
-    public function __construct()
-    {
-        // To suppress the warning during the date() invocation in logs, we would default the timezone to GMT.
-        if (!ini_get('date.timezone')) {
-            date_default_timezone_set('GMT');
-        }
-
-        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
-
-        $this->isLoggingEnabled = (array_key_exists('log.LogEnabled', $config) && $config['log.LogEnabled'] == '1');
-
-        if ($this->isLoggingEnabled) {
-            $this->loggerFile = ($config['log.FileName']) ? $config['log.FileName'] : ini_get('error_log');
-            $loggingLevel = strtoupper($config['log.LogLevel']);
-            $this->loggingLevel =
-                (isset($loggingLevel) && defined(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel")) ?
-                constant(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel") :
-                PayPalLoggingManager::DEFAULT_LOGGING_LEVEL;
-        }
-    }
-
-    /**
-     * Default Logger
      *
-     * @param string $message
-     * @param int $level
+     * @param string $loggerName Generally represents the class name.
      */
-    private function log($message, $level = PayPalLoggingLevel::INFO)
+    private function __construct($loggerName)
     {
-        if ($this->isLoggingEnabled) {
-            $config = PayPalConfigManager::getInstance()->getConfigHashmap();
-            // Check if logging in live
-            if ($config['mode'] == 'live') {
-                // Live should not have logging level above INFO.
-                if ($this->loggingLevel >= PayPalLoggingLevel::INFO) {
-                    // If it is at Debug Level, throw an warning in the log.
-                    if ($this->loggingLevel == PayPalLoggingLevel::DEBUG) {
-                        error_log("[" . date('d-m-Y h:i:s') . "] " . $this->loggerName . ": ERROR\t: Not allowed to keep 'Debug' level for Live Environments. Reduced to 'INFO'\n", 3, $this->loggerFile);
-                    }
-                    // Reducing it to info level
-                    $this->loggingLevel = PayPalLoggingLevel::INFO;
-                }
-            }
-
-            if ($level <= $this->loggingLevel) {
-                error_log("[" . date('d-m-Y h:i:s') . "] " . $this->loggerName . ": $message\n", 3, $this->loggerFile);
-            }
-        }
+        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
+        // Checks if custom factory defined, and is it an implementation of @PayPalLogFactory
+        $factory = array_key_exists('log.AdapterFactory', $config) && in_array('PayPal\Log\PayPalLogFactory', class_implements($config['log.AdapterFactory'])) ? $config['log.AdapterFactory'] : '\PayPal\Log\PayPalDefaultLogFactory';
+        /** @var PayPalLogFactory $factoryInstance */
+        $factoryInstance = new $factory();
+        $this->logger = $factoryInstance->getLogger($loggerName);
+        $this->loggerName = $loggerName;
     }
 
     /**
@@ -125,7 +70,7 @@ class PayPalLoggingManager
      */
     public function error($message)
     {
-        $this->log("ERROR\t: " . $message, PayPalLoggingLevel::ERROR);
+        $this->logger->error($message);
     }
 
     /**
@@ -135,7 +80,7 @@ class PayPalLoggingManager
      */
     public function warning($message)
     {
-        $this->log("WARNING\t: " . $message, PayPalLoggingLevel::WARN);
+        $this->logger->warning($message);
     }
 
     /**
@@ -145,7 +90,7 @@ class PayPalLoggingManager
      */
     public function info($message)
     {
-        $this->log("INFO\t: " . $message, PayPalLoggingLevel::INFO);
+        $this->logger->info($message);
     }
 
     /**
@@ -155,17 +100,20 @@ class PayPalLoggingManager
      */
     public function fine($message)
     {
-        $this->log("FINE\t: " . $message, PayPalLoggingLevel::FINE);
+        $this->info($message);
     }
 
     /**
-     * Log Fine
+     * Log Debug
      *
      * @param string $message
      */
     public function debug($message)
     {
-        $this->log("DEBUG\t: " . $message, PayPalLoggingLevel::DEBUG);
+        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
+        // Disable debug in live mode.
+        if (array_key_exists('mode', $config) && $config['mode'] != 'live') {
+            $this->logger->debug($message);
+        }
     }
-
 }

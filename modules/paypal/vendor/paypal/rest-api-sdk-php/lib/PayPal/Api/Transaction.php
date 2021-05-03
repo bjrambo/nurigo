@@ -9,8 +9,6 @@ namespace PayPal\Api;
  *
  * @package PayPal\Api
  *
- * @property string purchase_unit_reference_id
- * @property Transaction transactions
  */
 class Transaction extends TransactionBase
 {
@@ -42,7 +40,7 @@ class Transaction extends TransactionBase
      * Identifier to the purchase unit corresponding to this sale transaction
      *
      * @param string $purchase_unit_reference_id
-     *
+     * @deprecated Use #setReferenceId instead
      * @return $this
      */
     public function setPurchaseUnitReferenceId($purchase_unit_reference_id)
@@ -54,6 +52,7 @@ class Transaction extends TransactionBase
     /**
      * Identifier to the purchase unit corresponding to this sale transaction
      *
+     * @deprecated Use #getReferenceId instead
      * @return string
      */
     public function getPurchaseUnitReferenceId()

@@ -826,7 +826,7 @@ class nproductController extends nproduct
 			$options = $oNproductModel->getOptions($val->item_srl);
 
 			// 구매옵션이 있는 상품이면 구매옵션 선택 여부를 체크해야 한다.
-			$option_srls = array();
+			$option_srls = array($val->option_srl);
 			if(count($options) && !$val->option_srl)
 			{
 				foreach ($options as $option)

@@ -1,0 +1,75 @@
+@charset "utf-8";
+.content-container{padding-bottom:32px}
+
+/*--[ Search Form ]--*/
+#integration-search{position:relative; width:100%; height:40px; margin:0 0 12px 0; padding:0}
+#integration-search .inputText{position:absolute; top:0; left:0; width:100%; height:40px; line-height:40px; margin:0; padding:9px 0 8px 10px; border:1px solid #ccc; background:none; border-radius:0; line-height:1.2; font-size:1.333em; color:#333; outline:none; -webkit-appearance:none}
+#integration-search .isearch-submit{position:absolute; top:0; right:0; width:40px; height:40px; margin:0; padding:0; background:#555; border:0; border-radius:0; outline:none; cursor:pointer; -webkit-appearance:none}
+#integration-search .isearch-submit i{font-size:20px; color:#fff}
+
+/*--[ Search Navigation ]--*/
+.content-tab{position:relative; margin-bottom:20px}
+.content-tab-list{margin:0; padding-top:4px; padding-bottom:0; border-bottom:1px solid #ddd; list-style:none}
+.content-tab-list li{margin:0; padding-top:0; padding-bottom:0; background:#f2f2f2; border-top:1px solid #ddd; border-right:1px solid #ddd}
+.content-tab-list li:first-child{border-left:1px solid #ddd}
+.content-tab-list li a{display:block; height:40px; line-height:40px; text-align:center; font-weight:normal; font-size:1.083em; color:#888}
+.content-tab-list li.active{background:#fff}
+.content-tab-list li.active a{color:#444}
+
+/*--[ Sub Navigation ]--*/
+.sub-title{margin:0 0 15px 0; padding:0; font-size:1.333em}
+.comment-title{margin:0; padding:0 0 8px 0; border-bottom:1px solid #ccc}
+.sub-navigation{margin:0; padding:0 0 8px 0; border-bottom:1px solid #ccc; list-style:none}
+.sub-navigation li{float:left; margin:0 5px 0 0; padding:0; font-family:돋움,sans-serif; font-size:0.917em; color:#666}
+.sub-navigation li:last-child{margin-right:0}
+.sub-navigation li a{display:block; min-width:60px; height:30px; line-height:30px; padding:0 6px; background:#f8f8f8; border:1px solid #ddd; text-align:center; color:#666}
+.sub-navigation li.on a{background:#fff; border-color:#bbb}
+
+strong.noKeyword{font-size:16px; display:block; margin:50px 0 0 10px}
+
+/* Display List - Grid */
+.display-grid > ul{overflow:hidden; margin-top:0; margin-bottom:10px; padding:0; list-style:none}
+.display-grid > ul > li{position:relative; float:left; margin:8px 0; padding-top:0; padding-bottom:0}
+.display-grid > ul > li.li-last{margin-right:0}
+.display-grid > ul > li a,
+.display-grid > ul > li a:hover{text-decoration:none}
+.display-grid > ul > li .check{position:absolute; left:0; top:0; padding:4px}
+.display-grid .item-thumbnail img{width:100%; height:auto}
+.display-grid .item-thumbnail:hover img,
+.display-grid .item-thumbnail:focus img{}
+.display-grid .item-name{display:block; margin-top:10px; text-align:center; font-family:돋움,sans-serif; color:#444}
+.display-grid .item-price{margin-top:3px; text-align:center; color:#333}
+.display-grid .item-price .price{margin-right:5px; font-size:0.917em; color:#888}
+.display-grid .item-price .currency_symbol{margin-right:5px}
+.display-grid .item-meta{margin-top:4px; font-family:돋움,sans-serif; font-size:0.917em; color:#666}
+@media (max-width:479px) {
+	.display-grid .item-price .price{display:block; margin-right:0}
+}
+@media (min-width:768px) {
+	.display-grid .item-name,
+	.display-grid .item-price{font-size:1.083em}
+	.display-grid .item-price .price{font-size:1em}
+}
+
+/* Search Result */
+.no-result{display:block; padding:10px 8px; border-bottom:1px solid #ddd; font-size:1.083em; color:#666}
+.search-result{margin:0; padding:0; list-style:none}
+.search-result li{width:100%; margin:0; border-bottom:1px solid #ddd}
+.search-result li:nth-child(odd){background:#fff}
+.search-result li:nth-child(even){background:#f8f8f8}
+.search-result li a{display:block; padding:10px 8px}
+.search-result li .result-thumb{float:left; margin-right:8px}
+.search-result li .result-thumb img{width:80px; height:80px}
+.search-result li .result-title{margin-bottom:8px; font-size:1.5em; color:#333}
+.search-result li .result-content{font-size:1.083em; color:#333}
+.search-result li .result-meta{margin-top:15px; color:#888}
+
+/* More Button */
+.isMore{text-align:right; margin-top:-1px; padding-top:8px; border-top:1px solid #ddd}
+.isMore a{display:inline-block; min-width:60px; height:30px; line-height:30px; padding:0 13px; background:#f8f8f8; border:1px solid #ddd; text-align:center; color:#666}
+
+/* Pagination */
+.list-pagination{margin:30px 0; padding:0; text-align:center}
+.list-pagination .direction{display:inline-block; width:22px; height:22px; line-height:22px; background:#f4f4f4; border:1px solid #ddd; text-align:center; color:#888}
+.list-pagination .page-no{display:inline-block; width:22px; height:22px; line-height:22px; background:#fff; border:1px solid #ddd; text-align:center; font-size:0.917em; color:#888}
+.list-pagination .page-current{border-color:#ccc; color:#af5592}

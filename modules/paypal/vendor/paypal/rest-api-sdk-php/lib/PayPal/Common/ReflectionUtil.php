@@ -1,6 +1,7 @@
 <?php
 
 namespace PayPal\Common;
+
 use PayPal\Exception\PayPalConfigurationException;
 
 /**
@@ -61,6 +62,32 @@ class ReflectionUtil
     }
 
     /**
+     * Checks if the Property is of type array or an object
+     *
+     * @param $class
+     * @param $propertyName
+     * @return null|boolean
+     * @throws PayPalConfigurationException
+     */
+    public static function isPropertyClassArray($class, $propertyName)
+    {
+        // If the class doesn't exist, or the method doesn't exist, return null.
+        if (!class_exists($class) || !method_exists($class, self::getter($class, $propertyName))) {
+            return null;
+        }
+
+        if (($annotations = self::propertyAnnotations($class, $propertyName)) && isset($annotations['return'])) {
+            $param = $annotations['return'];
+        }
+
+        if (isset($param)) {
+            return substr($param, -strlen('[]'))==='[]';
+        } else {
+            throw new PayPalConfigurationException("Getter function for '$propertyName' in '$class' class should have a proper return type.");
+        }
+    }
+
+    /**
      * Retrieves Annotations of each property
      *
      * @param $class
@@ -86,7 +113,7 @@ class ReflectionUtil
         }
 
         // todo: smarter regexp
-        if ( !preg_match_all(
+        if (!preg_match_all(
             '~\@([^\s@\(]+)[\t ]*(?:\(?([^\n@]+)\)?)?~i',
             $refl->getDocComment(),
             $annots,
@@ -94,7 +121,7 @@ class ReflectionUtil
             return null;
         }
         foreach ($annots[1] as $i => $annot) {
-            $annotations[strtolower($annot)] = empty($annots[2][$i]) ? TRUE : rtrim($annots[2][$i], " \t\n\r)");
+            $annotations[strtolower($annot)] = empty($annots[2][$i]) ? true : rtrim($annots[2][$i], " \t\n\r)");
         }
 
         return $annotations;

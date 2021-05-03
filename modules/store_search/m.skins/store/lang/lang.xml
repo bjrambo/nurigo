@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="product">
+		<value xml:lang="ko"><![CDATA[상품]]></value>
+		<value xml:lang="en"><![CDATA[Product]]></value>
+	</item>
+	<item name="search_product">
+		<value xml:lang="ko"><![CDATA[상품검색]]></value>
+		<value xml:lang="en"><![CDATA[Search products]]></value>
+	</item>
+	<item name="is_search_option" type="array">
+		<item name="product" type="array">
+			<item name="title_content">
+				<value xml:lang="ko"><![CDATA[상품명+상세내용]]></value>
+				<value xml:lang="en"><![CDATA[Subject+Content]]></value>
+				<value xml:lang="jp"><![CDATA[タイトル+内容]]></value>
+				<value xml:lang="zh-CN"><![CDATA[标题+内容]]></value>
+				<value xml:lang="zh-TW"><![CDATA[標題+內容]]></value>
+				<value xml:lang="fr"><![CDATA[Titre+Contenu]]></value>
+				<value xml:lang="ru"><![CDATA[Заголовок+Содержание]]></value>
+				<value xml:lang="es"><![CDATA[Título+Contenido]]></value>
+				<value xml:lang="tr"><![CDATA[Konu+İçerik]]></value>
+				<value xml:lang="vi"><![CDATA[T.Đề+N.Dung]]></value>
+			</item>
+			<item name="title">
+				<value xml:lang="ko"><![CDATA[상품명]]></value>
+				<value xml:lang="en"><![CDATA[Subject]]></value>
+				<value xml:lang="jp"><![CDATA[タイトル]]></value>
+				<value xml:lang="zh-CN"><![CDATA[标题]]></value>
+				<value xml:lang="zh-TW"><![CDATA[標題]]></value>
+				<value xml:lang="fr"><![CDATA[Titre]]></value>
+				<value xml:lang="ru"><![CDATA[Тема]]></value>
+				<value xml:lang="es"><![CDATA[Título]]></value>
+				<value xml:lang="tr"><![CDATA[Konu]]></value>
+				<value xml:lang="vi"><![CDATA[Tiêu đề]]></value>
+			</item>
+			<item name="content">
+				<value xml:lang="ko"><![CDATA[상세내용]]></value>
+				<value xml:lang="en"><![CDATA[Content]]></value>
+				<value xml:lang="jp"><![CDATA[内容]]></value>
+				<value xml:lang="zh-CN"><![CDATA[内容]]></value>
+				<value xml:lang="zh-TW"><![CDATA[內容]]></value>
+				<value xml:lang="fr"><![CDATA[Contenu]]></value>
+				<value xml:lang="ru"><![CDATA[Содержание]]></value>
+				<value xml:lang="es"><![CDATA[Contenido]]></value>
+				<value xml:lang="tr"><![CDATA[İçerik]]></value>
+				<value xml:lang="vi"><![CDATA[Nội dung]]></value>
+			</item>
+		</item>
+	</item>
+</lang>

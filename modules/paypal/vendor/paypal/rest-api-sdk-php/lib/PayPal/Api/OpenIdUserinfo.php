@@ -5,7 +5,31 @@ use PayPal\Common\PayPalResourceModel;
 use PayPal\Rest\ApiContext;
 
 /**
+ * Class OpenIdUserinfo
+ *
  * OpenIdConnect UserInfo Resource
+ *
+ * @property string user_id
+ * @property string sub
+ * @property mixed name
+ * @property string given_name
+ * @property string family_name
+ * @property string middle_name
+ * @property string picture
+ * @property string email
+ * @property bool email_verified
+ * @property string gender
+ * @property string birthday
+ * @property string zoneinfo
+ * @property string locale
+ * @property string language
+ * @property bool verified
+ * @property string phone_number
+ * @property OpenIdAddress address
+ * @property mixed verified_account
+ * @property mixed account_type
+ * @property string age_range
+ * @property string payer_id
  */
 class OpenIdUserinfo extends PayPalResourceModel
 {
@@ -481,9 +505,10 @@ class OpenIdUserinfo extends PayPalResourceModel
      * @param array        $params     (allowed values are access_token)
      *                                 access_token - access token from the createFromAuthorizationCode / createFromRefreshToken calls
      * @param ApiContext $apiContext Optional API Context
+     * @param PayPalRestCall $restCall
      * @return OpenIdUserinfo
      */
-    public static function getUserinfo($params, $apiContext = null)
+    public static function getUserinfo($params, $apiContext = null, $restCall = null)
     {
         static $allowedParams = array('schema' => 1);
 
@@ -503,7 +528,8 @@ class OpenIdUserinfo extends PayPalResourceModel
                 'Authorization' => "Bearer " . $params['access_token'],
                 'Content-Type' => 'x-www-form-urlencoded'
             ),
-            $apiContext
+            $apiContext,
+            $restCall
         );
 
         $ret = new OpenIdUserinfo();

@@ -2,8 +2,6 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
-
 /**
  * Class ShippingAddress
  *
@@ -11,18 +9,15 @@ use PayPal\Common\PayPalModel;
  *
  * @package PayPal\Api
  *
- * @property string id
  * @property string recipient_name
- * @property bool default_address
- * @property bool preferred_address
  */
 class ShippingAddress extends Address
 {
     /**
      * Address ID assigned in PayPal system.
-     *
+     * @deprecated Not publicly available
      * @param string $id
-     *
+     * 
      * @return $this
      */
     public function setId($id)
@@ -33,7 +28,7 @@ class ShippingAddress extends Address
 
     /**
      * Address ID assigned in PayPal system.
-     *
+     * @deprecated Not publicly available
      * @return string
      */
     public function getId()
@@ -45,7 +40,7 @@ class ShippingAddress extends Address
      * Name of the recipient at this address.
      *
      * @param string $recipient_name
-     *
+     * 
      * @return $this
      */
     public function setRecipientName($recipient_name)
@@ -66,9 +61,9 @@ class ShippingAddress extends Address
 
     /**
      * Default shipping address of the Payer.
-     *
+     * @deprecated Not publicly available
      * @param bool $default_address
-     *
+     * 
      * @return $this
      */
     public function setDefaultAddress($default_address)
@@ -79,7 +74,7 @@ class ShippingAddress extends Address
 
     /**
      * Default shipping address of the Payer.
-     *
+     * @deprecated Not publicly available
      * @return bool
      */
     public function getDefaultAddress()
@@ -89,9 +84,9 @@ class ShippingAddress extends Address
 
     /**
      * Shipping Address marked as preferred by Payer.
-     *
+     * @deprecated Not publicly available
      * @param bool $preferred_address
-     *
+     * 
      * @return $this
      */
     public function setPreferredAddress($preferred_address)
@@ -102,7 +97,7 @@ class ShippingAddress extends Address
 
     /**
      * Shipping Address marked as preferred by Payer.
-     *
+     * @deprecated Not publicly available
      * @return bool
      */
     public function getPreferredAddress()

@@ -266,6 +266,19 @@ class nstoreController extends nstore
 			return $output;
 		}
 
+
+		$config = $oNstoreModel->getModuleConfig();
+		$oNcartController = getController('ncart');
+		$args->state = $in_args->order_status;
+		$output = $oNcartController->updateOrderStatus($order_srl, $args);
+
+		unset($order_info->item_list);
+		$oAutomailController = getController('automail');
+		if($oAutomailController)
+		{
+			$oAutomailController->sendMail('nstore', $in_args->order_status, $order_info->purchaser_email, $order_info);
+		}
+
 		return $this->makeObject();
 	}
 

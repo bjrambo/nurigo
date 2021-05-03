@@ -1,9 +1,0 @@
-<filter name="submit_zeropay_review" module="epay" act="procEpayReviewOrder">
-    <form />
-    <parameter />
-    <response callback_func="completeZeropayReviewOrder">
-        <tag name="error" />
-        <tag name="message" />
-        <tag name="tpl" />
-    </response>
-</filter>

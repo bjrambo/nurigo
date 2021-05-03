@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">트렌드샵 모바일 통합검색 스킨</title>
+    <description xml:lang="ko">트렌드샵 모바일 통합검색 스킨</description>
+    <version>1.0</version>
+    <date>2015-11-19</date>
+
+    <author email_address="mail@cameron.co.kr" link="http://www.cameron.co.kr/">
+		<name xml:lang="ko">카메론</name>
+        <name xml:lang="en">CAMERON</name>
+    </author>
+
+    <extra_vars>
+        <var name="memo" type="textarea">
+            <title xml:lang="ko">설명</title>
+            <description xml:lang="ko">검색결과 상단에 결과가 출력됩니다.</description>
+        </var>
+    </extra_vars>
+</skin>

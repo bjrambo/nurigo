@@ -1,0 +1,14 @@
+<table name="paynoty_config">
+	<column name="config_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="admin_phones" type="varchar" size="250" notnull="notnull" />
+	<column name="content" type="varchar" size="4000" notnull="notnull" />
+	<column name="msgtype" type="varchar" size="5" default="SMS" notnull="notnull" />
+	<column name="admin_emails" type="varchar" size="250" notnull="notnull" />
+	<column name="sender_name" type="varchar" size="80" />
+	<column name="sender_email" type="varchar" size="250" />
+	<column name="mail_content" type="bigtext" notnull="notnull" />
+	<!-- 1: SMS+MAIL, 2: SMS, 3: MAIL -->
+	<column name="sending_method" type="char" size="1" default="1" notnull="notnull" />
+	<column name="extra_vars" type="text" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+</table>

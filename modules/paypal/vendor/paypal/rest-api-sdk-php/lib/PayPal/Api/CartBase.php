@@ -12,12 +12,14 @@ use PayPal\Validation\UrlValidator;
  *
  * @package PayPal\Api
  *
+ * @property string reference_id
  * @property \PayPal\Api\Amount amount
  * @property \PayPal\Api\Payee payee
  * @property string description
  * @property string note_to_payee
  * @property string custom
  * @property string invoice_number
+ * @property string purchase_order
  * @property string soft_descriptor
  * @property \PayPal\Api\PaymentOptions payment_options
  * @property \PayPal\Api\ItemList item_list
@@ -26,6 +28,29 @@ use PayPal\Validation\UrlValidator;
  */
 class CartBase extends PayPalModel
 {
+    /**
+     * Merchant identifier to the purchase unit. Optional parameter
+     *
+     * @param string $reference_id
+     * 
+     * @return $this
+     */
+    public function setReferenceId($reference_id)
+    {
+        $this->reference_id = $reference_id;
+        return $this;
+    }
+
+    /**
+     * Merchant identifier to the purchase unit. Optional parameter
+     *
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->reference_id;
+    }
+
     /**
      * Amount being collected.
      *
@@ -119,8 +144,7 @@ class CartBase extends PayPalModel
     }
 
     /**
-     * Note to the recipient of the funds in this transaction.
-     *
+     * free-form field for the use of clients
      *
      * @param string $custom
      * 
@@ -166,8 +190,30 @@ class CartBase extends PayPalModel
     }
 
     /**
-     * Soft descriptor used when charging this funding source.
+     * purchase order is number or id specific to this payment
      *
+     * @param string $purchase_order
+     * 
+     * @return $this
+     */
+    public function setPurchaseOrder($purchase_order)
+    {
+        $this->purchase_order = $purchase_order;
+        return $this;
+    }
+
+    /**
+     * purchase order is number or id specific to this payment
+     *
+     * @return string
+     */
+    public function getPurchaseOrder()
+    {
+        return $this->purchase_order;
+    }
+
+    /**
+     * Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated
      *
      * @param string $soft_descriptor
      * 
@@ -180,7 +226,7 @@ class CartBase extends PayPalModel
     }
 
     /**
-     * Soft descriptor used when charging this funding source.
+     * Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated
      *
      * @return string
      */
@@ -190,8 +236,30 @@ class CartBase extends PayPalModel
     }
 
     /**
+     * Soft descriptor city used when charging this funding source. If length exceeds max length, the value will be truncated. Only supported when the `payment_method` is set to `credit_card`
+     * @deprecated Not publicly available
+     * @param string $soft_descriptor_city
+     * 
+     * @return $this
+     */
+    public function setSoftDescriptorCity($soft_descriptor_city)
+    {
+        $this->soft_descriptor_city = $soft_descriptor_city;
+        return $this;
+    }
+
+    /**
+     * Soft descriptor city used when charging this funding source. If length exceeds max length, the value will be truncated. Only supported when the `payment_method` is set to `credit_card`
+     * @deprecated Not publicly available
+     * @return string
+     */
+    public function getSoftDescriptorCity()
+    {
+        return $this->soft_descriptor_city;
+    }
+
+    /**
      * Payment options requested for this purchase unit
-     *
      *
      * @param \PayPal\Api\PaymentOptions $payment_options
      * 
@@ -284,5 +352,57 @@ class CartBase extends PayPalModel
         return $this->order_url;
     }
 
+    /**
+     * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+     * @deprecated Not publicly available
+     * @param \PayPal\Api\ExternalFunding[] $external_funding
+     *
+     * @return $this
+     */
+    public function setExternalFunding($external_funding)
+    {
+        $this->external_funding = $external_funding;
+        return $this;
+    }
+
+    /**
+     * List of external funding being applied to the purchase unit. Each external_funding unit should have a unique reference_id
+     * @deprecated Not publicly available
+     * @return \PayPal\Api\ExternalFunding[]
+     */
+    public function getExternalFunding()
+    {
+        return $this->external_funding;
+    }
+
+    /**
+     * Append ExternalFunding to the list.
+     * @deprecated Not publicly available
+     * @param \PayPal\Api\ExternalFunding $externalFunding
+     * @return $this
+     */
+    public function addExternalFunding($externalFunding)
+    {
+        if (!$this->getExternalFunding()) {
+            return $this->setExternalFunding(array($externalFunding));
+        } else {
+            return $this->setExternalFunding(
+                array_merge($this->getExternalFunding(), array($externalFunding))
+            );
+        }
+    }
+
+    /**
+     * Remove ExternalFunding from the list.
+     * @deprecated Not publicly available
+     * @param \PayPal\Api\ExternalFunding $externalFunding
+     * @return $this
+     */
+    public function removeExternalFunding($externalFunding)
+    {
+        return $this->setExternalFunding(
+            array_diff($this->getExternalFunding(), array($externalFunding))
+        );
+    }
 
 }

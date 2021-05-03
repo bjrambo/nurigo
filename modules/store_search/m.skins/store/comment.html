@@ -1,0 +1,30 @@
+<include target="header.html" />
+
+<h3 class="comment-title">{$lang->comment} <span>({number_format($output->total_count)})</span></h3>
+
+<!--@if(!count($output->data))-->
+    <div class="no-result">{$lang->msg_no_result}</div>
+<!--@else-->
+	<ul class="search-result">
+		<li loop="$output->data=>$no,$comment">
+			<a href="{$comment->getPermanentUrl()}" target="_blank">
+				<div cond="$comment->thumbnailExists(80)" class="result-thumb"><img src="{$comment->getThumbnail(80)}" alt="" /></div>
+				<div class="result-content">{$comment->getSummary(400)}</div>
+				<div class="result-meta">{$comment->getNickName()} | {$comment->getRegdate("Y-m-d H:i")}</div>
+			</a>
+		</li>
+	</ul>
+
+	<div cond="$where == 'comment' && $output->page_navigation" class="list-pagination">
+		<a href="{getUrl('page','')}" class="direction" title="{$lang->first_page}">&lt;</a> 
+		<!--@while($page_no = $output->page_navigation->getNextPage())-->
+			<!--@if($page == $page_no)-->
+				<span class="page-no page-current">{$page_no}</span>
+			<!--@else-->
+				<a href="{getUrl('page',$page_no)}" class="page-no">{$page_no}</a>
+			<!--@end-->
+		<!--@end-->
+		<a href="{getUrl('page',$output->page_navigation->last_page)}" class="direction <!--@if(!$last_division)--> nextEnd<!--@endif-->" title="{$lang->last_page}">&gt;</a>
+		<a cond="$last_division" href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+	</div>
+<!--@endif-->

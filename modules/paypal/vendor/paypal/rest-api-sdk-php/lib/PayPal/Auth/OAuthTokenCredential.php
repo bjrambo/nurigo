@@ -31,14 +31,7 @@ class OAuthTokenCredential extends PayPalResourceModel
      *
      * @var int $expiryBufferTime
      */
-    private static $expiryBufferTime = 120;
-
-    /**
-     * Private Variable
-     *
-     * @var \PayPal\Core\PayPalLoggingManager $logger
-     */
-    private $logger;
+    public static $expiryBufferTime = 120;
 
     /**
      * Client ID as obtained from the developer portal
@@ -53,6 +46,11 @@ class OAuthTokenCredential extends PayPalResourceModel
      * @var string $clientSecret
      */
     private $clientSecret;
+
+    /**
+     * Target subject
+     */
+    private $targetSubject;
 
     /**
      * Generated Access Token
@@ -88,12 +86,12 @@ class OAuthTokenCredential extends PayPalResourceModel
      * @param string $clientId     client id obtained from the developer portal
      * @param string $clientSecret client secret obtained from the developer portal
      */
-    public function __construct($clientId, $clientSecret)
+    public function __construct($clientId, $clientSecret, $targetSubject = null)
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->cipher = new Cipher($this->clientSecret);
-        $this->logger = PayPalLoggingManager::getInstance(__CLASS__);
+        $this->targetSubject = $targetSubject;
     }
 
     /**
@@ -125,6 +123,10 @@ class OAuthTokenCredential extends PayPalResourceModel
      */
     public function getAccessToken($config)
     {
+        // Check if we already have accessToken in Cache
+        if ($this->accessToken && (time() - $this->tokenCreateTime) < ($this->tokenExpiresIn - self::$expiryBufferTime)) {
+            return $this->accessToken;
+        }
         // Check for persisted data first
         $token = AuthorizationCache::pull($config, $this->clientId);
         if ($token) {
@@ -198,12 +200,14 @@ class OAuthTokenCredential extends PayPalResourceModel
         if ($response != null && isset($response["refresh_token"])) {
             return $response['refresh_token'];
         }
+
+        return null;
     }
 
     /**
      * Updates Access Token based on given input
      *
-     * @param      $config
+     * @param array $config
      * @param string|null $refreshToken
      * @return string
      */
@@ -228,6 +232,11 @@ class OAuthTokenCredential extends PayPalResourceModel
     {
         $httpConfig = new PayPalHttpConfig(null, 'POST', $config);
 
+        // if proxy set via config, add it
+        if (!empty($config['http.Proxy'])) {
+            $httpConfig->setHttpProxy($config['http.Proxy']);
+        }
+
         $handlers = array(self::$AUTH_HANDLER);
 
         /** @var IPayPalHandler $handler */
@@ -251,6 +260,7 @@ class OAuthTokenCredential extends PayPalResourceModel
      * Generates a new access token
      *
      * @param array $config
+     * @param null|string $refreshToken
      * @return null
      * @throws PayPalConnectionException
      */
@@ -263,15 +273,16 @@ class OAuthTokenCredential extends PayPalResourceModel
             $params['grant_type'] = 'refresh_token';
             $params['refresh_token'] = $refreshToken;
         }
+        if ($this->targetSubject != null) {
+            $params['target_subject'] = $this->targetSubject;
+        }
         $payload = http_build_query($params);
         $response = $this->getToken($config, $this->clientId, $this->clientSecret, $payload);
 
         if ($response == null || !isset($response["access_token"]) || !isset($response["expires_in"])) {
             $this->accessToken = null;
             $this->tokenExpiresIn = null;
-            $this->logger->warning(
-                "Could not generate new Access token. Invalid response from server: "
-            );
+            PayPalLoggingManager::getInstance(__CLASS__)->warning("Could not generate new Access token. Invalid response from server: ");
             throw new PayPalConnectionException(null, "Could not generate new Access token. Invalid response from server: ");
         } else {
             $this->accessToken = $response["access_token"];

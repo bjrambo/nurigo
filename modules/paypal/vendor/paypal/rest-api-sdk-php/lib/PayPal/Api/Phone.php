@@ -7,7 +7,7 @@ use PayPal\Common\PayPalModel;
 /**
  * Class Phone
  *
- * Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+ * Information related to the Payee.
  *
  * @package PayPal\Api
  *

@@ -1,0 +1,100 @@
+<load target="css/phone.css" />
+<load target="js/target.js" />
+
+<include target="header.html" />
+
+<form action="./" method="post" class="x_form-horizontal">
+	<input type="hidden" name="module" value="paynoty" />
+	<input type="hidden" name="act" value="procPaynotyAdminInsert" />
+    <input type="hidden" name="config_srl" value="{$config->config_srl}" />
+    <input type="hidden" name="mail_content" value="{htmlspecialchars($config->mail_content)}" />
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->target_module}</label>
+			<div class="x_controls">
+				{@$id="module_srls"}
+				<input type="hidden" name="{$id}" id="{$id}" value="{$config->module_srls}" />
+				<select name="_{$id}" id="_{$id}" size="8" style="vertical-align:top; margin-bottom:5px;" class="w200 fl"></select>
+				<p class="x_help-inline">{$lang->about_target_module}</p>
+				<br />
+				<div class="x_btn-group">
+					<a class="x_btn" href="{getUrl('','module','module','act','dispModuleSelectList','id',$id)}" onclick="popopen(this.href, 'ModuleSelect');return false;" class="button blue"><span>{$lang->cmd_insert}</span></a>
+					<a class="x_btn" href="#" onclick="midMoveUp('{$id}');return false;" class="button black"><span>{$lang->cmd_move_up}</span></a>
+					<a class="x_btn" href="#" onclick="midMoveDown('{$id}');return false;" class="button black"><span>{$lang->cmd_move_down}</span></a>
+					<a class="x_btn" href="#" onclick="midRemove('{$id}');return false;" class="button red"><span>{$lang->cmd_delete}</span></a>
+				</div>
+				<script type="text/javascript">
+					if(typeof(getModuleSrlList)!=='undefined') {
+						doAddWindowLoadEventLoader( function() { getModuleSrlList('{$id}'); } );
+					}
+				</script>
+
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->sedning_method}</label>
+			<div class="x_controls">
+				<label for="sending_method_1" class="x_inline">
+					<input type="radio" name="sending_method" id="sending_method_1" value="1" checked="checked"|cond="$config->sending_method=='1'||!$config->sending_method" />
+					{$lang->textmessage_plus_email}
+				</label>
+				<label for="sending_method_2" class="x_inline">
+					<input type="radio" name="sending_method" id="sending_method_2" value="2" checked="checked"|cond="$config->sending_method=='2'" />
+					{$lang->textmessage}
+				</label>
+				<label for="sending_method_3" class="x_inline">				
+					<input type="radio" name="sending_method" id="sending_method_3" value="3" checked="checked"|cond="$config->sending_method=='3'" />
+					{$lang->email}
+				</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">휴대전화 번호</label>
+			<div class="x_controls">
+				<input type="text" name="admin_phones" style="width:300px;" value="{$config->admin_phones}" />
+				<a href="#admin_phones_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="admin_phones_help" class="x_help-block" hidden>콤마(,)로 구분 여러 개 입력가능</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->content}</label>
+			<div class="x_controls">
+				<textarea name="content" class="pscreen" style="border:solid #eee 1px;">{$config->content}</textarea>
+				<a href="#content_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="content_help" class="x_help-block" hidden>{$lang->help_content}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">이메일 주소</label>
+			<div class="x_controls">
+				<input type="text" name="admin_emails" style="width:300px;" value="{$config->admin_emails}" />
+				<a href="#admin_emails_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="admin_emails_help" class="x_help-block" hidden>콤마(,)로 구분 여러 개 입력가능</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">발신자 정보</label>
+			<div class="x_controls">
+				이름 <input type="text" name="sender_name" style="width:100px;" value="{$config->sender_name}" />
+				이메일 <input type="text" name="sender_email" style="width:240px;" value="{$config->sender_email}" />
+				<a href="#sender_name_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="sender_name_help" class="x_help-block" hidden>입력된 이메일주소를 발신주소로 사용합니다. 비워두시면 글쓴이의 이메일 주소가 입력됩니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mid">{$lang->mail_content}[<a href="#helpMailContent" class="tgAnchor">?</a>]
+				<div class="tgContent layer" id="helpMailContent" style="z-index:99999;margin-top:9px;">
+					<p>{$lang->help_content}</p>
+				</div>
+			</label>
+			<div class="x_controls">
+				{$editor}
+			</div>
+		</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_registration}" accesskey="s" /></span>
+		<a href="{getUrl('act','dispPaynotyAdminList')}" class="x_btn x_btn"><span>{$lang->cmd_list}</span></a>
+	</div>
+</form>

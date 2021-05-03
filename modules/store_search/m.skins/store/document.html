@@ -1,0 +1,41 @@
+<include target="header.html" />
+
+<h3 class="sub-title">{$lang->document} <span>({number_format($output->total_count)})</span></h3>
+
+<ul class="sub-navigation clearfix">
+	<li loop="$lang->is_search_option['document']=>$key,$val" value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','document','search_target',$key,'page',1,'division','')}">{$val}</a></li>
+</ul>
+
+<!--@if(!count($output->data))-->
+<div class="no-result">
+	{$lang->msg_no_result}
+	<block cond="$last_division">
+		<br />{$lang->msg_document_more_search}
+		<br /><span class="btn"><a href="{getUrl('where','document','page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a></span>
+	</block>
+</div>
+<!--@else-->
+<ul class="search-result">
+	<li loop="$output->data=>$no,$document">
+		<a class="clearfix" href="{getUrl('','document_srl',$document->document_srl)}" target="_blank">
+			<div cond="$document->thumbnailExists(80)" class="result-thumb"><img src="{$document->getThumbnail(80)}" alt="" /></div>
+			<div class="result-title">{$document->getTitle()}<!--@if($document->getCommentCount())--> <em class="reply">{$document->getCommentCount()}</em><!--@endif--></div>
+			<div class="result-content">{$document->getSummary(200)}</div>
+			<div class="result-meta">{$document->getNickName()} | {$document->getRegdate("Y-m-d H:i")} | {$lang->readed_count} {$document->get('readed_count')}<!--@if($document->get('voted_count'))--> | {$lang->voted_count} {$document->get('voted_count')}<!--@endif--></div>
+		</a>
+	</li>
+</ul>
+
+<div cond="$where == 'document' && $output->page_navigation" class="list-pagination">
+	<a href="{getUrl('page','')}" class="direction" title="{$lang->first_page}">&lt;</a> 
+	<!--@while($page_no = $output->page_navigation->getNextPage())-->
+		<!--@if($page == $page_no)-->
+			<span class="page-no page-current">{$page_no}</span>
+		<!--@else-->
+			<a href="{getUrl('page',$page_no)}" class="page-no">{$page_no}</a>
+		<!--@end-->
+	<!--@end-->
+	<a href="{getUrl('page',$output->page_navigation->last_page)}" class="direction <!--@if(!$last_division)--> nextEnd<!--@endif-->" title="{$lang->last_page}">&gt;</a>
+	<a cond="$last_division" href="{getUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
+</div>
+<!--@end-->

@@ -18,6 +18,7 @@
 	<li cond="!$mid" class="x_active"|cond="$act=='dispNstoreAdminTotalPriceList'">
 		<a href="{getUrl('','mid',$mid,'module',$module,'act','dispNstoreAdminTotalPriceList')}">회원전체 가격목록</a>
 	</li>
+	<li class="x_active"|cond="$act=='dispNstoreAdminMailSetup'"><a href="{getUrl('act','dispNstoreAdminMailSetup')}">메일설정</a></li>
 </ul>
 <ul cond="!$mid && $module_srl" class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispNstoreAdminInsertModInst'"><a href="{getUrl('act','dispNstoreAdminInsertModInst')}">{$lang->page_configuration}</a></li>

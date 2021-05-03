@@ -12,13 +12,15 @@ class OpenIdSession
      * Returns the PayPal URL to which the user must be redirected to
      * start the authentication / authorization process.
      *
-     * @param string     $redirectUri   Uri on merchant website to where
+     * @param string $redirectUri Uri on merchant website to where
      *                                  the user must be redirected to post paypal login
-     * @param array      $scope         The access privilges that you are requesting for
+     * @param array $scope The access privilges that you are requesting for
      *                                  from the user. Pass empty array for all scopes.
-     * @param string     $clientId      client id from developer portal
-     *                                  See https://developer.paypal.com/webapps/developer/docs/integration/direct/log-in-with-paypal/detailed/#attributes for more
-     * @param ApiContext $apiContext    Optional API Context
+     * @param string $clientId client id from developer portal
+     *                                  See https://developer.paypal.com/docs/integration/direct/log-in-with-paypal/detailed/#attributes for more
+     * @param null $nonce
+     * @param null $state
+     * @param ApiContext $apiContext Optional API Context
      * @return string Authorization URL
      */
     public static function getAuthorizationUrl($redirectUri, $scope, $clientId, $nonce = null, $state = null, $apiContext = null)
@@ -51,7 +53,7 @@ class OpenIdSession
         if ($state) {
             $params['state'] = $state;
         }
-        return sprintf("%s/v1/authorize?%s", self::getBaseUrl($config), http_build_query($params));
+        return sprintf("%s/signin/authorize?%s", self::getBaseUrl($config), http_build_query($params));
     }
 
 
@@ -78,7 +80,7 @@ class OpenIdSession
             'redirect_uri' => $redirectUri,
             'logout' => 'true'
         );
-        return sprintf("%s/v1/endsession?%s", self::getBaseUrl($config), http_build_query($params));
+        return sprintf("%s/webapps/auth/protocol/openidconnect/v1/endsession?%s", self::getBaseUrl($config), http_build_query($params));
     }
 
     /**

@@ -108,9 +108,8 @@ class paypalView extends paypal
 		$baseUrl = getBaseUrl();
 		$redirectUrls = new RedirectUrls();
 
-
-		$returnURL = getNotEncodedFullUrl('', 'module', $this->module_info->module, 'act', 'procPaypalExecutePayment', 'success', 'true', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
-		$cancelURL = getNotEncodedFullUrl('', 'module', $this->module_info->module, 'act', 'procPaypalExecutePayment', 'success', 'false', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
+		$returnURL = getNotEncodedFullUrl('', 'mid', $this->module_info->mid, 'act', 'procPaypalExecutePayment', 'success', 'true', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
+		$cancelURL = getNotEncodedFullUrl('', 'mid', $this->module_info->mid, 'act', 'procPaypalExecutePayment', 'success', 'false', 'order_srl', $order_srl, 'transaction_srl', $transaction_srl);
 
 		$redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 

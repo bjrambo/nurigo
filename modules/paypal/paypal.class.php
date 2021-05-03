@@ -6,6 +6,12 @@
  * @author NURIGO(contact@nurigo.net)
  * @brief  paypal
  */
+
+if(!class_exists('BaseObject'))
+{
+	class_alias('Object', 'BaseObject');
+}
+
 class paypal extends ModuleObject
 {
 	/**

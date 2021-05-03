@@ -59,36 +59,62 @@
 		</div>
 	</section>
 	<section class="section">
+		<h1>{$lang->mobile_settings}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->mobile_view}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="use_mobile"><input type="checkbox" name="use_mobile" id="use_mobile" value="Y" checked="checked"|cond="$module_info->use_mobile == 'Y'" /> {$lang->about_mobile_view}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mlayout_srl">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->mlayout_srl== $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#mobile_layout_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_layout_help" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="mskin">{$lang->mobile_skin}</label>
+			<div class="x_controls">
+				<select name="mskin" id="mskin">
+					<option loop="$mskin_list=> $key, $val" value="{$key}" selected="selected"|cond="$module_info->mskin== $key || (!$module_info->skin && $key=='default')">{$val->title}</option>
+				</select>
+				<a href="#mobile_skin_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="mobile_skin_help" class="x_help-block" hidden>{$lang->about_skin}</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
 		<h1>API 정보</h1>
-		<div class="x_control-group">
-			<label class="x_control-label" for="client_id">Client ID</label>
-			<div class="x_controls">
-				<input type="text" name="client_id" id="client_id" value="{$module_info->client_id}" />
-				<a href="#client_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="client_id_help" class="x_help-block" hidden>Paypal REST API Client ID</p>
-			</div>
-		</div>
-		<div class="x_control-group">
-			<label class="x_control-label" for="api_secret">API Secret</label>
-			<div class="x_controls">
-				<input type="text" name="api_secret" id="api_secret" value="{$module_info->api_secret}" />
-				<a href="#api_password_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="api_password_help" class="x_help-block" hidden>Paypal API Password</p>
-			</div>
-		</div>
 		<div class="x_control-group">
 			<label class="x_control-label" for="paypal_url">Endpoint</label>
 			<div class="x_controls">
 				<select name="endpoint" id="endpoint" value="{$module_info->endpoint}" >
-					<option value="sandbox" selected|cond="$module_info->endpoint=='sandbox'">
-						api.sandbox.paypal.com - 테스트용
-					</option>
-					<option value="live" selected|cond="$module_info->endpoint=='live'">
-						api.paypal.com - 실서비스용
-					</option>
+					<option value="sandbox" selected|cond="$module_info->endpoint=='sandbox'">테스트(Paypal REST API Sandbox)</option>
+					<option value="live" selected|cond="$module_info->endpoint=='live'">실서비스(Paypal REST API Live)</option>
 				</select>
 				<a href="#paypal_url_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="paypal_url_help" class="x_help-block" hidden> api.sandbox.paypal.com 는 결제 테스트용이고 api.paypal.com 은 실서비스용입니다. 자세한 사항은 developer.paypal.com 에서 확인하시기 바랍니다. </p>
+				<p id="paypal_url_help" class="x_help-block" hidden>테스트용 선택시 아래 Sandbox Clident ID 와 Secert 값을 Paypal에서 Sandbox 값으로 입력해야 합니다. 실서비스 선택시 아래 Sandbox Clident ID 와 Secert 값을 Paypal에서 Live 값으로 입력해야 합니다.</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="client_id">Paypal REST API Client ID</label>
+			<div class="x_controls">
+				<input type="text" name="client_id" id="client_id" value="{$module_info->client_id}" />
+				<a href="#client_id_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="client_id_help" class="x_help-block" hidden>https://developer.paypal.com/developer/applications/ Paypal REST API Client ID. Sandbox = 테스트용, Live = 실서비스용</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="api_secret">Paypal REST API Secret</label>
+			<div class="x_controls">
+				<input type="text" name="api_secret" id="api_secret" value="{$module_info->api_secret}" />
+				<a href="#api_password_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="api_password_help" class="x_help-block" hidden>https://developer.paypal.com/developer/applications/ Paypal REST API Secret. Sandbox = 테스트용, Live = 실서비스용</p>
 			</div>
 		</div>
 		<div class="x_control-group">

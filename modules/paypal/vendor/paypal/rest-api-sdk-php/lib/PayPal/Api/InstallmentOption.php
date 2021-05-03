@@ -3,8 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Converter\FormatConverter;
-use PayPal\Validation\NumericValidator;
 
 /**
  * Class InstallmentOption
@@ -98,8 +96,6 @@ class InstallmentOption extends PayPalModel
      */
     public function setDiscountPercentage($discount_percentage)
     {
-        NumericValidator::validate($discount_percentage, "Discount Percentage");
-        $discount_percentage = FormatConverter::formatToPrice($discount_percentage);
         $this->discount_percentage = $discount_percentage;
         return $this;
     }
@@ -113,6 +109,5 @@ class InstallmentOption extends PayPalModel
     {
         return $this->discount_percentage;
     }
-
 
 }

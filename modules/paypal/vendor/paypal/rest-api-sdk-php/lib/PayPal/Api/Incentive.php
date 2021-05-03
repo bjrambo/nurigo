@@ -188,7 +188,7 @@ class Incentive extends PayPalModel
 
     /**
      * Specifies type of incentive
-     * Valid Values: ["COUPON", "GIFT_CARD", "MERCHANT_SPECIFIC_BALANCE"]
+     * Valid Values: ["COUPON", "GIFT_CARD", "MERCHANT_SPECIFIC_BALANCE", "VOUCHER"]
      *
      * @param string $type
      * 
