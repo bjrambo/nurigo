@@ -10,8 +10,11 @@ class couponsmsModel extends couponsms
 		{
 			$oModuleModel = getModel('module');
 			$config = $oModuleModel->getModuleConfig('couponsms');
-
-			if(!$config->use_shop_coupon)
+			if(!$config)
+			{
+				$config = new stdClass();
+			}
+			if(!isset($config->use_shop_coupon))
 			{
 				$config->use_shop_coupon = 'no';
 			}

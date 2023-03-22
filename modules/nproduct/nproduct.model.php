@@ -1136,6 +1136,10 @@ class nproductModel extends nproduct
 		$oNcartModel = getModel('ncart');
 
 		$config = $oNcartModel->getModuleConfig();
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
 
 		$ret_obj = new stdClass();
 		$ret_obj->total_price = 0;
@@ -1162,8 +1166,7 @@ class nproductModel extends nproduct
 			{
 				$proc_modules[] = $val->module;
 			}
-			$item = new nproductItem($val, $config->currency, $config->as_sign, $config->decimals);
-
+			$item = new nproductItem($val);
 			$item->thumbnail_url = $item->getThumbnail($width, $height);
 			$item_list[$key] = $item;
 
