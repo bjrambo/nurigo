@@ -37,7 +37,7 @@ class inipaystandardController extends inipaystandard
 			Context::set('mid', $obj->mid);
 		}
 
-		return $this->makeObject();
+		return new BaseObject();
 	}
 
 	/**
@@ -47,7 +47,7 @@ class inipaystandardController extends inipaystandard
 	{
 		if(!$_SESSION['inipaystandard']['transaction_srl'])
 		{
-			return $this->makeObject(-1, 'msg_invalid_request');
+			return new BaseObject(-1, 'msg_invalid_request');
 		}
 
 		$oEpayController = getController('epay');
@@ -70,11 +70,11 @@ class inipaystandardController extends inipaystandard
 				return $output;
 			}
 
-			return $this->makeObject(-1, '결제가 취소되었습니다.');
+			return new BaseObject(-1, '결제가 취소되었습니다.');
 		}
 		else if(!$vars->authUrl || !$vars->authToken)
 		{
-			return $this->makeObject(-1, 'msg_invalid_request');
+			return new BaseObject(-1, 'msg_invalid_request');
 		}
 
 		$output = $oEpayController->beforePayment($vars);
@@ -133,7 +133,7 @@ class inipaystandardController extends inipaystandard
 		//성공
 		if(strcmp("0000", $resultMap["resultCode"]) == 0)
 		{
-			$payArgs = $this->makeObject(0, $resultMap["resultMsg"]);
+			$payArgs = new BaseObject(0, $resultMap["resultMsg"]);
 
 			//가상계좌
 			if($this->getPaymethod($resultMap["payMethod"]) == 'VA')
@@ -148,7 +148,7 @@ class inipaystandardController extends inipaystandard
 		//실패
 		else
 		{
-			$payArgs = $this->makeObject(-1, $resultMap["resultMsg"]);
+			$payArgs = new BaseObject(-1, $resultMap["resultMsg"]);
 			$payArgs->add('state', '3');
 		}
 
@@ -203,7 +203,7 @@ class inipaystandardController extends inipaystandard
 
 		if(!$transaction_info)
 		{
-			return $this->makeObject(-1, 'could not find transaction');
+			return new BaseObject(-1, 'could not find transaction');
 		}
 
 		// PG 서버에서 보냈는지 IP 체크 (보안)
@@ -216,20 +216,20 @@ class inipaystandardController extends inipaystandard
 		);
 		if(!in_array($_SERVER['REMOTE_ADDR'], $pgIpArray))
 		{
-			return $this->makeObject(-1, 'msg_invalid_request');
+			return new BaseObject(-1, 'msg_invalid_request');
 		}
 
 		// 입금액 체크
 		if($transaction_info->payment_amount == $amount)
 		{
-			$payArgs = $this->makeObject(0, 'success');
+			$payArgs = new BaseObject(0, 'success');
 			$payArgs->add('state', '2');
 			$payArgs->add('result_code', '0');
 			$payArgs->add('result_message', 'success');
 		}
 		else
 		{
-			$payArgs = $this->makeObject(-1, '입금액이 일치하지않습니다.');
+			$payArgs = new BaseObject(-1, '입금액이 일치하지않습니다.');
 			$payArgs->add('state', '3');
 			$payArgs->add('result_code', '1');
 			$payArgs->add('result_message', '입금액이 일치하지않습니다.');
