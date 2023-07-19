@@ -42,7 +42,7 @@ class nproductItem extends BaseObject
 	 */
 	// HACK : This method is restored to its original state.
 	// HACK : And to prevent this class from running if there are no items in the shopping cart.
-	function __construct($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
+	function nproductItem($info, $currency = "KRW", $as_sign = "N", $decimals = 0)
 	{
 		if(is_object($info))
 		{

@@ -815,8 +815,7 @@ class ncartController extends ncart
 		$in_args->item_name = $title;
 		$in_args->order_title = $title; // for compatibility
 		// set price which is transformed by currency module setting.
-		
-		$in_args->price = getModel('currency')->price($cart->total_price);
+		$in_args->price = nproductItem::price($cart->total_price);
 		$in_args->total_price = $cart->total_price;
 		// TODO(BJRambo): check again
 		$args = $in_args;
