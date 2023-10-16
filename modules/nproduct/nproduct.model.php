@@ -954,7 +954,7 @@ class nproductModel extends nproduct
 			return $this->makeObject();
 		}
 
-		$oNcartModel = getModel($item_info->proc_module);
+		$oNcartModel = getModel('nstore');
 		$purchase_count = 0;
 
 		if(method_exists($oNcartModel, 'getPurchaseCount'))
@@ -1169,7 +1169,12 @@ class nproductModel extends nproduct
 			$item = new nproductItem($val);
 			$item->thumbnail_url = $item->getThumbnail($width, $height);
 			$item_list[$key] = $item;
-
+			
+			if(!$val->proc_module)
+			{
+				$val->proc_module = $proc_modules[0];
+			}
+			
 			$output = $this->discountItem($val, $group_list);
 
 			$item_list[$key]->discounted_price = $output->discounted_price;
@@ -1233,6 +1238,14 @@ class nproductModel extends nproduct
 			}
 			else
 			{
+				if(!$item_list[$key]->extra_var_objs)
+				{
+					$item_list[$key]->extra_var_objs = new stdClass();
+				}
+				if(!$item_list[$key]->extra_var_objs->item_delivery_free)
+				{
+					$item_list[$key]->extra_var_objs->item_delivery_free = new stdClass();
+				}
 				$item_list[$key]->extra_var_objs->item_delivery_free->value = $config->delivery_fee;
 			}
 		}

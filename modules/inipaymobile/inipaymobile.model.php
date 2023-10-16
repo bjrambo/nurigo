@@ -19,7 +19,8 @@ class inipaymobileModel extends inipaymobile
 	 */
 	function triggerGetPgModules(&$pg_modules)
 	{
-		// get the module instance list
+		// get the module instance list\
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = 1;
 		$args->list_count = 100;

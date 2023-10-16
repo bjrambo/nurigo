@@ -200,6 +200,7 @@ class ncartAdminView extends ncart
 		$oEditorModel = getModel('editor');
 		$config = $oEditorModel->getEditorConfig(0);
 		// 에디터 옵션 변수를 미리 설정
+		$option = new stdClass();
 		$option->skin = $config->editor_skin;
 		$option->content_style = $config->content_style;
 		$option->content_font = $config->content_font;

@@ -31,7 +31,8 @@
 		</thead>
 		{@$total_price=0}
 		<tbody>
-			<tr cond="count($order_info->item_list)" loop="$order_info->item_list=>$no,$val">
+		<!--@if(count($order_info->item_list))-->
+			<tr loop="$order_info->item_list=>$no,$val">
 				{@$item_sum = $val->price * $val->quantity}
 				<td>{$no+1}</td>
 				<td>
@@ -42,12 +43,14 @@
 					<div cond="$val->option_srl">{$val->option_title} ({$val->printPrice($option_price)})</div>
 				</td>
 				<td>{number_format($val->quantity)}</td>
-				<td>{nproductItem::printPrice($val->price)}</td>
-				<td>{nproductItem::formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
-				<td class="item_price">{nproductItem::printPrice($val->discounted_price  * $val->quantity)}</td>
+				<td>{$val->printPrice($val->price)}</td>
+				<td>{$val->formatMoney($val->discount_amount)}<br />{$val->discount_info}</td>
+				<td class="item_price">{$val->printPrice($val->discounted_price  * $val->quantity)}</td>
 				<td cond="!$logged_info"><font color=red><h2>{$val->order_srl}</h2></font></td>
 				{@$total_price+=$item_sum}
 			</tr>
+		
+		<!--@end-->
 			<tr cond="!count($order_info->item_list)">
 				<td colspan="8">{$lang->msg_no_items}</td>
 			</tr>
@@ -102,7 +105,7 @@
 		<tbody>
 			<tr>
 				<th>{$lang->mileage}</th>
-				<td colspan="3">{nproductItem::formatMoney($order_info->mileage)} {$lang->purchase_benefit_postfix}</td>
+				<td colspan="3">{$order_info->mileage} {$lang->purchase_benefit_postfix}</td>
 			</tr>
 		</tbody>
 	</table>

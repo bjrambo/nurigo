@@ -42,7 +42,7 @@ class ncartItem extends BaseObject
 		}
 		if(is_numeric($info))
 		{
-			$oStoreModel = &getModel('ncart');
+			$oStoreModel = getModel('ncart');
 			$item_info = $oStoreModel->getItemInfo($info);
 			if ($item_info) $this->setAttributes($item_info);
 		}
@@ -52,7 +52,7 @@ class ncartItem extends BaseObject
 
 		if($this->module_srl && $this->extra_vars)
 		{
-			$oNstoreModel = &getModel('ncart');
+			$oNstoreModel = getModel('ncart');
 			$extra_vars = $oNstoreModel->getCombineItemExtras($this);
 
 			if(is_object($extra_vars) || is_array($extra_vars))

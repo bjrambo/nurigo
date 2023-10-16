@@ -12,6 +12,10 @@ class nstoreModel extends nstore
 	{
 		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('nstore');
+		if(!$config)
+		{
+			$config = new stdClass();
+		}
 		if(!$config->address_input)
 		{
 			$config->address_input = 'krzip';

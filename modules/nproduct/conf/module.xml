@@ -69,7 +69,18 @@
 		<action name="getNproductAdminInsertOptions" type="model" />
 		<action name="getNproductAdminAllCategories" type="model" />
 
-		<action name="dispNproductIndex" type="view" index="true" />
+		<action name="dispNproductIndex" type="view" index="true">
+			<route route="$document_srl:int" priority="100" />
+			<route route="$document_srl:int/comment/$comment_srl:int" priority="100" />
+			<route route="$document_srl:int/page/$page:int" priority="100" />
+			<route route="category/$category:int/search/$search_target:word/$search_keyword:any" priority="60" />
+			<route route="category/$category:int/search/$search_target:word/$search_keyword:any/page/$page:int" priority="60" />
+			<route route="search/$search_target:word/$search_keyword:any" priority="50" />
+			<route route="search/$search_target:word/$search_keyword:any/page/$page:int" priority="50" />
+			<route route="category/$category:int" priority="40" />
+			<route route="category/$category:int/page/$page:int" priority="40" />
+			<route route="page/$page:int" priority="10" />
+		</action>
 		<action name="dispNproductItemList" type="view" />
 		<action name="dispNproductItemDetail" type="view" />
 		<action name="dispNproductReplyComment" type="view" />

@@ -25,7 +25,7 @@ div.total td.total_price { font:bold 13px 'NanumGothic'; color:#fa3d4f; }
 .cart3 { position:absolute; left:400px; background:url(../img/dark_gray_left.png) no-repeat right 7px; padding-right:38px; }
 .cart4 { position:absolute; left:530px; }
 
-.go-payment {
+.go-payment, .go-payments {
 	display: block;
 	padding: 11px 25px;
 	background-color: #fbfbfc;

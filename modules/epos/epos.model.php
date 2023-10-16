@@ -20,6 +20,7 @@ class eposModel extends epos
 	function triggerGetPgModules(&$pg_modules)
 	{
 		// get the module instance list
+		$args = new stdClass();
 		$args->sort_index = "module_srl";
 		$args->page = Context::get('page');
 		$args->list_count = 100;

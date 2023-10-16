@@ -113,9 +113,9 @@ function getCympusStatus()
 function getNewsFromAgency()
 {
 	//Retrieve recent news and set them into context
-	$newest_news_url = sprintf("http://www.xeshoppingmall.com/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", _XE_LOCATION_);
+	$newest_news_url = sprintf("http://www.xeshoppingmall.com/?module=newsagency&act=getNewsagencyArticle&inst=notice&top=6&loc=%s", 'ko');
 
-	$cache_file = sprintf("%sfiles/cache/nstore_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
+	$cache_file = sprintf("%sfiles/cache/nstore_news.%s.cache.php", _XE_PATH_, 'ko');
 	if(!file_exists($cache_file) || filemtime($cache_file) + 60 * 60 < time())
 	{
 		// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing textmessageistration page
@@ -126,7 +126,7 @@ function getNewsFromAgency()
 
 	if(file_exists($cache_file))
 	{
-		$oXml = new XmlParser();
+		$oXml = new XeXmlParser();
 		$buff = $oXml->parse(FileHandler::readFile($cache_file));
 
 		$item = $buff->zbxe_news->item;

@@ -70,7 +70,7 @@ class inipaystandard extends ModuleObject
 		{
 			$oModuleController->insertTrigger('moduleHandler.init', 'inipaystandard', 'controller', 'triggerModuleHandler', 'before');
 		}
-
+	
 		return $this->makeObject(0, 'success_updated');
 	}
 

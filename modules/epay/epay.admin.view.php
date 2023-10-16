@@ -26,7 +26,8 @@ class epayAdminView extends epay
 		if(file_exists($classfile))
 		{
 			require_once($classfile);
-			cympusadmin::init($this);
+			$cympusadmin = new cympusadmin();
+			$cympusadmin->init($this);
 		}
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅

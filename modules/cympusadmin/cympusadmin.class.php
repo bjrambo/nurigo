@@ -26,6 +26,10 @@ class cympusadmin extends ModuleObject
 				$cympus_module_info = $module_info;
 			}
 		}
+		if(!isset($cympus_module_info))
+		{
+			$cympus_module_info = new stdClass();
+		}
 		$module_path = './modules/cympusadmin/';
 		$template_path = sprintf("%sskins/%s/",$module_path, $cympus_module_info->skin);
 		if(!is_dir($template_path) || !$cympus_module_info->skin)
@@ -52,7 +56,7 @@ class cympusadmin extends ModuleObject
 		if($logged_info->is_admin == 'Y')
 		{
 			// parse admin menu
-			$oXmlParser = new XmlParser();
+			$oXmlParser = new XeXmlParser();
 			$xml_obj = $oXmlParser->loadXmlFile('./modules/cympusadmin/conf/' . _CYMPUSADMIN_MENU_);
 			$admin_menu = cympusadmin::getMenu($xml_obj->menu->item);
 			Context::set('cympusadmin_menu', $admin_menu);
