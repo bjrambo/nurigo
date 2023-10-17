@@ -73,7 +73,6 @@ class cympusadmin extends ModuleObject
 
 		}
 
-		$news = getNewsFromAgency();
 		Context::set('news', $news);
 		Context::set('admin_bar', 'false');
 
