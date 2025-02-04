@@ -219,8 +219,10 @@ class nproductView extends nproduct
 		{
 			$sort_index = '';
 		}
-		
+
 		$order_type = Context::get('order_type');
+		// $order_type 에 인젝션 방지
+		$order_type = preg_replace('/[^a-z]/i', '', $order_type);
 
 		if(!$sort_index)
 		{
