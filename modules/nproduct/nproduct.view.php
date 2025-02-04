@@ -213,6 +213,13 @@ class nproductView extends nproduct
 			$list_count = $this->module_info->list_count;
 		}
 		$sort_index = Context::get('sort_index');
+		// $sort_index 에 인젝션 방지
+		$sort_index = preg_replace('/[^a-z_]/i', '', $sort_index);
+		if(preg_match('/rand\(\)/i', $sort_index))
+		{
+			$sort_index = '';
+		}
+		
 		$order_type = Context::get('order_type');
 
 		if(!$sort_index)
